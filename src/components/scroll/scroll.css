@@ -1,0 +1,20 @@
+nu-scroll {
+  --line-color: var(--current-color, var(--primary-color));
+  --line-size: var(--pixel);
+  --line-offset: 0%;
+  --line-length: 0%;
+
+  display: block;
+  position: absolute;
+  top: 0;
+  transform: translate(0, var(--line-offset));
+  right: var(--pixel);
+  height: var(--line-length);
+  width: 0.25rem;
+  line-height: 0;
+  background-color: var(--line-color);
+  opacity: .5;
+  transition: opacity var(--quick-animation-time) linear;
+  border-radius: .25rem;
+  pointer-events: none;
+}
