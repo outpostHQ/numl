@@ -14,6 +14,7 @@ import {
   NuBadge,
   NuInput,
   NuScroll,
+  NuToggle,
 } from './index';
 
 [
@@ -32,6 +33,7 @@ import {
   NuBadge,
   NuInput,
   NuScroll,
+  NuToggle,
 ].forEach(customElement => {
   const tagName = `nu-${customElement.nuTag}`;
 

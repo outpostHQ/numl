@@ -87,6 +87,12 @@ class NuComponent extends HTMLElement {
     }
   }
 
+  nuHasMod(name) {
+    const mod = `nu-${name}`;
+
+    return this.getAttribute(mod) != null;
+  }
+
   nuSetAria(name, value) {
     if (typeof value === 'boolean') {
       value = value ? 'true' : 'false';

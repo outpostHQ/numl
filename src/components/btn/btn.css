@@ -29,9 +29,6 @@ nu-btn {
   user-select: none;
   vertical-align: middle;
   opacity: 1;
-  width: 100%;
-  max-width: 100%;
-  min-width: 100%;
 }
 
 nu-btn[nu-inverted]:not(.-nu-border) {

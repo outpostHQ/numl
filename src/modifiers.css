@@ -171,6 +171,11 @@
   bottom: 0;
 }
 
+.-nu-center-block {
+  position: relative;
+  margin: 0 auto;
+}
+
 /* scroll */
 .-nu-scroll-y {
   overflow-y: auto;

@@ -4,9 +4,14 @@ nu-card {
   padding: 1rem;
   border-radius: var(--border-radius);
   background: var(--background-color);
-  grid-gap: .5rem
+  grid-gap: .5rem;
+  scrollbar-width: none;
 }
 
 nu-card[theme]:not([nu-inverted]).-nu-border {
   --element-border-color: var(--current-color, var(--border-color)) !important
+}
+
+nu-card::-webkit-scrollbar {
+    display: none;
 }

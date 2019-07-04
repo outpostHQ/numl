@@ -1,0 +1,69 @@
+nu-toggle {
+  --element-border-color: var(--current-color, var(--border-color, #ddd)) inset;
+  /*--element-toggle-color: rgba(0, 0, 0, 0.2);*/
+  --element-depth-color: transparent;
+  --element-border-radius: calc(var(--element-size) / 2);
+
+  /*--element-toggle-shadow: 0 0 1rem 0 var(--element-toggle-color) inset;*/
+  --element-border-shadow: 0 0 0 var(--pixel) var(--element-border-color);
+  --element-depth-shadow: 0 .25rem 1.5rem var(--element-depth-color);
+
+  --element-size: 2em;
+  --element-circle-padding: calc(var(--pixel) * 4);
+  --element-circle-size: calc(var(--element-size) - var(--element-circle-padding) * 2);
+  --element-circle-offset: var(--element-circle-padding);
+  --element-circle-opacity: .5;
+  --element-circle-border-radius: calc(var(--element-circle-size) / 2);
+  /*--element-circle-background: var(--current-background-color, var(--background-color, #fff));*/
+  --element-circle-background: var(--current-color, var(--color, #333));
+  position: relative;
+  display: block;
+  width: calc(var(--element-size) * 2);
+  height: var(--element-size);
+  border-radius: var(--element-border-radius);
+  background-color: var(--current-background-color, var(--background-color, #fff));
+  cursor: pointer;
+  box-shadow: var(--element-focus-background-shadow),
+    /*var(--element-toggle-shadow),*/
+    var(--element-depth-shadow),
+    var(--element-border-shadow);
+  transition: box-shadow var(--quick-animation-time) linear,
+  filter var(--quick-animation-time) linear;
+  will-change: box-shadow, filter;
+  user-select: none;
+  overflow: hidden;
+}
+
+nu-toggle[nu-inverted]:not(.-nu-border) {
+  --element-border-color: transparent inset !important;
+}
+
+nu-toggle:not([disabled])::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: var(--element-circle-size);
+  height: var(--element-circle-size);
+  pointer-events: none;
+  left: 0;
+  top: var(--element-circle-padding);
+  transform: translate(var(--element-circle-offset), 0);
+  transition: transform var(--quick-animation-time) linear,
+    opacity var(--quick-animation-time) linear,
+    background-color var(--quick-animation-time) linear;
+  background-color: var(--element-circle-background);
+  border-radius: var(--element-circle-border-radius);
+  /*box-shadow: var(--element-border-shadow);*/
+  opacity: var(--element-circle-opacity);
+}
+
+nu-toggle[disabled] {
+  opacity: .5;
+  cursor: default;
+}
+
+nu-toggle[nu-toggled] {
+  --element-circle-offset: calc(var(--element-size) * 2 - var(--element-circle-padding) - var(--element-circle-size));
+  --element-circle-opacity: 1;
+  --element-circle-background: var(--current-color, var(--primary-color, #333));
+}

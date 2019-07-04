@@ -9,6 +9,7 @@ import NuPane from './components/pane';
 import NuCard from './components/card/card';
 import NuLayout from './components/layout';
 import NuBtn from './components/btn/btn';
+import NuToggle from './components/btn/toggle';
 import NuTable from './components/table/table';
 import NuCell from './components/table/cell';
 import NuGridCell from './components/table/grid-cell';
@@ -32,4 +33,5 @@ export {
   NuBadge,
   NuInput,
   NuScroll,
+  NuToggle,
 };
