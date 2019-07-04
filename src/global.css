@@ -1,0 +1,119 @@
+html {
+  --base: 16px;
+  --pixel: 1px;
+  --border-radius: .5rem;
+
+  /* main theme */
+  --color: #333;
+  --background-color: #fff;
+  --shadow-color: rgba(18, 38, 63, 0.1);
+  --border-color: #d2ddec;
+  --body-color: #f9fbfd;
+  --focus-color: #3297db88;
+
+  /* default theme */
+  --default-color: #333;
+  --default-background-color: #fff;
+  --default-border-color: #d2ddec;
+  --default-focus-color: #3297db88;
+
+  /* current theme */
+  --current-color: #333;
+  --current-background-color: #fff;
+
+  /* minor theme */
+  --minor-color: rgba(93, 113, 143, 1);
+  --minor-background-color: #f4f5f6;
+
+  --transparent-color: var(--color);
+  --transparent-background-color: transparent;
+
+  /* action themes */
+  --primary-color: #3297db; /* your main color here */
+  --success-color: #2cb93c;
+  --danger-color: #e63757;
+
+  /* animation */
+  --quick-animation-time: .08s;
+  --normal-animation-time: .2s;
+
+  /* shadow */
+  --depth-shadow: 0 0.25rem 1.5rem var(--shadow-color);
+  --border-shadow: 0 0 0 var(--pixel) var(--border-color);
+
+  /* main styles */
+  margin: 0;
+  padding: 0;
+  font-family: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, DejaVu Sans, Arial, sans-serif;
+  font-size: var(--base);
+  color: var(--color);
+  font-weight: normal;
+  line-height: 1.5;
+  word-spacing: calc(1rem / 8);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: var(--min-width);
+  background-color: var(--body-color);
+  /*overscroll-behavior: none;*/
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.high-contrast) {
+    filter: invert(90%) hue-rotate(180deg);
+    /*background-color: rgba(15, 17, 19, 1);*/
+  }
+
+  html:not(.high-contrast) img, html:not(.high-contrast) video, html:not(.high-contrast) .no-dark-mode {
+    filter: invert(100%) hue-rotate(180deg) !important;
+  }
+
+  html.high-contrast {
+    filter: brightness(.5) contrast(1.5) brightness(2) invert(90%) hue-rotate(180deg);
+    /*background-color: rgba(15, 17, 19, 1);*/
+  }
+
+  html.high-contrast img, html.high-contrast video, html.high-contrast .no-dark-mode {
+    filter: invert(100%) hue-rotate(180deg) brightness(.5) contrast(0.66666) brightness(2);
+  }
+}
+
+html.dark-mode:not(.high-contrast) {
+  filter: invert(90%) hue-rotate(180deg);
+  background-color: rgba(15, 17, 19, 1);
+}
+
+html.dark-mode:not(.high-contrast) img, html.dark-mode:not(.high-contrast) video, html.dark-mode:not(.high-contrast) .no-filter {
+  filter: invert(100%) hue-rotate(180deg) !important;
+}
+
+html.high-contrast:not(.dark-mode) {
+  filter: brightness(.5) contrast(1.5) brightness(2);
+}
+
+html.high-contrast:not(.dark-mode) img, html.high-contrast:not(.dark-mode) video, html.high-contrast:not(.dark-mode) .no-filter {
+  filter: brightness(.5) contrast(0.66666) brightness(2);
+}
+
+html.high-contrast.dark-mode {
+  filter: brightness(.5) contrast(1.5) brightness(2) invert(90%) hue-rotate(180deg);
+  background-color: rgba(15, 17, 19, 1);
+}
+
+html.high-contrast.dark-mode img, html.high-contrast.dark-mode video, html.high-contrast.dark-mode .no-filter {
+  filter: invert(100%) hue-rotate(180deg) brightness(.5) contrast(0.66666) brightness(2);
+}
+
+html.reduced-motion {
+  --quick-animation-time: 0s;
+  --normal-animation-time: 0s;
+}
+
+@media screen and (prefers-reduced-motion) {
+  :root {
+    --quick-animation-time: 0s;
+    --normal-animation-time: 0s;
+  }
+}

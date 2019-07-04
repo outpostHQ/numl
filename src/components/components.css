@@ -1,0 +1,81 @@
+nu-responsive {
+  display: none;
+}
+
+nu-grid, nu-pane, nu-layout {
+  display: grid;
+}
+
+nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card {
+  --element-border-color: transparent;
+  --element-depth-color: transparent;
+  --element-border-shadow: 0 0 0 var(--pixel) var(--element-border-color);
+  --element-depth-shadow: 0 0.25rem 1.5rem var(--element-depth-color);
+
+  box-shadow: var(--element-depth-shadow), var(--element-border-shadow);
+}
+
+/*nu-grid[flow=column], nu-layout[flow=column] {*/
+/*  grid-auto-flow: column;*/
+/*}*/
+
+/*nu-grid[gap="1"], nu-layout[gap="1"] {*/
+/*  grid-gap: 1rem;*/
+/*}*/
+
+/*nu-grid[padding="1"], nu-layout[padding="1"], nu-block[padding="1"] {*/
+/*  padding: 1rem;*/
+/*}*/
+
+nu-block {
+  display: block;
+}
+
+nu-layout {
+  grid-gap: 1rem;
+  place-content: start stretch;
+}
+
+nu-pane {
+  grid-auto-flow: column;
+  place-content: stretch space-between;
+  place-items: center;
+  grid-gap: .5rem;
+}
+
+[nu-focusable] {
+  --element-focus-color: transparent;
+  --element-focus-background-color: transparent;
+  --element-focus-shadow: 0 0 0 0.125rem var(--element-focus-color);
+  --element-focus-background-shadow: 0 0 0 0.125rem var(--element-focus-background-color);
+  outline: none;
+}
+
+[nu-focusable]::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  border-radius: var(--element-border-radius);
+  will-change: box-shadow;
+  box-shadow: var(--element-focus-shadow);
+  opacity: .5;
+  transition: box-shadow var(--quick-animation-time) linear;
+}
+
+[nu-focusable][nu-focus] {
+  --element-focus-color: var(--current-color, var(--primary-color, #333));
+  --element-focus-background-color: var(--current-background-color, var(--background-color, #fff));
+}
+
+[nu-focusable][nu-focus].-nu-cell {
+  --element-focus-color: var(--current-color, var(--primary-color, #333)) inset;
+}
+
+[nu-focusable][disabled] {
+  --element-focus-color: transparent !important;
+}

@@ -1,0 +1,244 @@
+/* text size */
+.-nu-xxs {
+  font-size: .666rem !important;
+  line-height: 1rem !important;
+}
+
+.-nu-xs {
+  font-size: .75rem !important;
+  line-height: 1rem !important;
+}
+
+.-nu-sm {
+  font-size: .875rem !important;
+  line-height: 1.5rem !important;
+}
+
+.-nu-md {
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+}
+
+.-nu-bg {
+  font-size: 1.25rem !important;
+  line-height: 2rem !important;
+}
+
+.-nu-xl {
+  font-size: 1.5rem !important;
+  line-height: 2.5rem !important;
+}
+
+/* text styles */
+.-nu-i {
+  font-style: italic;
+}
+
+.-nu-s {
+  font-style: italic;
+}
+
+.-nu-w1 {
+  font-weight: 100 !important;
+}
+
+.-nu-w2 {
+  font-weight: 200 !important;
+}
+
+.-nu-w3 {
+  font-weight: 300 !important;
+}
+
+.-nu-w4 {
+  font-weight: 400 !important;
+}
+
+.-nu-w5 {
+  font-weight: 500 !important;
+}
+
+.-nu-w6 {
+  font-weight: 600 !important;
+}
+
+.-nu-w7 {
+  font-weight: 700 !important;
+}
+
+.-nu-w8 {
+  font-weight: 800 !important;
+}
+
+.-nu-w9 {
+  font-weight: 900 !important;
+}
+
+/* decorations */
+.-nu-underline {
+  text-decoration: underline;
+}
+
+.-nu-line-through {
+  text-decoration: line-through;
+}
+
+.-nu-dashed-line {
+  text-decoration-style: dashed;
+}
+
+.-nu-solid-line {
+  text-decoration-style: solid;
+}
+
+.-nu-wavy-line {
+  text-decoration-style: dashed;
+}
+
+/* test justify */
+.-nu-center {
+  text-align: center;
+  justify-items: center;
+}
+
+.-nu-left {
+  text-align: left;
+  place-content: start stretch;
+}
+
+.-nu-right {
+  text-align: right;
+  place-content: end stretch;
+}
+
+.-nu-justify {
+  text-align: justify;
+  place-content: stretch;
+}
+
+/* text transform */
+.-nu-uppercase {
+  text-transform: uppercase;
+}
+
+.-nu-lowercase {
+  text-transform: lowercase;
+}
+
+.-nu-monospace {
+  font-family: monospace;
+}
+
+.-nu-spacing {
+  letter-spacing: var(--pixel);
+}
+
+/* text wrapping */
+.-nu-ellipsis {
+  display: block !important;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.-nu-wrap {
+  white-space: pre-wrap;
+}
+
+.-nu-nowrap {
+  white-space: nowrap;
+}
+
+/* positioning */
+.-nu-sticky-top {
+  position: sticky !important;
+  top: 0;
+  z-index: 1;
+}
+
+.-nu-sticky-left {
+  position: sticky !important;
+  left: 0;
+  z-index: 1;
+}
+
+.-nu-stretched {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+/* scroll */
+.-nu-scroll-y {
+  overflow-y: auto;
+}
+
+.-nu-scroll-x {
+  overflow-x: auto;
+}
+
+.-nu-scroll {
+  overflow: auto;
+}
+
+.-nu-no-overflow {
+  overflow: hidden;
+}
+
+.-nu-contain-overscroll {
+  overscroll-behavior: contain;
+}
+
+.-nu-no-overscroll {
+  overscroll-behavior: none;
+}
+
+/* mouse pointer */
+.-nu-pointer {
+  cursor: pointer;
+}
+
+/* box-sizing */
+.-nu-content-box {
+  box-sizing: content-box !important;
+}
+
+.-nu-border-box {
+  box-sizing: border-box !important;
+}
+
+/* shadow */
+.-nu-shadow {
+  --element-depth-color: var(--shadow-color) !important;
+}
+
+.-nu-inset-shadow {
+  --element-depth-shadow: var(--depth-shadow) inset;
+}
+
+/* border */
+.-nu-border {
+  --element-border-color: var(--border-color) !important;
+}
+
+.-nu-round {
+  border-radius: var(--border-radius, .5rem);
+}
+
+.-nu-no-border {
+  --element-border-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* table */
+.-nu-cell {
+  --element-border-color: rgba(0, 0, 0, 0) !important;
+  --element-padding: var(--cell-padding);
+  --element-border-radius: 0;
+  place-self: stretch;
+
+  width: 100% !important;
+  height: 100% !important;
+}

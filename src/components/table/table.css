@@ -1,0 +1,46 @@
+nu-table {
+  --cell-padding: .5rem;
+  display: grid;
+  grid-gap: var(--pixel);
+  background-color: var(--border-color, #d2ddec);
+  color: var(--color, #333);
+  overflow: auto;
+  max-width: 100%;
+}
+
+nu-cell, nu-grid-cell {
+  position: relative;
+  background-color: var(--background-color, #fff);
+  color: var(--minor-color, #333);
+}
+
+nu-grid-cell {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+nu-cell, nu-grid-cell {
+  padding: var(--cell-padding);
+}
+
+nu-cell {
+  display: block;
+  text-align: left;
+}
+
+nu-cell[nu-header], nu-grid-cell[nu-header] {
+  color: var(--current-color);
+  background-color: var(--current-background-color);
+  font-weight: 600;
+}
+
+nu-cell[nu-group], nu-grid-cell[nu-group] {
+  color: var(--current-background-color);
+  background-color: var(--current-color);
+  font-weight: 600;
+}
+
+nu-cell:not([nu-group]):not([nu-header]):not([theme]) {
+  --current-color: var(--color, #333);
+  --current-background-color: var(--background-color, #fff);
+}

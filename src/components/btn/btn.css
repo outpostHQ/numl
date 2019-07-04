@@ -1,0 +1,86 @@
+nu-btn {
+  --element-border-color: var(--border-color, #ddd) inset;
+  --element-toggle-color: transparent;
+  --element-depth-color: transparent;
+  --element-border-radius: var(--border-radius, .5rem);
+
+  --element-toggle-shadow: 0 0 1rem 0 var(--element-toggle-color) inset;
+  --element-border-shadow: 0 0 0 var(--pixel) var(--element-border-color);
+  --element-depth-shadow: 0 .25rem 1.5rem var(--element-depth-color);
+
+  position: relative;
+  display: inline-grid;
+  border-radius: var(--border-radius, .5rem);
+  place-content: stretch;
+  place-items: center;
+  grid-auto-flow: column;
+  grid-gap: .5rem;
+  padding: .5rem 1rem;
+  color: var(--color, #333);
+  background-color: var(--background-color, #fff);
+  cursor: pointer;
+  box-shadow: var(--element-focus-background-shadow),
+    var(--element-toggle-shadow),
+    var(--element-depth-shadow),
+    var(--element-border-shadow);
+  transition: box-shadow var(--quick-animation-time) linear,
+  filter var(--quick-animation-time) linear;
+  will-change: box-shadow, filter;
+  user-select: none;
+  vertical-align: middle;
+  opacity: 1;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+}
+
+nu-btn[nu-inverted]:not(.-nu-border) {
+  --element-border-color: transparent inset !important;
+}
+
+nu-btn[theme]:not([nu-inverted]):not(.-nu-no-border) {
+  --element-border-color: var(--current-color, #ddd) inset;
+}
+
+nu-btn:not([disabled])::after {
+  content: "";
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transition: background-color var(--quick-animation-time) linear;
+  background-color: hsla(0, 0%, 50.2%, 0);
+  border-radius: var(--border-radius);
+}
+
+nu-btn:not([disabled]):not([nu-inverted]):hover::after {
+  background-color: hsla(0, 0%, 50.2%, .035);
+}
+
+nu-btn[nu-inverted]:not([disabled]):hover::after {
+  background-color: hsla(0, 0%, 50.2%, .07);
+}
+
+nu-btn[disabled] {
+  opacity: .5;
+  cursor: default;
+}
+
+nu-btn[nu-active]:not([disabled]) {
+  text-decoration: none;
+}
+
+nu-btn[nu-active]:not([nu-inverted]):not([nu-toggled]):not([disabled]) {
+  --element-toggle-color: rgba(0, 0, 0, 0.1);
+}
+
+nu-btn[nu-active][nu-inverted]:not([nu-toggled]):not([disabled]) {
+  --element-toggle-color: rgba(0, 0, 0, 0.2);
+}
+
+nu-btn[nu-toggled]:not([nu-active]) {
+  --element-toggle-color: rgba(0, 0, 0, 0.1);
+}

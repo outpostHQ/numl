@@ -1,0 +1,12 @@
+nu-card {
+  position: relative;
+  display: grid;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background: var(--background-color);
+  grid-gap: .5rem
+}
+
+nu-card[theme]:not([nu-inverted]).-nu-border {
+  --element-border-color: var(--current-color, var(--border-color)) !important
+}
