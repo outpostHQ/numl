@@ -61,7 +61,6 @@ nu-pane {
   left: 0;
   pointer-events: none;
   border-radius: var(--element-border-radius);
-  will-change: box-shadow;
   box-shadow: var(--element-focus-shadow);
   opacity: .5;
   transition: box-shadow var(--quick-animation-time) linear;

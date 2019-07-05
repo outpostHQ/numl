@@ -152,15 +152,15 @@ class NuComponent extends HTMLElement {
         theme = theme.slice(1);
         invert = true;
 
-        color = `var(--${theme}-background-color, var(--default-background-color, #fff))`;
-        backgroundColor = `var(--${theme}-color, var(--default-color, #333))`;
+        color = `var(--${theme}-background-color, var(--default-background-color))`;
+        backgroundColor = `var(--${theme}-color, var(--default-color))`;
       } else {
-        color = `var(--${theme}-color, var(--default-color, #333))`;
-        backgroundColor = `var(--${theme}-background-color, var(--default-background-color, #fff))`;
+        color = `var(--${theme}-color, var(--default-color))`;
+        backgroundColor = `var(--${theme}-background-color, var(--default-background-color))`;
       }
 
-      specialColor = `var(--${theme}-special-color, var(--current-color, var(--default-special-color, #3297db)))`;
-      borderColor = `var(--${theme}-border-color, var(--current-color, var(--default-border-color, #d2ddec)))`;
+      specialColor = `var(--${theme}-special-color, var(--current-color, var(--default-special-color)))`;
+      borderColor = `var(--${theme}-border-color, var(--current-color, var(--default-border-color)))`;
     }
 
     if (this.nuThemeProps) {

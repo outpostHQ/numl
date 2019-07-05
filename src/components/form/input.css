@@ -14,7 +14,6 @@ nu-input {
   place-items: stretch;
   background-color: var(--current-background-color, var(--background-color, #fff));
   box-shadow: var(--element-focus-background-shadow);
-  will-change: box-shadow;
   transition: box-shadow var(--quick-animation-time) linear;
   outline: none;
 }
@@ -29,7 +28,6 @@ nu-input::after {
   left: 0;
   pointer-events: none;
   border-radius: var(--element-border-radius);
-  will-change: box-shadow;
   transition: box-shadow var(--quick-animation-time) linear;
   box-shadow:
     var(--element-depth-shadow),

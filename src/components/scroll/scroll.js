@@ -51,16 +51,6 @@ export default class NuScroll extends NuComponent {
     ['wheel', 'scroll'].forEach(eventName => {
       this.parentNode.addEventListener(eventName, () => {
         this.nuUpdate();
-
-        // if (this.nuTimer) {
-        //   clearTimeout(this.nuTimer);
-        // }
-        //
-        // this.style.opacity = 0;
-        //
-        // this.nuTimer = setTimeout(() => {
-        //   this.style.opacity = '';
-        // }, 1000);
       });
     });
   }

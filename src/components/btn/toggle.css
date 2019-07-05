@@ -28,7 +28,6 @@ nu-toggle {
     var(--element-border-shadow);
   transition: box-shadow var(--quick-animation-time) linear,
   filter var(--quick-animation-time) linear;
-  will-change: box-shadow, filter;
   user-select: none;
   vertical-align: middle;
 }
