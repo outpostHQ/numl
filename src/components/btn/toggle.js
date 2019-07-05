@@ -22,6 +22,12 @@ export default class NuToggle extends NuBtn {
     return toggleAttrsList;
   }
 
+  constructor() {
+    super();
+
+    this.nuThemeStyles = false;
+  }
+
   nuTap() {
     this.nuSetMod('toggled', !this.nuHasMod('toggled'))
 

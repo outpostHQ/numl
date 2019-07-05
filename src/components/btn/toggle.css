@@ -1,12 +1,11 @@
 nu-toggle {
-  --element-border-color: var(--current-color, var(--border-color, #ddd)) inset;
-  /*--element-toggle-color: rgba(0, 0, 0, 0.2);*/
+  --element-border-color: var(--current-border-color, var(--border-color, #ddd));
   --element-depth-color: transparent;
   --element-border-radius: calc(var(--element-size) / 2);
 
-  /*--element-toggle-shadow: 0 0 1rem 0 var(--element-toggle-color) inset;*/
-  --element-border-shadow: 0 0 0 var(--pixel) var(--element-border-color);
+  --element-border-shadow: 0 0 0 var(--pixel) var(--element-border-color) inset;
   --element-depth-shadow: 0 .25rem 1.5rem var(--element-depth-color);
+  --element-background-color: var(--current-background-color, var(--background-color, #fff));
 
   --element-size: 2em;
   --element-circle-padding: calc(var(--pixel) * 4);
@@ -15,27 +14,35 @@ nu-toggle {
   --element-circle-opacity: .5;
   --element-circle-border-radius: calc(var(--element-circle-size) / 2);
   /*--element-circle-background: var(--current-background-color, var(--background-color, #fff));*/
-  --element-circle-background: var(--current-color, var(--color, #333));
+  --element-circle-background-color: var(--current-color, var(--color, #333));
+
   position: relative;
-  display: block;
+  display: inline-block;
   width: calc(var(--element-size) * 2);
   height: var(--element-size);
   border-radius: var(--element-border-radius);
-  background-color: var(--current-background-color, var(--background-color, #fff));
+  background-color: var(--element-background-color);
   cursor: pointer;
-  box-shadow: var(--element-focus-background-shadow),
-    /*var(--element-toggle-shadow),*/
-    var(--element-depth-shadow),
+  box-shadow: var(--element-depth-shadow),
+    var(--element-focus-background-shadow),
     var(--element-border-shadow);
   transition: box-shadow var(--quick-animation-time) linear,
   filter var(--quick-animation-time) linear;
   will-change: box-shadow, filter;
   user-select: none;
-  overflow: hidden;
+  vertical-align: middle;
 }
 
-nu-toggle[nu-inverted]:not(.-nu-border) {
-  --element-border-color: transparent inset !important;
+nu-toggle[nu-inverted]:not([nu-toggled]) {
+  --element-border-color: transparent !important;
+}
+
+nu-toggle:not([nu-inverted])[nu-toggled] {
+  --element-border-color: transparent !important;
+}
+
+nu-toggle[nu-inverted][nu-toggled] {
+  --element-border-color: var(--current-background-color, var(--background-color, #fff));
 }
 
 nu-toggle:not([disabled])::after {
@@ -51,7 +58,7 @@ nu-toggle:not([disabled])::after {
   transition: transform var(--quick-animation-time) linear,
     opacity var(--quick-animation-time) linear,
     background-color var(--quick-animation-time) linear;
-  background-color: var(--element-circle-background);
+  background-color: var(--element-circle-background-color);
   border-radius: var(--element-circle-border-radius);
   /*box-shadow: var(--element-border-shadow);*/
   opacity: var(--element-circle-opacity);
@@ -63,7 +70,8 @@ nu-toggle[disabled] {
 }
 
 nu-toggle[nu-toggled] {
+  --element-background-color: var(--current-special-color, var(--default-special-color, #fff));
   --element-circle-offset: calc(var(--element-size) * 2 - var(--element-circle-padding) - var(--element-circle-size));
   --element-circle-opacity: 1;
-  --element-circle-background: var(--current-color, var(--primary-color, #333));
+  --element-circle-background-color: var(--current-background-color, var(--default-background-color, #333));
 }

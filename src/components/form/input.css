@@ -1,5 +1,5 @@
 nu-input {
-  --element-border-color: var(--current-color, var(--border-color, #eee));
+  --element-border-color: var(--current-border-color, var(--default-border-color, #eee));
   --element-depth-color: transparent;
   --element-border-radius: var(--border-radius, .5rem);
   --element-padding: .5rem;

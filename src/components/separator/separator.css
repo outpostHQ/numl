@@ -1,5 +1,5 @@
 nu-separator {
-  --line-color: var(--current-color, var(--border-color));
+  --line-color: var(--current-border-color, var(--default-border-color));
   --line-size: var(--pixel);
 
   display: block;

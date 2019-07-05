@@ -226,7 +226,7 @@
 
 /* border */
 .-nu-border {
-  --element-border-color: var(--border-color) !important;
+  --element-border-color: var(--current-border-color, var(--default-border-color)) !important;
 }
 
 .-nu-round {

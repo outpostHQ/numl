@@ -1,5 +1,5 @@
 nu-btn {
-  --element-border-color: var(--border-color, #ddd) inset;
+  --element-border-color: var(--current-border-color, var(--default-border-color)) inset;
   --element-toggle-color: transparent;
   --element-depth-color: transparent;
   --element-border-radius: var(--border-radius, .5rem);
@@ -19,9 +19,9 @@ nu-btn {
   color: var(--color, #333);
   background-color: var(--background-color, #fff);
   cursor: pointer;
-  box-shadow: var(--element-focus-background-shadow),
+  box-shadow: var(--element-depth-shadow),
+    var(--element-focus-background-shadow),
     var(--element-toggle-shadow),
-    var(--element-depth-shadow),
     var(--element-border-shadow);
   transition: box-shadow var(--quick-animation-time) linear,
   filter var(--quick-animation-time) linear;
@@ -31,12 +31,12 @@ nu-btn {
   opacity: 1;
 }
 
-nu-btn[nu-inverted]:not(.-nu-border) {
+nu-btn[nu-inverted] {
   --element-border-color: transparent inset !important;
 }
 
-nu-btn[theme]:not([nu-inverted]):not(.-nu-no-border) {
-  --element-border-color: var(--current-color, #ddd) inset;
+nu-btn[theme]:not([nu-inverted]) {
+  --element-border-color: var(--current-border-color, var(--default-border-color)) inset;
 }
 
 nu-btn:not([disabled])::after {

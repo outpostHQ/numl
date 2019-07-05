@@ -46,8 +46,8 @@ nu-pane {
 [nu-focusable] {
   --element-focus-color: transparent;
   --element-focus-background-color: transparent;
-  --element-focus-shadow: 0 0 0 0.125rem var(--element-focus-color);
-  --element-focus-background-shadow: 0 0 0 0.125rem var(--element-focus-background-color);
+  --element-focus-shadow: 0 0 0 0.1875rem var(--element-focus-color);
+  --element-focus-background-shadow: 0 0 0 0.1875rem var(--element-focus-background-color);
   outline: none;
 }
 
@@ -68,12 +68,13 @@ nu-pane {
 }
 
 [nu-focusable][nu-focus] {
-  --element-focus-color: var(--current-color, var(--primary-color, #333));
+  --element-focus-color: var(--current-special-color, var(--primary-color, #333));
   --element-focus-background-color: var(--current-background-color, var(--background-color, #fff));
 }
 
 [nu-focusable][nu-focus].-nu-cell {
-  --element-focus-color: var(--current-color, var(--primary-color, #333)) inset;
+  --element-focus-color: var(--current-special-color, var(--primary-color, #333)) inset;
+  --element-focus-background-color: var(--current-background-color, var(--background-color, #fff)) inset;
 }
 
 [nu-focusable][disabled] {

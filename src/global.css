@@ -15,7 +15,7 @@ html {
   --default-color: #333;
   --default-background-color: #fff;
   --default-border-color: #d2ddec;
-  --default-focus-color: #3297db88;
+  --default-special-color: #3297db;/* #3297db88; */
 
   /* current theme */
   --current-color: #333;

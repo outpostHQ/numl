@@ -72,3 +72,11 @@ export function injectCSS(css) {
 export function changeCSS(element, css) {
   if (element.childNodes[0]) element.childNodes[0].nodeValue = css;
 }
+
+export function getParent(element, selector) {
+  const elements = [...document.querySelectorAll(selector)];
+
+  while ((element = element.parentNode) && !elements.includes(element)) {}
+
+  return element;
+}
