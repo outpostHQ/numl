@@ -118,29 +118,51 @@ class NuComponent extends HTMLElement {
     this.classList.add(...mods);
   }
 
-  nuUpdateTheme(theme) {
-    let color, backgroundColor, specialColor, borderColor, invert = false;
+  nuGetTheme(attr, invert) {
+    let theme = '';
 
-    if (theme === '') theme = 'current';
+    if (attr == null || attr === '') {
+      theme = `${invert ? '!' : ''}current`;
+    } else if (attr === '!') {
+      theme = `${invert ? '' : '!'}current`;
+    } else {
+      theme = attr;
 
-    if (theme === '!') {
-      const themeParent = this.nuGetParent('[theme]');
-      let parentTheme = themeParent.getAttribute('theme');
-
-      if (!parentTheme) {
-        theme = 'current';
-      } else if (parentTheme.startsWith('!')) {
-        if (parentTheme === '!') {
-          theme = 'current';
+      if (invert) {
+        if (theme.startsWith('!')) {
+          theme = theme.slice(1);
         } else {
-          theme = parentTheme.slice(1);
+          theme = `!${theme}`;
         }
-      } else {
-        theme = `!${parentTheme}`;
       }
     }
 
-    if (theme == null) {
+    return theme;
+  }
+
+  nuUpdateTheme(attrTheme) {
+    let color, backgroundColor, specialColor, borderColor, invert = false;
+
+    let theme = this.nuGetTheme(attrTheme);
+
+    if (theme === '!current') {
+      setTimeout(() => {
+        const themeParent = this.nuGetParent('[theme]:not([theme=""]):not([theme="!"])');
+
+        let parentAttrTheme = themeParent ? themeParent.getAttribute('theme') : 'default';
+
+        theme = this.nuGetTheme(parentAttrTheme, true);
+
+        this.nuUpdateTheme(theme);
+      }, 0); // parent node could no be ready
+
+      return;
+    }
+
+    const isCurrent = theme === 'current';
+    const themeChange = !!this.nuTheme;
+
+    if (theme === 'current') {
       color = '';
       backgroundColor = '';
       specialColor = '';
@@ -164,17 +186,10 @@ class NuComponent extends HTMLElement {
     }
 
     if (this.nuThemeProps) {
-      if (theme !== 'current') {
-        this.style.setProperty('--current-color', color);
-        this.style.setProperty('--current-background-color', backgroundColor);
-        this.style.setProperty('--current-special-color', specialColor);
-        this.style.setProperty('--current-border-color', borderColor);
-      } else {
-        this.style.setProperty('--current-color', '');
-        this.style.setProperty('--current-background-color', '');
-        this.style.setProperty('--current-special-color', '');
-        this.style.setProperty('--current-border-color', '');
-      }
+      this.style.setProperty('--current-color', isCurrent ? '' : color);
+      this.style.setProperty('--current-background-color', isCurrent ? '' : backgroundColor);
+      this.style.setProperty('--current-special-color', isCurrent ? '' : specialColor);
+      this.style.setProperty('--current-border-color', isCurrent ? '' : borderColor);
     }
 
     if (this.nuThemeInvert) {
@@ -186,7 +201,7 @@ class NuComponent extends HTMLElement {
       this.style.backgroundColor = backgroundColor;
     }
 
-    if (theme != null) {
+    if (!isCurrent) {
       this.nuTheme = {
         name: theme,
         color,
@@ -199,6 +214,11 @@ class NuComponent extends HTMLElement {
     } else {
       delete this.nuTheme;
       this.nuSetMod('inverted', false);
+    }
+
+    if (themeChange) {
+      [...this.querySelectorAll('[theme="!"]')]
+        .forEach(element => element.nuUpdateTheme && element.nuUpdateTheme('!'));
     }
   }
 
