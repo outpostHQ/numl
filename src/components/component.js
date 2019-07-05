@@ -147,6 +147,8 @@ class NuComponent extends HTMLElement {
 
     if (theme === '!current') {
       setTimeout(() => {
+        if (theme !== this.nuGetTheme(this.getAttribute('theme'))) return;
+
         const themeParent = this.nuGetParent('[theme]:not([theme=""]):not([theme="!"])');
 
         let parentAttrTheme = themeParent ? themeParent.getAttribute('theme') : 'default';
