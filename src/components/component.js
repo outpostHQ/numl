@@ -245,7 +245,10 @@ class NuComponent extends HTMLElement {
   }
 
   nuEmit(name, detail) {
-    this.dispatchEvent(new CustomEvent(name, detail));
+    this.dispatchEvent(new CustomEvent(name, {
+      detail,
+      bubbles: this.getAttribute('prevent') == null,
+    }));
   }
 
   nuMounted() {
