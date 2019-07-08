@@ -54,18 +54,10 @@ nu-btn[disabled] {
   cursor: default;
 }
 
-nu-btn[nu-active]:not([disabled]) {
+nu-btn[nu-active] {
   text-decoration: none;
 }
 
-nu-btn[nu-active]:not([nu-inverted]):not([nu-toggled]):not([disabled]) {
-  --element-toggle-color: rgba(0, 0, 0, 0.1);
-}
-
-nu-btn[nu-active][nu-inverted]:not([nu-toggled]):not([disabled]) {
+nu-btn[nu-active]:not([disabled]), nu-btn[nu-toggled]:not([disabled]) {
   --element-toggle-color: rgba(0, 0, 0, 0.2);
-}
-
-nu-btn[nu-toggled]:not([nu-active]) {
-  --element-toggle-color: rgba(0, 0, 0, 0.1);
 }
