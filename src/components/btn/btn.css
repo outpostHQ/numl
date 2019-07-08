@@ -17,7 +17,7 @@ nu-btn {
   grid-gap: .5rem;
   padding: .5rem 1rem;
   color: var(--current-color, var(--color, #333));
-  background-color: var(--current-background-color, var(--background-color, #fff));
+  background-color: var(--current-background-color, var(--default-background-color));
   cursor: pointer;
   box-shadow: var(--element-depth-shadow),
     var(--element-focus-background-shadow),
@@ -60,4 +60,10 @@ nu-btn[nu-active] {
 
 nu-btn[nu-active]:not([disabled]), nu-btn[nu-toggled]:not([disabled]) {
   --element-toggle-color: rgba(0, 0, 0, 0.2);
+}
+
+nu-btn[special] {
+  --element-border-color: transparent;
+  background-color: var(--current-special-color, var(--default-color));
+  color: var(--current-background-color, var(--default-background-color));
 }
