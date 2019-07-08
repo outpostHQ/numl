@@ -1,5 +1,5 @@
 nu-scroll {
-  --line-color: var(--current-color, var(--primary-color));
+  --line-color: var(--current-special-color, var(--default-special-color));
   --line-size: var(--pixel);
   --line-offset: 0%;
   --line-length: 0%;
