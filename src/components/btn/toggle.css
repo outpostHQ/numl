@@ -32,13 +32,13 @@ nu-toggle {
   vertical-align: middle;
 }
 
-nu-toggle[nu-inverted]:not([nu-toggled]) {
-  --element-border-color: transparent !important;
-}
+/*nu-toggle[nu-inverted]:not([nu-toggled]) {*/
+/*  --element-border-color: transparent !important;*/
+/*}*/
 
-nu-toggle:not([nu-inverted])[nu-toggled] {
-  --element-border-color: transparent !important;
-}
+/*nu-toggle:not([nu-inverted])[nu-toggled] {*/
+/*  --element-border-color: transparent !important;*/
+/*}*/
 
 nu-toggle[nu-inverted][nu-toggled] {
   --element-border-color: var(--current-background-color, var(--background-color, #fff));

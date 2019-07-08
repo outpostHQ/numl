@@ -67,6 +67,10 @@ nu-pane {
 }
 
 [nu-focusable][nu-focus] {
+  z-index: 1;
+}
+
+[nu-focusable][nu-focus]:not(.-nu-cell) {
   --element-focus-color: var(--current-special-color, var(--primary-color, #333));
   --element-focus-background-color: var(--current-background-color, var(--background-color, #fff));
 }

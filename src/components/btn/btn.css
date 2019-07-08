@@ -16,26 +16,18 @@ nu-btn {
   grid-auto-flow: column;
   grid-gap: .5rem;
   padding: .5rem 1rem;
-  color: var(--color, #333);
-  background-color: var(--background-color, #fff);
+  color: var(--current-color, var(--color, #333));
+  background-color: var(--current-background-color, var(--background-color, #fff));
   cursor: pointer;
   box-shadow: var(--element-depth-shadow),
     var(--element-focus-background-shadow),
     var(--element-toggle-shadow),
     var(--element-border-shadow);
-  transition: box-shadow var(--quick-animation-time) linear,
-  filter var(--quick-animation-time) linear;
+  transition: box-shadow var(--quick-animation-time) linear;
   user-select: none;
   vertical-align: middle;
   opacity: 1;
-}
-
-nu-btn[nu-inverted] {
-  --element-border-color: transparent inset !important;
-}
-
-nu-btn[theme]:not([nu-inverted]) {
-  --element-border-color: var(--current-border-color, var(--default-border-color)) inset;
+  z-index: 0; /* to make :hover::after z-index work as expected */
 }
 
 nu-btn:not([disabled])::after {
@@ -47,17 +39,14 @@ nu-btn:not([disabled])::after {
   right: 0;
   top: 0;
   bottom: 0;
+  z-index: -1;
   transition: background-color var(--quick-animation-time) linear;
-  background-color: hsla(0, 0%, 50.2%, 0);
+  background-color: rgba(128, 128, 128, 0);
   border-radius: var(--border-radius);
 }
 
-nu-btn:not([disabled]):not([nu-inverted]):hover::after {
-  background-color: hsla(0, 0%, 50.2%, .035);
-}
-
-nu-btn[nu-inverted]:not([disabled]):hover::after {
-  background-color: hsla(0, 0%, 50.2%, .07);
+nu-btn:not([disabled]):hover::after {
+  background-color: rgba(128, 128, 128, .07);
 }
 
 nu-btn[disabled] {
