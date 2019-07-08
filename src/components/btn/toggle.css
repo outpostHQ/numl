@@ -2,10 +2,12 @@ nu-toggle {
   --element-border-color: var(--current-border-color, var(--border-color, #ddd));
   --element-depth-color: transparent;
   --element-border-radius: calc(var(--element-size) / 2);
+  --element-toggle-color: transparent;
 
   --element-border-shadow: 0 0 0 var(--pixel) var(--element-border-color) inset;
   --element-depth-shadow: 0 .25rem 1.5rem var(--element-depth-color);
   --element-background-color: var(--current-background-color, var(--background-color, #fff));
+  --element-toggle-shadow: 0 0 1rem 0 var(--element-toggle-color) inset;
 
   --element-size: 2em;
   --element-circle-padding: calc(var(--pixel) * 4);
@@ -25,6 +27,7 @@ nu-toggle {
   cursor: pointer;
   box-shadow: var(--element-depth-shadow),
     var(--element-focus-background-shadow),
+    var(--element-toggle-shadow),
     var(--element-border-shadow);
   transition: box-shadow var(--quick-animation-time) linear,
   filter var(--quick-animation-time) linear;
@@ -73,4 +76,8 @@ nu-toggle[nu-toggled] {
   --element-circle-offset: calc(var(--element-size) * 2 - var(--element-circle-padding) - var(--element-circle-size));
   --element-circle-opacity: 1;
   --element-circle-background-color: var(--current-background-color, var(--default-background-color, #333));
+}
+
+nu-toggle[nu-active]:not([disabled]) {
+  --element-toggle-color: rgba(0, 0, 0, 0.2);
 }
