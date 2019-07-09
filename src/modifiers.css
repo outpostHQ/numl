@@ -157,9 +157,21 @@
   z-index: 1;
 }
 
+.-nu-sticky-bottom {
+  position: sticky !important;
+  bottom: 0;
+  z-index: 1;
+}
+
 .-nu-sticky-left {
   position: sticky !important;
   left: 0;
+  z-index: 1;
+}
+
+.-nu-sticky-right {
+  position: sticky !important;
+  right: 0;
   z-index: 1;
 }
 
@@ -199,6 +211,10 @@
 
 .-nu-no-overscroll {
   overscroll-behavior: none;
+}
+
+.-nu-no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* mouse pointer */

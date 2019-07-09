@@ -14,7 +14,8 @@ nu-scroll {
   line-height: 0;
   background-color: var(--line-color);
   opacity: .5;
-  transition: opacity var(--quick-animation-time) linear;
+  transition: opacity var(--quick-animation-time) linear,
+    transform calc(var(--quick-animation-time) / 2) ease-out;
   border-radius: .25rem;
   pointer-events: none;
 }

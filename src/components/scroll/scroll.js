@@ -53,6 +53,8 @@ export default class NuScroll extends NuComponent {
         this.nuUpdate();
       });
     });
+
+    this.parentNode.classList.add('-nu-no-scrollbar');
   }
 
   nuUpdate() {

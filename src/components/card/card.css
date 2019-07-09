@@ -11,7 +11,3 @@ nu-card {
 nu-card[theme]:not([nu-inverted]).-nu-border {
   --element-border-color: var(--current-color, var(--border-color)) !important
 }
-
-nu-card::-webkit-scrollbar {
-    display: none;
-}
