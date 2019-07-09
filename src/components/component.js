@@ -46,7 +46,7 @@ class NuComponent extends HTMLElement {
   connectedCallback() {
     const nuRole = this.constructor.nuRole;
 
-    if (this.getAttribute('role') == null && nuRole) {
+    if (!this.hasAttribute('role') && nuRole) {
       this.setAttribute('role', nuRole);
     }
 
@@ -91,7 +91,7 @@ class NuComponent extends HTMLElement {
   nuHasMod(name) {
     const mod = `nu-${name}`;
 
-    return this.getAttribute(mod) != null;
+    return this.hasAttribute(mod);
   }
 
   nuSetAria(name, value) {
@@ -231,7 +231,7 @@ class NuComponent extends HTMLElement {
       this.removeAttribute('tabindex');
     }
 
-    if (this.getAttribute('nu-focusable') != null) return;
+    if (this.hasAttribute('nu-focusable')) return;
 
     (this.nuRef || this).addEventListener('focus', () => {
       this.nuSetMod('focus', true);
@@ -247,7 +247,7 @@ class NuComponent extends HTMLElement {
   nuEmit(name, detail) {
     this.dispatchEvent(new CustomEvent(name, {
       detail,
-      bubbles: this.getAttribute('prevent') == null,
+      bubbles: !this.hasAttribute('prevent'),
     }));
   }
 

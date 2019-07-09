@@ -33,7 +33,7 @@ export default class NuIcon extends NuComponent {
         this.style['height'] = convertUnit(value || '');
         break;
       case 'inline':
-        this.style['margin-top'] = value != null ? '-0.125rem' : '';
+        this.style['margin-top'] = value != null ? '-0.125em' : '';
     }
   }
 }

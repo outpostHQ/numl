@@ -35,7 +35,7 @@ export default class NuTable extends NuComponent {
   nuMounted() {
     super.nuMounted();
 
-    if (this.getAttribute('theme') == null) {
+    if (!this.hasAttribute('theme')) {
       this.style.setProperty('--current-color', 'var(--minor-color)');
       this.style.setProperty('--current-background-color', 'var(--minor-background-color)');
     }

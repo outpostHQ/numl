@@ -57,7 +57,7 @@ class NuInput extends NuComponent {
         this.nuSetFocusable(value != null);
         break;
       case 'value':
-        this.nuRef.value = value || '';
+        // ignore
         break;
       case 'autofocus':
       case 'placeholder':
@@ -68,22 +68,30 @@ class NuInput extends NuComponent {
     }
   }
 
+  set value(value) {
+    this.nuRef.value = value || '';
+  }
+
+  get value() {
+    return this.nuRef.value;
+  }
+
   nuMounted() {
     super.nuMounted();
 
     this.nuInitRef();
 
-    if (this.getAttribute('placeholder') == null) {
+    if (!this.hasAttribute('placeholder')) {
       this.setAttribute('placeholder', '...');
     }
 
     this.nuSetFocusable();
 
-    // ['input', 'focus', 'click', 'blur'].forEach(eventName => {
-    //   this.nuRef.addEventListener(eventName, (evt) => {
-    //     this.dispatchEvent(evt);
-    //   });
-    // });
+    this.nuRef.addEventListener('input', (evt) => {
+      this.nuEmit('input', this.value);
+    });
+
+    this.value = this.getAttribute('value');
 
     // const padding = this.getAttribute('padding');
     // const value = this.getAttribute('value');

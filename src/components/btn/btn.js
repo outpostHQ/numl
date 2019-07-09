@@ -25,30 +25,30 @@ class NuBtn extends NuComponent {
   }
 
   nuMounted() {
-    if (this.getAttribute('role') == null) {
+    if (!this.hasAttribute('role')) {
       if (!this.constructor.nuAttrs.includes('href')
-        || this.getAttribute('href') == null) {
+        || !this.hasAttribute('href')) {
         this.setAttribute('role', 'button');
       } else {
         this.setAttribute('role', 'link');
       }
     }
 
-    if (this.getAttribute('value') == null) {
+    if (!this.hasAttribute('value')) {
       this.nuSetAria('pressed', false);
     }
 
-    this.nuSetFocusable(this.getAttribute('disabled') == null);
+    this.nuSetFocusable(!this.hasAttribute('disabled'));
 
     this.addEventListener('click', () => {
-      if (this.getAttribute('disabled') == null) {
+      if (!this.hasAttribute('disabled')) {
         this.nuTap();
       }
     });
 
     this.addEventListener('keydown', evt => {
       if ((evt.key === 'Enter' || evt.key === 'Space')
-        && this.getAttribute('disabled') == null) {
+        && !this.hasAttribute('disabled')) {
         this.nuTap();
       }
     });

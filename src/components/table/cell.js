@@ -16,7 +16,7 @@ export default class NuCell extends NuBlock {
       this.nuSetMod('header', value === 'header');
       this.nuSetMod('group', value === 'group');
 
-      if (this.getAttribute('theme') == null) {
+      if (!this.hasAttribute('theme')) {
         switch (value) {
           case 'header':
             this.nuUpdateTheme('current');
