@@ -2,6 +2,7 @@ import './btn.css';
 import {
   GRID_ATTRS,
   GRID_ITEM_ATTRS,
+  FLEX_ITEM_ATTRS,
   BLOCK_ATTRS,
 } from '../../helpers';
 import NuComponent from '../component';
@@ -11,6 +12,7 @@ const btnAttrsList = [
   ...NuComponent.nuAttrs,
   ...GRID_ATTRS,
   ...GRID_ITEM_ATTRS,
+  ...FLEX_ITEM_ATTRS,
   ...BLOCK_ATTRS,
   'disabled', 'value', 'href', 'target'
 ];

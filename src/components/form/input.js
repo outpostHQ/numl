@@ -7,7 +7,8 @@ import {
 } from '../../helpers';
 import NuComponent from '../component';
 
-const inputAttrsList = [
+const attrsList = [
+  ...NuComponent.nuAttrs,
   ...GRID_ATTRS,
   ...GRID_ITEM_ATTRS,
   ...BLOCK_ATTRS,
@@ -19,13 +20,22 @@ const inputAttrsList = [
   'name',
 ];
 
+const propAttrs = [
+  ...NuComponent.nuPropAttrs,
+  'padding',
+];
+
 class NuInput extends NuComponent {
   static get nuTag() {
     return 'input';
   }
 
   static get nuAttrs() {
-    return NuComponent.nuAttrs.concat(inputAttrsList);
+    return attrsList;
+  }
+
+  static get nuPropAttrs() {
+    return propAttrs;
   }
 
   constructor() {
@@ -48,10 +58,6 @@ class NuInput extends NuComponent {
     if (!this.nuRef) this.nuInitRef();
 
     switch (name) {
-      case 'padding':
-        this.style.padding = '';
-        this.nuRef.style.padding = convertUnit(value || '');
-        break;
       case 'disabled':
         this.nuRef.disabled = value != null;
         this.nuSetFocusable(value != null);

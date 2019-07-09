@@ -16,6 +16,7 @@ import NuGridCell from './components/table/grid-cell';
 import NuBadge from './components/badge/badge';
 import NuInput from './components/form/input';
 import NuScroll from './components/scroll/scroll';
+import NuFlex from './components/flex';
 
 export {
   NuResponsive,
@@ -34,4 +35,5 @@ export {
   NuInput,
   NuScroll,
   NuToggle,
+  NuFlex,
 };

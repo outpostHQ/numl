@@ -6,13 +6,13 @@ nu-grid, nu-pane, nu-layout {
   display: grid;
 }
 
-nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card {
-  --element-border-color: transparent;
-  --element-depth-color: transparent;
-  --element-border-shadow: 0 0 0 var(--pixel) var(--element-border-color);
-  --element-depth-shadow: 0 0.25rem 1.5rem var(--element-depth-color);
+nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card, nu-flex {
+  --nu-border-color: transparent;
+  --nu-depth-color: transparent;
+  --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color);
+  --nu-depth-shadow: 0 0.25rem 1.5rem var(--nu-depth-color);
 
-  box-shadow: var(--element-depth-shadow), var(--element-border-shadow);
+  box-shadow: var(--nu-depth-shadow), var(--nu-border-shadow);
 }
 
 /*nu-grid[flow=column], nu-layout[flow=column] {*/
@@ -43,11 +43,31 @@ nu-pane {
   grid-gap: .5rem;
 }
 
+nu-flex {
+  --nu-flow: row nowrap;
+  --nu-width: initial;
+  --nu-height: initial;
+  --nu-gap: 0;
+
+  display: flex;
+  flex-flow: var(--nu-flow);
+  width: calc(var(--nu-width) + var(--nu-h-gap));
+  height: calc(var(--nu-height) + var(--nu-h-gap));
+  margin-right: calc(var(--nu-h-gap) * -1);
+  margin-bottom: calc(var(--nu-v-gap) * -1);
+}
+
+nu-flex > * {
+  margin-right: var(--nu-h-gap);
+  margin-bottom: var(--nu-v-gap);
+}
+
 [nu-focusable] {
-  --element-focus-color: transparent;
-  --element-focus-background-color: transparent;
-  --element-focus-shadow: 0 0 0 0.1875rem var(--element-focus-color);
-  --element-focus-background-shadow: 0 0 0 0.1875rem var(--element-focus-background-color);
+  --nu-focus-color: transparent;
+  --nu-focus-background-color: transparent;
+  --nu-focus-shadow: 0 0 0 0.1875rem var(--nu-focus-color);
+  --nu-focus-background-shadow: 0 0 0 0.1875rem var(--nu-focus-background-color);
+
   outline: none;
 }
 
@@ -60,8 +80,8 @@ nu-pane {
   bottom: 0;
   left: 0;
   pointer-events: none;
-  border-radius: var(--element-border-radius);
-  box-shadow: var(--element-focus-shadow);
+  border-radius: var(--nu-border-radius);
+  box-shadow: var(--nu-focus-shadow);
   opacity: .5;
   transition: box-shadow var(--quick-animation-time) linear;
 }
@@ -71,15 +91,15 @@ nu-pane {
 }
 
 [nu-focusable][nu-focus]:not(.-nu-cell) {
-  --element-focus-color: var(--current-special-color, var(--primary-color, #333));
-  --element-focus-background-color: var(--current-background-color, var(--background-color, #fff));
+  --nu-focus-color: var(--current-special-color, var(--primary-color, #333));
+  --nu-focus-background-color: var(--current-background-color, var(--background-color, #fff));
 }
 
 [nu-focusable][nu-focus].-nu-cell {
-  --element-focus-color: var(--current-special-color, var(--primary-color, #333)) inset;
-  --element-focus-background-color: var(--current-background-color, var(--background-color, #fff)) inset;
+  --nu-focus-color: var(--current-special-color, var(--primary-color, #333)) inset;
+  --nu-focus-background-color: var(--current-background-color, var(--background-color, #fff)) inset;
 }
 
 [nu-focusable][disabled] {
-  --element-focus-color: transparent !important;
+  --nu-focus-color: transparent !important;
 }

@@ -5,7 +5,8 @@ import {
 } from '../helpers';
 import NuComponent from './component';
 
-const gridAttrsList = [
+const attrsList = [
+  ...NuComponent.nuAttrs,
   ...GRID_ATTRS,
   ...GRID_ITEM_ATTRS,
   ...BLOCK_ATTRS
@@ -17,7 +18,7 @@ class NuGrid extends NuComponent {
   }
 
   static get nuAttrs() {
-    return NuComponent.nuAttrs.concat(gridAttrsList);
+    return attrsList;
   }
 }
 

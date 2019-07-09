@@ -1,16 +1,16 @@
 nu-btn {
-  --element-border-color: var(--current-border-color, var(--default-border-color)) inset;
-  --element-toggle-color: transparent;
-  --element-depth-color: transparent;
-  --element-border-radius: var(--border-radius);
+  --nu-border-color: var(--current-border-color, var(--default-border-color)) inset;
+  --nu-toggle-color: transparent;
+  --nu-depth-color: transparent;
+  --nu-border-radius: var(--border-radius);
 
-  --element-toggle-shadow: 0 0 1rem 0 var(--element-toggle-color) inset;
-  --element-border-shadow: 0 0 0 var(--pixel) var(--element-border-color);
-  --element-depth-shadow: 0 .25rem 1.5rem var(--element-depth-color);
+  --nu-toggle-shadow: 0 0 1rem 0 var(--nu-toggle-color) inset;
+  --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color);
+  --nu-depth-shadow: 0 .25rem 1.5rem var(--nu-depth-color);
 
   position: relative;
   display: inline-grid;
-  border-radius: var(--element-border-radius, .5rem);
+  border-radius: var(--nu-border-radius, .5rem);
   place-content: stretch;
   place-items: center;
   grid-auto-flow: column;
@@ -19,10 +19,10 @@ nu-btn {
   color: var(--current-color, var(--color, #333));
   background-color: var(--current-background-color, var(--default-background-color));
   cursor: pointer;
-  box-shadow: var(--element-depth-shadow),
-    var(--element-focus-background-shadow),
-    var(--element-toggle-shadow),
-    var(--element-border-shadow);
+  box-shadow: var(--nu-depth-shadow),
+    var(--nu-focus-background-shadow),
+    var(--nu-toggle-shadow),
+    var(--nu-border-shadow);
   transition: box-shadow var(--quick-animation-time) linear;
   user-select: none;
   vertical-align: middle;
@@ -59,11 +59,11 @@ nu-btn[nu-active] {
 }
 
 nu-btn[nu-active]:not([disabled]), nu-btn[nu-toggled]:not([disabled]) {
-  --element-toggle-color: rgba(0, 0, 0, 0.2);
+  --nu-toggle-color: rgba(0, 0, 0, 0.2);
 }
 
 nu-btn[special] {
-  --element-border-color: transparent;
+  --nu-border-color: transparent;
   background-color: var(--current-special-color, var(--default-color));
   color: var(--current-background-color, var(--default-background-color));
 }

@@ -1,34 +1,34 @@
 nu-toggle {
-  --element-border-color: var(--current-border-color, var(--border-color, #ddd));
-  --element-depth-color: transparent;
-  --element-border-radius: calc(var(--element-size) / 2);
-  --element-toggle-color: transparent;
+  --nu-border-color: var(--current-border-color, var(--border-color, #ddd));
+  --nu-depth-color: transparent;
+  --nu-border-radius: calc(var(--nu-size) / 2);
+  --nu-toggle-color: transparent;
 
-  --element-border-shadow: 0 0 0 var(--pixel) var(--element-border-color) inset;
-  --element-depth-shadow: 0 .25rem 1.5rem var(--element-depth-color);
-  --element-background-color: var(--current-background-color, var(--background-color, #fff));
-  --element-toggle-shadow: 0 0 1rem 0 var(--element-toggle-color) inset;
+  --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color) inset;
+  --nu-depth-shadow: 0 .25rem 1.5rem var(--nu-depth-color);
+  --nu-background-color: var(--current-background-color, var(--background-color, #fff));
+  --nu-toggle-shadow: 0 0 1rem 0 var(--nu-toggle-color) inset;
 
-  --element-size: 2em;
-  --element-circle-padding: calc(var(--pixel) * 4);
-  --element-circle-size: calc(var(--element-size) - var(--element-circle-padding) * 2);
-  --element-circle-offset: var(--element-circle-padding);
-  --element-circle-opacity: .5;
-  --element-circle-border-radius: calc(var(--element-circle-size) / 2);
-  /*--element-circle-background: var(--current-background-color, var(--background-color, #fff));*/
-  --element-circle-background-color: var(--current-color, var(--color, #333));
+  --nu-size: 2em;
+  --nu-circle-padding: calc(var(--pixel) * 4);
+  --nu-circle-size: calc(var(--nu-size) - var(--nu-circle-padding) * 2);
+  --nu-circle-offset: var(--nu-circle-padding);
+  --nu-circle-opacity: .5;
+  --nu-circle-border-radius: calc(var(--nu-circle-size) / 2);
+  /*--nu-circle-background: var(--current-background-color, var(--background-color, #fff));*/
+  --nu-circle-background-color: var(--current-color, var(--color, #333));
 
   position: relative;
   display: inline-block;
-  width: calc(var(--element-size) * 2);
-  height: var(--element-size);
-  border-radius: var(--element-border-radius);
-  background-color: var(--element-background-color);
+  width: calc(var(--nu-size) * 2);
+  height: var(--nu-size);
+  border-radius: var(--nu-border-radius);
+  background-color: var(--nu-background-color);
   cursor: pointer;
-  box-shadow: var(--element-depth-shadow),
-    var(--element-focus-background-shadow),
-    var(--element-toggle-shadow),
-    var(--element-border-shadow);
+  box-shadow: var(--nu-depth-shadow),
+    var(--nu-focus-background-shadow),
+    var(--nu-toggle-shadow),
+    var(--nu-border-shadow);
   transition: box-shadow var(--quick-animation-time) linear,
   filter var(--quick-animation-time) linear;
   user-select: none;
@@ -36,34 +36,34 @@ nu-toggle {
 }
 
 /*nu-toggle[nu-inverted]:not([nu-toggled]) {*/
-/*  --element-border-color: transparent !important;*/
+/*  --nu-border-color: transparent !important;*/
 /*}*/
 
 /*nu-toggle:not([nu-inverted])[nu-toggled] {*/
-/*  --element-border-color: transparent !important;*/
+/*  --nu-border-color: transparent !important;*/
 /*}*/
 
 nu-toggle[nu-inverted][nu-toggled] {
-  --element-border-color: var(--current-background-color, var(--background-color, #fff));
+  --nu-border-color: var(--current-background-color, var(--background-color, #fff));
 }
 
 nu-toggle:not([disabled])::after {
   content: "";
   position: absolute;
   display: block;
-  width: var(--element-circle-size);
-  height: var(--element-circle-size);
+  width: var(--nu-circle-size);
+  height: var(--nu-circle-size);
   pointer-events: none;
   left: 0;
-  top: var(--element-circle-padding);
-  transform: translate(var(--element-circle-offset), 0);
+  top: var(--nu-circle-padding);
+  transform: translate(var(--nu-circle-offset), 0);
   transition: transform var(--quick-animation-time) linear,
     opacity var(--quick-animation-time) linear,
     background-color var(--quick-animation-time) linear;
-  background-color: var(--element-circle-background-color);
-  border-radius: var(--element-circle-border-radius);
-  /*box-shadow: var(--element-border-shadow);*/
-  opacity: var(--element-circle-opacity);
+  background-color: var(--nu-circle-background-color);
+  border-radius: var(--nu-circle-border-radius);
+  /*box-shadow: var(--nu-border-shadow);*/
+  opacity: var(--nu-circle-opacity);
 }
 
 nu-toggle[disabled] {
@@ -72,12 +72,12 @@ nu-toggle[disabled] {
 }
 
 nu-toggle[nu-toggled] {
-  --element-background-color: var(--current-special-color, var(--default-special-color, #fff));
-  --element-circle-offset: calc(var(--element-size) * 2 - var(--element-circle-padding) - var(--element-circle-size));
-  --element-circle-opacity: 1;
-  --element-circle-background-color: var(--current-background-color, var(--default-background-color, #333));
+  --nu-background-color: var(--current-special-color, var(--default-special-color, #fff));
+  --nu-circle-offset: calc(var(--nu-size) * 2 - var(--nu-circle-padding) - var(--nu-circle-size));
+  --nu-circle-opacity: 1;
+  --nu-circle-background-color: var(--current-background-color, var(--default-background-color, #333));
 }
 
 nu-toggle[nu-active]:not([disabled]) {
-  --element-toggle-color: rgba(0, 0, 0, 0.2);
+  --nu-toggle-color: rgba(0, 0, 0, 0.2);
 }

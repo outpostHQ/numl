@@ -12,8 +12,26 @@ export const STYLES_MAP = {
   'items': 'place-items',
   'width': 'width',
   'height': 'height',
-  'padding': 'padding'
-};
+  'padding': 'padding',
+  'grow': 'flex-grow',
+  'shrink': 'flex-shrink',
+  'basis': 'flex-basis',
+  'order': 'order',
+ };
+
+export const FLEX_ATTRS = [
+  'order',
+  'flow',
+  'gap',
+];
+
+export const FLEX_ITEM_ATTRS = [
+  'grow',
+  'shrink',
+  'basis',
+  'items',
+  'content',
+];
 
 export const GRID_ITEM_ATTRS = [
   'place',

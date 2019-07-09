@@ -1,19 +1,19 @@
 nu-input {
-  --element-border-color: var(--current-border-color, var(--default-border-color, #eee));
-  --element-depth-color: transparent;
-  --element-border-radius: var(--border-radius, .5rem);
-  --element-padding: .5rem;
+  --nu-border-color: var(--current-border-color, var(--default-border-color, #eee));
+  --nu-depth-color: transparent;
+  --nu-border-radius: var(--border-radius, .5rem);
+  --nu-padding: .5rem;
 
-  --element-border-shadow: 0 0 0 var(--pixel) var(--element-border-color) inset;
-  --element-depth-shadow: 0 0 0 var(--pixel) var(--element-depth-color);
+  --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color) inset;
+  --nu-depth-shadow: 0 0 0 var(--pixel) var(--nu-depth-color);
 
   position: relative;
-  border-radius: var(--element-border-radius);
+  border-radius: var(--nu-border-radius);
   display: grid;
   place-self: stretch;
   place-items: stretch;
   background-color: var(--current-background-color, var(--background-color, #fff));
-  box-shadow: var(--element-focus-background-shadow);
+  box-shadow: var(--nu-focus-background-shadow);
   transition: box-shadow var(--quick-animation-time) linear;
   outline: none;
 }
@@ -27,15 +27,15 @@ nu-input::after {
   bottom: 0;
   left: 0;
   pointer-events: none;
-  border-radius: var(--element-border-radius);
+  border-radius: var(--nu-border-radius);
   transition: box-shadow var(--quick-animation-time) linear;
   box-shadow:
-    var(--element-depth-shadow),
-    var(--element-border-shadow);
+    var(--nu-depth-shadow),
+    var(--nu-border-shadow);
 }
 
 nu-input input {
-  padding: var(--element-padding);
+  padding: var(--nu-padding);
   width: 100%;
   max-width: 100%;
   min-width: 100%;
@@ -47,7 +47,7 @@ nu-input input {
   color: inherit;
   border: none;
   outline: none;
-  border-radius: var(--element-border-radius);
+  border-radius: var(--nu-border-radius);
 }
 
 nu-input input[disabled] {

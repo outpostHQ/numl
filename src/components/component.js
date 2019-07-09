@@ -23,6 +23,10 @@ class NuComponent extends HTMLElement {
     return ['mod', 'theme'];
   }
 
+  static get nuPropAttrs() {
+    return [];
+  }
+
   static get nuDefaultAttrs() {
     return {};
   }
@@ -64,7 +68,9 @@ class NuComponent extends HTMLElement {
         this.nuUpdateTheme(value);
         break;
       default:
-        if (STYLES_MAP[name]) {
+        if (this.constructor.nuPropAttrs.includes(name)) {
+          this.nuSetProp(name, value, UNIT_ATTRS.includes(name));
+        } else if (STYLES_MAP[name]) {
           if (UNIT_ATTRS.includes(name)) {
             this.style[STYLES_MAP[name]] =
               convertUnit(value || '');
@@ -76,6 +82,16 @@ class NuComponent extends HTMLElement {
     }
 
     this.nuChanged(name, oldValue, value);
+  }
+
+  nuSetProp(name, value, convert) {
+    const propName = `--nu-${name}`;
+
+    if (value) {
+      this.style.setProperty(propName, convert ? convertUnit(value) : value);
+    } else {
+      this.style.removeProperty(propName);
+    }
   }
 
   nuSetMod(name, bool) {
