@@ -68,7 +68,8 @@ class NuComponent extends HTMLElement {
         this.nuUpdateTheme(value);
         break;
       case 'radius':
-        value = convertUnit(value).replace('*', 'var(--border-radius)');
+        value = convertUnit(value).replace(/\*/g, 'var(--border-radius)');
+
         this.nuSetProp('border-radius', value);
       default:
         if (this.constructor.nuPropAttrs.includes(name)) {
@@ -76,13 +77,7 @@ class NuComponent extends HTMLElement {
         } else if (STYLES_MAP[name]) {
           value = this.nuComputeStyle(name, value);
 
-          if (UNIT_ATTRS.includes(name)) {
-            this.style[STYLES_MAP[name]] =
-              convertUnit(value || '');
-          } else {
-            this.style[STYLES_MAP[name]] =
-              value || '';
-          }
+          this.style[STYLES_MAP[name]] = value;
         }
     }
 
@@ -94,13 +89,6 @@ class NuComponent extends HTMLElement {
 
     if (parent && this.nuFlexItem == null) {
       this.nuFlexItem = parent.tagName === 'NU-FLEX';
-      this.nuFlexFlow = 'row';
-
-      const parentFlow = parent.getAttribute('flow');
-
-      if (parentFlow && parentFlow.startsWith('column')) {
-        this.nuFlexFlow = 'column';
-      }
     }
 
     return parent;
