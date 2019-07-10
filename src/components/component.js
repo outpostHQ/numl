@@ -107,7 +107,9 @@ class NuComponent extends HTMLElement {
   }
 
   nuComputeStyle(name, value) {
-    value = convertUnit(value);
+    if (UNIT_ATTRS.includes(name)) {
+      value = convertUnit(value);
+    }
 
     switch (name) {
       case 'basis':
