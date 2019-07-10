@@ -1,12 +1,15 @@
 import {
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
+  FLEX_ITEM_ATTRS,
 } from '../helpers';
 import NuComponent from './component';
 
-const blockAttrsList = [
+const attrsList = [
+  ...NuComponent.nuAttrs,
   ...GRID_ITEM_ATTRS,
-  ...BLOCK_ATTRS
+  ...BLOCK_ATTRS,
+  ...FLEX_ITEM_ATTRS,
 ];
 
 class NuBlock extends NuComponent {
@@ -15,7 +18,7 @@ class NuBlock extends NuComponent {
   }
 
   static get nuAttrs() {
-    return NuComponent.nuAttrs.concat(blockAttrsList);
+    return attrsList;
   }
 }
 

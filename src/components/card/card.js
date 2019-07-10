@@ -1,18 +1,8 @@
 import './card.css';
-import NuGrid from '../grid';
+import NuBlock from '../block';
 
-export default class NuCard extends NuGrid {
+export default class NuCard extends NuBlock {
   static get nuTag() {
     return 'card';
-  }
-
-  nuUpdateTheme(theme) {
-    super.nuUpdateTheme(theme);
-
-    const nuTheme = this.nuTheme;
-
-    if (nuTheme) {
-      this.nuSetMod('inverted', nuTheme.invert);
-    }
   }
 }

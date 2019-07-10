@@ -1,10 +1,9 @@
 nu-card {
+  display: block;
   position: relative;
-  display: grid;
   padding: 1rem;
   border-radius: var(--border-radius);
   background: var(--background-color);
-  grid-gap: .5rem;
   scrollbar-width: none;
 }
 

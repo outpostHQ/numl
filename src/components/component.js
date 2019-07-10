@@ -6,6 +6,8 @@ import {
   getParent,
 } from '../helpers';
 
+let FLEX_PARENTS = ['NU-FLEX', 'NU-LAYOUT'];
+
 /**
  * @class
  * @abstract
@@ -35,6 +37,14 @@ class NuComponent extends HTMLElement {
     return this.nuAttrs.concat(this.nuAttrs);
   }
 
+  static get nuFlexParents() {
+    return FLEX_PARENTS;
+  }
+
+  static set nuFlexParents(value) {
+    FLEX_PARENTS = value;
+  }
+
   constructor() {
     super();
 
@@ -60,6 +70,8 @@ class NuComponent extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, value) {
+    value = value == null ? (this.constructor.nuDefaultAttrs[name] || null) : value;
+
     switch (name) {
       case 'mod':
         this.nuUpdateGlobalMods(value);
@@ -133,6 +145,12 @@ class NuComponent extends HTMLElement {
     } else {
       this.style.removeProperty(propName);
     }
+  }
+
+  nuSetChildrenProp(name, value, convert) {
+    this.childNodes.forEach(
+      node => node.nuSetProp && node.nuSetProp(name, value, convert),
+    );
   }
 
   nuSetMod(name, bool) {
@@ -309,6 +327,20 @@ class NuComponent extends HTMLElement {
   }
 
   nuMounted() {
+    const defaultAttrs = this.constructor.nuDefaultAttrs;
+
+    Object.keys(defaultAttrs)
+      .forEach(attr => {
+        if (!this.hasAttribute(attr)) {
+          this.setAttribute(attr, defaultAttrs[attr]);
+        }
+      });
+
+    const parent = this.parentNode;
+
+    if (FLEX_PARENTS.includes(parent.tagName) && parent.nuChanged) {
+      parent.nuChanged('gap', '', this.parentNode.getAttribute('gap'));
+    }
   }
 
   nuChanged() {

@@ -11,7 +11,7 @@ const attrsList = [
   ...FLEX_ATTRS,
   ...GRID_ITEM_ATTRS,
   ...FLEX_ITEM_ATTRS,
-  ...BLOCK_ATTRS
+  ...BLOCK_ATTRS,
 ];
 
 const propAttrs = [
@@ -35,10 +35,18 @@ class NuGrid extends NuComponent {
   nuSetFlowGap() {
     const flowAttr = this.getAttribute('flow');
 
+    this.nuFlexFlow = 'row';
+    this.nuFlexWrap = false;
+
     if (flowAttr && flowAttr.startsWith('column')) {
-      this.nuSetProp('flow-gap', 'var(--nu-v-gap)');
+      this.nuFlexFlow = 'column';
+      this.nuSetChildrenProp('flow-gap', 'var(--nu-v-gap)');
     } else {
-      this.nuSetProp('flow-gap', 'var(--nu-h-gap)');
+      this.nuSetChildrenProp('flow-gap', 'var(--nu-h-gap)');
+    }
+
+    if (flowAttr && flowAttr.includes(' wrap')) {
+      this.nuFlexWrap = true;
     }
   }
 
@@ -48,15 +56,24 @@ class NuGrid extends NuComponent {
     if (name === 'flow') {
       this.nuSetFlowGap();
     } else if (name === 'gap') {
-      const values = value.split(/\s/);
+      const values = (value || '').split(/\s/);
+
+      let hGap, vGap;
+
+      this.nuSetFlowGap();
 
       if (values.length > 1) {
-        this.nuSetProp('v-gap', values[0], true);
-        this.nuSetProp('h-gap', values[1], true);
+        hGap = this.nuFlexWrap || this.nuFlexFlow === 'row' ? values[1] : '';
+        vGap = this.nuFlexWrap || this.nuFlexFlow === 'column' ? values[0] : '';
       } else {
-        this.nuSetProp('v-gap', value, true);
-        this.nuSetProp('h-gap', value, true);
+        hGap = this.nuFlexWrap || this.nuFlexFlow === 'row' ? value : '';
+        vGap = this.nuFlexWrap || this.nuFlexFlow === 'column' ? value : '';
       }
+
+      this.nuSetProp('h-gap', hGap, true);
+      this.nuSetProp('v-gap', vGap, true);
+      this.nuSetChildrenProp('item-h-gap', hGap, true);
+      this.nuSetChildrenProp('item-v-gap', vGap, true);
     }
   }
 

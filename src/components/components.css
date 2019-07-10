@@ -2,7 +2,7 @@ nu-responsive {
   display: none;
 }
 
-nu-grid, nu-pane, nu-layout {
+nu-grid, nu-pane {
   display: grid;
 }
 
@@ -16,35 +16,11 @@ nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card, nu-flex {
   box-sizing: border-box;
 }
 
-/*nu-grid[flow=column], nu-layout[flow=column] {*/
-/*  grid-auto-flow: column;*/
-/*}*/
-
-/*nu-grid[gap="1"], nu-layout[gap="1"] {*/
-/*  grid-gap: 1rem;*/
-/*}*/
-
-/*nu-grid[padding="1"], nu-layout[padding="1"], nu-block[padding="1"] {*/
-/*  padding: 1rem;*/
-/*}*/
-
 nu-block {
   display: block;
 }
 
-nu-layout {
-  grid-gap: 1rem;
-  place-content: start stretch;
-}
-
-nu-pane {
-  grid-auto-flow: column;
-  place-content: stretch space-between;
-  place-items: center;
-  grid-gap: .5rem;
-}
-
-nu-flex {
+nu-flex, nu-layout {
   --nu-flow: row nowrap;
   --nu-width: initial;
   --nu-height: initial;
@@ -56,14 +32,31 @@ nu-flex {
   display: flex;
   flex-flow: var(--nu-flow);
   width: calc(var(--nu-width) + var(--nu-h-gap));
-  height: calc(var(--nu-height) + var(--nu-h-gap));
+  height: calc(var(--nu-height) + var(--nu-v-gap));
   margin-right: calc(var(--nu-h-gap) * -1);
   margin-bottom: calc(var(--nu-v-gap) * -1);
 }
 
-nu-flex > * {
-  margin-right: var(--nu-h-gap);
-  margin-bottom: var(--nu-v-gap);
+nu-flex > *, nu-layout > * {
+  --nu-item-h-gap: 0;
+  --nu-item-v-gap: 0;
+
+  margin-right: var(--nu-item-h-gap);
+  margin-bottom: var(--nu-item-v-gap);
+}
+
+nu-layout {
+  --nu-flow: column nowrap;
+  place-content: stretch start;
+  place-items: stretch;
+}
+
+nu-pane {
+  grid-auto-flow: column;
+  place-content: stretch space-between;
+  place-items: center;
+  grid-gap: .5rem;
+  width: 100%;
 }
 
 [nu-focusable] {

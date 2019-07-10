@@ -29,6 +29,7 @@ nu-btn {
   opacity: 1;
   z-index: 0; /* to make :hover::after z-index work as expected */
   box-sizing: border-box;
+  white-space: nowrap;
 }
 
 nu-btn:not([disabled])::after {
