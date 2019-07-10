@@ -2,13 +2,17 @@ import './separator.css';
 import {
   GRID_ATTRS,
   GRID_ITEM_ATTRS,
+  FLEX_ITEM_ATTRS,
   convertUnit
 } from '../../helpers';
 import NuComponent from '../component';
 
 const attrsList = [
+  ...NuComponent.nuAttrs,
   ...GRID_ATTRS,
   ...GRID_ITEM_ATTRS,
+  ...FLEX_ITEM_ATTRS,
+  'orientation', 'size', 'color',
 ];
 
 export default class NuSeparator extends NuComponent {

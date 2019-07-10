@@ -4,8 +4,9 @@ nu-separator {
 
   display: block;
   position: relative;
-  width: 100%;
-  height: var(--line-size);
+  min-width: 100%;
+  max-width: 100%;
+  min-height: var(--line-size);
   max-height: var(--line-size);
   line-height: 0;
   place-self: stretch;
@@ -16,8 +17,8 @@ nu-separator {
 nu-separator[nu-vertical] {
   grid-row: 1 / -1;
   grid-column: unset;
-  height: 100%;
+  min-height: 100%;
   max-height: unset;
-  width: var(--line-size);
+  min-width: var(--line-size);
   max-width: var(--line-size);
 }
