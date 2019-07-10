@@ -44,64 +44,32 @@ class NuInput extends NuComponent {
 
   nuInitRef() {
     this.nuRef = this.querySelector('input');
-
-    if (!this.nuRef) {
-      this.nuRef = document.createElement('input');
-
-      this.appendChild(this.nuRef);
-    }
   }
 
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
-    if (!this.nuRef) this.nuInitRef();
-
     switch (name) {
       case 'disabled':
-        this.nuRef.disabled = value != null;
-        this.nuSetFocusable(value != null);
-        break;
-      case 'value':
-        // ignore
-        break;
-      case 'autofocus':
-      case 'placeholder':
-      case 'maxlength':
-      case 'name':
-        this.nuRef.setAttribute(name, value);
+        this.nuInitRef();
+
+        if (this.nuRef) {
+          this.nuRef.disabled = value != null;
+          this.nuSetFocusable(value != null);
+        }
+
         break;
     }
-  }
-
-  set value(value) {
-    this.nuRef.value = value || '';
-  }
-
-  get value() {
-    return this.nuRef.value;
   }
 
   nuMounted() {
     super.nuMounted();
 
-    this.nuInitRef();
+    this.nuChanged('disabled', '', this.getAttribute('disabled'));
 
-    if (!this.hasAttribute('placeholder')) {
-      this.setAttribute('placeholder', '...');
+    if (this.nuRef && !this.nuRef.hasAttribute('placeholder')) {
+      this.nuRef.setAttribute('placeholder', '...');
     }
-
-    this.nuSetFocusable();
-
-    this.nuRef.addEventListener('input', (evt) => {
-      this.nuEmit('input', this.value);
-    });
-
-    this.value = this.getAttribute('value');
-
-    // const padding = this.getAttribute('padding');
-    // const value = this.getAttribute('value');
-    // const disabled = this.getAttribute('disabled');
   }
 
   nuUpdateTheme(theme) {

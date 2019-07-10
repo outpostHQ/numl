@@ -175,6 +175,34 @@
   z-index: 1;
 }
 
+.-nu-abs-top {
+  position: absolute !important;
+  top: 0;
+  z-index: 1;
+}
+
+.-nu-abs-bottom {
+  position: absolute !important;
+  bottom: 0;
+  z-index: 1;
+}
+
+.-nu-abs-left {
+  position: absolute !important;
+  left: 0;
+  z-index: 1;
+}
+
+.-nu-abs-right {
+  position: absolute !important;
+  right: 0;
+  z-index: 1;
+}
+
+.-nu-relative {
+  position: relative;
+}
+
 .-nu-stretched {
   position: absolute;
   left: 0;

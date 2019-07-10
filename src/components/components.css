@@ -10,7 +10,7 @@ nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card, nu-flex {
   --nu-border-color: transparent;
   --nu-depth-color: transparent;
   --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color);
-  --nu-depth-shadow: 0 0.25rem 1.5rem var(--nu-depth-color);
+  --nu-depth-shadow: 0 0 1.5rem var(--nu-depth-color);
 
   box-shadow: var(--nu-depth-shadow), var(--nu-border-shadow);
   box-sizing: border-box;

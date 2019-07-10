@@ -72,6 +72,8 @@ export function getMods(mod) {
 }
 
 export function convertUnit(unit) {
+  if (!unit) return unit;
+
   if (unit.includes('(')) return unit;
 
   return unit.replace(/([\d.]+)([^a-z\d%.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
