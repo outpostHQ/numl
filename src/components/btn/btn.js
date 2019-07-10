@@ -27,6 +27,8 @@ class NuBtn extends NuComponent {
   }
 
   nuMounted() {
+    super.nuMounted();
+
     if (!this.hasAttribute('role')) {
       if (!this.constructor.nuAttrs.includes('href')
         || !this.hasAttribute('href')) {

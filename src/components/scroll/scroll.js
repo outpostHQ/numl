@@ -64,7 +64,7 @@ export default class NuScroll extends NuComponent {
     const scrollHeight = parent.scrollHeight;
     const scrollTop = parent.scrollTop;
 
-    if (offsetHeight === scrollHeight) {
+    if (Math.abs(offsetHeight - scrollHeight) < 2) {
       this.style.setProperty('--line-offset', '');
       this.style.setProperty('--line-length', '');
     } else {

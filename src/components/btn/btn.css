@@ -28,6 +28,7 @@ nu-btn {
   vertical-align: middle;
   opacity: 1;
   z-index: 0; /* to make :hover::after z-index work as expected */
+  box-sizing: border-box;
 }
 
 nu-btn:not([disabled])::after {
@@ -42,7 +43,7 @@ nu-btn:not([disabled])::after {
   z-index: -1;
   transition: background-color var(--quick-animation-time) linear;
   background-color: rgba(128, 128, 128, 0);
-  border-radius: var(--elemen-border-radius);
+  border-radius: inherit;
 }
 
 nu-btn:not([disabled]):hover::after {

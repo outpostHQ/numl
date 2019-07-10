@@ -67,10 +67,15 @@ class NuComponent extends HTMLElement {
       case 'theme':
         this.nuUpdateTheme(value);
         break;
+      case 'radius':
+        value = convertUnit(value).replace('*', 'var(--border-radius)');
+        this.nuSetProp('border-radius', value);
       default:
         if (this.constructor.nuPropAttrs.includes(name)) {
           this.nuSetProp(name, value, UNIT_ATTRS.includes(name));
         } else if (STYLES_MAP[name]) {
+          value = this.nuComputeStyle(name, value);
+
           if (UNIT_ATTRS.includes(name)) {
             this.style[STYLES_MAP[name]] =
               convertUnit(value || '');
@@ -82,6 +87,52 @@ class NuComponent extends HTMLElement {
     }
 
     this.nuChanged(name, oldValue, value);
+  }
+
+  nuDetectParent() {
+    const parent = this.parentNode;
+
+    if (parent && this.nuFlexItem == null) {
+      this.nuFlexItem = parent.tagName === 'NU-FLEX';
+      this.nuFlexFlow = 'row';
+
+      const parentFlow = parent.getAttribute('flow');
+
+      if (parentFlow && parentFlow.startsWith('column')) {
+        this.nuFlexFlow = 'column';
+      }
+    }
+
+    return parent;
+  }
+
+  nuComputeStyle(name, value) {
+    value = convertUnit(value);
+
+    switch (name) {
+      case 'basis':
+        if (!value || !value.endsWith('%')) break;
+
+        return `calc(${value} - var(--nu-flow-gap))`;
+      case 'width':
+        if (!value || !value.endsWith('%')) break;
+
+        this.nuDetectParent();
+
+        if (this.nuFlexItem) {
+          return `calc(${value} - var(--nu-h-gap))`;
+        } else break;
+      case 'height':
+        if (!value || !value.endsWith('%')) break;
+
+        this.nuDetectParent();
+
+        if (this.nuFlexItem) {
+          return `calc(${value} - var(--nu-v-gap))`;
+        } else break;
+    }
+
+    return value;
   }
 
   nuSetProp(name, value, convert) {

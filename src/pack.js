@@ -41,7 +41,7 @@ import {
 
   customElements.define(tagName, customElement);
 
-  {
+  if (process.env === 'development') {
     console.log('nude: custom element registered', `<${tagName}/>`);
   }
 });

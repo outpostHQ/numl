@@ -47,7 +47,7 @@ nu-input input {
   color: inherit;
   border: none;
   outline: none;
-  border-radius: var(--nu-border-radius);
+  border-radius: inherit;
 }
 
 nu-input input[disabled] {

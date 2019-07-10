@@ -32,10 +32,22 @@ class NuGrid extends NuComponent {
     return propAttrs;
   }
 
+  nuSetFlowGap() {
+    const flowAttr = this.getAttribute('flow');
+
+    if (flowAttr && flowAttr.startsWith('column')) {
+      this.nuSetProp('flow-gap', 'var(--nu-v-gap)');
+    } else {
+      this.nuSetProp('flow-gap', 'var(--nu-h-gap)');
+    }
+  }
+
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
-    if (name === 'gap') {
+    if (name === 'flow') {
+      this.nuSetFlowGap();
+    } else if (name === 'gap') {
       const values = value.split(/\s/);
 
       if (values.length > 1) {
@@ -46,6 +58,12 @@ class NuGrid extends NuComponent {
         this.nuSetProp('h-gap', value, true);
       }
     }
+  }
+
+  nuMounted() {
+    super.nuMounted();
+
+    this.nuSetFlowGap();
   }
 }
 

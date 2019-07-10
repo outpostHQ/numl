@@ -17,6 +17,7 @@ export const STYLES_MAP = {
   'shrink': 'flex-shrink',
   'basis': 'flex-basis',
   'order': 'order',
+  'radius': 'border-radius',
  };
 
 export const FLEX_ATTRS = [
@@ -53,7 +54,8 @@ export const GRID_ATTRS = [
 export const BLOCK_ATTRS = [
   'width',
   'height',
-  'padding'
+  'padding',
+  'radius',
 ];
 
 export const UNIT_ATTRS = [
@@ -72,7 +74,7 @@ export function getMods(mod) {
 export function convertUnit(unit) {
   if (unit.includes('(')) return unit;
 
-  return unit.replace(/([\d.]+)([^a-z\d.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
+  return unit.replace(/([\d.]+)([^a-z\d%.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
 }
 
 export function injectCSS(css) {
