@@ -11,7 +11,9 @@ nu-input {
   border-radius: var(--nu-border-radius);
   display: grid;
   place-self: stretch;
-  place-items: stretch;
+  place-items: center;
+  grid-auto-flow: column;
+  grid-gap: .5rem;
   background-color: var(--current-background-color, var(--background-color, #fff));
   box-shadow: var(--nu-focus-background-shadow);
   transition: box-shadow var(--quick-animation-time) linear;

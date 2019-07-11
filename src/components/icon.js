@@ -8,8 +8,10 @@ import {
 } from '../helpers';
 import NuComponent from './component';
 
-const iconAttrsList = [
+const attrsList = [
+  ...NuComponent.nuAttrs,
   ...GRID_ITEM_ATTRS,
+  'size', 'name', 'inline',
 ];
 
 export default class NuIcon extends NuComponent {
@@ -18,7 +20,7 @@ export default class NuIcon extends NuComponent {
   }
 
   static get nuAttrs() {
-    return NuComponent.nuAttrs.concat(iconAttrsList, ['size', 'name', 'inline']);
+    return attrsList;
   }
 
   nuChanged(name, oldValue, value) {
