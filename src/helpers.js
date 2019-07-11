@@ -102,3 +102,17 @@ export function getParent(element, selector) {
 
   return element;
 }
+
+export const devMode = process.env.NODE_ENV === 'development';
+
+export function log(...args) {
+  if (devMode) {
+    console.log('nude:', ...args);
+  }
+}
+
+export function warn(...args) {
+  if (devMode) {
+    console.warn('nude:', ...args);
+  }
+}

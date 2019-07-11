@@ -15,7 +15,7 @@ export default [
     ],
     plugins: [
       replace({
-        'process.env': JSON.stringify(ENV)
+        'process.env.NODE_ENV': JSON.stringify(ENV),
       }),
       ENV === 'production' ? minify({
         comments: false,
@@ -35,7 +35,7 @@ export default [
     ],
     plugins: [
       replace({
-        'process.env': JSON.stringify(ENV)
+        'process.env.NODE_ENV': JSON.stringify(ENV),
       }),
       ENV === 'production' ? minify({
         comments: false,

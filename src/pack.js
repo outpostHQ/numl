@@ -17,6 +17,7 @@ import {
   NuToggle,
   NuFlex,
 } from './index';
+import { log } from './helpers';
 
 [
   NuGridCell,
@@ -41,7 +42,5 @@ import {
 
   customElements.define(tagName, customElement);
 
-  if (process.env === 'development') {
-    console.log('nude: custom element registered', `<${tagName}/>`);
-  }
+  log('custom element registered', `<${tagName}/>`);
 });

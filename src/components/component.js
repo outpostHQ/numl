@@ -4,9 +4,12 @@ import {
   UNIT_ATTRS,
   convertUnit,
   getParent,
+  devMode,
+  warn,
 } from '../helpers';
 
-let FLEX_PARENTS = ['NU-FLEX', 'NU-LAYOUT'];
+let FLEX_ELEMENTS = ['NU-FLEX', 'NU-LAYOUT'];
+// let GRID_ELEMENTS = ['NU-GRID', 'NU-CARD', 'NU-PANE', 'NU-BTN'];
 
 /**
  * @class
@@ -38,11 +41,11 @@ class NuComponent extends HTMLElement {
   }
 
   static get nuFlexParents() {
-    return FLEX_PARENTS;
+    return FLEX_ELEMENTS;
   }
 
   static set nuFlexParents(value) {
-    FLEX_PARENTS = value;
+    FLEX_ELEMENTS = value;
   }
 
   constructor() {
@@ -336,10 +339,15 @@ class NuComponent extends HTMLElement {
         }
       });
 
-    const parent = this.parentNode;
-
-    if (FLEX_PARENTS.includes(parent.tagName) && parent.nuChanged) {
-      parent.nuChanged('gap', '', this.parentNode.getAttribute('gap'));
+    if (devMode) {
+      if (FLEX_ELEMENTS.includes(this.tagName)) {
+        if (FLEX_ELEMENTS.includes(this.parentNode.tagName)) {
+          warn('flex-container can\'t be a flex-item', this);
+        }
+        // if (GRID_ELEMENTS.includes(this.parentNode.tagName)) {
+        //   warn('flex-container element can\'t be a grid-item', this);
+        // }
+      }
     }
   }
 

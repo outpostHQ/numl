@@ -6,7 +6,7 @@ nu-grid, nu-pane {
   display: grid;
 }
 
-nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card, nu-flex {
+nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card {
   --nu-border-color: transparent;
   --nu-depth-color: transparent;
   --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color);
@@ -38,11 +38,8 @@ nu-flex, nu-layout {
 }
 
 nu-flex > *, nu-layout > * {
-  --nu-item-h-gap: 0;
-  --nu-item-v-gap: 0;
-
-  margin-right: var(--nu-item-h-gap);
-  margin-bottom: var(--nu-item-v-gap);
+  margin-right: var(--nu-h-gap);
+  margin-bottom: var(--nu-v-gap);
 }
 
 nu-layout {
