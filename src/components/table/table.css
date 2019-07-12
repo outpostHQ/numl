@@ -2,7 +2,7 @@ nu-table {
   --cell-padding: .5rem;
   display: grid;
   grid-gap: var(--pixel);
-  background-color: var(--border-color, #d2ddec);
+  background-color: var(--current-border-color, var(--default-border-color, #d2ddec)) !important;
   color: var(--color, #333);
   overflow: auto;
   max-width: 100%;
@@ -10,7 +10,7 @@ nu-table {
 
 nu-cell, nu-grid-cell {
   position: relative;
-  background-color: var(--background-color, #fff);
+  background-color: var(--default-background-color, #fff);
   color: var(--minor-color, #333);
 }
 
