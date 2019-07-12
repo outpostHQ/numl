@@ -141,7 +141,7 @@ class NuComponent extends HTMLElement {
     if (value === false || value == null) {
       this.removeAttribute(mod);
     } else {
-      this.setAttribute(mod, value);
+      this.setAttribute(mod, value === true ? '' : value);
     }
   }
 
