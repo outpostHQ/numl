@@ -4,6 +4,7 @@ nu-icon {
   vertical-align: middle;
   width: 1em;
   height: 1em;
+  background-color: transparent !important;
 }
 
 nu-icon svg {
