@@ -43,9 +43,9 @@ nu-toggle {
 /*  --nu-border-color: transparent !important;*/
 /*}*/
 
-nu-toggle[nu-inverted][nu-toggled] {
-  --nu-border-color: var(--current-background-color, var(--background-color, #fff));
-}
+/*nu-toggle[nu-inverted][nu-toggled] {*/
+/*  --nu-border-color: var(--current-background-color, var(--background-color, #fff));*/
+/*}*/
 
 nu-toggle:not([disabled])::after {
   content: "";

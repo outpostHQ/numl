@@ -44,13 +44,21 @@ class NuBtn extends NuComponent {
 
     this.nuSetFocusable(!this.hasAttribute('disabled'));
 
-    this.addEventListener('click', () => {
+    this.addEventListener('click', (evt) => {
+      if (evt.nuHandled) return;
+
+      evt.nuHandled = true;
+
       if (!this.hasAttribute('disabled')) {
         this.nuTap();
       }
     });
 
     this.addEventListener('keydown', evt => {
+      if (evt.nuHandled) return;
+
+      evt.nuHandled = true;
+
       if ((evt.key === 'Enter' || evt.key === 'Space')
         && !this.hasAttribute('disabled')) {
         this.nuTap();
