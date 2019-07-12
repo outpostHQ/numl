@@ -42,11 +42,10 @@ export default class NuTable extends NuComponent {
   }
 
   nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
     if (name === 'padding') {
-      this.style.padding = '';
       this.style.setProperty('--cell-padding', convertUnit(value) || '');
+    } else {
+      super.nuChanged(name, oldValue, value);
     }
   }
 }

@@ -4,6 +4,7 @@ import {
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
 } from '../helpers';
+import Nude from '../nude';
 import NuComponent from './component';
 
 const attrsList = [
@@ -32,43 +33,43 @@ class NuGrid extends NuComponent {
     return propAttrs;
   }
 
-  nuSetFlowGap() {
+  nuSetFlexFlow() {
     const flowAttr = this.getAttribute('flow');
 
-    this.nuFlexFlow = 'row';
-    this.nuFlexWrap = false;
+    this.nuFlexFlow = flowAttr && flowAttr.startsWith('column') ? 'column' : 'row';
+    this.nuFlexWrap = flowAttr && flowAttr.includes(' wrap');
 
-    if (flowAttr && flowAttr.startsWith('column')) {
-      this.nuFlexFlow = 'column';
-      this.nuSetProp('flow-gap', 'var(--nu-v-gap)');
-    } else {
-      this.nuSetProp('flow-gap', 'var(--nu-h-gap)');
-    }
+    const gapAttr = this.getAttribute('gap');
+    const gap = this.nuComputeStyle('gap', gapAttr);
 
-    if (flowAttr && flowAttr.includes(' wrap')) {
-      this.nuFlexWrap = true;
-    }
+    const values = (gap || '').split(/\s/);
+    const hGap = values[1] || gap, vGap = values[0];
+
+    Nude.CSS.generateRules(this.tagName, {
+      flow: flowAttr,
+      gap: gapAttr,
+    }, {
+      'flex-flow': flowAttr,
+      '--nu-flow-gap': this.nuFlexFlow === 'column' ? 'var(--nu-v-gap)' : 'var(--nu-h-gap)',
+      '--nu-h-gap': this.nuFlexWrap || this.nuFlexFlow === 'row' ? hGap : '',
+      '--nu-v-gap': this.nuFlexWrap || this.nuFlexFlow === 'column' ? vGap : '',
+    });
   }
 
   nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
     if (name === 'gap' || name === 'flow') {
-      const gap = this.nuComputeStyle('gap', this.getAttribute('gap'));
-      const values = (gap || '').split(/\s/);
-
-      let hGap = values[1] || gap, vGap = values[0];
-
-      this.nuSetFlowGap();
-      this.nuSetProp('h-gap', this.nuFlexWrap || this.nuFlexFlow === 'row' ? hGap : '', true);
-      this.nuSetProp('v-gap', this.nuFlexWrap || this.nuFlexFlow === 'column' ? vGap : '', true);
+      this.nuSetFlexFlow();
+    } else {
+      super.nuChanged(name, oldValue, value);
     }
   }
 
   nuMounted() {
     super.nuMounted();
 
-    this.nuSetFlowGap();
+    if (!this.hasAttribute('flow') && !this.hasAttribute('gap')) {
+      this.nuSetFlexFlow();
+    }
   }
 }
 

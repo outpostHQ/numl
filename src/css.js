@@ -19,7 +19,7 @@ export function generateCSS(rules) {
     if (typeof styles === 'object') {
       styles = Object.keys(styles)
         .reduce((total, key) => {
-          return total += `${key}:${styles[key]};`;
+          return total + `${key}:${styles[key]};`;
         }, '');
     }
 
@@ -40,6 +40,44 @@ const map = {};
 const CSS = {
   has(name) {
     return !!map[name];
+  },
+
+  generateRules(tag, attrs, styles) {
+    tag = tag.toLowerCase();
+
+    const attrsQuery = Object.keys(attrs)
+      .reduce((query, attr) => `${query}${attrs[attr] ? `[${attr}="${attrs[attr]}"]` : `:not([${attr}])`}`, '');
+    const stylesString = Object.keys(styles)
+      .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}` : ''};`, '');
+    const key = `${tag}${attrsQuery}`;
+
+    if (map[key]) return;
+
+    const css = generateCSS([[key, stylesString]]);
+
+    const element = inject(css);
+
+    return map[key] = {
+      element,
+      css
+    };
+  },
+
+  generateRule(tag, attr, attrValue, style, styleValue) {
+    tag = tag.toLowerCase();
+
+    const key = `${tag}[${attr}="${attrValue}"]`;
+
+    if (map[key]) return;
+
+    const css = generateCSS([[key, `${style}:${styleValue};`]]);
+
+    const element = inject(css);
+
+    return map[key] = {
+      element,
+      css
+    };
   },
 
   generateTheme(theme) {

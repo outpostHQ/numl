@@ -87,6 +87,8 @@ class NuBtn extends NuComponent {
   }
 
   nuChanged(name, oldValue, value) {
+    super.nuChanged(name, oldValue, value);
+
     switch (name) {
       case 'disabled':
         this.nuSetMod('disabled', value != null);

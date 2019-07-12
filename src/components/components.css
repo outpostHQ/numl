@@ -21,7 +21,6 @@ nu-block {
 }
 
 nu-flex, nu-layout {
-  --nu-flow: row nowrap;
   --nu-width: initial;
   --nu-height: initial;
   --nu-gap: 0;
@@ -30,7 +29,6 @@ nu-flex, nu-layout {
   --nu-v-gap: 0;
 
   display: flex;
-  flex-flow: var(--nu-flow);
   width: calc(var(--nu-width) + var(--nu-h-gap));
   height: calc(var(--nu-height) + var(--nu-v-gap));
   margin-right: calc(var(--nu-h-gap) * -1);

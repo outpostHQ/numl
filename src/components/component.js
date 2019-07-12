@@ -10,6 +10,7 @@ import {
 import NUDE from '../nude';
 
 let FLEX_ELEMENTS = ['NU-FLEX', 'NU-LAYOUT'];
+
 // let GRID_ELEMENTS = ['NU-GRID', 'NU-CARD', 'NU-PANE', 'NU-BTN'];
 
 /**
@@ -74,29 +75,6 @@ class NuComponent extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, value) {
-    value = value == null ? (this.constructor.nuDefaultAttrs[name] || null) : value;
-
-    switch (name) {
-      case 'mod':
-        this.nuUpdateGlobalMods(value);
-        break;
-      case 'theme':
-        this.nuUpdateTheme(value);
-        break;
-      case 'radius':
-        value = convertUnit(value).replace(/\*/g, 'var(--border-radius)');
-
-        this.nuSetProp('border-radius', value);
-      default:
-        if (this.constructor.nuPropAttrs.includes(name)) {
-          this.nuSetProp(name, value, UNIT_ATTRS.includes(name));
-        } else if (STYLES_MAP[name]) {
-          value = this.nuComputeStyle(name, value);
-
-          this.style[STYLES_MAP[name]] = value;
-        }
-    }
-
     this.nuChanged(name, oldValue, value);
   }
 
@@ -321,7 +299,39 @@ class NuComponent extends HTMLElement {
     }
   }
 
-  nuChanged() {
+  nuChanged(name, oldValue, value) {
+    const origValue = value;
+
+    value = value == null ? (this.constructor.nuDefaultAttrs[name] || null) : value;
+
+    switch (name) {
+      case 'mod':
+        this.nuUpdateGlobalMods(value);
+        break;
+      case 'theme':
+        this.nuUpdateTheme(value);
+        break;
+      case 'radius':
+        value = convertUnit(value).replace(/\*/g, 'var(--border-radius)');
+
+        this.nuSetProp('border-radius', value);
+      default:
+        if (this.constructor.nuPropAttrs.includes(name)) {
+          this.nuSetProp(name, value, UNIT_ATTRS.includes(name));
+        } else if (STYLES_MAP[name]) {
+          value = this.nuComputeStyle(name, value);
+
+          if (value) {
+            NUDE.CSS.generateRule(
+              this.tagName,
+              name,
+              origValue,
+              STYLES_MAP[name],
+              value
+            );
+          }
+        }
+    }
   }
 
   nuGetParent(selector) {
