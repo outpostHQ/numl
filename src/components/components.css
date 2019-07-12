@@ -38,8 +38,8 @@ nu-flex, nu-layout {
 }
 
 nu-flex > *, nu-layout > * {
-  margin-right: var(--nu-h-gap);
-  margin-bottom: var(--nu-v-gap);
+  margin-right: var(--nu-h-gap) !important;
+  margin-bottom: var(--nu-v-gap) !important;
 }
 
 nu-layout {

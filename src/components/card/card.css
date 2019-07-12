@@ -6,7 +6,3 @@ nu-card {
   background: var(--background-color);
   scrollbar-width: none;
 }
-
-nu-card[theme]:not([nu-inverted]).-nu-border {
-  --nu-border-color: var(--current-color, var(--border-color)) !important
-}

@@ -7,6 +7,7 @@ import {
   devMode,
   warn,
 } from '../helpers';
+import NUDE from '../nude';
 
 let FLEX_ELEMENTS = ['NU-FLEX', 'NU-LAYOUT'];
 // let GRID_ELEMENTS = ['NU-GRID', 'NU-CARD', 'NU-PANE', 'NU-BTN'];
@@ -25,7 +26,7 @@ class NuComponent extends HTMLElement {
   }
 
   static get nuAttrs() {
-    return ['mod', 'theme'];
+    return ['mod', 'theme', 'cursor'];
   }
 
   static get nuPropAttrs() {
@@ -156,13 +157,13 @@ class NuComponent extends HTMLElement {
     );
   }
 
-  nuSetMod(name, bool) {
+  nuSetMod(name, value) {
     const mod = `nu-${name}`;
 
-    if (bool) {
-      this.setAttribute(mod, '');
-    } else {
+    if (value === false || value == null) {
       this.removeAttribute(mod);
+    } else {
+      this.setAttribute(mod, value);
     }
   }
 
@@ -219,7 +220,7 @@ class NuComponent extends HTMLElement {
   }
 
   nuUpdateTheme(attrTheme) {
-    let color, backgroundColor, specialColor, borderColor, invert = false;
+    let invert = false;
 
     let theme = this.nuGetTheme(attrTheme);
 
@@ -233,7 +234,7 @@ class NuComponent extends HTMLElement {
 
         theme = this.nuGetTheme(parentAttrTheme, true);
 
-        this.nuUpdateTheme(theme);
+        this.nuSetMod('theme', theme);
       }, 0); // parent node could no be ready
 
       return;
@@ -242,58 +243,25 @@ class NuComponent extends HTMLElement {
     const isCurrent = theme === 'current';
     const themeChange = !!this.nuTheme;
 
-    if (theme === 'current') {
-      color = '';
-      backgroundColor = '';
-      specialColor = '';
-      borderColor = '';
-
+    if (isCurrent) {
       if (!this.nuTheme) return;
     } else {
       if (theme.startsWith('!')) {
         theme = theme.slice(1);
+        NUDE.CSS.generateTheme(theme);
         invert = true;
-
-        color = `var(--${theme}-background-color, var(--default-background-color))`;
-        backgroundColor = `var(--${theme}-color, var(--default-color))`;
       } else {
-        color = `var(--${theme}-color, var(--default-color))`;
-        backgroundColor = `var(--${theme}-background-color, var(--default-background-color))`;
+        NUDE.CSS.generateTheme(theme);
       }
-
-      specialColor = `var(--${theme}-special-color, var(--current-color, var(--default-special-color)))`;
-      borderColor = `var(--${theme}-border-color, var(--current-color, var(--default-border-color)))`;
-    }
-
-    if (this.nuThemeProps) {
-      this.style.setProperty('--current-color', isCurrent ? '' : color);
-      this.style.setProperty('--current-background-color', isCurrent ? '' : backgroundColor);
-      this.style.setProperty('--current-special-color', isCurrent ? '' : specialColor);
-      this.style.setProperty('--current-border-color', isCurrent ? '' : borderColor);
-    }
-
-    if (this.nuThemeInvert) {
-      [color, backgroundColor] = [backgroundColor, color];
-    }
-
-    if (this.nuThemeStyles) {
-      this.style.color = color;
-      this.style.backgroundColor = backgroundColor;
     }
 
     if (!isCurrent) {
       this.nuTheme = {
         name: theme,
-        color,
-        backgroundColor,
-        specialColor,
-        borderColor,
         invert
       };
-      this.nuSetMod('inverted', this.nuTheme.invert);
     } else {
       delete this.nuTheme;
-      this.nuSetMod('inverted', false);
     }
 
     if (themeChange) {
@@ -330,6 +298,8 @@ class NuComponent extends HTMLElement {
   }
 
   nuMounted() {
+    this.nuSetMod('inverted', this.nuThemeInvert);
+
     const defaultAttrs = this.constructor.nuDefaultAttrs;
 
     Object.keys(defaultAttrs)

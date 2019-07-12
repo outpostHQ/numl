@@ -38,4 +38,10 @@ export default class NuIcon extends NuComponent {
         this.style['margin-top'] = value != null ? '-0.125em' : '';
     }
   }
+
+  nuUpdateTheme(attrTheme) {
+    super.nuUpdateTheme(attrTheme);
+
+    this.style.backgroundColor = '';
+  }
 }

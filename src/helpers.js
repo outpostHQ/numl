@@ -18,6 +18,7 @@ export const STYLES_MAP = {
   'basis': 'flex-basis',
   'order': 'order',
   'radius': 'border-radius',
+  'cursor': 'cursor',
  };
 
 export const FLEX_ATTRS = [
@@ -65,6 +66,7 @@ export const UNIT_ATTRS = [
   'rows',
   'width',
   'height',
+  'basis',
 ];
 
 export function getMods(mod) {

@@ -4,5 +4,4 @@ nu-badge {
   border-radius: var(--border-radius, .5rem);
   color: var(--current-background-color, var(--background-color, #fff));
   background-color: var(--current-color, var(--color, #333));
-  vertical-align: middle;
 }
