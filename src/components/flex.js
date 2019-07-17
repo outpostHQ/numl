@@ -38,12 +38,17 @@ class NuGrid extends NuComponent {
 
     this.nuFlexFlow = flowAttr && flowAttr.startsWith('column') ? 'column' : 'row';
     this.nuFlexWrap = flowAttr && flowAttr.includes(' wrap');
+    this.nuFlexReverse = flowAttr && flowAttr.includes('-reverse');
 
     const gapAttr = this.getAttribute('gap');
     const gap = this.nuComputeStyle('gap', gapAttr);
 
     const values = splitDimensions(gap || '');
     const hGap = values[1] || gap, vGap = values[0] || gap;
+
+    this.nuSetMod('flow', this.nuFlexFlow);
+    this.nuSetMod('wrap', this.nuFlexWrap);
+    this.nuSetMod('reverse', this.nuFlexReverse);
 
     Nude.CSS.generateRules(this.tagName, {
       flow: flowAttr,

@@ -17,6 +17,7 @@ import NuBadge from './components/badge/badge';
 import NuInput from './components/form/input';
 import NuScroll from './components/scroll/scroll';
 import NuFlex from './components/flex';
+import NuBtnGroup from './components/btn/btn-group';
 
 export {
   NuResponsive,
@@ -36,4 +37,5 @@ export {
   NuScroll,
   NuToggle,
   NuFlex,
+  NuBtnGroup,
 };

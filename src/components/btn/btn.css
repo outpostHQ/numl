@@ -2,7 +2,7 @@ nu-btn {
   --nu-border-color: var(--current-border-color, var(--default-border-color)) inset;
   --nu-toggle-color: transparent;
   --nu-depth-color: transparent;
-  --nu-border-radius: var(--border-radius);
+  --nu-border-radius: var(--default-border-radius);
 
   --nu-toggle-shadow: 0 0 1rem 0 var(--nu-toggle-color) inset;
   --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color);

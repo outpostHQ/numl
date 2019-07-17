@@ -20,7 +20,7 @@ nu-block {
   display: block;
 }
 
-nu-flex, nu-layout {
+nu-flex, nu-layout, nu-btn-group {
   --nu-width: initial;
   --nu-height: initial;
   --nu-gap: 0;
@@ -35,7 +35,7 @@ nu-flex, nu-layout {
   margin-bottom: calc(var(--nu-v-gap) * -1);
 }
 
-nu-flex > *, nu-layout > * {
+nu-flex > *, nu-layout > *, nu-btn-group > * {
   margin-right: var(--nu-h-gap) !important;
   margin-bottom: var(--nu-v-gap) !important;
 }

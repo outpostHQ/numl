@@ -9,7 +9,7 @@ import {
 } from '../helpers';
 import NUDE from '../nude';
 
-let FLEX_ELEMENTS = ['NU-FLEX', 'NU-LAYOUT'];
+let FLEX_ELEMENTS = ['NU-FLEX', 'NU-LAYOUT', 'NU-BTN-GROUP'];
 
 // let GRID_ELEMENTS = ['NU-GRID', 'NU-CARD', 'NU-PANE', 'NU-BTN'];
 
@@ -314,7 +314,15 @@ class NuComponent extends HTMLElement {
       case 'radius':
         value = convertUnit(value).replace(/\*/g, 'var(--border-radius)');
 
-        this.nuSetProp('border-radius', value);
+        NUDE.CSS.generateRule(
+          this.tagName,
+          name,
+          origValue,
+          '--nu-border-radius',
+          value
+        );
+
+        break;
       default:
         if (this.constructor.nuPropAttrs.includes(name)) {
           this.nuSetProp(name, value, UNIT_ATTRS.includes(name));

@@ -16,6 +16,7 @@ import {
   NuScroll,
   NuToggle,
   NuFlex,
+  NuBtnGroup,
 } from './index';
 import { log } from './helpers';
 
@@ -37,6 +38,7 @@ import { log } from './helpers';
   NuScroll,
   NuToggle,
   NuFlex,
+  NuBtnGroup,
 ].forEach(customElement => {
   const tagName = `nu-${customElement.nuTag}`;
 
