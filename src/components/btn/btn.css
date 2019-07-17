@@ -62,6 +62,7 @@ nu-btn[nu-active] {
 
 nu-btn[nu-active]:not([disabled]), nu-btn[nu-toggled]:not([disabled]) {
   --nu-toggle-color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 nu-btn[special] {
