@@ -4,7 +4,7 @@ import {
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
 } from '../helpers';
-import Nude from '../nude';
+import Nude, { splitDimensions } from '../nude';
 import NuComponent from './component';
 
 const attrsList = [
@@ -42,8 +42,8 @@ class NuGrid extends NuComponent {
     const gapAttr = this.getAttribute('gap');
     const gap = this.nuComputeStyle('gap', gapAttr);
 
-    const values = (gap || '').split(/\s/);
-    const hGap = values[1] || gap, vGap = values[0];
+    const values = splitDimensions(gap || '');
+    const hGap = values[1] || gap, vGap = values[0] || gap;
 
     Nude.CSS.generateRules(this.tagName, {
       flow: flowAttr,
