@@ -61,26 +61,6 @@ body {
   /*overscroll-behavior: none;*/
 }
 
-@media (prefers-color-scheme: dark) {
-  html:not(.high-contrast) {
-    filter: invert(90%) hue-rotate(180deg);
-    /*background-color: rgba(15, 17, 19, 1);*/
-  }
-
-  html:not(.high-contrast) img, html:not(.high-contrast) video, html:not(.high-contrast) .no-dark-mode {
-    filter: invert(100%) hue-rotate(180deg) !important;
-  }
-
-  html.high-contrast {
-    filter: brightness(.5) contrast(1.5) brightness(2) invert(90%) hue-rotate(180deg);
-    /*background-color: rgba(15, 17, 19, 1);*/
-  }
-
-  html.high-contrast img, html.high-contrast video, html.high-contrast .no-dark-mode {
-    filter: invert(100%) hue-rotate(180deg) brightness(.5) contrast(0.66666) brightness(2);
-  }
-}
-
 html.dark-mode:not(.high-contrast) {
   filter: invert(90%) hue-rotate(180deg);
   background-color: rgba(15, 17, 19, 1);
@@ -108,13 +88,6 @@ html.high-contrast.dark-mode img, html.high-contrast.dark-mode video, html.high-
 }
 
 html.reduced-motion {
-  --quick-animation-time: 0s;
-  --normal-animation-time: 0s;
-}
-
-@media screen and (prefers-reduced-motion) {
-  :root {
-    --quick-animation-time: 0s;
-    --normal-animation-time: 0s;
-  }
+  --quick-animation-time: 0.001s;
+  --normal-animation-time: 0.001s;
 }
