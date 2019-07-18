@@ -22,6 +22,10 @@ class NuBtn extends NuComponent {
     return 'btn';
   }
 
+  static get nuRole() {
+    return 'button';
+  }
+
   static get nuAttrs() {
     return btnAttrsList;
   }
@@ -55,15 +59,31 @@ class NuBtn extends NuComponent {
     });
 
     this.addEventListener('keydown', evt => {
-      if (evt.nuHandled) return;
+      if (this.hasAttribute('disabled') || evt.nuHandled) return;
 
       evt.nuHandled = true;
 
-      if ((evt.key === 'Enter' || evt.key === 'Space')
-        && !this.hasAttribute('disabled')) {
+      if (evt.key === 'Enter') {
+        this.nuTap();
+      } else if (evt.key === ' ') {
+        evt.preventDefault();
+        this.nuSetMod('active', true);
+      }
+    });
+
+    this.addEventListener('keyup', evt => {
+      if (this.hasAttribute('disabled') || evt.nuHandled) return;
+
+      evt.nuHandled = true;
+
+      if (evt.key === ' ') {
+        evt.preventDefault();
+        this.nuSetMod('active', false);
         this.nuTap();
       }
     });
+
+    this.addEventListener('blur', evt => this.nuSetMod('active', false));
 
     this.addEventListener('mousedown', () => {
       this.nuSetMod('active', true);
