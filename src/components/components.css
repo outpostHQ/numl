@@ -79,7 +79,7 @@ nu-pane {
 }
 
 [nu-focusable][nu-focus] {
-  z-index: 1;
+  z-index: 10;
 }
 
 [nu-focusable][nu-focus]:not(.-nu-cell) {
