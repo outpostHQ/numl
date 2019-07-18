@@ -23,10 +23,10 @@ nu-block {
 nu-flex, nu-layout, nu-btn-group {
   --nu-width: initial;
   --nu-height: initial;
-  --nu-gap: 0;
-  --nu-flow-gap: 0;
-  --nu-h-gap: 0;
-  --nu-v-gap: 0;
+  --nu-gap: 0rem;
+  --nu-flow-gap: 0rem;
+  --nu-h-gap: 0rem;
+  --nu-v-gap: 0rem;
 
   display: flex;
   width: calc(var(--nu-width) + var(--nu-h-gap));
