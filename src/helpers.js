@@ -81,22 +81,6 @@ export function convertUnit(unit) {
   return unit.replace(/([\d.]+)([^a-z\d%.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
 }
 
-export function injectCSS(css) {
-  css = css || '';
-
-  const style = document.createElement('style');
-
-  style.appendChild(document.createTextNode(css));
-
-  document.head.appendChild(style);
-
-  return style;
-}
-
-export function changeCSS(element, css) {
-  if (element.childNodes[0]) element.childNodes[0].nodeValue = css;
-}
-
 export function getParent(element, selector) {
   const elements = [...document.querySelectorAll(selector)];
 

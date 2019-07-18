@@ -1,8 +1,5 @@
-// import { injectCSS } from './helpers';
 import { log } from './helpers';
 import CSS from './css';
-
-// console.log(injectCSS('body { background-color: red; }'));
 
 const dim = document.createElement('div');
 const dimStyle = dim.style;

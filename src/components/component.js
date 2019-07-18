@@ -18,34 +18,62 @@ let FLEX_ELEMENTS = ['NU-FLEX', 'NU-LAYOUT', 'NU-BTN-GROUP'];
  * @abstract
  */
 class NuComponent extends HTMLElement {
+  /**
+   * Element tag name.
+   * @returns {string}
+   */
   static get nuTag() {
     return '';
   }
 
+  /**
+   * Element ARIA Role.
+   * @returns {string}
+   */
   static get nuRole() {
     return '';
   }
 
+  /**
+   * Element attributes list.
+   * @returns {string[]}
+   */
   static get nuAttrs() {
     return ['mod', 'theme', 'cursor'];
   }
 
+  /**
+   * Element properties list.
+   * @returns {string[]}
+   */
   static get nuPropAttrs() {
     return [];
   }
-
+  
+  /**
+   * Element default attribute values
+   * @returns {{}}
+   */
   static get nuDefaultAttrs() {
     return {};
   }
 
+  /**
+   * @private
+   * @returns {string[]}
+   */
   static get observedAttributes() {
     return this.nuAttrs.concat(this.nuAttrs);
   }
 
+  /**
+   * List of tag names of flex containers.
+   * @returns {string[]}
+   */
   static get nuFlexParents() {
     return FLEX_ELEMENTS;
   }
-
+  
   static set nuFlexParents(value) {
     FLEX_ELEMENTS = value;
   }
@@ -62,6 +90,9 @@ class NuComponent extends HTMLElement {
     this.nuRef = null;
   }
 
+  /**
+   * @private
+   */
   connectedCallback() {
     const nuRole = this.constructor.nuRole;
 
@@ -74,10 +105,20 @@ class NuComponent extends HTMLElement {
     this.nuIsMounted = true;
   }
 
+  /**
+   * @private
+   * @param {string} name
+   * @param {*} oldValue
+   * @param {*} value
+   */
   attributeChangedCallback(name, oldValue, value) {
     this.nuChanged(name, oldValue, value);
   }
 
+  /**
+   * Check the parent node and set additional state properties if needed.
+   * @returns {Node}
+   */
   nuDetectParent() {
     const parent = this.parentNode;
 
@@ -88,6 +129,12 @@ class NuComponent extends HTMLElement {
     return parent;
   }
 
+  /**
+   * Calculate the style that needs to be applied based on corresponding attribute.
+   * @param {string} name - attribute name
+   * @param {string} value - original attribute name
+   * @returns {string}
+   */
   nuComputeStyle(name, value) {
     if (UNIT_ATTRS.includes(name)) {
       value = convertUnit(value);
@@ -119,22 +166,11 @@ class NuComponent extends HTMLElement {
     return value;
   }
 
-  nuSetProp(name, value, convert) {
-    const propName = `--nu-${name}`;
-
-    if (value) {
-      this.style.setProperty(propName, convert ? convertUnit(value) : value);
-    } else {
-      this.style.removeProperty(propName);
-    }
-  }
-
-  nuSetChildrenProp(name, value, convert) {
-    this.childNodes.forEach(
-      node => node.nuSetProp && node.nuSetProp(name, value, convert),
-    );
-  }
-
+  /**
+   * Set a local modifier
+   * @param {string} name
+   * @param {string|boolean|*} value - TRUE sets attribute without false, FALSE = removes attribute.
+   */
   nuSetMod(name, value) {
     const mod = `nu-${name}`;
 
@@ -145,12 +181,22 @@ class NuComponent extends HTMLElement {
     }
   }
 
+  /**
+   * Check if element have a local modifier with specific name.
+   * @param {string} name
+   * @returns {boolean}
+   */
   nuHasMod(name) {
     const mod = `nu-${name}`;
 
     return this.hasAttribute(mod);
   }
 
+  /**
+   * Set aria attribute.
+   * @param {string} name
+   * @param {*} value
+   */
   nuSetAria(name, value) {
     if (typeof value === 'boolean') {
       value = value ? 'true' : 'false';
@@ -159,6 +205,10 @@ class NuComponent extends HTMLElement {
     this.setAttribute(`aria-${name}`, value);
   }
 
+  /**
+   * Set global modifier to the element (using class).
+   * @param {string|array|Object} value
+   */
   nuUpdateGlobalMods(value) {
     const mods = getMods(value);
 
@@ -175,6 +225,12 @@ class NuComponent extends HTMLElement {
     this.classList.add(...mods);
   }
 
+  /**
+   * Get full theme name from the attribute.
+   * @param {string} attr
+   * @param {boolean} invert - Set true to retrieve invert theme
+   * @returns {string}
+   */
   nuGetTheme(attr, invert) {
     let theme = '';
 
@@ -197,6 +253,10 @@ class NuComponent extends HTMLElement {
     return theme;
   }
 
+  /**
+   * Update theme of the element.
+   * @param {string} attrTheme
+   */
   nuUpdateTheme(attrTheme) {
     let invert = false;
 
@@ -248,6 +308,10 @@ class NuComponent extends HTMLElement {
     }
   }
 
+  /**
+   * Make element focusable or temporarily disable that ability.
+   * @param {boolean} bool
+   */
   nuSetFocusable(bool) {
     if (bool) {
       this.setAttribute('tabindex', this.nuTabIndex);
@@ -268,6 +332,11 @@ class NuComponent extends HTMLElement {
     this.nuSetMod('focusable', true);
   }
 
+  /**
+   * Emit custom event.
+   * @param {string} name
+   * @param {*} detail
+   */
   nuEmit(name, detail) {
     this.dispatchEvent(new CustomEvent(name, {
       detail,
@@ -275,6 +344,10 @@ class NuComponent extends HTMLElement {
     }));
   }
 
+  /**
+   * Called when element is connected to the DOM.
+   * Can be called twice or more.
+   */
   nuMounted() {
     this.nuSetMod('inverted', this.nuThemeInvert);
 
@@ -299,6 +372,12 @@ class NuComponent extends HTMLElement {
     }
   }
 
+  /**
+   * React to the attribute change.
+   * @param {string} name
+   * @param {*} oldValue
+   * @param {*} value
+   */
   nuChanged(name, oldValue, value) {
     const origValue = value;
 
@@ -325,7 +404,15 @@ class NuComponent extends HTMLElement {
         break;
       default:
         if (this.constructor.nuPropAttrs.includes(name)) {
-          this.nuSetProp(name, value, UNIT_ATTRS.includes(name));
+          if (value) {
+            NUDE.CSS.generateRule(
+              this.tagName,
+              name,
+              origValue,
+              `--nu-${name}`,
+              UNIT_ATTRS.includes(name) ? convertUnit(value) : value
+            );
+          }
         } else if (STYLES_MAP[name]) {
           value = this.nuComputeStyle(name, value);
 
@@ -342,6 +429,10 @@ class NuComponent extends HTMLElement {
     }
   }
 
+  /**
+   * Get parent that satisfies specified selector
+   * @param {string} selector
+   */
   nuGetParent(selector) {
     return getParent(this, selector);
   }
