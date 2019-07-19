@@ -6,6 +6,10 @@ nu-grid, nu-pane {
   display: grid;
 }
 
+nu-grid[inline], nu-pane[inline] {
+  display: inline-grid;
+}
+
 nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card {
   --nu-border-color: transparent;
   --nu-depth-color: transparent;
@@ -33,6 +37,10 @@ nu-flex, nu-layout, nu-btn-group {
   height: calc(var(--nu-height) + var(--nu-v-gap));
   margin-right: calc(var(--nu-h-gap) * -1);
   margin-bottom: calc(var(--nu-v-gap) * -1);
+}
+
+nu-flex[inline], nu-layout[inline], nu-btn-group[inline] {
+  display: inline-flex;
 }
 
 nu-flex > *, nu-layout > *, nu-btn-group > * {

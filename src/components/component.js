@@ -49,7 +49,7 @@ class NuComponent extends HTMLElement {
   static get nuPropAttrs() {
     return [];
   }
-  
+
   /**
    * Element default attribute values
    * @returns {{}}
@@ -73,7 +73,7 @@ class NuComponent extends HTMLElement {
   static get nuFlexParents() {
     return FLEX_ELEMENTS;
   }
-  
+
   static set nuFlexParents(value) {
     FLEX_ELEMENTS = value;
   }
@@ -133,7 +133,7 @@ class NuComponent extends HTMLElement {
    * Calculate the style that needs to be applied based on corresponding attribute.
    * @param {string} name - attribute name
    * @param {string} value - original attribute name
-   * @returns {string}
+   * @returns {string|Object}
    */
   nuComputeStyle(name, value) {
     if (UNIT_ATTRS.includes(name)) {
@@ -146,20 +146,34 @@ class NuComponent extends HTMLElement {
 
         return `calc(${value} - var(--nu-flow-gap))`;
       case 'width':
-        if (!value || !value.endsWith('%')) break;
-
-        this.nuDetectParent();
-
-        if (this.nuFlexItem) {
-          return `calc(${value} - var(--nu-h-gap))`;
-        } else break;
       case 'height':
+        if (value) {
+          value = value.trim();
+
+          if (value.startsWith('clamp(')) {
+            const values = value.slice(6, -1).split(',');
+
+            return {
+              [name]: convertUnit(values[1]),
+              [`min-${name}`]: convertUnit(values[0]),
+              [`max-${name}`]: convertUnit(values[2])
+            };
+          } else if (value.startsWith('minmax(')) {
+            const values = value.slice(7, -1).split(',');
+
+            return {
+              [`min-${name}`]: convertUnit(values[0]),
+              [`max-${name}`]: convertUnit(values[1])
+            };
+          }
+        }
+
         if (!value || !value.endsWith('%')) break;
 
         this.nuDetectParent();
 
         if (this.nuFlexItem) {
-          return `calc(${value} - var(--nu-v-gap))`;
+          return `calc(${value} - var(--nu-${name === 'width' ? 'h' : 'v'}-gap))`;
         } else break;
     }
 
@@ -417,13 +431,21 @@ class NuComponent extends HTMLElement {
           value = this.nuComputeStyle(name, value);
 
           if (value) {
-            NUDE.CSS.generateRule(
-              this.tagName,
-              name,
-              origValue,
-              STYLES_MAP[name],
-              value
-            );
+            if (typeof value === 'string') {
+              NUDE.CSS.generateRule(
+                this.tagName,
+                name,
+                origValue,
+                STYLES_MAP[name],
+                value
+              );
+            } else {
+              NUDE.CSS.generateRules(
+                this.tagName,
+                { [name]: origValue },
+                value
+              );
+            }
           }
         }
     }
