@@ -33,8 +33,8 @@ nu-flex, nu-layout, nu-btn-group {
   --nu-v-gap: 0rem;
 
   display: flex;
-  width: calc(var(--nu-width) + var(--nu-h-gap));
-  height: calc(var(--nu-height) + var(--nu-v-gap));
+  width: calc(var(--nu-width) + var(--nu-h-gap)) !important;
+  height: calc(var(--nu-height) + var(--nu-v-gap)) !important;
   margin-right: calc(var(--nu-h-gap) * -1);
   margin-bottom: calc(var(--nu-v-gap) * -1);
 }

@@ -72,7 +72,7 @@ class NuGrid extends NuComponent {
   nuMounted() {
     super.nuMounted();
 
-    if (!this.hasAttribute('flow') && !this.hasAttribute('gap')) {
+    if (!this.nuHasMod('flow')) {
       this.nuSetFlexFlow();
     }
   }

@@ -65,11 +65,13 @@ class NuInput extends NuComponent {
   nuMounted() {
     super.nuMounted();
 
-    this.nuChanged('disabled', '', this.getAttribute('disabled'));
+    setTimeout(() => {
+      this.nuChanged('disabled', '', this.getAttribute('disabled'));
 
-    if (this.nuRef && !this.nuRef.hasAttribute('placeholder')) {
-      this.nuRef.setAttribute('placeholder', '...');
-    }
+      if (this.nuRef && !this.nuRef.hasAttribute('placeholder')) {
+        this.nuRef.setAttribute('placeholder', '...');
+      }
+    });
   }
 
   nuUpdateTheme(theme) {

@@ -328,9 +328,9 @@ class NuComponent extends HTMLElement {
    */
   nuSetFocusable(bool) {
     if (bool) {
-      this.setAttribute('tabindex', this.nuTabIndex);
+      (this.nuRef || this).setAttribute('tabindex', this.nuTabIndex);
     } else {
-      this.removeAttribute('tabindex');
+      (this.nuRef || this).removeAttribute('tabindex');
     }
 
     if (this.hasAttribute('nu-focusable')) return;
@@ -417,36 +417,47 @@ class NuComponent extends HTMLElement {
 
         break;
       default:
-        if (this.constructor.nuPropAttrs.includes(name)) {
-          if (value) {
+        if (!value) return;
+
+        if (STYLES_MAP[name]) {
+          value = this.nuComputeStyle(name, value);
+
+          if (this.constructor.nuPropAttrs.includes(name)) {
+            const propValue = value && value[name] ? value[name] : value;
+
+            if (typeof value === 'string') {
+              value = {
+                [`--nu-${name}`]: propValue,
+              }
+            } else {
+              value[`--nu-${name}`] = propValue;
+              delete value[name];
+            }
+          }
+
+          if (typeof value === 'string') {
             NUDE.CSS.generateRule(
               this.tagName,
               name,
               origValue,
-              `--nu-${name}`,
-              UNIT_ATTRS.includes(name) ? convertUnit(value) : value
+              STYLES_MAP[name],
+              value
+            );
+          } else {
+            NUDE.CSS.generateRules(
+              this.tagName,
+              { [name]: origValue },
+              value
             );
           }
-        } else if (STYLES_MAP[name]) {
-          value = this.nuComputeStyle(name, value);
-
-          if (value) {
-            if (typeof value === 'string') {
-              NUDE.CSS.generateRule(
-                this.tagName,
-                name,
-                origValue,
-                STYLES_MAP[name],
-                value
-              );
-            } else {
-              NUDE.CSS.generateRules(
-                this.tagName,
-                { [name]: origValue },
-                value
-              );
-            }
-          }
+        } else if (this.constructor.nuPropAttrs.includes(name)) {
+          NUDE.CSS.generateRule(
+            this.tagName,
+            name,
+            origValue,
+            `--nu-${name}`,
+            UNIT_ATTRS.includes(name) ? convertUnit(value) : value,
+          );
         }
     }
   }
