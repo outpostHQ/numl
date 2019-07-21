@@ -56,17 +56,20 @@ body {
   margin: 0;
   padding: 0;
   min-width: var(--min-width);
-  background-color: var(--body-color);
   /*overscroll-behavior: none;*/
+}
+
+body > * {
+  background-color: var(--body-color);
 }
 
 @media (prefers-color-scheme: dark) {
   html {
     filter: invert(90%) hue-rotate(180deg);
-    /*background-color: rgba(15, 17, 19, 1);*/
+    background-color: rgba(15, 17, 19, 1);
   }
 
-  html img, html video, html .no-filter {
+  html [data-no-filter] {
     filter: invert(100%) hue-rotate(180deg) !important;
   }
 }
@@ -92,8 +95,17 @@ input, textarea {
   font-weight: inherit;
 }
 
+ul {
+  display: flex;
+  flex-flow: column;
+}
+
+li:not(:last-child) {
+  margin-bottom: .5em;
+}
+
 ul, li {
-  margin: 0 0 0 1rem;
+  margin: 0 0 0 1em;
   padding: 0;
   line-height: 1.5;
 }
@@ -135,4 +147,18 @@ h6, .-nu-h6 {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 500;
+}
+
+a {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+a:not(:focus):not(:hover) {
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  text-decoration: underline;
+  outline: none;
 }
