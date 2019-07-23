@@ -12,10 +12,20 @@ export function unit(name) {
   } : null;
 }
 
+export function proportionUnit(val) {
+  if (val.includes('/')) {
+    const tmp = val.split('/');
+
+    val = `${(Number(tmp[0]) / Number(tmp[1]) * 100).toFixed(4)}%`;
+  }
+
+  return val;
+}
+
 function sizeUnit(name) {
   return (val) => {
     if (val) {
-      val = val.trim();
+      val = proportionUnit(val.trim());
 
       if (val.startsWith('clamp(')) {
         const values = val.slice(6, -1).split(',');
@@ -60,11 +70,17 @@ export const FLEX_ATTRS = {
   basis: '',
 };
 
+const basisUnit = unit('flex-basis');
+
 export const FLEX_ITEM_ATTRS = {
   ...PLACE_SELF_ATTRS,
   grow: 'flex-grow',
   shrink: 'flex-shrink',
-  basis: unit('flex-basis'),
+  basis(val) {
+    val = proportionUnit(val);
+
+    return basisUnit(val);
+  },
 };
 
 export const GRID_ITEM_ATTRS = {
