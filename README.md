@@ -7,7 +7,7 @@ Smallest UI library based on Custom Elements that lets you create gorgeous web i
 * **Tiny** but **Powerful** microframework. No dependencies.
 * Very **customizable**. Write your own element, modifier or plugin.
 * **Easy to learn**. Based on web standards. Simple API.
-* Integrated **ARIA** support. Nude is developed with accessibility requirements in mind.
+* Integrated **ARIA** support. Developed with accessibility requirements in mind.
 * **Compatible** with any popular framework: Vue, React, Angular, Svelte, etc...
 
 ## Getting started
