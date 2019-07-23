@@ -60,7 +60,7 @@ nu-btn[nu-active] {
   text-decoration: none;
 }
 
-nu-btn[nu-active]:not([disabled]), nu-btn[nu-toggled]:not([disabled]) {
+nu-btn[nu-active]:not([disabled]):not([nu-toggled]), nu-btn[nu-toggled]:not([disabled]):not([nu-active]) {
   --nu-toggle-color: rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
