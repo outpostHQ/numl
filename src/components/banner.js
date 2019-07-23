@@ -2,7 +2,7 @@ import NuGrid from './grid';
 
 export default class NuBanner extends NuGrid {
   static get nuTag() {
-    return 'layout';
+    return 'banner';
   }
 
   static get nuRole() {

@@ -10,13 +10,15 @@ nu-grid[inline], nu-pane[inline] {
   display: inline-grid;
 }
 
-nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card {
-  --nu-border-color: transparent;
-  --nu-depth-color: transparent;
-  --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color);
-  --nu-depth-shadow: 0 0 1.5rem var(--nu-depth-color);
+nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card, nu-flex {
+  --nu-border-radius: 0rem;
+
+  --nu-border-color: var(--current-border-color, var(--default-border-color));
+  --nu-border-shadow: 0 0 0 0 var(--nu-border-color);
+  --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
   box-shadow: var(--nu-depth-shadow), var(--nu-border-shadow);
+  border-radius: var(--nu-border-radius);
   box-sizing: border-box;
 }
 
@@ -25,31 +27,62 @@ nu-block {
 }
 
 nu-flex, nu-layout, nu-btn-group {
-  --nu-width: initial;
-  --nu-height: initial;
-  --nu-gap: 0rem;
-  --nu-flow-gap: 0rem;
-  --nu-h-gap: 0rem;
-  --nu-v-gap: 0rem;
+  --nu-flex-gap: 0rem;
 
   display: flex;
-  width: calc(var(--nu-width) + var(--nu-h-gap)) !important;
-  height: calc(var(--nu-height) + var(--nu-v-gap)) !important;
-  margin-right: calc(var(--nu-h-gap) * -1);
-  margin-bottom: calc(var(--nu-v-gap) * -1);
 }
 
 nu-flex[inline], nu-layout[inline], nu-btn-group[inline] {
   display: inline-flex;
 }
 
-nu-flex > *, nu-layout > *, nu-btn-group > * {
-  margin-right: var(--nu-h-gap) !important;
-  margin-bottom: var(--nu-v-gap) !important;
+nu-flex[flow="row-reverse"],
+nu-layout[flow="row-reverse"],
+nu-btn-group[flow="row-reverse"] {
+  flex-flow: row-reverse nowrap;
+}
+
+nu-flex[flow="column"],
+nu-layout[flow="column"],
+nu-btn-group[flow="column"]{
+  flex-flow: column nowrap;
+}
+
+nu-flex[flow="column-reverse"],
+nu-layout[flow="column-reverse"],
+nu-btn-group[flow="column-reverse"] {
+  flex-flow: column-reverse nowrap;
+}
+
+nu-flex:not([flow]) > :not(:last-child),
+nu-flex[flow="row"] > :not(:last-child),
+nu-layout:not([flow]) > :not(:last-child),
+nu-layout[flow="row"] > :not(:last-child),
+nu-btn-group:not([flow]) > :not(:last-child),
+nu-btn-group[flow="row"] > :not(:last-child) {
+  margin-right: var(--nu-flex-gap);
+}
+
+nu-flex[flow="row-reverse"] > :not(:last-child),
+nu-layout[flow="row-reverse"] > :not(:last-child),
+nu-btn-group[flow="row-reverse"] > :not(:last-child) {
+  margin-left: var(--nu-flex-gap);
+}
+
+nu-flex[flow="column"] > :not(:last-child),
+nu-layout[flow="column"] > :not(:last-child),
+nu-btn-group[flow="column"] > :not(:last-child) {
+  margin-bottom: var(--nu-flex-gap);
+}
+
+nu-flex[flow="column-reverse"] > :not(:last-child),
+nu-layout[flow="column-reverse"] > :not(:last-child),
+nu-btn-group[flow="column-reverse"] > :not(:last-child) {
+  margin-top: var(--nu-flex-gap);
 }
 
 nu-layout {
-  --nu-flow: column nowrap;
+  flex-flow: column nowrap;
   place-content: stretch start;
   place-items: stretch;
 }
@@ -102,4 +135,14 @@ nu-pane {
 
 [nu-focusable][disabled] {
   --nu-focus-color: transparent !important;
+}
+
+[nu-theme="current"] {
+  color: var(--current-color);
+  background-color: var(--current-background-color);
+}
+
+[nu-theme="!current"] {
+  color: var(--current-background-color);
+  background-color: var(--current-color);
 }

@@ -3,27 +3,24 @@ import {
   GRID_ATTRS,
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
-  convertUnit
+  convertUnit,
+  unit,
 } from '../../helpers';
 import NuComponent from '../component';
 
-const attrsList = [
-  ...NuComponent.nuAttrs,
+const attrsList = NuComponent.nuAttrs;
+
+Object.assign(attrsList, {
   ...GRID_ATTRS,
   ...GRID_ITEM_ATTRS,
   ...BLOCK_ATTRS,
-  'autofocus',
-  'disabled',
-  'value',
-  'placeholder',
-  'maxlength',
-  'name',
-];
-
-const propAttrs = [
-  ...NuComponent.nuPropAttrs,
-  'padding',
-];
+  autofocus: '',
+  disabled: '',
+  value: '',
+  maxlength: '',
+  name: '',
+  padding: unit('--nu-padding'),
+});
 
 class NuInput extends NuComponent {
   static get nuTag() {
@@ -32,14 +29,6 @@ class NuInput extends NuComponent {
 
   static get nuAttrs() {
     return attrsList;
-  }
-
-  static get nuPropAttrs() {
-    return propAttrs;
-  }
-
-  constructor() {
-    super();
   }
 
   nuInitRef() {

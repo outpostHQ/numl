@@ -3,15 +3,19 @@ import {
   GRID_ATTRS,
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
-  convertUnit
+  convertUnit,
+  unit,
 } from '../../helpers';;
 import NuComponent from '../component';
 
-const tableAttrsList = [
+const attrs = NuComponent.nuAttrs;
+
+Object.assign(attrs, {
   ...GRID_ATTRS,
   ...GRID_ITEM_ATTRS,
   ...BLOCK_ATTRS,
-];
+  padding: unit('--nu-cell-padding'),
+});
 
 export default class NuTable extends NuComponent {
   static get nuTag() {
@@ -23,7 +27,7 @@ export default class NuTable extends NuComponent {
   }
 
   static get nuAttrs() {
-    return NuComponent.nuAttrs.concat(tableAttrsList);
+    return attrs;
   }
 
   constructor(props) {
@@ -34,18 +38,5 @@ export default class NuTable extends NuComponent {
 
   nuMounted() {
     super.nuMounted();
-
-    if (!this.hasAttribute('theme')) {
-      this.style.setProperty('--current-color', 'var(--minor-color)');
-      this.style.setProperty('--current-background-color', 'var(--minor-background-color)');
-    }
-  }
-
-  nuChanged(name, oldValue, value) {
-    if (name === 'padding') {
-      this.style.setProperty('--cell-padding', convertUnit(value) || '');
-    } else {
-      super.nuChanged(name, oldValue, value);
-    }
   }
 }

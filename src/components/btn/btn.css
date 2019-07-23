@@ -4,9 +4,9 @@ nu-btn {
   --nu-depth-color: transparent;
   --nu-border-radius: var(--default-border-radius);
 
-  --nu-toggle-shadow: 0 0 1rem 0 var(--nu-toggle-color) inset;
+  --nu-toggle-shadow: 0 0 1em 0 var(--nu-toggle-color) inset;
   --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color);
-  --nu-depth-shadow: 0 .25rem 1.5rem var(--nu-depth-color);
+  --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
   position: relative;
   display: inline-grid;

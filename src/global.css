@@ -2,11 +2,11 @@ html {
   --base: 16px;
   --pixel: 1px;
   --border-radius: .5rem;
+  --nu-depth-opacity: 0.1;
 
   /* main theme */
   --color: #333;
   --background-color: #fff;
-  --shadow-color: rgba(18, 38, 63, 0.1);
   --border-color: #d2ddec;
   --body-color: #f9fbfd;
 
@@ -162,3 +162,20 @@ a:hover, a:focus {
   text-decoration: underline;
   outline: none;
 }
+
+/*nu-grid[cols="1fr 10"] {*/
+/*  display: grid;*/
+/*  grid-template-columns: 1fr 10rem;*/
+/*}*/
+/*nu-flex[gap=".5"] {*/
+/*  !* polyfill *!*/
+/*}*/
+/*nu-block[padding="1"] {*/
+/*  padding: 1rem;*/
+/*}*/
+
+/*nu-block[mod="w6 underline uppercase"] {*/
+/*  font-weight: 600;*/
+/*  text-decoration: underline;*/
+/*  text-transform: uppercase;*/
+/*}*/

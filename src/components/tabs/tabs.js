@@ -3,6 +3,6 @@ import NuGrid from '../grid';
 
 export default class NuTabs extends NuGrid {
   static get nuTag() {
-    return 'card';
+    return 'tabs';
   }
 }

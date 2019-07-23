@@ -1,5 +1,8 @@
 nu-table {
-  --cell-padding: .5rem;
+  --nu-cell-padding: .5rem;
+  --current-color: var(--minor-color);
+  --current-background-color: var(--minor-background-color);
+
   display: grid;
   grid-gap: var(--pixel);
   background-color: var(--current-border-color, var(--default-border-color, #d2ddec)) !important;
@@ -20,7 +23,7 @@ nu-grid-cell {
 }
 
 nu-cell, nu-grid-cell {
-  padding: var(--cell-padding);
+  padding: var(--nu-cell-padding);
 }
 
 nu-cell {

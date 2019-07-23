@@ -3,7 +3,7 @@ import './nude';
 import NuResponsive from './components/responsive';
 import NuGrid from './components/grid';
 import NuBlock from './components/block';
-import NuIcon from './components/icon';
+import NuIcon from './components/icon/icon';
 import NuSeparator from './components/separator/separator';
 import NuPane from './components/pane';
 import NuCard from './components/card/card';

@@ -5,12 +5,13 @@ import {
 } from '../helpers';
 import NuComponent from './component';
 
-const attrsList = [
-  ...NuComponent.nuAttrs,
+const attrs = NuComponent.nuAttrs;
+
+Object.assign(attrs, {
   ...GRID_ITEM_ATTRS,
   ...BLOCK_ATTRS,
   ...FLEX_ITEM_ATTRS,
-];
+});
 
 class NuBlock extends NuComponent {
   static get nuTag() {
@@ -18,7 +19,7 @@ class NuBlock extends NuComponent {
   }
 
   static get nuAttrs() {
-    return attrsList;
+    return attrs;
   }
 }
 

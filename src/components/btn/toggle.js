@@ -6,12 +6,14 @@ import {
 import NuComponent from '../component';
 import NuBtn from './btn';
 
-const toggleAttrsList = [
-  ...NuComponent.nuAttrs,
+const nuAttrs = NuComponent.nuAttrs;
+
+Object.assign(nuAttrs, {
   ...GRID_ITEM_ATTRS,
   ...BLOCK_ATTRS,
-  'disabled', 'value'
-];
+  disabled: '',
+  value: '',
+});
 
 export default class NuToggle extends NuBtn {
   static get nuTag() {
@@ -19,7 +21,7 @@ export default class NuToggle extends NuBtn {
   }
 
   static get nuAttrs() {
-    return toggleAttrsList;
+    return nuAttrs;
   }
 
   constructor() {

@@ -1,4 +1,12 @@
 import NuBlock from '../block';
+import NuComponent from '../component';
+
+const attrs = NuComponent.nuAttrs;
+
+Object.assign(attrs, {
+  ...NuBlock.nuAttrs,
+  'type': '',
+});
 
 export default class NuCell extends NuBlock {
   static get nuTag() {
@@ -6,7 +14,7 @@ export default class NuCell extends NuBlock {
   }
 
   static get nuAttrs() {
-    return NuBlock.nuAttrs.concat(['type']);
+    return attrs;
   }
 
   nuChanged(name, oldValue, value) {

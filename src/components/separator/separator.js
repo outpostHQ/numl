@@ -3,17 +3,21 @@ import {
   GRID_ATTRS,
   GRID_ITEM_ATTRS,
   FLEX_ITEM_ATTRS,
-  convertUnit
+  convertUnit,
+  unit,
 } from '../../helpers';
 import NuComponent from '../component';
 
-const attrsList = [
-  ...NuComponent.nuAttrs,
+const nuAttrs = NuComponent.nuAttrs;
+
+Object.assign(nuAttrs, {
   ...GRID_ATTRS,
   ...GRID_ITEM_ATTRS,
   ...FLEX_ITEM_ATTRS,
-  'orientation', 'size', 'color',
-];
+  orientation: '',
+  size: unit('--nu-line-size'),
+  color: '--nu-line-color',
+});
 
 export default class NuSeparator extends NuComponent {
   static get nuTag() {
@@ -25,7 +29,7 @@ export default class NuSeparator extends NuComponent {
   }
 
   static get nuAttrs() {
-    return NuComponent.nuAttrs.concat(attrsList, ['orientation', 'size', 'color']);
+    return nuAttrs;
   }
 
   constructor(props) {
@@ -39,17 +43,9 @@ export default class NuSeparator extends NuComponent {
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
-    switch (name) {
-      case 'orientation':
-        this.nuSetMod('vertical', value === 'vertical');
-        this.nuSetAria('orientation', value === 'vertical' ? 'vertical' : null);
-        break;
-      case 'size':
-        this.style.setProperty('--line-size', convertUnit(value || ''));
-        break;
-      case 'color':
-        this.style.setProperty('--line-color', value || '');
-        break;
+    if (name === 'orientation') {
+      this.nuSetMod('vertical', value === 'vertical');
+      this.nuSetAria('orientation', value === 'vertical' ? 'vertical' : null);
     }
   }
 }

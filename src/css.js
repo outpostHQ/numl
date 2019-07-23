@@ -10,21 +10,34 @@ export function inject(css) {
   return style;
 }
 
-export function generateCSS(rules) {
-  return rules.map(([selector, styles]) => {
-    if (Array.isArray(selector)) {
-      selector = selector.join(',');
-    }
+export function attrsQuery(attrs) {
+  return Object.keys(attrs)
+    .reduce((query, attr) => {
+      const val = attrs[attr];
 
-    if (typeof styles === 'object') {
-      styles = Object.keys(styles)
-        .reduce((total, key) => {
-          return total + `${key}:${styles[key]};`;
-        }, '');
-    }
+      return `${query}${val != null ? `[${attr}${val ? `="${val}"` : ''}]` : `:not([${attr}])`}`
+    }, '');
+}
 
-    return `${selector}{${styles}}`;
-  }).join('');
+export function stylesString(styles) {
+  return Object.keys(styles)
+    .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}` : ''};`, '');
+}
+
+export function injectCSS(name, selector, css) {
+  const element = inject(css);
+
+  map[name] = {
+    selector,
+    css,
+    element,
+  };
+
+  return map[name];
+}
+
+export function hasCSS(name) {
+  return !!map[name];
 }
 
 function invertTheme(theme) {
@@ -42,44 +55,6 @@ const CSS = {
     return !!map[name];
   },
 
-  generateRules(tag, attrs, styles) {
-    tag = tag.toLowerCase();
-
-    const attrsQuery = Object.keys(attrs)
-      .reduce((query, attr) => `${query}${attrs[attr] ? `[${attr}="${attrs[attr]}"]` : `:not([${attr}])`}`, '');
-    const stylesString = Object.keys(styles)
-      .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}` : ''};`, '');
-    const key = `${tag}${attrsQuery}`;
-
-    if (map[key]) return;
-
-    const css = generateCSS([[key, stylesString]]);
-
-    const element = inject(css);
-
-    return map[key] = {
-      element,
-      css
-    };
-  },
-
-  generateRule(tag, attr, attrValue, style, styleValue) {
-    tag = tag.toLowerCase();
-
-    const key = `${tag}[${attr}="${attrValue}"]`;
-
-    if (map[key]) return;
-
-    const css = generateCSS([[key, `${style}:${styleValue};`]]);
-
-    const element = inject(css);
-
-    return map[key] = {
-      element,
-      css
-    };
-  },
-
   generateTheme(theme) {
     const key = `theme-${theme}`;
 
@@ -88,7 +63,7 @@ const CSS = {
     const specialColor = `var(--${theme}-special-color, var(--current-color, var(--default-special-color)))`;
     const borderColor = `var(--${theme}-border-color, var(--current-color, var(--default-border-color)))`;
 
-    const rules = [[
+    const css = [[
       theme,
       `var(--${theme}-color, var(--default-color))`,
       `var(--${theme}-background-color, var(--default-background-color))`,
@@ -101,19 +76,17 @@ const CSS = {
       specialColor,
       borderColor
     ]].map(([theme, color, backgroundColor, specialColor, borderColor]) => {
-      return [
-        `[theme="${theme}"]:not([nu-inverted]),[theme="${invertTheme(theme)}"][nu-inverted],[nu-theme="${theme}"]`,
-        `
+      return`
+        [theme="${theme}"]:not([nu-inverted]),[theme="${invertTheme(theme)}"][nu-inverted],[nu-theme="${theme}"]{
           color:${color};
           background-color:${backgroundColor};
           --current-color:${color};
           --current-background-color:${backgroundColor};
           --current-special-color:${specialColor};
           --current-border-color:${borderColor};
-        `];
-    });
-
-    const css = generateCSS(rules);
+        }
+      `;
+    }).join('');
 
     const element = inject(css);
 
@@ -121,7 +94,6 @@ const CSS = {
       theme,
       element,
       css,
-      rules,
     };
   },
 };

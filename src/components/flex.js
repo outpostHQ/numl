@@ -3,22 +3,20 @@ import {
   FLEX_ITEM_ATTRS,
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
+  convertUnit,
 } from '../helpers';
 import Nude, { splitDimensions } from '../nude';
+import { hasCSS, injectCSS, attrsQuery, stylesString } from '../css';
 import NuComponent from './component';
 
-const attrsList = [
-  ...NuComponent.nuAttrs,
+const attrs = NuComponent.nuAttrs;
+
+Object.assign(attrs, {
   ...FLEX_ATTRS,
   ...GRID_ITEM_ATTRS,
   ...FLEX_ITEM_ATTRS,
   ...BLOCK_ATTRS,
-];
-
-const propAttrs = [
-  ...NuComponent.nuPropAttrs,
-  'flow', 'height', 'width', 'gap',
-];
+});
 
 class NuGrid extends NuComponent {
   static get nuTag() {
@@ -26,55 +24,34 @@ class NuGrid extends NuComponent {
   }
 
   static get nuAttrs() {
-    return attrsList;
-  }
-
-  static get nuPropAttrs() {
-    return propAttrs;
-  }
-
-  nuSetFlexFlow() {
-    const flowAttr = this.getAttribute('flow');
-
-    this.nuFlexFlow = flowAttr && flowAttr.startsWith('column') ? 'column' : 'row';
-    this.nuFlexWrap = flowAttr && flowAttr.includes(' wrap');
-    this.nuFlexReverse = flowAttr && flowAttr.includes('-reverse');
-
-    const gapAttr = this.getAttribute('gap');
-    const gap = this.nuComputeStyle('gap', gapAttr);
-
-    const values = splitDimensions(gap || '');
-    const hGap = values[1] || gap, vGap = values[0] || gap;
-
-    this.nuSetMod('flow', this.nuFlexFlow);
-    this.nuSetMod('wrap', this.nuFlexWrap);
-    this.nuSetMod('reverse', this.nuFlexReverse);
-
-    Nude.CSS.generateRules(this.tagName, {
-      flow: flowAttr,
-      gap: gapAttr,
-    }, {
-      'flex-flow': flowAttr,
-      '--nu-flow-gap': this.nuFlexFlow === 'column' ? 'var(--nu-v-gap)' : 'var(--nu-h-gap)',
-      '--nu-h-gap': this.nuFlexWrap || this.nuFlexFlow === 'row' ? hGap : '',
-      '--nu-v-gap': this.nuFlexWrap || this.nuFlexFlow === 'column' ? vGap : '',
-    });
+    return attrs;
   }
 
   nuChanged(name, oldValue, value) {
     if (name === 'gap' || name === 'flow') {
-      this.nuSetFlexFlow();
-    } else {
-      super.nuChanged(name, oldValue, value);
-    }
-  }
+      const flowAttr = this.getAttribute('flow');
+      const gapAttr = this.getAttribute('gap');
 
-  nuMounted() {
-    super.nuMounted();
+      this.nuFlexFlow = flowAttr && flowAttr.startsWith('column') ? 'column' : 'row';
 
-    if (!this.nuHasMod('flow')) {
-      this.nuSetFlexFlow();
+      if (flowAttr || gapAttr) {
+        const query = this.nuGetQuery({ flow: flowAttr, gap: gapAttr});
+        const gap = convertUnit(gapAttr) || '0rem';
+
+        if (!hasCSS(query)) {
+          injectCSS(query, query, `${query} > *{--nu-flex-gap:${gap}}`);
+        }
+      }
+    } else if (name === 'basis') {
+      const query = this.nuGetQuery({ basis: value });
+      value = convertUnit(value);
+
+      if (value && !hasCSS(query)) {
+          injectCSS(query, query, `${query} > *{flex-basis:${value}}`);
+        }
     }
+
+    super.nuChanged(name, oldValue, value);
   }
 }
 

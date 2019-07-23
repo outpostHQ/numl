@@ -8,14 +8,18 @@ import {
 import NuComponent from '../component';
 import NuCard from '../card/card';
 
-const btnAttrsList = [
-  ...NuComponent.nuAttrs,
+const nuAttrs = NuComponent.nuAttrs;
+
+Object.assign(nuAttrs, {
   ...GRID_ATTRS,
   ...GRID_ITEM_ATTRS,
   ...FLEX_ITEM_ATTRS,
   ...BLOCK_ATTRS,
-  'disabled', 'value', 'href', 'target'
-];
+  disabled: '',
+  value: '',
+  href: '',
+  target: '',
+});
 
 class NuBtn extends NuComponent {
   static get nuTag() {
@@ -27,7 +31,7 @@ class NuBtn extends NuComponent {
   }
 
   static get nuAttrs() {
-    return btnAttrsList;
+    return nuAttrs;
   }
 
   nuMounted() {

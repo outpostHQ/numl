@@ -1,17 +1,20 @@
 import {
   getMods,
-  STYLES_MAP,
-  UNIT_ATTRS,
   convertUnit,
   getParent,
   devMode,
   warn,
+  getTheme,
 } from '../helpers';
 import NUDE from '../nude';
+import { hasCSS, injectCSS, attrsQuery, stylesString } from '../css';
 
-let FLEX_ELEMENTS = ['NU-FLEX', 'NU-LAYOUT', 'NU-BTN-GROUP'];
-
-// let GRID_ELEMENTS = ['NU-GRID', 'NU-CARD', 'NU-PANE', 'NU-BTN'];
+const attrsObjs = [];
+const plugins = {
+  mod: '',
+  theme: '',
+  cursor: 'cursor',
+};
 
 /**
  * @class
@@ -36,18 +39,18 @@ class NuComponent extends HTMLElement {
 
   /**
    * Element attributes list.
-   * @returns {string[]}
+   * @returns {Object}
    */
   static get nuAttrs() {
-    return ['mod', 'theme', 'cursor'];
+    const obj = {...plugins};
+
+    attrsObjs.push(obj);
+
+    return obj;
   }
 
-  /**
-   * Element properties list.
-   * @returns {string[]}
-   */
-  static get nuPropAttrs() {
-    return [];
+  static get nuAttrsList() {
+    return Object.keys(this.nuAttrs);
   }
 
   /**
@@ -63,19 +66,7 @@ class NuComponent extends HTMLElement {
    * @returns {string[]}
    */
   static get observedAttributes() {
-    return this.nuAttrs.concat(this.nuAttrs);
-  }
-
-  /**
-   * List of tag names of flex containers.
-   * @returns {string[]}
-   */
-  static get nuFlexParents() {
-    return FLEX_ELEMENTS;
-  }
-
-  static set nuFlexParents(value) {
-    FLEX_ELEMENTS = value;
+    return this.nuAttrsList;
   }
 
   constructor() {
@@ -116,68 +107,24 @@ class NuComponent extends HTMLElement {
   }
 
   /**
-   * Check the parent node and set additional state properties if needed.
-   * @returns {Node}
-   */
-  nuDetectParent() {
-    const parent = this.parentNode;
-
-    if (parent && this.nuFlexItem == null) {
-      this.nuFlexItem = parent.tagName === 'NU-FLEX';
-    }
-
-    return parent;
-  }
-
-  /**
    * Calculate the style that needs to be applied based on corresponding attribute.
    * @param {string} name - attribute name
    * @param {string} value - original attribute name
    * @returns {string|Object}
    */
   nuComputeStyle(name, value) {
-    if (UNIT_ATTRS.includes(name)) {
-      value = convertUnit(value);
+    const attrValue = this.constructor.nuAttrs[name];
+
+    if (!attrValue) return null;
+
+    switch (typeof attrValue) {
+      case 'string':
+        return value ? { [attrValue]: value } : null;
+      case 'function':
+        return attrValue(value);
+      default:
+        return null;
     }
-
-    switch (name) {
-      case 'basis':
-        if (!value || !value.endsWith('%')) break;
-
-        return `calc(${value} - var(--nu-flow-gap))`;
-      case 'width':
-      case 'height':
-        if (value) {
-          value = value.trim();
-
-          if (value.startsWith('clamp(')) {
-            const values = value.slice(6, -1).split(',');
-
-            return {
-              [name]: convertUnit(values[1]),
-              [`min-${name}`]: convertUnit(values[0]),
-              [`max-${name}`]: convertUnit(values[2])
-            };
-          } else if (value.startsWith('minmax(')) {
-            const values = value.slice(7, -1).split(',');
-
-            return {
-              [`min-${name}`]: convertUnit(values[0]),
-              [`max-${name}`]: convertUnit(values[1])
-            };
-          }
-        }
-
-        if (!value || !value.endsWith('%')) break;
-
-        this.nuDetectParent();
-
-        if (this.nuFlexItem) {
-          return `calc(${value} - var(--nu-${name === 'width' ? 'h' : 'v'}-gap))`;
-        } else break;
-    }
-
-    return value;
   }
 
   /**
@@ -239,32 +186,8 @@ class NuComponent extends HTMLElement {
     this.classList.add(...mods);
   }
 
-  /**
-   * Get full theme name from the attribute.
-   * @param {string} attr
-   * @param {boolean} invert - Set true to retrieve invert theme
-   * @returns {string}
-   */
-  nuGetTheme(attr, invert) {
-    let theme = '';
-
-    if (attr == null || attr === '') {
-      theme = `${invert ? '!' : ''}current`;
-    } else if (attr === '!') {
-      theme = `${invert ? '' : '!'}current`;
-    } else {
-      theme = attr;
-
-      if (invert) {
-        if (theme.startsWith('!')) {
-          theme = theme.slice(1);
-        } else {
-          theme = `!${theme}`;
-        }
-      }
-    }
-
-    return theme;
+  nuGetQuery(attrs = {}) {
+    return `nu-${this.constructor.nuTag}${attrsQuery(attrs)}`;
   }
 
   /**
@@ -274,17 +197,17 @@ class NuComponent extends HTMLElement {
   nuUpdateTheme(attrTheme) {
     let invert = false;
 
-    let theme = this.nuGetTheme(attrTheme);
+    let theme = getTheme(attrTheme);
 
     if (theme === '!current') {
       setTimeout(() => {
-        if (theme !== this.nuGetTheme(this.getAttribute('theme'))) return;
+        if (theme !== getTheme(this.getAttribute('theme'))) return;
 
         const themeParent = this.nuGetParent('[theme]:not([theme=""]):not([theme="!"])');
 
         let parentAttrTheme = themeParent ? themeParent.getAttribute('theme') : 'default';
 
-        theme = this.nuGetTheme(parentAttrTheme, true);
+        theme = getTheme(parentAttrTheme, true);
 
         this.nuSetMod('theme', theme);
       }, 0); // parent node could no be ready
@@ -294,6 +217,8 @@ class NuComponent extends HTMLElement {
 
     const isCurrent = theme === 'current';
     const themeChange = !!this.nuTheme;
+
+    this.nuSetMod('theme', theme);
 
     if (isCurrent) {
       if (!this.nuTheme) return;
@@ -371,19 +296,9 @@ class NuComponent extends HTMLElement {
       .forEach(attr => {
         if (!this.hasAttribute(attr)) {
           this.setAttribute(attr, defaultAttrs[attr]);
+          this.nuChanged(attr, undefined, defaultAttrs[attr]);
         }
       });
-
-    if (devMode) {
-      if (FLEX_ELEMENTS.includes(this.tagName)) {
-        if (FLEX_ELEMENTS.includes(this.parentNode.tagName)) {
-          warn('flex-container can\'t be a flex-item', this);
-        }
-        // if (GRID_ELEMENTS.includes(this.parentNode.tagName)) {
-        //   warn('flex-container element can\'t be a grid-item', this);
-        // }
-      }
-    }
   }
 
   /**
@@ -393,10 +308,6 @@ class NuComponent extends HTMLElement {
    * @param {*} value
    */
   nuChanged(name, oldValue, value) {
-    const origValue = value;
-
-    value = value == null ? (this.constructor.nuDefaultAttrs[name] || null) : value;
-
     switch (name) {
       case 'mod':
         this.nuUpdateGlobalMods(value);
@@ -404,60 +315,18 @@ class NuComponent extends HTMLElement {
       case 'theme':
         this.nuUpdateTheme(value);
         break;
-      case 'radius':
-        value = convertUnit(value).replace(/\*/g, 'var(--border-radius)');
-
-        NUDE.CSS.generateRule(
-          this.tagName,
-          name,
-          origValue,
-          '--nu-border-radius',
-          value
-        );
-
-        break;
       default:
-        if (!value) return;
+        if (value == null) return;
 
-        if (STYLES_MAP[name]) {
-          value = this.nuComputeStyle(name, value);
+        const computed = this.nuComputeStyle(name, value);
 
-          if (this.constructor.nuPropAttrs.includes(name)) {
-            const propValue = value && value[name] ? value[name] : value;
+        if (!computed) return;
 
-            if (typeof value === 'string') {
-              value = {
-                [`--nu-${name}`]: propValue,
-              }
-            } else {
-              value[`--nu-${name}`] = propValue;
-              delete value[name];
-            }
-          }
+        const query = this.nuGetQuery({[name]: value});
+        const styles = stylesString(computed);
 
-          if (typeof value === 'string') {
-            NUDE.CSS.generateRule(
-              this.tagName,
-              name,
-              origValue,
-              STYLES_MAP[name],
-              value
-            );
-          } else {
-            NUDE.CSS.generateRules(
-              this.tagName,
-              { [name]: origValue },
-              value
-            );
-          }
-        } else if (this.constructor.nuPropAttrs.includes(name)) {
-          NUDE.CSS.generateRule(
-            this.tagName,
-            name,
-            origValue,
-            `--nu-${name}`,
-            UNIT_ATTRS.includes(name) ? convertUnit(value) : value,
-          );
+        if (!hasCSS(query)) {
+          injectCSS(query, query, `${query}{${styles}}`);
         }
     }
   }

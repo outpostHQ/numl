@@ -1,17 +1,17 @@
 nu-separator {
-  --line-color: var(--current-border-color, var(--default-border-color));
-  --line-size: var(--pixel);
+  --nu-line-color: var(--current-border-color, var(--default-border-color));
+  --nu-line-size: var(--pixel);
 
   display: block;
   position: relative;
   min-width: 100%;
   max-width: 100%;
-  min-height: var(--line-size);
-  max-height: var(--line-size);
+  min-height: var(--nu-line-size);
+  max-height: var(--nu-line-size);
   line-height: 0;
   place-self: stretch;
   grid-column: 1 / -1;
-  background-color: var(--line-color);
+  background-color: var(--nu-line-color);
 }
 
 nu-separator[nu-vertical] {
@@ -19,6 +19,6 @@ nu-separator[nu-vertical] {
   grid-column: unset;
   min-height: 100%;
   max-height: unset;
-  min-width: var(--line-size);
-  max-width: var(--line-size);
+  min-width: var(--nu-line-size);
+  max-width: var(--nu-line-size);
 }

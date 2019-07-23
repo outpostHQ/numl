@@ -262,16 +262,16 @@
 
 /* shadow */
 .-nu-shadow {
-  --nu-depth-color: var(--shadow-color) !important;
+  --nu-depth-shadow: 0 0 1rem rgba(0, 0, 0, .075);
 }
 
 .-nu-inset-shadow {
-  --nu-depth-shadow: var(--depth-shadow) inset;
+  --nu-depth-shadow: 0 0 1rem rgba(0, 0, 0, .075) inset;
 }
 
 /* border */
 .-nu-border {
-  --nu-border-color: var(--current-border-color, var(--default-border-color)) !important;
+  --nu-border-shadow: 0 0 0 var(--pixel) var(--current-border-color, var(--default-border-color)) !important;
 }
 
 .-nu-round {
@@ -285,7 +285,7 @@
 /* table */
 .-nu-cell {
   --nu-border-color: rgba(0, 0, 0, 0) !important;
-  --nu-padding: var(--cell-padding);
+  --nu-padding: var(--nu-cell-padding);
   --nu-border-radius: 0;
   place-self: stretch;
 

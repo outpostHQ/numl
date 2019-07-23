@@ -4,3 +4,4 @@ dist
 test/index.html
 .idea
 tmp
+.cache

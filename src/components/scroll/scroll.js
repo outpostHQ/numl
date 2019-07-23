@@ -2,14 +2,20 @@ import './scroll.css';
 import {
   GRID_ATTRS,
   GRID_ITEM_ATTRS,
-  convertUnit
+  convertUnit,
+  unit,
 } from '../../helpers';
 import NuComponent from '../component';
 
-const attrsList = [
+const attrs = NuComponent.nuAttrs;
+
+Object.assign(attrs, {
   ...GRID_ATTRS,
   ...GRID_ITEM_ATTRS,
-];
+  orientation: '',
+  size: unit('--nu-line-size'),
+  color: '--nu-line-color',
+});
 
 export default class NuScroll extends NuComponent {
   static get nuTag() {
@@ -21,7 +27,7 @@ export default class NuScroll extends NuComponent {
   }
 
   static get nuAttrs() {
-    return NuComponent.nuAttrs.concat(attrsList, ['orientation', 'size', 'color']);
+    return attrs;
   }
 
   constructor(props) {
@@ -34,14 +40,9 @@ export default class NuScroll extends NuComponent {
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
-    switch (name) {
-      case 'orientation':
-        this.nuSetMod('horizontal', value !== 'horizontal');
-        this.nuSetAria('orientation', value === 'horizontal' ? null : 'vertical');
-        break;
-      case 'color':
-        this.style.setProperty('--line-color', value || '');
-        break;
+    if (name === 'orientation') {
+      this.nuSetMod('horizontal', value !== 'horizontal');
+      this.nuSetAria('orientation', value === 'horizontal' ? null : 'vertical');
     }
   }
 
@@ -54,7 +55,7 @@ export default class NuScroll extends NuComponent {
       });
     });
 
-    this.parentNode.classList.add('-nu-no-scrollbar');
+    this.parentNode.dataset.dataNuNoScroll = '';
   }
 
   nuUpdate() {
