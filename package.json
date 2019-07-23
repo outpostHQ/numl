@@ -1,10 +1,7 @@
 {
-  "name": "nude",
+  "name": "nude-elements",
   "version": "0.1.0",
   "module": "dist/nude.js",
-  "dependencies": {
-    "ms": "^2.0.0"
-  },
   "devDependencies": {
     "cssnano": "^4.1.10",
     "inline-assets": "^1.4.3",
