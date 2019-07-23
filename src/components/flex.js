@@ -4,7 +4,6 @@ import {
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
   convertUnit,
-  proportionUnit,
 } from '../helpers';
 import Nude, { splitDimensions } from '../nude';
 import { hasCSS, injectCSS, attrsQuery, stylesString } from '../css';
@@ -45,7 +44,7 @@ class NuGrid extends NuComponent {
       }
     } else if (name === 'basis') {
       const query = this.nuGetQuery({ basis: value });
-      value = convertUnit(proportionUnit(value));
+      value = convertUnit(convertUnit(value));
 
       if (value && !hasCSS(query)) {
           injectCSS(query, query, `${query} > *{flex-basis:${value}}`);

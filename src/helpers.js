@@ -3,7 +3,12 @@ export function convertUnit(unit) {
 
   if (unit.includes('(')) return unit;
 
-  return unit.replace(/([\d.]+)([^a-z\d%.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
+  return unit
+    .replace(/\d+\/\d+/g, (val) => {
+	    const tmp = val.split('/');
+      return (Number(tmp[0]) / Number(tmp[1]) * 100).toFixed(4) + '%';
+    })
+    .replace(/([\d.]+)([^a-z\d%.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
 }
 
 export function unit(name) {
@@ -12,21 +17,9 @@ export function unit(name) {
   } : null;
 }
 
-export function proportionUnit(val) {
-  if (val.includes('/')) {
-    const tmp = val.split('/');
-
-    val = `${(Number(tmp[0]) / Number(tmp[1]) * 100).toFixed(4)}%`;
-  }
-
-  return val;
-}
-
 function sizeUnit(name) {
   return (val) => {
     if (val) {
-      val = proportionUnit(val.trim());
-
       if (val.startsWith('clamp(')) {
         const values = val.slice(6, -1).split(',');
 
@@ -70,17 +63,11 @@ export const FLEX_ATTRS = {
   basis: '',
 };
 
-const basisUnit = unit('flex-basis');
-
 export const FLEX_ITEM_ATTRS = {
   ...PLACE_SELF_ATTRS,
   grow: 'flex-grow',
   shrink: 'flex-shrink',
-  basis(val) {
-    val = proportionUnit(val);
-
-    return basisUnit(val);
-  },
+  basis: unit('flex-basis'),
 };
 
 export const GRID_ITEM_ATTRS = {
