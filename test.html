@@ -1,8 +1,12 @@
 <head>
+  <script>
+    window.global = window;
+    var parcelRequire;
+  </script>
   <script src="dist/nude.pack.js" type="module"></script>
-  <link rel="stylesheet" href="dist/nude.global.css">
-  <link rel="stylesheet" href="dist/nude.modifiers.css">
-  <link rel="stylesheet" href="dist/nude.pack.css">
+  <link rel="stylesheet" href="src/index.global.js">
+  <link rel="stylesheet" href="src/index.modifiers.js">
+  <link rel="stylesheet" href="src/pack.js">
 </head>
 <body>
 <nu-responsive phone="320" tablet="980" desktop="1280"></nu-responsive>
@@ -64,7 +68,7 @@
       </nu-block>
     </nu-flex>
   </nu-card>
-  <nu-card theme="minor" mod="shadow border" radius="1.5">
+  <nu-card theme="minor" mod="border" radius="1.5" depth>
     <nu-flex flow="column" gap="1">
       <nu-block>
         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an

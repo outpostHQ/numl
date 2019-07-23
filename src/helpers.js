@@ -108,7 +108,7 @@ export const BLOCK_ATTRS = {
     if (val == null) return val;
 
     const depth = convertUnit(val || '1');
-    const opacity = (val || 1) && (.075 / Math.pow(parseFloat(val), 1 / 1.5)) || '.075';
+    const opacity = (val || 1) && (.075 / Math.pow(parseFloat(val), 1 / 2)) || '.075';
 
     return {
       '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, ${opacity})`,
