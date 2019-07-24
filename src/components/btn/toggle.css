@@ -34,7 +34,7 @@ nu-toggle {
   vertical-align: middle;
 }
 
-nu-toggle:not([disabled])::after {
+nu-toggle::after {
   content: "";
   position: absolute;
   display: block;
