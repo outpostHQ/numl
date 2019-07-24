@@ -10,9 +10,17 @@ import {
 import { hasCSS, injectCSS } from '../css';
 import NuElement from './element';
 
+const ITEMS_ATTRS = ['items-basis', 'items-grow', 'items-shrink'];
+
 class NuGrid extends NuElement {
   static get nuTag() {
     return 'flex';
+  }
+
+  static get nuDefaultAttrs() {
+    return {
+      flow: 'row',
+    };
   }
 
   static get nuAttrs() {
@@ -29,8 +37,6 @@ class NuGrid extends NuElement {
       const flowAttr = this.getAttribute('flow');
       const gapAttr = this.getAttribute('gap');
 
-      this.nuFlexFlow = flowAttr && flowAttr.startsWith('column') ? 'column' : 'row';
-
       if (flowAttr || gapAttr) {
         const query = this.nuGetQuery({ flow: flowAttr, gap: gapAttr });
         const gap = convertUnit(gapAttr) || '0rem';
@@ -39,12 +45,15 @@ class NuGrid extends NuElement {
           injectCSS(query, query, `${query} > *{--nu-flex-gap:${gap}}`);
         }
       }
-    } else if (name === 'basis') {
-      const query = this.nuGetQuery({ basis: value });
+    } else if (ITEMS_ATTRS.includes(name)) {
+      const query = this.nuGetQuery({ [name]: value });
+
       value = convertUnit(convertUnit(value));
 
       if (value && !hasCSS(query)) {
-        injectCSS(query, query, `${query} > *{flex-basis:${value}}`);
+        const styleName = `flex-${name.split('-')[1]}`;
+
+        injectCSS(query, query, `${query} > *{${styleName}:${value}}`);
       }
     }
 

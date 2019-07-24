@@ -14,7 +14,9 @@ export const FLEX_ATTRS = {
   flow: 'flex-direction',
   order: 'order',
   gap: '',
-  basis: '',
+  'items-basis': '',
+  'items-grow': '',
+  'items-shrink': '',
 };
 
 export const FLEX_ITEM_ATTRS = {
