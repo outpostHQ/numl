@@ -4,6 +4,7 @@ import NuFlex from '../flex';
 const defaultAttrs = {
   gap: 'calc(var(--pixel) * -1)',
   flow: 'row',
+  'items-grow': 1,
 };
 
 export default class NuBtnGroup extends NuFlex {

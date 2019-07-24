@@ -48,7 +48,9 @@ class NuGrid extends NuElement {
     } else if (ITEMS_ATTRS.includes(name)) {
       const query = this.nuGetQuery({ [name]: value });
 
-      value = convertUnit(convertUnit(value));
+      if (value === 'basis') {
+        value = convertUnit(convertUnit(value));
+      }
 
       if (value && !hasCSS(query)) {
         const styleName = `flex-${name.split('-')[1]}`;

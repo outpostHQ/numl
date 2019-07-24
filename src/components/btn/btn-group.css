@@ -6,7 +6,7 @@ nu-btn-group {
 }
 
 nu-btn-group > * {
-  --nu-border-radius: inherit;
+  --nu-border-radius: 0;
 }
 
 nu-btn-group[flow="column"] > :first-child:not(:last-child),
