@@ -12,9 +12,7 @@ nu-grid[inline], nu-pane[inline] {
 
 nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card, nu-flex {
   --nu-border-radius: 0rem;
-
-  --nu-border-color: var(--current-border-color, var(--default-border-color));
-  --nu-border-shadow: 0 0 0 0 var(--nu-border-color);
+  --nu-border-shadow: 0 0 0 0 var(--current-border-color, var(--default-border-color));
   --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
   box-shadow: var(--nu-depth-shadow), var(--nu-border-shadow);
@@ -123,14 +121,16 @@ nu-pane {
   z-index: 10;
 }
 
-[nu-focusable][nu-focus]:not(.-nu-cell) {
+[nu-focusable][nu-focus] {
   --nu-focus-color: var(--current-special-color, var(--primary-color, #333));
-  --nu-focus-background-color: var(--current-background-color, var(--background-color, #fff));
+}
+
+[nu-focusable][nu-focus]:not(.-nu-cell) {
+  --nu-focus-background-color: var(--default-background-color, #fff);
 }
 
 [nu-focusable][nu-focus].-nu-cell {
-  --nu-focus-color: var(--current-special-color, var(--primary-color, #333)) inset;
-  --nu-focus-background-color: var(--current-background-color, var(--background-color, #fff)) inset;
+  --nu-focus-background-color: var(--default-background-color, #fff) inset;
 }
 
 [nu-focusable][disabled] {

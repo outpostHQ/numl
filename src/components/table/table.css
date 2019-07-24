@@ -6,7 +6,7 @@ nu-table {
   display: grid;
   grid-gap: var(--pixel);
   background-color: var(--current-border-color, var(--default-border-color, #d2ddec)) !important;
-  color: var(--color, #333);
+  color: var(--default-color, #333);
   overflow: auto;
   max-width: 100%;
 }
@@ -44,6 +44,6 @@ nu-cell[nu-group], nu-grid-cell[nu-group] {
 }
 
 nu-cell:not([nu-group]):not([nu-header]):not([theme]) {
-  --current-color: var(--color, #333);
-  --current-background-color: var(--background-color, #fff);
+  --current-color: var(--default-color, #333);
+  --current-background-color: var(--default-background-color, #fff);
 }

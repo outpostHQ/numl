@@ -3,25 +3,21 @@ import {
   GRID_ITEM_ATTRS,
   FLEX_ITEM_ATTRS,
   BLOCK_ATTRS,
-} from '../helpers';
-import NuComponent from './component';
+} from '../attrs';
+import NuElement from './element';
 
-const nuAttrs = NuComponent.nuAttrs;
-
-Object.assign(nuAttrs, {
-  ...GRID_ATTRS,
-  ...GRID_ITEM_ATTRS,
-  ...FLEX_ITEM_ATTRS,
-  ...BLOCK_ATTRS
-});
-
-class NuGrid extends NuComponent {
+class NuGrid extends NuElement {
   static get nuTag() {
     return 'grid';
   }
 
   static get nuAttrs() {
-    return nuAttrs;
+    return Object.assign(NuElement.nuAttrs, {
+      ...GRID_ATTRS,
+      ...GRID_ITEM_ATTRS,
+      ...FLEX_ITEM_ATTRS,
+      ...BLOCK_ATTRS
+    });
   }
 }
 

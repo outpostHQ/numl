@@ -16,7 +16,7 @@ nu-btn {
   grid-auto-flow: column;
   grid-gap: .5rem;
   padding: .5rem 1rem;
-  color: var(--current-color, var(--color, #333));
+  color: var(--current-color, var(--default-color, #333));
   background-color: var(--current-background-color, var(--default-background-color));
   cursor: pointer;
   box-shadow: var(--nu-depth-shadow),

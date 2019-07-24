@@ -1,23 +1,14 @@
 import './scroll.css';
 import {
-  GRID_ATTRS,
-  GRID_ITEM_ATTRS,
-  convertUnit,
   unit,
 } from '../../helpers';
-import NuComponent from '../component';
+import {
+  GRID_ATTRS,
+  GRID_ITEM_ATTRS,
+} from '../../attrs';
+import NuElement from '../element';
 
-const attrs = NuComponent.nuAttrs;
-
-Object.assign(attrs, {
-  ...GRID_ATTRS,
-  ...GRID_ITEM_ATTRS,
-  orientation: '',
-  size: unit('--nu-line-size'),
-  color: '--nu-line-color',
-});
-
-export default class NuScroll extends NuComponent {
+export default class NuScroll extends NuElement {
   static get nuTag() {
     return 'scroll';
   }
@@ -27,7 +18,13 @@ export default class NuScroll extends NuComponent {
   }
 
   static get nuAttrs() {
-    return attrs;
+    return Object.assign(NuElement.nuAttrs, {
+      ...GRID_ATTRS,
+      ...GRID_ITEM_ATTRS,
+      orientation: '',
+      size: unit('--nu-line-size'),
+      color: '--nu-line-color',
+    });
   }
 
   constructor(props) {
@@ -55,7 +52,7 @@ export default class NuScroll extends NuComponent {
       });
     });
 
-    this.parentNode.dataset.dataNuNoScroll = '';
+    this.parentNode.dataset.nuNoScroll = '';
   }
 
   nuUpdate() {

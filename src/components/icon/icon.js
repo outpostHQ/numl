@@ -1,36 +1,34 @@
 import './icon.css';
 import {
   convertUnit,
-  GRID_ITEM_ATTRS,
 } from '../../helpers';
+import {
+  GRID_ITEM_ATTRS,
+} from '../../attrs';
 import Nude from '../../nude';
-import NuComponent from '../component';
+import NuElement from '../element';
 
-const attrsList = NuComponent.nuAttrs;
-
-Object.assign(attrsList, {
-  ...GRID_ITEM_ATTRS,
-  size(val) {
-    return val ? {
-      width: convertUnit(val || ''),
-      height: convertUnit(val || ''),
-    } : null;
-  },
-  name: '',
-  inline(val) {
-    return val ? {
-      'margin-top': '-0.125em',
-    } : null;
-  },
-});
-
-export default class NuIcon extends NuComponent {
+export default class NuIcon extends NuElement {
   static get nuTag() {
     return 'icon';
   }
 
   static get nuAttrs() {
-    return attrsList;
+    return Object.assign(NuElement.nuAttrs, {
+      ...GRID_ITEM_ATTRS,
+      size(val) {
+        return val ? {
+          width: convertUnit(val || ''),
+          height: convertUnit(val || ''),
+        } : null;
+      },
+      name: '',
+      inline(val) {
+        return val ? {
+          'margin-top': '-0.125em',
+        } : null;
+      },
+    });
   }
 
   nuChanged(name, oldValue, value) {

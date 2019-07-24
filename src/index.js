@@ -1,4 +1,4 @@
-import './components/components.css';
+import './components/elements.css';
 import './nude';
 import NuResponsive from './components/responsive';
 import NuGrid from './components/grid';

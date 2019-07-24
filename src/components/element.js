@@ -20,7 +20,7 @@ const plugins = {
  * @class
  * @abstract
  */
-class NuComponent extends HTMLElement {
+class NuElement extends HTMLElement {
   /**
    * Element tag name.
    * @returns {string}
@@ -340,4 +340,4 @@ class NuComponent extends HTMLElement {
   }
 }
 
-export default NuComponent;
+export default NuElement;

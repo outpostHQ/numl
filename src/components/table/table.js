@@ -1,23 +1,15 @@
 import './table.css';
 import {
+  unit,
+} from '../../helpers';
+import {
   GRID_ATTRS,
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
-  convertUnit,
-  unit,
-} from '../../helpers';;
-import NuComponent from '../component';
+} from '../../attrs';
+import NuElement from '../element';
 
-const attrs = NuComponent.nuAttrs;
-
-Object.assign(attrs, {
-  ...GRID_ATTRS,
-  ...GRID_ITEM_ATTRS,
-  ...BLOCK_ATTRS,
-  padding: unit('--nu-cell-padding'),
-});
-
-export default class NuTable extends NuComponent {
+export default class NuTable extends NuElement {
   static get nuTag() {
     return 'table';
   }
@@ -27,7 +19,12 @@ export default class NuTable extends NuComponent {
   }
 
   static get nuAttrs() {
-    return attrs;
+    return Object.assign(NuElement.nuAttrs, {
+      ...GRID_ATTRS,
+      ...GRID_ITEM_ATTRS,
+      ...BLOCK_ATTRS,
+      padding: unit('--nu-cell-padding'),
+    });
   }
 
   constructor(props) {

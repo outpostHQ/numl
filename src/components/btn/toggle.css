@@ -1,12 +1,12 @@
 nu-toggle {
-  --nu-border-color: var(--current-border-color, var(--border-color, #ddd));
+  --nu-border-color: var(--current-border-color, var(--default-border-color, #ddd));
   --nu-depth-color: transparent;
   --nu-border-radius: calc(var(--nu-size) / 2);
   --nu-toggle-color: transparent;
 
   --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color) inset;
   --nu-depth-shadow: 0 .25rem 1.5rem var(--nu-depth-color);
-  --nu-background-color: var(--current-background-color, var(--background-color, #fff));
+  --nu-background-color: var(--current-background-color, var(--default-background-color, #fff));
   --nu-toggle-shadow: 0 0 1rem 0 var(--nu-toggle-color) inset;
 
   --nu-size: 2em;
@@ -15,8 +15,7 @@ nu-toggle {
   --nu-circle-offset: var(--nu-circle-padding);
   --nu-circle-opacity: .5;
   --nu-circle-border-radius: calc(var(--nu-circle-size) / 2);
-  /*--nu-circle-background: var(--current-background-color, var(--background-color, #fff));*/
-  --nu-circle-background-color: var(--current-color, var(--color, #333));
+  --nu-circle-background-color: var(--current-color, var(--default-color, #333));
 
   position: relative;
   display: inline-block;
@@ -34,18 +33,6 @@ nu-toggle {
   user-select: none;
   vertical-align: middle;
 }
-
-/*nu-toggle[nu-inverted]:not([nu-toggled]) {*/
-/*  --nu-border-color: transparent !important;*/
-/*}*/
-
-/*nu-toggle:not([nu-inverted])[nu-toggled] {*/
-/*  --nu-border-color: transparent !important;*/
-/*}*/
-
-/*nu-toggle[nu-inverted][nu-toggled] {*/
-/*  --nu-border-color: var(--current-background-color, var(--background-color, #fff));*/
-/*}*/
 
 nu-toggle:not([disabled])::after {
   content: "";

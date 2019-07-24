@@ -1,13 +1,6 @@
 import NuCell from './cell';
 import NuGrid from '../grid';
-import NuComponent from '../component';
-
-const attrs = NuComponent.nuAttrs;
-
-Object.assign(attrs, {
-  ...NuGrid.nuAttrs,
-  'type': '',
-});
+import NuElement from '../element';
 
 export default class NuGridCell extends NuCell {
   static get nuTag() {
@@ -15,6 +8,9 @@ export default class NuGridCell extends NuCell {
   }
 
   static get nuAttrs() {
-    return attrs;
+    return Object.assign(NuElement.nuAttrs, {
+      ...NuGrid.nuAttrs,
+      'type': '',
+    });
   }
 }

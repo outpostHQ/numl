@@ -1,34 +1,31 @@
 import './input.css';
 import {
+  unit,
+} from '../../helpers';
+import {
   GRID_ATTRS,
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
-  convertUnit,
-  unit,
-} from '../../helpers';
-import NuComponent from '../component';
+} from '../../attrs';
+import NuElement from '../element';
 
-const attrsList = NuComponent.nuAttrs;
-
-Object.assign(attrsList, {
-  ...GRID_ATTRS,
-  ...GRID_ITEM_ATTRS,
-  ...BLOCK_ATTRS,
-  autofocus: '',
-  disabled: '',
-  value: '',
-  maxlength: '',
-  name: '',
-  padding: unit('--nu-padding'),
-});
-
-class NuInput extends NuComponent {
+class NuInput extends NuElement {
   static get nuTag() {
     return 'input';
   }
 
   static get nuAttrs() {
-    return attrsList;
+    return Object.assign(NuElement.nuAttrs, {
+      ...GRID_ATTRS,
+      ...GRID_ITEM_ATTRS,
+      ...BLOCK_ATTRS,
+      autofocus: '',
+      disabled: '',
+      value: '',
+      maxlength: '',
+      name: '',
+      padding: unit('--nu-padding'),
+    });
   }
 
   nuInitRef() {

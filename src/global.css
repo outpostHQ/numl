@@ -20,13 +20,19 @@ html {
   /* current theme */
   --current-color: #333;
   --current-background-color: #fff;
+  --current-border-color: var(--default-border-color);
+  --current-sepcial-color: var(--default-special-color);
 
   /* minor theme */
   --minor-color: rgba(93, 113, 143, 1);
   --minor-background-color: #f4f5f6;
+  --minor-border-color: var(--default-border-color);
+  --minor-sepcial-color: var(--default-special-color);
 
-  --transparent-color: var(--color);
+  --transparent-color: var(--default-color);
   --transparent-background-color: transparent;
+  --transparent-border-color: var(--default-border-color);
+  --transparent-sepcial-color: var(--default-special-color);
 
   /* action themes */
   --primary-color: #3297db; /* your main color here */
@@ -37,16 +43,12 @@ html {
   --quick-animation-time: .08s;
   --normal-animation-time: .2s;
 
-  /* shadow */
-  --depth-shadow: 0 0.25rem 1.5rem var(--shadow-color);
-  --border-shadow: 0 0 0 var(--pixel) var(--border-color);
-
   /* main styles */
   margin: 0;
   padding: 0;
   font-family: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, DejaVu Sans, Arial, sans-serif;
   font-size: var(--base);
-  color: var(--color);
+  color: var(--default-color);
   font-weight: normal;
   line-height: 1.5;
   word-spacing: calc(1rem / 8);
@@ -55,7 +57,6 @@ html {
 body {
   margin: 0;
   padding: 0;
-  min-width: var(--min-width);
   /*overscroll-behavior: none;*/
 }
 
@@ -89,7 +90,7 @@ b {
 }
 
 input, textarea {
-  color: var(--color);
+  color: var(--default-color);
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -162,20 +163,3 @@ a:hover, a:focus {
   text-decoration: underline;
   outline: none;
 }
-
-/*nu-grid[cols="1fr 10"] {*/
-/*  display: grid;*/
-/*  grid-template-columns: 1fr 10rem;*/
-/*}*/
-/*nu-flex[gap=".5"] {*/
-/*  !* polyfill *!*/
-/*}*/
-/*nu-block[padding="1"] {*/
-/*  padding: 1rem;*/
-/*}*/
-
-/*nu-block[mod="w6 underline uppercase"] {*/
-/*  font-weight: 600;*/
-/*  text-decoration: underline;*/
-/*  text-transform: uppercase;*/
-/*}*/

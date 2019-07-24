@@ -2,6 +2,6 @@ nu-badge {
   display: inline-block;
   padding: 0 .5em;
   border-radius: var(--border-radius, .5rem);
-  color: var(--current-background-color, var(--background-color, #fff));
-  background-color: var(--current-color, var(--color, #333));
+  color: var(--current-background-color, var(--default-background-color, #fff));
+  background-color: var(--current-color, var(--default-color, #333));
 }

@@ -1,25 +1,15 @@
 import './separator.css';
 import {
+  unit,
+} from '../../helpers';
+import {
   GRID_ATTRS,
   GRID_ITEM_ATTRS,
   FLEX_ITEM_ATTRS,
-  convertUnit,
-  unit,
-} from '../../helpers';
-import NuComponent from '../component';
+} from '../../attrs';
+import NuElement from '../element';
 
-const nuAttrs = NuComponent.nuAttrs;
-
-Object.assign(nuAttrs, {
-  ...GRID_ATTRS,
-  ...GRID_ITEM_ATTRS,
-  ...FLEX_ITEM_ATTRS,
-  orientation: '',
-  size: unit('--nu-line-size'),
-  color: '--nu-line-color',
-});
-
-export default class NuSeparator extends NuComponent {
+export default class NuSeparator extends NuElement {
   static get nuTag() {
     return 'separator';
   }
@@ -29,7 +19,14 @@ export default class NuSeparator extends NuComponent {
   }
 
   static get nuAttrs() {
-    return nuAttrs;
+    return Object.assign(NuElement.nuAttrs, {
+      ...GRID_ATTRS,
+      ...GRID_ITEM_ATTRS,
+      ...FLEX_ITEM_ATTRS,
+      orientation: '',
+      size: unit('--nu-line-size'),
+      color: '--nu-line-color',
+    });
   }
 
   constructor(props) {

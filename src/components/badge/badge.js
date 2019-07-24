@@ -1,7 +1,7 @@
 import './badge.css';
-import NuComponent from '../component';
+import NuElement from '../element';
 
-export default class NuBadge extends NuComponent {
+export default class NuBadge extends NuElement {
   static get nuTag() {
     return 'badge';
   }

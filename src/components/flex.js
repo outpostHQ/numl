@@ -1,30 +1,27 @@
 import {
+  convertUnit,
+} from '../helpers';
+import {
   FLEX_ATTRS,
   FLEX_ITEM_ATTRS,
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
-  convertUnit,
-} from '../helpers';
-import Nude, { splitDimensions } from '../nude';
-import { hasCSS, injectCSS, attrsQuery, stylesString } from '../css';
-import NuComponent from './component';
+} from '../attrs';
+import { hasCSS, injectCSS } from '../css';
+import NuElement from './element';
 
-const attrs = NuComponent.nuAttrs;
-
-Object.assign(attrs, {
-  ...FLEX_ATTRS,
-  ...GRID_ITEM_ATTRS,
-  ...FLEX_ITEM_ATTRS,
-  ...BLOCK_ATTRS,
-});
-
-class NuGrid extends NuComponent {
+class NuGrid extends NuElement {
   static get nuTag() {
     return 'flex';
   }
 
   static get nuAttrs() {
-    return attrs;
+    return Object.assign(NuElement.nuAttrs, {
+      ...FLEX_ATTRS,
+      ...GRID_ITEM_ATTRS,
+      ...FLEX_ITEM_ATTRS,
+      ...BLOCK_ATTRS,
+    });
   }
 
   nuChanged(name, oldValue, value) {
@@ -35,7 +32,7 @@ class NuGrid extends NuComponent {
       this.nuFlexFlow = flowAttr && flowAttr.startsWith('column') ? 'column' : 'row';
 
       if (flowAttr || gapAttr) {
-        const query = this.nuGetQuery({ flow: flowAttr, gap: gapAttr});
+        const query = this.nuGetQuery({ flow: flowAttr, gap: gapAttr });
         const gap = convertUnit(gapAttr) || '0rem';
 
         if (!hasCSS(query)) {
@@ -47,8 +44,8 @@ class NuGrid extends NuComponent {
       value = convertUnit(convertUnit(value));
 
       if (value && !hasCSS(query)) {
-          injectCSS(query, query, `${query} > *{flex-basis:${value}}`);
-        }
+        injectCSS(query, query, `${query} > *{flex-basis:${value}}`);
+      }
     }
 
     super.nuChanged(name, oldValue, value);

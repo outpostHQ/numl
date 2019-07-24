@@ -4,24 +4,11 @@ import {
   GRID_ITEM_ATTRS,
   FLEX_ITEM_ATTRS,
   BLOCK_ATTRS,
-} from '../../helpers';
-import NuComponent from '../component';
+} from '../../attrs';
+import NuElement from '../element';
 import NuCard from '../card/card';
 
-const nuAttrs = NuComponent.nuAttrs;
-
-Object.assign(nuAttrs, {
-  ...GRID_ATTRS,
-  ...GRID_ITEM_ATTRS,
-  ...FLEX_ITEM_ATTRS,
-  ...BLOCK_ATTRS,
-  disabled: '',
-  value: '',
-  href: '',
-  target: '',
-});
-
-class NuBtn extends NuComponent {
+class NuBtn extends NuElement {
   static get nuTag() {
     return 'btn';
   }
@@ -31,7 +18,16 @@ class NuBtn extends NuComponent {
   }
 
   static get nuAttrs() {
-    return nuAttrs;
+    return Object.assign(NuElement.nuAttrs, {
+      ...GRID_ATTRS,
+      ...GRID_ITEM_ATTRS,
+      ...FLEX_ITEM_ATTRS,
+      ...BLOCK_ATTRS,
+      disabled: '',
+      value: '',
+      href: '',
+      target: '',
+    });
   }
 
   nuMounted() {

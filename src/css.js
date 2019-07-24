@@ -15,7 +15,7 @@ export function attrsQuery(attrs) {
     .reduce((query, attr) => {
       const val = attrs[attr];
 
-      return `${query}${val != null ? `[${attr}${val ? `="${val}"` : ''}]` : `:not([${attr}])`}`
+      return `${query}${val != null ? `[${attr}="${val}"]` : `:not([${attr}])`}`
     }, '');
 }
 
@@ -60,22 +60,18 @@ const CSS = {
 
     if (map[key]) return;
 
-    const specialColor = `var(--${theme}-special-color, var(--current-color, var(--default-special-color)))`;
-    const borderColor = `var(--${theme}-border-color, var(--current-color, var(--default-border-color)))`;
+    const specialColor = `var(--${theme}-special-color, var(--default-special-color))`;
+    const borderColor = `var(--${theme}-border-color, var(--default-border-color))`;
 
     const css = [[
       theme,
       `var(--${theme}-color, var(--default-color))`,
       `var(--${theme}-background-color, var(--default-background-color))`,
-      specialColor,
-      borderColor,
     ], [
       `!${theme}`,
       `var(--${theme}-background-color, var(--default-background-color))`,
       `var(--${theme}-color, var(--default-color))`,
-      specialColor,
-      borderColor
-    ]].map(([theme, color, backgroundColor, specialColor, borderColor]) => {
+    ]].map(([theme, color, backgroundColor]) => {
       return`
         [theme="${theme}"]:not([nu-inverted]),[theme="${invertTheme(theme)}"][nu-inverted],[nu-theme="${theme}"]{
           color:${color};
