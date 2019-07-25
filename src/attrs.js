@@ -14,9 +14,19 @@ export const FLEX_ATTRS = {
   flow: 'flex-direction',
   order: 'order',
   gap: '',
-  'items-basis': '',
-  'items-grow': '',
-  'items-shrink': '',
+  'items-basis': unit('flex-basis', true),
+  'items-grow'(val) {
+    return {
+      $children: true,
+      'flex-grow': val,
+    };
+  },
+  'items-shrink'(val) {
+    return {
+      $children: true,
+      'flex-shrink': val,
+    };
+  },
 };
 
 export const FLEX_ITEM_ATTRS = {

@@ -52,7 +52,9 @@ export default class NuBtnGroup extends NuFlex {
     super.nuChanged(name, oldValue, value);
 
     if (name === 'border') {
-      this.setAttribute('gap', `calc(${convertUnit(value)} * -1)`);
+      value = value ? `calc(${convertUnit(value)} * -1)` : defaultAttrs.gap;
+
+      this.setAttribute('gap', value);
     }
   }
 }

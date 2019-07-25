@@ -10,8 +10,6 @@ import {
 import { hasCSS, injectCSS } from '../css';
 import NuElement from './element';
 
-const ITEMS_ATTRS = ['items-basis', 'items-grow', 'items-shrink'];
-
 class NuGrid extends NuElement {
   static get nuTag() {
     return 'flex';
@@ -44,18 +42,6 @@ class NuGrid extends NuElement {
         if (!hasCSS(query)) {
           injectCSS(query, query, `${query} > *{--nu-flex-gap:${gap}}`);
         }
-      }
-    } else if (ITEMS_ATTRS.includes(name)) {
-      const query = this.nuGetQuery({ [name]: value });
-
-      if (value === 'basis') {
-        value = convertUnit(convertUnit(value));
-      }
-
-      if (value && !hasCSS(query)) {
-        const styleName = `flex-${name.split('-')[1]}`;
-
-        injectCSS(query, query, `${query} > *{${styleName}:${value}}`);
       }
     }
 
