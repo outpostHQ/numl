@@ -11,19 +11,21 @@ export function convertUnit(unit) {
     .replace(/([\d.]+)([^a-z\d%.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
 }
 
-export function unit(name) {
+export function unit(name, $children,) {
   return (val) => val ? {
+    $children,
     [name]: convertUnit(val),
   } : null;
 }
 
-export function sizeUnit(name) {
+export function sizeUnit(name, $children) {
   return (val) => {
     if (val) {
       if (val.startsWith('clamp(')) {
         const values = val.slice(6, -1).split(',');
 
         return {
+          $children,
           [name]: convertUnit(values[1]),
           [`min-${name}`]: convertUnit(values[0]),
           [`max-${name}`]: convertUnit(values[2])
@@ -32,12 +34,14 @@ export function sizeUnit(name) {
         const values = val.slice(7, -1).split(',');
 
         return {
+          $children,
           [`min-${name}`]: convertUnit(values[0]),
           [`max-${name}`]: convertUnit(values[1])
         };
       }
 
       return {
+        $children,
         [name]: convertUnit(val),
       };
     }

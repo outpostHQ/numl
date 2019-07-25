@@ -21,7 +21,7 @@ export function attrsQuery(attrs) {
 
 export function stylesString(styles) {
   return Object.keys(styles)
-    .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}` : ''};`, '');
+    .reduce((string, style) => `${string}${styles[style] && style.charAt(0) !== '$' ? `${style}:${styles[style]}` : ''};`, '');
 }
 
 export function injectCSS(name, selector, css) {

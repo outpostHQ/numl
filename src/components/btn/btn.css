@@ -58,9 +58,10 @@ nu-btn[disabled] {
 
 nu-btn[nu-active] {
   text-decoration: none;
+  z-index: 2;
 }
 
-nu-btn[nu-active] {
+nu-btn[nu-toggled] {
   z-index: 1;
 }
 
