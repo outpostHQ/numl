@@ -1,3 +1,5 @@
+const map = {};
+
 export function inject(css) {
   css = css || '';
 
@@ -47,8 +49,6 @@ function invertTheme(theme) {
     return `!${theme}`;
   }
 }
-
-const map = {};
 
 const CSS = {
   has(name) {
