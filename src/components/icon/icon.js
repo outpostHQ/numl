@@ -24,8 +24,8 @@ export default class NuIcon extends NuElement {
       },
       name: '',
       inline(val) {
-        return val ? {
-          'margin-top': '-0.125em',
+        return val != null ? {
+          'bottom': '.0675em',
         } : null;
       },
     });
