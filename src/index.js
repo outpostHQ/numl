@@ -1,5 +1,5 @@
 import './components/elements.css';
-import './nude';
+import Nude from './nude';
 import NuResponsive from './components/responsive';
 import NuGrid from './components/grid';
 import NuBlock from './components/block';
@@ -18,6 +18,38 @@ import NuInput from './components/form/input';
 import NuScroll from './components/scroll/scroll';
 import NuFlex from './components/flex';
 import NuBtnGroup from './components/btn/btn-group';
+import { log } from './helpers';
+
+export default Nude;
+
+Nude.init = () => {
+  [
+    NuGridCell,
+    NuCell,
+    NuTable,
+    NuPane,
+    NuSeparator,
+    NuLayout,
+    NuIcon,
+    NuCard,
+    NuBtn,
+    NuBlock,
+    NuGrid,
+    NuResponsive,
+    NuBadge,
+    NuInput,
+    NuScroll,
+    NuToggle,
+    NuFlex,
+    NuBtnGroup,
+  ].forEach(customElement => {
+    const tagName = `nu-${customElement.nuTag}`;
+
+    customElements.define(tagName, customElement);
+
+    log('custom element registered', `<${tagName}/>`);
+  });
+};
 
 export {
   NuResponsive,
