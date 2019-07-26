@@ -1,0 +1,793 @@
+{
+  "version": 1,
+  "tags": [
+    {
+      "name": "nu-grid",
+      "description": "Grid container",
+      "attributes": [
+        {
+          "name": "flow",
+          "description": "Style `grid-auto-flow`",
+          "values": [{ "name": "row" }, { "name": "column" }]
+        },
+        {
+          "name": "areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-columns",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "cols",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "template-rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "gap",
+          "description": "Style `grid-gap`"
+        },
+        {
+          "name": "place-content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "place-items",
+          "description": "Style `place-items`"
+        },
+        {
+          "name": "items",
+          "description": "Style `place-items`"
+        }
+      ]
+    },
+    {
+      "name": "nu-flex",
+      "description": "Flex container",
+      "attributes": [
+        {
+          "name": "flow",
+          "description": "Style `flex-direction`: row | row-reverse | column | column-reverse",
+          "values": [
+            { "name": "row" },
+            { "name": "column" },
+            { "name": "row-reverse" },
+            { "name": "column-reverse" }
+          ]
+        },
+        {
+          "name": "gap",
+          "description": "Polyfill `flex-gap`"
+        }
+      ]
+    },
+    {
+      "name": "nu-flow",
+      "description": "Flex with default column flow"
+    },
+    {
+      "name": "nu-pane",
+      "description": "Grid pane with space-between content justifying",
+      "attributes": [
+        {
+          "name": "flow",
+          "description": "Style `grid-auto-flow`",
+          "values": [{ "name": "row" }, { "name": "column" }]
+        },
+        {
+          "name": "areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-columns",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "cols",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "template-rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "gap",
+          "description": "Style `grid-gap`"
+        },
+        {
+          "name": "place-content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "place-items",
+          "description": "Style `place-items`"
+        },
+        {
+          "name": "items",
+          "description": "Style `place-items`"
+        }
+      ]
+    },
+    {
+      "name": "nu-block",
+      "description": "Simple block"
+    },
+    {
+      "name": "nu-link",
+      "description": "Link element",
+      "attributes": [
+        {
+          "name": "href",
+          "description": "Link URL"
+        }
+      ]
+    },
+    {
+      "name": "nu-line",
+      "description": "Separator element"
+    },
+    {
+      "name": "nu-icon",
+      "description": "Icon element",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Icon name",
+          "values": [
+            { "name": "activity" },
+            { "name": "airplay" },
+            { "name": "alert-circle" },
+            { "name": "alert-octagon" },
+            { "name": "alert-triangle" },
+            { "name": "align-center" },
+            { "name": "align-justify" },
+            { "name": "align-left" },
+            { "name": "align-right" },
+            { "name": "anchor" },
+            { "name": "aperture" },
+            { "name": "archive" },
+            { "name": "arrow-down-circle" },
+            { "name": "arrow-down-left" },
+            { "name": "arrow-down-right" },
+            { "name": "arrow-down" },
+            { "name": "arrow-left-circle" },
+            { "name": "arrow-left" },
+            { "name": "arrow-right-circle" },
+            { "name": "arrow-right" },
+            { "name": "arrow-up-circle" },
+            { "name": "arrow-up-left" },
+            { "name": "arrow-up-right" },
+            { "name": "arrow-up" },
+            { "name": "at-sign" },
+            { "name": "award" },
+            { "name": "bar-chart-2" },
+            { "name": "bar-chart" },
+            { "name": "battery-charging" },
+            { "name": "battery" },
+            { "name": "bell-off" },
+            { "name": "bell" },
+            { "name": "bluetooth" },
+            { "name": "bold" },
+            { "name": "book-open" },
+            { "name": "book" },
+            { "name": "bookmark" },
+            { "name": "box" },
+            { "name": "briefcase" },
+            { "name": "calendar" },
+            { "name": "camera-off" },
+            { "name": "camera" },
+            { "name": "cast" },
+            { "name": "check-circle" },
+            { "name": "check-square" },
+            { "name": "check" },
+            { "name": "chevron-down" },
+            { "name": "chevron-left" },
+            { "name": "chevron-right" },
+            { "name": "chevron-up" },
+            { "name": "chevrons-down" },
+            { "name": "chevrons-left" },
+            { "name": "chevrons-right" },
+            { "name": "chevrons-up" },
+            { "name": "chrome" },
+            { "name": "circle" },
+            { "name": "clipboard" },
+            { "name": "clock" },
+            { "name": "cloud-drizzle" },
+            { "name": "cloud-lightning" },
+            { "name": "cloud-off" },
+            { "name": "cloud-rain" },
+            { "name": "cloud-snow" },
+            { "name": "cloud" },
+            { "name": "code" },
+            { "name": "codepen" },
+            { "name": "codesandbox" },
+            { "name": "coffee" },
+            { "name": "columns" },
+            { "name": "command" },
+            { "name": "compass" },
+            { "name": "copy" },
+            { "name": "corner-down-left" },
+            { "name": "corner-down-right" },
+            { "name": "corner-left-down" },
+            { "name": "corner-left-up" },
+            { "name": "corner-right-down" },
+            { "name": "corner-right-up" },
+            { "name": "corner-up-left" },
+            { "name": "corner-up-right" },
+            { "name": "cpu" },
+            { "name": "credit-card" },
+            { "name": "crop" },
+            { "name": "crosshair" },
+            { "name": "database" },
+            { "name": "delete" },
+            { "name": "disc" },
+            { "name": "dollar-sign" },
+            { "name": "download-cloud" },
+            { "name": "download" },
+            { "name": "droplet" },
+            { "name": "edit-2" },
+            { "name": "edit-3" },
+            { "name": "edit" },
+            { "name": "external-link" },
+            { "name": "eye-off" },
+            { "name": "eye" },
+            { "name": "facebook" },
+            { "name": "fast-forward" },
+            { "name": "feather" },
+            { "name": "figma" },
+            { "name": "file-minus" },
+            { "name": "file-plus" },
+            { "name": "file-text" },
+            { "name": "file" },
+            { "name": "film" },
+            { "name": "filter" },
+            { "name": "flag" },
+            { "name": "folder-minus" },
+            { "name": "folder-plus" },
+            { "name": "folder" },
+            { "name": "framer" },
+            { "name": "frown" },
+            { "name": "gift" },
+            { "name": "git-branch" },
+            { "name": "git-commit" },
+            { "name": "git-merge" },
+            { "name": "git-pull-request" },
+            { "name": "github" },
+            { "name": "gitlab" },
+            { "name": "globe" },
+            { "name": "grid" },
+            { "name": "hard-drive" },
+            { "name": "hash" },
+            { "name": "headphones" },
+            { "name": "heart" },
+            { "name": "help-circle" },
+            { "name": "hexagon" },
+            { "name": "home" },
+            { "name": "image" },
+            { "name": "inbox" },
+            { "name": "info" },
+            { "name": "instagram" },
+            { "name": "italic" },
+            { "name": "key" },
+            { "name": "layers" },
+            { "name": "layout" },
+            { "name": "life-buoy" },
+            { "name": "link-2" },
+            { "name": "link" },
+            { "name": "linkedin" },
+            { "name": "list" },
+            { "name": "loader" },
+            { "name": "lock" },
+            { "name": "log-in" },
+            { "name": "log-out" },
+            { "name": "mail" },
+            { "name": "map-pin" },
+            { "name": "map" },
+            { "name": "maximize-2" },
+            { "name": "maximize" },
+            { "name": "meh" },
+            { "name": "menu" },
+            { "name": "message-circle" },
+            { "name": "message-square" },
+            { "name": "mic-off" },
+            { "name": "mic" },
+            { "name": "minimize-2" },
+            { "name": "minimize" },
+            { "name": "minus-circle" },
+            { "name": "minus-square" },
+            { "name": "minus" },
+            { "name": "monitor" },
+            { "name": "moon" },
+            { "name": "more-horizontal" },
+            { "name": "more-vertical" },
+            { "name": "mouse-pointer" },
+            { "name": "move" },
+            { "name": "music" },
+            { "name": "navigation-2" },
+            { "name": "navigation" },
+            { "name": "octagon" },
+            { "name": "package" },
+            { "name": "paperclip" },
+            { "name": "pause-circle" },
+            { "name": "pause" },
+            { "name": "pen-tool" },
+            { "name": "percent" },
+            { "name": "phone-call" },
+            { "name": "phone-forwarded" },
+            { "name": "phone-incoming" },
+            { "name": "phone-missed" },
+            { "name": "phone-off" },
+            { "name": "phone-outgoing" },
+            { "name": "phone" },
+            { "name": "pie-chart" },
+            { "name": "play-circle" },
+            { "name": "play" },
+            { "name": "plus-circle" },
+            { "name": "plus-square" },
+            { "name": "plus" },
+            { "name": "pocket" },
+            { "name": "power" },
+            { "name": "printer" },
+            { "name": "radio" },
+            { "name": "refresh-ccw" },
+            { "name": "refresh-cw" },
+            { "name": "repeat" },
+            { "name": "rewind" },
+            { "name": "rotate-ccw" },
+            { "name": "rotate-cw" },
+            { "name": "rss" },
+            { "name": "save" },
+            { "name": "scissors" },
+            { "name": "search" },
+            { "name": "send" },
+            { "name": "server" },
+            { "name": "settings" },
+            { "name": "share-2" },
+            { "name": "share" },
+            { "name": "shield-off" },
+            { "name": "shield" },
+            { "name": "shopping-bag" },
+            { "name": "shopping-cart" },
+            { "name": "shuffle" },
+            { "name": "sidebar" },
+            { "name": "skip-back" },
+            { "name": "skip-forward" },
+            { "name": "slack" },
+            { "name": "slash" },
+            { "name": "sliders" },
+            { "name": "smartphone" },
+            { "name": "smile" },
+            { "name": "speaker" },
+            { "name": "square" },
+            { "name": "star" },
+            { "name": "stop-circle" },
+            { "name": "sun" },
+            { "name": "sunrise" },
+            { "name": "sunset" },
+            { "name": "tablet" },
+            { "name": "tag" },
+            { "name": "target" },
+            { "name": "terminal" },
+            { "name": "thermometer" },
+            { "name": "thumbs-down" },
+            { "name": "thumbs-up" },
+            { "name": "toggle-left" },
+            { "name": "toggle-right" },
+            { "name": "trash-2" },
+            { "name": "trash" },
+            { "name": "trello" },
+            { "name": "trending-down" },
+            { "name": "trending-up" },
+            { "name": "triangle" },
+            { "name": "truck" },
+            { "name": "tv" },
+            { "name": "twitter" },
+            { "name": "type" },
+            { "name": "umbrella" },
+            { "name": "underline" },
+            { "name": "unlock" },
+            { "name": "upload-cloud" },
+            { "name": "upload" },
+            { "name": "user-check" },
+            { "name": "user-minus" },
+            { "name": "user-plus" },
+            { "name": "user-x" },
+            { "name": "user" },
+            { "name": "users" },
+            { "name": "video-off" },
+            { "name": "video" },
+            { "name": "voicemail" },
+            { "name": "volume-1" },
+            { "name": "volume-2" },
+            { "name": "volume-x" },
+            { "name": "volume" },
+            { "name": "watch" },
+            { "name": "wifi-off" },
+            { "name": "wifi" },
+            { "name": "wind" },
+            { "name": "x-circle" },
+            { "name": "x-octagon" },
+            { "name": "x-square" },
+            { "name": "x" },
+            { "name": "youtube" },
+            { "name": "zap-off" },
+            { "name": "zap" },
+            { "name": "zoom-in" },
+            { "name": "zoom-out" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nu-input",
+      "description": "Input form element with grid layout",
+      "attributes": [
+        {
+          "name": "flow",
+          "description": "Style `grid-auto-flow`",
+          "values": [{ "name": "row" }, { "name": "column" }]
+        },
+        {
+          "name": "areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-columns",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "cols",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "template-rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "gap",
+          "description": "Style `grid-gap`"
+        },
+        {
+          "name": "place-content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "place-items",
+          "description": "Style `place-items`"
+        },
+        {
+          "name": "items",
+          "description": "Style `place-items`"
+        }
+      ]
+    },
+    {
+      "name": "nu-card",
+      "description": "Block element with default border radius and background fill"
+    },
+    {
+      "name": "nu-btn",
+      "description": "Button element with grid layout",
+      "attributes": [
+        {
+          "name": "flow",
+          "description": "Style `grid-auto-flow`",
+          "values": [{ "name": "row" }, { "name": "column" }]
+        },
+        {
+          "name": "areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-columns",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "cols",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "template-rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "gap",
+          "description": "Style `grid-gap`"
+        },
+        {
+          "name": "place-content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "place-items",
+          "description": "Style `place-items`"
+        },
+        {
+          "name": "items",
+          "description": "Style `place-items`"
+        }
+      ]
+    },
+    {
+      "name": "nu-btn-group",
+      "description": "Button group element",
+      "attributes": [
+        {
+          "name": "flow",
+          "description": "Style `flex-direction`: row | row-reverse | column | column-reverse",
+          "values": [
+            { "name": "row" },
+            { "name": "column" },
+            { "name": "row-reverse" },
+            { "name": "column-reverse" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nu-toggle",
+      "description": "Toggle form element"
+    },
+    {
+      "name": "nu-badge",
+      "description": "Badge element with inverted theme by default"
+    },
+    {
+      "name": "nu-scroll",
+      "description": "Visible scroll"
+    },
+    {
+      "name": "nu-grid-table",
+      "description": "Table with grid layout",
+      "attributes": [
+        {
+          "name": "flow",
+          "description": "Style `grid-auto-flow`",
+          "values": [{ "name": "row" }, { "name": "column" }]
+        },
+        {
+          "name": "areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-columns",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "cols",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "template-rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "gap",
+          "description": "Style `grid-gap`"
+        },
+        {
+          "name": "place-content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "content",
+          "description": "Style `grid-template-columns`"
+        }
+      ]
+    },
+    {
+      "name": "nu-cell",
+      "description": "Table cell element"
+    },
+    {
+      "name": "nu-grid-cell",
+      "description": "Table cell element with grid layout",
+      "attributes": [
+        {
+          "name": "flow",
+          "description": "Style `grid-auto-flow`",
+          "values": [{ "name": "row" }, { "name": "column" }]
+        },
+        {
+          "name": "areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-areas",
+          "description": "Style `grid-template-areas`"
+        },
+        {
+          "name": "template-columns",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "cols",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "template-rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "rows",
+          "description": "Style `grid-template-rows`"
+        },
+        {
+          "name": "gap",
+          "description": "Style `grid-gap`"
+        },
+        {
+          "name": "place-content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "content",
+          "description": "Style `grid-template-columns`"
+        },
+        {
+          "name": "place-items",
+          "description": "Style `place-items`"
+        },
+        {
+          "name": "items",
+          "description": "Style `place-items`"
+        }
+      ]
+    }
+  ],
+  "globalAttributes": [
+    {
+      "name": "area",
+      "description": "Style `grid-area`"
+    },
+    {
+      "name": "column",
+      "description": "Style `grid-column`"
+    },
+    {
+      "name": "col",
+      "description": "Style `grid-column`"
+    },
+    {
+      "name": "row",
+      "description": "Style `grid-row`"
+    },
+    {
+      "name": "place-self",
+      "description": "Style `place-self`"
+    },
+    {
+      "name": "place",
+      "description": "Style `place-self`"
+    },
+    {
+      "name": "padding",
+      "description": "Style `padding`"
+    },
+    {
+      "name": "width",
+      "description": "Style `width`"
+    },
+    {
+      "name": "height",
+      "description": "Style `height`"
+    },
+    {
+      "name": "border",
+      "description": "Border width"
+    },
+    {
+      "name": "depth",
+      "description": "Extrude shadow size"
+    },
+    {
+      "name": "radius",
+      "description": "Style `border-radius`"
+    },
+    {
+      "name": "flex-basis",
+      "description": "Style `flex-basis`"
+    },
+    {
+      "name": "basis",
+      "description": "Style `flex-basis`"
+    },
+    {
+      "name": "flex-grow",
+      "description": "Style `flex-grow`"
+    },
+    {
+      "name": "grow",
+      "description": "Style `flex-grow`"
+    },
+    {
+      "name": "flex-shrink",
+      "description": "Style `flex-shrink`"
+    },
+    {
+      "name": "shrink",
+      "description": "Style `flex-shrink`"
+    },
+    {
+      "name": "order",
+      "description": "Style `order`"
+    },
+    {
+      "name": "theme",
+      "description": "Theme attribute",
+      "values": [
+        { "name": "default" },
+        { "name": "minor" },
+        { "name": "primary" }
+      ]
+    },
+    {
+      "name": "mod",
+      "description": "Modifiers attribute",
+      "values": [
+        { "name": "default" },
+        { "name": "minor" },
+        { "name": "primary" }
+      ]
+    }
+  ]
+}
