@@ -1,4 +1,4 @@
-html {
+[data-nu-root] {
   --base: 16px;
   --pixel: 1px;
   --border-radius: .5rem;
@@ -8,7 +8,7 @@ html {
   --color: #333;
   --background-color: #fff;
   --border-color: #d2ddec;
-  --body-color: #f9fbfd;
+  --root-color: #f9fbfd;
 
   /* default theme */
   --default-color: #333;
@@ -18,8 +18,8 @@ html {
   --default-border-radius: .5rem;
 
   /* current theme */
-  --current-color: #333;
-  --current-background-color: #fff;
+  --current-color: var(--default-color);
+  --current-background-color: var(--default-background-color);
   --current-border-color: var(--default-border-color);
   --current-sepcial-color: var(--default-special-color);
 
@@ -44,6 +44,7 @@ html {
   --normal-animation-time: .2s;
 
   /* main styles */
+  display: block;
   margin: 0;
   padding: 0;
   font-family: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, DejaVu Sans, Arial, sans-serif;
@@ -52,66 +53,72 @@ html {
   font-weight: normal;
   line-height: 1.5;
   word-spacing: calc(1rem / 8);
+
+  min-height: 100vh;
+  background-color: var(--root-color);
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  /*overscroll-behavior: none;*/
-}
-
-body > * {
-  background-color: var(--body-color);
+[data-nu-high-contrast] > * {
+  filter: brightness(.5) contrast(1.5) brightness(2);
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    filter: invert(90%) hue-rotate(180deg);
+  body {
     background-color: rgba(15, 17, 19, 1);
   }
 
-  html [data-no-filter] {
-    filter: invert(100%) hue-rotate(180deg) !important;
+  [data-nu-root] {
+    filter: invert(92%) hue-rotate(180deg) brightness(1.05) saturate(1.05);
+  }
+
+  [data-nu-root] [data-nu-light] {
+    filter: invert(100%) hue-rotate(180deg);
+  }
+
+  [data-nu-root][data-nu-high-contrast] > [data-nu-light] {
+    filter: brightness(.5) contrast(1.5) brightness(2) invert(100%) hue-rotate(180deg);
   }
 }
 
-html.reduced-motion {
-  --quick-animation-time: 0.001s;
-  --normal-animation-time: 0.001s;
+@media (prefers-reduced-motion: reduce) {
+  [data-nu-root] {
+    --quick-animation-time: 0.001s;
+    --normal-animation-time: 0.001s;
+  }
 }
 
-* {
+[data-nu-root] * {
   box-sizing: border-box;
   margin: 0;
 }
 
-b {
+[data-nu-root] b {
   font-weight: 600;
 }
 
-input, textarea {
+[data-nu-root] input, [data-nu-root] textarea {
   color: var(--default-color);
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
 }
 
-ul {
+[data-nu-root] ul {
   display: flex;
   flex-flow: column;
 }
 
-li:not(:last-child) {
+[data-nu-root] li:not(:last-child) {
   margin-bottom: .5em;
 }
 
-ul, li {
+[data-nu-root] ul, [data-nu-root] li {
   margin: 0 0 0 1em;
   padding: 0;
   line-height: 1.5;
 }
 
-h1, h2, h3, h4, h5, h6, .-nu-h1, .-nu-h2, .-nu-h3, .-nu-h4, .-nu-h5, .-nu-h6 {
+[data-nu-root] h1, [data-nu-root] h2, [data-nu-root] h3, [data-nu-root] h4, [data-nu-root] h5, [data-nu-root] h6, .-nu-h1, .-nu-h2, .-nu-h3, .-nu-h4, .-nu-h5, .-nu-h6 {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -119,47 +126,54 @@ h1, h2, h3, h4, h5, h6, .-nu-h1, .-nu-h2, .-nu-h3, .-nu-h4, .-nu-h5, .-nu-h6 {
   font-weight: 700;
 }
 
-h1, .-nu-h1 {
+[data-nu-root] h1, .-nu-h1 {
   font-size: 2rem;
   line-height: 2.5rem;
 }
 
-h2, .-nu-h2 {
+[data-nu-root] h2, .-nu-h2 {
   font-size: 1.8rem;
   line-height: 2.5rem;
 }
 
-h3, .-nu-h3 {
+[data-nu-root] h3, .-nu-h3 {
   font-size: 1.6rem;
   line-height: 2rem;
 }
 
-h4, .-nu-h4 {
+[data-nu-root] h4, .-nu-h4 {
   font-size: 1.4rem;
   line-height: 1.5rem;
 }
 
-h5, .-nu-h5 {
+[data-nu-root] h5, .-nu-h5 {
   font-size: 1.2rem;
   line-height: 1.5rem;
 }
 
-h6, .-nu-h6 {
+[data-nu-root] h6, .-nu-h6 {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 500;
 }
 
-a {
-  color: var(--primary-color);
-  font-weight: 500;
-}
-
-a:not(:focus):not(:hover) {
+[data-nu-root] a {
+  display: inline-block;
+  color: var(--current-link-color, var(--default-special-color));
+  white-space: nowrap;
+  transition: filter var(--quick-animation-time) linear;
   text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-a:hover, a:focus {
-  text-decoration: underline;
+[data-nu-root] a:hover {
+  z-index: 1;
+  filter: contrast(.5);
+}
+
+[data-nu-root] a:focus {
   outline: none;
+  text-decoration: underline;
+  z-index: 1;
 }

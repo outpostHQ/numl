@@ -55,6 +55,10 @@ const CSS = {
     return !!map[name];
   },
 
+  /**
+   * Generate CSS for the theme with specific name.
+   * @param {string} theme
+   */
   generateTheme(theme) {
     const key = `theme-${theme}`;
 
