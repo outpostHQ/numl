@@ -62,6 +62,7 @@ const CSS = {
 
     const specialColor = `var(--${theme}-special-color, var(--default-special-color))`;
     const borderColor = `var(--${theme}-border-color, var(--default-border-color))`;
+    const linkColor = `var(--${theme}-special-color, var(--current-color))`;
 
     const css = [[
       theme,
@@ -80,6 +81,7 @@ const CSS = {
           --current-background-color:${backgroundColor};
           --current-special-color:${specialColor};
           --current-border-color:${borderColor};
+          --current-link-color:${theme.startsWith('!') ? linkColor : specialColor};
         }
       `;
     }).join('');

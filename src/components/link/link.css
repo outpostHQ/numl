@@ -1,0 +1,20 @@
+nu-link {
+  display: inline-block;
+  color: var(--current-link-color, var(--default-special-color));
+  white-space: nowrap;
+  transition: filter var(--quick-animation-time) linear;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+nu-link:hover {
+  z-index: 1;
+  filter: contrast(.5);
+}
+
+nu-link:focus {
+  outline: none;
+  text-decoration: underline;
+  z-index: 1;
+}

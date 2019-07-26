@@ -14,6 +14,7 @@ import NuTable from './components/table/table';
 import NuCell from './components/table/cell';
 import NuGridCell from './components/table/grid-cell';
 import NuBadge from './components/badge/badge';
+import NuLink from './components/link/link';
 import NuInput from './components/form/input';
 import NuScroll from './components/scroll/scroll';
 import NuFlex from './components/flex';
@@ -42,6 +43,7 @@ Nude.init = () => {
     NuToggle,
     NuFlex,
     NuBtnGroup,
+    NuLink,
   ].forEach(customElement => {
     const tagName = `nu-${customElement.nuTag}`;
 
@@ -70,4 +72,5 @@ export {
   NuToggle,
   NuFlex,
   NuBtnGroup,
+  NuLink,
 };
