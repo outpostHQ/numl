@@ -1,6 +1,6 @@
 # NUDE Elements
 
-Smallest UI Framework based on Custom Elements that lets you create gorgeous web interfaces without writing CSS. Instead of predefined CSS, NUDE can generate CSS you need what makes it more customizable than similar Atomic CSS approach. Also, it has a simple newbie-friendly syntax.
+Smallest UI Framework based on Custom Elements that lets you create gorgeous web interfaces without writing CSS. Instead of predefined CSS, NUDE can generate CSS you need right in runtime what makes it more customizable than similar Atomic CSS approach. Also, it has a simple newbie-friendly syntax.
 
 **UNDER RAPID DEVELOPMENT, API is subject to change**
 
