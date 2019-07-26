@@ -5,6 +5,7 @@ import {
 import {
   GRID_ATTRS,
   GRID_ITEM_ATTRS,
+  FLEX_ITEM_ATTRS,
   BLOCK_ATTRS,
 } from '../../attrs';
 import NuElement from '../element';
@@ -18,6 +19,7 @@ class NuInput extends NuElement {
     return Object.assign(NuElement.nuAttrs, {
       ...GRID_ATTRS,
       ...GRID_ITEM_ATTRS,
+      ...FLEX_ITEM_ATTRS,
       ...BLOCK_ATTRS,
       autofocus: '',
       disabled: '',

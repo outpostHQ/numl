@@ -322,7 +322,10 @@ class NuElement extends HTMLElement {
 
         if (!computed) return;
 
-        const query = `${this.nuGetQuery({[name]: value})}${computed.$children ? '>*' : ''}`;
+        const query = `${this.nuGetQuery({[name]: value})}${computed.$children ? `>*:not([${computed.$children}])` : ''}`;
+
+        delete computed.$children;
+
         const styles = stylesString(computed);
 
         if (!hasCSS(query)) {

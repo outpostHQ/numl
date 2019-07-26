@@ -32,3 +32,7 @@ nu-btn-group[flow="row-reverse"] > :first-child:not(:last-child):not(:first-chil
 [dir="rtl"] nu-btn-group[flow="row-reverse"] > :last-child:not(:first-child) {
   --nu-border-radius: 0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0;
 }
+
+nu-btn-group > *:last-child:first-child {
+  --nu-border-radius: inherit;
+}

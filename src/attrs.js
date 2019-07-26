@@ -14,16 +14,16 @@ export const FLEX_ATTRS = {
   flow: 'flex-direction',
   order: 'order',
   gap: '',
-  'items-basis': unit('flex-basis', true),
+  'items-basis': unit('flex-basis', 'basis'),
   'items-grow'(val) {
     return {
-      $children: true,
+      $children: 'grow',
       'flex-grow': val,
     };
   },
   'items-shrink'(val) {
     return {
-      $children: true,
+      $children: 'shrink',
       'flex-shrink': val,
     };
   },
