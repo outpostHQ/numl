@@ -1,6 +1,6 @@
-# NUDE - Nano UI Design Elements
+# NUDE Elements
 
-Smallest UI library based on Custom Elements that lets you create gorgeous web interfaces without writing CSS. Instead of predefined CSS, NUDE can generate CSS you need what makes it more customizable than similar Atomic CSS approach. Also, it has a simple newbie-friendly syntax.
+Smallest UI Framework based on Custom Elements that lets you create gorgeous web interfaces without writing CSS. Instead of predefined CSS, NUDE can generate CSS you need what makes it more customizable than similar Atomic CSS approach. Also, it has a simple newbie-friendly syntax.
 
 **UNDER RAPID DEVELOPMENT, API is subject to change**
 
@@ -9,6 +9,10 @@ Smallest UI library based on Custom Elements that lets you create gorgeous web i
 * **Easy to learn**. Based on web standards. Simple API.
 * Integrated **ARIA** support. Developed with accessibility requirements in mind.
 * **Compatible** with any popular framework: Vue, React, Angular, Svelte, etc...
+
+## Playground
+
+Check out our [Playground](http://bit.ly/nude-elements) with few examples.
 
 ## Getting started
 
