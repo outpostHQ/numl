@@ -8,6 +8,10 @@ import NuElement from './element';
 
 class NuGrid extends NuElement {
   static get nuTag() {
+    return 'nu-grid';
+  }
+
+  static get nuLayout() {
     return 'grid';
   }
 

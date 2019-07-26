@@ -20,7 +20,7 @@ const defaultAttrs = {
 
 export default class NuBtnGroup extends NuFlex {
   static get nuTag() {
-    return 'btn-group';
+    return 'nu-btn-group';
   }
 
   static get nuAttrs() {

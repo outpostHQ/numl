@@ -10,7 +10,7 @@ import NuElement from '../element';
 
 export default class NuIcon extends NuElement {
   static get nuTag() {
-    return 'icon';
+    return 'nu-icon';
   }
 
   static get nuAttrs() {

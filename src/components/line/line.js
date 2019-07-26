@@ -1,4 +1,4 @@
-import './separator.css';
+import './line.css';
 import {
   unit,
 } from '../../helpers';
@@ -9,9 +9,9 @@ import {
 } from '../../attrs';
 import NuElement from '../element';
 
-export default class NuSeparator extends NuElement {
+export default class NuLine extends NuElement {
   static get nuTag() {
-    return 'separator';
+    return 'nu-line';
   }
 
   static get nuRole() {
@@ -29,10 +29,9 @@ export default class NuSeparator extends NuElement {
     });
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
-    this.nuThemeProps = false;
     this.nuThemeInvert = true;
   }
 

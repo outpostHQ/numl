@@ -3,6 +3,6 @@ import NuBlock from '../block';
 
 export default class NuCard extends NuBlock {
   static get nuTag() {
-    return 'card';
+    return 'nu-card';
   }
 }

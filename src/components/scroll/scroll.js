@@ -10,7 +10,7 @@ import NuElement from '../element';
 
 export default class NuScroll extends NuElement {
   static get nuTag() {
-    return 'scroll';
+    return 'nu-scroll';
   }
 
   static get nuRole() {
@@ -27,10 +27,9 @@ export default class NuScroll extends NuElement {
     });
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
-    this.nuThemeProps = false;
     this.nuThemeInvert = true;
   }
 

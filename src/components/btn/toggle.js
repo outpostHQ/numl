@@ -8,7 +8,7 @@ import NuBtn from './btn';
 
 export default class NuToggle extends NuBtn {
   static get nuTag() {
-    return 'toggle';
+    return 'nu-toggle';
   }
 
   static get nuAttrs() {
@@ -22,8 +22,6 @@ export default class NuToggle extends NuBtn {
 
   constructor() {
     super();
-
-    this.nuThemeStyles = false;
   }
 
   nuTap() {

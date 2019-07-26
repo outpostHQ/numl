@@ -3,7 +3,7 @@ import NuElement from '../element';
 
 export default class NuCell extends NuBlock {
   static get nuTag() {
-    return 'cell';
+    return 'nu-cell';
   }
 
   static get nuAttrs() {

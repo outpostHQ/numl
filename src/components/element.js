@@ -74,8 +74,6 @@ class NuElement extends HTMLElement {
 
     const tabIndexAttr = this.getAttribute('tabindex');
 
-    this.nuThemeStyles = true;
-    this.nuThemeProps = true;
     this.nuThemeInvert = false;
     this.nuTabIndex = tabIndexAttr != null ? Number(tabIndexAttr) : 0;
     this.nuRef = null;
@@ -187,7 +185,7 @@ class NuElement extends HTMLElement {
   }
 
   nuGetQuery(attrs = {}) {
-    return `nu-${this.constructor.nuTag}${attrsQuery(attrs)}`;
+    return `${this.constructor.nuTag}${attrsQuery(attrs)}`;
   }
 
   /**
@@ -299,6 +297,10 @@ class NuElement extends HTMLElement {
           this.nuChanged(attr, undefined, defaultAttrs[attr]);
         }
       });
+
+    if (this.constructor.nuLayout) {
+      this.nuSetMod('layout', this.constructor.nuLayout);
+    }
   }
 
   /**

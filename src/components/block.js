@@ -7,7 +7,7 @@ import NuElement from './element';
 
 class NuBlock extends NuElement {
   static get nuTag() {
-    return 'block';
+    return 'nu-block';
   }
 
   static get nuAttrs() {

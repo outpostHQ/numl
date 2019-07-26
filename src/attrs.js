@@ -1,11 +1,14 @@
 import { convertUnit, unit, sizeUnit } from './helpers';
 
 export const PLACE_ATTRS = {
+  'place-content': 'place-content',
+  'place-items': 'place-items',
   'content': 'place-content',
   'items': 'place-items',
 };
 
 export const PLACE_SELF_ATTRS = {
+  'place-self': 'place-self',
   'place': 'place-self',
 };
 
@@ -34,10 +37,14 @@ export const FLEX_ITEM_ATTRS = {
   grow: 'flex-grow',
   shrink: 'flex-shrink',
   basis: unit('flex-basis'),
+  'flex-grow': 'flex-grow',
+  'flex-shrink': 'flex-shrink',
+  'flex-basis': unit('flex-basis'),
 };
 
 export const GRID_ITEM_ATTRS = {
   ...PLACE_SELF_ATTRS,
+  column: 'grid-column',
   col: 'grid-column',
   row: 'grid-row',
   area: 'grid-area',
@@ -45,8 +52,12 @@ export const GRID_ITEM_ATTRS = {
 
 export const GRID_ATTRS = {
   ...PLACE_ATTRS,
+  'template-areas': 'grid-template-areas',
   areas: 'grid-template-areas',
+  'auto-flow': 'grid-auto-flow',
   flow: 'grid-auto-flow',
+  'template-columns': unit('grid-template-columns'),
+  'template-rows': unit('grid-template-rows'),
   cols: unit('grid-template-columns'),
   rows: unit('grid-template-rows'),
   gap: unit('grid-gap'),

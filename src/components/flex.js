@@ -12,6 +12,10 @@ import NuElement from './element';
 
 class NuGrid extends NuElement {
   static get nuTag() {
+    return 'nu-flex';
+  }
+
+  static get nuLayout() {
     return 'flex';
   }
 

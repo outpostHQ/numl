@@ -4,7 +4,7 @@ import NuElement from '../element';
 
 export default class NuGridCell extends NuCell {
   static get nuTag() {
-    return 'grid-cell';
+    return 'nu-grid-cell';
   }
 
   static get nuAttrs() {

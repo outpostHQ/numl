@@ -2,7 +2,7 @@ import Nude from '../nude';
 
 class NuResponsive extends HTMLElement {
   static get nuTag() {
-    return 'responsive';
+    return 'nu-responsive';
   }
 
   connectedCallback() {

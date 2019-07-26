@@ -10,7 +10,7 @@ import NuCard from '../card/card';
 
 class NuBtn extends NuElement {
   static get nuTag() {
-    return 'btn';
+    return 'nu-btn';
   }
 
   static get nuRole() {

@@ -4,13 +4,13 @@ import NuResponsive from './components/responsive';
 import NuGrid from './components/grid';
 import NuBlock from './components/block';
 import NuIcon from './components/icon/icon';
-import NuSeparator from './components/separator/separator';
+import NuLine from './components/line/line';
 import NuPane from './components/pane';
 import NuCard from './components/card/card';
-import NuLayout from './components/layout';
+import NuLayout from './components/flow';
 import NuBtn from './components/btn/btn';
 import NuToggle from './components/btn/toggle';
-import NuTable from './components/table/table';
+import NuGridTable from './components/table/grid-table';
 import NuCell from './components/table/cell';
 import NuGridCell from './components/table/grid-cell';
 import NuBadge from './components/badge/badge';
@@ -27,9 +27,9 @@ Nude.init = () => {
   [
     NuGridCell,
     NuCell,
-    NuTable,
+    NuGridTable,
     NuPane,
-    NuSeparator,
+    NuLine,
     NuLayout,
     NuIcon,
     NuCard,
@@ -45,11 +45,9 @@ Nude.init = () => {
     NuBtnGroup,
     NuLink,
   ].forEach(customElement => {
-    const tagName = `nu-${customElement.nuTag}`;
+    customElements.define(customElement.nuTag, customElement);
 
-    customElements.define(tagName, customElement);
-
-    log('custom element registered', `<${tagName}/>`);
+    log('custom element registered', customElement.nuTag);
   });
 };
 
@@ -61,9 +59,9 @@ export {
   NuCard,
   NuIcon,
   NuLayout,
-  NuSeparator,
+  NuLine as NuSeparator,
   NuPane,
-  NuTable,
+  NuGridTable as NuTable,
   NuCell,
   NuGridCell,
   NuBadge,

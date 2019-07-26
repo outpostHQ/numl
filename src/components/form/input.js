@@ -12,7 +12,7 @@ import NuElement from '../element';
 
 class NuInput extends NuElement {
   static get nuTag() {
-    return 'input';
+    return 'nu-input';
   }
 
   static get nuAttrs() {

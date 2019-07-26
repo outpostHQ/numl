@@ -4,6 +4,10 @@ import NuBtn from '../btn/btn';
 
 export default class NuBadge extends NuElement {
   static get nuTag() {
+    return 'nu-link';
+  }
+
+  static get nuRole() {
     return 'link';
   }
 

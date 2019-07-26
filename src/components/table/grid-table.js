@@ -1,4 +1,4 @@
-import './table.css';
+import './grid-table.css';
 import {
   unit,
 } from '../../helpers';
@@ -9,9 +9,9 @@ import {
 } from '../../attrs';
 import NuElement from '../element';
 
-export default class NuTable extends NuElement {
+export default class NuGridTable extends NuElement {
   static get nuTag() {
-    return 'table';
+    return 'nu-grid-table';
   }
 
   static get nuRole() {
@@ -25,12 +25,6 @@ export default class NuTable extends NuElement {
       ...BLOCK_ATTRS,
       padding: unit('--nu-cell-padding'),
     });
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.nuThemeStyles = false;
   }
 
   nuMounted() {
