@@ -13,26 +13,26 @@ nu-btn-group > *:last-child:first-child {
   --nu-border-radius: inherit;
 }
 
-nu-btn-group[flow="column"] > :first-child:not(:last-child),
-nu-btn-group[flow="column-reverse"] > :last-child:not(:first-child) {
+nu-btn-group[nu-flow="column"] > :first-child:not(:last-child),
+nu-btn-group[nu-flow="column-reverse"] > :last-child:not(:first-child) {
   --nu-border-radius: var(--nu-item-border-radius) var(--nu-item-border-radius) 0 0;
 }
 
-nu-btn-group[flow="column"] > :last-child:not(:first-child),
-nu-btn-group[flow="column-reverse"] > :first-child:not(:last-child) {
+nu-btn-group[nu-flow="column"] > :last-child:not(:first-child),
+nu-btn-group[nu-flow="column-reverse"] > :first-child:not(:last-child) {
   --nu-border-radius: 0 0 var(--nu-item-border-radius) var(--nu-item-border-radius);
 }
 
-nu-btn-group[flow="row"] > :first-child:not(:last-child),
-nu-btn-group[flow="row-reverse"] > :last-child:not(:first-child),
-[dir="rtl"] nu-btn-group[flow="row"] > :last-child:not(:first-child),
-[dir="rtl"] nu-btn-group[flow="row-reverse"] > :first-child:not(:last-child) {
+nu-btn-group[nu-flow="row"] > :first-child:not(:last-child),
+nu-btn-group[nu-flow="row-reverse"] > :last-child:not(:first-child),
+[dir="rtl"] nu-btn-group[nu-flow="row"] > :last-child:not(:first-child),
+[dir="rtl"] nu-btn-group[nu-flow="row-reverse"] > :first-child:not(:last-child) {
   --nu-border-radius: var(--nu-item-border-radius) 0 0 var(--nu-item-border-radius);
 }
 
-nu-btn-group[flow="row"] > :last-child:not(:first-child),
-nu-btn-group[flow="row-reverse"] > :first-child:not(:last-child):not(:first-child),
-[dir="rtl"] nu-btn-group[flow="row"] > :first-child:not(:last-child),
-[dir="rtl"] nu-btn-group[flow="row-reverse"] > :last-child:not(:first-child) {
+nu-btn-group[nu-flow="row"] > :last-child:not(:first-child),
+nu-btn-group[nu-flow="row-reverse"] > :first-child:not(:last-child):not(:first-child),
+[dir="rtl"] nu-btn-group[nu-flow="row"] > :first-child:not(:last-child),
+[dir="rtl"] nu-btn-group[nu-flow="row-reverse"] > :last-child:not(:first-child) {
   --nu-border-radius: 0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0;
 }

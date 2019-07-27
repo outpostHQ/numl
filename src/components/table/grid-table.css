@@ -1,4 +1,4 @@
-nu-table {
+nu-grid-table {
   --nu-cell-padding: .5rem;
   --current-color: var(--minor-color);
   --current-background-color: var(--minor-background-color);

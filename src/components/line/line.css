@@ -1,24 +1,36 @@
-nu-separator {
+nu-line {
   --nu-line-color: var(--current-border-color, var(--default-border-color));
   --nu-line-size: var(--pixel);
 
   display: block;
   position: relative;
-  min-width: 100%;
-  max-width: 100%;
-  min-height: var(--nu-line-size);
-  max-height: var(--nu-line-size);
   line-height: 0;
   place-self: stretch;
-  grid-column: 1 / -1;
   background-color: var(--nu-line-color);
 }
 
-nu-separator[nu-vertical] {
-  grid-row: 1 / -1;
-  grid-column: unset;
+[nu-layout="flex"][nu-flow^="column"] > nu-line {
+  min-height: var(--nu-line-size);
+  max-height: var(--nu-line-size);
+  min-width: 100%;
+  max-width: 100%;
+}
+
+[nu-layout="flex"][nu-flow^="row"] > nu-line {
+  min-width: var(--nu-line-size);
+  max-width: var(--nu-line-size);
   min-height: 100%;
-  max-height: unset;
+  max-height: 100%;
+}
+
+[nu-layout="grid"][nu-flow="column"] > nu-line {
+  grid-column: 1 / -1;
+  min-height: var(--nu-line-size);
+  max-height: var(--nu-line-size);
+}
+
+[nu-layout="grid"][nu-flow="row"] > nu-line {
+  grid-row: 1 / -1;
   min-width: var(--nu-line-size);
   max-width: var(--nu-line-size);
 }

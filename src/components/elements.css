@@ -10,7 +10,7 @@ nu-grid[inline], nu-pane[inline] {
   display: inline-grid;
 }
 
-nu-grid, nu-block, nu-pane, nu-layout, nu-table, nu-badge, nu-card, nu-flex {
+nu-grid, nu-block, nu-pane, nu-flow, nu-grid-table, nu-badge, nu-card, nu-flex {
   --nu-border-radius: 0rem;
   --nu-border-shadow: 0 0 0 0 var(--current-border-color, var(--default-border-color));
   --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
@@ -24,69 +24,51 @@ nu-block {
   display: block;
 }
 
-nu-flex, nu-layout, nu-btn-group {
-  --nu-flex-gap: 0rem;
-
+nu-flex, nu-flow, nu-btn-group {
   display: flex;
 }
 
-nu-flex[inline], nu-layout[inline], nu-btn-group[inline] {
+nu-flex[inline], nu-flow[inline], nu-btn-group[inline] {
   display: inline-flex;
 }
 
-nu-flex[flow="row-reverse"],
-nu-layout[flow="row-reverse"],
-nu-btn-group[flow="row-reverse"] {
+[nu-layout="flex"][nu-flow="row-reverse"] {
   flex-flow: row-reverse nowrap;
 }
 
-nu-flex[flow="column"],
-nu-layout[flow="column"],
-nu-btn-group[flow="column"]{
+[nu-layout="flex"][nu-flow="column"] {
   flex-flow: column nowrap;
 }
 
-nu-flex[flow="column-reverse"],
-nu-layout[flow="column-reverse"],
-nu-btn-group[flow="column-reverse"] {
+[nu-layout="flex"][nu-flow="column-reverse"] {
   flex-flow: column-reverse nowrap;
 }
 
-nu-flex:not([flow]) > :not(:last-child),
-nu-flex[flow="row"] > :not(:last-child),
-nu-layout:not([flow]) > :not(:last-child),
-nu-layout[flow="row"] > :not(:last-child),
-nu-btn-group:not([flow]) > :not(:last-child),
-nu-btn-group[flow="row"] > :not(:last-child) {
+[nu-layout="flex"][nu-flow="row"] > :not(:last-child) {
   margin-right: var(--nu-flex-gap);
 }
 
-nu-flex[flow="row-reverse"] > :not(:last-child),
-nu-layout[flow="row-reverse"] > :not(:last-child),
-nu-btn-group[flow="row-reverse"] > :not(:last-child) {
+[nu-layout="flex"][nu-flow="row-reverse"] > :not(:last-child) {
   margin-left: var(--nu-flex-gap);
 }
 
-nu-flex[flow="column"] > :not(:last-child),
-nu-layout[flow="column"] > :not(:last-child),
-nu-btn-group[flow="column"] > :not(:last-child) {
+[nu-layout="flex"][nu-flow="column"] > :not(:last-child) {
   margin-bottom: var(--nu-flex-gap);
 }
 
-nu-flex[flow="column-reverse"] > :not(:last-child),
-nu-layout[flow="column-reverse"] > :not(:last-child),
-nu-btn-group[flow="column-reverse"] > :not(:last-child) {
+[nu-layout="flex"][nu-flow="column-reverse"] > :not(:last-child) {
   margin-top: var(--nu-flex-gap);
 }
 
-nu-layout {
+nu-flow {
   flex-flow: column nowrap;
   place-content: stretch start;
   place-items: stretch;
 }
 
 nu-pane {
-  grid-auto-flow: column;
+  grid-auto-flow: row;
+  grid-template-rows: auto;
   place-content: stretch space-between;
   place-items: center;
   grid-gap: .5rem;

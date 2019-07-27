@@ -10,7 +10,7 @@ import {
 import { hasCSS, injectCSS } from '../css';
 import NuElement from './element';
 
-class NuGrid extends NuElement {
+class NuFlex extends NuElement {
   static get nuTag() {
     return 'nu-flex';
   }
@@ -53,4 +53,4 @@ class NuGrid extends NuElement {
   }
 }
 
-export default NuGrid;
+export default NuFlex;

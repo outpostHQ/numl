@@ -38,6 +38,22 @@ class NuElement extends HTMLElement {
   }
 
   /**
+   * Element layout type.
+   * @returns {string} - `flex` | `grid`.
+   */
+  static get nuLayout() {
+    return '';
+  }
+
+  /**
+   * Element default flow. Only for flex and grid layouts.
+   * @returns {string} - `row` | `row-reverse` | `column` | `column-reverse`.
+   */
+  static get nuDefaultFlow() {
+    return 'row';
+  }
+
+  /**
    * Element attributes list.
    * @returns {Object}
    */
@@ -300,6 +316,7 @@ class NuElement extends HTMLElement {
 
     if (this.constructor.nuLayout) {
       this.nuSetMod('layout', this.constructor.nuLayout);
+      this.nuSetMod('flow', this.getAttribute('flow') || this.constructor.nuDefaultFlow);
     }
   }
 
