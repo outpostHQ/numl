@@ -34,3 +34,8 @@ nu-line {
   min-width: var(--nu-line-size);
   max-width: var(--nu-line-size);
 }
+
+:not([nu-layout="grid"]):not([nu-layout="flex"]) > nu-line {
+  min-height: var(--nu-line-size);
+  max-height: var(--nu-line-size);
+}
