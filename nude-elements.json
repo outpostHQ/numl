@@ -78,7 +78,8 @@
     },
     {
       "name": "nu-flow",
-      "description": "Flex with default column flow"
+      "description": "Flex with default column flow",
+      "attributes": []
     },
     {
       "name": "nu-pane",
@@ -137,7 +138,8 @@
     },
     {
       "name": "nu-block",
-      "description": "Simple block"
+      "description": "Simple block",
+      "attributes": []
     },
     {
       "name": "nu-link",
@@ -151,7 +153,8 @@
     },
     {
       "name": "nu-line",
-      "description": "Separator element"
+      "description": "Separator element",
+      "attributes": []
     },
     {
       "name": "nu-icon",
@@ -502,7 +505,8 @@
     },
     {
       "name": "nu-card",
-      "description": "Block element with default border radius and background fill"
+      "description": "Block element with default border radius and background fill",
+      "attributes": []
     },
     {
       "name": "nu-btn",
@@ -577,15 +581,18 @@
     },
     {
       "name": "nu-toggle",
-      "description": "Toggle form element"
+      "description": "Toggle form element",
+      "attributes": []
     },
     {
       "name": "nu-badge",
-      "description": "Badge element with inverted theme by default"
+      "description": "Badge element with inverted theme by default",
+      "attributes": []
     },
     {
       "name": "nu-scroll",
-      "description": "Visible scroll"
+      "description": "Visible scroll",
+      "attributes": []
     },
     {
       "name": "nu-grid-table",
@@ -636,7 +643,8 @@
     },
     {
       "name": "nu-cell",
-      "description": "Table cell element"
+      "description": "Table cell element",
+      "attributes": []
     },
     {
       "name": "nu-grid-cell",
