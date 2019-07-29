@@ -14,10 +14,6 @@ Smallest UI Framework based on Custom Elements that lets you create gorgeous web
 
 Check out our [Playground](http://bit.ly/nude-elements) with few examples.
 
-## Development
-
-Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
-
 ## Getting started
 
 `npm run build` builds the library to `dist`, generating five files:
@@ -29,6 +25,14 @@ Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
 * `dist/nude.global.css` - CSS bundle with base global styles.
 
 `npm run dev` builds the library, then keeps rebuilding it whenever the source files change.
+
+## In Action
+
+You can see **NUDE** in action on the **[Sellerscale](https://sellerscale.com)** site.
+
+## Development
+
+Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
 
 ## Testing
 
