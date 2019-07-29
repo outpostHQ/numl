@@ -14,6 +14,10 @@ Smallest UI Framework based on Custom Elements that lets you create gorgeous web
 
 Check out our [Playground](http://bit.ly/nude-elements) with few examples.
 
+## Development
+
+Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
+
 ## Getting started
 
 `npm run build` builds the library to `dist`, generating five files:
