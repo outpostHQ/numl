@@ -16,6 +16,7 @@
   --default-border-color: #d2ddec;
   --default-special-color: #3297db;/* #3297db88; */
   --default-border-radius: .5rem;
+  --default-border-width: 1px;
 
   /* current theme */
   --current-color: var(--default-color);
@@ -56,6 +57,10 @@
 
   min-height: 100vh;
   background-color: var(--root-color);
+}
+
+[data-nu-root] [nu-hidden] {
+  display: none !important;
 }
 
 [data-nu-high-contrast] > * {

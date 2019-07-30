@@ -4,8 +4,8 @@ nu-input {
   --nu-border-radius: var(--border-radius, .5rem);
   --nu-padding: .5rem;
 
-  --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color) inset;
-  --nu-depth-shadow: 0 0 0 var(--pixel) var(--nu-depth-color);
+  --nu-border-shadow: 0 0 0 var(--default-border-width) var(--nu-border-color) inset;
+  --nu-depth-shadow: 0 0 0 var(--default-border-width) var(--nu-depth-color);
 
   position: relative;
   border-radius: var(--nu-border-radius);

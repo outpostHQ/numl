@@ -75,7 +75,7 @@ export const BLOCK_ATTRS = {
   border(val) {
     if (val == null) return val;
 
-    const width = val ? convertUnit(val) : 'var(--pixel)';
+    const width = val ? convertUnit(val) : 'var(--default-border-width)';
 
     return {
       '--nu-border-shadow': `0 0 0 ${width} var(--nu-border-color, var(--current-border-color, var(--default-border-color)))`,

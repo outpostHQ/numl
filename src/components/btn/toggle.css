@@ -4,13 +4,13 @@ nu-toggle {
   --nu-border-radius: calc(var(--nu-size) / 2);
   --nu-toggle-color: transparent;
 
-  --nu-border-shadow: 0 0 0 var(--pixel) var(--nu-border-color) inset;
+  --nu-border-shadow: 0 0 0 var(--default-border-width) var(--nu-border-color) inset;
   --nu-depth-shadow: 0 .25rem 1.5rem var(--nu-depth-color);
   --nu-background-color: var(--current-background-color, var(--default-background-color, #fff));
   --nu-toggle-shadow: 0 0 1rem 0 var(--nu-toggle-color) inset;
 
   --nu-size: 2em;
-  --nu-circle-padding: calc(var(--pixel) * 4);
+  --nu-circle-padding: calc(var(--default-border-width) * 4);
   --nu-circle-size: calc(var(--nu-size) - var(--nu-circle-padding) * 2);
   --nu-circle-offset: var(--nu-circle-padding);
   --nu-circle-opacity: .5;

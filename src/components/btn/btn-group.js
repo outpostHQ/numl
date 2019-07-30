@@ -13,7 +13,7 @@ import {
 import NuElement from '../element';
 
 const defaultAttrs = {
-  gap: 'calc(var(--pixel) * -1)',
+  gap: 'calc(var(--default-border-width) * -1)',
   flow: 'row',
   'items-grow': 1,
 };
@@ -34,7 +34,7 @@ export default class NuBtnGroup extends NuFlex {
       border(val) {
         if (val == null) return val;
 
-        const width = val ? convertUnit(val) : 'var(--pixel)';
+        const width = val ? convertUnit(val) : 'var(--default-border-width)';
 
         return {
           $children: true,

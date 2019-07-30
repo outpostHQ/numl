@@ -4,7 +4,7 @@ nu-grid-table {
   --current-background-color: var(--minor-background-color);
 
   display: grid;
-  grid-gap: var(--pixel);
+  grid-gap: var(--default-border-width);
   background-color: var(--current-border-color, var(--default-border-color, #d2ddec)) !important;
   color: var(--default-color, #333);
   overflow: auto;

@@ -38,7 +38,17 @@ export function sizeUnit(name, $children) {
           [`min-${name}`]: convertUnit(values[0]),
           [`max-${name}`]: convertUnit(values[1])
         };
-      }
+     } else if (val.startsWith('min(')) {
+       return {
+         $children,
+         [`min-${{name}}`]: val.slice(4, -1),
+       };
+     } else if (val.startsWith('max(')) {
+      return {
+        $children,
+        [`max-${{name}}`]: val.slice(4, -1),
+      };
+    }
 
       return {
         $children,

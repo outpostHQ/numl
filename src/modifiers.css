@@ -271,7 +271,7 @@
 
 /* border */
 .-nu-border {
-  --nu-border-shadow: 0 0 0 var(--pixel) var(--current-border-color, var(--default-border-color)) !important;
+  --nu-border-shadow: 0 0 0 var(--default-border-width) var(--current-border-color, var(--default-border-color)) !important;
 }
 
 .-nu-round {
