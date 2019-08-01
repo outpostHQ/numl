@@ -1,15 +1,29 @@
 import { convertUnit, unit, sizeUnit } from './helpers';
 
+const PLACE_VALUES = [
+  'content', 'items', 'self'
+].map((name) => {
+  return CSS.supports(`place-${name}`, 'stretch stretch')
+    ? `place-${name}` : function(val) {
+      const values = val && val.trim().split(/\s+/);
+
+      return val ? {
+        [`align-${name}`]: values[0],
+        [`justify-${name}`]: values[1] || values[0],
+      } : null;
+    };
+});
+
 export const PLACE_ATTRS = {
-  'place-content': 'place-content',
-  'place-items': 'place-items',
-  'content': 'place-content',
-  'items': 'place-items',
+  'place-content': PLACE_VALUES[0],
+  'place-items': PLACE_VALUES[1],
+  'content': PLACE_VALUES[0],
+  'items': PLACE_VALUES[1],
 };
 
 export const PLACE_SELF_ATTRS = {
-  'place-self': 'place-self',
-  'place': 'place-self',
+  'place-self': PLACE_VALUES[2],
+  'place': PLACE_VALUES[2],
 };
 
 export const FLEX_ATTRS = {
