@@ -4,6 +4,7 @@ import {
 } from '../../helpers';
 import {
   GRID_ITEM_ATTRS,
+  BLOCK_ATTRS,
 } from '../../attrs';
 import Nude from '../../nude';
 import NuElement from '../element';
@@ -16,10 +17,14 @@ export default class NuIcon extends NuElement {
   static get nuAttrs() {
     return Object.assign(NuElement.nuAttrs, {
       ...GRID_ITEM_ATTRS,
+      ...BLOCK_ATTRS,
       size(val) {
+        const converted = convertUnit(val || '');
+
         return val ? {
-          width: convertUnit(val || ''),
-          height: convertUnit(val || ''),
+          'min-width': converted,
+          'min-height': converted,
+          '--nu-size': converted,
         } : null;
       },
       name: '',
