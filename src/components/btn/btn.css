@@ -19,10 +19,10 @@ nu-btn {
   color: var(--current-color, var(--default-color, #333));
   background-color: var(--current-background-color, var(--default-background-color));
   cursor: pointer;
-  box-shadow: var(--nu-depth-shadow),
-    var(--nu-focus-background-shadow),
+  box-shadow: var(--nu-border-shadow),
     var(--nu-toggle-shadow),
-    var(--nu-border-shadow);
+    var(--nu-focus-background-shadow),
+    var(--nu-depth-shadow);
   transition: box-shadow var(--quick-animation-time) linear;
   user-select: none;
   vertical-align: middle;
