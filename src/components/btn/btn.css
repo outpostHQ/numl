@@ -1,11 +1,11 @@
 nu-btn {
-  --nu-border-color: var(--current-border-color, var(--default-border-color)) inset;
   --nu-toggle-color: transparent;
   --nu-depth-color: transparent;
-  --nu-border-radius: var(--default-border-radius);
+  --nu-border-radius: var(--nu-theme-border-radius);
 
   --nu-toggle-shadow: 0 0 1em 0 var(--nu-toggle-color) inset;
-  --nu-border-shadow: 0 0 0 var(--default-border-width) var(--nu-border-color);
+  --nu-border-inset: inset 0 0;
+  --nu-border-shadow: var(--nu-border-inset) 0 var(--nu-theme-border-width) var(--nu-theme-border-color);
   --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
   position: relative;
@@ -16,14 +16,14 @@ nu-btn {
   grid-auto-flow: column;
   grid-gap: .5rem;
   padding: .5rem 1rem;
-  color: var(--current-color, var(--default-color, #333));
-  background-color: var(--current-background-color, var(--default-background-color));
+  color: var(--nu-theme-color);
+  background-color: var(--nu-theme-background-color);
   cursor: pointer;
   box-shadow: var(--nu-border-shadow),
     var(--nu-toggle-shadow),
     var(--nu-focus-background-shadow),
     var(--nu-depth-shadow);
-  transition: box-shadow var(--quick-animation-time) linear;
+  transition: box-shadow var(--nu-theme-animation-time) linear;
   user-select: none;
   vertical-align: middle;
   opacity: 1;
@@ -42,7 +42,7 @@ nu-btn:not([disabled])::after {
   top: 0;
   bottom: 0;
   z-index: -1;
-  transition: background-color var(--quick-animation-time) linear;
+  transition: background-color var(--nu-theme-animation-time) linear;
   background-color: rgba(128, 128, 128, 0);
   border-radius: inherit;
 }
@@ -71,6 +71,6 @@ nu-btn[nu-active]:not([disabled]):not([nu-toggled]), nu-btn[nu-toggled]:not([dis
 
 nu-btn[special] {
   --nu-border-color: transparent;
-  background-color: var(--current-special-color, var(--default-color));
-  color: var(--current-background-color, var(--default-background-color));
+  background-color: var(--nu-theme-special-color);
+  color: var(--nu-theme-background-color);
 }

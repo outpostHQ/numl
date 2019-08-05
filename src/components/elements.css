@@ -12,7 +12,7 @@ nu-grid[inline], nu-pane[inline] {
 
 nu-grid, nu-block, nu-pane, nu-flow, nu-grid-table, nu-badge, nu-card, nu-flex {
   --nu-border-radius: 0rem;
-  --nu-border-shadow: 0 0 0 0 var(--current-border-color, var(--default-border-color));
+  --nu-border-shadow: 0 0 0 0 var(--nu-theme-border-color);
   --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
   box-shadow: var(--nu-border-shadow), var(--nu-depth-shadow);
@@ -78,8 +78,9 @@ nu-pane {
 [nu-focusable] {
   --nu-focus-color: transparent;
   --nu-focus-background-color: transparent;
-  --nu-focus-shadow: 0 0 0 0.1875rem var(--nu-focus-color);
-  --nu-focus-background-shadow: 0 0 0 0.1875rem var(--nu-focus-background-color);
+  --nu-focus-inset: 0 0;
+  --nu-focus-shadow: var(--nu-focus-inset) 0 0.1875rem var(--nu-focus-color);
+  --nu-focus-background-shadow: var(--nu-focus-inset) 0 0.1875rem var(--nu-focus-background-color);
 
   outline: none;
 }
@@ -96,7 +97,7 @@ nu-pane {
   border-radius: var(--nu-border-radius);
   box-shadow: var(--nu-focus-shadow);
   opacity: .5;
-  transition: box-shadow var(--quick-animation-time) linear;
+  transition: box-shadow var(--nu-theme-animation-time) linear;
 }
 
 [nu-focusable][nu-focus] {
@@ -104,27 +105,22 @@ nu-pane {
 }
 
 [nu-focusable][nu-focus] {
-  --nu-focus-color: var(--current-special-color, var(--primary-color, #333));
+  --nu-focus-color: var(--nu-theme-special-color);
 }
 
-[nu-focusable][nu-focus]:not(.-nu-cell) {
-  --nu-focus-background-color: var(--default-background-color, #fff);
+[nu-focusable][nu-focus] {
+  --nu-focus-background-color: var(--nu-theme-special-background-color);
 }
 
 [nu-focusable][nu-focus].-nu-cell {
-  --nu-focus-background-color: var(--default-background-color, #fff) inset;
+  --nu-focus-inset: inset 0 0;
 }
 
 [nu-focusable][disabled] {
   --nu-focus-color: transparent !important;
 }
 
-[nu-theme="current"] {
-  color: var(--current-color);
-  background-color: var(--current-background-color);
-}
-
-[nu-theme="!current"] {
-  color: var(--current-background-color);
-  background-color: var(--current-color);
+[theme=""] {
+  color: var(--nu-theme-color);
+  background-color: var(--nu-theme-background-color);
 }

@@ -29,8 +29,6 @@ export default class NuScroll extends NuElement {
 
   constructor() {
     super();
-
-    this.nuThemeInvert = true;
   }
 
   nuChanged(name, oldValue, value) {

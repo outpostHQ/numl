@@ -1,20 +1,6 @@
 import { log } from './helpers';
 import CSS from './css';
 
-const dim = document.createElement('div');
-const dimStyle = dim.style;
-
-export function splitDimensions(style) {
-  dimStyle.padding = style;
-
-  return [
-    dimStyle.paddingTop,
-    dimStyle.paddingRight,
-    dimStyle.paddingBottom,
-    dimStyle.paddingTop,
-  ];
-}
-
 const Nude = {
   points: [],
   rules: [],
@@ -27,7 +13,7 @@ const Nude = {
   },
   CSS,
   iconLoader() {
-    return '';
+    return Promise.resolve('');
   },
 };
 

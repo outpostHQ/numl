@@ -64,10 +64,6 @@ class NuInput extends NuElement {
 
   nuUpdateTheme(theme) {
     super.nuUpdateTheme(theme);
-
-    if (this.nuTheme && !this.nuTheme.invert) {
-      this.style.color = '';
-    }
   }
 }
 

@@ -87,6 +87,12 @@ export function warn(...args) {
   }
 }
 
+export function error(...args) {
+  if (devMode) {
+    console.error('nude:', ...args);
+  }
+}
+
 /**
  * Get full theme name from the attribute.
  * @param {string} attr
@@ -113,4 +119,50 @@ export function getTheme(attr, invert = false) {
   }
 
   return theme;
+}
+
+let globalId = 0;
+let nuId = 0;
+
+export function generateId(el) {
+  if (el.id) return el.id;
+
+  globalId += 1;
+
+  return el.id = `nu-${globalId}`;
+}
+
+export function generateNuId(el) {
+  const dataset = el.dataset;
+
+  if (dataset.nuId) return dataset.nuId;
+
+  nuId += 1;
+
+  return dataset.nuId = nuId;
+}
+
+const dim = document.createElement('div');
+const dimStyle = dim.style;
+
+export function mixColors(clr1, clr2) {
+  dim.style.color = clr1;
+  const color1 = dim.style.color.match(/\d+/g).slice(0, 3).map(Number);
+  dim.style.color = clr2;
+  const color2 = dim.style.color.match(/\d+/g).slice(0, 3).map(Number);
+
+  const color = color1.map((c,i) => parseInt((c + color2[i]) / 2));
+
+  return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+}
+
+export function splitDimensions(style) {
+  dimStyle.padding = style;
+
+  return [
+    dimStyle.paddingTop,
+    dimStyle.paddingRight,
+    dimStyle.paddingBottom,
+    dimStyle.paddingTop,
+  ];
 }

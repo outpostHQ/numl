@@ -1,5 +1,7 @@
 import './components/elements.css';
+import './decorators/decorators.css';
 import Nude from './nude';
+// elements
 import NuResponsive from './components/responsive';
 import NuGrid from './components/grid';
 import NuBlock from './components/block';
@@ -19,6 +21,10 @@ import NuInput from './components/form/input';
 import NuScroll from './components/scroll/scroll';
 import NuFlex from './components/flex';
 import NuBtnGroup from './components/btn/btn-group';
+// decorators
+import NuTheme from './decorators/theme';
+import NuAttr from './decorators/attr';
+// helpers
 import { log } from './helpers';
 
 export default Nude;
@@ -44,6 +50,9 @@ Nude.init = () => {
     NuFlex,
     NuBtnGroup,
     NuLink,
+    // decorators
+    NuTheme,
+    NuAttr,
   ].forEach(customElement => {
     customElements.define(customElement.nuTag, customElement);
 
@@ -71,4 +80,6 @@ export {
   NuFlex,
   NuBtnGroup,
   NuLink,
+  NuTheme,
+  NuAttr,
 };

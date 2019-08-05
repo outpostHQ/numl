@@ -1,6 +1,6 @@
 nu-line {
-  --nu-line-color: var(--current-border-color, var(--default-border-color));
-  --nu-line-size: var(--default-border-width);
+  --nu-line-color: var(--nu-theme-border-color);
+  --nu-line-size: var(--nu-theme-border-width);
 
   display: block;
   position: relative;

@@ -2,109 +2,180 @@
   <script src="src/index.global.js"></script>
   <script src="src/index.modifiers.js"></script>
   <script src="src/pack.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.22.1/feather.js"></script> -->
+  <script>
+    // Nude.iconLoader = function iconLoader(name) {
+    //   const data = feather.icons[name];
+
+    //   const el = document.createElement('svg');
+
+    //   for (let attr in data.attrs) {
+    //     el.setAttribute(attr, data.attrs[attr]);
+    //   }
+
+    //   el.innerHTML = data.contents;
+
+    //   return Promise.resolve(el.outerHTML);
+    // };
+
+    Nude.init();
+  </script>
 </head>
 <body>
+  <nu-block data-nu-root padding="1">
+    <nd-theme
+      color="#333"
+      background-color="#fff"
+      special-color="#3366ff"
+      border-color="#ddd">
+    </nd-theme>
+    <nd-theme
+      name="primary"
+      color="#3366ff"
+      background-color="#fff"
+      special-color="#3366ff"></nd-theme>
+    <nu-table>
+      <thead>
+        <tr>
+          <nu-cell></nu-cell>
+          <nu-column-header></nu-column-header>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <nu-row-header></nu-row-header>
+          <nu-cell></nu-cell>
+        </tr>
+      </tbody>
+      <tfoot></tfoot>
+    </nu-table>
 
-<nu-block height="clamp(100vh, auto, auto)" padding="1">
+    <nu-flex flow="column" gap=1>
+      <nu-card depth border theme="!" data-nu-light>
+        <nu-flex flow="column" gap="1">
+          <nu-block>
+            <nu-btn-group theme="!" items-padding=".5">
+              <nu-btn>One</nu-btn>
+              <nu-btn value>Two</nu-btn>
+              <nu-btn>Three</nu-btn>
+            </nu-btn-group>
+          </nu-block>
 
-  <nu-card depth border theme="!primary">
-    <nu-flex flow="column" gap="1">
-      <nu-block>
-        <nu-btn-group theme="!" items-padding=".5" border=".25">
-          <nu-btn>One</nu-btn>
-          <nu-btn value>Two</nu-btn>
-          <nu-btn>Three</nu-btn>
-        </nu-btn-group>
-      </nu-block>
+          <nu-line></nu-line>
 
-      <nu-input>
-        <input/>
-      </nu-input>
-    </nu-flex>
-  </nu-card>
+          <nu-input cols="auto 1fr">
+            <nu-icon name="x" width="2.5"></nu-icon>
+            <input />
+          </nu-input>
 
-</nu-block>
+          <nu-card mod="sm" theme="!">
+            Some text and <nu-link>Some link</nu-link> and
+            <nu-badge>Some badge</nu-badge>
+          </nu-card>
+        </nu-flex>
+      </nu-card>
 
-<!--<nu-responsive phone="320" tablet="980" desktop="1280"></nu-responsive>-->
+      <nu-card depth border theme="primary">
+        <nu-flex flow="column" gap="1">
+          <nu-block>
+            <nu-btn-group theme="!" items-padding=".5" border=".25">
+              <nu-btn>One</nu-btn>
+              <nu-btn value>Two</nu-btn>
+              <nu-btn>Three</nu-btn>
+            </nu-btn-group>
+          </nu-block>
 
-<!--<nu-grid flow="column" padding="1" gap="1" items="start" theme="default">-->
-<!--  <nu-card padding="1" gap="1" border grow="1" radius=".5" depth=".5">-->
-<!--    <nu-flex gap="1" flow="column">-->
-<!--      <nu-block>-->
-<!--        Lorem Ipsum is simply dummy text of the printing and typesetting industry.-->
-<!--      </nu-block>-->
+          <nu-input>
+            <input />
+          </nu-input>
 
-<!--      <nu-separator></nu-separator>-->
+          <nu-card theme="minor">
+            Some text and <nu-link>Some link</nu-link> and
+            <nu-badge>Some badge</nu-badge>
+          </nu-card>
+        </nu-flex>
+      </nu-card>
+  </nu-block>
 
-<!--      <nu-card theme="!" mod="xs" padding="1">-->
-<!--        <nu-toggle></nu-toggle>-->
-<!--      </nu-card>-->
+  <!--<nu-responsive phone="320" tablet="980" desktop="1280"></nu-responsive>-->
 
-<!--      <nu-toggle></nu-toggle>-->
+  <!--<nu-grid flow="column" padding="1" gap="1" items="start" theme="default">-->
+  <!--  <nu-card padding="1" gap="1" border grow="1" radius=".5" depth=".5">-->
+  <!--    <nu-flex gap="1" flow="column">-->
+  <!--      <nu-block>-->
+  <!--        Lorem Ipsum is simply dummy text of the printing and typesetting industry.-->
+  <!--      </nu-block>-->
 
-<!--      <nu-input theme>-->
-<!--        <input>-->
-<!--      </nu-input>-->
+  <!--      <nu-line></nu-line>-->
 
-<!--      <nu-block>-->
-<!--        <nu-flex gap="1" height="300px">-->
-<!--          <nu-btn basis="40%">1asdfasdfadf</nu-btn>-->
-<!--          <nu-btn basis="30%">sfdsaf</nu-btn>-->
-<!--          <nu-btn basis="30%">asdfdf</nu-btn>-->
-<!--          <nu-btn>asdfsadfasdf3</nu-btn>-->
-<!--          <nu-btn>asdfsadfasdf3</nu-btn>-->
-<!--        </nu-flex>-->
-<!--      </nu-block>-->
+  <!--      <nu-card theme="!" mod="xs" padding="1">-->
+  <!--        <nu-toggle></nu-toggle>-->
+  <!--      </nu-card>-->
 
-<!--      <nu-block>-->
-<!--        <nu-btn id="button" theme>-->
-<!--          <nu-icon size="1.5">-->
-<!--            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"-->
-<!--                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"-->
-<!--                 stroke-linejoin="round" class="feather feather-image">-->
-<!--              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>-->
-<!--              <circle cx="8.5" cy="8.5" r="1.5"></circle>-->
-<!--              <polyline points="21 15 16 10 5 21"></polyline>-->
-<!--            </svg>-->
-<!--          </nu-icon>-->
-<!--          Ok, go!-->
-<!--        </nu-btn>-->
-<!--      </nu-block>-->
-<!--    </nu-flex>-->
-<!--  </nu-card>-->
-<!--  <nu-card theme="minor" mod="border" radius="1.5" depth>-->
-<!--    <nu-flex flow="column" gap="1">-->
-<!--      <nu-block>-->
-<!--        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an-->
-<!--        unknown-->
-<!--        printer took a galley of type and scrambled it to make a type specimen book.-->
-<!--      </nu-block>-->
-<!--      <nu-block>-->
-<!--        <nu-btn-group flow="row">-->
-<!--          <nu-btn>-->
-<!--            Yes-->
-<!--          </nu-btn>-->
-<!--          <nu-btn>-->
-<!--            No-->
-<!--          </nu-btn>-->
-<!--        </nu-btn-group>-->
-<!--      </nu-block>-->
-<!--    </nu-flex>-->
-<!--  </nu-card>-->
-<!--  <nu-block padding="1" theme="!primary">-->
-<!--    <nu-flex width="clamp(10, 5, 15)">-->
-<!--      It has survived not only five centuries, but also the leap into electronic typesetting,-->
-<!--      remaining essentially unchanged-->
-<!--    </nu-flex>-->
-<!--  </nu-block>-->
-<!--</nu-grid>-->
+  <!--      <nu-toggle></nu-toggle>-->
 
+  <!--      <nu-input theme>-->
+  <!--        <input>-->
+  <!--      </nu-input>-->
 
-<script>
-const btn = document.getElementById('button');
+  <!--      <nu-block>-->
+  <!--        <nu-flex gap="1" height="300px">-->
+  <!--          <nu-btn basis="40%">1asdfasdfadf</nu-btn>-->
+  <!--          <nu-btn basis="30%">sfdsaf</nu-btn>-->
+  <!--          <nu-btn basis="30%">asdfdf</nu-btn>-->
+  <!--          <nu-btn>asdfsadfasdf3</nu-btn>-->
+  <!--          <nu-btn>asdfsadfasdf3</nu-btn>-->
+  <!--        </nu-flex>-->
+  <!--      </nu-block>-->
 
-// btn.addEventListener('tap', function (evt) {
-//   console.log('!', evt);
-// });
-</script>
+  <!--      <nu-block>-->
+  <!--        <nu-btn id="button" theme>-->
+  <!--          <nu-icon size="1.5">-->
+  <!--            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"-->
+  <!--                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"-->
+  <!--                 stroke-linejoin="round" class="feather feather-image">-->
+  <!--              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>-->
+  <!--              <circle cx="8.5" cy="8.5" r="1.5"></circle>-->
+  <!--              <polyline points="21 15 16 10 5 21"></polyline>-->
+  <!--            </svg>-->
+  <!--          </nu-icon>-->
+  <!--          Ok, go!-->
+  <!--        </nu-btn>-->
+  <!--      </nu-block>-->
+  <!--    </nu-flex>-->
+  <!--  </nu-card>-->
+  <!--  <nu-card theme="minor" mod="border" radius="1.5" depth>-->
+  <!--    <nu-flex flow="column" gap="1">-->
+  <!--      <nu-block>-->
+  <!--        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an-->
+  <!--        unknown-->
+  <!--        printer took a galley of type and scrambled it to make a type specimen book.-->
+  <!--      </nu-block>-->
+  <!--      <nu-block>-->
+  <!--        <nu-btn-group flow="row">-->
+  <!--          <nu-btn>-->
+  <!--            Yes-->
+  <!--          </nu-btn>-->
+  <!--          <nu-btn>-->
+  <!--            No-->
+  <!--          </nu-btn>-->
+  <!--        </nu-btn-group>-->
+  <!--      </nu-block>-->
+  <!--    </nu-flex>-->
+  <!--  </nu-card>-->
+  <!--  <nu-block padding="1" theme="!primary">-->
+  <!--    <nu-flex width="clamp(10, 5, 15)">-->
+  <!--      It has survived not only five centuries, but also the leap into electronic typesetting,-->
+  <!--      remaining essentially unchanged-->
+  <!--    </nu-flex>-->
+  <!--  </nu-block>-->
+  <!--</nu-grid>-->
+
+  <script>
+    const btn = document.getElementById("button");
+
+    // btn.addEventListener('tap', function (evt) {
+    //   console.log('!', evt);
+    // });
+  </script>
 </body>

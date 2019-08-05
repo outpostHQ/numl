@@ -42,14 +42,6 @@ export function hasCSS(name) {
   return !!map[name];
 }
 
-function invertTheme(theme) {
-  if (theme.startsWith('!')) {
-    return theme.slice(1);
-  } else {
-    return `!${theme}`;
-  }
-}
-
 const CSS = {
   has(name) {
     return !!map[name];
@@ -59,36 +51,40 @@ const CSS = {
    * Generate CSS for the theme with specific name.
    * @param {string} theme
    */
-  generateTheme(theme) {
-    const key = `theme-${theme}`;
+  generateTheme(theme, styles, context) {
+    const key = `theme-${theme}-${context}`;
 
-    if (map[key]) return;
+    if (map[key]) {
+      const currentEl = map[key].element;
 
-    const specialColor = `var(--${theme}-special-color, var(--default-special-color))`;
-    const borderColor = `var(--${theme}-border-color, var(--default-border-color))`;
-    const linkColor = `var(--${theme}-special-color, var(--current-color))`;
+      currentEl.parentNode.removeChild(currentEl);
 
-    const css = [[
-      theme,
-      `var(--${theme}-color, var(--default-color))`,
-      `var(--${theme}-background-color, var(--default-background-color))`,
-    ], [
-      `!${theme}`,
-      `var(--${theme}-background-color, var(--default-background-color))`,
-      `var(--${theme}-color, var(--default-color))`,
-    ]].map(([theme, color, backgroundColor]) => {
-      return`
-        [theme="${theme}"]:not([nu-inverted]),[theme="${invertTheme(theme)}"][nu-inverted],[nu-theme="${theme}"]{
-          color:${color};
-          background-color:${backgroundColor};
-          --current-color:${color};
-          --current-background-color:${backgroundColor};
-          --current-special-color:${specialColor};
-          --current-border-color:${borderColor};
-          --current-link-color:${theme.startsWith('!') ? linkColor : specialColor};
-        }
-      `;
-    }).join('');
+      delete map[key];
+    };
+
+    Object.assign(styles, {
+      color: styles['--nu-theme-color'],
+      'background-color': styles['--nu-theme-background-color'],
+    });
+
+    const invertedStyles = {
+      ...styles,
+      color: styles['--nu-theme-background-color'],
+      'background-color': styles['--nu-theme-color'],
+      '--nu-theme-color': styles['--nu-theme-background-color'],
+      '--nu-theme-background-color': styles['--nu-theme-color'],
+    };
+
+    theme = theme || 'default';
+
+    const css = `
+      ${context} [data-nu-theme="${theme}"]
+      ${theme === 'default'
+        ? `,${context}`
+        : ''
+      }{${stylesString(styles)}}
+      ${context} [data-nu-theme="!${theme}"]{${stylesString(invertedStyles)}}
+    `;
 
     const element = inject(css);
 

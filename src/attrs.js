@@ -81,18 +81,20 @@ export const BLOCK_ATTRS = {
   width: sizeUnit('width'),
   height: sizeUnit('height'),
   padding: unit('padding'),
+  color: 'color',
+  background: 'background',
   radius: (val) => val != null ? {
     '--nu-border-radius': val
-      ? convertUnit(val).replace(/\*/g, 'var(--nu-border-radius, var(--default-border-radius))')
-      : 'var(--default-border-radius)',
+      ? convertUnit(val).replace(/\*/g, 'var(--nu-theme-border-radius)')
+      : 'var(--nu-theme-border-radius)',
   } : null,
   border(val) {
     if (val == null) return val;
 
-    const width = val ? convertUnit(val) : 'var(--default-border-width)';
+    const width = val ? convertUnit(val) : 'var(--nu-theme-border-width)';
 
     return {
-      '--nu-border-shadow': `0 0 0 ${width} var(--nu-border-color, var(--current-border-color, var(--default-border-color)))`,
+      '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`,
     };
   },
   depth(val) {

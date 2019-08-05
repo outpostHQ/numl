@@ -1,19 +1,19 @@
 nu-grid-table {
   --nu-cell-padding: .5rem;
-  --current-color: var(--minor-color);
-  --current-background-color: var(--minor-background-color);
+  --nu-theme-color: var(--minor-color);
+  --nu-theme-background-color: var(--minor-background-color);
 
   display: grid;
-  grid-gap: var(--default-border-width);
-  background-color: var(--current-border-color, var(--default-border-color, #d2ddec)) !important;
-  color: var(--default-color, #333);
+  grid-gap: var(--nu-theme-border-width);
+  background-color: var(--nu-theme-border-color) !important;
+  color: var(--nu-theme-color, #333);
   overflow: auto;
   max-width: 100%;
 }
 
 nu-cell, nu-grid-cell {
   position: relative;
-  background-color: var(--default-background-color, #fff);
+  background-color: var(--nu-theme-background-color, #fff);
   color: var(--minor-color, #333);
 }
 
@@ -32,18 +32,13 @@ nu-cell {
 }
 
 nu-cell[nu-header], nu-grid-cell[nu-header] {
-  color: var(--current-color);
-  background-color: var(--current-background-color);
+  color: var(--nu-theme-color);
+  background-color: var(--nu-theme-background-color);
   font-weight: 600;
 }
 
 nu-cell[nu-group], nu-grid-cell[nu-group] {
-  color: var(--current-background-color);
-  background-color: var(--current-color);
+  color: var(--nu-theme-background-color);
+  background-color: var(--nu-theme-color);
   font-weight: 600;
-}
-
-nu-cell:not([nu-group]):not([nu-header]):not([theme]) {
-  --current-color: var(--default-color, #333);
-  --current-background-color: var(--default-background-color, #fff);
 }

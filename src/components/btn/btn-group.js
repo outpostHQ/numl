@@ -13,7 +13,7 @@ import {
 import NuElement from '../element';
 
 const defaultAttrs = {
-  gap: 'calc(var(--default-border-width) * -1)',
+  gap: 'calc(var(--nu-theme-border-width) * -1)',
   flow: 'row',
   'items-grow': 1,
 };
@@ -34,11 +34,11 @@ export default class NuBtnGroup extends NuFlex {
       border(val) {
         if (val == null) return val;
 
-        const width = val ? convertUnit(val) : 'var(--default-border-width)';
+        const width = val ? convertUnit(val) : 'var(--nu-theme-border-width)';
 
         return {
-          $children: true,
-          '--nu-border-shadow': `0 0 0 ${width} var(--nu-border-color, var(--current-border-color, var(--default-border-color)))`,
+          $children: 'border',
+          '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`,
         };
       },
     });

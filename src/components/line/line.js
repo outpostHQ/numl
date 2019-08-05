@@ -31,8 +31,6 @@ export default class NuLine extends NuElement {
 
   constructor() {
     super();
-
-    this.nuThemeInvert = true;
   }
 
 

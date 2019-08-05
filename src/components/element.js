@@ -8,6 +8,7 @@ import {
 } from '../helpers';
 import NUDE from '../nude';
 import { hasCSS, injectCSS, attrsQuery, stylesString } from '../css';
+import NuBase from '../base';
 
 const attrsObjs = [];
 const plugins = {
@@ -20,15 +21,7 @@ const plugins = {
  * @class
  * @abstract
  */
-class NuElement extends HTMLElement {
-  /**
-   * Element tag name.
-   * @returns {string}
-   */
-  static get nuTag() {
-    return '';
-  }
-
+class NuElement extends NuBase {
   /**
    * Element ARIA Role.
    * @returns {string}
@@ -70,14 +63,6 @@ class NuElement extends HTMLElement {
   }
 
   /**
-   * Element default attribute values
-   * @returns {{}}
-   */
-  static get nuDefaultAttrs() {
-    return {};
-  }
-
-  /**
    * @private
    * @returns {string[]}
    */
@@ -90,7 +75,6 @@ class NuElement extends HTMLElement {
 
     const tabIndexAttr = this.getAttribute('tabindex');
 
-    this.nuThemeInvert = false;
     this.nuTabIndex = tabIndexAttr != null ? Number(tabIndexAttr) : 0;
     this.nuRef = null;
   }
@@ -108,16 +92,6 @@ class NuElement extends HTMLElement {
     this.nuMounted();
 
     this.nuIsMounted = true;
-  }
-
-  /**
-   * @private
-   * @param {string} name
-   * @param {*} oldValue
-   * @param {*} value
-   */
-  attributeChangedCallback(name, oldValue, value) {
-    this.nuChanged(name, oldValue, value);
   }
 
   /**
@@ -139,32 +113,6 @@ class NuElement extends HTMLElement {
       default:
         return null;
     }
-  }
-
-  /**
-   * Set a local modifier
-   * @param {string} name
-   * @param {string|boolean|*} value - TRUE sets attribute without false, FALSE = removes attribute.
-   */
-  nuSetMod(name, value) {
-    const mod = `nu-${name}`;
-
-    if (value === false || value == null) {
-      this.removeAttribute(mod);
-    } else {
-      this.setAttribute(mod, value === true ? '' : value);
-    }
-  }
-
-  /**
-   * Check if element have a local modifier with specific name.
-   * @param {string} name
-   * @returns {boolean}
-   */
-  nuHasMod(name) {
-    const mod = `nu-${name}`;
-
-    return this.hasAttribute(mod);
   }
 
   /**
@@ -217,48 +165,34 @@ class NuElement extends HTMLElement {
       setTimeout(() => {
         if (theme !== getTheme(this.getAttribute('theme'))) return;
 
-        const themeParent = this.nuGetParent('[theme]:not([theme=""]):not([theme="!"])');
+        const themeParent = this.nuQueryParent('[data-nu-theme]');
 
-        let parentAttrTheme = themeParent ? themeParent.getAttribute('theme') : 'default';
+        let parentAttrTheme = themeParent ? themeParent.getAttribute('data-nu-theme') : '';
+
+        if (!parentAttrTheme) return;
 
         theme = getTheme(parentAttrTheme, true);
 
-        this.nuSetMod('theme', theme);
+        this.setAttribute('data-nu-theme', theme);
+
+        this.nuUpdateChildThemes();
       }, 0); // parent node could no be ready
 
       return;
     }
 
-    const isCurrent = theme === 'current';
-    const themeChange = !!this.nuTheme;
-
-    this.nuSetMod('theme', theme);
-
-    if (isCurrent) {
-      if (!this.nuTheme) return;
+    if (theme === 'current') {
+      this.removeAttribute('data-nu-theme');
     } else {
-      if (theme.startsWith('!')) {
-        theme = theme.slice(1);
-        NUDE.CSS.generateTheme(theme);
-        invert = true;
-      } else {
-        NUDE.CSS.generateTheme(theme);
-      }
+      this.setAttribute('data-nu-theme', theme);
     }
 
-    if (!isCurrent) {
-      this.nuTheme = {
-        name: theme,
-        invert
-      };
-    } else {
-      delete this.nuTheme;
-    }
+    this.nuUpdateChildThemes();
+  }
 
-    if (themeChange) {
-      [...this.querySelectorAll('[theme="!"]')]
+  nuUpdateChildThemes() {
+    [...this.querySelectorAll('[theme="!"]')]
         .forEach(element => element.nuUpdateTheme && element.nuUpdateTheme('!'));
-    }
   }
 
   /**
@@ -286,24 +220,10 @@ class NuElement extends HTMLElement {
   }
 
   /**
-   * Emit custom event.
-   * @param {string} name
-   * @param {*} detail
-   */
-  nuEmit(name, detail) {
-    this.dispatchEvent(new CustomEvent(name, {
-      detail,
-      bubbles: !this.hasAttribute('prevent'),
-    }));
-  }
-
-  /**
    * Called when element is connected to the DOM.
    * Can be called twice or more.
    */
   nuMounted() {
-    this.nuSetMod('inverted', this.nuThemeInvert);
-
     const defaultAttrs = this.constructor.nuDefaultAttrs;
 
     Object.keys(defaultAttrs)
@@ -351,14 +271,6 @@ class NuElement extends HTMLElement {
           injectCSS(query, query, `${query}{${styles}}`);
         }
     }
-  }
-
-  /**
-   * Get parent that satisfies specified selector
-   * @param {string} selector
-   */
-  nuGetParent(selector) {
-    return getParent(this, selector);
   }
 }
 
