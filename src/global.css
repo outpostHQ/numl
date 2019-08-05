@@ -6,16 +6,11 @@
   --nu-theme-color: #333;
   --nu-theme-background-color: #fff;
   --nu-theme-border-color: #d2ddec;
-  --nu-theme-special-color: #3297db;/* #3297db88; */
+  --nu-theme-special-color: #1885d9;
   --nu-theme-border-radius: .5rem;
   --nu-theme-border-width: 1px;
-  --nu-theme-depth-opacity: 0.1;
+  --nu-theme-depth-opacity: 0.2;
   --nu-theme-animation-time: .08s;
-
-  /* action themes */
-  --primary-color: #3297db; /* your main color here */
-  --success-color: #2cb93c;
-  --danger-color: #e63757;
 
   /* main styles */
   display: block;
@@ -34,12 +29,12 @@
   display: none !important;
 }
 
-[data-nu-high-contrast] > * {
+[data-nu-root][data-nu-high-contrast] > * {
   filter: brightness(.5) contrast(1.5) brightness(2);
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  body[data-nu-root] {
     background-color: rgba(15, 17, 19, 1);
   }
 

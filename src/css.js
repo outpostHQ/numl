@@ -1,3 +1,5 @@
+import { getLuminance } from "./helpers";
+
 const map = {};
 
 export function inject(css) {
@@ -65,6 +67,7 @@ const CSS = {
     Object.assign(styles, {
       color: styles['--nu-theme-color'],
       'background-color': styles['--nu-theme-background-color'],
+      '--nu-theme-depth-opacity': 0.2 + (1 - getLuminance(styles['--nu-theme-background-color'])) * .8,
     });
 
     const invertedStyles = {
@@ -73,6 +76,7 @@ const CSS = {
       'background-color': styles['--nu-theme-color'],
       '--nu-theme-color': styles['--nu-theme-background-color'],
       '--nu-theme-background-color': styles['--nu-theme-color'],
+      '--nu-theme-depth-opacity': 0.2 + (1 - getLuminance(styles['--nu-theme-color'])) * .8,
     };
 
     theme = theme || 'default';
