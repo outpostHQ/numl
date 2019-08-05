@@ -64,10 +64,14 @@ const CSS = {
       delete map[key];
     };
 
+    const shadowOpacity = Number(styles['--nu-theme-shadow-opacity']) || .2;
+
+    delete styles['--nu-theme-shadow-opacity'];
+
     Object.assign(styles, {
       color: styles['--nu-theme-color'],
       'background-color': styles['--nu-theme-background-color'],
-      '--nu-theme-depth-opacity': 0.2 + (1 - getLuminance(styles['--nu-theme-background-color'])) * .8,
+      '--nu-theme-depth-opacity': shadowOpacity + (1 - getLuminance(styles['--nu-theme-background-color'])) * (1 - shadowOpacity),
     });
 
     const invertedStyles = {
@@ -76,7 +80,7 @@ const CSS = {
       'background-color': styles['--nu-theme-color'],
       '--nu-theme-color': styles['--nu-theme-background-color'],
       '--nu-theme-background-color': styles['--nu-theme-color'],
-      '--nu-theme-depth-opacity': 0.2 + (1 - getLuminance(styles['--nu-theme-color'])) * .8,
+      '--nu-theme-depth-opacity': shadowOpacity + (1 - getLuminance(styles['--nu-theme-color'])) * (1 - shadowOpacity),
     };
 
     theme = theme || 'default';

@@ -16,6 +16,7 @@ export default class NuTheme extends NuDecorator {
       'border-radius',
       'border-width',
       'animation-time',
+      'shadow-opacity',
     ];
   }
 
