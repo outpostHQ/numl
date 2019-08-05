@@ -97,14 +97,14 @@ export const BLOCK_ATTRS = {
       '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`,
     };
   },
-  depth(val) {
+  shadow(val) {
     if (val == null) return val;
 
     const depth = convertUnit(val || '1');
     const opacity = (val || 1) && (.075 / Math.pow(parseFloat(val), 1 / 2)) || '.075';
 
     return {
-      '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, ${opacity})`,
+      '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(${opacity} * 5 * var(--nu-theme-depth-opacity)))`,
     };
   },
 };
