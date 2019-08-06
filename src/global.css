@@ -132,23 +132,22 @@
   display: inline-block;
   color: var(--nu-theme-color);
   white-space: nowrap;
-  transition: filter var(--nu-theme-animation-time) linear,
-    box-shadow var(--nu-theme-animation-time) linear;
+  transition: box-shadow var(--nu-theme-animation-time) linear;
   text-decoration: underline;
   font-weight: bolder;
   cursor: pointer;
-  box-shadow: inset 0 -.25em transparent;
+  box-shadow: inset 0 -.1875em transparent;
 }
 
 [data-nu-root] a:hover {
   z-index: 1;
-  filter: contrast(.5);
+  text-decoration-style: double;
 }
 
 [data-nu-root] a:focus {
   outline: none;
   z-index: 1;
-  box-shadow: inset 0 -.25em var(--nu-theme-special-background-color);
+  box-shadow: inset 0 -.1875em var(--nu-theme-special-background-color);
 }
 
 [data-nu-root] a::before {
@@ -161,11 +160,11 @@
   display: block;
   pointer-events: none;
   transition: opacity var(--nu-theme-animation-time) linear;
-  box-shadow: inset 0 -.25em var(--nu-theme-special-color);
+  box-shadow: inset 0 -.1875em var(--nu-theme-special-color);
   opacity: 0;
 }
 
 [data-nu-root] a:focus::before {
-  box-shadow: inset 0 -.25em var(--nu-theme-special-color);
+  box-shadow: inset 0 -.1875em var(--nu-theme-special-color);
   opacity: .5;
 }
