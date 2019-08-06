@@ -3,6 +3,7 @@ import './components/elements.css';
 import './decorators/decorators.css';
 import Nude from './nude';
 // elements
+import NuElement from './components/element';
 import NuResponsive from './components/responsive';
 import NuGrid from './components/grid';
 import NuBlock from './components/block';
@@ -23,6 +24,7 @@ import NuScroll from './components/scroll/scroll';
 import NuFlex from './components/flex';
 import NuBtnGroup from './components/btn/btn-group';
 // decorators
+import NuDecorator from './decorators/decorator';
 import NdTheme from './decorators/theme';
 import NdAttr from './decorators/attr';
 import NdMod from './decorators/mod';
@@ -87,4 +89,6 @@ export {
   NdTheme,
   NdAttr,
   NdMod,
+  NuElement,
+  NuDecorator,
 };
