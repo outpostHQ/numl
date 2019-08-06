@@ -1,6 +1,6 @@
 nu-btn-group {
   --nu-border-radius: var(--nu-theme-border-radius);
-  --nu-item-border-radius: var(--nu-theme-border-radius);
+  --nu-item-border-radius: var(--nu-border-radius);
 
   border-radius: var(--nu-border-radius, .5rem);
 }
