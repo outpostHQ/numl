@@ -40,3 +40,6 @@ nu-link:focus::before {
   opacity: .5;
 }
 
+nu-link[special] {
+  color: var(--nu-theme-special-color);
+}

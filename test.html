@@ -46,8 +46,16 @@
           </nu-input>
 
           <nu-card mod="sm red" theme="!">
-            Some text and <nu-link>Nude link</nu-link> and
-            <nu-badge>Some badge</nu-badge>. <a href="/">Real link</a>.
+            <nu-flex flow="column" gap="1">
+              <nu-block>
+                Some text and <nu-link>Nude link</nu-link> and
+                <nu-badge>Some badge</nu-badge>. <a href="/">Real link</a>.
+              </nu-block>
+              <nu-flex mod="md" gap=".5">
+                <nu-btn special>Special button</nu-btn>
+                <nu-btn>Not so special button</nu-btn>
+              </nu-flex>
+            </nu-flex>
           </nu-card>
         </nu-flex>
       </nu-card>

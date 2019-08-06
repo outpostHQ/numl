@@ -75,7 +75,7 @@ nu-btn[nu-active]:not([disabled]):not([nu-toggled]), nu-btn[nu-toggled]:not([dis
 nu-btn[special] {
   --nu-border-color: transparent;
   background-color: var(--nu-theme-special-color);
-  color: var(--nu-theme-background-color);
+  color: var(--nu-theme-special-background-color);
 }
 
 nu-btn[cell] {
