@@ -18,13 +18,17 @@
   padding: 0;
   font-family: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
   font-size: var(--nu-base);
-  line-height: 1.5;
+  line-height: 1;
   color: var(--nu-theme-color);
   background: var(--nu-theme-background-color);
   font-weight: 400;
   word-spacing: calc(1rem / 8);
   min-height: 100vh;
   text-align: left;
+}
+
+[data-nu-root] > *:not([size]) {
+  line-height: 1.5;
 }
 
 [data-nu-root] [nu-hidden] {
