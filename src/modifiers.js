@@ -87,4 +87,9 @@ set('round', 'border-radius: 9999rem;');
 set('ellipsee', 'border-radius: 50%;');
 set('relative', 'position: relative;');
 
+set('color', `color: var(--nu-theme-color) !important;`);
+set('background', `background-color: var(--nu-theme-background-color) !important;`);
+set('special', `color: var(--nu-theme-special-color) !important;`);
+set('transparent', `background-color; transparent !important;`);
+
 export default Modifiers;
