@@ -2,19 +2,7 @@
   <script src="src/pack.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.22.1/feather.js"></script>
   <script>
-    Nude.iconLoader = function iconLoader(name) {
-      const data = feather.icons[name];
-
-      const el = document.createElement('svg');
-
-      for (let attr in data.attrs) {
-        el.setAttribute(attr, data.attrs[attr]);
-      }
-
-      el.innerHTML = data.contents;
-
-      return Promise.resolve(el.outerHTML);
-    };
+    Nude.iconLoader = (name) => Promise.resolve(feather.icons[name].toSvg());
 
     Nude.init();
   </script>
