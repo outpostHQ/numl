@@ -5,7 +5,8 @@ nu-line {
   display: block;
   position: relative;
   line-height: 0;
-  place-self: stretch;
+  align-self: stretch;
+  justify-self: stretch;
   background-color: var(--nu-line-color);
 }
 
