@@ -89,53 +89,55 @@
   line-height: 1.5;
 }
 
-[data-nu-root] h1, [data-nu-root] h2, [data-nu-root] h3, [data-nu-root] h4, [data-nu-root] h5, [data-nu-root] h6, .-nu-h1, .-nu-h2, .-nu-h3, .-nu-h4, .-nu-h5, .-nu-h6 {
+[data-nu-root] h1, [data-nu-root] h2, [data-nu-root] h3, [data-nu-root] h4, [data-nu-root] h5, [data-nu-root] h6 {
   width: 100%;
   margin: 0;
   padding: 0;
-  line-height: 1.5;
   font-weight: 700;
 }
 
-[data-nu-root] h1, .-nu-h1 {
+[data-nu-root] h1 {
   font-size: 2rem;
   line-height: 2.5rem;
 }
 
-[data-nu-root] h2, .-nu-h2 {
+[data-nu-root] h2 {
   font-size: 1.8rem;
   line-height: 2.5rem;
 }
 
-[data-nu-root] h3, .-nu-h3 {
+[data-nu-root] h3 {
   font-size: 1.6rem;
   line-height: 2rem;
 }
 
-[data-nu-root] h4, .-nu-h4 {
+[data-nu-root] h4 {
   font-size: 1.4rem;
-  line-height: 1.5rem;
+  line-height: 2rem;
 }
 
-[data-nu-root] h5, .-nu-h5 {
+[data-nu-root] h5 {
   font-size: 1.2rem;
   line-height: 1.5rem;
 }
 
-[data-nu-root] h6, .-nu-h6 {
+[data-nu-root] h6 {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 500;
 }
 
 [data-nu-root] a {
+  position: relative;
   display: inline-block;
   color: var(--nu-theme-color);
   white-space: nowrap;
-  transition: filter var(--nu-theme-animation-time) linear;
-  text-decoration: none;
-  font-weight: 500;
+  transition: filter var(--nu-theme-animation-time) linear,
+    box-shadow var(--nu-theme-animation-time) linear;
+  text-decoration: underline;
+  font-weight: bolder;
   cursor: pointer;
+  box-shadow: inset 0 -.25em transparent;
 }
 
 [data-nu-root] a:hover {
@@ -145,6 +147,25 @@
 
 [data-nu-root] a:focus {
   outline: none;
-  text-decoration: underline;
   z-index: 1;
+  box-shadow: inset 0 -.25em var(--nu-theme-special-background-color);
+}
+
+[data-nu-root] a::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  pointer-events: none;
+  transition: opacity var(--nu-theme-animation-time) linear;
+  box-shadow: inset 0 -.25em var(--nu-theme-special-color);
+  opacity: 0;
+}
+
+[data-nu-root] a:focus::before {
+  box-shadow: inset 0 -.25em var(--nu-theme-special-color);
+  opacity: .5;
 }

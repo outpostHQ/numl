@@ -1,2 +1,2 @@
-import './index';
+import Nude from './index';
 import './helpers';

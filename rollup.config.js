@@ -47,32 +47,4 @@ export default [
       })
     ]
   },
-  {
-    input: 'src/index.global.js',
-    external: ['ms'],
-    output: [
-      { name: 'NudeFrameworkGlobalStyles', file: pkg.module.replace('.js', '.global.css'), format: 'es' }
-    ],
-    plugins: [
-      postcss({
-        extract: true,
-        plugins: [cssnano()],
-        extensions: [ '.css' ],
-      })
-    ]
-  },
-  {
-    input: 'src/index.modifiers.js',
-    external: ['ms'],
-    output: [
-      { name: 'NudeFrameworkModifiers', file: pkg.module.replace('.js', '.modifiers.css'), format: 'es' }
-    ],
-    plugins: [
-      postcss({
-        extract: true,
-        plugins: [cssnano()],
-        extensions: [ '.css' ],
-      })
-    ]
-  }
 ];

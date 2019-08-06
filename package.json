@@ -34,20 +34,6 @@
       ]
     },
     {
-      "name": "nude global css",
-      "webpack": false,
-      "path": [
-        "dist/nude.global.css"
-      ]
-    },
-    {
-      "name": "nude modifiers css",
-      "webpack": false,
-      "path": [
-        "dist/nude.modifiers.css"
-      ]
-    },
-    {
       "name": "nude pack",
       "webpack": false,
       "path": [

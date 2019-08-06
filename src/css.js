@@ -31,6 +31,12 @@ export function stylesString(styles) {
 export function injectCSS(name, selector, css) {
   const element = inject(css);
 
+  if (map[name]) {
+    const el = map[name];
+
+    el.parentNode.removeChild(el);
+  }
+
   map[name] = {
     selector,
     css,

@@ -1,4 +1,5 @@
 import { convertUnit, unit, sizeUnit } from './helpers';
+import { SIZES } from './modifiers';
 
 const PLACE_VALUES = [
   'content', 'items', 'self'
@@ -77,12 +78,23 @@ export const GRID_ATTRS = {
   gap: unit('grid-gap'),
 };
 
+export const BASE_ATTRS = {
+  color: 'color',
+  background: 'background',
+  pointer(val) {
+    return val ? {
+      pointer: val,
+    } : null;
+  },
+  size() {
+
+  },
+};
+
 export const BLOCK_ATTRS = {
   width: sizeUnit('width'),
   height: sizeUnit('height'),
   padding: unit('padding'),
-  color: 'color',
-  background: 'background',
   radius: (val) => val != null ? {
     '--nu-border-radius': val
       ? convertUnit(val).replace(/\*/g, 'var(--nu-theme-border-radius)')
@@ -107,4 +119,5 @@ export const BLOCK_ATTRS = {
       '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(${opacity} * 5 * var(--nu-theme-depth-opacity)))`,
     };
   },
+  ...BASE_ATTRS,
 };

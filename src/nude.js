@@ -1,22 +1,13 @@
 import { log } from './helpers';
-import CSS from './css';
+import css from './css';
+import Modifiers from './modifiers';
 
 const Nude = {
-  points: [],
-  rules: [],
-  responsive: {
-    setPoints(points) {
-      log('points:', points);
-
-      Nude.points = [...points.sort((a, b) => a.value - b.value)];
-    },
-  },
-  CSS,
+  modifiers: [],
+  css,
   iconLoader() {
     return Promise.resolve('');
   },
 };
-
-window.Nude = Nude;
 
 export default Nude;
