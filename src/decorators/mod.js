@@ -1,9 +1,10 @@
 import NuDecorator from './decorator';
+import Modifiers from '../modifiers';
 import { error } from '../helpers';
 
-export default class NdAttr extends NuDecorator {
+export default class NdMod extends NuDecorator {
   static get nuTag() {
-    return 'nd-attr';
+    return 'nd-mod';
   }
 
   static get nuAttrsList() {
@@ -11,6 +12,8 @@ export default class NdAttr extends NuDecorator {
   }
 
   nuMounted() {
+    super.nuMounted();
+
     this.nuApply();
   }
 
@@ -19,13 +22,9 @@ export default class NdAttr extends NuDecorator {
     const name = this.getAttribute('name');
 
     if (!name) {
-      return error(`attribute name is not specified`, this);
+      return error(`modifier name is not specified`, this);
     }
 
-    if (parent.hasAttribute(name)) {
-      return warn(`parent already has the attribute '${name}'`, this);
-    }
-
-    setTimeout(() => parent.setAttribute(name, this.innerText.trim()), 0);
+    setTimeout(() => Modifiers.set(name, this.innerText.trim(), this.nuParentContext), 0);
   }
 }

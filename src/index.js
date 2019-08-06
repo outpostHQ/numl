@@ -25,6 +25,7 @@ import NuBtnGroup from './components/btn/btn-group';
 // decorators
 import NdTheme from './decorators/theme';
 import NdAttr from './decorators/attr';
+import NdMod from './decorators/mod';
 // helpers
 import { log } from './helpers';
 
@@ -55,6 +56,7 @@ Nude.init = () => {
     NuLink,
     NdTheme,
     NdAttr,
+    NdMod,
   ].forEach(customElement => {
     customElements.define(customElement.nuTag, customElement);
 
@@ -84,4 +86,5 @@ export {
   NuLink,
   NdTheme,
   NdAttr,
+  NdMod,
 };
