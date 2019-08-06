@@ -18,11 +18,13 @@
   padding: 0;
   font-family: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
   font-size: var(--nu-base);
-  color: var(--nu-theme-color);
-  font-weight: normal;
   line-height: 1.5;
+  color: var(--nu-theme-color);
+  background: var(--nu-theme-background-color);
+  font-weight: 400;
   word-spacing: calc(1rem / 8);
   min-height: 100vh;
+  text-align: left;
 }
 
 [data-nu-root] [nu-hidden] {
@@ -130,7 +132,7 @@
 [data-nu-root] a {
   position: relative;
   display: inline-block;
-  color: var(--nu-theme-color);
+  color: inherit;
   white-space: nowrap;
   transition: box-shadow var(--nu-theme-animation-time) linear;
   text-decoration: underline;

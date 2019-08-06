@@ -1,7 +1,7 @@
 nu-link {
   position: relative;
   display: inline-block;
-  color: var(--nu-theme-color);
+  color: inherit;
   white-space: nowrap;
   transition: box-shadow var(--nu-theme-animation-time) linear;
   text-decoration: underline;
