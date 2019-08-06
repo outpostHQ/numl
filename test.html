@@ -1,20 +1,20 @@
 <head>
   <script src="src/pack.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.22.1/feather.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.22.1/feather.js"></script>
   <script>
-    // Nude.iconLoader = function iconLoader(name) {
-    //   const data = feather.icons[name];
+    Nude.iconLoader = function iconLoader(name) {
+      const data = feather.icons[name];
 
-    //   const el = document.createElement('svg');
+      const el = document.createElement('svg');
 
-    //   for (let attr in data.attrs) {
-    //     el.setAttribute(attr, data.attrs[attr]);
-    //   }
+      for (let attr in data.attrs) {
+        el.setAttribute(attr, data.attrs[attr]);
+      }
 
-    //   el.innerHTML = data.contents;
+      el.innerHTML = data.contents;
 
-    //   return Promise.resolve(el.outerHTML);
-    // };
+      return Promise.resolve(el.outerHTML);
+    };
 
     Nude.init();
   </script>
@@ -36,24 +36,11 @@
     <nd-mod name="red">
       color: red;
     </nd-mod>
-    <nu-table>
-      <thead>
-        <tr>
-          <nu-cell></nu-cell>
-          <nu-column-header></nu-column-header>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <nu-row-header></nu-row-header>
-          <nu-cell></nu-cell>
-        </tr>
-      </tbody>
-      <tfoot></tfoot>
-    </nu-table>
 
     <nu-flex flow="column" gap=1>
-      <nu-card shadow border theme="!" data-nu-light>
+      <nu-card shadow border theme="" data-nu-light>
+        <h1>Card 1</h1>
+
         <nu-flex flow="column" gap="1">
           <nu-block>
             <nu-btn-group theme="!" items-padding=".5">
@@ -78,6 +65,8 @@
       </nu-card>
 
       <nu-card shadow border theme="primary">
+        <h1>Card 2</h1>
+
         <nu-flex flow="column" gap="1">
           <nu-block>
             <nu-btn-group theme="!" items-padding=".5" border=".25" radius="2">
