@@ -21,10 +21,34 @@ Check out our [Playground](http://bit.ly/nude-elements) with few examples.
 * `dist/nude.js` - Tree-shaking-friendly bundle. Elements' CSS included.
 * `dist/nude.pack.js` - JS-Bundle with all elements.
 * `dist/nude.pack.css` - CSS-Bundle with all elements.
-* `dist/nude.modifiers.css` - CSS bundle with modifiers only.
-* `dist/nude.global.css` - CSS bundle with base global styles.
 
 `npm run dev` builds the library, then keeps rebuilding it whenever the source files change.
+
+## Usage
+Add `nude.js` to your page and initialize it.
+
+```html
+<link rel="stylesheet" href="/path/to/nude.pack.css" />
+<script src="/path/to/nude.pack.js">
+  Nude.init();
+</script>
+```
+
+Add `data-nu-root` attribute to the root element. Preferably, to the `body` tag.
+
+```html
+<body data-nu-root></body>
+```
+
+That's all. Now your application is **NUDE-ready**! Try to write some HTML to build awesome interfaces.
+
+```html
+<nu-flex flow="column" gap=".5">
+  <nu-block>
+    Example text. <nu-link>Example link</nu-link>. <nu-badge>Example badge</nu-badge>.
+  </nu-block>
+</nu-flex>
+```
 
 ## In Action
 
