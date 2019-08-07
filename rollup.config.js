@@ -61,4 +61,19 @@ export default [
       })
     ]
   },
+  {
+    input: 'src/index.js',
+    external: ['ms'],
+    output: [
+      { name: 'NudeFramework Dev', file: pkg.module.replace('.js', '.dev.js'), format: 'es' }
+    ],
+    plugins: [
+      replace({
+        'process.env.NODE_ENV': 'development',
+      }),
+      postcss({
+        extensions: [ '.css' ],
+      })
+    ]
+  },
 ];
