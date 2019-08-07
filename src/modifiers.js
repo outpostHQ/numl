@@ -1,5 +1,5 @@
 import { injectCSS, stylesString, hasCSS } from './css';
-import { error, devMode } from './helpers';
+import { error, warn, devMode } from './helpers';
 
 const MAP = {};
 
@@ -8,33 +8,65 @@ function set(name, styles, context = '') {
     return error('modifier name is not valid', name);
   }
 
+  // clean empty styles
+  Object.keys(styles)
+    .forEach(name => {
+      if (!styles[name].trim()) {
+        delete styles[name];
+      }
+    });
+
   MAP[name] = styles;
 
-  const selector = `${context} [mod="${name}"],
-  ${context} [mod*=" ${name} "],
-  ${context} [mod^="${name} "],
-  ${context} [mod$=" ${name}"],
-  ${context} [data-nu-mod="${name}"],
-  ${context} [data-nu-mod*=" ${name} "],
-  ${context} [data-nu-mod^="${name} "],
-  ${context} [data-nu-mod$=" ${name}"],
-  ${context} [data-nu-mod-${name}],
-  ${context} [nu-mod-${name}],
-  ${context} .-nu-${name}`;
+  const selector = `
+    ${context} [data-nu-mod="${name}"],
+    ${context} [data-nu-mod*=" ${name} "],
+    ${context} [data-nu-mod^="${name} "],
+    ${context} [data-nu-mod$=" ${name}"],
+    ${context} [data-nu-mod-${name}],
+    ${context} [nu-mod-${name}],
+    ${context} .-nu-${name}
+`;
 
   injectCSS(
     `mod:${name}:${context}`,
     selector,
-    `${selector}{${stylesString(styles)}}`);
+    `${selector}{${stylesString(styles, true)}}`);
 }
 
-function get(name) {
-  return MAP[name];
+function get(name = '') {
+  const names = name.trim().split(/\s+/g);
+
+  return names.reduce((styles, modName) => {
+    if (devMode) {
+      if (!MAP[modName]) {
+        warn('undefined modifier is used', `"${modName}"`);
+      }
+    }
+
+    Object.assign(styles, MAP[modName] || {});
+
+    return styles;
+  }, {});
+}
+
+function extend(name, styles) {
+  const modStyles = MAP[name];
+
+  if (!modStyles) {
+    error('modifier is not found', name);
+    return;
+  }
+
+  Object.assign(modStyles, styles);
+
+  set(name, modStyles);
 }
 
 const Modifiers = {
   set,
   get,
+  extend,
 };
 
 export const SIZES = {

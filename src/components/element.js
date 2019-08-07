@@ -7,6 +7,7 @@ import {
   getTheme,
 } from '../helpers';
 import NUDE from '../nude';
+import Modifiers from '../modifiers';
 import { hasCSS, injectCSS, attrsQuery, stylesString } from '../css';
 import NuBase from '../base';
 
@@ -226,9 +227,19 @@ class NuElement extends NuBase {
    * @param {*} oldValue
    * @param {*} value
    */
-  nuChanged(name, oldValue, value) {
+  nuChanged(name, oldValue, value, force) {
     switch (name) {
       case 'mod':
+        if (!value) return;
+
+        const modQuery = this.nuGetQuery({mod: value});
+
+        if (!hasCSS(modQuery) || force) {
+          const styles = stylesString(Modifiers.get(value), true);
+
+          injectCSS(modQuery, modQuery, `${modQuery}{${styles}}`);
+        }
+
         break;
       case 'theme':
         this.nuUpdateTheme(value);
@@ -244,9 +255,9 @@ class NuElement extends NuBase {
 
         delete computed.$children;
 
-        const styles = stylesString(computed);
-
         if (!hasCSS(query)) {
+          const styles = stylesString(computed);
+
           injectCSS(query, query, `${query}{${styles}}`);
         }
     }

@@ -24,7 +24,7 @@ export function attrsQuery(attrs) {
     }, '');
 }
 
-export function stylesString(styles) {
+export function stylesString(styles, important) {
   if (devMode) {
     Object.keys(styles)
       .forEach(style => {
@@ -37,7 +37,7 @@ export function stylesString(styles) {
   }
 
   return Object.keys(styles)
-    .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}` : ''};`, '');
+    .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}${important ? ' !important' : ''}` : ''};`, '');
 }
 
 export function parseStyles(str) {
@@ -67,7 +67,7 @@ export function injectCSS(name, selector, css) {
   }
 
   if (map[name]) {
-    const el = map[name];
+    const el = map[name].element;
 
     el.parentNode.removeChild(el);
   }

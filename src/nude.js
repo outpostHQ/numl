@@ -1,9 +1,9 @@
 import { log } from './helpers';
 import css from './css';
-import Modifiers from './modifiers';
+import modifiers from './modifiers';
 
 const Nude = {
-  modifiers: [],
+  modifiers,
   css,
   iconLoader() {
     return Promise.resolve('');
