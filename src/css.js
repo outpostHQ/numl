@@ -1,6 +1,7 @@
-import { getLuminance } from "./helpers";
+import { getLuminance, devMode, warn } from "./helpers";
 
 const map = {};
+const testEl = document.createElement('div');
 
 export function inject(css) {
   css = css || '';
@@ -24,12 +25,46 @@ export function attrsQuery(attrs) {
 }
 
 export function stylesString(styles) {
+  if (devMode) {
+    Object.keys(styles)
+      .forEach(style => {
+        const value = String(styles[style]);
+
+        if (value && !CSS.supports(style, value.replace('!important', ''))) {
+          warn('unsupported style detected:', `{ ${style}: ${value}; }`);
+        }
+      });
+  }
+
   return Object.keys(styles)
     .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}` : ''};`, '');
 }
 
+export function parseStyles(str) {
+  return str
+  .split(/;/g)
+  .map(s => s.trim())
+  .filter(s => s)
+  .map(s => s.split(':'))
+  .reduce((st, s) => {
+    st[s[0]] = s[1].trim();
+    return st;
+  }, {});
+}
+
 export function injectCSS(name, selector, css) {
   const element = inject(css);
+
+  if (devMode) {
+    selector.split(',')
+      .forEach(sel => {
+        try {
+          testEl.querySelector(sel);
+        } catch(e) {
+          warn('invalid selector detected', sel);
+        }
+      });
+  }
 
   if (map[name]) {
     const el = map[name];
@@ -50,7 +85,7 @@ export function hasCSS(name) {
   return !!map[name];
 }
 
-const CSS = {
+const css = {
   has(name) {
     return !!map[name];
   },
@@ -110,4 +145,4 @@ const CSS = {
   },
 };
 
-export default CSS;
+export default css;

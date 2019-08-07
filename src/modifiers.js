@@ -25,7 +25,7 @@ function set(name, styles, context = '') {
   injectCSS(
     `mod:${name}:${context}`,
     selector,
-    `${selector}{${typeof styles === 'string' ? styles : stylesString(styles)}}`);
+    `${selector}{${stylesString(styles)}}`);
 }
 
 function get(name) {
@@ -61,35 +61,35 @@ Object.keys(SIZES).forEach((size) => {
   });
 });
 
-['i', 'italic'].forEach(name => set(name, 'font-style: italic;'));
-['u', 'underline'].forEach(name => set(name, 'text-decoration: underline;'));
-['s', 'strikethrough'].forEach(name => set(name, 'text-decoration: line-through;'));
-[1,2,3,4,5,6,7,8,9].forEach(index => set(`w${index}`, `font-weight: ${index}00;`));
-['uppercase', 'lowercase'].forEach(name => set(name, `text-transform: ${name};`));
+['i', 'italic'].forEach(name => set(name, { 'font-style': 'italic' }));
+['u', 'underline'].forEach(name => set(name, { 'text-decoration': 'underline' }));
+['s', 'strikethrough'].forEach(name => set(name, { 'text-decoration': 'line-through' }));
+[1,2,3,4,5,6,7,8,9].forEach(index => set(`w${index}`, { 'font-weight': `${index}00` }));
+['uppercase', 'lowercase'].forEach(name => set(name, { 'text-transform': name }));
 
-set('content-box', 'box-sizing: content-box;');
-set('border-box', 'box-sizing: border-box;');
-set('monospace', 'font-family: monospace;');
-set('spacing', 'letter-spacing: var(--nu-pixel);');
-set('ellipsis', `
-  max-width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`);
-set('wrap', 'white-space: normal;');
-set('nowrap', 'white-space: nowrap;');
-set('scroll', 'overflow: auto;');
-set('no-overflow', 'overflow: hidden;');
+set('content-box', { 'box-sizing': 'content-box' });
+set('border-box', { 'box-sizing': 'border-box' });
+set('monospace', { 'font-family': 'monospace' });
+set('spacing', { 'letter-spacing': 'var(--nu-pixel)' });
+set('ellipsis', {
+  'max-width': '100%',
+  'overflow': 'hidden',
+  'white-space': 'nowrap',
+  'text-overflow': 'ellipsis',
+});
+set('wrap', { 'white-space': 'normal' });
+set('nowrap', { 'white-space': 'nowrap' });
+set('scroll', { 'overflow': 'auto' });
+set('no-overflow', { 'overflow': 'hidden' });
 
-set('rounded', 'border-radius: var(--nu-theme-border-radius);');
-set('round', 'border-radius: 9999rem;');
-set('ellipsee', 'border-radius: 50%;');
-set('relative', 'position: relative;');
+set('rounded', { 'border-radius': 'var(--nu-theme-border-radius)' });
+set('round', { 'border-radius': '9999rem' });
+set('ellipsee', { 'border-radius': '50%' });
+set('relative', { 'position': 'relative' });
 
-set('color', `color: var(--nu-theme-color) !important;`);
-set('background', `background-color: var(--nu-theme-background-color) !important;`);
-set('special', `color: var(--nu-theme-special-color) !important;`);
-set('transparent', `background-color; transparent !important;`);
+set('color', { 'color': 'var(--nu-theme-color) !important' });
+set('background', { 'background-color': 'var(--nu-theme-background-color) !important' });
+set('special', { 'color': 'var(--nu-theme-special-color) !important' });
+set('transparent', { 'background-color': 'transparent !important' });
 
 export default Modifiers;

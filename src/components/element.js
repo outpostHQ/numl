@@ -128,26 +128,6 @@ class NuElement extends NuBase {
     this.setAttribute(`aria-${name}`, value);
   }
 
-  /**
-   * Set global modifier to the element (using class).
-   * @param {string|array|Object} value
-   */
-  nuUpdateGlobalMods(value) {
-    const mods = getMods(value);
-
-    if (this.nuGlobalMods) {
-      for (let cls of this.nuGlobalMods) {
-        if (cls.startsWith('-nu-') && !mods.includes(cls)) {
-          this.classList.remove(cls);
-        }
-      }
-    }
-
-    this.nuGlobalMods = mods;
-
-    this.classList.add(...mods);
-  }
-
   nuGetQuery(attrs = {}) {
     return `${this.constructor.nuTag}${attrsQuery(attrs)}`;
   }
@@ -249,7 +229,6 @@ class NuElement extends NuBase {
   nuChanged(name, oldValue, value) {
     switch (name) {
       case 'mod':
-        this.nuUpdateGlobalMods(value);
         break;
       case 'theme':
         this.nuUpdateTheme(value);

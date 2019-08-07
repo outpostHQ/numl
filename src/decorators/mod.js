@@ -1,6 +1,7 @@
 import NuDecorator from './decorator';
 import Modifiers from '../modifiers';
 import { error } from '../helpers';
+import { parseStyles } from '../css';
 
 export default class NdMod extends NuDecorator {
   static get nuTag() {
@@ -25,6 +26,6 @@ export default class NdMod extends NuDecorator {
       return error(`modifier name is not specified`, this);
     }
 
-    setTimeout(() => Modifiers.set(name, this.innerText.trim(), this.nuParentContext), 0);
+    setTimeout(() => Modifiers.set(name, parseStyles(this.innerText), this.nuParentContext), 0);
   }
 }
