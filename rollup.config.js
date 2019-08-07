@@ -11,7 +11,7 @@ export default [
     input: 'src/pack.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework', file: pkg.module.replace('.js', '.pack.js'), format: 'es' }
+      { name: 'NudeFramework Pack', file: pkg.module.replace('.js', '.pack.js'), format: 'es' }
     ],
     plugins: [
       replace({
@@ -23,6 +23,21 @@ export default [
       postcss({
         extract: true,
         plugins: [cssnano()],
+        extensions: [ '.css' ],
+      })
+    ]
+  },
+  {
+    input: 'src/pack.js',
+    external: ['ms'],
+    output: [
+      { name: 'NudeFramework Pack Dev', file: pkg.module.replace('.js', '.pack.dev.js'), format: 'es' }
+    ],
+    plugins: [
+      replace({
+        'process.env.NODE_ENV': 'development',
+      }),
+      postcss({
         extensions: [ '.css' ],
       })
     ]
@@ -41,7 +56,6 @@ export default [
         comments: false,
       }) : undefined,
       postcss({
-        // extract: true,
         plugins: [cssnano()],
         extensions: [ '.css' ],
       })
