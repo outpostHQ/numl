@@ -39,7 +39,7 @@ function get(name = '') {
 
   return names.reduce((styles, modName) => {
     if (devMode) {
-      if (!MAP[modName]) {
+      if (!MAP[modName] && !document.querySelector(`nd-mod[name="${modName}"]`)) {
         warn('undefined modifier is used', `"${modName}"`);
       }
     }
