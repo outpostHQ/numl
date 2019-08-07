@@ -18,9 +18,11 @@ Check out our [Playground](http://bit.ly/nude-elements) with few examples.
 
 `npm run build` builds the library to `dist`, generating five files:
 
-* `dist/nude.js` - Tree-shaking-friendly bundle. Elements' CSS included.
-* `dist/nude.pack.js` - JS-Bundle with all elements.
-* `dist/nude.pack.css` - CSS-Bundle with all elements.
+* `dist/nude.js` - ES-module. Tree-shaking-friendly bundle. Elements' CSS included.
+* `dist/nude.dev.js` - Same as above but without minification and with helpful warnings.
+* `dist/nude.pack.js` - Classic JS-Bundle with all elements. (Expose global `Nude` object)
+* `dist/nude.pack.css` - Clasic CSS-Bundle with all elements.
+* `dist/nude.pack.dev.js` - Same as two above combined but without minification and with helpful warnings. (Expose global `Nude` object)
 
 `npm run dev` builds the library, then keeps rebuilding it whenever the source files change.
 
