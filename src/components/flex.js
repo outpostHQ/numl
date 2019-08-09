@@ -7,7 +7,7 @@ import {
   GRID_ITEM_ATTRS,
   BLOCK_ATTRS,
 } from '../attrs';
-import { hasCSS, injectCSS } from '../css';
+import { hasCSS, injectCSS, inject } from '../css';
 import NuElement from './element';
 
 class NuFlex extends NuElement {
@@ -17,6 +17,10 @@ class NuFlex extends NuElement {
 
   static get nuLayout() {
     return 'flex';
+  }
+
+  static get nuDefaultFlow() {
+    return 'row';
   }
 
   static get nuDefaultAttrs() {
@@ -32,6 +36,25 @@ class NuFlex extends NuElement {
       ...FLEX_ITEM_ATTRS,
       ...BLOCK_ATTRS,
     });
+  }
+
+  static nuInit() {
+    super.nuInit();
+
+    const tag = this.nuTag;
+    const defaultFlow = this.nuDefaultFlow;
+    const flows = ['row', 'column', 'row-reverse', 'column-reverse'];
+    const directions = ['right', 'bottom', 'left', 'top'];
+
+    inject(`
+      ${tag}{display:flex;}
+      ${tag}[inline]{display:inline-flex;}
+      ${flows.map((flow, i) => `
+        ${flow === defaultFlow ? `${tag}:not([flow]){flex-flow: ${flow} nowrap;}` : ''}
+        ${tag}[flow="${flow}"]{flex-flow: ${flow} nowrap;}
+        ${tag}[flow="${flow}"] > *:not(:last-child){margin-${directions[i]}: var(--nu-flex-gap);}
+      `).join('')}
+    `, tag);
   }
 
   nuChanged(name, oldValue, value) {

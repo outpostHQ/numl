@@ -21,3 +21,7 @@ nu-icon > svg {
 nu-icon > :not(svg) {
   display: none;
 }
+
+nu-icon[inline] {
+  bottom: 0.0675em;
+}

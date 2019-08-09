@@ -214,11 +214,6 @@ class NuElement extends NuBase {
           this.nuChanged(attr, undefined, defaultAttrs[attr]);
         }
       });
-
-    if (this.constructor.nuLayout) {
-      this.nuSetMod('layout', this.constructor.nuLayout);
-      this.nuSetMod('flow', this.getAttribute('flow') || this.constructor.nuDefaultFlow);
-    }
   }
 
   /**

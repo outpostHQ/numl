@@ -2,9 +2,9 @@ import './global.css';
 import './components/elements.css';
 import './decorators/decorators.css';
 import Nude from './nude';
+import { inject } from './css';
 // elements
 import NuElement from './components/element';
-import NuResponsive from './components/responsive';
 import NuGrid from './components/grid';
 import NuBlock from './components/block';
 import NuIcon from './components/icon/icon';
@@ -48,7 +48,6 @@ Nude.init = () => {
     NuBtn,
     NuBlock,
     NuGrid,
-    NuResponsive,
     NuBadge,
     NuInput,
     NuScroll,
@@ -60,6 +59,8 @@ Nude.init = () => {
     NdAttr,
     NdMod,
   ].forEach(customElement => {
+    customElement.nuInit();
+
     customElements.define(customElement.nuTag, customElement);
 
     log('custom element registered', customElement.nuTag);
@@ -67,7 +68,6 @@ Nude.init = () => {
 };
 
 export {
-  NuResponsive,
   NuGrid,
   NuBlock,
   NuBtn,

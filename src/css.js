@@ -3,10 +3,14 @@ import { getLuminance, devMode, warn } from "./helpers";
 const map = {};
 const testEl = document.createElement('div');
 
-export function inject(css) {
+export function inject(css, name) {
   css = css || '';
 
   const style = document.createElement('style');
+
+  if (name) {
+    style.dataset.nuName = name;
+  }
 
   style.appendChild(document.createTextNode(css));
 
@@ -52,8 +56,8 @@ export function parseStyles(str) {
   }, {});
 }
 
-export function injectCSS(name, selector, css) {
-  const element = inject(css);
+export function injectCSS(name, selector, css, globalName) {
+  const element = inject(css, globalName);
 
   if (devMode) {
     selector.split(',')

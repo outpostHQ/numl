@@ -29,7 +29,7 @@ export const PLACE_SELF_ATTRS = {
 
 export const FLEX_ATTRS = {
   ...PLACE_ATTRS,
-  flow: 'flex-direction',
+  flow: '',
   order: 'order',
   gap: '',
   'items-basis': unit('flex-basis', 'basis'),

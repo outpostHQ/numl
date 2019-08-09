@@ -28,11 +28,6 @@ export default class NuIcon extends NuElement {
         } : null;
       },
       name: '',
-      inline(val) {
-        return val != null ? {
-          'bottom': '.0675em',
-        } : null;
-      },
     });
   }
 

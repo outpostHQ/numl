@@ -11,6 +11,7 @@ import {
   convertUnit,
 } from '../../helpers';
 import NuElement from '../element';
+import { inject } from '../../css';
 
 const defaultAttrs = {
   gap: 'calc(var(--nu-theme-border-width) * -1)',

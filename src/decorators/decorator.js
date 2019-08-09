@@ -2,8 +2,8 @@ import { generateNuId } from '../helpers';
 import NuBase from '../base';
 
 export default class NuDecorator extends NuBase {
-  constructor() {
-    super();
+  static get nuDefaultStyles() {
+    return { display: 'none' };
   }
 
   nuMounted() {

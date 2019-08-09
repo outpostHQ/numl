@@ -8,19 +8,15 @@ import {
   FLEX_ITEM_ATTRS,
   BLOCK_ATTRS,
 } from '../../attrs';
-import NuElement from '../element';
+import NuGrid from '../grid';
 
-class NuInput extends NuElement {
+class NuInput extends NuGrid {
   static get nuTag() {
     return 'nu-input';
   }
 
   static get nuAttrs() {
-    return Object.assign(NuElement.nuAttrs, {
-      ...GRID_ATTRS,
-      ...GRID_ITEM_ATTRS,
-      ...FLEX_ITEM_ATTRS,
-      ...BLOCK_ATTRS,
+    return Object.assign(NuGrid.nuAttrs, {
       autofocus: '',
       disabled: '',
       value: '',
@@ -28,6 +24,10 @@ class NuInput extends NuElement {
       name: '',
       padding: unit('--nu-padding'),
     });
+  }
+
+  static get nuDefaultFlow() {
+    return 'column';
   }
 
   nuInitRef() {

@@ -1,4 +1,4 @@
-import { attrsQuery } from './css';
+import { attrsQuery, stylesString, inject } from './css';
 import { getParent } from './helpers';
 
 /**
@@ -43,6 +43,26 @@ class NuBase extends HTMLElement {
   }
 
   /**
+   * Element's default styles
+   * @returns {Object}
+   */
+  static get nuDefaultStyles() {
+    return null;
+  }
+
+  /**
+   * Element initialization logic
+   */
+  static nuInit() {
+    if (!this.nuDefaultStyles) return;
+
+    const tag = this.nuTag;
+    const styles = stylesString(this.nuDefaultStyles);
+
+    inject(`${tag}{${styles}}`, tag);
+  }
+
+  /**
    * @private
    * @param {string} name
    * @param {*} oldValue
@@ -59,6 +79,10 @@ class NuBase extends HTMLElement {
     this.nuMounted();
 
     this.nuIsMounted = true;
+  }
+
+  disconnectedCallback() {
+    this.nuDestroyed();
   }
 
   /**
@@ -106,6 +130,8 @@ class NuBase extends HTMLElement {
   nuChanged() {}
 
   nuMounted() {}
+
+  nuDestroyed() {}
 
   /**
    * Get parent that satisfies specified selector

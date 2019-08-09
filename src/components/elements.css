@@ -1,7 +1,3 @@
-nu-responsive {
-  display: none;
-}
-
 nu-grid, nu-pane {
   display: grid;
 }
@@ -30,34 +26,6 @@ nu-flex, nu-flow, nu-btn-group {
 
 nu-flex[inline], nu-flow[inline], nu-btn-group[inline] {
   display: inline-flex;
-}
-
-[nu-layout="flex"][nu-flow="row-reverse"] {
-  flex-flow: row-reverse nowrap;
-}
-
-[nu-layout="flex"][nu-flow="column"] {
-  flex-flow: column nowrap;
-}
-
-[nu-layout="flex"][nu-flow="column-reverse"] {
-  flex-flow: column-reverse nowrap;
-}
-
-[nu-layout="flex"][nu-flow="row"] > :not(:last-child) {
-  margin-right: var(--nu-flex-gap);
-}
-
-[nu-layout="flex"][nu-flow="row-reverse"] > :not(:last-child) {
-  margin-left: var(--nu-flex-gap);
-}
-
-[nu-layout="flex"][nu-flow="column"] > :not(:last-child) {
-  margin-bottom: var(--nu-flex-gap);
-}
-
-[nu-layout="flex"][nu-flow="column-reverse"] > :not(:last-child) {
-  margin-top: var(--nu-flex-gap);
 }
 
 nu-flow {
