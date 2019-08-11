@@ -118,7 +118,7 @@ class NuElement extends NuBase {
 
         if (!respEl) return;
 
-        const styles = value.split('|').map(val => {
+        const styles = value.split('|').map((val, i) => {
           const stls = this.nuGenerate(name, val);
 
           return generateCSS(query, stls);

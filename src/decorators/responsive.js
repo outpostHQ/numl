@@ -49,7 +49,8 @@ export default class NdResponsive extends NuDecorator {
 
     this.nuDecorate = function(styles) {
       return mediaPoints.map((point, i) => {
-        return `${point}{${styles[i] || styles[i - 1] || ''}}`;
+        // temporarily solution for better performance
+        return `${point}{${styles[i] || styles[i - 1] || styles[i - 2] || styles[i - 3] || ''}}`;
       }).join('');
     };
 
