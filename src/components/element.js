@@ -211,7 +211,6 @@ class NuElement extends NuBase {
       .forEach(attr => {
         if (!this.hasAttribute(attr)) {
           this.setAttribute(attr, defaultAttrs[attr]);
-          this.nuChanged(attr, undefined, defaultAttrs[attr]);
         }
       });
   }
@@ -219,23 +218,15 @@ class NuElement extends NuBase {
   /**
    * React to the attribute change.
    * @param {string} name
-   * @param {*} oldValue
    * @param {*} value
+   * @returns {Array}
    */
-  nuChanged(name, oldValue, value, force) {
+  nuGenerate(name, value) {
     switch (name) {
       case 'mod':
         if (!value) return;
 
-        const modQuery = this.nuGetQuery({mod: value});
-
-        if (!hasCSS(modQuery) || force) {
-          const styles = stylesString(Modifiers.get(value), true);
-
-          injectCSS(modQuery, modQuery, `${modQuery}{${styles}}`);
-        }
-
-        break;
+        return [Modifiers.get(value)];
       case 'theme':
         this.nuUpdateTheme(value);
         break;
@@ -246,15 +237,7 @@ class NuElement extends NuBase {
 
         if (!computed) return;
 
-        const query = `${this.nuGetQuery({[name]: value})}${computed.$children ? `>*:not([${computed.$children}])` : ''}`;
-
-        delete computed.$children;
-
-        if (!hasCSS(query)) {
-          const styles = stylesString(computed);
-
-          injectCSS(query, query, `${query}{${styles}}`);
-        }
+        return Array.isArray(computed) ? computed : [computed];
     }
   }
 }

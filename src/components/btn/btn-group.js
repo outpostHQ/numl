@@ -40,6 +40,7 @@ export default class NuBtnGroup extends NuFlex {
         return {
           $children: 'border',
           '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`,
+          '--nu-flex-gap': `calc(${width} * -1)`,
         };
       },
     });
@@ -49,13 +50,15 @@ export default class NuBtnGroup extends NuFlex {
     return defaultAttrs;
   }
 
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
+  nuGenerate(name, value) {
+    let styles = super.nuGenerate(name, value) || [];
 
     if (name === 'border') {
       value = value ? `calc(${convertUnit(value)} * -1)` : defaultAttrs.gap;
 
-      this.setAttribute('gap', value);
+      styles.push(...this.nuGenerate('gap', value));
     }
+
+    return styles;
   }
 }

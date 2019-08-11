@@ -1,4 +1,4 @@
-import { attrsQuery, stylesString, inject } from './css';
+import { attrsQuery, stylesString, inject, injectCSS, hasCSS } from './css';
 import { getParent } from './helpers';
 
 /**
@@ -70,6 +70,30 @@ class NuBase extends HTMLElement {
    */
   attributeChangedCallback(name, oldValue, value) {
     this.nuChanged(name, oldValue, value);
+
+    if (value == null) return;
+
+    let query = this.nuGetQuery({ [name]: value });
+
+    if (hasCSS(query)) return;
+
+    let styles = this.nuGenerate(name, value);
+
+    if (!styles || !styles.length) return;
+
+    styles = styles.map(map => {
+      let currentQuery = query;
+
+      if (map.$children) {
+        currentQuery += '>*';
+      }
+
+      delete map.$children;
+
+      return `${currentQuery}{${stylesString(map)}}`;
+    }).join('\n');
+
+    injectCSS(query, query, styles, query);
   }
 
   /**
@@ -120,14 +144,21 @@ class NuBase extends HTMLElement {
    * @param {string} name
    * @param {*} detail
    */
-  nuEmit(name, detail) {
+  nuEmit(name, detail = null) {
     this.dispatchEvent(new CustomEvent(name, {
       detail,
       bubbles: !this.hasAttribute('prevent'),
     }));
   }
 
-  nuChanged() {}
+  nuChanged(name, oldValue, value) {}
+
+  /**
+   * @param {String} name
+   * @param {String} value
+   * @returns {Object}
+   */
+  nuGenerate(name, value) {}
 
   nuMounted() {}
 

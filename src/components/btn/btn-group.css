@@ -5,6 +5,10 @@ nu-btn-group {
   border-radius: var(--nu-border-radius, .5rem);
 }
 
+nu-btn-group > * {
+  --nu-flex-gap: calc(var(--nu-theme-border-width) * -1);
+}
+
 nu-btn-group > *:not(:last-child):not(:first-child) {
   --nu-border-radius: 0;
 }

@@ -102,7 +102,7 @@ class NuBtn extends NuElement {
     this.nuEmit('tap');
 
     if (href) {
-      this.nuEmit('route', this.href);
+      this.nuEmit('route', href);
     }
   }
 

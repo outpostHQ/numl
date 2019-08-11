@@ -11,9 +11,12 @@ function set(name, styles, context = '') {
   // clean empty styles
   Object.keys(styles)
     .forEach(name => {
-      if (!styles[name].trim()) {
+      if (!styles[name] || !styles[name].trim()) {
         delete styles[name];
+        return;
       }
+
+      styles[name] += ' !important';
     });
 
   MAP[name] = styles;
@@ -120,9 +123,9 @@ set('round', { 'border-radius': '9999rem' });
 set('ellipsee', { 'border-radius': '50%' });
 set('relative', { 'position': 'relative' });
 
-set('color', { 'color': 'var(--nu-theme-color) !important' });
-set('background', { 'background-color': 'var(--nu-theme-background-color) !important' });
-set('special', { 'color': 'var(--nu-theme-special-color) !important' });
-set('transparent', { 'background-color': 'transparent !important' });
+set('color', { 'color': 'var(--nu-theme-color)' });
+set('background', { 'background-color': 'var(--nu-theme-background-color)' });
+set('special', { 'color': 'var(--nu-theme-special-color)' });
+set('transparent', { 'background-color': 'transparent' });
 
 export default Modifiers;

@@ -30,8 +30,8 @@ export const PLACE_SELF_ATTRS = {
 export const FLEX_ATTRS = {
   ...PLACE_ATTRS,
   flow: '',
-  order: 'order',
   gap: '',
+  order: 'order',
   'items-basis': unit('flex-basis', 'basis'),
   'items-grow'(val) {
     return {

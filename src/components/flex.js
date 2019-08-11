@@ -57,22 +57,16 @@ class NuFlex extends NuElement {
     `, tag);
   }
 
-  nuChanged(name, oldValue, value) {
-    if (name === 'gap' || name === 'flow') {
-      const flowAttr = this.getAttribute('flow');
-      const gapAttr = this.getAttribute('gap');
+  nuGenerate(name, value) {
+    let styles = super.nuGenerate(name, value) || [];
 
-      if (flowAttr || gapAttr) {
-        const query = this.nuGetQuery({ flow: flowAttr, gap: gapAttr });
-        const gap = convertUnit(gapAttr) || '0rem';
+    if (name === 'gap') {
+      const gap = convertUnit(value) || '0rem';
 
-        if (!hasCSS(query)) {
-          injectCSS(query, query, `${query} > *{--nu-flex-gap:${gap}}`);
-        }
-      }
+      styles.push({ $children: true, '--nu-flex-gap': gap });
     }
 
-    super.nuChanged(name, oldValue, value);
+    return styles;
   }
 }
 
