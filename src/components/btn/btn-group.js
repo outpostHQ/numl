@@ -38,7 +38,7 @@ export default class NuBtnGroup extends NuFlex {
         const width = val ? convertUnit(val) : 'var(--nu-theme-border-width)';
 
         return {
-          $children: 'border',
+          $suffix: ':not([border])',
           '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`,
           '--nu-flex-gap': `calc(${width} * -1)`,
         };

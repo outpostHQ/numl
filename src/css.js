@@ -50,11 +50,11 @@ export function generateCSS(query, styles) {
   return styles.map(map => {
     let currentQuery = query;
 
-    if (map.$children) {
-      currentQuery += '>*';
+    if (map.$suffix) {
+      currentQuery += map.$suffix;
     }
 
-    delete map.$children;
+    delete map.$suffix;
 
     return `${currentQuery}{${stylesString(map)}}`;
   }).join('\n');

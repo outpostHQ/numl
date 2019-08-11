@@ -49,22 +49,13 @@ class NuFlex extends NuElement {
     inject(`
       ${tag}{display:flex;}
       ${tag}[inline]{display:inline-flex;}
-      ${flows.map((flow, i) => `
-        ${flow === defaultFlow ? `${tag}:not([flow]){flex-flow: ${flow} nowrap;}` : ''}
-        ${tag}[flow="${flow}"]{flex-flow: ${flow} nowrap;}
-        ${tag}[flow="${flow}"] > *:not(:last-child){margin-${directions[i]}: var(--nu-flex-gap);}
-      `).join('')}
-    `, tag);
+      ${tag}:not([flow]){flex-flow: ${defaultFlow} nowrap;}
+      ${tag}>*{flex-grow:1;}
+    `);
   }
 
   nuGenerate(name, value) {
     let styles = super.nuGenerate(name, value) || [];
-
-    if (name === 'gap') {
-      const gap = convertUnit(value) || '0rem';
-
-      styles.push({ $children: true, '--nu-flex-gap': gap });
-    }
 
     return styles;
   }

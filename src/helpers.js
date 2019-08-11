@@ -26,21 +26,21 @@ export function convertUnit(unit) {
     .replace(/([\d.]+)([^a-z\d%.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
 }
 
-export function unit(name, $children,) {
+export function unit(name, $suffix) {
   return (val) => val ? {
-    $children,
+    $suffix,
     [name]: convertUnit(val),
   } : null;
 }
 
-export function sizeUnit(name, $children) {
+export function sizeUnit(name, $suffix) {
   return (val) => {
     if (val) {
       if (val.startsWith('clamp(')) {
         const values = val.slice(6, -1).split(',');
 
         return {
-          $children,
+          $suffix,
           [name]: convertUnit(values[1]),
           [`min-${name}`]: convertUnit(values[0]),
           [`max-${name}`]: convertUnit(values[2])
@@ -49,24 +49,24 @@ export function sizeUnit(name, $children) {
         const values = val.slice(7, -1).split(',');
 
         return {
-          $children,
+          $suffix,
           [`min-${name}`]: convertUnit(values[0]),
           [`max-${name}`]: convertUnit(values[1])
         };
      } else if (val.startsWith('min(')) {
        return {
-         $children,
+        $suffix,
          [`min-${{name}}`]: val.slice(4, -1),
        };
      } else if (val.startsWith('max(')) {
       return {
-        $children,
+        $suffix,
         [`max-${{name}}`]: val.slice(4, -1),
       };
     }
 
       return {
-        $children,
+        $suffix,
         [name]: convertUnit(val),
       };
     }
