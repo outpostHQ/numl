@@ -28,6 +28,7 @@ import NuDecorator from './decorators/decorator';
 import NdTheme from './decorators/theme';
 import NdAttr from './decorators/attr';
 import NdMod from './decorators/mod';
+import NdResponsive from './decorators/responsive';
 // helpers
 import { log } from './helpers';
 
@@ -58,6 +59,7 @@ Nude.init = () => {
     NdTheme,
     NdAttr,
     NdMod,
+    NdResponsive,
   ].forEach(customElement => {
     customElement.nuInit();
 
@@ -91,4 +93,5 @@ export {
   NdMod,
   NuElement,
   NuDecorator,
+  NdResponsive,
 };

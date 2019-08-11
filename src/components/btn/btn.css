@@ -68,7 +68,8 @@ nu-btn[nu-toggled] {
   z-index: 1;
 }
 
-nu-btn[nu-active]:not([disabled]):not([nu-toggled]), nu-btn[nu-toggled]:not([disabled]):not([nu-active]) {
+nu-btn[nu-active]:not([disabled]):not([nu-toggled]),
+nu-btn[nu-toggled]:not([disabled]):not([nu-active]) {
   --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-depth-opacity));
 }
 

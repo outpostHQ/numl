@@ -44,6 +44,22 @@ export function stylesString(styles, important) {
     .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}${important ? ' !important' : ''}` : ''};`, '');
 }
 
+export function generateCSS(query, styles) {
+  if (!styles || !styles.length) return;
+
+  return styles.map(map => {
+    let currentQuery = query;
+
+    if (map.$children) {
+      currentQuery += '>*';
+    }
+
+    delete map.$children;
+
+    return `${currentQuery}{${stylesString(map)}}`;
+  }).join('\n');
+}
+
 export function parseStyles(str) {
   return str
   .split(/;/g)

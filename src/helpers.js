@@ -82,10 +82,17 @@ export function getMods(mod) {
 export function getParent(element, selector) {
   const elements = [...document.querySelectorAll(selector)];
 
-  while ((element = element.parentNode) && !elements.includes(element)) {
-  }
+  while ((element = element.parentNode) && !elements.includes(element)) {}
 
   return element;
+}
+
+export function invertQuery(element, selector) {
+  do {
+    const found = element.querySelector(selector);
+
+    if (found) return found;
+  } while (element = element.parentNode);
 }
 
 export const devMode = process.env.NODE_ENV === 'development';

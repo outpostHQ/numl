@@ -8,7 +8,7 @@ import {
 } from '../helpers';
 import NUDE from '../nude';
 import Modifiers from '../modifiers';
-import { hasCSS, injectCSS, attrsQuery, stylesString } from '../css';
+import { hasCSS, injectCSS, attrsQuery, stylesString, generateCSS } from '../css';
 import NuBase from '../base';
 
 const attrsObjs = [];
@@ -93,6 +93,54 @@ class NuElement extends NuBase {
     this.nuMounted();
 
     this.nuIsMounted = true;
+  }
+
+  /**
+   * @private
+   * @param {string} name
+   * @param {*} oldValue
+   * @param {*} value
+   */
+  attributeChangedCallback(name, oldValue, value) {
+    this.nuChanged(name, oldValue, value);
+
+    if (value == null) return;
+
+    let query = this.nuGetQuery({ [name]: value });
+
+    if (hasCSS(query)) return;
+
+    if (value.includes('|')) {
+      setTimeout(() => {
+        if (value !== this.getAttribute(name)) return;
+
+        const respEl = this.nuInvertQuery('nd-responsive');
+
+        if (!respEl) return;
+
+        const styles = value.split('|').map(val => {
+          const stls = this.nuGenerate(name, val);
+
+          return generateCSS(query, stls);
+        });
+
+        const css = respEl.nuParse()(styles);
+
+        if (css) {
+          injectCSS(query, query, css, query);
+        }
+      }, 0);
+
+      return;
+    }
+
+    let styles = this.nuGenerate(name, value);
+
+    const css = generateCSS(query, styles);
+
+    if (css) {
+      injectCSS(query, query, css, query);
+    }
   }
 
   /**

@@ -1,5 +1,5 @@
 import { attrsQuery, stylesString, inject, injectCSS, hasCSS } from './css';
-import { getParent } from './helpers';
+import { getParent, invertQuery } from './helpers';
 
 /**
  * @class
@@ -70,30 +70,6 @@ class NuBase extends HTMLElement {
    */
   attributeChangedCallback(name, oldValue, value) {
     this.nuChanged(name, oldValue, value);
-
-    if (value == null) return;
-
-    let query = this.nuGetQuery({ [name]: value });
-
-    if (hasCSS(query)) return;
-
-    let styles = this.nuGenerate(name, value);
-
-    if (!styles || !styles.length) return;
-
-    styles = styles.map(map => {
-      let currentQuery = query;
-
-      if (map.$children) {
-        currentQuery += '>*';
-      }
-
-      delete map.$children;
-
-      return `${currentQuery}{${stylesString(map)}}`;
-    }).join('\n');
-
-    injectCSS(query, query, styles, query);
   }
 
   /**
@@ -170,6 +146,14 @@ class NuBase extends HTMLElement {
    */
   nuQueryParent(selector) {
     return getParent(this, selector);
+  }
+
+  /**
+   * Get closest element that satisfies specified selector
+   * @param {string} selector
+   */
+  nuInvertQuery(selector) {
+    return invertQuery(this, selector);
   }
 }
 
