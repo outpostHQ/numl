@@ -26,7 +26,7 @@ import NdAttr from './decorators/attr';
 import NdMod from './decorators/mod';
 import NdResponsive from './decorators/responsive';
 // helpers
-import { log } from './helpers';
+import { log, injectScript } from './helpers';
 
 let featherPromise;
 
@@ -64,21 +64,21 @@ Nude.elements = {
 
 Object.values(Nude.elements).forEach(customElement => {
   customElement.nuInit = function() {
-    const tag = customElement.nuTag;
-    let el = customElement, css = '';
+    const tag = this.nuTag;
+    let el = this, css = '';
 
     do {
       if (!el.nuCSS) break;
       if (el.nuCSS === (el.nuParent && el.nuParent.nuCSS)) continue;
 
-      css = `${el.nuCSS(customElement)}${css}`;
+      css = `${el.nuCSS(this)}${css}`;
     } while (el = el.nuParent);
 
     injectStyleTag(css, tag);
 
-    customElements.define(customElement.nuTag, customElement);
+    customElements.define(tag, this);
 
-    log('custom element registered', customElement.nuTag);
+    log('custom element registered', tag);
   }
 });
 

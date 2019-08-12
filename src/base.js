@@ -1,8 +1,9 @@
 import { attrsQuery, injectStyleTag } from './css';
 import { getParent, invertQuery } from './helpers';
 
-const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
-const ATTRS_MAP = {};
+export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
+
+export const ATTRS_MAP = {};
 
 /**
  * @class
