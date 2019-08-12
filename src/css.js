@@ -3,7 +3,7 @@ import { getLuminance, devMode, warn } from "./helpers";
 const map = {};
 const testEl = document.createElement('div');
 
-export function inject(css, name) {
+export function injectStyleTag(css, name) {
   css = css || '';
 
   const style = document.createElement('style');
@@ -54,7 +54,12 @@ export function generateCSS(query, styles) {
       currentQuery += map.$suffix;
     }
 
+    if (map.$prefix) {
+      currentQuery = `${map.$prefix} ${currentQuery}`;
+    }
+
     delete map.$suffix;
+    delete map.$prefix;
 
     return `${currentQuery}{${stylesString(map)}}`;
   }).join('\n');
@@ -72,8 +77,8 @@ export function parseStyles(str) {
   }, {});
 }
 
-export function injectCSS(name, selector, css, globalName) {
-  const element = inject(css, globalName);
+export function injectCSS(name, selector, css) {
+  const element = injectStyleTag(css, name);
 
   if (devMode) {
     selector.split(',')
@@ -99,6 +104,14 @@ export function injectCSS(name, selector, css, globalName) {
   };
 
   return map[name];
+}
+
+export function removeCSS(name) {
+  if (!map[name]) return;
+
+  const el = map[name].element;
+
+  el.parentNode.removeChild(el);
 }
 
 export function hasCSS(name) {
@@ -155,7 +168,7 @@ const css = {
       ${context} [data-nu-theme="!${theme}"]{${stylesString(invertedStyles)}}
     `;
 
-    const element = inject(css);
+    const element = injectStyleTag(css);
 
     return map[key] = {
       theme,

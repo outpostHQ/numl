@@ -35,8 +35,8 @@ export default class NdMod extends NuDecorator {
         ${context} [mod^="${name} "],
         ${context} [mod$=" ${name}"]
       `)].forEach(el => {
-        if (el.nuChanged) {
-          el.nuChanged('mod', null, el.getAttribute('mod'), true);
+        if (el.nuApplyCSS) {
+          el.nuApplyCSS('mod', el.getAttribute('mod'), true);
         }
       });
     }, 0);

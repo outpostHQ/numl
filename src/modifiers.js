@@ -34,8 +34,7 @@ function set(name, styles, context = '') {
   injectCSS(
     `mod:${name}:${context}`,
     selector,
-    `${selector}{${stylesString(styles, true)}}`,
-    `mod:${name}`);
+    `${selector}{${stylesString(styles, true)}}`);
 }
 
 function get(name = '') {

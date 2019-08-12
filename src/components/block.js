@@ -1,21 +1,65 @@
-import {
-  GRID_ITEM_ATTRS,
-  BLOCK_ATTRS,
-  FLEX_ITEM_ATTRS,
-} from '../attrs';
-import NuElement from './element';
+import { GRID_ITEM_ATTRS, FLEX_ITEM_ATTRS } from "../attrs";
+import { unit, sizeUnit, convertUnit } from '../helpers';
+import NuElement from "./element";
 
 class NuBlock extends NuElement {
   static get nuTag() {
-    return 'nu-block';
+    return "nu-block";
+  }
+
+  static get nuDisplay() {
+    return 'block';
   }
 
   static get nuAttrs() {
-    return Object.assign(NuElement.nuAttrs, {
+    return {
       ...GRID_ITEM_ATTRS,
-      ...BLOCK_ATTRS,
       ...FLEX_ITEM_ATTRS,
-    });
+      width: sizeUnit("width"),
+      height: sizeUnit("height"),
+      padding: unit("padding"),
+      radius: val =>
+        val != null
+          ? {
+              "--nu-border-radius": val
+                ? convertUnit(val).replace(/\*/g, "var(--nu-theme-border-radius)")
+                : "var(--nu-theme-border-radius)"
+            }
+          : null,
+      border(val) {
+        if (val == null) return val;
+
+        const width = val ? convertUnit(val) : "var(--nu-theme-border-width)";
+
+        return {
+          "--nu-border-shadow": `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`
+        };
+      },
+      shadow(val) {
+        if (val == null) return val;
+
+        const depth = convertUnit(val || "1");
+        const opacity = ((val || 1) && 0.075 / Math.pow(parseFloat(val), 1 / 2)) || ".075";
+
+        return {
+          "--nu-depth-shadow": `0 0 ${depth} rgba(0, 0, 0, calc(${opacity} * 5 * var(--nu-theme-depth-opacity)))`
+        };
+      },
+    };
+  }
+
+  static nuCSS({ nuTag }) {
+    return `
+      ${nuTag}{
+        --nu-border-radius: 0rem;
+        --nu-border-shadow: 0 0 0 0 var(--nu-theme-border-color);
+        --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+
+        box-shadow: var(--nu-border-shadow), var(--nu-depth-shadow);
+        border-radius: var(--nu-border-radius);
+        box-sizing: border-box;
+      }
+    `;
   }
 }
 

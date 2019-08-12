@@ -1,5 +1,8 @@
-import { attrsQuery, stylesString, inject, injectCSS, hasCSS } from './css';
+import { attrsQuery, injectStyleTag } from './css';
 import { getParent, invertQuery } from './helpers';
+
+const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
+const ATTRS_MAP = {};
 
 /**
  * @class
@@ -15,7 +18,34 @@ class NuBase extends HTMLElement {
   }
 
   /**
-   * Element attributes list.
+   * Default display style
+   */
+  static get nuDisplay() {
+    return 'inline';
+  }
+
+  /**
+   * Parent element
+   */
+  static get nuParent() {
+    return Object.getPrototypeOf(this);
+  }
+
+  /**
+   * @private
+   */
+  static get nuAllAttrs() {
+    return (
+      ATTRS_MAP[this.nuTag] ||
+      (ATTRS_MAP[this.nuTag] = {
+        ...(this.nuParent.nuAllAttrs || {}),
+        ...this.nuAttrs
+      })
+    );
+  }
+
+  /**
+   * Element attribute config.
    * @returns {Object}
    */
   static get nuAttrs() {
@@ -23,7 +53,7 @@ class NuBase extends HTMLElement {
   }
 
   static get nuAttrsList() {
-    return Object.keys(this.nuAttrs);
+    return [];
   }
 
   /**
@@ -43,23 +73,19 @@ class NuBase extends HTMLElement {
   }
 
   /**
-   * Element's default styles
-   * @returns {Object}
-   */
-  static get nuDefaultStyles() {
-    return null;
-  }
-
-  /**
    * Element initialization logic
    */
-  static nuInit() {
-    if (!this.nuDefaultStyles) return;
-
-    const tag = this.nuTag;
-    const styles = stylesString(this.nuDefaultStyles);
-
-    inject(`${tag}{${styles}}`, tag);
+  static nuCSS({ nuTag, nuDisplay }) {
+    return `
+      ${
+        DOUBLE_DISPLAY.includes(nuDisplay)
+          ? `
+          ${nuTag}:not([inline]){display:${nuDisplay};}
+          ${nuTag}[inline]{display:inline-${nuDisplay};}
+        `
+          : `${nuTag}{display:${nuDisplay};}`
+      }
+    `;
   }
 
   /**
@@ -121,10 +147,12 @@ class NuBase extends HTMLElement {
    * @param {*} detail
    */
   nuEmit(name, detail = null) {
-    this.dispatchEvent(new CustomEvent(name, {
-      detail,
-      bubbles: !this.hasAttribute('prevent'),
-    }));
+    this.dispatchEvent(
+      new CustomEvent(name, {
+        detail,
+        bubbles: !this.hasAttribute('prevent')
+      })
+    );
   }
 
   nuChanged(name, oldValue, value) {}

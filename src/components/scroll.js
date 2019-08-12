@@ -1,12 +1,7 @@
-import './scroll.css';
 import {
   unit,
-} from '../../helpers';
-import {
-  GRID_ATTRS,
-  GRID_ITEM_ATTRS,
-} from '../../attrs';
-import NuElement from '../element';
+} from '../helpers';
+import NuElement from './element';
 
 export default class NuScroll extends NuElement {
   static get nuTag() {
@@ -17,18 +12,45 @@ export default class NuScroll extends NuElement {
     return 'scrollbar';
   }
 
+  static get nuDisplay() {
+    return 'block';
+  }
+
   static get nuAttrs() {
-    return Object.assign(NuElement.nuAttrs, {
-      ...GRID_ATTRS,
-      ...GRID_ITEM_ATTRS,
+    return {
       orientation: '',
       size: unit('--nu-line-size'),
       color: '--nu-line-color',
-    });
+    };
   }
 
-  constructor() {
-    super();
+  nuCSS({ nuTag }) {
+    return `
+      ${nuTag} {
+        --nu-line-color: var(--nu-theme-special-color);
+        --nu-line-size: .25rem;
+        --nu-line-offset: 0%;
+        --nu-line-length: 0%;
+
+        position: absolute;
+        top: 0;
+        transform: translate(0, var(--nu-line-offset));
+        right: var(--nu-pixel);
+        height: var(--nu-line-length);
+        width: var(--nu-line-size);
+        line-height: 0;
+        background-color: var(--nu-line-color);
+        opacity: .5;
+        transition: opacity var(--nu-theme-animation-time) linear,
+          transform calc(var(--nu-theme-animation-time) / 2) ease-out;
+        border-radius: .25rem;
+        pointer-events: none;
+      }
+
+      [data-nu-no-scroll]::-webkit-scrollbar {
+        display: none;
+      }
+    `;
   }
 
   nuChanged(name, oldValue, value) {

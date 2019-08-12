@@ -1,9 +1,0 @@
-nu-card {
-  --nu-border-radius: var(--nu-theme-border-radius);
-
-  display: block;
-  position: relative;
-  padding: 1rem;
-  scrollbar-width: none;
-  background-color: var(--nu-theme-background-color);
-}

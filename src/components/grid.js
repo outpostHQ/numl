@@ -1,18 +1,15 @@
 import {
-  GRID_ATTRS,
-  GRID_ITEM_ATTRS,
-  FLEX_ITEM_ATTRS,
-  BLOCK_ATTRS,
+  PLACE_ATTRS,
 } from '../attrs';
+import { unit } from '../helpers';
 import NuElement from './element';
-import { inject } from '../css';
 
 class NuGrid extends NuElement {
   static get nuTag() {
     return 'nu-grid';
   }
 
-  static get nuLayout() {
+  static get nuDisplay() {
     return 'grid';
   }
 
@@ -20,29 +17,32 @@ class NuGrid extends NuElement {
     return 'row';
   }
 
-  static nuInit() {
-    super.nuInit();
-
-    const tag = this.nuTag;
+  static nuCSS({ nuTag }) {
     const defaultFlow = this.nuDefaultFlow;
     const flows = ['row', 'column'];
 
-    inject(`
-      ${tag}{display:grid;}
-      ${tag}[inline]{display:inline-grid;}
+    return `
+      ${nuTag}{display:grid;}
+      ${nuTag}[inline]{display:inline-grid;}
       ${flows.map((flow, i) => `
-        ${tag}${flow === defaultFlow ? ':not([flow])' : `[flow="${flow}"]`}{grid-auto-flow: ${flow};}
+        ${nuTag}${flow === defaultFlow ? ':not([flow])' : `[flow="${flow}"]`}{grid-auto-flow: ${flow};}
       `).join('')}
-    `, tag);
+    `;
   }
 
   static get nuAttrs() {
-    return Object.assign(NuElement.nuAttrs, {
-      ...GRID_ATTRS,
-      ...GRID_ITEM_ATTRS,
-      ...FLEX_ITEM_ATTRS,
-      ...BLOCK_ATTRS
-    });
+    return {
+      ...PLACE_ATTRS,
+      'template-areas': 'grid-template-areas',
+      areas: 'grid-template-areas',
+      'auto-flow': 'grid-auto-flow',
+      flow: 'grid-auto-flow',
+      'template-columns': unit('grid-template-columns'),
+      'template-rows': unit('grid-template-rows'),
+      cols: unit('grid-template-columns'),
+      rows: unit('grid-template-rows'),
+      gap: unit('grid-gap'),
+    };
   }
 }
 

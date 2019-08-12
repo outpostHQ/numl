@@ -1,57 +1,76 @@
-import {
-  convertUnit,
-} from '../helpers';
-import {
-  FLEX_ATTRS,
-  FLEX_ITEM_ATTRS,
-  GRID_ITEM_ATTRS,
-  BLOCK_ATTRS,
-} from '../attrs';
-import { hasCSS, injectCSS, inject } from '../css';
-import NuElement from './element';
+import { convertUnit, unit } from "../helpers";
+import { PLACE_ATTRS } from "../attrs";
+import NuElement from "./element";
+
+export const FLEX_MAP = {
+  row: "margin-right",
+  column: "margin-bottom",
+  "row-reverse": "margin-left",
+  "column-reverse": "margin-top"
+};
 
 class NuFlex extends NuElement {
   static get nuTag() {
-    return 'nu-flex';
+    return "nu-flex";
   }
 
-  static get nuLayout() {
-    return 'flex';
+  static get nuDisplay() {
+    return "flex";
   }
 
   static get nuDefaultFlow() {
-    return 'row';
+    return "row";
   }
 
   static get nuDefaultAttrs() {
     return {
-      flow: 'row',
+      flow: "row"
     };
   }
 
   static get nuAttrs() {
-    return Object.assign(NuElement.nuAttrs, {
-      ...FLEX_ATTRS,
-      ...GRID_ITEM_ATTRS,
-      ...FLEX_ITEM_ATTRS,
-      ...BLOCK_ATTRS,
-    });
+    return {
+      ...PLACE_ATTRS,
+      flow(val) {
+        if (!val) return;
+
+        const dirStyle = FLEX_MAP[val];
+
+        return [
+          { "flex-flow": `${val} nowrap` },
+          {
+            $suffix: ">:not(:last-child)",
+            [dirStyle]: "var(--nu-flex-gap)"
+          }
+        ];
+      },
+      gap(val) {
+        val = val || "0rem";
+
+        return { $suffix: ">*", "--nu-flex-gap": convertUnit(val) };
+      },
+      order: "order",
+      "items-basis": unit("flex-basis", "basis"),
+      "items-grow"(val) {
+        return {
+          $suffix: ":not([grow])",
+          "flex-grow": val
+        };
+      },
+      "items-shrink"(val) {
+        return {
+          $suffix: ":not([shrink])",
+          "flex-shrink": val
+        };
+      }
+    };
   }
 
-  static nuInit() {
-    super.nuInit();
-
-    const tag = this.nuTag;
-    const defaultFlow = this.nuDefaultFlow;
-    const flows = ['row', 'column', 'row-reverse', 'column-reverse'];
-    const directions = ['right', 'bottom', 'left', 'top'];
-
-    inject(`
-      ${tag}{display:flex;}
-      ${tag}[inline]{display:inline-flex;}
-      ${tag}:not([flow]){flex-flow: ${defaultFlow} nowrap;}
-      ${tag}>*{flex-grow:1;}
-    `);
+  static nuCSS({ nuTag, nuDisplay }) {
+    return `
+      ${nuTag}:not([flow]){flex-flow: ${nuDisplay} nowrap;}
+      ${nuTag}>*{flex-grow:1;}
+    `;
   }
 
   nuGenerate(name, value) {

@@ -1,21 +1,13 @@
-import {
-  getMods,
-  convertUnit,
-  getParent,
-  devMode,
-  warn,
-  getTheme,
-} from '../helpers';
-import NUDE from '../nude';
-import Modifiers from '../modifiers';
-import { hasCSS, injectCSS, attrsQuery, stylesString, generateCSS } from '../css';
+import { convertUnit, getTheme } from '../helpers';
+import Modifiers, { SIZES } from '../modifiers';
+import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS } from '../css';
 import NuBase from '../base';
 
 const attrsObjs = [];
 const plugins = {
   mod: '',
   theme: '',
-  cursor: 'cursor',
+  cursor: 'cursor'
 };
 
 /**
@@ -23,6 +15,10 @@ const plugins = {
  * @abstract
  */
 class NuElement extends NuBase {
+  static get nuTag() {
+    return 'nu-element'; // abstract tag
+  }
+
   /**
    * Element ARIA Role.
    * @returns {string}
@@ -35,7 +31,7 @@ class NuElement extends NuBase {
    * Element layout type.
    * @returns {string} - `flex` | `grid`.
    */
-  static get nuLayout() {
+  static get nuDisplay() {
     return '';
   }
 
@@ -48,19 +44,49 @@ class NuElement extends NuBase {
   }
 
   /**
-   * Element attributes list.
+   * Element attribute config.
    * @returns {Object}
    */
   static get nuAttrs() {
-    const obj = {...plugins};
+    return {
+      color: 'color',
+      background: 'background',
+      cursor(val) {
+        return val
+          ? {
+              cursor: val
+            }
+          : null;
+      },
+      size(val) {
+        if (!val) return null;
 
-    attrsObjs.push(obj);
+        const tmp = val.trim().split(/\s+/);
+        const values = [];
 
-    return obj;
+        values[0] = SIZES[tmp[0]] ? String(SIZES[tmp[0]][0]) : tmp[0];
+
+        if (!tmp[1] && SIZES[tmp[0]]) {
+          values[1] = String(SIZES[tmp[0]][1]);
+        } else {
+          values[1] = SIZES[tmp[1]] ? String(SIZES[tmp[1]][1]) : tmp[1];
+        }
+
+        return {
+          'font-size': convertUnit(values[0]),
+          'line-height': convertUnit(values[1] || '1.5')
+        };
+      },
+      ...plugins
+    };
   }
 
+  /**
+   * @private
+   * @returns {string[]}
+   */
   static get nuAttrsList() {
-    return Object.keys(this.nuAttrs);
+    return Object.keys(this.nuAllAttrs);
   }
 
   /**
@@ -106,9 +132,23 @@ class NuElement extends NuBase {
 
     if (value == null) return;
 
+    this.nuApplyCSS(name, value);
+  }
+
+  /**
+   * Create and apply CSS based on element's attributes.
+   * @param {string} name
+   * @param {*} value
+   * @param {*} force - replace current CSS rule
+   */
+  nuApplyCSS(name, value, force = false) {
     let query = this.nuGetQuery({ [name]: value });
 
-    if (hasCSS(query)) return;
+    if (hasCSS(query)) {
+      if (!force) return;
+
+      removeCSS(query);
+    };
 
     if (value.includes('|')) {
       setTimeout(() => {
@@ -127,7 +167,7 @@ class NuElement extends NuBase {
         const css = respEl.nuParse()(styles);
 
         if (css) {
-          injectCSS(query, query, css, query);
+          injectCSS(query, query, css);
         }
       }, 0);
 
@@ -139,7 +179,7 @@ class NuElement extends NuBase {
     const css = generateCSS(query, styles);
 
     if (css) {
-      injectCSS(query, query, css, query);
+      injectCSS(query, query, css);
     }
   }
 
@@ -150,7 +190,7 @@ class NuElement extends NuBase {
    * @returns {string|Object}
    */
   nuComputeStyle(name, value) {
-    const attrValue = this.constructor.nuAttrs[name];
+    const attrValue = this.constructor.nuAllAttrs[name];
 
     if (!attrValue) return null;
 
@@ -220,8 +260,9 @@ class NuElement extends NuBase {
   }
 
   nuUpdateChildThemes() {
-    [...this.querySelectorAll('[theme="!"]')]
-        .forEach(element => element.nuUpdateTheme && element.nuUpdateTheme('!'));
+    [...this.querySelectorAll('[theme="!"]')].forEach(
+      element => element.nuUpdateTheme && element.nuUpdateTheme('!')
+    );
   }
 
   /**
@@ -255,12 +296,11 @@ class NuElement extends NuBase {
   nuMounted() {
     const defaultAttrs = this.constructor.nuDefaultAttrs;
 
-    Object.keys(defaultAttrs)
-      .forEach(attr => {
-        if (!this.hasAttribute(attr)) {
-          this.setAttribute(attr, defaultAttrs[attr]);
-        }
-      });
+    Object.keys(defaultAttrs).forEach(attr => {
+      if (!this.hasAttribute(attr)) {
+        this.setAttribute(attr, defaultAttrs[attr]);
+      }
+    });
   }
 
   /**
