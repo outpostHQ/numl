@@ -94,7 +94,9 @@ export function injectCSS(name, selector, css) {
   if (map[name]) {
     const el = map[name].element;
 
-    el.parentNode.removeChild(el);
+    if (el.parentNode) {
+      el.parentNode.removeChild(el);
+    }
   }
 
   map[name] = {
