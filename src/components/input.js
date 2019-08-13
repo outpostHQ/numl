@@ -11,7 +11,6 @@ class NuInput extends NuGrid {
 
   static get nuAttrs() {
     return {
-      ...NuGrid.nuAttrs,
       autofocus: '',
       disabled: '',
       value: '',

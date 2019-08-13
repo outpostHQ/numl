@@ -10,7 +10,6 @@ export default class NuIcon extends NuBlock {
 
   static get nuAttrs() {
     return {
-      ...NuBlock.nuAttrs,
       size(val) {
         const converted = convertUnit(val || '');
 

@@ -13,7 +13,6 @@ export default class NuBtnGroup extends NuFlex {
 
   static get nuAttrs() {
     return {
-      ...NuFlex.nuAttrs,
       padding: '',
       gap: '',
       'items-padding': unit('padding', true),
@@ -24,11 +23,15 @@ export default class NuBtnGroup extends NuFlex {
           ...FLOW_ATTR(val),
           {
             $suffix: ` > :first-child:not(:last-child)`,
-            '--nu-border-radius': 'var(--nu-item-border-radius) 0 0 var(--nu-item-border-radius)',
+            '--nu-border-radius': val.startsWith('row')
+              ? 'var(--nu-item-border-radius) 0 0 var(--nu-item-border-radius)'
+              : 'var(--nu-item-border-radius) var(--nu-item-border-radius) 0 0',
           },
           {
             $suffix: ` > :last-child:not(:first-child)`,
-            '--nu-border-radius': '0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0',
+            '--nu-border-radius': val.startsWith('row')
+              ? '0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0'
+              : '0 0 var(--nu-item-border-radius) var(--nu-item-border-radius)',
           },
         ];
       },

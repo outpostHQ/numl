@@ -1,4 +1,4 @@
-import { convertUnit, getTheme } from '../helpers';
+import { convertUnit, getTheme, error } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS } from '../css';
 import NuBase from '../base';
@@ -7,8 +7,13 @@ const attrsObjs = [];
 const plugins = {
   mod: '',
   theme: '',
-  cursor: 'cursor'
+  cursor: 'cursor',
+  responsive: ''
 };
+
+const RESPONSIVE_ATTR = 'responsive';
+const THEME_ATTR = 'theme';
+const IGNORE_ATTRS_CSS = [THEME_ATTR, RESPONSIVE_ATTR];
 
 /**
  * @class
@@ -130,7 +135,7 @@ class NuElement extends NuBase {
   attributeChangedCallback(name, oldValue, value) {
     this.nuChanged(name, oldValue, value);
 
-    if (value == null) return;
+    if (value == null || IGNORE_ATTRS_CSS.includes(name)) return;
 
     this.nuApplyCSS(name, value);
   }
@@ -148,28 +153,32 @@ class NuElement extends NuBase {
       if (!force) return;
 
       removeCSS(query);
-    };
+    }
 
     if (value.includes('|')) {
-      setTimeout(() => {
-        if (value !== this.getAttribute(name)) return;
+      this.nuSetMod(RESPONSIVE_ATTR, true);
 
-        const respEl = this.nuInvertQuery('nd-responsive');
+      if (value !== this.getAttribute(name)) return;
 
-        if (!respEl) return;
+      let respEl = this;
 
-        const styles = value.split('|').map((val, i) => {
-          const stls = this.nuGenerate(name, val);
+      while (respEl && (!respEl.hasAttribute(RESPONSIVE_ATTR) || !respEl.nuResponsive)) {
+        respEl = respEl.parentNode;
+      }
 
-          return generateCSS(query, stls);
-        });
+      if (!respEl) return;
 
-        const css = respEl.nuParse()(styles);
+      const styles = value.split('|').map((val, i) => {
+        const stls = this.nuGenerate(name, val);
 
-        if (css) {
-          injectCSS(query, query, css);
-        }
-      }, 0);
+        return generateCSS(query, stls);
+      });
+
+      const css = respEl.nuResponsive()(styles);
+
+      if (css) {
+        injectCSS(query, query, css);
+      }
 
       return;
     }
@@ -232,7 +241,7 @@ class NuElement extends NuBase {
 
     if (theme === '!current') {
       setTimeout(() => {
-        if (theme !== getTheme(this.getAttribute('theme'))) return;
+        if (theme !== getTheme(this.getAttribute(THEME_ATTR))) return;
 
         const themeParent = this.nuQueryParent('[data-nu-theme]');
 
@@ -301,6 +310,10 @@ class NuElement extends NuBase {
         this.setAttribute(attr, defaultAttrs[attr]);
       }
     });
+
+    if (this.hasAttribute(RESPONSIVE_ATTR)) {
+      this.nuChanged(RESPONSIVE_ATTR, '', this.getAttribute(RESPONSIVE_ATTR));
+    }
   }
 
   /**
@@ -315,9 +328,6 @@ class NuElement extends NuBase {
         if (!value) return;
 
         return [Modifiers.get(value)];
-      case 'theme':
-        this.nuUpdateTheme(value);
-        break;
       default:
         if (value == null) return;
 
@@ -327,6 +337,80 @@ class NuElement extends NuBase {
 
         return Array.isArray(computed) ? computed : [computed];
     }
+  }
+
+  nuChanged(name, oldValue, value) {
+    switch (name) {
+      case THEME_ATTR:
+        this.nuUpdateTheme(value);
+        break;
+      case RESPONSIVE_ATTR:
+        setTimeout(() => {
+          if (this.getAttribute(RESPONSIVE_ATTR) !== value) return;
+          /**
+           * @type {NuElement[]}
+           */
+          const elements = this.querySelectorAll('[nu-responsive]');
+
+          [...elements].forEach(el => {
+            if (el.nuApplyCSS) {
+              [...el.attributes].forEach(({ name, value }) => {
+                if (!el.constructor.nuAttrsList.includes(name) || !value.includes('|')) return;
+
+                el.nuApplyCSS(name, value, true);
+              });
+            }
+          });
+        }, 0);
+        break;
+    }
+  }
+
+  nuResponsive() {
+    const points = this.getAttribute('responsive');
+
+    if (this.nuReponsiveFor === points) return this.nuResponsiveDecorator;
+
+    this.nuReponsiveFor = points;
+
+    if (!points) {
+      return error(`responsive points are not specified`, this);
+    }
+
+    const tmpPoints = points.split(/\|/);
+
+    const mediaPoints = tmpPoints.map((point, i) => {
+      if (!i) {
+        return `@media (min-width: ${point})`;
+      }
+
+      const prevPoint = tmpPoints[i - 1];
+
+      return `@media (max-width: calc(${prevPoint} - 1px)) and (min-width: ${point})`;
+    });
+
+    mediaPoints.push(`@media (max-width: calc(${tmpPoints.slice(-1)[0]} - 1px))`);
+
+    return (this.nuResponsiveDecorator = function(styles) {
+      return mediaPoints
+        .map((point, i) => {
+          let stls;
+
+          if (styles[i]) {
+            stls = styles[i];
+          } else {
+            for (let j = i - 1; j >= 0; j--) {
+              if (styles[j]) {
+                stls = styles[j];
+                break;
+              }
+            }
+          }
+
+          return `${point}{\n${stls || ''}\n}\n`;
+        })
+        .join('');
+    });
   }
 }
 

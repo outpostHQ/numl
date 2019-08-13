@@ -22,9 +22,7 @@ import NuBtnGroup from './components/btn-group';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NdTheme from './decorators/theme';
-import NdAttr from './decorators/attr';
 import NdMod from './decorators/mod';
-import NdResponsive from './decorators/responsive';
 // helpers
 import { log, injectScript } from './helpers';
 
@@ -61,9 +59,7 @@ Nude.elements = {
   NuBtnGroup,
   NuLink,
   NdTheme,
-  NdAttr,
   NdMod,
-  NdResponsive
 };
 
 Object.values(Nude.elements).forEach(customElement => {
@@ -112,9 +108,7 @@ export {
   NuBtnGroup,
   NuLink,
   NdTheme,
-  NdAttr,
   NdMod,
   NuElement,
   NuDecorator,
-  NdResponsive,
 };
