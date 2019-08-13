@@ -24,7 +24,7 @@ import NuDecorator from './decorators/decorator';
 import NdTheme from './decorators/theme';
 import NdMod from './decorators/mod';
 // helpers
-import { log, injectScript } from './helpers';
+import { log, injectScript, ROOT_CONTEXT } from './helpers';
 
 let featherPromise;
 
@@ -38,7 +38,7 @@ function enableFocus() {
   if (enableTimerId) return;
 
   enableTimerId = setTimeout(() => {
-    const root = document.querySelector('[data-nu-root]');
+    const root = document.querySelector(ROOT_CONTEXT);
 
     if (root) {
       root.dataset.nuFocusEnabled = '';
@@ -52,7 +52,7 @@ function disableFocus() {
   if (disableTimerId) return;
 
   disableTimerId = setTimeout(() => {
-    const root = document.querySelector('[data-nu-root]');
+    const root = document.querySelector(ROOT_CONTEXT);
 
     if (root) {
       delete root.dataset.nuFocusEnabled;

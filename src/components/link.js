@@ -1,5 +1,6 @@
 import NuElement from './element';
 import NuBtn from './btn';
+import { ROOT_CONTEXT } from '../helpers';
 
 export default class NuBadge extends NuElement {
   static get nuTag() {
@@ -12,7 +13,7 @@ export default class NuBadge extends NuElement {
 
   static nuCSS({ nuTag }) {
     return `
-      ${nuTag}, [data-nu-root] a {
+      ${nuTag}, ${ROOT_CONTEXT} a {
         position: relative;
         display: inline-block;
         color: inherit;
@@ -25,20 +26,20 @@ export default class NuBadge extends NuElement {
         outline: none;
       }
 
-      ${nuTag}:hover, [data-nu-root] a:hover {
+      ${nuTag}:hover, ${ROOT_CONTEXT} a:hover {
         z-index: 1;
         text-decoration-style: double;
       }
 
-      [data-nu-root][data-nu-focus-enabled] ${nuTag}:focus,
+      ${ROOT_CONTEXT}[data-nu-focus-enabled] ${nuTag}:focus,
       ${nuTag}:active,
-      [data-nu-root][data-nu-focus-enabled] a:focus,
+      ${ROOT_CONTEXT}[data-nu-focus-enabled] a:focus,
       a:active {
         z-index: 1;
         box-shadow: inset 0 -0.1875em var(--nu-theme-special-background-color);
       }
 
-      ${nuTag}::before, [data-nu-root] a::before {
+      ${nuTag}::before, ${ROOT_CONTEXT} a::before {
         position: absolute;
         content: '';
         top: 0;
@@ -52,15 +53,15 @@ export default class NuBadge extends NuElement {
         opacity: 0;
       }
 
-      [data-nu-root][data-nu-focus-enabled] ${nuTag}:focus::before,
+      ${ROOT_CONTEXT}[data-nu-focus-enabled] ${nuTag}:focus::before,
       ${nuTag}:active::before,
-      [data-nu-root][data-nu-focus-enabled] a:focus::before,
+      ${ROOT_CONTEXT}[data-nu-focus-enabled] a:focus::before,
       a:active::before {
         box-shadow: inset 0 -0.1875em var(--nu-theme-special-color);
         opacity: .5;
       }
 
-      ${nuTag}[special], [data-nu-root] a[data-nu-special] {
+      ${nuTag}[special], ${ROOT_CONTEXT} a[data-nu-special] {
         color: var(--nu-theme-special-color);
       }
     `;
