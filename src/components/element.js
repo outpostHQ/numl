@@ -310,10 +310,6 @@ class NuElement extends NuBase {
         this.setAttribute(attr, defaultAttrs[attr]);
       }
     });
-
-    if (this.hasAttribute(RESPONSIVE_ATTR)) {
-      this.nuChanged(RESPONSIVE_ATTR, '', this.getAttribute(RESPONSIVE_ATTR));
-    }
   }
 
   /**
