@@ -72,9 +72,9 @@ You can see **NUDE** in action on the **[Sellerscale](https://sellerscale.com)**
 
 Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
 
-## Testing
+## Local playground
 
-Run `npm run test` to view test page with few examples.
+Run `npm run play` to view test page with few examples.
 
 ## Documentation
 
