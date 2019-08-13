@@ -12,15 +12,7 @@ Smallest UI Framework based on Custom Elements that lets you create gorgeous web
 
 ## Development status (v1)
 
-* **Theme System** - ![#90%](https://placehold.it/15/669966/000000?text=+) 90%
-* **Modifiers System** - ![#100%](https://placehold.it/15/339966/000000?text=+) 100%
-* **Plugin System** - ![#20%](https://placehold.it/15/bb6633/000000?text=+) 20%
-* **Responsive System** - ![#80%](https://placehold.it/15/999966/000000?text=+) 80%
-* **Context System** - ![#0%](https://placehold.it/15/ff3333/000000?text=+) 0%
-* **CSS Generator** - ![#100%](https://placehold.it/15/339966/000000?text=+) 100%
-* **Layout Elements** - ![#90%](https://placehold.it/15/669966/000000?text=+) 90%
-* **Base Elements** - ![#60%](https://placehold.it/15/999933/000000?text=+) 60%
-* **Widget Elements** - ![#20%](https://placehold.it/15/bb6633/000000?text=+) 20%
+Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
 
 ## Playground
 
