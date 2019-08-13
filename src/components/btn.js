@@ -14,7 +14,7 @@ class NuBtn extends NuBlock {
   static get nuAttrs() {
     return {
       disabled: '',
-      value: '',
+      pressed: '',
       href: '',
       target: '',
     };
@@ -128,7 +128,7 @@ class NuBtn extends NuBlock {
       }
     }
 
-    if (!this.hasAttribute('value')) {
+    if (!this.hasAttribute('pressed')) {
       this.nuSetAria('pressed', false);
     }
 
@@ -200,7 +200,7 @@ class NuBtn extends NuBlock {
         this.nuSetMod('disabled', value != null);
         this.nuSetFocusable(value == null);
         break;
-      case 'value':
+      case 'pressed':
         this.nuSetMod('toggled', value != null);
         this.nuSetAria('pressed', value != null);
     }
