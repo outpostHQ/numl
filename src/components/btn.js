@@ -1,8 +1,8 @@
-import NuBlock from './block';
+import NuGrid from './grid';
 import NuCard from './card';
 import focusable from '../mixins/focusable';
 
-class NuBtn extends NuBlock {
+class NuBtn extends NuGrid {
   static get nuTag() {
     return 'nu-btn';
   }
