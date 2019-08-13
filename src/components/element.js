@@ -1,4 +1,4 @@
-import { convertUnit, getTheme, error } from '../helpers';
+import { convertUnit, getTheme, error, generateNuId } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS } from '../css';
 import NuBase from '../base';
@@ -155,6 +155,7 @@ class NuElement extends NuBase {
       removeCSS(query);
     }
 
+    // responsive attribute
     if (value.includes('|')) {
       this.nuSetMod(RESPONSIVE_ATTR, true);
 
@@ -162,22 +163,28 @@ class NuElement extends NuBase {
 
       let respEl = this;
 
-      while (respEl && (!respEl.hasAttribute(RESPONSIVE_ATTR) || !respEl.nuResponsive)) {
+      while (respEl && (!respEl.getAttribute(RESPONSIVE_ATTR) || !respEl.nuResponsive)) {
         respEl = respEl.parentNode;
       }
 
       if (!respEl) return;
 
+      const queryContext = this.nuGetQueryContext();
+
       const styles = value.split('|').map((val, i) => {
         const stls = this.nuGenerate(name, val);
 
-        return generateCSS(query, stls);
+        if (queryContext.endsWith(' ')) {
+          return generateCSS(query, stls, queryContext);
+        } else {
+          return generateCSS(queryContext, stls);
+        }
       });
 
       const css = respEl.nuResponsive()(styles);
 
       if (css) {
-        injectCSS(query, query, css);
+        injectCSS(`${queryContext}${query}`, query, css);
       }
 
       return;
@@ -341,6 +348,8 @@ class NuElement extends NuBase {
         this.nuUpdateTheme(value);
         break;
       case RESPONSIVE_ATTR:
+        generateNuId(this);
+
         setTimeout(() => {
           if (this.getAttribute(RESPONSIVE_ATTR) !== value) return;
           /**
@@ -370,7 +379,7 @@ class NuElement extends NuBase {
     this.nuReponsiveFor = points;
 
     if (!points) {
-      return error(`responsive points are not specified`, this);
+      return this.nuResponsiveDecorator = (styles) => styles;
     }
 
     const tmpPoints = points.split(/\|/);
@@ -407,6 +416,24 @@ class NuElement extends NuBase {
         })
         .join('');
     });
+  }
+
+  nuGetQueryContext() {
+    if (this.dataset.nuId) {
+      return `[data-nu-id="${this.dataset.nuId}"]`;
+    }
+
+    let context = '', el = this;
+
+    while (el.parentNode) {
+      if (el.dataset.nuId) {
+        context = `[data-nu-id="${el.dataset.nuId}"] ${context}`;
+      }
+
+      el = el.parentNode;
+    }
+
+    return context;
   }
 }
 

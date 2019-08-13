@@ -44,7 +44,7 @@ export function stylesString(styles, important) {
     .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}${important ? ' !important' : ''}` : ''};`, '');
 }
 
-export function generateCSS(query, styles) {
+export function generateCSS(query, styles, context = '') {
   if (!styles || !styles.length) return;
 
   return styles.map(map => {
@@ -61,7 +61,7 @@ export function generateCSS(query, styles) {
     delete map.$suffix;
     delete map.$prefix;
 
-    return `${currentQuery}{${stylesString(map)}}`;
+    return `${context}${currentQuery}{${stylesString(map)}}`;
   }).join('\n');
 }
 
