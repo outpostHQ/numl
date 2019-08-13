@@ -30,6 +30,10 @@ import { log, injectScript } from './helpers';
 
 let featherPromise;
 
+if (window.feather) {
+  featherPromise = Promise.resolve();
+}
+
 const Nude = {
   modifiers,
   css,
