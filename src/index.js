@@ -32,6 +32,39 @@ if (window.feather) {
   featherPromise = Promise.resolve();
 }
 
+let enableTimerId, disableTimerId;
+
+function enableFocus() {
+  if (enableTimerId) return;
+
+  enableTimerId = setTimeout(() => {
+    const root = document.querySelector('[data-nu-root]');
+
+    if (root) {
+      root.dataset.nuFocusEnabled = '';
+    }
+
+    enableTimerId = 0;
+  }, 100);
+}
+
+function disableFocus() {
+  if (disableTimerId) return;
+
+  disableTimerId = setTimeout(() => {
+    const root = document.querySelector('[data-nu-root]');
+
+    if (root) {
+      delete root.dataset.nuFocusEnabled;
+    }
+
+    disableTimerId = 0;
+  }, 100);
+}
+
+window.addEventListener('click', disableFocus);
+window.addEventListener('keydown', enableFocus);
+
 const Nude = {
   modifiers,
   css,

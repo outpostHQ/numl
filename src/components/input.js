@@ -94,7 +94,7 @@ class NuInput extends NuGrid {
         opacity: .5;
       }
 
-      ${focusable(nuTag)}
+      ${focusable(nuTag, true)}
     `;
   }
 

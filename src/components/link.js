@@ -22,6 +22,7 @@ export default class NuBadge extends NuElement {
         font-weight: bolder;
         cursor: pointer;
         box-shadow: inset 0 -0.1875em transparent;
+        outline: none;
       }
 
       ${nuTag}:hover, [data-nu-root] a:hover {
@@ -29,8 +30,10 @@ export default class NuBadge extends NuElement {
         text-decoration-style: double;
       }
 
-      ${nuTag}:focus, [data-nu-root] a:focus {
-        outline: none;
+      [data-nu-root][data-nu-focus-enabled] ${nuTag}:focus,
+      ${nuTag}:active,
+      [data-nu-root][data-nu-focus-enabled] a:focus,
+      a:active {
         z-index: 1;
         box-shadow: inset 0 -0.1875em var(--nu-theme-special-background-color);
       }
@@ -49,7 +52,10 @@ export default class NuBadge extends NuElement {
         opacity: 0;
       }
 
-      ${nuTag}:focus::before, [data-nu-root] a:focus::before {
+      [data-nu-root][data-nu-focus-enabled] ${nuTag}:focus::before,
+      ${nuTag}:active::before,
+      [data-nu-root][data-nu-focus-enabled] a:focus::before,
+      a:active::before {
         box-shadow: inset 0 -0.1875em var(--nu-theme-special-color);
         opacity: .5;
       }

@@ -1,6 +1,10 @@
-export default function focusable(tag) {
+export default function focusable(tag, force) {
+  const context = force
+    ? ''
+    : '[data-nu-root][data-nu-focus-enabled] ';
+
   return `
-    ${tag}:not([disabled]) {
+    ${tag} {
       --nu-focus-color: transparent;
       --nu-focus-background-color: transparent;
       --nu-focus-inset: 0 0;
@@ -9,7 +13,15 @@ export default function focusable(tag) {
 
       outline: none;
     }
-    ${tag}:not([disabled])::before {
+
+    ${context}${tag}:not([disabled]) {
+      --nu-focus-color: transparent;
+      --nu-focus-background-color: transparent;
+      --nu-focus-inset: 0 0;
+      --nu-focus-shadow: var(--nu-focus-inset) 0 0.1875rem var(--nu-focus-color);
+      --nu-focus-background-shadow: var(--nu-focus-inset) 0 0.1875rem var(--nu-focus-background-color);
+    }
+    ${context}${tag}:not([disabled])::before {
       content: '';
       display: block;
       position: absolute;
@@ -23,16 +35,16 @@ export default function focusable(tag) {
       opacity: .5;
       transition: box-shadow var(--nu-theme-animation-time) linear;
     }
-    ${tag}:not([disabled])[nu-focus] {
+    ${context}${tag}:not([disabled])[nu-focus] {
       z-index: 10;
     }
-    ${tag}:not([disabled])[nu-focus] {
+    ${context}${tag}:not([disabled])[nu-focus] {
       --nu-focus-color: var(--nu-theme-special-color);
     }
-    ${tag}:not([disabled])[nu-focus] {
+    ${context}${tag}:not([disabled])[nu-focus] {
       --nu-focus-background-color: var(--nu-theme-special-background-color);
     }
-    ${tag}:not([disabled])[nu-focus].-nu-cell {
+    ${context}${tag}:not([disabled])[nu-focus].-nu-cell {
       --nu-focus-inset: inset 0 0;
     }
   `;
