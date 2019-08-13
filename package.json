@@ -19,7 +19,7 @@
   "scripts": {
     "build": "rollup -c && size-limit",
     "dev": "rollup -c -w",
-    "play": "parcel --out-dir test test.html --open",
+    "play": "rm test/* && parcel --out-dir test test.html --open",
     "size": "size-limit"
   },
   "files": [
