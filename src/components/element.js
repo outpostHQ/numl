@@ -102,6 +102,10 @@ class NuElement extends NuBase {
     return this.nuAttrsList;
   }
 
+  get nuDefaultFlow() {
+    return this.constructor.nuDefaultFlow;
+  }
+
   constructor() {
     super();
 

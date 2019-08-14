@@ -20,6 +20,7 @@ export default class NuBadge extends NuElement {
         border-radius: var(--border-radius, .5rem);
         color: var(--nu-theme-background-color) !important;
         background-color: var(--nu-theme-color) !important;
+        white-space: nowrap;
       }
     `;
   }

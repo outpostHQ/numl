@@ -22,12 +22,6 @@ class NuFlex extends NuBlock {
     return "row";
   }
 
-  static get nuDefaultAttrs() {
-    return {
-      flow: "row"
-    };
-  }
-
   static get nuAttrs() {
     return {
       ...PLACE_ATTRS,
@@ -66,10 +60,13 @@ class NuFlex extends NuBlock {
     };
   }
 
-  static nuCSS({ nuTag, nuDisplay }) {
+  static nuCSS({ nuTag, nuDefaultFlow }) {
+    const dirStyle = FLEX_MAP[nuDefaultFlow];
+
     return `
-      ${nuTag}:not([flow]){flex-flow: ${nuDisplay} nowrap;}
+      ${nuTag}:not([flow]){flex-flow: ${nuDefaultFlow} nowrap;}
       ${nuTag}:not([gap])>*{--nu-flex-gap:0rem;}
+      ${nuTag}>:not(:last-child){${dirStyle}:var(--nu-flex-gap);}
     `;
   }
 

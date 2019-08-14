@@ -12,7 +12,6 @@ export default class NuFlow extends NuFlex {
   static nuCSS({ nuTag }) {
     return `
       ${nuTag}{
-        flex-flow: column nowrap;
         align-content: stretch;
         justify-content: flex-start;
         align-items: stretch;
