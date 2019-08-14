@@ -69,6 +69,7 @@ class NuFlex extends NuBlock {
   static nuCSS({ nuTag, nuDisplay }) {
     return `
       ${nuTag}:not([flow]){flex-flow: ${nuDisplay} nowrap;}
+      ${nuTag}:not([gap])>*{--nu-flex-gap:0rem;}
     `;
   }
 
