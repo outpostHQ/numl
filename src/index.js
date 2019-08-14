@@ -5,6 +5,7 @@ import modifiers from './modifiers';
 import NuElement from './components/element';
 import NuGrid from './components/grid';
 import NuBlock from './components/block';
+import NuHeading from './components/heading';
 import NuIcon from './components/icon';
 import NuLine from './components/line';
 import NuPane from './components/pane';
@@ -83,6 +84,7 @@ Nude.elements = {
   NuCard,
   NuBtn,
   NuBlock,
+  NuHeading,
   NuGrid,
   NuBadge,
   NuInput,
@@ -126,6 +128,7 @@ export default Nude;
 export {
   NuGrid,
   NuBlock,
+  NuHeading,
   NuBtn,
   NuCard,
   NuIcon,

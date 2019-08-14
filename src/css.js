@@ -1,6 +1,6 @@
 import { getLuminance, devMode, warn } from "./helpers";
 
-const map = {};
+export const map = {};
 const testEl = document.createElement('div');
 
 export function injectStyleTag(css, name) {
@@ -120,60 +120,6 @@ export function hasCSS(name) {
 const css = {
   has(name) {
     return !!map[name];
-  },
-
-  /**
-   * Generate CSS for the theme with specific name.
-   * @param {string} theme
-   */
-  generateTheme(theme, styles, context) {
-    const key = `theme-${theme}-${context}`;
-
-    if (map[key]) {
-      const currentEl = map[key].element;
-
-      currentEl.parentNode.removeChild(currentEl);
-
-      delete map[key];
-    };
-
-    const shadowOpacity = Number(styles['--nu-theme-shadow-opacity']) || .2;
-
-    delete styles['--nu-theme-shadow-opacity'];
-
-    Object.assign(styles, {
-      color: styles['--nu-theme-color'],
-      'background-color': styles['--nu-theme-background-color'],
-      '--nu-theme-depth-opacity': shadowOpacity + (1 - getLuminance(styles['--nu-theme-background-color'])) * (1 - shadowOpacity),
-    });
-
-    const invertedStyles = {
-      ...styles,
-      color: styles['--nu-theme-background-color'],
-      'background-color': styles['--nu-theme-color'],
-      '--nu-theme-color': styles['--nu-theme-background-color'],
-      '--nu-theme-background-color': styles['--nu-theme-color'],
-      '--nu-theme-depth-opacity': shadowOpacity + (1 - getLuminance(styles['--nu-theme-color'])) * (1 - shadowOpacity),
-    };
-
-    theme = theme || 'default';
-
-    const css = `
-      ${context} [data-nu-theme="${theme}"]
-      ${theme === 'default'
-        ? `,${context}`
-        : ''
-      }{${stylesString(styles)}}
-      ${context} [data-nu-theme="!${theme}"]{${stylesString(invertedStyles)}}
-    `;
-
-    const element = injectStyleTag(css);
-
-    return map[key] = {
-      theme,
-      element,
-      css,
-    };
   },
 };
 

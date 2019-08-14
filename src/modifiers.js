@@ -80,19 +80,19 @@ export const SIZES = {
   lg: [1.25, 1.5],
   xl: [1.5, 2],
   xxl: [2, 2.5],
-  h1: [2, 2.5],
-  h2: [1.8, 2.5],
-  h3: [1.6, 2],
-  h4: [1.4, 2],
-  h5: [1.2, 1.5],
-  h6: [1, 1.5],
+  h1: [2, 2.5, 700],
+  h2: [1.8, 2.5, 700],
+  h3: [1.6, 2, 700],
+  h4: [1.4, 2, 700],
+  h5: [1.2, 1.5, 700],
+  h6: [1, 1.5, 500],
 };
 
 Object.keys(SIZES).forEach((size) => {
   Modifiers.set(size, {
     'font-size': `${SIZES[size][0]}rem`,
     'line-height': `${SIZES[size][1]}rem`,
-    'font-weight': size.startsWith('h') ? '700' : '',
+    'font-weight': size.startsWith('h') ? String(SIZES[size][2]) : '',
   });
 });
 

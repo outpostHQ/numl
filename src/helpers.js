@@ -178,13 +178,13 @@ export function getLuminance(color) {
   return Math.sqrt((r * r * 0.241) + (g * g * .691) + (b * b * .068));
 }
 
-export function mixColors(clr1, clr2) {
+export function mixColors(clr1, clr2, pow = .5) {
   dim.style.color = COLORS[clr1.toLowerCase()] || clr1;
   const color1 = dim.style.color.match(/\d+/g).slice(0, 3).map(Number);
   dim.style.color = COLORS[clr2.toLowerCase()] || clr2;
   const color2 = dim.style.color.match(/\d+/g).slice(0, 3).map(Number);
 
-  const color = color1.map((c,i) => parseInt((c + color2[i]) / 2));
+  const color = color1.map((c,i) => parseInt((color2[i] - c) * pow + c));
 
   return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 }
