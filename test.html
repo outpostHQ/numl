@@ -29,13 +29,15 @@
         <nu-flex flow="column" gap="1">
           <nu-block>
             <nu-btn-group
+              id="btn-group"
+              value="three"
               width="40"
               responsive="1280px"
               flow="row|column"
               theme="!" items-padding=".5" size="1.6 2.5|1 1.5|.75 1|.5 .75">
-              <nu-btn>One</nu-btn>
-              <nu-btn pressed>Two</nu-btn>
-              <nu-btn>Three</nu-btn>
+              <nu-btn name="one">One</nu-btn>
+              <nu-btn name="two">Two</nu-btn>
+              <nu-btn name="three">Three</nu-btn>
             </nu-btn-group>
           </nu-block>
 
@@ -67,9 +69,9 @@
         <nu-flex flow="column" gap="1">
           <nu-block>
             <nu-btn-group theme="!" items-padding=".5" border=".25" radius="2">
-              <nu-btn>One</nu-btn>
-              <nu-btn pressed>Two</nu-btn>
-              <nu-btn>Three</nu-btn>
+              <nu-btn name="one">One</nu-btn>
+              <nu-btn name="two">Two</nu-btn>
+              <nu-btn name="three">Three</nu-btn>
             </nu-btn-group>
           </nu-block>
 
@@ -159,10 +161,10 @@
   <!--</nu-grid>-->
 
   <script>
-    const btn = document.getElementById("button");
+    const btn = document.getElementById("btn-group");
 
-    // btn.addEventListener('tap', function (evt) {
-    //   console.log('!', evt);
-    // });
+    btn.addEventListener('input', function (evt) {
+      console.log('!', evt.target.value);
+    });
   </script>
 </body>

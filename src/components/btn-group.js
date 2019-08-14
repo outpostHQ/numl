@@ -1,8 +1,5 @@
 import NuFlex from './flex';
-import {
-  unit,
-  convertUnit,
-} from '../helpers';
+import { unit, convertUnit } from '../helpers';
 
 const FLOW_ATTR = NuFlex.nuAttrs.flow;
 
@@ -11,10 +8,15 @@ export default class NuBtnGroup extends NuFlex {
     return 'nu-btn-group';
   }
 
+  static get nuRole() {
+    return 'radiogroup';
+  }
+
   static get nuAttrs() {
     return {
       padding: '',
       gap: '',
+      value: '',
       'items-padding': unit('padding', true),
       flow(val) {
         if (!val) return;
@@ -25,14 +27,14 @@ export default class NuBtnGroup extends NuFlex {
             $suffix: ` > :first-child:not(:last-child)`,
             '--nu-border-radius': val.startsWith('row')
               ? 'var(--nu-item-border-radius) 0 0 var(--nu-item-border-radius)'
-              : 'var(--nu-item-border-radius) var(--nu-item-border-radius) 0 0',
+              : 'var(--nu-item-border-radius) var(--nu-item-border-radius) 0 0'
           },
           {
             $suffix: ` > :last-child:not(:first-child)`,
             '--nu-border-radius': val.startsWith('row')
               ? '0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0'
-              : '0 0 var(--nu-item-border-radius) var(--nu-item-border-radius)',
-          },
+              : '0 0 var(--nu-item-border-radius) var(--nu-item-border-radius)'
+          }
         ];
       },
       border(val) {
@@ -43,9 +45,9 @@ export default class NuBtnGroup extends NuFlex {
         return {
           $suffix: ':not([border])',
           '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`,
-          '--nu-flex-gap': `calc(${width} * -1)`,
+          '--nu-flex-gap': `calc(${width} * -1)`
         };
-      },
+      }
     };
   }
 
@@ -84,5 +86,60 @@ export default class NuBtnGroup extends NuFlex {
     let styles = super.nuGenerate(name, value) || [];
 
     return styles;
+  }
+
+  nuChanged(name, oldValue, value) {
+    super.nuChanged(name, oldValue, value);
+
+    switch (name) {
+      case 'value':
+        if (oldValue !== value) {
+          this.nuSetValue(value, false);
+        }
+
+        break;
+    }
+  }
+
+  nuMounted() {
+    super.nuMounted();
+
+    const value = this.getAttribute('value');
+
+    if (value) {
+      this.nuSetValue(value, false);
+    }
+  }
+
+  get value() {
+    const value = this.getAttribute('value');
+
+    if (value) {
+      const el = this.querySelector(`nu-btn[pressed]`);
+
+      if (el) {
+        return el.getAttribute('name');
+      }
+    }
+  }
+
+  nuSetValue(value, announce = true) {
+    setTimeout(() => {
+      [...this.childNodes].forEach(el => {
+        if (el.tagName !== 'NU-BTN') return;
+
+        if (el.getAttribute('name') === value) {
+          el.setAttribute('pressed', '');
+          el.nuSetAria('checked', true);
+        } else {
+          el.removeAttribute('pressed');
+          el.nuSetAria('checked', false);
+        }
+      });
+
+      if (announce) {
+        this.nuEmit('input', value);
+      }
+    }, 0);
   }
 }

@@ -232,7 +232,11 @@ class NuElement extends NuBase {
       value = value ? 'true' : 'false';
     }
 
-    this.setAttribute(`aria-${name}`, value);
+    if (value == null) {
+      this.removeAttribute(`aria-${name}`);
+    } else {
+      this.setAttribute(`aria-${name}`, value);
+    }
   }
 
   nuGetQuery(attrs = {}, useId) {

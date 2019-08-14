@@ -180,6 +180,11 @@ class NuBtn extends NuGrid {
         this.nuSetMod('active', false);
       });
     });
+
+    setTimeout(() => {
+      this.setAttribute('role', this.parentNode && this.parentNode.tagName === 'NU-BTN-GROUP'
+        ? 'radio' : this.constructor.nuRole);
+    }, 0);
   }
 
   nuTap() {
@@ -187,8 +192,11 @@ class NuBtn extends NuGrid {
 
     this.nuEmit('tap');
 
-    if (href) {
-      this.nuEmit('route', href);
+    const parent = this.parentNode;
+    const name = this.getAttribute('name');
+
+    if (name && parent.tagName === 'NU-BTN-GROUP') {
+      parent.nuSetValue(name);
     }
   }
 
