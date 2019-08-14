@@ -1,5 +1,5 @@
 import { GRID_ITEM_ATTRS, FLEX_ITEM_ATTRS } from "../attrs";
-import { unit, sizeUnit, convertUnit } from '../helpers';
+import { unit, sizeUnit, convertUnit, splitDimensions } from '../helpers';
 import NuElement from "./element";
 
 class NuBlock extends NuElement {
@@ -18,6 +18,20 @@ class NuBlock extends NuElement {
       width: sizeUnit("width"),
       height: sizeUnit("height"),
       padding: unit("padding"),
+      space(val) {
+        if (!val) return;
+
+        val = convertUnit(val);
+
+        const spaces = splitDimensions(val).map(sp => `calc(${sp} * -1)`);
+
+        return {
+          'margin-top': spaces[0],
+          'margin-right': spaces[1],
+          'margin-bottom': spaces[2],
+          'margin-left': spaces[3],
+        };
+      },
       radius: val =>
         val != null
           ? {
