@@ -71,6 +71,18 @@ That's all. Now your application is **NUDE-ready**! Try to write some HTML to bu
 </nu-flex>
 ```
 
+Nude Elements are also available via npm.
+```bash
+$ npm install nude-elements
+```
+
+Import the module to your application:
+```javascript
+import Nude from 'nude-elements';
+
+Nude.init();
+```
+
 ## Development
 
 Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
