@@ -14,9 +14,9 @@ Smallest UI Framework based on Custom Elements that lets you create gorgeous web
 
 Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
 
-## Playground
+## In Action
 
-Check out our [Playground](http://bit.ly/nude-elements) with few examples.
+You can see **NUDE** in action on the **[Sellerscale](https://sellerscale.com)** site.
 
 ## Getting started
 
@@ -55,10 +55,6 @@ That's all. Now your application is **NUDE-ready**! Try to write some HTML to bu
   </nu-block>
 </nu-flex>
 ```
-
-## In Action
-
-You can see **NUDE** in action on the **[Sellerscale](https://sellerscale.com)** site.
 
 ## Development
 
