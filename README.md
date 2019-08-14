@@ -6,12 +6,13 @@ NUDE Elements is the *Bootstrap* of the Future. It’s JS-powered CSS Framework,
 * **Easy to use** elements with **API** based on well-known web standards.
 * **Powerful** layout elements that help you create virtually **any interface** you want.
 * **Reponsiveness** with effort so little you never seen before.
-* **Compatible** with any popular framework: Vue, React, Angular, Svelte, etc...
 * **Transfarable** markup to be easily copy-pasted to your new project.
+* **Compatible** with any popular framework: Vue, React, Angular, Svelte, etc...
 * **Compact** size with no dependencies.
 * **CSS Generation** under the hood to create only CSS your application needs.
-* **No Build Step** needed. Edit attributes in runtime and see how elements change instantly.
+* **No Build Step** needed. Edit attributes and move elements in runtime and see how they change instantly.
 * **No-JS** support with pregenerated CSS.
+* **Support** for all modern browsers. (small polyfill needed)
 * **ARIA** support.
 * **Framework** to create your own elements, modifiers and plugins.
 
@@ -19,7 +20,7 @@ NUDE Elements is the *Bootstrap* of the Future. It’s JS-powered CSS Framework,
 
 Based on [caniuse.com](caniuse.com). Real-world support table will be presented after production-release.
 
-* Microsoft Edge 15-18 (with Custom Element polyfill, 5kb)
+* Microsoft Edge 15-18 (with Custom Elements polyfill, 5kb)
 * Microsoft Edge 76+
 * Google Chrome 57+
 * Mozilla Firefox 52+
