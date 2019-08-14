@@ -24,7 +24,9 @@ Based on [caniuse.com](caniuse.com). Real-world support table will be presented 
 * Microsoft Edge 76+
 * Google Chrome 57+
 * Mozilla Firefox 52+
-* Safari 10.1+
+* Apple Safari 10.1+
+* Apple iOS Safari 10.3+
+* Google Android 67+
 
 ## Development status (v1)
 
