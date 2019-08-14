@@ -10,6 +10,7 @@ NUDE Elements is the *Bootstrap* of the Future. It’s JS-powered CSS Framework,
 * **Transfarable** markup to be easily copy-pasted to your new project.
 * **Compact** size with no dependencies.
 * **CSS Generation** under the hood to create only CSS your application needs.
+* **No Build Step** needed. Edit attributes in runtime and see how elements change instantly.
 * **No-JS** support with pregenerated CSS.
 * **ARIA** support.
 * **Framework** to create your own elements, modifiers and plugins.
