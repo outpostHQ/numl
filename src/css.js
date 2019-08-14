@@ -81,14 +81,11 @@ export function injectCSS(name, selector, css) {
   const element = injectStyleTag(css, name);
 
   if (devMode) {
-    selector.split(',')
-      .forEach(sel => {
-        try {
-          testEl.querySelector(sel);
-        } catch(e) {
-          warn('invalid selector detected', sel);
-        }
-      });
+    try {
+      testEl.querySelector(selector);
+    } catch(e) {
+      warn('invalid selector detected', sel, css);
+    }
   }
 
   if (map[name]) {

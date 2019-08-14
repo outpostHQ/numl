@@ -2,9 +2,9 @@ import {
   PLACE_ATTRS,
 } from '../attrs';
 import { unit } from '../helpers';
-import NuElement from './element';
+import NuBlock from './block';
 
-class NuGrid extends NuElement {
+class NuGrid extends NuBlock {
   static get nuTag() {
     return 'nu-grid';
   }

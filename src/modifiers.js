@@ -102,6 +102,8 @@ Object.keys(SIZES).forEach((size) => {
 [1,2,3,4,5,6,7,8,9].forEach(index => set(`w${index}`, { 'font-weight': `${index}00` }));
 ['uppercase', 'lowercase'].forEach(name => set(name, { 'text-transform': name }));
 
+['left', 'right', 'center', 'justify'].forEach(name => set(name, { 'text-align': name}));
+
 set('content-box', { 'box-sizing': 'content-box' });
 set('border-box', { 'box-sizing': 'border-box' });
 set('monospace', { 'font-family': 'monospace' });

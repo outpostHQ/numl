@@ -147,7 +147,15 @@ class NuElement extends NuBase {
    * @param {*} force - replace current CSS rule
    */
   nuApplyCSS(name, value, force = false) {
-    let query = this.nuGetQuery({ [name]: value });
+    const isResponsive = value.includes('|');
+
+    let query;
+
+    if (isResponsive) {
+      query = `${this.nuGetResponsiveContext()}${this.nuGetQuery({ [name]: value }, this.getAttribute(RESPONSIVE_ATTR))}`;
+    } else {
+      query = this.nuGetQuery({ [name]: value });
+    }
 
     if (hasCSS(query)) {
       if (!force) return;
@@ -156,7 +164,7 @@ class NuElement extends NuBase {
     }
 
     // responsive attribute
-    if (value.includes('|')) {
+    if (isResponsive) {
       this.nuSetMod(RESPONSIVE_ATTR, true);
 
       if (value !== this.getAttribute(name)) return;
@@ -169,22 +177,16 @@ class NuElement extends NuBase {
 
       if (!respEl) return;
 
-      const queryContext = this.nuGetQueryContext();
-
       const styles = value.split('|').map((val, i) => {
         const stls = this.nuGenerate(name, val);
 
-        if (queryContext.endsWith(' ')) {
-          return generateCSS(query, stls, queryContext);
-        } else {
-          return generateCSS(queryContext, stls);
-        }
+        return generateCSS(query, stls);
       });
 
       const css = respEl.nuResponsive()(styles);
 
       if (css) {
-        injectCSS(`${queryContext}${query}`, query, css);
+        injectCSS(query, query, css);
       }
 
       return;
@@ -233,8 +235,8 @@ class NuElement extends NuBase {
     this.setAttribute(`aria-${name}`, value);
   }
 
-  nuGetQuery(attrs = {}) {
-    return `${this.constructor.nuTag}${attrsQuery(attrs)}`;
+  nuGetQuery(attrs = {}, useId) {
+    return `${this.constructor.nuTag}${useId ? `[data-nu-id="${this.nuId}"]` : ''}${attrsQuery(attrs)}`;
   }
 
   /**
@@ -418,20 +420,14 @@ class NuElement extends NuBase {
     });
   }
 
-  nuGetQueryContext() {
-    if (this.dataset.nuId) {
-      return `[data-nu-id="${this.dataset.nuId}"]`;
-    }
-
+  nuGetResponsiveContext() {
     let context = '', el = this;
 
-    while (el.parentNode) {
-      if (el.dataset.nuId) {
+    while (el = el.parentNode) {
+      if (el.getAttribute && el.getAttribute(RESPONSIVE_ATTR) && el.dataset.nuId) {
         context = `[data-nu-id="${el.dataset.nuId}"] ${context}`;
       }
-
-      el = el.parentNode;
-    }
+    };
 
     return context;
   }

@@ -1,6 +1,6 @@
 import { convertUnit, unit } from "../helpers";
 import { PLACE_ATTRS } from "../attrs";
-import NuElement from "./element";
+import NuBlock from "./block";
 
 export const FLEX_MAP = {
   row: "margin-right",
@@ -9,7 +9,7 @@ export const FLEX_MAP = {
   "column-reverse": "margin-top"
 };
 
-class NuFlex extends NuElement {
+class NuFlex extends NuBlock {
   static get nuTag() {
     return "nu-flex";
   }
@@ -69,7 +69,6 @@ class NuFlex extends NuElement {
   static nuCSS({ nuTag, nuDisplay }) {
     return `
       ${nuTag}:not([flow]){flex-flow: ${nuDisplay} nowrap;}
-      ${nuTag}>*{flex-grow:1;}
     `;
   }
 

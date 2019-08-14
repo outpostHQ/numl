@@ -35,7 +35,7 @@ export default [
     ],
     plugins: [
       replace({
-        'process.env.NODE_ENV': 'development',
+        'process.env.NODE_ENV': JSON.stringify('development'),
       }),
       postcss({
         extensions: [ '.css' ],
@@ -69,7 +69,7 @@ export default [
     ],
     plugins: [
       replace({
-        'process.env.NODE_ENV': 'development',
+        'process.env.NODE_ENV': JSON.stringify('development'),
       }),
       postcss({
         extensions: [ '.css' ],

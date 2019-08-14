@@ -8,8 +8,8 @@ export default class NuPane extends NuGrid {
   static nuCSS({ nuTag }) {
     return `
       ${nuTag}{
-        grid-auto-flow: row;
-        grid-template-rows: auto auto;
+        grid-template-rows: auto;
+        grid-template-columns: auto auto;
         align-content: stretch;
         justify-content: space-between;
         align-items: center;

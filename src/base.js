@@ -1,5 +1,5 @@
 import { attrsQuery, injectStyleTag } from './css';
-import { getParent, invertQuery } from './helpers';
+import { getParent, invertQuery, generateId } from './helpers';
 
 export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 
@@ -110,6 +110,10 @@ class NuBase extends HTMLElement {
 
   disconnectedCallback() {
     this.nuDestroyed();
+  }
+
+  get nuId() {
+    return this.dataset.nuId || generateId(this);
   }
 
   /**

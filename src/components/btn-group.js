@@ -59,6 +59,8 @@ export default class NuBtnGroup extends NuFlex {
       }
       ${nuTag} > * {
         --nu-flex-gap: calc(var(--nu-theme-border-width) * -1);
+
+        flex-grow:1;
       }
       ${nuTag} > *:not(:last-child):not(:first-child) {
         --nu-border-radius: 0;

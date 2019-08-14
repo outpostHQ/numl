@@ -23,9 +23,9 @@ time, mark, audio, video {
 body {
 	line-height: 1;
 }
-ol, ul {
+/* ol, ul {
 	list-style: none;
-}
+} */
 blockquote, q {
 	quotes: none;
 }
@@ -67,6 +67,7 @@ table {
   word-spacing: calc(1rem / 8);
   min-height: 100vh;
   text-align: left;
+  text-size-adjust: none;
 }
 
 [data-nu-root]:not(body) {
