@@ -1,14 +1,28 @@
 # NUDE Elements
-
-Smallest UI Framework based on Custom Elements that lets you create gorgeous web interfaces without writing CSS. Instead of predefined CSS, NUDE can generate CSS you need right in runtime what makes it more customizable than similar Atomic CSS approach. Also, it has a simple newbie-friendly syntax.
+NUDE Elements is the *Bootstrap* of the Future. It’s JS-powered CSS Framework, that meant to be deeply customizable staying easy to use. With NUDE elements you can create gorgeous dynamic accessible web interfaces writing only HTML. It’s ridiculously simple to connect your favorite framework in case you need more.
 
 **UNDER RAPID DEVELOPMENT, API is subject to change**
 
-* **Tiny** but **Powerful** microframework. No dependencies.
-* Very **customizable**. Write your own element, modifier or plugin.
-* **Easy to learn**. Based on web standards. Simple API.
-* Integrated **ARIA** support. Developed with accessibility requirements in mind.
+* **Easy to use** elements with **API** based on well-known web standards.
+* **Powerful** layout elements that help you create virtually **any interface** you want.
+* **Reponsiveness** with effort so little you never seen before.
 * **Compatible** with any popular framework: Vue, React, Angular, Svelte, etc...
+* **Transfarable** markup to be easily copy-pasted to your new project.
+* **Compact** size with no dependencies.
+* **CSS Generation** under the hood to create only CSS your application needs.
+* **No-JS** support with pregenerated CSS.
+* **ARIA** support.
+* **Framework** to create your own elements, modifiers and plugins.
+
+### Browser Support
+
+Based on [caniuse.com](caniuse.com). Real-world support table will be presented after production-release.
+
+* Microsoft Edge 15-18 (with Custom Element polyfill, 5kb)
+* Microsoft Edge 76+
+* Google Chrome 57+
+* Mozilla Firefox 52+
+* Safari 10.1+
 
 ## Development status (v1)
 
