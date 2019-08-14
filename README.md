@@ -16,6 +16,14 @@ NUDE Elements is the *Bootstrap* of the Future. It’s JS-powered CSS Framework,
 * **ARIA** support.
 * **Framework** to create your own elements, modifiers and plugins.
 
+## In Action
+
+You can see **NUDE** in action on the **[Sellerscale](https://sellerscale.com)** site.
+
+## Development status (v1)
+
+Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
+
 ### Browser Support
 
 Based on [caniuse.com](caniuse.com). Real-world support table will be presented after production-release.
@@ -27,14 +35,6 @@ Based on [caniuse.com](caniuse.com). Real-world support table will be presented 
 * Apple Safari 10.1+
 * Apple iOS Safari 10.3+
 * Google Android 67+
-
-## Development status (v1)
-
-Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
-
-## In Action
-
-You can see **NUDE** in action on the **[Sellerscale](https://sellerscale.com)** site.
 
 ## Getting started
 
