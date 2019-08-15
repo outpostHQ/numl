@@ -1,5 +1,5 @@
 # <img src="https://github.com/tenphi/nude/blob/master/logo.png?raw=true" alt="NUDE Elements" width="416">
-NUDE Elements is the *Bootstrap* of the Future. It’s JS-powered CSS Framework, that meant to be deeply customizable staying easy to use. With NUDE elements you can create gorgeous dynamic accessible web interfaces writing only HTML. It’s ridiculously simple to connect your favorite framework in case you need more.
+**NUDE Elements** is the *Bootstrap of the Future*. It’s JS-powered CSS Framework, that meant to be deeply customizable staying easy to use. With NUDE elements you can create gorgeous dynamic accessible web interfaces writing only HTML. It’s ridiculously simple to connect your favorite framework in case you need more.
 
 **UNDER RAPID DEVELOPMENT, API is subject to change**
 
