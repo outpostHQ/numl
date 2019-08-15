@@ -29,7 +29,7 @@ Current status of development is [HERE](https://github.com/tenphi/nude/projects/
 
 Based on [caniuse.com](caniuse.com). Real-world support table will be presented after production-release.
 
-* Microsoft Edge 15-18 (with Custom Elements polyfill, 5kb)
+* Microsoft Edge 15-18 (with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
 * Microsoft Edge 76+
 * Google Chrome 57+
 * Mozilla Firefox 52+
