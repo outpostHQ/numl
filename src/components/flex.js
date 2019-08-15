@@ -66,7 +66,7 @@ class NuFlex extends NuBlock {
     return `
       ${nuTag}:not([flow]){flex-flow: ${nuDefaultFlow} nowrap;}
       ${nuTag}:not([gap])>*{--nu-flex-gap:0rem;}
-      ${nuTag}>:not(:last-child){${dirStyle}:var(--nu-flex-gap);}
+      ${nuTag}:not([flow])>:not(:last-child){${dirStyle}:var(--nu-flex-gap);}
     `;
   }
 
