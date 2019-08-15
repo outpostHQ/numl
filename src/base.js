@@ -58,14 +58,6 @@ class NuBase extends HTMLElement {
   }
 
   /**
-   * Element default attribute values
-   * @returns {{}}
-   */
-  static get nuDefaultAttrs() {
-    return {};
-  }
-
-  /**
    * @private
    * @returns {string[]}
    */

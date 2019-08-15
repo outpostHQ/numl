@@ -8,6 +8,10 @@ export default class NuIcon extends NuBlock {
     return 'nu-icon';
   }
 
+  static get nuDisplay() {
+    return 'inline-block';
+  }
+
   static get nuAttrs() {
     return {
       size(val) {

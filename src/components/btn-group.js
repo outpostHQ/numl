@@ -118,7 +118,7 @@ export default class NuBtnGroup extends NuFlex {
       const el = this.querySelector(`nu-btn[pressed]`);
 
       if (el) {
-        return el.getAttribute('name');
+        return el.getAttribute('value');
       }
     }
   }
@@ -128,12 +128,14 @@ export default class NuBtnGroup extends NuFlex {
       [...this.childNodes].forEach(el => {
         if (el.tagName !== 'NU-BTN') return;
 
-        if (el.getAttribute('name') === value) {
+        if (el.getAttribute('value') === value) {
           el.setAttribute('pressed', '');
           el.nuSetAria('checked', true);
+          el.nuSetFocusable(false);
         } else {
           el.removeAttribute('pressed');
           el.nuSetAria('checked', false);
+          el.nuSetFocusable(true);
         }
       });
 

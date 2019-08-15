@@ -196,6 +196,6 @@ export function splitDimensions(style) {
     dimStyle.paddingTop,
     dimStyle.paddingRight,
     dimStyle.paddingBottom,
-    dimStyle.paddingTop,
+    dimStyle.paddingLeft,
   ];
 }

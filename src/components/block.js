@@ -23,7 +23,7 @@ class NuBlock extends NuElement {
 
         val = convertUnit(val);
 
-        const spaces = splitDimensions(val).map(sp => `calc(${sp} * -1)`);
+        const spaces = splitDimensions(val).map(sp => !sp.match(/^0[^\.]/) ? `calc(${sp} * -1)` : '');
 
         return {
           'margin-top': spaces[0],

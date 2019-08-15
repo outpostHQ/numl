@@ -94,6 +94,15 @@ class NuInput extends NuGrid {
         opacity: .5;
       }
 
+      ${nuTag}[cell] {
+        --nu-border-color: transparent;
+        --nu-border-radius: 0rem !important;
+        align-self: stretch;
+        justify-self: stretch;
+        width: 100%;
+        height: 100%;
+      }
+
       ${focusable(nuTag, true)}
     `;
   }

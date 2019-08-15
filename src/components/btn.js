@@ -11,6 +11,10 @@ class NuBtn extends NuGrid {
     return 'button';
   }
 
+  static get nuDefaultFlow() {
+    return 'column';
+  }
+
   static get nuAttrs() {
     return {
       disabled: '',
@@ -193,10 +197,10 @@ class NuBtn extends NuGrid {
     this.nuEmit('tap');
 
     const parent = this.parentNode;
-    const name = this.getAttribute('name');
+    const value = this.getAttribute('value');
 
-    if (name && parent.tagName === 'NU-BTN-GROUP') {
-      parent.nuSetValue(name);
+    if (value && parent.tagName === 'NU-BTN-GROUP') {
+      parent.nuSetValue(value);
     }
   }
 

@@ -46,7 +46,7 @@ export default function focusable(tag, force) {
     ${context}${tag}:not([disabled])[nu-focus] {
       --nu-focus-background-color: var(--nu-theme-special-background-color);
     }
-    ${context}${tag}:not([disabled])[nu-focus].-nu-cell {
+    ${context}${tag}:not([disabled])[nu-focus][cell] {
       --nu-focus-inset: inset 0 0;
     }
   `;

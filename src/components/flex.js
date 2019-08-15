@@ -44,7 +44,7 @@ class NuFlex extends NuBlock {
         return { $suffix: ">*", "--nu-flex-gap": convertUnit(val) };
       },
       order: "order",
-      "items-basis": unit("flex-basis", "basis"),
+      "items-basis": unit("flex-basis", ">*:not([basis])"),
       "items-grow"(val) {
         return {
           $suffix: ":not([grow])",

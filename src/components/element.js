@@ -320,13 +320,7 @@ class NuElement extends NuBase {
    * Can be called twice or more.
    */
   nuMounted() {
-    const defaultAttrs = this.constructor.nuDefaultAttrs;
 
-    Object.keys(defaultAttrs).forEach(attr => {
-      if (!this.hasAttribute(attr)) {
-        this.setAttribute(attr, defaultAttrs[attr]);
-      }
-    });
   }
 
   /**

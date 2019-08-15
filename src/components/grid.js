@@ -17,15 +17,14 @@ class NuGrid extends NuBlock {
     return 'row';
   }
 
-  static nuCSS({ nuTag }) {
-    const defaultFlow = this.nuDefaultFlow;
+  static nuCSS({ nuTag, nuDefaultFlow }) {
     const flows = ['row', 'column'];
 
     return `
       ${nuTag}{display:grid;}
       ${nuTag}[inline]{display:inline-grid;}
       ${flows.map((flow, i) => `
-        ${nuTag}${flow === defaultFlow ? ':not([flow])' : `[flow="${flow}"]`}{grid-auto-flow: ${flow};}
+        ${nuTag}${flow === nuDefaultFlow ? ':not([flow])' : `[flow="${flow}"]`}{grid-auto-flow: ${flow};}
       `).join('')}
     `;
   }
