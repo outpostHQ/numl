@@ -25,6 +25,8 @@ You can see **NUDE** in action on the **[Sellerscale](https://sellerscale.com)**
 
 Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
 
+Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
+
 ### Browser Support
 
 Based on [caniuse.com](caniuse.com). Real-world support table will be presented after production-release.
@@ -86,10 +88,6 @@ import Nude from 'nude-elements';
 
 Nude.init();
 ```
-
-## Development
-
-Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
 
 ## Local playground
 
