@@ -12,6 +12,7 @@ import NuPane from './components/pane';
 import NuCard from './components/card';
 import NuLayout from './components/flow';
 import NuBtn from './components/btn';
+import NuTab from './components/tab';
 import NuSwitch from './components/switch';
 import NuGridTable from './components/grid-table';
 import NuBadge from './components/badge';
@@ -21,6 +22,8 @@ import NuScroll from './components/scroll';
 import NuFlex from './components/flex';
 import NuBtnGroup from './components/btn-group';
 import NuMenu from './components/menu';
+import NuTablist from './components/tablist';
+import NuAbstractBtn from './components/abstract-btn';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NdTheme from './decorators/theme';
@@ -84,6 +87,7 @@ Nude.elements = {
   NuIcon,
   NuCard,
   NuBtn,
+  NuTab,
   NuBlock,
   NuHeading,
   NuGrid,
@@ -93,15 +97,20 @@ Nude.elements = {
   NuSwitch,
   NuFlex,
   NuBtnGroup,
+  NuTablist,
   NuMenu,
   NuLink,
   NdTheme,
   NdMod,
+  NuAbstractBtn,
 };
 
 Object.values(Nude.elements).forEach(customElement => {
   customElement.nuInit = function() {
     const tag = this.nuTag;
+
+    if (!this.nuTag) return;
+
     let el = this, css = '';
 
     do {
@@ -132,6 +141,7 @@ export {
   NuBlock,
   NuHeading,
   NuBtn,
+  NuTab,
   NuCard,
   NuIcon,
   NuLayout,
@@ -144,10 +154,12 @@ export {
   NuSwitch,
   NuFlex,
   NuBtnGroup,
+  NuTablist,
   NuMenu,
   NuLink,
   NdTheme,
   NdMod,
   NuElement,
   NuDecorator,
+  NuAbstractBtn,
 };

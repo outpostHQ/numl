@@ -1,31 +1,8 @@
-import NuGrid from './grid';
-import NuCard from './card';
-import focusable from '../mixins/focusable';
+import NuAbstractBtn from './abstract-btn';
 
-export default class NuBtn extends NuGrid {
+export default class NuBtn extends NuAbstractBtn {
   static get nuTag() {
     return 'nu-btn';
-  }
-
-  static get nuRole() {
-    return 'button';
-  }
-
-  static get nuDisplay() {
-    return 'inline-block';
-  }
-
-  static get nuDefaultFlow() {
-    return 'column';
-  }
-
-  static get nuAttrs() {
-    return {
-      disabled: '',
-      pressed: '',
-      href: '',
-      target: '',
-    };
   }
 
   static nuCSS({ nuTag }) {
@@ -38,33 +15,17 @@ export default class NuBtn extends NuGrid {
 
         --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
         --nu-border-inset: inset 0 0;
-        --nu-border-shadow: var(--nu-border-inset) 0 var(--nu-theme-border-width) var(--nu-border-color);
+        --nu-border-width: var(--nu-theme-border-width);
+        --nu-border-shadow: var(--nu-border-inset) 0 var(--nu-border-width) var(--nu-border-color);
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
-        position: relative;
-        display: inline-grid;
         border-radius: var(--nu-border-radius, .5rem);
-        align-content: stretch;
-        justify-content: stretch;
         align-items: center;
         justify-items: center;
-        grid-auto-flow: column;
         grid-gap: .5rem;
         padding: .5rem 1rem;
-        color: var(--nu-theme-color);
+        color: inherit;
         background-color: var(--nu-theme-background-color);
-        cursor: pointer;
-        box-shadow: var(--nu-border-shadow),
-          var(--nu-toggle-shadow),
-          var(--nu-focus-background-shadow),
-          var(--nu-depth-shadow);
-        transition: box-shadow var(--nu-theme-animation-time) linear;
-        user-select: none;
-        vertical-align: middle;
-        opacity: 1;
-        z-index: 0; /* to make :hover::after z-index work as expected */
-        box-sizing: border-box;
-        white-space: nowrap;
       }
 
       ${nuTag}:not([disabled])::after {
@@ -82,164 +43,29 @@ export default class NuBtn extends NuGrid {
         border-radius: inherit;
       }
 
-      ${nuTag}:not([disabled]):hover::after {
+      ${nuTag}:not([disabled])[tabindex]:hover::after {
         background-color: rgba(128, 128, 128, .07);
       }
 
-      ${nuTag}[disabled] {
-        opacity: .5;
-        cursor: default;
-      }
-
-      ${nuTag}[nu-active] {
-        text-decoration: none;
-        z-index: 2;
-      }
-
-      ${nuTag}[nu-toggled] {
-        z-index: 1;
-      }
-
-      ${nuTag}[nu-active]:not([disabled]):not([nu-toggled]),
-      ${nuTag}[nu-toggled]:not([disabled]):not([nu-active]) {
+      ${nuTag}[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
+      ${nuTag}[nu-toggled]:not([disabled]):not([tabindex]) {
         --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-depth-opacity));
       }
 
       ${nuTag}[special] {
-        --nu-border-color: transparent;
         background-color: var(--nu-theme-special-color);
         color: var(--nu-theme-special-background-color);
       }
 
-      ${nuTag}[cell], ${nuTag}[role="menuitem"] {
+      ${nuTag}[cell] {
+        --nu-border-radius: 0;
         --nu-border-color: transparent;
-        border-radius: 0;
+
         align-self: stretch;
         justify-self: stretch;
         width: 100%;
         height: 100%;
       }
-
-      ${nuTag}[role="menuitem"] {
-        justify-items: start;
-        justify-content: start;
-      }
-
-      ${focusable(nuTag)}
     `;
-  }
-
-  nuMounted() {
-    super.nuMounted();
-
-    if (!this.hasAttribute('role')) {
-      if (!this.constructor.nuAttrs.includes('href')
-        || !this.hasAttribute('href')) {
-        this.setAttribute('role', 'button');
-      } else {
-        this.setAttribute('role', 'link');
-      }
-    }
-
-    if (!this.hasAttribute('pressed')) {
-      this.nuSetAria('pressed', false);
-    }
-
-    this.nuSetFocusable(!this.hasAttribute('disabled'));
-
-    this.addEventListener('click', (evt) => {
-      if (evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (!this.hasAttribute('disabled')) {
-        this.nuTap();
-      }
-    });
-
-    this.addEventListener('keydown', evt => {
-      if (this.hasAttribute('disabled') || evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (evt.key === 'Enter') {
-        this.nuTap();
-      } else if (evt.key === ' ') {
-        evt.preventDefault();
-        this.nuSetMod('active', true);
-      }
-    });
-
-    this.addEventListener('keyup', evt => {
-      if (this.hasAttribute('disabled') || evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (evt.key === ' ') {
-        evt.preventDefault();
-        this.nuSetMod('active', false);
-        this.nuTap();
-      }
-    });
-
-    this.addEventListener('blur', evt => this.nuSetMod('active', false));
-
-    this.addEventListener('mousedown', () => {
-      this.nuSetMod('active', true);
-    });
-
-    ['mouseleave', 'mouseup'].forEach(eventName => {
-      this.addEventListener(eventName, () => {
-        this.nuSetMod('active', false);
-      });
-    });
-
-    setTimeout(() => {
-      if (!this.parentNode) return;
-
-      switch (this.parentNode.tagName) {
-        case 'NU-BTN-GROUP':
-          if (this.parentNode.value) {
-            this.setAttribute('role', 'radio');
-          } else {
-            this.setAttribute('role', 'checkbox');
-          }
-          break;
-        case 'NU-MENU':
-          this.setAttribute('role', 'menuitem');
-          break;
-      }
-    }, 0);
-  }
-
-  nuTap() {
-    const href = this.getAttribute('href');
-
-    this.nuEmit('tap');
-
-    const parent = this.parentNode;
-    const value = this.getAttribute('value');
-
-    if (value && parent.tagName === 'NU-BTN-GROUP') {
-      parent.nuSetValue(value);
-    }
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
-    switch (name) {
-      case 'disabled':
-        this.nuSetMod('disabled', value != null);
-        this.nuSetFocusable(value == null);
-        break;
-      case 'pressed':
-        this.nuSetMod('toggled', value != null);
-        this.nuSetAria('pressed', value != null);
-    }
-  }
-
-  nuUpdateTheme(theme) {
-    NuCard.prototype.nuUpdateTheme.call(this, theme);
   }
 }

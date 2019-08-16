@@ -46,6 +46,7 @@ export default class NuSwitch extends NuBlock {
         cursor: pointer;
         box-shadow: var(--nu-depth-shadow),
           var(--nu-switch-shadow),
+          var(--nu-focus-background-shadow),
           var(--nu-border-shadow);
         transition: box-shadow var(--nu-theme-animation-time) linear,
         filter var(--nu-theme-animation-time) linear;

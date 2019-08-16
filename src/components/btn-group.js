@@ -82,12 +82,6 @@ export default class NuBtnGroup extends NuFlex {
     `;
   }
 
-  nuGenerate(name, value) {
-    let styles = super.nuGenerate(name, value) || [];
-
-    return styles;
-  }
-
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
@@ -108,6 +102,14 @@ export default class NuBtnGroup extends NuFlex {
 
     if (value) {
       this.nuSetValue(value, false);
+    } else {
+      setTimeout(() => {
+        const el = this.querySelector(`nu-btn[value]`);
+
+        if (el) {
+          this.nuSetValue(el.value);
+        }
+      }, 0);
     }
   }
 
@@ -115,10 +117,12 @@ export default class NuBtnGroup extends NuFlex {
     const value = this.getAttribute('value');
 
     if (value) {
-      const el = this.querySelector(`nu-btn[pressed]`);
+      const el = this.querySelector(`nu-btn[aria-pressed="true"]`);
 
       if (el) {
         return el.getAttribute('value');
+      } else {
+        return value;
       }
     }
   }
@@ -129,13 +133,13 @@ export default class NuBtnGroup extends NuFlex {
         if (el.tagName !== 'NU-BTN') return;
 
         if (el.getAttribute('value') === value) {
-          el.setAttribute('pressed', '');
           el.nuSetAria('checked', true);
           el.nuSetFocusable(false);
+          el.nuSetValue(true);
         } else {
-          el.removeAttribute('pressed');
           el.nuSetAria('checked', false);
           el.nuSetFocusable(true);
+          el.nuSetValue(value);
         }
       });
 

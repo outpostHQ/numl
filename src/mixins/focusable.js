@@ -16,13 +16,6 @@ export default function focusable(tag, force) {
       outline: none;
     }
 
-    ${context}${tag}:not([disabled]) {
-      --nu-focus-color: transparent;
-      --nu-focus-background-color: transparent;
-      --nu-focus-inset: 0 0;
-      --nu-focus-shadow: var(--nu-focus-inset) 0 0.1875rem var(--nu-focus-color);
-      --nu-focus-background-shadow: var(--nu-focus-inset) 0 0.1875rem var(--nu-focus-background-color);
-    }
     ${context}${tag}:not([disabled])::before {
       content: '';
       display: block;

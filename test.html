@@ -23,7 +23,7 @@
     </nd-mod>
 
     <nu-flex flow="column" gap="1">
-      <nu-card shadow theme="!primary" data-nu-light responsive="960px">
+      <nu-card shadow theme data-nu-light responsive="960px">
         <nu-heading>Card 1</nu-heading>
 
         <nu-flex flow="column" gap="1">
@@ -35,12 +35,27 @@
               responsive="1280px"
               flow="row|column"
               hidden="false|true"
-              theme="!" items-padding=".5" size="1.6 2.5|1 1.5|.75 1|.5 .75">
+              items-padding=".5" size="1.6 2.5|1 1.5|.75 1|.5 .75">
               <nu-btn value="one">One</nu-btn>
               <nu-btn value="two">Two</nu-btn>
               <nu-btn value="three">Three</nu-btn>
             </nu-btn-group>
           </nu-block>
+
+          <nu-line></nu-line>
+
+          <nu-block>
+            <nu-tablist>
+              <nu-tab controls="first">First</nu-tab>
+              <nu-tab controls="second">Second</nu-tab>
+              <nu-tab controls="third">Third</nu-tab>
+            </nu-tablist>
+            <nu-line></nu-line>
+          </nu-block>
+
+          <nu-block name="first">First tab panel</nu-block>
+          <nu-block name="second">Second tab panel</nu-block>
+          <nu-block name="third">Third tab panel</nu-block>
 
           <nu-line></nu-line>
 
@@ -95,7 +110,13 @@
 
   </nu-block>
 
-  <nu-grid flow="column" padding="1" gap="1" items="start" theme="default">
+  <nu-grid flow="column" padding="1" gap="1" items="start" theme="!primary">
+      <nd-theme
+      name="primary"
+      color="#1885d9"
+      background-color="#fff"
+      special-color="#1885d9"
+      shadow-opacity=".2"></nd-theme>
    <nu-card padding="1" gap="1" border grow="1" radius=".5" shadow=".5">
      <nu-flex gap="1" flow="column">
        <nu-block>
@@ -171,7 +192,7 @@
     const btn = document.getElementById("btn-group");
 
     btn.addEventListener('input', function (evt) {
-      console.log('!', evt.target.value);
+      console.log('!', evt.detail, evt.target.value);
     });
   </script>
 </body>

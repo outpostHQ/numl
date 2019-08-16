@@ -5,7 +5,6 @@ import NuBase from '../base';
 
 const attrsObjs = [];
 const plugins = {
-  mod: '',
   theme: '',
   cursor: 'cursor',
   responsive: ''
@@ -13,7 +12,6 @@ const plugins = {
 
 const RESPONSIVE_ATTR = 'responsive';
 const THEME_ATTR = 'theme';
-const IGNORE_ATTRS_CSS = [THEME_ATTR, RESPONSIVE_ATTR];
 
 /**
  * @class
@@ -56,6 +54,11 @@ export default class NuElement extends NuBase {
     return {
       color: 'color',
       background: 'background',
+      mod(val) {
+        if (!val) return;
+
+        return Modifiers.get(val);
+      },
       cursor(val) {
         return val
           ? {
@@ -115,6 +118,10 @@ export default class NuElement extends NuBase {
     return this.getAttribute('role') || this.constructor.nuRole;
   }
 
+  set nuRole(value) {
+    this.setAttribute('role', value);
+  }
+
   constructor() {
     super();
 
@@ -148,7 +155,7 @@ export default class NuElement extends NuBase {
   attributeChangedCallback(name, oldValue, value) {
     this.nuChanged(name, oldValue, value);
 
-    if (value == null || IGNORE_ATTRS_CSS.includes(name)) return;
+    if (value == null || !this.constructor.nuAllAttrs[name]) return;
 
     this.nuApplyCSS(name, value);
   }
@@ -311,7 +318,7 @@ export default class NuElement extends NuBase {
       (this.nuRef || this).removeAttribute('tabindex');
     }
 
-    if (this.hasAttribute('nu-focusable')) return;
+    if (this.nuFocusable) return;
 
     (this.nuRef || this).addEventListener('focus', () => {
       this.nuSetMod('focus', true);
@@ -325,7 +332,7 @@ export default class NuElement extends NuBase {
       this.nuSetMod('focus', true);
     }
 
-    this.nuSetMod('focusable', true);
+    this.nuFocusable = true;
   }
 
   /**
@@ -344,10 +351,6 @@ export default class NuElement extends NuBase {
    */
   nuGenerate(name, value) {
     switch (name) {
-      case 'mod':
-        if (!value) return;
-
-        return [Modifiers.get(value)];
       default:
         if (value == null) return;
 
