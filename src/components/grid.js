@@ -4,7 +4,7 @@ import {
 import { unit } from '../helpers';
 import NuBlock from './block';
 
-class NuGrid extends NuBlock {
+export default class NuGrid extends NuBlock {
   static get nuTag() {
     return 'nu-grid';
   }
@@ -45,4 +45,3 @@ class NuGrid extends NuBlock {
   }
 }
 
-export default NuGrid;

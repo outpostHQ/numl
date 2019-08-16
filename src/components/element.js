@@ -19,7 +19,7 @@ const IGNORE_ATTRS_CSS = [THEME_ATTR, RESPONSIVE_ATTR];
  * @class
  * @abstract
  */
-class NuElement extends NuBase {
+export default class NuElement extends NuBase {
   static get nuTag() {
     return 'nu-element'; // abstract tag
   }
@@ -81,6 +81,11 @@ class NuElement extends NuBase {
           'font-size': convertUnit(values[0]),
           'line-height': convertUnit(values[1] || '1.5')
         };
+      },
+      hidden(val) {
+        if (val !== 'true' && val !== '') return null;
+
+        return { display: 'none !important' };
       },
       ...plugins
     };
@@ -312,6 +317,10 @@ class NuElement extends NuBase {
       this.nuSetMod('focus', false);
     });
 
+    if (document.activeElement === this.nuRef) {
+      this.nuSetMod('focus', true);
+    }
+
     this.nuSetMod('focusable', true);
   }
 
@@ -435,4 +444,3 @@ class NuElement extends NuBase {
   }
 }
 
-export default NuElement;

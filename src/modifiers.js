@@ -16,7 +16,9 @@ function set(name, styles, context = '') {
         return;
       }
 
-      styles[name] += ' !important';
+      if (!styles[name].endsWith('!important')) {
+        styles[name] += ' !important';
+      }
     });
 
   MAP[name] = styles;
@@ -34,7 +36,7 @@ function set(name, styles, context = '') {
   injectCSS(
     `mod:${name}:${context}`,
     selector,
-    `${selector}{${stylesString(styles, true)}}`);
+    `${selector}{${stylesString(styles)}}`);
 }
 
 function get(name = '') {

@@ -23,8 +23,8 @@
     </nd-mod>
 
     <nu-flex flow="column" gap="1">
-      <nu-card shadow theme="!" data-nu-light responsive="960px">
-        <nu-heading level="1">Card 1</nu-heading>
+      <nu-card shadow theme="!primary" data-nu-light responsive="960px">
+        <nu-heading>Card 1</nu-heading>
 
         <nu-flex flow="column" gap="1">
           <nu-block>
@@ -34,6 +34,7 @@
               width="40"
               responsive="1280px"
               flow="row|column"
+              hidden="false|true"
               theme="!" items-padding=".5" size="1.6 2.5|1 1.5|.75 1|.5 .75">
               <nu-btn value="one">One</nu-btn>
               <nu-btn value="two">Two</nu-btn>
@@ -70,7 +71,7 @@
       </nu-card>
 
       <nu-card shadow border theme="primary">
-        <h1>Card 2</h1>
+        <nu-heading>Card 2</nu-heading>
 
         <nu-flex flow="column" gap="1">
           <nu-block>
@@ -94,58 +95,58 @@
 
   </nu-block>
 
-  <!--<nu-grid flow="column" padding="1" gap="1" items="start" theme="default">-->
-  <!--  <nu-card padding="1" gap="1" border grow="1" radius=".5" shadow=".5">-->
-  <!--    <nu-flex gap="1" flow="column">-->
-  <!--      <nu-block>-->
-  <!--        Lorem Ipsum is simply dummy text of the printing and typesetting industry.-->
-  <!--      </nu-block>-->
+  <nu-grid flow="column" padding="1" gap="1" items="start" theme="default">
+   <nu-card padding="1" gap="1" border grow="1" radius=".5" shadow=".5">
+     <nu-flex gap="1" flow="column">
+       <nu-block>
+         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+       </nu-block>
 
-  <!--      <nu-line></nu-line>-->
+       <nu-line></nu-line>
 
-  <!--      <nu-card theme="!" mod="xs" padding="1">-->
-  <!--        <nu-toggle></nu-toggle>-->
-  <!--      </nu-card>-->
+       <nu-card theme="!" mod="xs" padding="1">
+         <nu-switch></nu-switch>
+       </nu-card>
 
-  <!--      <nu-toggle></nu-toggle>-->
+       <nu-switch></nu-switch>
 
-  <!--      <nu-input theme>-->
-  <!--        <input>-->
-  <!--      </nu-input>-->
+       <nu-input theme>
+         <input>
+       </nu-input>
 
-  <!--      <nu-block>-->
-  <!--        <nu-flex gap="1" height="300px">-->
-  <!--          <nu-btn basis="40%">1asdfasdfadf</nu-btn>-->
-  <!--          <nu-btn basis="30%">sfdsaf</nu-btn>-->
-  <!--          <nu-btn basis="30%">asdfdf</nu-btn>-->
-  <!--          <nu-btn>asdfsadfasdf3</nu-btn>-->
-  <!--          <nu-btn>asdfsadfasdf3</nu-btn>-->
-  <!--        </nu-flex>-->
-  <!--      </nu-block>-->
+       <nu-block>
+         <nu-flex gap="1" height="300px">
+           <nu-btn basis="40%">1asdfasdfadf</nu-btn>
+           <nu-btn basis="30%">sfdsaf</nu-btn>
+           <nu-btn basis="30%">asdfdf</nu-btn>
+           <nu-btn>asdfsadfasdf3</nu-btn>
+           <nu-btn>asdfsadfasdf3</nu-btn>
+         </nu-flex>
+       </nu-block>
 
-  <!--      <nu-block>-->
-  <!--        <nu-btn id="button" theme>-->
-  <!--          <nu-icon size="1.5">-->
-  <!--            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"-->
-  <!--                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"-->
-  <!--                 stroke-linejoin="round" class="feather feather-image">-->
-  <!--              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>-->
-  <!--              <circle cx="8.5" cy="8.5" r="1.5"></circle>-->
-  <!--              <polyline points="21 15 16 10 5 21"></polyline>-->
-  <!--            </svg>-->
-  <!--          </nu-icon>-->
-  <!--          Ok, go!-->
-  <!--        </nu-btn>-->
-  <!--      </nu-block>-->
-  <!--    </nu-flex>-->
-  <!--  </nu-card>-->
-  <!--  <nu-card theme="minor" mod="border" radius="1.5" shadow>-->
-  <!--    <nu-flex flow="column" gap="1">-->
-  <!--      <nu-block>-->
-  <!--        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an-->
-  <!--        unknown-->
-  <!--        printer took a galley of type and scrambled it to make a type specimen book.-->
-  <!--      </nu-block>-->
+       <nu-block>
+         <nu-btn id="button" theme>
+           <nu-icon size="1.5">
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" class="feather feather-image">
+               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+               <circle cx="8.5" cy="8.5" r="1.5"></circle>
+               <polyline points="21 15 16 10 5 21"></polyline>
+             </svg>
+           </nu-icon>
+           Ok, go!
+         </nu-btn>
+       </nu-block>
+     </nu-flex>
+   </nu-card>
+   <!-- <nu-card theme="minor" mod="border" radius="1.5" shadow> -->
+     <!-- <nu-flex flow="column" gap="1"> -->
+       <!-- <nu-block> -->
+         <!-- Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an -->
+         <!-- unknown -->
+         <!-- printer took a galley of type and scrambled it to make a type specimen book. -->
+       <!-- </nu-block> -->
   <!--      <nu-block>-->
   <!--        <nu-btn-group flow="row">-->
   <!--          <nu-btn>-->
@@ -163,8 +164,8 @@
   <!--      It has survived not only five centuries, but also the leap into electronic typesetting,-->
   <!--      remaining essentially unchanged-->
   <!--    </nu-flex>-->
-  <!--  </nu-block>-->
-  <!--</nu-grid>-->
+   <!-- </nu-block> -->
+  </nu-grid>
 
   <script>
     const btn = document.getElementById("btn-group");

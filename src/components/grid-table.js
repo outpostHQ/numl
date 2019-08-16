@@ -1,7 +1,7 @@
 import { unit } from '../helpers';
 import NuGrid from './grid';
 
-class NuGridTable extends NuGrid {
+export default class NuGridTable extends NuGrid {
   static get nuTag() {
     return 'nu-grid-table';
   }
@@ -46,4 +46,3 @@ class NuGridTable extends NuGrid {
   }
 }
 
-export default NuGridTable;

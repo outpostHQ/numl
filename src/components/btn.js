@@ -2,13 +2,17 @@ import NuGrid from './grid';
 import NuCard from './card';
 import focusable from '../mixins/focusable';
 
-class NuBtn extends NuGrid {
+export default class NuBtn extends NuGrid {
   static get nuTag() {
     return 'nu-btn';
   }
 
   static get nuRole() {
     return 'button';
+  }
+
+  static get nuDisplay() {
+    return 'inline-block';
   }
 
   static get nuDefaultFlow() {
@@ -222,5 +226,3 @@ class NuBtn extends NuGrid {
     NuCard.prototype.nuUpdateTheme.call(this, theme);
   }
 }
-
-export default NuBtn;

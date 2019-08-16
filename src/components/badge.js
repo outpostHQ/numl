@@ -19,8 +19,13 @@ export default class NuBadge extends NuElement {
         padding: 0 .5em;
         border-radius: var(--border-radius, .5rem);
         color: var(--nu-theme-background-color) !important;
-        background-color: var(--nu-theme-color) !important;
         white-space: nowrap;
+      }
+      ${nuTag}:not([special]) {
+        background-color: var(--nu-theme-color) !important;
+      }
+      ${nuTag}[special] {
+        background-color: var(--nu-theme-special-color) !important;
       }
     `;
   }

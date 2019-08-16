@@ -13,7 +13,7 @@ export default class NuBadge extends NuElement {
 
   static nuCSS({ nuTag }) {
     return `
-      ${nuTag}, ${ROOT_CONTEXT} a {
+      ${nuTag} {
         position: relative;
         display: inline-block;
         color: inherit;
@@ -26,20 +26,18 @@ export default class NuBadge extends NuElement {
         outline: none;
       }
 
-      ${nuTag}:hover, ${ROOT_CONTEXT} a:hover {
+      ${nuTag}:hover {
         z-index: 1;
         text-decoration-style: double;
       }
 
       ${ROOT_CONTEXT}[data-nu-focus-enabled] ${nuTag}:focus,
-      ${nuTag}:active,
-      ${ROOT_CONTEXT}[data-nu-focus-enabled] a:focus,
-      a:active {
+      ${nuTag}:active {
         z-index: 1;
         box-shadow: inset 0 -0.1875em var(--nu-theme-special-background-color);
       }
 
-      ${nuTag}::before, ${ROOT_CONTEXT} a::before {
+      ${nuTag}::before {
         position: absolute;
         content: '';
         top: 0;
@@ -54,14 +52,12 @@ export default class NuBadge extends NuElement {
       }
 
       ${ROOT_CONTEXT}[data-nu-focus-enabled] ${nuTag}:focus::before,
-      ${nuTag}:active::before,
-      ${ROOT_CONTEXT}[data-nu-focus-enabled] a:focus::before,
-      a:active::before {
+      ${nuTag}:active::before {
         box-shadow: inset 0 -0.1875em var(--nu-theme-special-color);
         opacity: .5;
       }
 
-      ${nuTag}[special], ${ROOT_CONTEXT} a[data-nu-special] {
+      ${nuTag}[special] {
         color: var(--nu-theme-special-color);
       }
     `;

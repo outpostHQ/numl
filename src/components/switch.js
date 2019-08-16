@@ -1,14 +1,19 @@
-import NuBtn from './btn';
+import NuBlock from './block';
+import focusable from '../mixins/focusable';
 
-export default class NuToggle extends NuBtn {
+export default class NuSwitch extends NuBlock {
   static get nuTag() {
-    return 'nu-toggle';
+    return 'nu-switch';
+  }
+
+  static get nuRole() {
+    return 'switch';
   }
 
   static get nuAttrs() {
     return {
       disabled: '',
-      value: '',
+      checked: '',
     };
   }
 
@@ -17,12 +22,13 @@ export default class NuToggle extends NuBtn {
       ${nuTag} {
         --nu-depth-color: transparent;
         --nu-border-radius: calc(var(--nu-size) / 2);
-        --nu-toggle-color: transparent;
+        --nu-switch-color: transparent;
+        --nu-focus-background-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
-        --nu-border-shadow: 0 0 0 var(--nu-theme-border-width) var(--nu-theme-border-color) inset;
+        --nu-border-shadow: inset 0 0 0 var(--nu-theme-border-width) var(--nu-theme-border-color);
         --nu-depth-shadow: 0 .25rem 1.5rem var(--nu-depth-color);
         --nu-background-color: var(--nu-theme-background-color);
-        --nu-toggle-shadow: 0 0 1rem 0 var(--nu-toggle-color) inset;
+        --nu-switch-shadow: 0 0 1rem 0 var(--nu-switch-color) inset;
 
         --nu-size: 2em;
         --nu-circle-padding: calc(var(--nu-theme-border-width) * 4);
@@ -41,7 +47,7 @@ export default class NuToggle extends NuBtn {
         cursor: pointer;
         box-shadow: var(--nu-depth-shadow),
           var(--nu-focus-background-shadow),
-          var(--nu-toggle-shadow),
+          var(--nu-switch-shadow),
           var(--nu-border-shadow);
         transition: box-shadow var(--nu-theme-animation-time) linear,
         filter var(--nu-theme-animation-time) linear;
@@ -73,7 +79,7 @@ export default class NuToggle extends NuBtn {
         cursor: default;
       }
 
-      ${nuTag}[nu-toggled] {
+      ${nuTag}[aria-checked="true"] {
         --nu-background-color: var(--nu-theme-special-color);
         --nu-circle-offset: calc(var(--nu-size) * 2 - var(--nu-circle-padding) - var(--nu-circle-size));
         --nu-circle-opacity: 1;
@@ -81,8 +87,10 @@ export default class NuToggle extends NuBtn {
       }
 
       ${nuTag}[nu-active]:not([disabled]) {
-        --nu-toggle-color: rgba(0, 0, 0, 0.2);
+        --nu-switch-color: rgba(0, 0, 0, 0.2);
       }
+
+      ${focusable(nuTag)}
     `;
   }
 
@@ -90,9 +98,94 @@ export default class NuToggle extends NuBtn {
     super();
   }
 
+  nuMounted() {
+    super.nuMounted();
+
+    this.nuSetValue(this.getAttribute('checked'));
+
+    this.nuSetFocusable(!this.hasAttribute('disabled'));
+
+    this.addEventListener('click', (evt) => {
+      if (evt.nuHandled) return;
+
+      evt.nuHandled = true;
+
+      if (!this.hasAttribute('disabled')) {
+        this.nuTap();
+      }
+    });
+
+    this.addEventListener('keydown', evt => {
+      if (this.hasAttribute('disabled') || evt.nuHandled) return;
+
+      evt.nuHandled = true;
+
+      if (evt.key === 'Enter') {
+        this.nuTap();
+      } else if (evt.key === ' ') {
+        evt.preventDefault();
+        this.nuSetMod('active', true);
+      }
+    });
+
+    this.addEventListener('keyup', evt => {
+      if (this.hasAttribute('disabled') || evt.nuHandled) return;
+
+      evt.nuHandled = true;
+
+      if (evt.key === ' ') {
+        evt.preventDefault();
+        this.nuSetMod('active', false);
+        this.nuTap();
+      }
+    });
+
+    this.addEventListener('blur', evt => this.nuSetMod('active', false));
+
+    this.addEventListener('mousedown', () => {
+      this.nuSetMod('active', true);
+    });
+
+    ['mouseleave', 'mouseup'].forEach(eventName => {
+      this.addEventListener(eventName, () => {
+        this.nuSetMod('active', false);
+      });
+    });
+  }
+
+  get value() {
+    return this.getAttribute('aria-checked') === 'true';
+  }
+
   nuTap() {
-    this.nuSetMod('toggled', !this.nuHasMod('toggled'))
+    this.nuToggle();
 
     this.nuEmit('tap');
+  }
+
+  nuSetValue(value) {
+    if (value) {
+      this.nuSetAria('checked', true);
+    } else {
+      this.nuSetAria('checked', false);
+    }
+  }
+
+  nuToggle() {
+    this.nuSetValue(!this.value);
+  }
+
+  nuChanged(name, oldValue, value) {
+    super.nuChanged(name, oldValue, value);
+
+    switch (name) {
+      case 'disabled':
+        this.nuSetMod('disabled', value != null);
+        this.nuSetFocusable(value == null);
+        break;
+      case 'checked':
+        this.nuSetValue(value != null);
+        break;
+    }
   }
 }

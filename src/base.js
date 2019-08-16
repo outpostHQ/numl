@@ -9,7 +9,7 @@ export const ATTRS_MAP = {};
  * @class
  * @abstract
  */
-class NuBase extends HTMLElement {
+export default class NuBase extends HTMLElement {
   /**
    * Element tag name.
    * @returns {string}
@@ -77,6 +77,9 @@ class NuBase extends HTMLElement {
           ${nuTag}[inline]{display:inline-${nuDisplay};}
         `
           : `${nuTag}{display:${nuDisplay};}`
+      }
+      ${nuTag}[nu-hidden] {
+        display: none;
       }
     `;
   }
@@ -181,5 +184,3 @@ class NuBase extends HTMLElement {
     return invertQuery(this, selector);
   }
 }
-
-export default NuBase;

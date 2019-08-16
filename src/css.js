@@ -1,4 +1,4 @@
-import { getLuminance, devMode, warn } from "./helpers";
+import { devMode, warn } from "./helpers";
 
 export const map = {};
 const testEl = document.createElement('div');
@@ -28,7 +28,7 @@ export function attrsQuery(attrs) {
     }, '');
 }
 
-export function stylesString(styles, important) {
+export function stylesString(styles) {
   if (devMode) {
     Object.keys(styles)
       .forEach(style => {
@@ -41,7 +41,7 @@ export function stylesString(styles, important) {
   }
 
   return Object.keys(styles)
-    .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}${important ? ' !important' : ''}` : ''};`, '');
+    .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}` : ''};`, '');
 }
 
 export function generateCSS(query, styles, context = '') {

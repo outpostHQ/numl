@@ -4,7 +4,7 @@ import {
 import NuGrid from './grid';
 import focusable from '../mixins/focusable';
 
-class NuInput extends NuGrid {
+export default class NuInput extends NuGrid {
   static get nuTag() {
     return 'nu-input';
   }
@@ -143,5 +143,3 @@ class NuInput extends NuGrid {
     super.nuUpdateTheme(theme);
   }
 }
-
-export default NuInput;

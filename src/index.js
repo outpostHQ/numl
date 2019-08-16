@@ -12,7 +12,7 @@ import NuPane from './components/pane';
 import NuCard from './components/card';
 import NuLayout from './components/flow';
 import NuBtn from './components/btn';
-import NuToggle from './components/toggle';
+import NuSwitch from './components/switch';
 import NuGridTable from './components/grid-table';
 import NuBadge from './components/badge';
 import NuLink from './components/link';
@@ -89,7 +89,7 @@ Nude.elements = {
   NuBadge,
   NuInput,
   NuScroll,
-  NuToggle,
+  NuSwitch,
   NuFlex,
   NuBtnGroup,
   NuLink,
@@ -139,7 +139,7 @@ export {
   NuBadge,
   NuInput,
   NuScroll,
-  NuToggle,
+  NuSwitch,
   NuFlex,
   NuBtnGroup,
   NuLink,

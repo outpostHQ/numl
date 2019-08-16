@@ -9,7 +9,7 @@ export const FLEX_MAP = {
   "column-reverse": "margin-top"
 };
 
-class NuFlex extends NuBlock {
+export default class NuFlex extends NuBlock {
   static get nuTag() {
     return "nu-flex";
   }
@@ -77,4 +77,3 @@ class NuFlex extends NuBlock {
   }
 }
 
-export default NuFlex;

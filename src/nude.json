@@ -1,0 +1,31 @@
+{
+  "types": [
+    {
+      "id": "Color",
+      "description": "",
+    }
+  ],
+  "elements": [
+    {
+      "tag": "nu-element",
+      "description": "Base element",
+      "attrs": [
+        {
+          "name": "color",
+          "type": "Color",
+          "description": "Mapping to `color` style."
+        },
+        {
+          "name": "background",
+          "type": "Background",
+          "description": "Mapping to `background` style."
+        },
+        {
+          "name": "cursor",
+          "type": "Cursor",
+          "description": "Mapping to `cursor` style."
+        },
+      ]
+    }
+  ]
+}

@@ -19,31 +19,33 @@ export default class NuHeading extends NuFlex {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static get nuDefaultLevel() {
+    return 1;
+  }
+
+  static nuCSS({ nuTag, nuDefaultLevel }) {
     return `
       ${LEVELS.map(level => {
         return `
-          ${nuTag},
-          h${level}{
+          ${nuTag}:not([color]){
             color: var(--nu-theme-heading-color);
           }
-          ${nuTag}[level="${level}"]:not([size]),
-          [data-nu-root] h${level}{
+          ${nuTag}[level="${level}"]:not([size])
+          ${level === nuDefaultLevel ? `,${nuTag}:not([level]):not([size])` : ''}{
             font-size: ${SIZES[`h${level}`][0]}rem;
             line-height: ${SIZES[`h${level}`][1]}rem;
           }
-          ${nuTag}[level="${level}"],
-          [data-nu-root] h${level}{
+          ${nuTag}[level="${level}"]
+          ${level === nuDefaultLevel ? `,${nuTag}:not([level])` : ''} {
             font-weight: ${SIZES[`h${level}`][2]};
-          }
-          [data-nu-root] h${level}{
-            display: block;
-            margin: 0;
-            padding: 0;
           }
         `;
       }).join('\n')}
     `;
+  }
+
+  get getDefaultLevel() {
+    return this.constructor.nuDefaultLevel;
   }
 
   nuChanged(name, oldValue, value) {
@@ -51,12 +53,22 @@ export default class NuHeading extends NuFlex {
 
     switch (name) {
       case 'level':
+        if (!value) value = 1;
+
         if (devMode && !LEVELS.includes(Number(value))) {
           return warn('invalid heading level', value);
         }
 
         this.nuSetAria('level', value);
         break;
+    }
+  }
+
+  nuMounted() {
+    super.nuMounted();
+
+    if (!this.hasAttribute('level')) {
+      this.nuChanged('level');
     }
   }
 }

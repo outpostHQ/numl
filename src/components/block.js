@@ -2,7 +2,7 @@ import { GRID_ITEM_ATTRS, FLEX_ITEM_ATTRS } from "../attrs";
 import { unit, sizeUnit, convertUnit, splitDimensions } from '../helpers';
 import NuElement from "./element";
 
-class NuBlock extends NuElement {
+export default class NuBlock extends NuElement {
   static get nuTag() {
     return "nu-block";
   }
@@ -43,7 +43,9 @@ class NuBlock extends NuElement {
       border(val) {
         if (val == null) return val;
 
-        const width = val ? convertUnit(val) : "var(--nu-theme-border-width)";
+        const width = val
+          ? convertUnit(val).replace(/\*/g, "var(--nu-theme-border-width)")
+          : "var(--nu-theme-border-width)";
 
         return {
           "--nu-border-shadow": `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`
@@ -76,5 +78,3 @@ class NuBlock extends NuElement {
     `;
   }
 }
-
-export default NuBlock;
