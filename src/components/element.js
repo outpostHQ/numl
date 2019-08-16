@@ -111,6 +111,10 @@ export default class NuElement extends NuBase {
     return this.constructor.nuDefaultFlow;
   }
 
+  get nuRole() {
+    return this.getAttribute('role') || this.constructor.nuRole;
+  }
+
   constructor() {
     super();
 

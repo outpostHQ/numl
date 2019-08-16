@@ -20,6 +20,7 @@ import NuInput from './components/input';
 import NuScroll from './components/scroll';
 import NuFlex from './components/flex';
 import NuBtnGroup from './components/btn-group';
+import NuMenu from './components/menu';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NdTheme from './decorators/theme';
@@ -63,7 +64,7 @@ function disableFocus() {
   }, 100);
 }
 
-window.addEventListener('click', disableFocus);
+window.addEventListener('mousedown', disableFocus);
 window.addEventListener('keydown', enableFocus);
 
 const Nude = {
@@ -92,6 +93,7 @@ Nude.elements = {
   NuSwitch,
   NuFlex,
   NuBtnGroup,
+  NuMenu,
   NuLink,
   NdTheme,
   NdMod,
@@ -142,6 +144,7 @@ export {
   NuSwitch,
   NuFlex,
   NuBtnGroup,
+  NuMenu,
   NuLink,
   NdTheme,
   NdMod,

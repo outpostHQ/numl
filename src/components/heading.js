@@ -1,10 +1,10 @@
-import NuFlex from './flex';
+import NuBlock from './block';
 import { SIZES } from '../modifiers';
 import { devMode, warn } from '../helpers';
 
 const LEVELS = [1,2,3,4,5,6];
 
-export default class NuHeading extends NuFlex {
+export default class NuHeading extends NuBlock {
   static get nuTag() {
     return 'nu-heading';
   }

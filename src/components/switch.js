@@ -22,8 +22,7 @@ export default class NuSwitch extends NuBlock {
       ${nuTag} {
         --nu-depth-color: transparent;
         --nu-border-radius: calc(var(--nu-size) / 2);
-        --nu-switch-color: transparent;
-        --nu-focus-background-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        --nu-switch-color: rgba(0, 0, 0, 0);
 
         --nu-border-shadow: inset 0 0 0 var(--nu-theme-border-width) var(--nu-theme-border-color);
         --nu-depth-shadow: 0 .25rem 1.5rem var(--nu-depth-color);
@@ -46,7 +45,6 @@ export default class NuSwitch extends NuBlock {
         background-color: var(--nu-background-color);
         cursor: pointer;
         box-shadow: var(--nu-depth-shadow),
-          var(--nu-focus-background-shadow),
           var(--nu-switch-shadow),
           var(--nu-border-shadow);
         transition: box-shadow var(--nu-theme-animation-time) linear,

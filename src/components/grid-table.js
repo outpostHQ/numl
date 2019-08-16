@@ -12,7 +12,7 @@ export default class NuGridTable extends NuGrid {
 
   static get nuAttrs() {
     return {
-      padding: unit('padding', '>*:not([padding])'),
+      padding: unit('padding', '>*:not([padding]):not(nu-line)'),
     };
   }
 
@@ -32,7 +32,7 @@ export default class NuGridTable extends NuGrid {
       ${nuTag} > *:not([theme]):not([background]) {
         background-color: var(--nu-theme-background-color);
       }
-      ${nuTag}:not([padding]) > * {
+      ${nuTag}:not([padding]) > *:not([padding]):not(nu-line) {
         padding: .5rem;
       }
       ${nuTag} > * {

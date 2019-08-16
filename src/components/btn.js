@@ -36,7 +36,7 @@ export default class NuBtn extends NuGrid {
         --nu-border-radius: var(--nu-theme-border-radius);
         --nu-border-color: var(--nu-theme-border-color);
 
-        --nu-toggle-shadow: 0 0 1em 0 var(--nu-toggle-color) inset;
+        --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
         --nu-border-inset: inset 0 0;
         --nu-border-shadow: var(--nu-border-inset) 0 var(--nu-theme-border-width) var(--nu-border-color);
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
@@ -111,13 +111,18 @@ export default class NuBtn extends NuGrid {
         color: var(--nu-theme-special-background-color);
       }
 
-      ${nuTag}[cell] {
+      ${nuTag}[cell], ${nuTag}[role="menuitem"] {
         --nu-border-color: transparent;
         border-radius: 0;
         align-self: stretch;
         justify-self: stretch;
         width: 100%;
         height: 100%;
+      }
+
+      ${nuTag}[role="menuitem"] {
+        justify-items: start;
+        justify-content: start;
       }
 
       ${focusable(nuTag)}
@@ -190,8 +195,20 @@ export default class NuBtn extends NuGrid {
     });
 
     setTimeout(() => {
-      this.setAttribute('role', this.parentNode && this.parentNode.tagName === 'NU-BTN-GROUP'
-        ? 'radio' : this.constructor.nuRole);
+      if (!this.parentNode) return;
+
+      switch (this.parentNode.tagName) {
+        case 'NU-BTN-GROUP':
+          if (this.parentNode.value) {
+            this.setAttribute('role', 'radio');
+          } else {
+            this.setAttribute('role', 'checkbox');
+          }
+          break;
+        case 'NU-MENU':
+          this.setAttribute('role', 'menuitem');
+          break;
+      }
     }, 0);
   }
 

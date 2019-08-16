@@ -199,3 +199,19 @@ export function splitDimensions(style) {
     dimStyle.paddingLeft,
   ];
 }
+
+export function openLink(href, target) {
+  const link = document.createElement('a');
+
+  link.href = href;
+
+  if (target) {
+    link.target = target === true ? '_blank' : target;
+  }
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+}
