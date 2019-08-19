@@ -55,8 +55,8 @@ Based on [caniuse.com](caniuse.com). Real-world support table will be presented 
 Add `nude.js` to your page and initialize it.
 
 ```html
-<link rel="stylesheet" href="/path/to/nude.pack.css" />
-<script src="/path/to/nude.pack.js">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nude-elements/dist/nude.pack.css" />
+<script src="https://cdn.jsdelivr.net/npm/nude-elements/dist/nude.pack.js">
   Nude.init();
 </script>
 ```
