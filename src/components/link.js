@@ -1,6 +1,6 @@
 import NuElement from './element';
 import NuBtn from './btn';
-import { ROOT_CONTEXT } from '../helpers';
+import { ROOT_CONTEXT, bindActiveEvents } from '../helpers';
 
 export default class NuBadge extends NuElement {
   static get nuTag() {
@@ -65,6 +65,25 @@ export default class NuBadge extends NuElement {
 
   nuTap() {
     NuBtn.prototype.nuTap.call(this);
+
+    const href = this.getAttribute('href');
+
+    if (!href) return;
+
+    const target = this.getAttribute('target');
+    const link = document.createElement('a');
+
+    link.href = href;
+
+    if (target) {
+      link.target = target;
+    }
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
   }
 
   nuMounted() {
@@ -72,8 +91,6 @@ export default class NuBadge extends NuElement {
 
     this.setAttribute('tabindex', '0');
 
-    this.addEventListener('click', () => {
-      this.nuTap();
-    });
+    bindActiveEvents.call(this);
   }
 }
