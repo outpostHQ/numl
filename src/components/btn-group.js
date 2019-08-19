@@ -139,7 +139,7 @@ export default class NuBtnGroup extends NuFlex {
         } else {
           el.nuSetAria('checked', false);
           el.nuSetFocusable(true);
-          el.nuSetValue(value);
+          el.nuSetValue(false);
         }
       });
 
