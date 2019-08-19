@@ -1,6 +1,6 @@
 import NuGrid from './grid';
 import focusable from '../mixins/focusable';
-import { generateId } from '../helpers';
+import { generateId, bindActiveEvents } from '../helpers';
 
 export default class NuAbstractBtn extends NuGrid {
   static get nuTag() {
@@ -95,52 +95,7 @@ export default class NuAbstractBtn extends NuGrid {
 
     this.nuSetFocusable(!this.hasAttribute('disabled'));
 
-    this.addEventListener('click', evt => {
-      if (evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (!this.hasAttribute('disabled')) {
-        this.nuTap();
-      }
-    });
-
-    this.addEventListener('keydown', evt => {
-      if (this.hasAttribute('disabled') || evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (evt.key === 'Enter') {
-        this.nuTap();
-      } else if (evt.key === ' ') {
-        evt.preventDefault();
-        this.nuSetMod('active', true);
-      }
-    });
-
-    this.addEventListener('keyup', evt => {
-      if (this.hasAttribute('disabled') || evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (evt.key === ' ') {
-        evt.preventDefault();
-        this.nuSetMod('active', false);
-        this.nuTap();
-      }
-    });
-
-    this.addEventListener('blur', evt => this.nuSetMod('active', false));
-
-    this.addEventListener('mousedown', () => {
-      this.nuSetMod('active', true);
-    });
-
-    ['mouseleave', 'mouseup'].forEach(eventName => {
-      this.addEventListener(eventName, () => {
-        this.nuSetMod('active', false);
-      });
-    });
+    bindActiveEvents.call(this);
 
     setTimeout(() => {
       if (!this.parentNode) return;
@@ -149,8 +104,6 @@ export default class NuAbstractBtn extends NuGrid {
         case 'NU-BTN-GROUP':
           if (this.parentNode.value) {
             this.setAttribute('role', 'radio');
-          } else {
-            this.setAttribute('role', 'checkbox');
           }
           break;
         case 'NU-MENU':
@@ -198,13 +151,12 @@ export default class NuAbstractBtn extends NuGrid {
   }
 
   nuSetValue(value) {
-    this.nuSetMod('toggled', value);
     this.nuSetAria('pressed', value);
 
     setTimeout(() => {
       if (this.nuRole !== 'tab') return;
 
-      if (value !== this.nuHasMod('toggled')) return;
+      if (value !== this.pressed) return;
 
       const controlsName = this.getAttribute('controls');
 
@@ -225,6 +177,10 @@ export default class NuAbstractBtn extends NuGrid {
         }
       }
     }, 0);
+  }
+
+  get pressed() {
+    return this.getAttribute('aria-pressed') === 'true';
   }
 
   get value() {
