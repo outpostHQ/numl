@@ -21,7 +21,6 @@ export default class NuLine extends NuBlock {
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
-        --nu-line-color: var(--nu-theme-border-color);
         --nu-line-size: var(--nu-theme-border-width);
 
         display: block;
@@ -30,6 +29,10 @@ export default class NuLine extends NuBlock {
         align-self: stretch;
         justify-self: stretch;
         background-color: var(--nu-line-color) !important;
+      }
+
+      ${nuTag}:not([color]):not([special]) {
+        --nu-line-color: var(--nu-theme-border-color);
       }
 
       ${nuTag}:not([orientation="vertical"]) {
@@ -46,6 +49,10 @@ export default class NuLine extends NuBlock {
         min-height: 100%;
         max-height: 100%;
         grid-row: 1 / -1;
+      }
+
+      ${nuTag}[special]:not([color]) {
+        --nu-line-color: var(--nu-theme-special-color);
       }
     `;
   }
