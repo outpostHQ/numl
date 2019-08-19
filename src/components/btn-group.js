@@ -132,6 +132,8 @@ export default class NuBtnGroup extends NuFlex {
       [...this.childNodes].forEach(el => {
         if (el.tagName !== 'NU-BTN') return;
 
+        if (el.hasAttribute('disabled')) return;
+
         if (el.getAttribute('value') === value) {
           el.nuSetAria('checked', true);
           el.nuSetFocusable(false);
