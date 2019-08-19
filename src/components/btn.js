@@ -47,8 +47,9 @@ export default class NuBtn extends NuAbstractBtn {
         background-color: rgba(128, 128, 128, .07);
       }
 
-      ${nuTag}[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
-      ${nuTag}[nu-toggled]:not([disabled]):not([tabindex]) {
+      ${nuTag}[nu-active]:not([disabled]):not([aria-pressed="true"]),
+      ${nuTag}[aria-pressed="true"][role="radio"][nu-active]:not([disabled]),
+      ${nuTag}[aria-pressed="true"]:not([disabled]):not([nu-active]) {
         --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-depth-opacity));
       }
 
