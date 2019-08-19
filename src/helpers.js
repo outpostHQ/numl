@@ -215,3 +215,52 @@ export function openLink(href, target) {
 
   document.body.removeChild(link);
 }
+
+export function bindActiveEvents() {
+  this.addEventListener('click', evt => {
+    if (evt.nuHandled) return;
+
+    evt.nuHandled = true;
+
+    if (!this.hasAttribute('disabled')) {
+      this.nuTap();
+    }
+  });
+
+  this.addEventListener('keydown', evt => {
+    if (this.hasAttribute('disabled') || evt.nuHandled) return;
+
+    evt.nuHandled = true;
+
+    if (evt.key === 'Enter') {
+      this.nuTap();
+    } else if (evt.key === ' ') {
+      evt.preventDefault();
+      this.nuSetMod('active', true);
+    }
+  });
+
+  this.addEventListener('keyup', evt => {
+    if (this.hasAttribute('disabled') || evt.nuHandled) return;
+
+    evt.nuHandled = true;
+
+    if (evt.key === ' ') {
+      evt.preventDefault();
+      this.nuSetMod('active', false);
+      this.nuTap();
+    }
+  });
+
+  this.addEventListener('blur', evt => this.nuSetMod('active', false));
+
+  this.addEventListener('mousedown', () => {
+    this.nuSetMod('active', true);
+  });
+
+  ['mouseleave', 'mouseup'].forEach(eventName => {
+    this.addEventListener(eventName, () => {
+      this.nuSetMod('active', false);
+    });
+  });
+}

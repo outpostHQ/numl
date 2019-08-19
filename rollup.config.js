@@ -15,13 +15,12 @@ export default [
     ],
     plugins: [
       replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.NODE_ENV': '"production"',
       }),
-      ENV === 'production' ? minify({
+      minify({
         comments: false,
-      }) : undefined,
+      }),
       postcss({
-        extract: true,
         plugins: [cssnano()],
         extensions: [ '.css' ],
       })
@@ -35,7 +34,7 @@ export default [
     ],
     plugins: [
       replace({
-        'process.env.NODE_ENV': JSON.stringify('development'),
+        'process.env.NODE_ENV': '"development"',
       }),
       postcss({
         extensions: [ '.css' ],
@@ -50,11 +49,11 @@ export default [
     ],
     plugins: [
       replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.NODE_ENV': '"production"',
       }),
-      ENV === 'production' ? minify({
+      minify({
         comments: false,
-      }) : undefined,
+      }),
       postcss({
         plugins: [cssnano()],
         extensions: [ '.css' ],
@@ -69,7 +68,7 @@ export default [
     ],
     plugins: [
       replace({
-        'process.env.NODE_ENV': JSON.stringify('development'),
+        'process.env.NODE_ENV': '"development"',
       }),
       postcss({
         extensions: [ '.css' ],

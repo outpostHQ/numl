@@ -1,6 +1,6 @@
 {
   "name": "nude-elements",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "module": "dist/nude.js",
   "devDependencies": {
     "@babel/core": "7.2.0",
@@ -37,8 +37,7 @@
       "name": "nude pack",
       "webpack": false,
       "path": [
-        "dist/nude.pack.js",
-        "dist/nude.pack.css"
+        "dist/nude.pack.js"
       ]
     }
   ]
