@@ -17,6 +17,7 @@ export default class NuTab extends NuAbstractBtn {
         --nu-depth-color: transparent;
         --nu-border-radius: 0;
         --nu-border-color: transparent;
+        --nu-focus-inset: inset 0 0;
 
         --nu-toggle-shadow: 0 calc(-1 * var(--nu-theme-border-width)) 0 0 var(--nu-toggle-color) inset;
         --nu-border-inset: inset 0 0;
@@ -44,8 +45,8 @@ export default class NuTab extends NuAbstractBtn {
         --nu-toggle-color: var(--nu-theme-special-color);
       }
 
-      ${nuTag}[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
-      ${nuTag}[nu-toggled]:not([disabled]) {
+      ${nuTag}[nu-active][tabindex]:not([disabled]):not([aria-pressed="true"]),
+      ${nuTag}[aria-pressed="true"]:not([disabled]):not([nu-active]) {
         --nu-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-toggle-color) inset;
         --nu-toggle-color: var(--nu-theme-special-color);
       }
