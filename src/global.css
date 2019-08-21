@@ -44,33 +44,52 @@ body[data-nu-root] > *:not([size]) {
   display: none !important;
 }
 
-[data-nu-root][data-nu-high-contrast] > * {
+html.nu-prefers-high-contrast > * {
   filter: brightness(.5) contrast(1.5) brightness(2);
 }
 
 @media (prefers-color-scheme: dark) {
-  body[data-nu-root] {
+  .nu-prefers-color-scheme body {
     background-color: rgba(15, 17, 19, 1);
   }
 
-  [data-nu-root] {
+  .nu-prefers-color-scheme {
     filter: invert(92%) hue-rotate(180deg) brightness(1.05) saturate(1.05);
   }
 
-  [data-nu-root] [data-nu-light] {
+  .nu-prefers-color-scheme [data-nu-light] {
     filter: invert(100%) hue-rotate(180deg);
   }
 
-  [data-nu-root][data-nu-high-contrast] > [data-nu-light] {
+  .nu-prefers-color-scheme.nu-high-contrast > [data-nu-light] {
     filter: brightness(.5) contrast(1.5) brightness(2) invert(100%) hue-rotate(180deg);
   }
 }
 
+html.nu-prefers-dark-color-scheme body {
+  background-color: rgba(15, 17, 19, 1);
+}
+
+html.nu-prefers-dark-color-scheme {
+  filter: invert(92%) hue-rotate(180deg) brightness(1.05) saturate(1.05);
+}
+
+html.nu-prefers-dark-color-scheme [data-nu-light] {
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+html.nu-prefers-dark-color-scheme.nu-high-contrast > [data-nu-light] {
+  filter: brightness(.5) contrast(1.5) brightness(2) invert(100%) hue-rotate(180deg);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  [data-nu-root] {
+  .nu-prefers-reduced-motion [data-nu-theme] {
     --nu-theme-animation-time: 0.001s;
-    --normal-animation-time: 0.001s;
   }
+}
+
+.nu-prefers-reduced-motion-reduce [data-nu-theme] {
+  --nu-theme-animation-time: 0.001s;
 }
 
 [data-nu-root] * {
