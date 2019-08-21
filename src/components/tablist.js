@@ -9,6 +9,12 @@ export default class NuTablist extends NuFlex {
     return 'tablist';
   }
 
+  static get nuAttrs() {
+    return {
+      value: '',
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag}:not([gap]) > * {
@@ -20,7 +26,7 @@ export default class NuTablist extends NuFlex {
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
-    if (!this.nuMounted) return;
+    if (!this.nuIsMounted) return;
 
     switch (name) {
       case 'value':
