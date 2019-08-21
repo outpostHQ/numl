@@ -58,12 +58,12 @@ export function sizeUnit(name, $suffix) {
      } else if (val.startsWith('min(')) {
        return {
         $suffix,
-         [`min-${name}`]: val.slice(4, -1),
+         [`min-${name}`]: convertUnit(val.slice(4, -1)),
        };
      } else if (val.startsWith('max(')) {
       return {
         $suffix,
-        [`max-${name}`]: val.slice(4, -1),
+        [`max-${name}`]: convertUnit(val.slice(4, -1)),
       };
     }
 
