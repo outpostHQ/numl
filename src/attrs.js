@@ -56,3 +56,16 @@ export const GRID_ATTRS = {
   rows: unit('grid-template-rows'),
   gap: unit('grid-gap'),
 };
+
+export const THEME_ATTRS_LIST = [
+  'color',
+  'background-color',
+  'special-color',
+  'border-color',
+  'border-radius',
+  'border-width',
+  'shadow-color',
+  'shadow-intensity',
+  'animation-time',
+  'heading-color',
+];

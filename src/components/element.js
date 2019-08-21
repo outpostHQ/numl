@@ -1,7 +1,8 @@
-import { convertUnit, getTheme, error, generateNuId } from '../helpers';
+import { convertUnit, getTheme, error, generateNuId, toCamelCase, extractColor, mixColors } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS } from '../css';
 import NuBase from '../base';
+import { THEME_ATTRS_LIST } from '../attrs';
 
 const attrsObjs = [];
 const plugins = {
@@ -125,10 +126,9 @@ export default class NuElement extends NuBase {
   constructor() {
     super();
 
-    const tabIndexAttr = this.getAttribute('tabindex');
-
-    this.nuTabIndex = tabIndexAttr != null ? Number(tabIndexAttr) : 0;
+    this.nuTabIndex = 0;
     this.nuRef = null;
+    this.nuThemes = {};
   }
 
   /**
@@ -449,5 +449,72 @@ export default class NuElement extends NuBase {
 
     return context;
   }
-}
 
+  /**
+   * Declare theme in current context.
+   * @param {String} name – Theme name.
+   * @param {Object} props
+   */
+  nuDeclareTheme(name, props) {
+    if (!props) {
+      delete this.nuThemes[name];
+      this.setAttribute(`data-nu-themes`, Object.keys(this.nuThemes).join(' '));
+
+      return;
+    }
+
+    if (name !== 'default' && this.nuThemes.default) {
+      props = {
+        ...this.nuThemes.default,
+        ...props,
+      };
+    }
+
+    this.nuThemes[name] = props;
+    this.setAttribute(`data-nu-themes`, Object.keys(this.nuThemes).join(' '));
+
+    const parentStyles = window.getComputedStyle(this.parentNode);
+    const parentProps = THEME_ATTRS_LIST.reduce((map, name) => {
+      const value = parentStyles.getPropertyValue(`--nu-theme-${name}`);
+
+      if (value) {
+        map[toCamelCase(name)] = value;
+      }
+
+      return map;
+    }, {});
+
+    const normalTheme = {
+      '--nu-theme-color': props.color || parentProps.color,
+      '--nu-theme-background-color': props.backgroundColor || parentProps.backgroundColor,
+      '--nu-theme-border-color': props.borderColor || parentProps.borderColor,
+      '--nu-theme-special-color': props.specialColor || parentProps.specialColor,
+      '--nu-theme-border-radius': props.borderRadius || parentProps.borderRadius,
+      '--nu-theme-border-width': props.borderWidth || parentProps.borderWidth,
+      '--nu-theme-shadow-color': props.shadowColor || parentProps.shadowColor,
+      '--nu-theme-shadow-intensity': props.shadowIntensity
+        || (props.shadowColor && extractColor(props.shadowColor)[3]) || parentProps.shadowIntensity,
+      '--nu-theme-special-background-color': props.backgroundColor || parentProps.backgroundColor;
+      '--nu-theme-focus-color': mixColors(
+        props.specialColor || parentProps.specialColor,
+        props.backgroundColor || parentProps.backgroundColor
+      ),
+      '--nu-theme-heading-color': mixColors(
+        props.color || parentProps.color,
+        props.backgroundColor || parentProps.backgroundColor,
+        .1,
+      ),
+      '--nu-theme-hover-color': mixColors(
+        props.backgroundColor || parentProps.backgroundColor,
+        props.specialColor || parentProps.specialColor,
+        .1,
+      ),
+    };
+
+    let darkTheme;
+
+    [normalTheme, invertTheme].forEach(theme => {
+
+    });
+  }
+}

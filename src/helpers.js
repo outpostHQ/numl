@@ -169,9 +169,64 @@ export function generateNuId(el) {
 const dim = document.createElement('div');
 const dimStyle = dim.style;
 
+/**
+ * Extract rgba channels for color.
+ * @param {String} color – CSS color string.
+ * @returns {Number[]} – Array with values: Red channel, Green channel, Blue channel, Alpha channel.
+ */
+export function extractColor(color, ignoreAlpha = false) {
+  dimStyle.color = '';
+  dimStyle.color = COLORS[color.toLowerCase()] || color;
+
+  const arr = !dimStyle.color
+    ? null // incorrect color
+    : dimStyle.color
+        .slice(dimStyle.color.indexOf('(') + 1, -1)
+        .split(', ')
+        .map(Number);
+
+  if (ignoreAlpha) {
+    return arr.slice(0, 3);
+  }
+
+  arr[3] = arr[3] || 1;
+
+  return arr;
+}
+
+export function colorString(red, green, blue, alpha) {
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+}
+
+export function generalizeColor(color, ignoreAlpha = true) {
+  return colorString(...extractColor(color, ignoreAlpha), 1);
+}
+
+export function invertColor(color, min = 0, max = 255) {
+  const rgba = extractColor(color);
+
+  return hueRotate(colorString(...rgba.map((v, i) => {
+    if (i === 3) return v;
+
+    v = Math.max(v - min, 0) * max / (max - min);
+
+    return Math.round(max - (max - (max - v) * ((max - min) / max)) + min);
+  })));
+}
+
+export function hueRotate(color, angle = 180) {
+  const rgba = extractColor(color);
+  const hsl = rgbToHsl(...rgba);
+
+  hsl[0] = (hsl[0] + angle / 360) % 1;
+
+  const rotated = hslToRgb(...hsl).concat([rgba[3]]);
+
+  return rotated;
+}
+
 export function getLuminance(color) {
-  dim.style.color = COLORS[color.toLowerCase()] || color;
-  color = dim.style.color.match(/\d+/g).slice(0, 3).map(Number).map(n => n / 255);
+  color = extractColor(color, true).map(n => n / 255);
 
   const [r, g, b] = color;
 
@@ -179,14 +234,12 @@ export function getLuminance(color) {
 }
 
 export function mixColors(clr1, clr2, pow = .5) {
-  dim.style.color = COLORS[clr1.toLowerCase()] || clr1;
-  const color1 = dim.style.color.match(/\d+/g).slice(0, 3).map(Number);
-  dim.style.color = COLORS[clr2.toLowerCase()] || clr2;
-  const color2 = dim.style.color.match(/\d+/g).slice(0, 3).map(Number);
+  const color1 = extractColor(clr1, true);
+  const color2 = extractColor(clr2, true);
 
   const color = color1.map((c,i) => parseInt((color2[i] - c) * pow + c));
 
-  return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+  return colorString(color[0], color[1], color[2], 1);
 }
 
 export function splitDimensions(style) {
@@ -263,4 +316,60 @@ export function bindActiveEvents() {
       this.nuSetMod('active', false);
     });
   });
+}
+
+export function toCamelCase(str) {
+  return str.replace(/\-[a-z]/g, s => s.slice(1).toUpperCase());
+}
+
+
+/* colors */
+function rgbToHsl(r, g, b) {
+  r /= 255, g /= 255, b /= 255;
+
+  var max = Math.max(r, g, b), min = Math.min(r, g, b);
+  var h, s, l = (max + min) / 2;
+
+  if (max == min) {
+    h = s = 0; // achromatic
+  } else {
+    var d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+
+    h /= 6;
+  }
+
+  return [ h, s, l ];
+}
+
+function hslToRgb(h, s, l) {
+  var r, g, b;
+
+  if (s == 0) {
+    r = g = b = l; // achromatic
+  } else {
+    function hue2rgb(p, q, t) {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    }
+
+    var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    var p = 2 * l - q;
+
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+
+  return [ Math.round(r * 255), Math.round(g * 255), Math.round(b * 255) ];
 }

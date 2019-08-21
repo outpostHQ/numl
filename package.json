@@ -1,6 +1,6 @@
 {
   "name": "nude-elements",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "module": "dist/nude.js",
   "devDependencies": {
     "@babel/core": "7.2.0",
@@ -20,7 +20,8 @@
     "build": "rollup -c && size-limit",
     "dev": "rollup -c -w",
     "play": "rm test/* && parcel --out-dir test test.html --open",
-    "size": "size-limit"
+    "size": "size-limit",
+    "start": "npm run play"
   },
   "files": [
     "dist"
