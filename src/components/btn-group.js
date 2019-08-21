@@ -87,9 +87,7 @@ export default class NuBtnGroup extends NuFlex {
 
     switch (name) {
       case 'value':
-        if (oldValue !== value) {
-          this.nuSetValue(value, false);
-        }
+        this.nuSetValue(value, false);
 
         break;
     }

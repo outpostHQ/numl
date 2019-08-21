@@ -1,5 +1,6 @@
 import NuBlock from './block';
 import focusable from '../mixins/focusable';
+import { bindActiveEvents } from '../helpers';
 
 export default class NuSwitch extends NuBlock {
   static get nuTag() {
@@ -104,52 +105,7 @@ export default class NuSwitch extends NuBlock {
 
     this.nuSetFocusable(!this.hasAttribute('disabled'));
 
-    this.addEventListener('click', (evt) => {
-      if (evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (!this.hasAttribute('disabled')) {
-        this.nuTap();
-      }
-    });
-
-    this.addEventListener('keydown', evt => {
-      if (this.hasAttribute('disabled') || evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (evt.key === 'Enter') {
-        this.nuTap();
-      } else if (evt.key === ' ') {
-        evt.preventDefault();
-        this.nuSetMod('active', true);
-      }
-    });
-
-    this.addEventListener('keyup', evt => {
-      if (this.hasAttribute('disabled') || evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (evt.key === ' ') {
-        evt.preventDefault();
-        this.nuSetMod('active', false);
-        this.nuTap();
-      }
-    });
-
-    this.addEventListener('blur', evt => this.nuSetMod('active', false));
-
-    this.addEventListener('mousedown', () => {
-      this.nuSetMod('active', true);
-    });
-
-    ['mouseleave', 'mouseup'].forEach(eventName => {
-      this.addEventListener(eventName, () => {
-        this.nuSetMod('active', false);
-      });
-    });
+    bindActiveEvents.call(this);
   }
 
   get value() {
