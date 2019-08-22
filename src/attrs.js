@@ -57,6 +57,16 @@ export const GRID_ATTRS = {
   gap: unit('grid-gap'),
 };
 
+export const THEME_COLOR_ATTRS_LIST = [
+  'color',
+  'background-color',
+  'special-color',
+  'border-color',
+  'shadow-color',
+  'heading-color',
+  'hover-color',
+];
+
 export const THEME_ATTRS_LIST = [
   'color',
   'background-color',
@@ -68,4 +78,5 @@ export const THEME_ATTRS_LIST = [
   'shadow-intensity',
   'animation-time',
   'heading-color',
+  'hover-color',
 ];

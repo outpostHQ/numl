@@ -12,6 +12,7 @@
   --nu-theme-border-width: 1px;
   --nu-theme-depth-opacity: 0.2;
   --nu-theme-animation-time: .08s;
+  --nu-theme-shadow-color: rgba(0, 0, 0, .2);
 
   /* main styles */
   display: block;

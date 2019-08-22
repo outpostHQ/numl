@@ -29,7 +29,15 @@ import NuDecorator from './decorators/decorator';
 import NdTheme from './decorators/theme';
 import NdMod from './decorators/mod';
 // helpers
-import { log, injectScript, ROOT_CONTEXT } from './helpers';
+import {
+  log,
+  injectScript,
+  ROOT_CONTEXT,
+  invertColor,
+  hueRotate,
+  extractColor,
+  setAlphaChannel,
+} from './helpers';
 
 let featherPromise;
 
@@ -74,8 +82,17 @@ const Nude = {
   modifiers,
   css,
   iconLoader(name) {
-    return (featherPromise || injectScript('https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.22.1/feather.js'))
-      .then(() => window.feather.icons[name].toSvg());
+    return (
+      featherPromise ||
+      injectScript('https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.22.1/feather.js')
+    ).then(() => window.feather.icons[name].toSvg());
+  },
+  helpers: {
+    invertColor,
+    hueRotate,
+    injectScript,
+    extractColor,
+    setAlphaChannel,
   },
 };
 
@@ -102,7 +119,7 @@ Nude.elements = {
   NuLink,
   NdTheme,
   NdMod,
-  NuAbstractBtn,
+  NuAbstractBtn
 };
 
 Object.values(Nude.elements).forEach(customElement => {
@@ -111,21 +128,22 @@ Object.values(Nude.elements).forEach(customElement => {
 
     if (!this.nuTag) return;
 
-    let el = this, css = '';
+    let el = this,
+      css = '';
 
     do {
       if (!el.nuCSS) break;
       if (el.nuCSS === (el.nuParent && el.nuParent.nuCSS)) continue;
 
       css = `${el.nuCSS(this)}${css}`;
-    } while (el = el.nuParent);
+    } while ((el = el.nuParent));
 
     injectStyleTag(css, tag);
 
     customElements.define(tag, this);
 
     log('custom element registered', tag);
-  }
+  };
 });
 
 Nude.init = () => {
@@ -161,5 +179,5 @@ export {
   NdMod,
   NuElement,
   NuDecorator,
-  NuAbstractBtn,
+  NuAbstractBtn
 };

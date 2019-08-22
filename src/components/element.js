@@ -1,8 +1,8 @@
-import { convertUnit, getTheme, error, generateNuId, toCamelCase, extractColor, mixColors } from '../helpers';
+import { convertUnit, getTheme, error, generateNuId, toCamelCase, extractColor, mixColors, invertColor, toKebabCase, generalizeColor } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS } from '../css';
 import NuBase from '../base';
-import { THEME_ATTRS_LIST } from '../attrs';
+import { THEME_ATTRS_LIST, THEME_COLOR_ATTRS_LIST } from '../attrs';
 
 const attrsObjs = [];
 const plugins = {
@@ -455,10 +455,10 @@ export default class NuElement extends NuBase {
    * @param {String} name – Theme name.
    * @param {Object} props
    */
-  nuDeclareTheme(name, props) {
+  nuDeclareTheme(name, props, darkProps = {}) {
     if (!props) {
       delete this.nuThemes[name];
-      this.setAttribute(`data-nu-themes`, Object.keys(this.nuThemes).join(' '));
+      this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));
 
       return;
     }
@@ -471,11 +471,12 @@ export default class NuElement extends NuBase {
     }
 
     this.nuThemes[name] = props;
-    this.setAttribute(`data-nu-themes`, Object.keys(this.nuThemes).join(' '));
+    this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));
 
     const parentStyles = window.getComputedStyle(this.parentNode);
     const parentProps = THEME_ATTRS_LIST.reduce((map, name) => {
-      const value = parentStyles.getPropertyValue(`--nu-theme-${name}`);
+      const propName = `--nu-theme-${toKebabCase(name)}`;
+      const value = parentStyles.getPropertyValue(propName);
 
       if (value) {
         map[toCamelCase(name)] = value;
@@ -484,37 +485,47 @@ export default class NuElement extends NuBase {
       return map;
     }, {});
 
-    const normalTheme = {
-      '--nu-theme-color': props.color || parentProps.color,
-      '--nu-theme-background-color': props.backgroundColor || parentProps.backgroundColor,
-      '--nu-theme-border-color': props.borderColor || parentProps.borderColor,
-      '--nu-theme-special-color': props.specialColor || parentProps.specialColor,
-      '--nu-theme-border-radius': props.borderRadius || parentProps.borderRadius,
-      '--nu-theme-border-width': props.borderWidth || parentProps.borderWidth,
-      '--nu-theme-shadow-color': props.shadowColor || parentProps.shadowColor,
-      '--nu-theme-shadow-intensity': props.shadowIntensity
-        || (props.shadowColor && extractColor(props.shadowColor)[3]) || parentProps.shadowIntensity,
-      '--nu-theme-special-background-color': props.backgroundColor || parentProps.backgroundColor;
-      '--nu-theme-focus-color': mixColors(
-        props.specialColor || parentProps.specialColor,
-        props.backgroundColor || parentProps.backgroundColor
-      ),
-      '--nu-theme-heading-color': mixColors(
-        props.color || parentProps.color,
-        props.backgroundColor || parentProps.backgroundColor,
-        .1,
-      ),
-      '--nu-theme-hover-color': mixColors(
-        props.backgroundColor || parentProps.backgroundColor,
-        props.specialColor || parentProps.specialColor,
-        .1,
-      ),
+    const lightTheme = {
+      color: generalizeColor(props.color || parentProps.color),
+      backgroundColor: generalizeColor(props.backgroundColor || parentProps.backgroundColor),
+      borderColor: generalizeColor(props.borderColor || parentProps.borderColor),
+      specialColor: generalizeColor(props.specialColor || parentProps.specialColor),
+      borderRadius: props.borderRadius || parentProps.borderRadius,
+      borderWidth: props.borderWidth || parentProps.borderWidth,
+      shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
+      specialBackgroundColor: generalizeColor(props.backgroundColor),
+      // Use parent shadow intensity value only if both shadow color and shadow intensity
+      // are not specified in the props
+      shadowIntensity: props.shadowIntensity || (!props.shadowColor && parentProps.shadowIntensity),
+      focusColor: generalizeColor(props.focusColor),
+      headingColor: generalizeColor(props.headingColor),
+      hoverColor: generalizeColor(props.hoverColor),
     };
 
-    let darkTheme;
+    let darkTheme = Object.keys(lightTheme)
+      .reduce((vars, varName) => {
+        if ((THEME_COLOR_ATTRS_LIST.includes(toKebabCase(varName))) && lightTheme[varName]) {
+          vars[varName] = darkProps[varName] || invertColor(lightTheme[varName], 51);
+        } else {
+          vars[varName] = darkProps[varName] || lightTheme[varName];
+        }
 
-    [normalTheme, invertTheme].forEach(theme => {
+        return vars;
+      }, {});
 
+    [lightTheme, darkTheme].forEach(theme => {
+      Object.assign(theme, {
+        shadowIntensity: theme.shadowIntensity
+          || extractColor(theme.shadowColor)[3],
+        focusColor: theme.focusColor
+          || mixColors(theme.specialColor, theme.backgroundColor),
+        headingColor: theme.headingColor
+          || mixColors(theme.color, theme.backgroundColor, .1),
+        hoverColor: theme.hoverColor
+          || mixColors(theme.backgroundColor, theme.specialColor, .1),
+      });
     });
+
+    return { lightTheme, darkTheme };
   }
 }

@@ -185,6 +185,8 @@ export function extractColor(color, ignoreAlpha = false) {
         .split(', ')
         .map(Number);
 
+  if (!arr) return arr;
+
   if (ignoreAlpha) {
     return arr.slice(0, 3);
   }
@@ -194,28 +196,42 @@ export function extractColor(color, ignoreAlpha = false) {
   return arr;
 }
 
-export function colorString(red, green, blue, alpha) {
+export function setAlphaChannel(color, alpha = 1) {
+  const rgba = typeof color === 'string' ? extractColor(color) : color;
+
+  if (!rgba) return rgba;
+
+  return colorString(...rgba.slice(0, 3), alpha);
+}
+
+export function colorString(red, green, blue, alpha = 1) {
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
 export function generalizeColor(color, ignoreAlpha = true) {
-  return colorString(...extractColor(color, ignoreAlpha), 1);
+  if (!color) return color;
+
+  const rgba = extractColor(color, ignoreAlpha);
+
+  if (!rgba) return rgba;
+
+  return colorString(...rgba, 1);
 }
 
 export function invertColor(color, min = 0, max = 255) {
   const rgba = extractColor(color);
 
-  return hueRotate(colorString(...rgba.map((v, i) => {
+  return colorString(...hueRotate(rgba.map((v, i) => {
     if (i === 3) return v;
 
-    v = Math.max(v - min, 0) * max / (max - min);
+    const inv = 255 - v;
 
-    return Math.round(max - (max - (max - v) * ((max - min) / max)) + min);
+    return Math.round(inv * (max - min) / max + min);
   })));
 }
 
 export function hueRotate(color, angle = 180) {
-  const rgba = extractColor(color);
+  const rgba = typeof color === 'string' ? extractColor(color) : color;
   const hsl = rgbToHsl(...rgba);
 
   hsl[0] = (hsl[0] + angle / 360) % 1;
@@ -322,9 +338,12 @@ export function toCamelCase(str) {
   return str.replace(/\-[a-z]/g, s => s.slice(1).toUpperCase());
 }
 
+export function toKebabCase(str) {
+  return str.replace(/[A-Z]/g, s => `-${s.toLowerCase()}`).replace(/^\-/, '');
+}
 
 /* colors */
-function rgbToHsl(r, g, b) {
+export function rgbToHsl(r, g, b) {
   r /= 255, g /= 255, b /= 255;
 
   var max = Math.max(r, g, b), min = Math.min(r, g, b);
@@ -348,7 +367,7 @@ function rgbToHsl(r, g, b) {
   return [ h, s, l ];
 }
 
-function hslToRgb(h, s, l) {
+export function hslToRgb(h, s, l) {
   var r, g, b;
 
   if (s == 0) {
