@@ -55,7 +55,6 @@ export function generateTheme(props, darkProps, parentProps) {
       + (1 - getLuminance(theme.backgroundColor)) * (1 - shadowIntensity), 1);
     theme.specialShadowIntensity = Math.min(shadowIntensity
       + (1 - getLuminance(theme.specialColor)) * (1 - shadowIntensity), 1);
-    console.log(theme.shadowIntensity, theme.specialShadowIntensity);
 
     return Object.keys(theme).reduce((map, propName) => {
       map[`--nu-theme-${toKebabCase(propName)}`] = theme[propName];

@@ -47,7 +47,7 @@ export default class NdTheme extends NuDecorator {
     // run only once
     if (this.nuIsMounted) return;
 
-    this.nuApply();
+    setTimeout(() => this.nuApply());
   }
 
   nuApply() {

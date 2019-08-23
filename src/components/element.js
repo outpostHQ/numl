@@ -458,6 +458,16 @@ export default class NuElement extends NuBase {
       return map;
     }, {});
 
+    [props, darkProps].forEach(themeProps => {
+      Object.keys(themeProps).forEach((name) => {
+        if (themeProps[name] && ~themeProps[name].indexOf('var(')) {
+          const varName = themeProps[name].trim().slice(4, -1);
+
+          themeProps[name] = parentStyles.getPropertyValue(varName).trim();
+        }
+      });
+    });
+
     const [lightTheme, darkTheme] = generateTheme(props, darkProps, parentProps);
 
     const context = this.nuGetContext('nu-themes');

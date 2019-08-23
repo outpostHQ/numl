@@ -175,6 +175,8 @@ const dimStyle = dim.style;
  * @returns {Number[]} – Array with values: Red channel, Green channel, Blue channel, Alpha channel.
  */
 export function extractColor(color, ignoreAlpha = false) {
+  if (typeof color !== 'string') return null;
+
   dimStyle.color = '';
   dimStyle.color = COLORS[color.toLowerCase()] || color;
 
