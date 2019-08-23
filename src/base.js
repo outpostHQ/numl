@@ -108,7 +108,7 @@ export default class NuBase extends HTMLElement {
   }
 
   get nuId() {
-    return this.dataset.nuId || generateId(this);
+    return this.id || generateId(this);
   }
 
   /**

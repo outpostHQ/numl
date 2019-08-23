@@ -10,9 +10,10 @@
   --nu-theme-special-background-color: #fff;
   --nu-theme-border-radius: .5rem;
   --nu-theme-border-width: 1px;
-  --nu-theme-depth-opacity: 0.2;
+  --nu-theme-shadow-intensity: 0.2;
   --nu-theme-animation-time: .08s;
   --nu-theme-shadow-color: rgba(0, 0, 0, .2);
+  --nu-theme-special-shadow-intensity: .6;
 
   /* main styles */
   display: block;
@@ -127,4 +128,8 @@ html.nu-prefers-dark-color-scheme.nu-high-contrast > [data-nu-light] {
 [data-nu-root] [theme=""] {
   color: var(--nu-theme-color);
   background-color: var(--nu-theme-background-color);
+}
+
+[data-nu-root] [theme] {
+  color: var(--nu-theme-color);
 }

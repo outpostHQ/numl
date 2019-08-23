@@ -1,8 +1,8 @@
-import NuGrid from './grid';
+import NuBlock from './block';
 import focusable from '../mixins/focusable';
 import { generateId, bindActiveEvents } from '../helpers';
 
-export default class NuAbstractBtn extends NuGrid {
+export default class NuAbstractBtn extends NuBlock {
   static get nuTag() {
     return 'nu-abstract-btn';
   }
@@ -12,7 +12,7 @@ export default class NuAbstractBtn extends NuGrid {
   }
 
   static get nuDisplay() {
-    return 'inline-grid';
+    return 'inline-block';
   }
 
   static get nuDefaultFlow() {
@@ -44,12 +44,10 @@ export default class NuAbstractBtn extends NuGrid {
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
         position: relative;
-        display: inline-grid;
         border-radius: var(--nu-border-radius, .5rem);
-        grid-auto-flow: column;
-        grid-gap: .5rem;
         padding: .5rem;
         color: inherit;
+        text-align: center;
 
         box-shadow: var(--nu-border-shadow),
           var(--nu-toggle-shadow),

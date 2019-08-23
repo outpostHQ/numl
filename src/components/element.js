@@ -1,10 +1,10 @@
-import { convertUnit, getTheme, error, generateNuId, toCamelCase, extractColor, mixColors, invertColor, toKebabCase, generalizeColor } from '../helpers';
+import { convertUnit, getTheme, error, generateId, toCamelCase, toKebabCase } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
-import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS } from '../css';
+import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
 import NuBase from '../base';
-import { THEME_ATTRS_LIST, THEME_COLOR_ATTRS_LIST } from '../attrs';
+import { THEME_ATTRS_LIST } from '../attrs';
+import { generateTheme } from '../themes';
 
-const attrsObjs = [];
 const plugins = {
   theme: '',
   cursor: 'cursor',
@@ -53,8 +53,24 @@ export default class NuElement extends NuBase {
    */
   static get nuAttrs() {
     return {
-      color: 'color',
-      background: 'background',
+      color(val) {
+        if (val == null) return null;
+
+        return {
+          color: val
+            ? (val !== 'special' ? val : 'var(--nu-theme-special-color)')
+            : 'var(--nu-theme-color)',
+        };
+      },
+      background(val) {
+        if (val == null) return null;
+
+        return {
+          background: val
+            ? (val !== 'special' ? val : 'var(--nu-theme-special-color)')
+            : 'var(--nu-theme-background-color)',
+        };
+      },
       mod(val) {
         if (!val) return;
 
@@ -172,7 +188,7 @@ export default class NuElement extends NuBase {
     let query;
 
     if (isResponsive) {
-      query = `${this.nuGetResponsiveContext()}${this.nuGetQuery({ [name]: value }, this.getAttribute(RESPONSIVE_ATTR))}`;
+      query = `${this.nuGetContext(RESPONSIVE_ATTR)}${this.nuGetQuery({ [name]: value }, this.getAttribute(RESPONSIVE_ATTR))}`;
     } else {
       query = this.nuGetQuery({ [name]: value });
     }
@@ -260,51 +276,7 @@ export default class NuElement extends NuBase {
   }
 
   nuGetQuery(attrs = {}, useId) {
-    return `${this.constructor.nuTag}${useId ? `[data-nu-id="${this.nuId}"]` : ''}${attrsQuery(attrs)}`;
-  }
-
-  /**
-   * Update theme of the element.
-   * @param {string} attrTheme
-   */
-  nuUpdateTheme(attrTheme) {
-    let invert = false;
-
-    let theme = getTheme(attrTheme);
-
-    if (theme === '!current') {
-      setTimeout(() => {
-        if (theme !== getTheme(this.getAttribute(THEME_ATTR))) return;
-
-        const themeParent = this.nuQueryParent('[data-nu-theme]');
-
-        let parentAttrTheme = themeParent ? themeParent.getAttribute('data-nu-theme') : '';
-
-        if (!parentAttrTheme) return;
-
-        theme = getTheme(parentAttrTheme, true);
-
-        this.setAttribute('data-nu-theme', theme);
-
-        this.nuUpdateChildThemes();
-      }, 0); // parent node could no be ready
-
-      return;
-    }
-
-    if (theme === 'current') {
-      this.removeAttribute('data-nu-theme');
-    } else {
-      this.setAttribute('data-nu-theme', theme);
-    }
-
-    this.nuUpdateChildThemes();
-  }
-
-  nuUpdateChildThemes() {
-    [...this.querySelectorAll('[theme="!"]')].forEach(
-      element => element.nuUpdateTheme && element.nuUpdateTheme('!')
-    );
+    return `${useId ? '' : this.constructor.nuTag}${useId ? `#${this.nuId}` : ''}${attrsQuery(attrs)}`;
   }
 
   /**
@@ -365,10 +337,10 @@ export default class NuElement extends NuBase {
   nuChanged(name, oldValue, value) {
     switch (name) {
       case THEME_ATTR:
-        this.nuUpdateTheme(value);
+        // this.nuUpdateTheme(value);
         break;
       case RESPONSIVE_ATTR:
-        generateNuId(this);
+        generateId(this);
 
         setTimeout(() => {
           if (this.getAttribute(RESPONSIVE_ATTR) !== value) return;
@@ -438,12 +410,12 @@ export default class NuElement extends NuBase {
     });
   }
 
-  nuGetResponsiveContext() {
+  nuGetContext(attrName) {
     let context = '', el = this;
 
     while (el = el.parentNode) {
-      if (el.getAttribute && el.getAttribute(RESPONSIVE_ATTR) && el.dataset.nuId) {
-        context = `[data-nu-id="${el.dataset.nuId}"] ${context}`;
+      if (el.getAttribute && el.getAttribute(attrName) && this.nuId) {
+        context = `#${this.nuId} ${context}`;
       }
     };
 
@@ -470,7 +442,8 @@ export default class NuElement extends NuBase {
       };
     }
 
-    this.nuThemes[name] = props;
+    generateId(this);
+
     this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));
 
     const parentStyles = window.getComputedStyle(this.parentNode);
@@ -485,47 +458,43 @@ export default class NuElement extends NuBase {
       return map;
     }, {});
 
-    const lightTheme = {
-      color: generalizeColor(props.color || parentProps.color),
-      backgroundColor: generalizeColor(props.backgroundColor || parentProps.backgroundColor),
-      borderColor: generalizeColor(props.borderColor || parentProps.borderColor),
-      specialColor: generalizeColor(props.specialColor || parentProps.specialColor),
-      borderRadius: props.borderRadius || parentProps.borderRadius,
-      borderWidth: props.borderWidth || parentProps.borderWidth,
-      shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
-      specialBackgroundColor: generalizeColor(props.backgroundColor),
-      // Use parent shadow intensity value only if both shadow color and shadow intensity
-      // are not specified in the props
-      shadowIntensity: props.shadowIntensity || (!props.shadowColor && parentProps.shadowIntensity),
-      focusColor: generalizeColor(props.focusColor),
-      headingColor: generalizeColor(props.headingColor),
-      hoverColor: generalizeColor(props.hoverColor),
+    const [lightTheme, darkTheme] = generateTheme(props, darkProps, parentProps);
+
+    const context = this.nuGetContext('nu-themes');
+    const baseQuery = `${context} #${this.nuId}${name === 'default' ? '' : ` [theme="${name}"]`}`;
+    const lightStyles = stylesString(lightTheme);
+    const darkStyles = stylesString(darkTheme);
+
+    // auto-dark mode
+    if (matchMedia('(prefers-color-scheme)').matches) {
+      injectCSS(`theme:${baseQuery}`, baseQuery, `
+        @media (prefers-color-scheme: dark) {
+          html:not(.nu-prefers-color-scheme-light) ${baseQuery}:not([light]){${darkStyles}}
+          html.nu-prefers-color-scheme-light ${baseQuery}:not([dark]){${lightStyles}}
+        }
+        @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+          html:not(.nu-prefers-color-scheme-dark) ${baseQuery}:not([dark]){${lightStyles}}
+          html.nu-prefers-color-scheme-dark ${baseQuery}:not([light]){${darkStyles}}
+        }
+        ${baseQuery} [dark]{${darkStyles}}
+        ${baseQuery} [light]{${lightStyles}}
+      `);
+    } else {
+      injectCSS(`theme:${baseQuery}`, baseQuery, `
+        html:not(.nu-prefers-color-scheme-dark) ${baseQuery}:not([dark]){${lightStyles}}
+          html.nu-prefers-color-scheme-dark ${baseQuery}:not([light]){${darkStyles}}
+        ${baseQuery} [dark]{${darkStyles}}
+        ${baseQuery} [light]{${lightStyles}}
+      `);
+    }
+
+    this.nuThemes[name] = {
+      light: lightStyles,
+      dark: darkStyles,
     };
 
-    let darkTheme = Object.keys(lightTheme)
-      .reduce((vars, varName) => {
-        if ((THEME_COLOR_ATTRS_LIST.includes(toKebabCase(varName))) && lightTheme[varName]) {
-          vars[varName] = darkProps[varName] || invertColor(lightTheme[varName], 51);
-        } else {
-          vars[varName] = darkProps[varName] || lightTheme[varName];
-        }
-
-        return vars;
-      }, {});
-
-    [lightTheme, darkTheme].forEach(theme => {
-      Object.assign(theme, {
-        shadowIntensity: theme.shadowIntensity
-          || extractColor(theme.shadowColor)[3],
-        focusColor: theme.focusColor
-          || mixColors(theme.specialColor, theme.backgroundColor),
-        headingColor: theme.headingColor
-          || mixColors(theme.color, theme.backgroundColor, .1),
-        hoverColor: theme.hoverColor
-          || mixColors(theme.backgroundColor, theme.specialColor, .1),
-      });
-    });
-
-    return { lightTheme, darkTheme };
+    [...this.querySelectorAll('[nd-theme]')]
+      .filter(el => el.parentNode !== this)// || ((name === 'default') && !el.hasAttribute(''))
+      .forEach(el => el.nuApply());
   }
 }

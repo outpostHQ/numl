@@ -50,10 +50,11 @@ export default class NuBtn extends NuAbstractBtn {
       ${nuTag}[nu-active]:not([disabled]):not([aria-pressed="true"]),
       ${nuTag}[aria-pressed="true"][role="radio"][nu-active]:not([disabled]),
       ${nuTag}[aria-pressed="true"]:not([disabled]):not([nu-active]) {
-        --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-depth-opacity));
+        --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-intensity));
       }
 
       ${nuTag}[special] {
+        --nu-theme-shadow-intensity: var(--nu-theme-special-shadow-intensity);
         background-color: var(--nu-theme-special-color);
         color: var(--nu-theme-special-background-color);
       }

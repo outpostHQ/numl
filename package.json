@@ -9,7 +9,7 @@
     "inline-assets": "^1.4.3",
     "install": "^0.13.0",
     "npm": "^6.10.2",
-    "parcel-bundler": "^1.6.1",
+    "parcel-bundler": "^1.12.3",
     "rollup": "^1.0.0",
     "rollup-plugin-babel-minify": "^8.0.0",
     "rollup-plugin-postcss": "^2.0.3",

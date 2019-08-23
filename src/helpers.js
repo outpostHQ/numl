@@ -208,7 +208,7 @@ export function colorString(red, green, blue, alpha = 1) {
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
-export function generalizeColor(color, ignoreAlpha = true) {
+export function generalizeColor(color, ignoreAlpha = false) {
   if (!color) return color;
 
   const rgba = extractColor(color, ignoreAlpha);

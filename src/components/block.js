@@ -55,10 +55,10 @@ export default class NuBlock extends NuElement {
         if (val == null) return val;
 
         const depth = convertUnit(val || "1");
-        const opacity = ((val || 1) && 0.075 / Math.pow(parseFloat(val), 1 / 2)) || ".075";
+        // const opacity = (val && (0.1 / Math.pow(parseFloat(val), 1 / 2))) || ".1";
 
         return {
-          "--nu-depth-shadow": `0 0 ${depth} rgba(0, 0, 0, calc(${opacity} * 5 * var(--nu-theme-depth-opacity)))`
+          "--nu-depth-shadow": `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-theme-shadow-intensity) / ${(val || 1) * 2}))`
         };
       },
     };

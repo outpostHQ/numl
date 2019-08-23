@@ -1,4 +1,4 @@
-import { generateNuId } from '../helpers';
+import { generateId } from '../helpers';
 import NuBase from '../base';
 
 export default class NuDecorator extends NuBase {
@@ -9,10 +9,10 @@ export default class NuDecorator extends NuBase {
   nuMounted() {
     if (!this.parentNode) return;
 
-    this.nuParentId = generateNuId(this.parentNode);
+    this.nuParentId = generateId(this.parentNode);
   }
 
   get nuParentContext() {
-    return `[data-nu-id="${this.nuParentId}"]`;
+    return `#${this.nuParentId}`;
   }
 }

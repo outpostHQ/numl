@@ -87,7 +87,7 @@ export default class NuSwitch extends NuBlock {
       }
 
       ${nuTag}[nu-active]:not([disabled]) {
-        --nu-switch-color: rgba(0, 0, 0, 0.2);
+        --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-shadow-intensity));
       }
 
       ${focusable(nuTag)}

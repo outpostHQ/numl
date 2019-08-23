@@ -1,62 +1,21 @@
 import NuDecorator from './decorator';
-import { stylesString, injectStyleTag, map } from '../css';
-import { getLuminance, mixColors } from '../helpers';
+import { toCamelCase } from '../helpers';
+import { THEME_ATTRS_LIST } from '../attrs';
 
-/**
-   * Generate CSS for the theme with specific name.
-   * @param {string} theme
-   */
-function generateTheme(theme, styles, context) {
-  const key = `theme-${theme}-${context}`;
+function extractTheme(el) {
+  return THEME_ATTRS_LIST.reduce((theme, name) => {
+    const attrValue = el.getAttribute(name);
 
-  if (map[key]) {
-    const currentEl = map[key].element;
+    if (!attrValue) return theme;
 
-    currentEl.parentNode.removeChild(currentEl);
+    const tmp = attrValue.split('|');
 
-    delete map[key];
-  };
+    theme.light[toCamelCase(name)] = tmp[0];
+    theme.dark[toCamelCase(name)] = tmp[1];
 
-  const shadowOpacity = Number(styles['--nu-theme-shadow-opacity']) || .2;
-
-  delete styles['--nu-theme-shadow-opacity'];
-
-  Object.assign(styles, {
-    color: styles['--nu-theme-color'],
-    'background-color': styles['--nu-theme-background-color'],
-    '--nu-theme-depth-opacity': shadowOpacity + (1 - getLuminance(styles['--nu-theme-background-color'])) * (1 - shadowOpacity),
-    '--nu-theme-heading-color': mixColors(styles['--nu-theme-color'], styles['--nu-theme-background-color'], .1),
-  });
-
-  const invertedStyles = {
-    ...styles,
-    color: styles['--nu-theme-background-color'],
-    'background-color': styles['--nu-theme-color'],
-    '--nu-theme-color': styles['--nu-theme-background-color'],
-    '--nu-theme-background-color': styles['--nu-theme-color'],
-    '--nu-theme-depth-opacity': shadowOpacity + (1 - getLuminance(styles['--nu-theme-color'])) * (1 - shadowOpacity),
-    '--nu-theme-heading-color': mixColors(styles['--nu-theme-background-color'], styles['--nu-theme-color'], .1),
-  };
-
-  theme = theme || 'default';
-
-  const css = `
-    ${context} [data-nu-theme="${theme}"]
-    ${theme === 'default'
-      ? `,${context}`
-      : ''
-    }{${stylesString(styles)}}
-    ${context} [data-nu-theme="!${theme}"]{${stylesString(invertedStyles)}}
-  `;
-
-  const element = injectStyleTag(css);
-
-  return map[key] = {
-    theme,
-    element,
-    css,
-  };
-};
+    return theme;
+  }, { light: {}, dark: {} });
+}
 
 export default class NdTheme extends NuDecorator {
   static get nuTag() {
@@ -72,7 +31,7 @@ export default class NdTheme extends NuDecorator {
       'border-radius',
       'border-width',
       'animation-time',
-      'shadow-opacity',
+      'shadow-intensity',
     ];
   }
 
@@ -92,22 +51,29 @@ export default class NdTheme extends NuDecorator {
   }
 
   nuApply() {
-    const theme = this.getAttribute('name');
+    const name = this.getAttribute('name');
+    let theme = extractTheme(this);
 
-    if (!theme) {
-      this.parentNode.setAttribute('data-nu-theme', 'default');
+    if (!name) {
+      const defaultThemeEl = [...this.parentNode.querySelectorAll('nd-theme:not([name])')]
+        .find(el => el.parentNode === this.parentNode);
+
+      if (defaultThemeEl) {
+        const defaultTheme = extractTheme(defaultThemeEl);
+
+        theme = {
+          light: {
+            ...defaultTheme.light,
+            ...theme.light,
+          },
+          dark: {
+            ...defaultTheme.dark,
+            ...theme.dark,
+          },
+        };
+      }
     }
 
-    const attrs = this.constructor.nuAttrsList.reduce((obj, attr) => {
-      const value = this.getAttribute(attr);
-
-      obj[`--nu-theme-${attr}`] = value;
-
-      return obj;
-    }, {});
-
-    attrs['--nu-theme-special-background-color'] = attrs['--nu-theme-background-color'];
-
-    generateTheme(theme, attrs, this.nuParentContext);
+    this.parentNode.nuDeclareTheme(name || 'default', theme.light, theme.dark);
   }
 }

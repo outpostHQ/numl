@@ -37,6 +37,7 @@ import {
   hueRotate,
   extractColor,
   setAlphaChannel,
+  generalizeColor,
 } from './helpers';
 
 let featherPromise;
@@ -93,6 +94,7 @@ const Nude = {
     injectScript,
     extractColor,
     setAlphaChannel,
+    generalizeColor,
   },
 };
 

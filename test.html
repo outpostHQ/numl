@@ -10,14 +10,15 @@
       color="#333"
       background-color="#fff"
       special-color="#3366ff"
-      border-color="#ddd">
+      border-color="#ddd"
+      shadow-intensity=".1">
     </nd-theme>
     <nd-theme
       name="primary"
       color="#1885d9"
       background-color="#fff"
       special-color="#1885d9"
-      shadow-opacity=".2"></nd-theme>
+      shadow-intensity=".2"></nd-theme>
     <nd-mod name="red">
       color: red;
     </nd-mod>
@@ -36,7 +37,10 @@
               flow="row|column"
               hidden="false|true"
               items-padding=".5" size="1.6 2.5|1 1.5|.75 1|.5 .75">
-              <nu-btn value="one">One</nu-btn>
+              <nu-btn value="one" special>
+                <nu-icon name="zap" inline></nu-icon>
+                One
+              </nu-btn>
               <nu-btn value="two">Two</nu-btn>
               <nu-btn disabled value="three">Three</nu-btn>
             </nu-btn-group>
@@ -64,14 +68,14 @@
             <input />
           </nu-input>
 
-          <nu-card mod="sm red" theme="!">
+          <nu-card mod="sm" theme="primary" shadow="1">
             <nu-flex flow="column" gap="1">
               <nu-block>
                 Some text and <nu-link>Nude link</nu-link> and <nu-link special>Nude special link</nu-link> and
                 <nu-badge>Some badge</nu-badge>. <a href="/">Real link</a>.
               </nu-block>
               <nu-flex mod="md" gap=".5">
-                <nu-btn special pressed>Special button</nu-btn>
+                <nu-btn special>Special button</nu-btn>
                 <nu-btn>Not so special button</nu-btn>
               </nu-flex>
             </nu-flex>

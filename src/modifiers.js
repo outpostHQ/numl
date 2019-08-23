@@ -123,12 +123,13 @@ set('no-overflow', { 'overflow': 'hidden' });
 
 set('rounded', { 'border-radius': 'var(--nu-theme-border-radius)' });
 set('round', { 'border-radius': '9999rem' });
-set('ellipsee', { 'border-radius': '50%' });
+set('ellipse', { 'border-radius': '50%' });
 set('relative', { 'position': 'relative' });
 
 set('color', { 'color': 'var(--nu-theme-color)' });
 set('background', { 'background-color': 'var(--nu-theme-background-color)' });
 set('special', { 'color': 'var(--nu-theme-special-color)' });
 set('transparent', { 'background-color': 'transparent' });
+set('swap-colors', { 'color': 'var(--nu-theme-background-color)', 'background-color': 'var(--nu-theme-color)'});
 
 export default Modifiers;
