@@ -38,6 +38,7 @@ import {
   extractColor,
   setAlphaChannel,
   generalizeColor,
+  getLuminance,
 } from './helpers';
 
 let featherPromise;
@@ -95,6 +96,7 @@ const Nude = {
     extractColor,
     setAlphaChannel,
     generalizeColor,
+    getLuminance,
   },
 };
 

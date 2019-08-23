@@ -65,6 +65,7 @@ export const THEME_COLOR_ATTRS_LIST = [
   'shadow-color',
   'heading-color',
   'hover-color',
+  'special-background-color',
 ];
 
 export const THEME_ATTRS_LIST = [

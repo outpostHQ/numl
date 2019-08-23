@@ -475,7 +475,6 @@ export default class NuElement extends NuBase {
     const lightStyles = stylesString(lightTheme);
     const darkStyles = stylesString(darkTheme);
 
-    // auto-dark mode
     if (matchMedia('(prefers-color-scheme)').matches) {
       injectCSS(`theme:${baseQuery}`, baseQuery, `
         @media (prefers-color-scheme: dark) {

@@ -1,16 +1,20 @@
-import { mixColors, invertColor, toKebabCase, extractColor, generalizeColor, getLuminance } from "./helpers";
+import { mixColors, invertColor, toKebabCase, extractColor, generalizeColor, getLuminance, contastRatio } from "./helpers";
 import { THEME_COLOR_ATTRS_LIST } from "./attrs";
 
 export function generateTheme(props, darkProps, parentProps) {
+  const color = generalizeColor(props.color || parentProps.color);
+  const backgroundColor = generalizeColor(props.backgroundColor || parentProps.backgroundColor);
+  const specialColor = generalizeColor(props.specialColor || parentProps.specialColor);
+
   const lightTheme = {
-    color: generalizeColor(props.color || parentProps.color),
-    backgroundColor: generalizeColor(props.backgroundColor || parentProps.backgroundColor),
+    color,
+    backgroundColor,
     borderColor: generalizeColor(props.borderColor || parentProps.borderColor),
-    specialColor: generalizeColor(props.specialColor || parentProps.specialColor),
+    specialColor,
     borderRadius: props.borderRadius || parentProps.borderRadius,
     borderWidth: props.borderWidth || parentProps.borderWidth,
     shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
-    specialBackgroundColor: generalizeColor(props.backgroundColor),
+    specialBackgroundColor: contastRatio(specialColor, color) > .4 ? color : backgroundColor,
     // Use parent shadow intensity value only if both shadow color and shadow intensity
     // are not specified in the props
     shadowIntensity: props.shadowIntensity || (!props.shadowColor && parentProps.shadowIntensity),

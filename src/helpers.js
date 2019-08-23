@@ -260,6 +260,10 @@ export function mixColors(clr1, clr2, pow = .5) {
   return colorString(color[0], color[1], color[2], 1);
 }
 
+export function contastRatio(clr1, clr2) {
+  return Math.abs(getLuminance(clr1) - getLuminance(clr2));
+}
+
 export function splitDimensions(style) {
   dimStyle.padding = style;
 
