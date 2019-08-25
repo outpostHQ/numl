@@ -14,7 +14,7 @@ export function generateTheme(props, darkProps, parentProps) {
     borderRadius: props.borderRadius || parentProps.borderRadius,
     borderWidth: props.borderWidth || parentProps.borderWidth,
     shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
-    specialBackgroundColor: contastRatio(specialColor, color) > .4 ? color : backgroundColor,
+    specialBackgroundColor: contastRatio(specialColor, color) > .5 ? color : backgroundColor,
     // Use parent shadow intensity value only if both shadow color and shadow intensity
     // are not specified in the props
     shadowIntensity: props.shadowIntensity || (!props.shadowColor && parentProps.shadowIntensity),
