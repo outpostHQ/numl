@@ -1,4 +1,4 @@
-import { convertUnit, getTheme, error, generateId, toCamelCase, toKebabCase } from '../helpers';
+import { convertUnit, getTheme, error, generateId, toCamelCase, toKebabCase, devMode, log, warn } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
 import NuBase from '../base';
@@ -213,7 +213,29 @@ export default class NuElement extends NuBase {
 
       if (!respEl) return;
 
-      const styles = value.split('|').map((val, i) => {
+      const values = value.split('|');
+      const styles = values.map((val, i) => {
+        // if default value
+        if (val && !val.trim()) return;
+
+        // if repeat value
+        if (!val) {
+          // if first element - nothing to repeat
+          if (!i) return;
+
+          for (let j = i - 1; j >= 0; j--) {
+            if (values[j]) {
+              val = values[j];
+              break;
+            }
+          }
+
+          if (!val) {
+            // nothing to repeat;
+            return;
+          }
+        }
+
         const stls = this.nuGenerate(name, val);
 
         return generateCSS(query, stls);
@@ -388,23 +410,14 @@ export default class NuElement extends NuBase {
 
     mediaPoints.push(`@media (max-width: calc(${tmpPoints.slice(-1)[0]} - 1px))`);
 
-    return (this.nuResponsiveDecorator = function(styles) {
+    return (this.nuResponsiveDecorator = (styles) => {
       return mediaPoints
         .map((point, i) => {
           let stls;
 
           if (styles[i]) {
-            stls = styles[i];
-          } else {
-            for (let j = i - 1; j >= 0; j--) {
-              if (styles[j]) {
-                stls = styles[j];
-                break;
-              }
-            }
+            return `${point}{\n${styles[i] || ''}\n}\n`;
           }
-
-          return `${point}{\n${stls || ''}\n}\n`;
         })
         .join('');
     });
@@ -414,12 +427,23 @@ export default class NuElement extends NuBase {
     let context = '', el = this;
 
     while (el = el.parentNode) {
-      if (el.getAttribute && el.getAttribute(attrName) && this.nuId) {
-        context = `#${this.nuId} ${context}`;
+      if (el.getAttribute && el.getAttribute(attrName) && el.nuId) {
+        context = `#${el.nuId} ${context}`;
       }
     };
 
     return context;
+  }
+
+  nuDebug(...args) {
+    if (devMode) {
+      const _this = this;
+      if (this.hasAttribute('debug')) {
+        log({ $: _this }, ...args);
+      }
+    } else {
+      warn('forgot nuDebug() call in production');
+    }
   }
 
   /**

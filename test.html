@@ -25,7 +25,7 @@
     </nd-mod>
 
     <nu-flex flow="column" gap="1">
-      <nu-card shadow theme responsive="960px">
+      <nu-card shadow theme>
         <nu-heading>Card 1</nu-heading>
 
         <nu-flex flow="column" gap="1">
@@ -34,10 +34,9 @@
               id="btn-group"
               value="two"
               width="40"
-              responsive="1280px"
               flow="row|column"
-              hidden="false|true"
-              items-padding=".5" size="1.6 2.5|1 1.5|.75 1|.5 .75">
+              debug
+              items-padding=".5" size="1.6 2.5| |.75 1|.5 .75">
               <nu-btn value="one" special>
                 <nu-icon name="zap" inline></nu-icon>
                 One
@@ -50,7 +49,7 @@
           <nu-line></nu-line>
 
           <nu-block>
-            <nu-tablist>
+            <nu-tablist gap="2||.5|0">
               <nu-tab controls="first">First</nu-tab>
               <nu-tab controls="second">Second</nu-tab>
               <nu-tab controls="third">Third</nu-tab>
