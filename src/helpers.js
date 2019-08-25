@@ -371,12 +371,18 @@ export function hslToRgb(h, s, l) {
   return [ Math.round(r * 255), Math.round(g * 255), Math.round(b * 255) ];
 }
 
-const STATES_MAP = {
+export const STATES_MAP = {
   'focus': '[nu-focus]',
   'hover': ':hover',
   'pressed': '[aria-pressed="true"]',
+  'active': '[nu-active]',
+  'sticky': '[nu-sticky]',
 };
 
+/**
+ *
+ * @param {String} attrValue
+ */
 export function splitStates(attrValue) {
   const tmp = attrValue.split(/\s+\:/g);
 
@@ -395,17 +401,18 @@ export function splitStates(attrValue) {
 
 /**
  * Calculate the style that needs to be applied based on corresponding attribute.
- * @param {string} name - Attribute name.
- * @param {string} value - Original attribute name.
+ * @param {String} name - Attribute name.
+ * @param {String} value - Original attribute name.
  * @param {Object} attrs - Map of attribute handlers.
- * @returns {string|Object|Array}
+ * @returns {String|Object|Array}
  */
 export function computeStyles(name, value, attrs) {
   if (value == null) return;
 
+  // Style splitter for states system
   if (value.includes(':')) {
+    // split values between states
     const states = splitStates(value);
-
 
     const arr = states.reduce((arr, state) => {
       const styles = (computeStyles(name, state.value, attrs) || [])

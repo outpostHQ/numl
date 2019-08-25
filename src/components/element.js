@@ -25,7 +25,7 @@ export default class NuElement extends NuBase {
 
   /**
    * Element ARIA Role.
-   * @returns {string}
+   * @returns {String}
    */
   static get nuRole() {
     return '';
@@ -33,7 +33,7 @@ export default class NuElement extends NuBase {
 
   /**
    * Element layout type.
-   * @returns {string} - `flex` | `grid`.
+   * @returns {String} - `flex` | `grid`.
    */
   static get nuDisplay() {
     return '';
@@ -109,7 +109,7 @@ export default class NuElement extends NuBase {
 
   /**
    * @private
-   * @returns {string[]}
+   * @returns {String[]}
    */
   static get nuAttrsList() {
     return Object.keys(this.nuAllAttrs);
@@ -117,7 +117,7 @@ export default class NuElement extends NuBase {
 
   /**
    * @private
-   * @returns {string[]}
+   * @returns {String[]}
    */
   static get observedAttributes() {
     return this.nuAttrsList;
@@ -156,7 +156,7 @@ export default class NuElement extends NuBase {
 
   /**
    * @private
-   * @param {string} name
+   * @param {String} name
    * @param {*} oldValue
    * @param {*} value
    */
@@ -170,7 +170,7 @@ export default class NuElement extends NuBase {
 
   /**
    * Create and apply CSS based on element's attributes.
-   * @param {string} name
+   * @param {String} name
    * @param {*} value
    * @param {*} force - replace current CSS rule
    */
@@ -256,10 +256,10 @@ export default class NuElement extends NuBase {
 
   /**
    * Calculate the style that needs to be applied based on corresponding attribute.
-   * @param {string} name - Attribute name.
-   * @param {string} value - Original attribute name.
+   * @param {String} name - Attribute name.
+   * @param {String} value - Original attribute name.
    * @param {Object} attrs - Map of attribute handlers.
-   * @returns {string|Object|Array}
+   * @returns {String|Object|Array}
    */
   nuComputeStyle(name, value, attrs) {
     const attrValue = attrs[name];
@@ -278,7 +278,7 @@ export default class NuElement extends NuBase {
 
   /**
    * Set aria attribute.
-   * @param {string} name
+   * @param {String} name
    * @param {*} value
    */
   nuSetAria(name, value) {
@@ -335,7 +335,7 @@ export default class NuElement extends NuBase {
 
   /**
    * React to the attribute change.
-   * @param {string} name
+   * @param {String} name
    * @param {*} value
    * @returns {Array}
    */

@@ -13,7 +13,7 @@ export const DEFAULTS_MAP = {};
 export default class NuBase extends HTMLElement {
   /**
    * Element tag name.
-   * @returns {string}
+   * @returns {String}
    */
   static get nuTag() {
     return '';
@@ -81,7 +81,7 @@ export default class NuBase extends HTMLElement {
 
   /**
    * @private
-   * @returns {string[]}
+   * @returns {String[]}
    */
   static get observedAttributes() {
     return this.nuAttrsList;
@@ -108,7 +108,7 @@ export default class NuBase extends HTMLElement {
 
   /**
    * @private
-   * @param {string} name
+   * @param {String} name
    * @param {*} oldValue
    * @param {*} value
    */
@@ -141,8 +141,8 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Set a local modifier
-   * @param {string} name
-   * @param {string|boolean|*} value - TRUE sets attribute without false, FALSE = removes attribute.
+   * @param {String} name
+   * @param {String|boolean|*} value - TRUE sets attribute without false, FALSE = removes attribute.
    */
   nuSetMod(name, value) {
     const mod = `nu-${name}`;
@@ -156,7 +156,7 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Check if element have a local modifier with specific name.
-   * @param {string} name
+   * @param {String} name
    * @returns {boolean}
    */
   nuHasMod(name) {
@@ -171,7 +171,7 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Emit custom event.
-   * @param {string} name
+   * @param {String} name
    * @param {*} detail
    */
   nuEmit(name, detail = null) {
@@ -198,7 +198,7 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Get parent that satisfies specified selector
-   * @param {string} selector
+   * @param {String} selector
    */
   nuQueryParent(selector) {
     return getParent(this, selector);
@@ -206,7 +206,7 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Get closest element that satisfies specified selector
-   * @param {string} selector
+   * @param {String} selector
    */
   nuInvertQuery(selector) {
     return invertQuery(this, selector);
