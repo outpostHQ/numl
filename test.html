@@ -44,7 +44,7 @@
                 <nu-icon name="zap" inline></nu-icon>
                 One
               </nu-btn>
-              <nu-btn value="two" background=":pressed{limegreen}">
+              <nu-btn value="two" background="purple :pressed{limegreen}">
                 Two
               </nu-btn>
               <nu-btn disabled value="three">Three</nu-btn>
@@ -119,9 +119,8 @@
 
   </nu-block>
 
-  <nu-grid flow="column" padding="1" gap="1" items="start" theme="!primary">
-      <nd-theme
-      name="primary"
+  <nu-grid flow="column" padding="1" gap="1" items="start">
+    <nd-theme
       color="#1885d9"
       background-color="#fff"
       special-color="#1885d9"
@@ -134,7 +133,7 @@
 
        <nu-line></nu-line>
 
-       <nu-card theme="!" mod="xs" padding="1">
+       <nu-card theme="primary" mod="xs" padding="1">
          <nu-switch></nu-switch>
        </nu-card>
 

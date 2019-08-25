@@ -12,7 +12,6 @@ const plugins = {
 };
 
 const RESPONSIVE_ATTR = 'responsive';
-const THEME_ATTR = 'theme';
 
 /**
  * @class
@@ -345,9 +344,6 @@ export default class NuElement extends NuBase {
 
   nuChanged(name, oldValue, value) {
     switch (name) {
-      case THEME_ATTR:
-        // this.nuUpdateTheme(value);
-        break;
       case RESPONSIVE_ATTR:
         generateId(this);
 
@@ -454,8 +450,6 @@ export default class NuElement extends NuBase {
 
     generateId(this);
 
-    this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));
-
     const parentStyles = window.getComputedStyle(this.parentNode);
     const parentProps = THEME_ATTRS_LIST.reduce((map, name) => {
       const propName = `--nu-theme-${toKebabCase(name)}`;
@@ -519,6 +513,8 @@ export default class NuElement extends NuBase {
       light: lightStyles,
       dark: darkStyles
     };
+
+    this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));
 
     [...this.querySelectorAll('[nd-theme]')]
       .filter(el => el.parentNode !== this) // || ((name === 'default') && !el.hasAttribute(''))

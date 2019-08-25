@@ -154,7 +154,7 @@ Object.values(Nude.elements).forEach(customElement => {
       .forEach(name => {
         const value = allDefaults[name];
 
-        if (!value) return;
+        if (value == null) return;
 
         const styles = computeStyles(name, String(value), allAttrs);
 
