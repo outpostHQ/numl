@@ -403,8 +403,17 @@ export default class NuElement extends NuBase {
           let stls;
 
           if (styles[i]) {
-            return `${point}{\n${styles[i] || ''}\n}\n`;
+            stls = styles[i];
+          } else {
+            for (let j = i - 1; j >= 0; j--) {
+              if (styles[j]) {
+                stls = styles[j];
+                break;
+              }
+            }
           }
+
+          return `${point}{\n${stls || ''}\n}\n`;
         })
         .join('');
     });
