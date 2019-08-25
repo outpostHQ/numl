@@ -371,6 +371,28 @@ export function hslToRgb(h, s, l) {
   return [ Math.round(r * 255), Math.round(g * 255), Math.round(b * 255) ];
 }
 
+const STATES_MAP = {
+  'focus': '[nu-focus]',
+  'hover': ':hover',
+  'pressed': '[aria-pressed="true"]',
+};
+
+export function splitStates(attrValue) {
+  const tmp = attrValue.split(/\s+\:/g);
+
+  return tmp.map(val => {
+    const tmp2 = val.replace(/^\:/, '').split(/\{|\}/g);
+
+    if (tmp2.length === 1) {
+      return { $suffix: '', value: val };
+    }
+
+    const state = STATES_MAP[tmp2[0]];
+
+    return state ? { $suffix: state, value: tmp2[1] } : null;
+  }).filter(val => val);
+}
+
 /**
  * Calculate the style that needs to be applied based on corresponding attribute.
  * @param {string} name - Attribute name.
@@ -380,6 +402,30 @@ export function hslToRgb(h, s, l) {
  */
 export function computeStyles(name, value, attrs) {
   if (value == null) return;
+
+  if (value.includes(':')) {
+    const states = splitStates(value);
+
+
+    const arr = states.reduce((arr, state) => {
+      const styles = (computeStyles(name, state.value, attrs) || [])
+        .map(stls => {
+          if (state.$suffix) {
+            stls.$suffix = `${state.$suffix}${stls.suffix || ''}`;
+          }
+
+          return stls;
+        });
+
+      if (styles.length) {
+        arr.push(...styles);
+      }
+
+      return arr;
+    }, []);
+
+    return arr;
+  }
 
   const attrValue = attrs[name];
 

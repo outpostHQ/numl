@@ -40,6 +40,7 @@ import {
   generalizeColor,
   getLuminance,
   computeStyles,
+  splitStates,
 } from './helpers';
 
 let featherPromise;
@@ -98,6 +99,7 @@ const Nude = {
     setAlphaChannel,
     generalizeColor,
     getLuminance,
+    splitStates,
   },
 };
 
