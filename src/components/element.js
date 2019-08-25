@@ -1,4 +1,4 @@
-import { convertUnit, getTheme, error, generateId, toCamelCase, toKebabCase, devMode, log, warn } from '../helpers';
+import { convertUnit, generateId, toCamelCase, toKebabCase } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
 import NuBase from '../base';
@@ -169,7 +169,7 @@ export default class NuElement extends NuBase {
    * @param {*} value
    */
   attributeChangedCallback(name, oldValue, value) {
-    this.nuChanged(name, oldValue, value);
+    super.attributeChangedCallback(name, oldValue, value);
 
     if (value == null || !this.constructor.nuAllAttrs[name]) return;
 
@@ -433,17 +433,6 @@ export default class NuElement extends NuBase {
     };
 
     return context;
-  }
-
-  nuDebug(...args) {
-    if (devMode) {
-      const _this = this;
-      if (this.hasAttribute('debug')) {
-        log({ $: _this }, ...args);
-      }
-    } else {
-      warn('forgot nuDebug() call in production');
-    }
   }
 
   /**

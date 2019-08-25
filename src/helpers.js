@@ -117,34 +117,6 @@ export function error(...args) {
   }
 }
 
-/**
- * Get full theme name from the attribute.
- * @param {string} attr
- * @param {boolean} invert - Set true to retrieve invert theme
- * @returns {string}
- */
-export function getTheme(attr, invert = false) {
-  let theme = '';
-
-  if (attr == null || attr === '') {
-    theme = `${invert ? '!' : ''}current`;
-  } else if (attr === '!') {
-    theme = `${invert ? '' : '!'}current`;
-  } else {
-    theme = attr;
-
-    if (invert) {
-      if (theme.startsWith('!')) {
-        theme = theme.slice(1);
-      } else {
-        theme = `!${theme}`;
-      }
-    }
-  }
-
-  return theme;
-}
-
 let globalId = 0;
 let nuId = 0;
 

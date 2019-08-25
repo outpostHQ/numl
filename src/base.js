@@ -1,5 +1,5 @@
-import { attrsQuery, injectStyleTag } from './css';
-import { getParent, invertQuery, generateId } from './helpers';
+import { attrsQuery } from './css';
+import { getParent, invertQuery, generateId, devMode, warn, log } from './helpers';
 
 export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 
@@ -91,6 +91,12 @@ export default class NuBase extends HTMLElement {
    * @param {*} value
    */
   attributeChangedCallback(name, oldValue, value) {
+    if (devMode) {
+      if (this.hasAttribute('debug')) {
+        this.nuDebug('attribute changed', { name, oldValue, value });
+      }
+    }
+
     this.nuChanged(name, oldValue, value);
   }
 
@@ -182,5 +188,16 @@ export default class NuBase extends HTMLElement {
    */
   nuInvertQuery(selector) {
     return invertQuery(this, selector);
+  }
+
+  nuDebug(...args) {
+    if (devMode) {
+      const _this = this;
+      if (this.hasAttribute('debug')) {
+        log({ $: _this }, ...args);
+      }
+    } else {
+      warn('forgot nuDebug() call in production');
+    }
   }
 }
