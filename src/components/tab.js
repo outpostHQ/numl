@@ -10,12 +10,19 @@ export default class NuTab extends NuAbstractBtn {
     return 'tab';
   }
 
+  static get nuDefaults() {
+    return {
+      padding: '.5 0',
+      background: 'transparent',
+      radius: 0,
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
         --nu-toggle-color: transparent;
         --nu-depth-color: transparent;
-        --nu-border-radius: 0;
         --nu-border-color: transparent;
         --nu-focus-inset: inset 0 0;
 
@@ -24,11 +31,6 @@ export default class NuTab extends NuAbstractBtn {
         --nu-border-width: 0;
         --nu-border-shadow: var(--nu-border-inset) 0 var(--nu-border-width) var(--nu-border-color);
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
-
-        padding: .5rem 0;
-        background-color: transparent;
-        align-items: center;
-        justify-items: center;
       }
 
       ${nuTag}[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
@@ -38,7 +40,7 @@ export default class NuTab extends NuAbstractBtn {
       }
 
       ${nuTag}[special] {
-        color: var(--nu-theme-special-color);
+        color: var(--nu-theme-special-color) !important;
       }
 
       ${nuTag}:not([disabled])[tabindex]:hover {

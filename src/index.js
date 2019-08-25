@@ -1,5 +1,5 @@
 import './global.css';
-import css, { injectStyleTag } from './css';
+import css, { injectStyleTag, generateCSS, injectCSS } from './css';
 import modifiers from './modifiers';
 // elements
 import NuElement from './components/element';
@@ -39,6 +39,7 @@ import {
   setAlphaChannel,
   generalizeColor,
   getLuminance,
+  computeStyles,
 } from './helpers';
 
 let featherPromise;
@@ -142,7 +143,27 @@ Object.values(Nude.elements).forEach(customElement => {
       css = `${el.nuCSS(this)}${css}`;
     } while ((el = el.nuParent));
 
-    injectStyleTag(css, tag);
+    const allAttrs = customElement.nuAllAttrs;
+    const allDefaults = customElement.nuAllDefaults;
+
+    let defaultsCSS = '';
+
+    Object.keys(allDefaults)
+      .forEach(name => {
+        const value = allDefaults[name];
+
+        if (!value) return;
+
+        const styles = computeStyles(name, String(value), allAttrs);
+
+        if (!styles) return;
+
+        const query = name === 'mod' ? tag : `${tag}:not([${name}="${value}"])`;
+
+        defaultsCSS += generateCSS(query, styles);
+      });
+
+    injectStyleTag(`${css}${defaultsCSS}`, tag);
 
     customElements.define(tag, this);
 

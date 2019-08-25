@@ -1,22 +1,16 @@
-import NuGrid from './grid';
+import NuFlex from './flex';
 
-export default class NuPane extends NuGrid {
+export default class NuPane extends NuFlex {
   static get nuTag() {
     return 'nu-pane';
   }
 
-  static nuCSS({ nuTag }) {
-    return `
-      ${nuTag}{
-        grid-template-rows: auto;
-        grid-template-columns: auto auto;
-        align-content: stretch;
-        justify-content: space-between;
-        align-items: center;
-        justify-items: center;
-        grid-gap: .5rem;
-        width: 100%;
-      }
-    `;
+  static get nuDefaults() {
+    return {
+      'place-content': 'stretch space-between',
+      'place-items': 'center',
+      gap: .5,
+      width: '100%',
+    };
   }
 }

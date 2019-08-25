@@ -5,17 +5,21 @@ export default class NuCard extends NuBlock {
     return 'nu-card';
   }
 
+  static get nuDefaults() {
+    return {
+      padding: 1,
+      background: '',
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
         --nu-border-radius: var(--nu-theme-border-radius);
         --nu-border-shadow: var(--nu-border-inset, 0 0) 0 var(--nu-theme-border-width) var(--nu-theme-border-color);
 
-        display: block;
         position: relative;
-        padding: 1rem;
         scrollbar-width: none;
-        background-color: var(--nu-theme-background-color);
       }
     `;
   }

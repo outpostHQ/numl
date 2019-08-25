@@ -15,10 +15,6 @@ export default class NuAbstractBtn extends NuBlock {
     return 'inline-block';
   }
 
-  static get nuDefaultFlow() {
-    return 'column';
-  }
-
   static get nuAttrs() {
     return {
       disabled: '',
@@ -29,12 +25,21 @@ export default class NuAbstractBtn extends NuBlock {
     };
   }
 
+  static get nuDefaults() {
+    return {
+      padding: '.5',
+      color: 'inherit',
+      background: '',
+      radius: '',
+      mod: 'center nowrap',
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
         --nu-toggle-color: transparent;
         --nu-depth-color: transparent;
-        /* --nu-border-radius: var(--nu-theme-border-radius); */
         --nu-border-color: var(--nu-theme-border-color);
 
         --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
@@ -44,11 +49,7 @@ export default class NuAbstractBtn extends NuBlock {
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
         position: relative;
-        border-radius: var(--nu-border-radius, .5rem);
-        padding: .5rem;
-        color: inherit;
         text-align: center;
-
         box-shadow: var(--nu-border-shadow),
           var(--nu-toggle-shadow),
           var(--nu-focus-background-shadow),
@@ -59,7 +60,6 @@ export default class NuAbstractBtn extends NuBlock {
         opacity: 1;
         z-index: 0; /* to make :hover::after z-index work as expected */
         box-sizing: border-box;
-        white-space: nowrap;
       }
 
       ${nuTag}[tabindex] {

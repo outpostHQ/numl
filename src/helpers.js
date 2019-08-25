@@ -370,3 +370,32 @@ export function hslToRgb(h, s, l) {
 
   return [ Math.round(r * 255), Math.round(g * 255), Math.round(b * 255) ];
 }
+
+/**
+ * Calculate the style that needs to be applied based on corresponding attribute.
+ * @param {string} name - Attribute name.
+ * @param {string} value - Original attribute name.
+ * @param {Object} attrs - Map of attribute handlers.
+ * @returns {string|Object|Array}
+ */
+export function computeStyles(name, value, attrs) {
+  if (value == null) return;
+
+  const attrValue = attrs[name];
+
+  if (!attrValue) return null;
+
+  switch (typeof attrValue) {
+    case 'string':
+      return value ? [{ [attrValue]: value }] : null;
+    case 'function':
+      const styles = attrValue(value);
+
+      if (!styles) return null;
+
+      // normalize to array
+      return Array.isArray(styles) ? styles : [styles];
+    default:
+      return null;
+  }
+}

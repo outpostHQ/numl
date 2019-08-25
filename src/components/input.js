@@ -1,10 +1,10 @@
 import {
   unit,
 } from '../helpers';
-import NuGrid from './grid';
+import NuBlock from './block';
 import focusable from '../mixins/focusable';
 
-export default class NuInput extends NuGrid {
+export default class NuInput extends NuBlock {
   static get nuTag() {
     return 'nu-input';
   }
@@ -24,29 +24,31 @@ export default class NuInput extends NuGrid {
     return 'column';
   }
 
+  static get nuDefaults() {
+    return {
+      flow: 'column',
+      radius: '',
+      padding: .5,
+      mod: 'center',
+      background: '',
+    }
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
         --nu-border-color: var(--nu-theme-border-color);
         --nu-depth-color: transparent;
-        --nu-border-radius: var(--border-radius, .5rem);
-        --nu-padding: .5rem;
 
         --nu-border-shadow: 0 0 0 var(--nu-theme-border-width) var(--nu-border-color) inset;
         --nu-depth-shadow: 0 0 0 var(--nu-theme-border-width) var(--nu-depth-color);
 
         position: relative;
-        border-radius: var(--nu-border-radius);
         align-self: stretch;
         justify-self: stretch;
-        align-items: stretch;
-        justify-items: stretch;
-        grid-auto-flow: column;
-        background-color: var(--nu-theme-background-color);
         box-shadow: var(--nu-focus-background-shadow);
         transition: box-shadow var(--nu-theme-animation-time) linear;
         outline: none;
-        text-align: center;
       }
 
       ${nuTag}::after {

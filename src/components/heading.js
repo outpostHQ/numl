@@ -15,7 +15,17 @@ export default class NuHeading extends NuBlock {
 
   static get nuAttrs() {
     return {
-      level: '',
+      level(val) {
+        if (!val || !LEVELS.includes(Number(val))) val = 1;
+
+        return [{
+          $suffix: ':not([size])',
+          'font-size': `${SIZES[`h${val}`][0]}rem`,
+          'line-height': `${SIZES[`h${val}`][1]}rem`,
+        }, {
+          'font-weight': `${SIZES[`h${val}`][2]}`,
+        }];
+      },
     };
   }
 
@@ -23,25 +33,11 @@ export default class NuHeading extends NuBlock {
     return 1;
   }
 
-  static nuCSS({ nuTag, nuDefaultLevel }) {
-    return `
-      ${LEVELS.map(level => {
-        return `
-          ${nuTag}:not([color]){
-            color: var(--nu-theme-heading-color);
-          }
-          ${nuTag}[level="${level}"]:not([size])
-          ${level === nuDefaultLevel ? `,${nuTag}:not([level]):not([size])` : ''}{
-            font-size: ${SIZES[`h${level}`][0]}rem;
-            line-height: ${SIZES[`h${level}`][1]}rem;
-          }
-          ${nuTag}[level="${level}"]
-          ${level === nuDefaultLevel ? `,${nuTag}:not([level])` : ''} {
-            font-weight: ${SIZES[`h${level}`][2]};
-          }
-        `;
-      }).join('\n')}
-    `;
+  static get nuDefaults() {
+    return {
+      level: 1,
+      color: 'var(--nu-theme-heading-color)',
+    };
   }
 
   get getDefaultLevel() {

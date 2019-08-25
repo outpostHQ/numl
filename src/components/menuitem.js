@@ -10,6 +10,13 @@ export default class NuMenuitem extends NuAbstractBtn {
     return 'menuitem';
   }
 
+  static get nuDefaults() {
+    return {
+      background: 'transparent',
+      width: '100%',
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
@@ -23,10 +30,6 @@ export default class NuMenuitem extends NuAbstractBtn {
         --nu-border-width: 0;
         --nu-border-shadow: var(--nu-border-inset) 0 var(--nu-border-width) var(--nu-border-color);
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
-
-        padding: .5rem;
-        background-color: transparent;
-        width: 100%;
       }
 
       ${nuTag}:not([disabled])[tabindex]:hover::after {
@@ -39,8 +42,8 @@ export default class NuMenuitem extends NuAbstractBtn {
       }
 
       ${nuTag}[special] {
-        background-color: var(--nu-theme-special-color);
-        color: var(--nu-theme-special-background-color);
+        background-color: var(--nu-theme-special-color) !important;
+        color: var(--nu-theme-special-background-color) !important;
       }
     `;
   }

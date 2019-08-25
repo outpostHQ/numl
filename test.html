@@ -25,16 +25,19 @@
     </nd-mod>
 
     <nu-flex flow="column" gap="1">
-      <nu-card shadow theme>
-        <nu-heading>Card 1</nu-heading>
+      <nu-card shadow theme radius="1">
+        <nu-pane>
+          <nu-heading>Card 1</nu-heading>
+          <nu-btn>Card action</nu-btn>
+        </nu-pane>
 
         <nu-flex flow="column" gap="1">
           <nu-block>
             <nu-btn-group
               id="btn-group"
               value="two"
-              width="40"
-              flow="row|column"
+              width="40|100%"
+              flow="row|column||"
               debug
               items-padding=".5" size="1.6 2.5| |.75 1|.5 .75">
               <nu-btn value="one" special>

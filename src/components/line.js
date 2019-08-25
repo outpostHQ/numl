@@ -23,7 +23,6 @@ export default class NuLine extends NuBlock {
       ${nuTag} {
         --nu-line-size: var(--nu-theme-border-width);
 
-        display: block;
         position: relative;
         line-height: 0;
         align-self: stretch;

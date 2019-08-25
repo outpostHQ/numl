@@ -5,8 +5,10 @@ export default class NuFlow extends NuFlex {
     return 'nu-flow';
   }
 
-  static get nuDefaultFlow() {
-    return 'column';
+  static get nuDefaults() {
+    return {
+      flow: 'column',
+    };
   }
 
   static nuCSS({ nuTag }) {

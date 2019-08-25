@@ -7,6 +7,10 @@ export default class NuSwitch extends NuBlock {
     return 'nu-switch';
   }
 
+  static get nuDisplay() {
+    return 'inline-block';
+  }
+
   static get nuRole() {
     return 'switch';
   }
@@ -39,7 +43,6 @@ export default class NuSwitch extends NuBlock {
         --nu-circle-background-color: var(--nu-theme-color);
 
         position: relative;
-        display: inline-block;
         width: calc(var(--nu-size) * 2);
         height: var(--nu-size);
         border-radius: var(--nu-border-radius);

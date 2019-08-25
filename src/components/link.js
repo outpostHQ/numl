@@ -7,21 +7,29 @@ export default class NuBadge extends NuElement {
     return 'nu-link';
   }
 
+  static get nuDisplay() {
+    return 'inline-block';
+  }
+
   static get nuRole() {
     return 'link';
+  }
+
+  static get nuDefaults() {
+    return {
+      color: 'inherit',
+      mod: 'nowrap',
+      cursor: 'pointer',
+    };
   }
 
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
         position: relative;
-        display: inline-block;
-        color: inherit;
-        white-space: nowrap;
         transition: box-shadow var(--nu-theme-animation-time) linear;
         text-decoration: underline;
         font-weight: bolder;
-        cursor: pointer;
         box-shadow: inset 0 -0.1875em transparent;
         outline: none;
       }
@@ -58,7 +66,7 @@ export default class NuBadge extends NuElement {
       }
 
       ${nuTag}[special] {
-        color: var(--nu-theme-special-color);
+        color: var(--nu-theme-special-color) !important;
       }
     `;
   }

@@ -13,19 +13,16 @@ export default class NuGrid extends NuBlock {
     return 'grid';
   }
 
-  static get nuDefaultFlow() {
-    return 'row';
+  static get nuDefaults() {
+    return {
+      flow: 'row',
+    };
   }
 
-  static nuCSS({ nuTag, nuDefaultFlow }) {
-    const flows = ['row', 'column'];
-
+  static nuCSS({ nuTag }) {
     return `
       ${nuTag}{display:grid;}
       ${nuTag}[inline]{display:inline-grid;}
-      ${flows.map((flow, i) => `
-        ${nuTag}${flow === nuDefaultFlow ? ':not([flow])' : `[flow="${flow}"]`}{grid-auto-flow: ${flow};}
-      `).join('')}
     `;
   }
 

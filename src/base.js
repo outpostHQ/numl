@@ -4,6 +4,7 @@ import { getParent, invertQuery, generateId, devMode, warn, log } from './helper
 export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 
 export const ATTRS_MAP = {};
+export const DEFAULTS_MAP = {};
 
 /**
  * @class
@@ -55,6 +56,27 @@ export default class NuBase extends HTMLElement {
 
   static get nuAttrsList() {
     return [];
+  }
+
+  /**
+   * Element default attribute values.
+   * They are used only to generate initial CSS for elements.
+   */
+  static get nuDefaults() {
+    return {};
+  }
+
+  /**
+   * @private
+   */
+  static get nuAllDefaults() {
+    return (
+      DEFAULTS_MAP[this.nuTag] ||
+      (DEFAULTS_MAP[this.nuTag] = {
+        ...(this.nuParent.nuAllDefaults || {}),
+        ...this.nuDefaults,
+      })
+    );
   }
 
   /**

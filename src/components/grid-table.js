@@ -16,11 +16,17 @@ export default class NuGridTable extends NuGrid {
     };
   }
 
+  static get nuDefaults() {
+    return {
+      gap: 'var(--nu-theme-border-width)',
+      background: 'var(--nu-theme-border-color)',
+      color: 'var(--nu-theme-color)',
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
-        background-color: var(--nu-theme-border-color) !important;
-        color: var(--nu-theme-color, #333);
         overflow: auto;
       }
       ${nuTag}:not([gap]) {

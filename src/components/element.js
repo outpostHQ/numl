@@ -1,4 +1,4 @@
-import { convertUnit, generateId, toCamelCase, toKebabCase } from '../helpers';
+import { convertUnit, generateId, toCamelCase, toKebabCase, computeStyles } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
 import NuBase from '../base';
@@ -40,14 +40,6 @@ export default class NuElement extends NuBase {
   }
 
   /**
-   * Element default flow. Only for flex and grid layouts.
-   * @returns {string} - `row` | `row-reverse` | `column` | `column-reverse`.
-   */
-  static get nuDefaultFlow() {
-    return 'row';
-  }
-
-  /**
    * Element attribute config.
    * @returns {Object}
    */
@@ -58,8 +50,10 @@ export default class NuElement extends NuBase {
 
         return {
           color: val
-            ? (val !== 'special' ? val : 'var(--nu-theme-special-color)')
-            : 'var(--nu-theme-color)',
+            ? val !== 'special'
+              ? val
+              : 'var(--nu-theme-special-color)'
+            : 'var(--nu-theme-color)'
         };
       },
       background(val) {
@@ -67,8 +61,10 @@ export default class NuElement extends NuBase {
 
         return {
           background: val
-            ? (val !== 'special' ? val : 'var(--nu-theme-special-color)')
-            : 'var(--nu-theme-background-color)',
+            ? val !== 'special'
+              ? val
+              : 'var(--nu-theme-special-color)'
+            : 'var(--nu-theme-background-color)'
         };
       },
       mod(val) {
@@ -125,10 +121,6 @@ export default class NuElement extends NuBase {
    */
   static get observedAttributes() {
     return this.nuAttrsList;
-  }
-
-  get nuDefaultFlow() {
-    return this.constructor.nuDefaultFlow;
   }
 
   get nuRole() {
@@ -188,7 +180,10 @@ export default class NuElement extends NuBase {
     let query;
 
     if (isResponsive) {
-      query = `${this.nuGetContext(RESPONSIVE_ATTR)}${this.nuGetQuery({ [name]: value }, this.getAttribute(RESPONSIVE_ATTR))}`;
+      query = `${this.nuGetContext(RESPONSIVE_ATTR)}${this.nuGetQuery(
+        { [name]: value },
+        this.getAttribute(RESPONSIVE_ATTR)
+      )}`;
     } else {
       query = this.nuGetQuery({ [name]: value });
     }
@@ -236,7 +231,7 @@ export default class NuElement extends NuBase {
           }
         }
 
-        const stls = this.nuGenerate(name, val);
+        const stls = computeStyles(name, val, this.constructor.nuAllAttrs);
 
         return generateCSS(query, stls);
       });
@@ -250,7 +245,7 @@ export default class NuElement extends NuBase {
       return;
     }
 
-    let styles = this.nuGenerate(name, value);
+    let styles = computeStyles(name, value, this.constructor.nuAllAttrs);
 
     const css = generateCSS(query, styles);
 
@@ -261,12 +256,13 @@ export default class NuElement extends NuBase {
 
   /**
    * Calculate the style that needs to be applied based on corresponding attribute.
-   * @param {string} name - attribute name
-   * @param {string} value - original attribute name
-   * @returns {string|Object}
+   * @param {string} name - Attribute name.
+   * @param {string} value - Original attribute name.
+   * @param {Object} attrs - Map of attribute handlers.
+   * @returns {string|Object|Array}
    */
-  nuComputeStyle(name, value) {
-    const attrValue = this.constructor.nuAllAttrs[name];
+  nuComputeStyle(name, value, attrs) {
+    const attrValue = attrs[name];
 
     if (!attrValue) return null;
 
@@ -298,7 +294,9 @@ export default class NuElement extends NuBase {
   }
 
   nuGetQuery(attrs = {}, useId) {
-    return `${useId ? '' : this.constructor.nuTag}${useId ? `#${this.nuId}` : ''}${attrsQuery(attrs)}`;
+    return `${useId ? '' : this.constructor.nuTag}${useId ? `#${this.nuId}` : ''}${attrsQuery(
+      attrs
+    )}`;
   }
 
   /**
@@ -333,9 +331,7 @@ export default class NuElement extends NuBase {
    * Called when element is connected to the DOM.
    * Can be called twice or more.
    */
-  nuMounted() {
-
-  }
+  nuMounted() {}
 
   /**
    * React to the attribute change.
@@ -344,16 +340,7 @@ export default class NuElement extends NuBase {
    * @returns {Array}
    */
   nuGenerate(name, value) {
-    switch (name) {
-      default:
-        if (value == null) return;
-
-        const computed = this.nuComputeStyle(name, value);
-
-        if (!computed) return;
-
-        return Array.isArray(computed) ? computed : [computed];
-    }
+    return computeStyles(name, value, this.constructor.nuAllAttrs);
   }
 
   nuChanged(name, oldValue, value) {
@@ -393,7 +380,7 @@ export default class NuElement extends NuBase {
     this.nuReponsiveFor = points;
 
     if (!points) {
-      return this.nuResponsiveDecorator = (styles) => styles;
+      return (this.nuResponsiveDecorator = styles => styles);
     }
 
     const tmpPoints = points.split(/\|/);
@@ -410,7 +397,7 @@ export default class NuElement extends NuBase {
 
     mediaPoints.push(`@media (max-width: calc(${tmpPoints.slice(-1)[0]} - 1px))`);
 
-    return (this.nuResponsiveDecorator = (styles) => {
+    return (this.nuResponsiveDecorator = styles => {
       return mediaPoints
         .map((point, i) => {
           let stls;
@@ -424,13 +411,14 @@ export default class NuElement extends NuBase {
   }
 
   nuGetContext(attrName) {
-    let context = '', el = this;
+    let context = '',
+      el = this;
 
-    while (el = el.parentNode) {
+    while ((el = el.parentNode)) {
       if (el.getAttribute && el.getAttribute(attrName) && el.nuId) {
         context = `#${el.nuId} ${context}`;
       }
-    };
+    }
 
     return context;
   }
@@ -451,7 +439,7 @@ export default class NuElement extends NuBase {
     if (name !== 'default' && this.nuThemes.default) {
       props = {
         ...this.nuThemes.default,
-        ...props,
+        ...props
       };
     }
 
@@ -472,7 +460,7 @@ export default class NuElement extends NuBase {
     }, {});
 
     [props, darkProps].forEach(themeProps => {
-      Object.keys(themeProps).forEach((name) => {
+      Object.keys(themeProps).forEach(name => {
         if (themeProps[name] && ~themeProps[name].indexOf('var(')) {
           const varName = themeProps[name].trim().slice(4, -1);
 
@@ -489,7 +477,10 @@ export default class NuElement extends NuBase {
     const darkStyles = stylesString(darkTheme);
 
     if (matchMedia('(prefers-color-scheme)').matches) {
-      injectCSS(`theme:${baseQuery}`, baseQuery, `
+      injectCSS(
+        `theme:${baseQuery}`,
+        baseQuery,
+        `
         @media (prefers-color-scheme: dark) {
           html:not(.nu-prefers-color-scheme-light) ${baseQuery}:not([light]){${darkStyles}}
           html.nu-prefers-color-scheme-light ${baseQuery}:not([dark]){${lightStyles}}
@@ -500,23 +491,28 @@ export default class NuElement extends NuBase {
         }
         ${baseQuery} [dark]{${darkStyles}}
         ${baseQuery} [light]{${lightStyles}}
-      `);
+      `
+      );
     } else {
-      injectCSS(`theme:${baseQuery}`, baseQuery, `
+      injectCSS(
+        `theme:${baseQuery}`,
+        baseQuery,
+        `
         html:not(.nu-prefers-color-scheme-dark) ${baseQuery}:not([dark]){${lightStyles}}
           html.nu-prefers-color-scheme-dark ${baseQuery}:not([light]){${darkStyles}}
         ${baseQuery} [dark]{${darkStyles}}
         ${baseQuery} [light]{${lightStyles}}
-      `);
+      `
+      );
     }
 
     this.nuThemes[name] = {
       light: lightStyles,
-      dark: darkStyles,
+      dark: darkStyles
     };
 
     [...this.querySelectorAll('[nd-theme]')]
-      .filter(el => el.parentNode !== this)// || ((name === 'default') && !el.hasAttribute(''))
+      .filter(el => el.parentNode !== this) // || ((name === 'default') && !el.hasAttribute(''))
       .forEach(el => el.nuApply());
   }
 }

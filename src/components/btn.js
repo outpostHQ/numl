@@ -5,6 +5,12 @@ export default class NuBtn extends NuAbstractBtn {
     return 'nu-btn';
   }
 
+  static get nuDefaults() {
+    return {
+      padding: '.5 1',
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
@@ -18,14 +24,6 @@ export default class NuBtn extends NuAbstractBtn {
         --nu-border-width: var(--nu-theme-border-width);
         --nu-border-shadow: var(--nu-border-inset) 0 var(--nu-border-width) var(--nu-border-color);
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
-
-        border-radius: var(--nu-border-radius, .5rem);
-        align-items: center;
-        justify-items: center;
-        grid-gap: .5rem;
-        padding: .5rem 1rem;
-        color: inherit;
-        background-color: var(--nu-theme-background-color);
       }
 
       ${nuTag}:not([disabled])::after {
@@ -55,8 +53,8 @@ export default class NuBtn extends NuAbstractBtn {
 
       ${nuTag}[special] {
         --nu-theme-shadow-intensity: var(--nu-theme-special-shadow-intensity);
-        background-color: var(--nu-theme-special-color);
-        color: var(--nu-theme-special-background-color);
+        background-color: var(--nu-theme-special-color) !important;
+        color: var(--nu-theme-special-background-color) !important;
       }
 
       ${nuTag}[cell] {
@@ -65,8 +63,8 @@ export default class NuBtn extends NuAbstractBtn {
 
         align-self: stretch;
         justify-self: stretch;
-        width: 100%;
-        height: 100%;
+        width: 100% !important;
+        height: 100% !important;
       }
     `;
   }
