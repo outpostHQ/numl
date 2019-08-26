@@ -50,6 +50,15 @@ export default class NdTheme extends NuDecorator {
     setTimeout(() => this.nuApply());
   }
 
+  nuDestroyed() {
+    super.nuDestroyed();
+
+    const name = this.getAttribute('name');
+
+    // remove theme
+    this.nuParent.nuDeclareTheme(name || 'default');
+  }
+
   nuApply() {
     const name = this.getAttribute('name');
     let theme = extractTheme(this);

@@ -192,7 +192,9 @@ export default class NuBase extends HTMLElement {
    */
   nuGenerate(name, value) {}
 
-  nuMounted() {}
+  nuMounted() {
+    setTimeout(() => (this.nuParent = this.parentNode));
+  }
 
   nuDestroyed() {}
 

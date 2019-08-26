@@ -442,6 +442,14 @@ export default class NuElement extends NuBase {
    * @param {Object} props
    */
   nuDeclareTheme(name, props, darkProps = {}) {
+    if (this.nuThemes[name]
+      && this.nuThemes[name].styleElement
+      && this.nuThemes[name].styleElement.parentNode) {
+      let el = this.nuThemes[name].styleElement;
+
+      el.parentNode.removeChild(el);
+    }
+
     if (!props) {
       delete this.nuThemes[name];
       this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));
@@ -451,7 +459,10 @@ export default class NuElement extends NuBase {
 
     if (name !== 'default' && this.nuThemes.default) {
       props = {
-        ...this.nuThemes.default,
+        ...({
+          ...this.nuThemes.default.light,
+          ...this.nuThemes.default.dark,
+        }),
         ...props
       };
     }
@@ -500,8 +511,10 @@ export default class NuElement extends NuBase {
       ${baseQuery}{${forceLightStyles}${forceDarkStyles}}
     `;
 
+    let styleElement;
+
     if (matchMedia('(prefers-color-scheme)').matches) {
-      injectCSS(
+      styleElement = injectCSS(
         `theme:${name}:${baseQuery}`,
         baseQuery,
         `
@@ -515,9 +528,9 @@ export default class NuElement extends NuBase {
           html.nu-prefers-color-scheme-light ${baseQuery}{${lightStyles}}
         }
       `
-      );
+      ).element;
     } else {
-      injectCSS(
+      styleElement = injectCSS(
         `theme:${baseQuery}`,
         baseQuery,
         `
@@ -525,12 +538,13 @@ export default class NuElement extends NuBase {
         html:not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightStyles}}
         html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}
       `
-      );
+      ).element;
     }
 
     this.nuThemes[name] = {
       light: lightStyles,
-      dark: darkStyles
+      dark: darkStyles,
+      styleElement,
     };
 
     this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));

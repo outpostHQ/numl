@@ -7,6 +7,8 @@ export default class NuDecorator extends NuBase {
   }
 
   nuMounted() {
+    super.nuMounted();
+
     if (!this.parentNode) return;
 
     this.nuParentId = generateId(this.parentNode);
