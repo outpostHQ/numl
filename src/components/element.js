@@ -3,10 +3,9 @@ import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
 import NuBase from '../base';
 import { THEME_ATTRS_LIST } from '../attrs';
-import { generateTheme } from '../themes';
+import { generateTheme, convertThemeName } from '../themes';
 
 const plugins = {
-  theme: '',
   cursor: 'cursor',
   responsive: ''
 };
@@ -44,6 +43,15 @@ export default class NuElement extends NuBase {
    */
   static get nuAttrs() {
     return {
+      theme(val) {
+        if (!val) val = 'default';
+
+        return THEME_ATTRS_LIST.reduce((obj, name) => {
+          obj[`--nu-theme-${name}`] = `var(--nu-${val}-${name})`;
+
+          return obj;
+        }, {});
+      },
       color(val) {
         if (val == null) return null;
 
@@ -475,25 +483,37 @@ export default class NuElement extends NuBase {
     const [lightTheme, darkTheme] = generateTheme(props, darkProps, parentProps);
 
     const context = this.nuGetContext('nu-themes');
-    const baseQuery = `${context} #${this.nuId}${name === 'default' ? '' : ` [theme="${name}"]`}`;
-    const lightStyles = stylesString(lightTheme);
-    const darkStyles = stylesString(darkTheme);
+    const baseQuery = `${context} #${this.nuId}`;
+    const forceLightStyles = stylesString(convertThemeName(lightTheme, `${name}-light`));
+    const forceDarkStyles = stylesString(convertThemeName(darkTheme, `${name}-dark`));
+    const lightStyles = stylesString(convertThemeName(lightTheme, name));
+    const darkStyles = stylesString(convertThemeName(darkTheme, name));
+    const defaultStyles = name === 'default'
+      ? stylesString(THEME_ATTRS_LIST.reduce((obj, attr) => {
+          obj[`--nu-theme-${attr}`] = `var(--nu-${name}-${attr})`;
+
+          return obj;
+        }, {}))
+      : '';
+    const commonCSS = `
+      ${defaultStyles ? `${baseQuery}{${defaultStyles}}` : ''}
+      ${baseQuery}{${forceLightStyles}${forceDarkStyles}}
+    `;
 
     if (matchMedia('(prefers-color-scheme)').matches) {
       injectCSS(
-        `theme:${baseQuery}`,
+        `theme:${name}:${baseQuery}`,
         baseQuery,
         `
+        ${commonCSS}
         @media (prefers-color-scheme: dark) {
-          html:not(.nu-prefers-color-scheme-light) ${baseQuery}:not([light]){${darkStyles}}
-          html.nu-prefers-color-scheme-light ${baseQuery}:not([dark]){${lightStyles}}
+          html:not(.nu-prefers-color-scheme-light):not(.nu-prefers-color-scheme-dark) ${baseQuery}{${darkStyles}}
+          html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}
         }
         @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
-          html:not(.nu-prefers-color-scheme-dark) ${baseQuery}:not([dark]){${lightStyles}}
-          html.nu-prefers-color-scheme-dark ${baseQuery}:not([light]){${darkStyles}}
+          html:not(.nu-prefers-color-scheme-light):not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightStyles}}
+          html.nu-prefers-color-scheme-light ${baseQuery}{${lightStyles}}
         }
-        ${baseQuery} [dark]{${darkStyles}}
-        ${baseQuery} [light]{${lightStyles}}
       `
       );
     } else {
@@ -501,10 +521,9 @@ export default class NuElement extends NuBase {
         `theme:${baseQuery}`,
         baseQuery,
         `
-        html:not(.nu-prefers-color-scheme-dark) ${baseQuery}:not([dark]){${lightStyles}}
-          html.nu-prefers-color-scheme-dark ${baseQuery}:not([light]){${darkStyles}}
-        ${baseQuery} [dark]{${darkStyles}}
-        ${baseQuery} [light]{${lightStyles}}
+        ${commonCSS}
+        html:not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightStyles}}
+        html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}
       `
       );
     }
@@ -515,9 +534,5 @@ export default class NuElement extends NuBase {
     };
 
     this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));
-
-    [...this.querySelectorAll('[nd-theme]')]
-      .filter(el => el.parentNode !== this) // || ((name === 'default') && !el.hasAttribute(''))
-      .forEach(el => el.nuApply());
   }
 }

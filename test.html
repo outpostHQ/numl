@@ -15,7 +15,7 @@
     </nd-theme>
     <nd-theme
       name="primary"
-      color="#333"
+      color="#888"
       background-color="#fff"
       border-color="#666"
       special-color="#1885d9"
@@ -38,13 +38,12 @@
               value="two"
               width="40|100%"
               flow="row|column"
-              debug
               items-padding=".5" size="1.6 2.5| |.75 1|.5 .75">
               <nu-btn value="one" special>
                 <nu-icon name="zap" inline></nu-icon>
                 One
               </nu-btn>
-              <nu-btn value="two" background="purple :pressed{limegreen}">
+              <nu-btn value="two" theme="default :pressed{primary}" debug>
                 Two
               </nu-btn>
               <nu-btn disabled value="three">Three</nu-btn>
@@ -75,7 +74,7 @@
             <input />
           </nu-input>
 
-          <nu-card mod="sm" theme="primary" shadow="1">
+          <nu-card mod="sm" theme="primary-dark" shadow="1">
             <nu-flex flow="column" gap="1">
               <nu-block>
                 Some text and <nu-link>Nude link</nu-link> and <nu-link special>Nude special link</nu-link> and

@@ -21,7 +21,8 @@ export default class NuAbstractBtn extends NuBlock {
       pressed: '',
       href: '',
       target: '',
-      controls: ''
+      controls: '',
+      value: '',
     };
   }
 

@@ -1,6 +1,14 @@
 import { mixColors, invertColor, toKebabCase, extractColor, generalizeColor, getLuminance, contastRatio, convertUnit } from "./helpers";
 import { THEME_COLOR_ATTRS_LIST } from "./attrs";
 
+export function convertThemeName(theme, name) {
+  return Object.keys(theme).reduce((map, style) => {
+    map[style.replace('theme', name)] = theme[style];
+
+    return map;
+  }, {});
+}
+
 export function generateTheme(props, darkProps, parentProps) {
   const color = generalizeColor(props.color || parentProps.color);
   const backgroundColor = generalizeColor(props.backgroundColor || parentProps.backgroundColor);
@@ -21,6 +29,7 @@ export function generateTheme(props, darkProps, parentProps) {
     focusColor: generalizeColor(props.focusColor),
     headingColor: generalizeColor(props.headingColor),
     hoverColor: generalizeColor(props.hoverColor),
+    animationTime: props.animationTime || parentProps.animationTime,
   };
 
   let darkTheme;
