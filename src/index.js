@@ -162,7 +162,7 @@ Object.values(Nude.elements).forEach(customElement => {
 
         if (!styles) return;
 
-        const query = name === 'mod' ? tag : `${tag}:not([${name}="${value}"])`;
+        const query = name === 'mod' ? tag : `${tag}:not([${name}])`;
 
         defaultsCSS += generateCSS(query, styles);
       });
