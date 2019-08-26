@@ -41,6 +41,7 @@ import {
   getLuminance,
   computeStyles,
   splitStates,
+  convertCustomUnit,
 } from './helpers';
 
 let featherPromise;
@@ -100,6 +101,7 @@ const Nude = {
     generalizeColor,
     getLuminance,
     splitStates,
+    convertCustomUnit,
   },
 };
 
