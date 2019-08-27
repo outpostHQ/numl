@@ -8,6 +8,7 @@ export default class NuBadge extends NuElement {
 
   static get nuAttrs() {
     return {
+      border: NuBlock.nuAttrs.border,
       radius: NuBlock.nuAttrs.radius,
     };
   }

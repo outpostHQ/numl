@@ -18,6 +18,12 @@ export default class NuLine extends NuBlock {
     };
   }
 
+  static get nuAttrs() {
+    return {
+      place: 'stretch',
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
@@ -25,8 +31,6 @@ export default class NuLine extends NuBlock {
 
         position: relative;
         line-height: 0;
-        align-self: stretch;
-        justify-self: stretch;
         background-color: var(--nu-line-color) !important;
       }
 

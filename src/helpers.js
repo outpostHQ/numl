@@ -563,7 +563,9 @@ export function splitStates(attrValue) {
 
   return tmp
     .map(val => {
-      const tmp2 = val.replace(/^\:/, '').split(/\{|\}/g);
+      if (!val) return;
+
+      const tmp2 = val.replace(/^\:/, '').split(/\[|\]/g);
 
       if (tmp2.length === 1) {
         return { $suffix: '', value: val };
@@ -587,7 +589,7 @@ export function computeStyles(name, value, attrs) {
   if (value == null) return;
 
   // Style splitter for states system
-  if (value.match(/\:[a-z0-9\-]+\{/)) {
+  if (value.match(/\:[a-z0-9\-]+\[/)) {
     // split values between states
     const states = splitStates(value);
 
