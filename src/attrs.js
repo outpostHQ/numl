@@ -66,6 +66,7 @@ export const THEME_COLOR_ATTRS_LIST = [
   'heading-color',
   'hover-color',
   'special-background-color',
+  'focus-color',
 ];
 
 export const THEME_ATTRS_LIST = [
@@ -80,4 +81,5 @@ export const THEME_ATTRS_LIST = [
   'animation-time',
   'heading-color',
   'hover-color',
+  'focus-color',
 ];
