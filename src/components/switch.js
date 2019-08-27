@@ -38,7 +38,7 @@ export default class NuSwitch extends NuBlock {
         --nu-circle-padding: calc(var(--nu-theme-border-width) * 4);
         --nu-circle-size: calc(var(--nu-size) - var(--nu-circle-padding) * 2);
         --nu-circle-offset: var(--nu-circle-padding);
-        --nu-circle-opacity: .5;
+        --nu-circle-opacity: 1;
         --nu-circle-border-radius: calc(var(--nu-circle-size) / 2);
         --nu-circle-background-color: var(--nu-theme-color);
 
@@ -50,7 +50,6 @@ export default class NuSwitch extends NuBlock {
         cursor: pointer;
         box-shadow: var(--nu-depth-shadow),
           var(--nu-switch-shadow),
-          var(--nu-focus-background-shadow),
           var(--nu-border-shadow);
         transition: box-shadow var(--nu-theme-animation-time) linear,
         filter var(--nu-theme-animation-time) linear;

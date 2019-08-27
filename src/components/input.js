@@ -46,25 +46,7 @@ export default class NuInput extends NuBlock {
         position: relative;
         align-self: stretch;
         justify-self: stretch;
-        box-shadow: var(--nu-focus-background-shadow);
-        transition: box-shadow var(--nu-theme-animation-time) linear;
         outline: none;
-      }
-
-      ${nuTag}::after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        pointer-events: none;
-        border-radius: var(--nu-border-radius);
-        transition: box-shadow var(--nu-theme-animation-time) linear;
-        box-shadow:
-          var(--nu-depth-shadow),
-          var(--nu-border-shadow);
       }
 
       ${nuTag} input {
