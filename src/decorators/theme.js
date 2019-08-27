@@ -50,8 +50,8 @@ export default class NdTheme extends NuDecorator {
     setTimeout(() => this.nuApply());
   }
 
-  nuDestroyed() {
-    super.nuDestroyed();
+  nuUnmounted() {
+    super.nuUnmounted();
 
     const name = this.getAttribute('name');
 

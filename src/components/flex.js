@@ -62,10 +62,4 @@ export default class NuFlex extends NuBlock {
       gap: 0,
     };
   }
-
-  nuGenerate(name, value) {
-    let styles = super.nuGenerate(name, value) || [];
-
-    return styles;
-  }
 }

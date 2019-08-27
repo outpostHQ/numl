@@ -43,6 +43,12 @@ export default class NuElement extends NuBase {
    */
   static get nuAttrs() {
     return {
+      /**
+       * Handler to declare custom properties.
+       * @private
+       * @param {String} val - String that contains name and value of the property.
+       * @returns {null|Object}
+       */
       var(val) {
         if (!val) return null;
 
@@ -50,7 +56,14 @@ export default class NuElement extends NuBase {
 
         return { [tmp[0]]: convertUnit(tmp[1]) };
       },
+      /**
+       * Apply theme to the element by providing specific custom properties.
+       * @param {String} val - Theme name.
+       * @returns {*}
+       */
       theme(val) {
+        if (val == null) return;
+
         if (!val) val = 'default';
 
         return THEME_ATTRS_LIST.reduce((obj, name) => {
@@ -81,6 +94,10 @@ export default class NuElement extends NuBase {
             : 'var(--nu-theme-background-color)'
         };
       },
+      /**
+       * Apply modifier styles.
+       * @param {String} val - String that contains modifiers separated by space.
+       */
       mod(val) {
         if (!val) return;
 
@@ -182,6 +199,14 @@ export default class NuElement extends NuBase {
     this.nuApplyCSS(name, value);
   }
 
+  /**
+   * Generate CSS for specific query, attribute and its value.
+   * Is used as separate method to provide API for decorators.
+   * @param {String} query - CSS query to apply styles.
+   * @param {String} name - attribute (handler) name.
+   * @param {String} value - attribute value (handler argument).
+   * @returns {undefined|String} - output css
+   */
   nuGetCSS(query, name, value) {
     const isResponsive = value.includes('|');
 
@@ -295,7 +320,7 @@ export default class NuElement extends NuBase {
   /**
    * Set aria attribute.
    * @param {String} name
-   * @param {*} value
+   * @param {Boolean|String} value
    */
   nuSetAria(name, value) {
     if (typeof value === 'boolean') {
@@ -309,6 +334,12 @@ export default class NuElement extends NuBase {
     }
   }
 
+  /**
+   * Build a query with current tag name and provided attribute value.
+   * @param {Object} attrs - dict of attributes with their values.
+   * @param {Boolean} useId - add ID to the query.
+   * @returns {string}
+   */
   nuGetQuery(attrs = {}, useId) {
     return `${useId ? '' : this.constructor.nuTag}${useId ? `#${this.nuId}` : ''}${attrsQuery(
       attrs
@@ -346,19 +377,16 @@ export default class NuElement extends NuBase {
   /**
    * Called when element is connected to the DOM.
    * Can be called twice or more.
+   * While using frameworks this method can be fired without element having parentNode.
    */
   nuMounted() {}
 
   /**
-   * React to the attribute change.
+   * Attribute change reaction.
    * @param {String} name
+   * @param {*} oldValue
    * @param {*} value
-   * @returns {Array}
    */
-  nuGenerate(name, value) {
-    return computeStyles(name, value, this.constructor.nuAllAttrs);
-  }
-
   nuChanged(name, oldValue, value) {
     switch (name) {
       case RESPONSIVE_ATTR:
@@ -385,6 +413,10 @@ export default class NuElement extends NuBase {
     }
   }
 
+  /**
+   * Return responsive decorator for the styles set.
+   * @returns {*}
+   */
   nuResponsive() {
     const points = this.getAttribute('responsive');
 
@@ -432,6 +464,12 @@ export default class NuElement extends NuBase {
     });
   }
 
+  /**
+   * Get query context of the current element.
+   * It find all parent elements with provided attribute and built sequence with their ids.
+   * @param {String} attrName
+   * @returns {String} - CSS query
+   */
   nuGetContext(attrName) {
     let context = '',
       el = this;
@@ -448,7 +486,8 @@ export default class NuElement extends NuBase {
   /**
    * Declare theme in current context.
    * @param {String} name – Theme name.
-   * @param {Object} props
+   * @param {Object} props - Light theme props.
+   * @param {Object} props - Dark theme props.
    */
   nuDeclareTheme(name, props, darkProps = {}) {
     if (

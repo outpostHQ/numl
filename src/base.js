@@ -54,6 +54,10 @@ export default class NuBase extends HTMLElement {
     return {};
   }
 
+  /**
+   * List of attributes.
+   * @returns {Array}
+   */
   static get nuAttrsList() {
     return [];
   }
@@ -131,16 +135,23 @@ export default class NuBase extends HTMLElement {
     this.nuIsMounted = true;
   }
 
+  /**
+   * @private
+   */
   disconnectedCallback() {
-    this.nuDestroyed();
+    this.nuUnmounted();
   }
 
+  /**
+   * Get ID of the element. Generate it if it's not presented.
+   * @returns {String}
+   */
   get nuId() {
     return this.id || generateId(this);
   }
 
   /**
-   * Set a local modifier
+   * Set a local modifier.
    * @param {String} name
    * @param {String|boolean|*} value - TRUE sets attribute without false, FALSE = removes attribute.
    */
@@ -165,10 +176,6 @@ export default class NuBase extends HTMLElement {
     return this.hasAttribute(mod);
   }
 
-  nuGetQuery(attrs = {}) {
-    return `${this.constructor.nuTag}${attrsQuery(attrs)}`;
-  }
-
   /**
    * Emit custom event.
    * @param {String} name
@@ -183,20 +190,28 @@ export default class NuBase extends HTMLElement {
     );
   }
 
+  /**
+   * Attribute change reaction.
+   * @param {String} name
+   * @param {*} oldValue
+   * @param {*} value
+   */
   nuChanged(name, oldValue, value) {}
 
   /**
-   * @param {String} name
-   * @param {String} value
-   * @returns {Object}
+   * Called when element is connected to the DOM.
+   * Can be called more than once.
+   * While using frameworks this method can be fired without element having parentNode.
    */
-  nuGenerate(name, value) {}
-
   nuMounted() {
     setTimeout(() => (this.nuParent = this.parentNode));
   }
 
-  nuDestroyed() {}
+  /**
+   * Called when element is disconnected from the DOM.
+   * Can be called more than once.
+   */
+  nuUnmounted() {}
 
   /**
    * Get parent that satisfies specified selector
@@ -214,6 +229,11 @@ export default class NuBase extends HTMLElement {
     return invertQuery(this, selector);
   }
 
+  /**
+   * Write message to the console.
+   * Works only if `debug` attribute is presented on the element.
+   * @param args
+   */
   nuDebug(...args) {
     if (devMode) {
       const _this = this;

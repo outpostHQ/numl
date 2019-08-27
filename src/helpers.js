@@ -1,3 +1,9 @@
+/**
+ * Dict for all browser built-in colors.
+ * It's included to support such declarations in themes.
+ * Without such dict it would be impossible to declare computed color properties in themes.
+ * @type {Object}
+ */
 export const COLORS = {
   indianred: '#CD5C5C',
   lightcoral: '#F08080',
@@ -149,8 +155,17 @@ export const COLORS = {
   black: '#000000'
 };
 
+/**
+ * Required root element attribute.
+ * @type {String}
+ */
 export const ROOT_CONTEXT = '[data-nu-root]';
 
+/**
+ * Script injection.
+ * @param {String} src
+ * @returns {Promise<*>}
+ */
 export function injectScript(src) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
@@ -164,11 +179,21 @@ export function injectScript(src) {
   });
 }
 
+/**
+ * Custom units dict
+ * @type {Object}
+ */
 export const CUSTOM_UNITS = {
   'br': 'var(--nu-theme-border-radius)',
   'bw': 'var(--nu-theme-border-width)',
 };
 
+/**
+ * Unit conversion for attribute values.
+ * @param {String} unit - String for conversion.
+ * @param {String} multiplier - If presented then use multiply custom unit (for example `2x`).
+ * @returns {string|*}
+ */
 export function convertUnit(unit, multiplier) {
   if (!unit) return unit;
 
@@ -192,6 +217,12 @@ export function convertUnit(unit, multiplier) {
   return unit;
 }
 
+/**
+ * Returns simple unit handler for the attribute.
+ * @param {String} name - Attribute name.
+ * @param {String} $suffix - Query suffix for styles.
+ * @returns {null|Object}
+ */
 export function unit(name, $suffix) {
   return val =>
     val
@@ -202,6 +233,12 @@ export function unit(name, $suffix) {
       : null;
 }
 
+/**
+ * Returns unit handler for dimensional attributes.
+ * @param {String} name - Attribute name.
+ * @param {String} $suffix - Query suffix for styles.
+ * @returns {null|Object}
+ */
 export function sizeUnit(name, $suffix) {
   return val => {
     if (val) {
@@ -244,10 +281,12 @@ export function sizeUnit(name, $suffix) {
   };
 }
 
-export function getMods(mod) {
-  return mod ? mod.split(/\s+/g).map(md => `-nu-${md}`) : [];
-}
-
+/**
+ * Return a parent element that satisfy to provided selector.
+ * @param {Element} element
+ * @param {String} selector
+ * @returns {undefined|Element}
+ */
 export function getParent(element, selector) {
   const elements = [...document.querySelectorAll(selector)];
 
@@ -256,6 +295,13 @@ export function getParent(element, selector) {
   return element;
 }
 
+/**
+ * Return a closest element that satisfy to provided selector.
+ * @TODO: improve search algorithm.
+ * @param {Element} element
+ * @param {String} selector
+ * @returns {undefined|Element}
+ */
 export function invertQuery(element, selector) {
   do {
     const found = element.querySelector(selector);
@@ -264,20 +310,36 @@ export function invertQuery(element, selector) {
   } while ((element = element.parentNode));
 }
 
+/**
+ * Tell if library run in dev mode.
+ * @type {Boolean}
+ */
 export const devMode = process.env.NODE_ENV === 'development';
 
+/**
+ * Write log to console.
+ * @param args
+ */
 export function log(...args) {
   if (devMode) {
     console.log('nude:', ...args);
   }
 }
 
+/**
+ * Write warning to console
+ * @param args
+ */
 export function warn(...args) {
   if (devMode) {
     console.warn('nude:', ...args);
   }
 }
 
+/**
+ * Write error to console.
+ * @param args
+ */
 export function error(...args) {
   if (devMode) {
     console.error('nude:', ...args);
@@ -285,24 +347,18 @@ export function error(...args) {
 }
 
 let globalId = 0;
-let nuId = 0;
 
+/**
+ * Return current id of the element and generate it if it's no presented.
+ * @param {Element} el
+ * @returns {String}
+ */
 export function generateId(el) {
   if (el.id) return el.id;
 
   globalId += 1;
 
   return (el.id = `nu-${globalId}`);
-}
-
-export function generateNuId(el) {
-  const dataset = el.dataset;
-
-  if (dataset.nuId) return dataset.nuId;
-
-  nuId += 1;
-
-  return (dataset.nuId = nuId);
 }
 
 const dim = document.createElement('div');
@@ -337,6 +393,12 @@ export function extractColor(color, ignoreAlpha = false) {
   return arr;
 }
 
+/**
+ * Set alpha channel to the color.
+ * @param {String|Array} color
+ * @param {Number} alpha
+ * @returns {String}
+ */
 export function setAlphaChannel(color, alpha = 1) {
   const rgba = typeof color === 'string' ? extractColor(color) : color;
 
@@ -345,20 +407,41 @@ export function setAlphaChannel(color, alpha = 1) {
   return colorString(...rgba.slice(0, 3), alpha);
 }
 
+/**
+ * Generate RGBA color string.
+ * @param {Number} red
+ * @param {Number} green
+ * @param {Number} blue
+ * @param {Number} alpha
+ * @returns {String}
+ */
 export function colorString(red, green, blue, alpha = 1) {
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
+/**
+ * Convert color to RGBA declaration.
+ * @param {String|Array} color
+ * @param {Boolean} ignoreAlpha
+ * @returns {undefined|String}
+ */
 export function generalizeColor(color, ignoreAlpha = false) {
   if (!color) return color;
 
   const rgba = extractColor(color, ignoreAlpha);
 
-  if (!rgba) return rgba;
+  if (!rgba) return;
 
   return colorString(...rgba, 1);
 }
 
+/**
+ * Smart color inversion.
+ * @param {String|Array} color
+ * @param {Number} min - minimal value for color channel
+ * @param {Number} max - maximum value for color channel
+ * @returns {String}
+ */
 export function invertColor(color, min = 0, max = 255) {
   const rgba = extractColor(color);
 
@@ -375,6 +458,12 @@ export function invertColor(color, min = 0, max = 255) {
   );
 }
 
+/**
+ * Rotate color hue. It is used in dark theme generation.
+ * @param {String|Array} color
+ * @param {Number} angle
+ * @returns {Array}
+ */
 export function hueRotate(color, angle = 180) {
   const rgba = typeof color === 'string' ? extractColor(color) : color;
   const hsl = rgbToHsl(...rgba);
@@ -386,6 +475,11 @@ export function hueRotate(color, angle = 180) {
   return rotated;
 }
 
+/**
+ * Get luminance of the color.
+ * @param {String|Array} color
+ * @returns {Number} - Float value from 0 to 1.
+ */
 export function getLuminance(color) {
   color = extractColor(color, true).map(n => n / 255);
 
@@ -394,6 +488,13 @@ export function getLuminance(color) {
   return Math.sqrt(r * r * 0.241 + g * g * 0.691 + b * b * 0.068);
 }
 
+/**
+ * Calculate middle color.
+ * @param {String|Array} clr1
+ * @param {String|Array} clr2
+ * @param {Number} pow - middle color distance from clr1 (0) to clr2 (1).
+ * @returns {String}
+ */
 export function mixColors(clr1, clr2, pow = 0.5) {
   const color1 = extractColor(clr1, true);
   const color2 = extractColor(clr2, true);
@@ -403,10 +504,22 @@ export function mixColors(clr1, clr2, pow = 0.5) {
   return colorString(color[0], color[1], color[2], 1);
 }
 
+/**
+ * Calculate contrast ratio between 2 colors.
+ * Uses luminance formula.
+ * @param {String|Array} clr1
+ * @param {String|Array} clr2
+ * @returns {Number} - contrast ratio between 0 and 1.
+ */
 export function contastRatio(clr1, clr2) {
   return Math.abs(getLuminance(clr1) - getLuminance(clr2));
 }
 
+/**
+ * Split style into 4 directions. For example padding.
+ * @param {String} style
+ * @returns {String[]}
+ */
 export function splitDimensions(style) {
   dimStyle.padding = '';
   dimStyle.padding = style;
@@ -416,6 +529,11 @@ export function splitDimensions(style) {
     : null;
 }
 
+/**
+ * Helper to open link.
+ * @param {String} href
+ * @param {String} target
+ */
 export function openLink(href, target) {
   const link = document.createElement('a');
 
@@ -432,6 +550,11 @@ export function openLink(href, target) {
   document.body.removeChild(link);
 }
 
+/**
+ * Event bindings for active elements.
+ * Enable focus and active states.
+ * Should be bind to the element before call.
+ */
 export function bindActiveEvents() {
   this.addEventListener('click', evt => {
     if (evt.nuHandled) return;
@@ -481,10 +604,20 @@ export function bindActiveEvents() {
   });
 }
 
+/**
+ * Kebab to camel case conversion.
+ * @param {String str
+ * @returns {string}
+ */
 export function toCamelCase(str) {
   return str.replace(/\-[a-z]/g, s => s.slice(1).toUpperCase());
 }
 
+/**
+ * Camel to kebab case conversion.
+ * @param {String} str
+ * @returns {String}
+ */
 export function toKebabCase(str) {
   return str.replace(/[A-Z]/g, s => `-${s.toLowerCase()}`).replace(/^\-/, '');
 }
@@ -549,6 +682,10 @@ export function hslToRgb(h, s, l) {
   return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
 
+/**
+ * Dict of element`s states with their selectors.
+ * @type {Object}
+ */
 export const STATES_MAP = {
   focus: '[nu-focus]',
   hover: ':hover',
@@ -558,8 +695,11 @@ export const STATES_MAP = {
 };
 
 /**
- *
+ * Extract state values from single value.
+ * Example: "blue :active[red]"
+ * Example output: [{ '': 'blue' }, { 'actiive': 'red' }}]
  * @param {String} attrValue
+ * @returns {Object[]}
  */
 export function splitStates(attrValue) {
   const tmp = attrValue.split(/\s+\:/g);
@@ -634,6 +774,13 @@ export function computeStyles(name, value, attrs) {
   }
 }
 
+/**
+ * Convert single custom unit.
+ * @param {String} value - Input string.
+ * @param {String} unit - Unit string.
+ * @param {String} multiplier - Multiplier string.
+ * @returns {String}
+ */
 export function convertCustomUnit(value, unit, multiplier) {
   return value.replace(
     new RegExp(`[0-9\.]+${unit}`, 'gi'),
