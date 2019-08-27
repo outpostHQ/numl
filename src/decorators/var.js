@@ -28,7 +28,11 @@ export default class NdVar extends NuDecorator {
     }
 
     setTimeout(() => {
-      const fullValue = value.split('|').map(val => `${name}:${val}`).join('|');
+      const fullValue = value
+        .split('|')
+        .map(val => `${name}:${val}`)
+        .join('|')
+        .replace(/\[.+?\]/gi, s => `[${name}:${s.slice(1, -1)}]`);
       const css = parent.nuGetCSS(context, 'var', fullValue);
 
       injectCSS(`var:${name}:${context}`, context, css);
