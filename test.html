@@ -4,7 +4,7 @@
     Nude.init();
   </script>
 </head>
-<body data-nu-root style="--primary-color: limegreen;">
+<body data-nu-root style="--primary-color: limegreen;" debug>
   <nu-block padding="1" responsive="1280px|960px|640px">
     <nd-theme
       color="#333"
@@ -23,9 +23,10 @@
     <nd-mod name="red">
       color: red;
     </nd-mod>
+    <nd-var name="--my-padding" value="2|1.5|1|.5"></nd-var>
 
     <nu-flex flow="column" gap="1">
-      <nu-card shadow theme radius="2x">
+      <nu-card shadow theme radius="2x" padding="var(--my-padding)">
         <nu-pane>
           <nu-heading>Card 1</nu-heading>
           <nu-btn>Card action</nu-btn>

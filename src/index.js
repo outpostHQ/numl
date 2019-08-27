@@ -28,6 +28,7 @@ import NuAbstractBtn from './components/abstract-btn';
 import NuDecorator from './decorators/decorator';
 import NdTheme from './decorators/theme';
 import NdMod from './decorators/mod';
+import NdVar from './decorators/var';
 // helpers
 import {
   log,
@@ -128,6 +129,7 @@ Nude.elements = {
   NuLink,
   NdTheme,
   NdMod,
+  NdVar,
   NuAbstractBtn
 };
 
@@ -206,6 +208,7 @@ export {
   NuLink,
   NdTheme,
   NdMod,
+  NdVar,
   NuElement,
   NuDecorator,
   NuAbstractBtn

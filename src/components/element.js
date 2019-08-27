@@ -43,6 +43,13 @@ export default class NuElement extends NuBase {
    */
   static get nuAttrs() {
     return {
+      var(val) {
+        if (!val) return null;
+
+        const tmp = val.split(':');
+
+        return { [tmp[0]]: convertUnit(tmp[1]) };
+      },
       theme(val) {
         if (!val) val = 'default';
 
@@ -175,37 +182,13 @@ export default class NuElement extends NuBase {
     this.nuApplyCSS(name, value);
   }
 
-  /**
-   * Create and apply CSS based on element's attributes.
-   * @param {String} name
-   * @param {*} value
-   * @param {*} force - replace current CSS rule
-   */
-  nuApplyCSS(name, value, force = false) {
+  nuGetCSS(query, name, value) {
     const isResponsive = value.includes('|');
 
-    let query;
-
-    if (isResponsive) {
-      query = `${this.nuGetContext(RESPONSIVE_ATTR)}${this.nuGetQuery(
-        { [name]: value },
-        this.getAttribute(RESPONSIVE_ATTR)
-      )}`;
-    } else {
-      query = this.nuGetQuery({ [name]: value });
-    }
-
-    if (hasCSS(query)) {
-      if (!force) return;
-
-      removeCSS(query);
-    }
-
-    // responsive attribute
     if (isResponsive) {
       this.nuSetMod(RESPONSIVE_ATTR, true);
 
-      if (value !== this.getAttribute(name)) return;
+      // if (value !== this.getAttribute(name)) return;
 
       let respEl = this;
 
@@ -243,18 +226,41 @@ export default class NuElement extends NuBase {
         return generateCSS(query, stls);
       });
 
-      const css = respEl.nuResponsive()(styles);
-
-      if (css) {
-        injectCSS(query, query, css);
-      }
-
-      return;
+      return respEl.nuResponsive()(styles);
     }
 
     let styles = computeStyles(name, value, this.constructor.nuAllAttrs);
 
-    const css = generateCSS(query, styles);
+    return generateCSS(query, styles);
+  }
+
+  /**
+   * Create and apply CSS based on element's attributes.
+   * @param {String} name
+   * @param {*} value
+   * @param {*} force - replace current CSS rule
+   */
+  nuApplyCSS(name, value, force = false) {
+    const isResponsive = value.includes('|');
+
+    let query;
+
+    if (isResponsive) {
+      query = `${this.nuGetContext(RESPONSIVE_ATTR)}${this.nuGetQuery(
+        { [name]: value },
+        this.getAttribute(RESPONSIVE_ATTR)
+      )}`;
+    } else {
+      query = this.nuGetQuery({ [name]: value });
+    }
+
+    if (hasCSS(query)) {
+      if (!force) return;
+
+      removeCSS(query);
+    }
+
+    const css = this.nuGetCSS(query, name, value);
 
     if (css) {
       injectCSS(query, query, css);
@@ -442,9 +448,11 @@ export default class NuElement extends NuBase {
    * @param {Object} props
    */
   nuDeclareTheme(name, props, darkProps = {}) {
-    if (this.nuThemes[name]
-      && this.nuThemes[name].styleElement
-      && this.nuThemes[name].styleElement.parentNode) {
+    if (
+      this.nuThemes[name] &&
+      this.nuThemes[name].styleElement &&
+      this.nuThemes[name].styleElement.parentNode
+    ) {
       let el = this.nuThemes[name].styleElement;
 
       el.parentNode.removeChild(el);
@@ -459,10 +467,10 @@ export default class NuElement extends NuBase {
 
     if (name !== 'default' && this.nuThemes.default) {
       props = {
-        ...({
+        ...{
           ...this.nuThemes.default.light,
-          ...this.nuThemes.default.dark,
-        }),
+          ...this.nuThemes.default.dark
+        },
         ...props
       };
     }
@@ -499,13 +507,16 @@ export default class NuElement extends NuBase {
     const forceDarkStyles = stylesString(convertThemeName(darkTheme, `${name}-dark`));
     const lightStyles = stylesString(convertThemeName(lightTheme, name));
     const darkStyles = stylesString(convertThemeName(darkTheme, name));
-    const defaultStyles = name === 'default'
-      ? stylesString(THEME_ATTRS_LIST.reduce((obj, attr) => {
-          obj[`--nu-theme-${attr}`] = `var(--nu-${name}-${attr})`;
+    const defaultStyles =
+      name === 'default'
+        ? stylesString(
+            THEME_ATTRS_LIST.reduce((obj, attr) => {
+              obj[`--nu-theme-${attr}`] = `var(--nu-${name}-${attr})`;
 
-          return obj;
-        }, {}))
-      : '';
+              return obj;
+            }, {})
+          )
+        : '';
     const commonCSS = `
       ${defaultStyles ? `${baseQuery}{${defaultStyles}}` : ''}
       ${baseQuery}{${forceLightStyles}${forceDarkStyles}}
@@ -544,7 +555,7 @@ export default class NuElement extends NuBase {
     this.nuThemes[name] = {
       light: lightStyles,
       dark: darkStyles,
-      styleElement,
+      styleElement
     };
 
     this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));
