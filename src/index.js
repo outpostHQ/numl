@@ -1,5 +1,5 @@
 import './global.css';
-import css, { injectStyleTag, generateCSS, injectCSS } from './css';
+import css, { injectStyleTag, generateCSS } from './css';
 import modifiers from './modifiers';
 // elements
 import NuElement from './components/element';
@@ -33,7 +33,6 @@ import NdVar from './decorators/var';
 import {
   log,
   injectScript,
-  ROOT_CONTEXT,
   invertColor,
   hueRotate,
   extractColor,
@@ -43,6 +42,11 @@ import {
   computeStyles,
   splitStates,
   convertCustomUnit,
+  COLORS,
+  ROOT_CONTEXT,
+  CUSTOM_UNITS,
+  STATES_MAP,
+  splitDimensions,
 } from './helpers';
 
 let featherPromise;
@@ -103,6 +107,7 @@ const Nude = {
     getLuminance,
     splitStates,
     convertCustomUnit,
+    splitDimensions,
   },
 };
 
@@ -185,7 +190,12 @@ window.Nude = Nude;
 
 export default Nude;
 
+export const HTML_COLORS = COLORS;
+
 export {
+  STATES_MAP,
+  CUSTOM_UNITS,
+  ROOT_CONTEXT,
   NuGrid,
   NuBlock,
   NuHeading,

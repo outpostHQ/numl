@@ -1,4 +1,4 @@
-const COLORS = {
+export const COLORS = {
   indianred: '#CD5C5C',
   lightcoral: '#F08080',
   salmon: '#FA8072',
@@ -408,9 +408,12 @@ export function contastRatio(clr1, clr2) {
 }
 
 export function splitDimensions(style) {
+  dimStyle.padding = '';
   dimStyle.padding = style;
 
-  return [dimStyle.paddingTop, dimStyle.paddingRight, dimStyle.paddingBottom, dimStyle.paddingLeft];
+  return dimStyle.padding
+    ? [dimStyle.paddingTop, dimStyle.paddingRight, dimStyle.paddingBottom, dimStyle.paddingLeft]
+    : null;
 }
 
 export function openLink(href, target) {
