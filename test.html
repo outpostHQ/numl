@@ -18,6 +18,7 @@
       color="#888"
       background-color="#fff"
       border-color="#eef"
+      outline-color="#eef"
       special-color="#1885d9"
       shadow-intensity=".2"></nd-theme>
     <nd-mod name="red">
@@ -26,7 +27,7 @@
     <nd-var name="--my-padding" value="2|1.5|1|.5"></nd-var>
 
     <nu-flex flow="column" gap="1">
-      <nu-card shadow theme radius="2x" padding="var(--my-padding)">
+      <nu-card shadow radius="2x" padding="var(--my-padding)" border="2x dashed">
         <nu-pane>
           <nu-heading>Card 1</nu-heading>
           <nu-btn>Card action</nu-btn>
@@ -76,7 +77,7 @@
           </nu-input>
 
           <nu-card
-            mod="sm" theme="primary" shadow="0 :hover[2]" border="1bw"
+            mod="sm" theme="primary" shadow="0 :hover[4]" outline="1bw :hover[3bw]" border="0"
             transform="translate(0rem, 0rem) :hover[translate(0rem, -.1rem)]">
             <nu-flex flow="column" gap="1">
               <nu-block>

@@ -41,17 +41,12 @@ export default class NuAbstractBtn extends NuBlock {
       ${nuTag} {
         --nu-toggle-color: transparent;
         --nu-depth-color: transparent;
-        --nu-border-color: var(--nu-theme-border-color);
-
         --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
-        --nu-border-inset: inset 0 0;
-        --nu-border-width: var(--nu-theme-border-width);
-        --nu-border-shadow: var(--nu-border-inset) 0 var(--nu-border-width) var(--nu-border-color);
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
         position: relative;
         text-align: center;
-        box-shadow: var(--nu-border-shadow),
+        box-shadow: var(--nu-outline-shadow),
           var(--nu-toggle-shadow),
           var(--nu-depth-shadow);
         transition: box-shadow var(--nu-theme-animation-time) linear;

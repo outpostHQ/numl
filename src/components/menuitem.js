@@ -1,5 +1,4 @@
 import NuAbstractBtn from './abstract-btn';
-import focusable from '../mixins/focusable';
 
 export default class NuMenuitem extends NuAbstractBtn {
   static get nuTag() {
@@ -23,12 +22,8 @@ export default class NuMenuitem extends NuAbstractBtn {
         --nu-toggle-color: transparent;
         --nu-depth-color: transparent;
         --nu-border-radius: 0;
-        --nu-border-color: transparent;
 
         --nu-toggle-shadow: 0 calc(-1 * var(--nu-theme-border-width)) 0 0 var(--nu-toggle-color) inset;
-        --nu-border-inset: inset 0 0;
-        --nu-border-width: 0;
-        --nu-border-shadow: var(--nu-border-inset) 0 var(--nu-border-width) var(--nu-border-color);
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
       }
 

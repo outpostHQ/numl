@@ -18,9 +18,11 @@ export function generateTheme(props, darkProps, parentProps) {
     color,
     backgroundColor,
     borderColor: generalizeColor(props.borderColor || parentProps.borderColor),
+    outlineColor: generalizeColor(props.outlineColor) || specialColor || parentProps.outlineColor,
     specialColor,
     borderRadius: convertUnit(props.borderRadius || parentProps.borderRadius),
     borderWidth: convertUnit(props.borderWidth || parentProps.borderWidth),
+    outlineWidth: convertUnit(props.outlineWidth || parentProps.outlineWidth),
     shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
     specialBackgroundColor: contastRatio(specialColor, color) > .5 ? color : backgroundColor,
     // Use parent shadow intensity value only if both shadow color and shadow intensity

@@ -23,16 +23,7 @@ export default class NdTheme extends NuDecorator {
   }
 
   static get nuAttrsList() {
-    return [
-      'color',
-      'background-color',
-      'border-color',
-      'special-color',
-      'border-radius',
-      'border-width',
-      'animation-time',
-      'shadow-intensity',
-    ];
+    return THEME_ATTRS_LIST;
   }
 
   nuChanged(name, oldValue, value) {

@@ -2,6 +2,19 @@ import { GRID_ITEM_ATTRS, FLEX_ITEM_ATTRS } from '../attrs';
 import { unit, sizeUnit, convertUnit, splitDimensions } from '../helpers';
 import NuElement from './element';
 
+export const BORDER_STYLES = [
+  'none',
+  'hidden',
+  'dotted',
+  'dashed',
+  'solid',
+  'double',
+  'groove',
+  'ridge',
+  'inset',
+  'outset',
+];
+
 export default class NuBlock extends NuElement {
   static get nuTag() {
     return 'nu-block';
@@ -45,18 +58,38 @@ export default class NuBlock extends NuElement {
       border(val) {
         if (val == null) return val;
 
-        const width = val
+        let style = 'solid';
+
+        BORDER_STYLES.forEach(s => {
+          if (val.includes(s)) {
+            val = val.replace(s, '');
+            style = s;
+          }
+        });
+
+        val = val
           ? convertUnit(val, 'var(--nu-theme-border-width)')
           : 'var(--nu-theme-border-width)';
 
         return {
-          '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`
+          'border': `${val} ${style} var(--nu-theme-border-color)`,
+        };
+      },
+      outline(val) {
+        if (val == null) return val;
+
+        val = val
+          ? convertUnit(val, 'var(--nu-theme-outline-width)')
+          : 'var(--nu-theme-outline-width)';
+
+        return {
+          '--nu-outline-width': val,
         };
       },
       shadow(val) {
         if (val == null) return val;
 
-        const depth = val === '' ? '1' : convertUnit(val);
+        const depth = val === '' ? '1rem' : convertUnit(val);
 
         return {
           '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-theme-shadow-intensity) / ${(Number(val) ||
@@ -70,10 +103,12 @@ export default class NuBlock extends NuElement {
     return `
       ${nuTag}{
         --nu-border-radius: 0rem;
-        --nu-border-shadow: 0 0 0 0 var(--nu-theme-border-color);
+        --nu-outline-width: 0;
+        --nu-outline-inset: 0 0;
+        --nu-outline-shadow: var(--nu-outline-inset) 0 var(--nu-outline-width) var(--nu-theme-outline-color);
         --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 
-        box-shadow: var(--nu-border-shadow), var(--nu-depth-shadow);
+        box-shadow: var(--nu-outline-shadow), var(--nu-depth-shadow);
         border-radius: var(--nu-border-radius);
         box-sizing: border-box;
       }

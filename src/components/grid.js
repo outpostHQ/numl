@@ -19,13 +19,6 @@ export default class NuGrid extends NuBlock {
     };
   }
 
-  static nuCSS({ nuTag }) {
-    return `
-      ${nuTag}{display:grid;}
-      ${nuTag}[inline]{display:inline-grid;}
-    `;
-  }
-
   static get nuAttrs() {
     return {
       ...PLACE_ATTRS,
@@ -41,4 +34,3 @@ export default class NuGrid extends NuBlock {
     };
   }
 }
-

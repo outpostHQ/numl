@@ -8,6 +8,7 @@ export default class NuBtn extends NuAbstractBtn {
   static get nuDefaults() {
     return {
       padding: '.5 1',
+      border: '1x',
     };
   }
 
@@ -17,12 +18,8 @@ export default class NuBtn extends NuAbstractBtn {
         --nu-toggle-color: transparent;
         --nu-depth-color: transparent;
         --nu-border-radius: var(--nu-theme-border-radius);
-        --nu-border-color: var(--nu-theme-border-color);
 
         --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
-        --nu-border-inset: inset 0 0;
-        --nu-border-width: var(--nu-theme-border-width);
-        --nu-border-shadow: var(--nu-border-inset) 0 var(--nu-border-width) var(--nu-border-color);
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
       }
 
