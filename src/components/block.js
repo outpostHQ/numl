@@ -74,10 +74,6 @@ export default class NuBlock extends NuElement {
         --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 
         box-shadow: var(--nu-border-shadow), var(--nu-depth-shadow);
-        transition: background var(--nu-theme-animation-time) linear,
-          color var(--nu-theme-animation-time) linear,
-          box-shadow var(--nu-theme-animation-time) linear,
-          transform var(--nu-theme-animation-time) linear;
         border-radius: var(--nu-border-radius);
         box-sizing: border-box;
       }

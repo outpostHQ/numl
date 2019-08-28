@@ -19,6 +19,10 @@ export default class NuCard extends NuBlock {
         --nu-border-radius: var(--nu-theme-border-radius);
         --nu-border-shadow: var(--nu-border-inset, 0 0) 0 var(--nu-theme-border-width) var(--nu-theme-border-color);
 
+        transition: background var(--nu-theme-animation-time) linear,
+          color var(--nu-theme-animation-time) linear,
+          box-shadow var(--nu-theme-animation-time) linear,
+          transform var(--nu-theme-animation-time) linear;
         position: relative;
         scrollbar-width: none;
       }
