@@ -46,7 +46,7 @@ export default class NuAbstractBtn extends NuBlock {
 
         position: relative;
         text-align: center;
-        box-shadow: var(--nu-outline-shadow),
+        box-shadow: var(--nu-stroke-shadow),
           var(--nu-toggle-shadow),
           var(--nu-depth-shadow);
         transition: box-shadow var(--nu-theme-animation-time) linear;

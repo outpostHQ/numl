@@ -13,16 +13,15 @@ export function generateTheme(props, darkProps, parentProps) {
   const color = generalizeColor(props.color || parentProps.color);
   const backgroundColor = generalizeColor(props.backgroundColor || parentProps.backgroundColor);
   const specialColor = generalizeColor(props.specialColor || parentProps.specialColor);
+  const borderColor = generalizeColor(props.borderColor || parentProps.borderColor);
 
   const lightTheme = {
     color,
     backgroundColor,
-    borderColor: generalizeColor(props.borderColor || parentProps.borderColor),
-    outlineColor: generalizeColor(props.outlineColor) || specialColor || parentProps.outlineColor,
+    borderColor,
     specialColor,
     borderRadius: convertUnit(props.borderRadius || parentProps.borderRadius),
     borderWidth: convertUnit(props.borderWidth || parentProps.borderWidth),
-    outlineWidth: convertUnit(props.outlineWidth || parentProps.outlineWidth),
     shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
     specialBackgroundColor: contastRatio(specialColor, color) > .5 ? color : backgroundColor,
     // Use parent shadow intensity value only if both shadow color and shadow intensity

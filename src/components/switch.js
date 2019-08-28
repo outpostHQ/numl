@@ -88,8 +88,12 @@ export default class NuSwitch extends NuBlock {
         --nu-circle-background-color: var(--nu-theme-background-color);
       }
 
-      ${nuTag}[nu-active]:not([disabled]) {
+      ${nuTag}[nu-active]:not([disabled]):not([aria-checked="true"]) {
         --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-shadow-intensity));
+      }
+      
+      ${nuTag}[nu-active][aria-checked="true"]:not([disabled]) {
+        --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-special-shadow-intensity));
       }
 
       ${focusable(nuTag)}

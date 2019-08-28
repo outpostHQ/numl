@@ -2,7 +2,14 @@ import { GRID_ITEM_ATTRS, FLEX_ITEM_ATTRS } from '../attrs';
 import { unit, sizeUnit, convertUnit, splitDimensions } from '../helpers';
 import NuElement from './element';
 
+export const STROKE_STYLES = [
+  'inside',
+  'center',
+  'outside',
+];
+
 export const BORDER_STYLES = [
+  ...STROKE_STYLES,
   'none',
   'hidden',
   'dotted',
@@ -62,7 +69,7 @@ export default class NuBlock extends NuElement {
 
         BORDER_STYLES.forEach(s => {
           if (val.includes(s)) {
-            val = val.replace(s, '');
+            val = val.replace(s, '').trim();
             style = s;
           }
         });
@@ -71,25 +78,24 @@ export default class NuBlock extends NuElement {
           ? convertUnit(val, 'var(--nu-theme-border-width)')
           : 'var(--nu-theme-border-width)';
 
+        if (style === 'center') {
+          val = `calc(${val} / 2)`;
+        }
+
+        if (STROKE_STYLES.includes(style)) {
+          return {
+            '--nu-stroke-shadow': `${style === 'outside' ? '' : 'inset'} 0 0 0 ${val} var(--nu-theme-border-color), 0 0 0 ${style !== 'inside' ? val : '0'} var(--nu-theme-border-color)`,
+          };
+        }
+
         return {
           'border': `${val} ${style} var(--nu-theme-border-color)`,
-        };
-      },
-      outline(val) {
-        if (val == null) return val;
-
-        val = val
-          ? convertUnit(val, 'var(--nu-theme-outline-width)')
-          : 'var(--nu-theme-outline-width)';
-
-        return {
-          '--nu-outline-width': val,
         };
       },
       shadow(val) {
         if (val == null) return val;
 
-        const depth = val === '' ? '1rem' : convertUnit(val);
+        const depth = val === '' ? '1rem' : convertUnit(val, '.5rem');
 
         return {
           '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-theme-shadow-intensity) / ${(Number(val) ||
@@ -103,12 +109,10 @@ export default class NuBlock extends NuElement {
     return `
       ${nuTag}{
         --nu-border-radius: 0rem;
-        --nu-outline-width: 0;
-        --nu-outline-inset: 0 0;
-        --nu-outline-shadow: var(--nu-outline-inset) 0 var(--nu-outline-width) var(--nu-theme-outline-color);
         --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        --nu-stroke-shadow: 0 0 0 0 var(--nu-theme-border-color), 0 0 0 0 var(--nu-theme-border-color);
 
-        box-shadow: var(--nu-outline-shadow), var(--nu-depth-shadow);
+        box-shadow: var(--nu-stroke-shadow), var(--nu-depth-shadow);
         border-radius: var(--nu-border-radius);
         box-sizing: border-box;
       }

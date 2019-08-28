@@ -1,186 +1,196 @@
 <head>
   <script src="src/pack.js"></script>
   <script>
-    Nude.init();
+  Nude.init();
   </script>
 </head>
 <body data-nu-root style="--primary-color: limegreen;" debug>
-  <nu-block padding="1" responsive="1280px|960px|640px">
-    <nd-theme
-      color="#333"
-      background-color="#fff"
-      special-color="var(--primary-color)"
-      border-color="#ddd"
-      shadow-intensity=".1">
-    </nd-theme>
-    <nd-theme
-      name="primary"
-      color="#888"
-      background-color="#fff"
-      border-color="#eef"
-      outline-color="#eef"
-      special-color="#1885d9"
-      shadow-intensity=".2"></nd-theme>
-    <nd-mod name="red">
-      color: red;
-    </nd-mod>
-    <nd-var name="--my-padding" value="2|1.5|1|.5"></nd-var>
+<nu-block padding="1" responsive="1280px|960px|640px">
+  <nd-theme
+    color="#333"
+    background-color="#fff"
+    special-color="var(--primary-color)"
+    border-color="#ddd"
+    shadow-intensity=".1">
+  </nd-theme>
+  <nd-theme
+    name="primary"
+    color="#888"
+    background-color="#fff"
+    border-color="#888"
+    special-color="#1885d9"
+    shadow-intensity=".5"></nd-theme>
+  <nd-mod name="red">
+    color: red;
+  </nd-mod>
+  <nd-var name="--my-padding" value="2|1.5|1|.5"></nd-var>
 
-    <nu-flex flow="column" gap="1">
-      <nu-card shadow radius="2x" padding="var(--my-padding)" border="2x dashed">
-        <nu-pane>
-          <nu-heading>Card 1</nu-heading>
-          <nu-btn>Card action</nu-btn>
-        </nu-pane>
+  <nu-flex flow="column" gap="1">
+    <nu-card shadow radius="2x" padding="var(--my-padding)" border="2x dashed">
+      <nu-pane>
+        <nu-heading>Card 1</nu-heading>
+        <nu-btn>Card action</nu-btn>
+      </nu-pane>
 
-        <nu-flex flow="column" gap="1">
-          <nu-block>
-            <nu-btn-group
-              id="btn-group"
-              value="two"
-              width="40|100%"
-              flow="row|column"
-              items-padding=".5" size="1.6 2.5| |.75 1|.5 .75">
-              <nu-btn value="one" special>
-                <nu-icon name="zap" inline></nu-icon>
-                One
-              </nu-btn>
-              <nu-btn value="two" theme="default :pressed[primary]" debug>
-                Two
-              </nu-btn>
-              <nu-btn disabled value="three">Three</nu-btn>
-            </nu-btn-group>
-          </nu-block>
+      <nu-flex flow="column" gap="1">
+        <nu-block>
+          <nu-btn-group
+            id="btn-group"
+            value="two"
+            width="40|100%"
+            flow="row|column"
+            items-padding=".5" size="1.6 2.5| |.75 1|.5 .75">
+            <nu-btn value="one" special>
+              <nu-icon name="zap" inline></nu-icon>
+              One
+            </nu-btn>
+            <nu-btn value="two" theme="default :pressed[primary]" debug>
+              Two
+            </nu-btn>
+            <nu-btn disabled value="three">Three</nu-btn>
+          </nu-btn-group>
+        </nu-block>
 
+        <nu-line></nu-line>
+
+        <nu-block>
+          <nu-tablist gap="2||.5|0">
+            <nu-tab controls="first">First</nu-tab>
+            <nu-tab controls="second">Second</nu-tab>
+            <nu-tab controls="third">Third</nu-tab>
+          </nu-tablist>
           <nu-line></nu-line>
+        </nu-block>
 
-          <nu-block>
-            <nu-tablist gap="2||.5|0">
-              <nu-tab controls="first">First</nu-tab>
-              <nu-tab controls="second">Second</nu-tab>
-              <nu-tab controls="third">Third</nu-tab>
-            </nu-tablist>
-            <nu-line></nu-line>
-          </nu-block>
+        <nu-block name="first" background="blue :hover[red]">First tab panel</nu-block>
+        <nu-block name="second">Second tab panel</nu-block>
+        <nu-block name="third">Third tab panel</nu-block>
 
-          <nu-block name="first" background="blue :hover[red]">First tab panel</nu-block>
-          <nu-block name="second">Second tab panel</nu-block>
-          <nu-block name="third">Third tab panel</nu-block>
+        <nu-line></nu-line>
 
-          <nu-line></nu-line>
+        <nu-grid rows="1rem auto"></nu-grid>
 
-          <nu-grid rows="1rem auto"></nu-grid>
+        <nu-input cols="auto 1fr">
+          <nu-icon name="x"></nu-icon>
+          <input/>
+        </nu-input>
 
-          <nu-input cols="auto 1fr">
-            <nu-icon name="x" width="2.5"></nu-icon>
-            <input />
-          </nu-input>
-
-          <nu-card
-            mod="sm" theme="primary" shadow="0 :hover[4]" outline="1bw :hover[3bw]" border="0"
-            transform="translate(0rem, 0rem) :hover[translate(0rem, -.1rem)]">
-            <nu-flex flow="column" gap="1">
-              <nu-block>
-                Some text and <nu-link>Nude link</nu-link> and <nu-link special>Nude special link</nu-link> and
-                <nu-badge>Some badge</nu-badge>. <a href="/">Real link</a>.
-              </nu-block>
-              <nu-flex mod="md" gap=".5">
-                <nu-btn special>Special button</nu-btn>
-                <nu-btn>Not so special button</nu-btn>
-              </nu-flex>
+        <nu-card
+          mod="sm"
+          theme="primary"
+          shadow="0 :hover[3x]"
+          radius="1x :hover[2x]"
+          border="2x inside :hover[.5rem center]"
+          transform="translate(0rem, 0rem) :hover[translate(0rem, -.1rem)]">
+          <nu-flex flow="column" gap="1">
+            <nu-block>
+              Some text and
+              <nu-link>Nude link</nu-link>
+              and
+              <nu-link special>Nude special link</nu-link>
+              and
+              <nu-badge>Some badge</nu-badge>
+              . <a href="/">Real link</a>.
+            </nu-block>
+            <nu-flex mod="md" gap=".5">
+              <nu-btn special>Special button</nu-btn>
+              <nu-btn>Not so special button</nu-btn>
             </nu-flex>
-          </nu-card>
-        </nu-flex>
+          </nu-flex>
+        </nu-card>
+      </nu-flex>
 
-        <nu-flow>
-          <nu-block>ONE</nu-block>
-          <nu-block>TWO</nu-block>
-          <nu-block>THREE</nu-block>
-        </nu-flow>
+      <nu-flow>
+        <nu-block>ONE</nu-block>
+        <nu-block>TWO</nu-block>
+        <nu-block>THREE</nu-block>
+      </nu-flow>
+    </nu-card>
+
+    <nu-card shadow border theme="primary">
+      <nu-heading>Card 2</nu-heading>
+
+      <nu-flex flow="column" gap="1">
+        <nu-block>
+          <nu-btn-group theme="primary-dark" items-padding=".5" border=".25" radius="2x">
+            <nu-btn value="one">One</nu-btn>
+            <nu-btn value="two">Two</nu-btn>
+            <nu-btn value="three">Three</nu-btn>
+          </nu-btn-group>
+        </nu-block>
+
+        <nu-input>
+          <input/>
+        </nu-input>
+
+        <nu-card theme="minor">
+          Some text and
+          <nu-link>Some link</nu-link>
+          and
+          <nu-badge>Some badge</nu-badge>
+        </nu-card>
+      </nu-flex>
+    </nu-card>
+  </nu-flex>
+</nu-block>
+
+<nu-grid flow="column" padding="1" gap="1" items="start">
+  <nd-theme
+    color="#1885d9"
+    background-color="#fff"
+    special-color="#1885d9"
+    shadow-opacity=".2"></nd-theme>
+  <nu-card padding="1" gap="1" grow="1" radius=".5" shadow=".5">
+    <nu-flex gap="1" flow="column">
+      <nu-block>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      </nu-block>
+
+      <nu-line></nu-line>
+
+      <nu-card mod="xs" padding="1">
+        <nu-switch></nu-switch>
       </nu-card>
 
-      <nu-card shadow border theme="primary">
-        <nu-heading>Card 2</nu-heading>
+      <nu-switch></nu-switch>
 
-        <nu-flex flow="column" gap="1">
-          <nu-block>
-            <nu-btn-group theme="primary-dark" items-padding=".5" border=".25" radius="2x">
-              <nu-btn value="one">One</nu-btn>
-              <nu-btn value="two">Two</nu-btn>
-              <nu-btn value="three">Three</nu-btn>
-            </nu-btn-group>
-          </nu-block>
+      <nu-input theme>
+        <input>
+      </nu-input>
 
-          <nu-input>
-            <input />
-          </nu-input>
-
-          <nu-card theme="minor">
-            Some text and <nu-link>Some link</nu-link> and
-            <nu-badge>Some badge</nu-badge>
-          </nu-card>
+      <nu-block>
+        <nu-flex gap="1" height="300px">
+          <nu-btn basis="40%">1asdfasdfadf</nu-btn>
+          <nu-btn basis="30%">sfdsaf</nu-btn>
+          <nu-btn basis="30%">asdfdf</nu-btn>
+          <nu-btn>asdfsadfasdf3</nu-btn>
+          <nu-btn>asdfsadfasdf3</nu-btn>
         </nu-flex>
-      </nu-card>
+      </nu-block>
 
-  </nu-block>
-
-  <nu-grid flow="column" padding="1" gap="1" items="start">
-    <nd-theme
-      color="#1885d9"
-      background-color="#fff"
-      special-color="#1885d9"
-      shadow-opacity=".2"></nd-theme>
-   <nu-card padding="1" gap="1" border grow="1" radius=".5" shadow=".5">
-     <nu-flex gap="1" flow="column">
-       <nu-block>
-         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-       </nu-block>
-
-       <nu-line></nu-line>
-
-       <nu-card mod="xs" padding="1">
-         <nu-switch></nu-switch>
-       </nu-card>
-
-       <nu-switch></nu-switch>
-
-       <nu-input theme>
-         <input>
-       </nu-input>
-
-       <nu-block>
-         <nu-flex gap="1" height="300px">
-           <nu-btn basis="40%">1asdfasdfadf</nu-btn>
-           <nu-btn basis="30%">sfdsaf</nu-btn>
-           <nu-btn basis="30%">asdfdf</nu-btn>
-           <nu-btn>asdfsadfasdf3</nu-btn>
-           <nu-btn>asdfsadfasdf3</nu-btn>
-         </nu-flex>
-       </nu-block>
-
-       <nu-block>
-         <nu-btn id="button" theme>
-           <nu-icon size="1.5">
-             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round" class="feather feather-image">
-               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-               <circle cx="8.5" cy="8.5" r="1.5"></circle>
-               <polyline points="21 15 16 10 5 21"></polyline>
-             </svg>
-           </nu-icon>
-           Ok, go!
-         </nu-btn>
-       </nu-block>
-     </nu-flex>
-   </nu-card>
-   <!-- <nu-card theme="minor" mod="border" radius="1.5" shadow> -->
-     <!-- <nu-flex flow="column" gap="1"> -->
-       <!-- <nu-block> -->
-         <!-- Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an -->
-         <!-- unknown -->
-         <!-- printer took a galley of type and scrambled it to make a type specimen book. -->
-       <!-- </nu-block> -->
+      <nu-block>
+        <nu-btn id="button" theme>
+          <nu-icon size="1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round" class="feather feather-image">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+          </nu-icon>
+          Ok, go!
+        </nu-btn>
+      </nu-block>
+    </nu-flex>
+  </nu-card>
+  <!-- <nu-card theme="minor" mod="border" radius="1.5" shadow> -->
+  <!-- <nu-flex flow="column" gap="1"> -->
+  <!-- <nu-block> -->
+  <!-- Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an -->
+  <!-- unknown -->
+  <!-- printer took a galley of type and scrambled it to make a type specimen book. -->
+  <!-- </nu-block> -->
   <!--      <nu-block>-->
   <!--        <nu-btn-group flow="row">-->
   <!--          <nu-btn>-->
@@ -198,14 +208,14 @@
   <!--      It has survived not only five centuries, but also the leap into electronic typesetting,-->
   <!--      remaining essentially unchanged-->
   <!--    </nu-flex>-->
-   <!-- </nu-block> -->
-  </nu-grid>
+  <!-- </nu-block> -->
+</nu-grid>
 
-  <script>
-    const btn = document.getElementById("btn-group");
+<script>
+const btn = document.getElementById("btn-group");
 
-    btn.addEventListener('input', function (evt) {
-      console.log('!', evt.detail, evt.target.value);
-    });
-  </script>
+btn.addEventListener('input', function (evt) {
+  console.log('!', evt.detail, evt.target.value);
+});
+</script>
 </body>
