@@ -236,9 +236,8 @@ export default class NuBase extends HTMLElement {
    */
   nuDebug(...args) {
     if (devMode) {
-      const _this = this;
       if (this.hasAttribute('debug')) {
-        log({ $: _this }, ...args);
+        log({ $: this }, ...args);
       }
     } else {
       warn('forgot nuDebug() call in production');

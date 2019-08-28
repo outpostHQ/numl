@@ -56,11 +56,10 @@ export default class NuBlock extends NuElement {
       shadow(val) {
         if (val == null) return val;
 
-        const depth = convertUnit(val || '1');
-        // const opacity = (val && (0.1 / Math.pow(parseFloat(val), 1 / 2))) || ".1";
+        const depth = val === '' ? '1' : convertUnit(val);
 
         return {
-          '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-theme-shadow-intensity) / ${(val ||
+          '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-theme-shadow-intensity) / ${(Number(val) ||
             1) * 2}))`
         };
       }
@@ -75,6 +74,10 @@ export default class NuBlock extends NuElement {
         --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 
         box-shadow: var(--nu-border-shadow), var(--nu-depth-shadow);
+        transition: background var(--nu-theme-animation-time) linear,
+          color var(--nu-theme-animation-time) linear,
+          box-shadow var(--nu-theme-animation-time) linear,
+          transform var(--nu-theme-animation-time) linear;
         border-radius: var(--nu-border-radius);
         box-sizing: border-box;
       }

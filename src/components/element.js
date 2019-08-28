@@ -94,6 +94,9 @@ export default class NuElement extends NuBase {
             : 'var(--nu-theme-background-color)'
         };
       },
+      transform(val) {
+        return val ? { 'transform': val } : null;
+      },
       /**
        * Apply modifier styles.
        * @param {String} val - String that contains modifiers separated by space.

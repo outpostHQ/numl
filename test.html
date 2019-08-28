@@ -17,7 +17,7 @@
       name="primary"
       color="#888"
       background-color="#fff"
-      border-color="#666"
+      border-color="#eef"
       special-color="#1885d9"
       shadow-intensity=".2"></nd-theme>
     <nd-mod name="red">
@@ -75,7 +75,9 @@
             <input />
           </nu-input>
 
-          <nu-card mod="sm" theme="primary-dark" shadow="1">
+          <nu-card
+            mod="sm" theme="primary" shadow="0 :hover[2]" border="1bw"
+            transform="translate(0rem, 0rem) :hover[translate(0rem, -.1rem)]">
             <nu-flex flow="column" gap="1">
               <nu-block>
                 Some text and <nu-link>Nude link</nu-link> and <nu-link special>Nude special link</nu-link> and
