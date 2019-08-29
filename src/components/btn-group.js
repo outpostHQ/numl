@@ -15,7 +15,6 @@ export default class NuBtnGroup extends NuFlex {
   static get nuAttrs() {
     return {
       padding: '',
-      gap: '',
       value: '',
       'items-padding': unit('padding', true),
       flow(val) {
@@ -24,13 +23,13 @@ export default class NuBtnGroup extends NuFlex {
         return [
           ...FLOW_ATTR(val),
           {
-            $suffix: ` > :first-child:not(:last-child)`,
+            $suffix: `:not([gap]) > :first-child:not(:last-child)`,
             '--nu-border-radius': val.startsWith('row')
               ? 'var(--nu-item-border-radius) 0 0 var(--nu-item-border-radius)'
               : 'var(--nu-item-border-radius) var(--nu-item-border-radius) 0 0'
           },
           {
-            $suffix: ` > :last-child:not(:first-child)`,
+            $suffix: `:not([gap]) > :last-child:not(:first-child)`,
             '--nu-border-radius': val.startsWith('row')
               ? '0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0'
               : '0 0 var(--nu-item-border-radius) var(--nu-item-border-radius)'
@@ -51,6 +50,12 @@ export default class NuBtnGroup extends NuFlex {
     };
   }
 
+  static get nuDefaults() {
+    return {
+      gap: 'calc(var(--nu-theme-border-width) * -1)',
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
@@ -67,16 +72,16 @@ export default class NuBtnGroup extends NuFlex {
       ${nuTag}:not([gap]) > * {
         --nu-flex-gap: calc(var(--nu-theme-border-width) * -1);
       }
-      ${nuTag} > *:not(:last-child):not(:first-child) {
+      ${nuTag}:not([gap]) > *:not(:last-child):not(:first-child) {
         --nu-border-radius: 0;
       }
-      ${nuTag} > *:last-child:first-child {
+      ${nuTag}:not([gap]) > *:last-child:first-child {
         --nu-border-radius: inherit;
       }
-      ${nuTag}:not([flow]) > :first-child:not(:last-child) {
+      ${nuTag}:not([gap]):not([flow]) > :first-child:not(:last-child) {
         --nu-border-radius: var(--nu-item-border-radius) 0 0 var(--nu-item-border-radius);
       }
-      ${nuTag}:not([flow]) > :last-child:not(:first-child) {
+      ${nuTag}:not([gap]):not([flow]) > :last-child:not(:first-child) {
         --nu-border-radius: 0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0;
       }
     `;
