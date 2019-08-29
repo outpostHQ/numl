@@ -22,6 +22,14 @@ export const BORDER_STYLES = [
   'outset',
 ];
 
+export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
+export const DIRECTIONS_HANDLERS = {
+  top(val, outside) { return `0 calc(${val} * ${outside ? -1 : 1})`;},
+  right(val, outside) { return `calc(${val} * ${outside ? 1 : -1}) 0`;},
+  bottom(val, outside) { return `0 calc(${val} * ${outside ? 1 : -1})`;},
+  left(val, outside) { return `calc(${val} * ${outside ? -1 : 1}) 0`;},
+};
+
 export default class NuBlock extends NuElement {
   static get nuTag() {
     return 'nu-block';
@@ -66,11 +74,25 @@ export default class NuBlock extends NuElement {
         if (val == null) return val;
 
         let style = 'solid';
+        let dirs = [];
+        let color = 'var(--nu-theme-border-color)';
+
+        if (val.includes('special')) {
+          val = val.replace('special', '').trim();
+          color = 'var(--nu-theme-special-color)';
+        }
 
         BORDER_STYLES.forEach(s => {
           if (val.includes(s)) {
             val = val.replace(s, '').trim();
             style = s;
+          }
+        });
+
+        DIRECTIONS.forEach(s => {
+          if (val.includes(s)) {
+            val = val.replace(s, '').trim();
+            dirs.push(s);
           }
         });
 
@@ -83,14 +105,34 @@ export default class NuBlock extends NuElement {
         }
 
         if (STROKE_STYLES.includes(style)) {
+          if (dirs.length) {
+            return {
+              '--nu-stroke-shadow': dirs.map(dir => {
+                let pos = DIRECTIONS_HANDLERS[dir];
+
+                return `${style !== 'inside' ? pos(val, true) : '0 0'} 0 ${dirs.length ? 0 : val} ${color},
+                  inset ${style !== 'outside' ? pos(val) : '0 0'} 0 ${dirs.length ? 0 : val} ${color}`;
+              }).join(','),
+            };
+          }
+
           return {
-            '--nu-stroke-shadow': `${style === 'outside' ? '' : 'inset'} 0 0 0 ${val} var(--nu-theme-border-color), 0 0 0 ${style !== 'inside' ? val : '0'} var(--nu-theme-border-color)`,
+            '--nu-stroke-shadow': `0 0 0 ${style !== 'inside' ? val : 0} ${color},
+            inset 0 0 0 ${style !== 'outside' ? val : 0} ${color}`,
           };
         }
 
-        return {
-          'border': `${val} ${style} var(--nu-theme-border-color)`,
-        };
+        const border = `${val} ${style} ${color}`;
+
+        if (dirs.length) {
+          return dirs.reduce((styles, dir) => {
+            styles[`border-${dir}`] = border;
+
+            return styles;
+          }, {});
+        }
+
+        return { border };
       },
       shadow(val) {
         if (val == null) return val;
@@ -110,7 +152,7 @@ export default class NuBlock extends NuElement {
       ${nuTag}{
         --nu-border-radius: 0rem;
         --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-        --nu-stroke-shadow: 0 0 0 0 var(--nu-theme-border-color), 0 0 0 0 var(--nu-theme-border-color);
+        --nu-stroke-shadow: 0 0 0 0 var(--nu-theme-border-color), inset 0 0 0 0 var(--nu-theme-border-color);
 
         box-shadow: var(--nu-stroke-shadow), var(--nu-depth-shadow);
         border-radius: var(--nu-border-radius);
