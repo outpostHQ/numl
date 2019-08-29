@@ -1,5 +1,5 @@
 import { GRID_ITEM_ATTRS, FLEX_ITEM_ATTRS } from '../attrs';
-import { unit, sizeUnit, convertUnit, splitDimensions } from '../helpers';
+import { unit, sizeUnit, convertUnit, splitDimensions, excludeMod } from '../helpers';
 import NuElement from './element';
 
 export const STROKE_STYLES = [
@@ -77,24 +77,30 @@ export default class NuBlock extends NuElement {
         let dirs = [];
         let color = 'var(--nu-theme-border-color)';
 
-        if (val.includes('special')) {
-          val = val.replace('special', '').trim();
+        const newVal = excludeMod(val, 'special');
+
+        if (newVal) {
+          val = newVal;
           color = 'var(--nu-theme-special-color)';
         }
 
-        BORDER_STYLES.forEach(s => {
-          if (val.includes(s)) {
-            val = val.replace(s, '').trim();
+        for (let s of BORDER_STYLES) {
+          const newVal = excludeMod(val, s);
+
+          if (newVal) {
+            val = newVal;
             style = s;
           }
-        });
+        }
 
-        DIRECTIONS.forEach(s => {
-          if (val.includes(s)) {
-            val = val.replace(s, '').trim();
+        for (let s of DIRECTIONS) {
+          const newVal = excludeMod(val, s);
+
+          if (newVal) {
+            val = newVal;
             dirs.push(s);
           }
-        });
+        }
 
         val = val
           ? convertUnit(val, 'var(--nu-theme-border-width)')
@@ -141,9 +147,9 @@ export default class NuBlock extends NuElement {
 
         return {
           '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-theme-shadow-intensity) / ${(Number(val) ||
-            1) * 2}))`
+            1) * 2}))`,
         };
-      }
+      },
     };
   }
 

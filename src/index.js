@@ -42,6 +42,7 @@ import {
   computeStyles,
   splitStates,
   convertCustomUnit,
+  excludeMod,
   COLORS,
   ROOT_CONTEXT,
   CUSTOM_UNITS,
@@ -108,6 +109,7 @@ const Nude = {
     splitStates,
     convertCustomUnit,
     splitDimensions,
+    excludeMod,
   },
 };
 

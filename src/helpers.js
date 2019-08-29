@@ -691,7 +691,7 @@ export const STATES_MAP = {
   hover: ':hover',
   pressed: '[aria-pressed="true"]',
   active: '[nu-active]',
-  sticky: '[nu-sticky]'
+  sticky: '[nu-sticky]',
 };
 
 /**
@@ -786,4 +786,13 @@ export function convertCustomUnit(value, unit, multiplier) {
     new RegExp(`[0-9\.]+${unit}`, 'gi'),
     s => `calc(${multiplier} * ${s.slice(0, -unit.length)})`
   );
+}
+
+export function excludeMod(str, mod) {
+  const regexp = new RegExp(`(^|[^a-z])${mod}([^a-z]|$)`);
+  if (str.match(regexp, 'i')) {
+    return str.replace(regexp, s => s.replace(mod, '')).trim();
+  }
+
+  return;
 }
