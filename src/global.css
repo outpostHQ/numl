@@ -46,42 +46,40 @@ body[data-nu-root] > *:not([size]) {
   display: none !important;
 }
 
-html.nu-prefers-high-contrast > * {
-  filter: brightness(.5) contrast(1.5) brightness(2);
+html.nu-prefers-high-contrast.nu-prefers-color-scheme-dark body {
+  filter: brightness(1.2) contrast(1.2);
 }
 
 @media (prefers-color-scheme: dark) {
-  .nu-prefers-color-scheme body {
-    background-color: rgba(15, 17, 19, 1);
+  html.nu-prefers-color-scheme body {
+    background: rgba(51, 51, 51, 1);
   }
 
-  .nu-prefers-color-scheme {
-    filter: invert(92%) hue-rotate(180deg) brightness(1.05) saturate(1.05);
-  }
-
-  .nu-prefers-color-scheme [data-nu-light] {
+  html.nu-prefers-color-scheme .nu-dark-invert {
     filter: invert(100%) hue-rotate(180deg);
   }
 
-  .nu-prefers-color-scheme.nu-high-contrast > [data-nu-light] {
-    filter: brightness(.5) contrast(1.5) brightness(2) invert(100%) hue-rotate(180deg);
+  html.nu-prefers-high-contrast.nu-prefers-color-scheme body {
+    filter: brightness(1.2) contrast(1.2);
   }
 }
 
-html.nu-prefers-dark-color-scheme body {
-  background-color: rgba(15, 17, 19, 1);
+@media (prefers-color-scheme: light) {
+  html.nu-prefers-high-contrast.nu-prefers-color-scheme body {
+    filter: brightness(.5) contrast(1.5) brightness(2);
+  }
 }
 
-html.nu-prefers-dark-color-scheme {
-  filter: invert(92%) hue-rotate(180deg) brightness(1.05) saturate(1.05);
+html.nu-prefers-high-contrast:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark) body {
+  filter: brightness(.5) contrast(1.5) brightness(2);
 }
 
-html.nu-prefers-dark-color-scheme [data-nu-light] {
+html.nu-prefers-color-scheme-dark body {
+  background: rgba(51, 51, 51, 1);
+}
+
+html.nu-prefers-color-scheme-dark .nu-dark-invert {
   filter: invert(100%) hue-rotate(180deg);
-}
-
-html.nu-prefers-dark-color-scheme.nu-high-contrast > [data-nu-light] {
-  filter: brightness(.5) contrast(1.5) brightness(2) invert(100%) hue-rotate(180deg);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -90,8 +88,8 @@ html.nu-prefers-dark-color-scheme.nu-high-contrast > [data-nu-light] {
   }
 }
 
-.nu-prefers-reduced-motion-reduce [data-nu-theme] {
-  --nu-theme-animation-time: 0.001s;
+.nu-prefers-reduced-motion-reduce [nu-themes] {
+  --nu-theme-animation-time: 0.001s !important;
 }
 
 [data-nu-root] * {

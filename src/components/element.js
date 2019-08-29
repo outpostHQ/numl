@@ -546,8 +546,7 @@ export default class NuElement extends NuBase {
 
     const [lightTheme, darkTheme] = generateTheme(props, darkProps, parentProps);
 
-    const context = this.nuGetContext('nu-themes');
-    const baseQuery = `${context} #${this.nuId}`;
+    const baseQuery = `#${this.nuId}`;
     const forceLightStyles = stylesString(convertThemeName(lightTheme, `${name}-light`));
     const forceDarkStyles = stylesString(convertThemeName(darkTheme, `${name}-dark`));
     const lightStyles = stylesString(convertThemeName(lightTheme, name));
@@ -576,12 +575,14 @@ export default class NuElement extends NuBase {
         `
         ${commonCSS}
         @media (prefers-color-scheme: dark) {
-          html:not(.nu-prefers-color-scheme-light):not(.nu-prefers-color-scheme-dark) ${baseQuery}{${darkStyles}}
-          html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}
+          html.nu-prefers-color-scheme ${baseQuery}{${darkStyles}}
+          html:not(.nu-prefers-color-scheme-light) ${baseQuery}{${darkStyles}}
+          html.nu-prefers-color-scheme-light ${baseQuery}{${lightStyles}}
         }
         @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
-          html:not(.nu-prefers-color-scheme-light):not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightStyles}}
-          html.nu-prefers-color-scheme-light ${baseQuery}{${lightStyles}}
+          html.nu-prefers-color-scheme ${baseQuery}{${lightStyles}}
+          html:not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightStyles}}
+          html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}/
         }
       `
       ).element;

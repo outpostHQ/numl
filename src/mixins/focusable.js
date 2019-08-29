@@ -1,6 +1,6 @@
 import { ROOT_CONTEXT } from '../helpers';
 
-export default function focusable(tag, force) {
+export default function focusable(tag, { force, cell } = {}) {
   const context = force
     ? ''
     : `${ROOT_CONTEXT}[data-nu-focus-enabled] `;
@@ -8,7 +8,7 @@ export default function focusable(tag, force) {
   return `
     ${tag} {
       --nu-focus-color: transparent;
-      --nu-focus-inset: 0 0;
+      --nu-focus-inset: ${cell ? 'inset' : '0 0'};
       --nu-focus-shadow: var(--nu-focus-inset) 0 0.1875rem var(--nu-focus-color);
 
       outline: none;
@@ -33,7 +33,7 @@ export default function focusable(tag, force) {
     ${context}${tag}:not([disabled])[nu-focus] {
       --nu-focus-color: var(--nu-theme-focus-color);
     }
-    ${context}${tag}:not([disabled])[nu-focus][cell] {
+    ${context}${tag}:not([disabled])[nu-focus]${cell ? '' : '[cell]'} {
       --nu-focus-inset: inset 0 0;
     }
   `;

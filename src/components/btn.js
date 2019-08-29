@@ -39,7 +39,7 @@ export default class NuBtn extends NuAbstractBtn {
       }
 
       ${nuTag}:not([disabled])[tabindex]:hover::after {
-        background-color: rgba(128, 128, 128, .07);
+        background-color: rgba(128, 128, 128, calc(var(--nu-theme-shadow-intensity) / 2));
       }
 
       ${nuTag}[nu-active]:not([disabled]):not([aria-pressed="true"]),
@@ -55,13 +55,18 @@ export default class NuBtn extends NuAbstractBtn {
       }
 
       ${nuTag}[cell] {
-        --nu-border-radius: 0;
-        --nu-border-color: transparent;
-
         align-self: stretch;
         justify-self: stretch;
-        width: 100% !important;
-        height: 100% !important;
+        width: 100%;
+        height: 100%;
+      }
+      
+      ${nuTag}[cell]:not([radius]) {
+        --nu-border-radius: 0;
+      }
+      
+      ${nuTag}[cell]:not([border]) {
+        border: none;
       }
     `;
   }

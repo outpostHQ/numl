@@ -40,7 +40,7 @@ export default class NuSwitch extends NuBlock {
         --nu-circle-offset: var(--nu-circle-padding);
         --nu-circle-opacity: 1;
         --nu-circle-border-radius: calc(var(--nu-circle-size) / 2);
-        --nu-circle-background-color: var(--nu-theme-color);
+        --nu-circle-background-color: var(--nu-theme-special-color);
 
         position: relative;
         width: calc(var(--nu-size) * 2);

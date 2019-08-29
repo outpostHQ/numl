@@ -22,6 +22,7 @@ import NuScroll from './components/scroll';
 import NuFlex from './components/flex';
 import NuBtnGroup from './components/btn-group';
 import NuMenu from './components/menu';
+import NuMenuItem from './components/menuitem';
 import NuTablist from './components/tablist';
 import NuAbstractBtn from './components/abstract-btn';
 // decorators
@@ -133,6 +134,7 @@ Nude.elements = {
   NuBtnGroup,
   NuTablist,
   NuMenu,
+  NuMenuItem,
   NuLink,
   NdTheme,
   NdMod,
@@ -217,6 +219,7 @@ export {
   NuBtnGroup,
   NuTablist,
   NuMenu,
+  NuMenuItem,
   NuLink,
   NdTheme,
   NdMod,

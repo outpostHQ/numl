@@ -85,15 +85,21 @@ export default class NuInput extends NuGrid {
       }
 
       ${nuTag}[cell] {
-        --nu-border-color: transparent;
-        --nu-border-radius: 0rem !important;
         align-self: stretch;
         justify-self: stretch;
         width: 100%;
         height: 100%;
       }
+      
+      ${nuTag}[cell]:not([radius]) {
+        --nu-border-radius: 0rem;
+      }
+      
+      ${nuTag}[cell]:not([border]) {
+        border: none;
+      }
 
-      ${focusable(nuTag, true)}
+      ${focusable(nuTag, { force: true })}
     `;
   }
 

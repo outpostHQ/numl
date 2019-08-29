@@ -32,7 +32,7 @@ export default class NuGridTable extends NuGrid {
       ${nuTag}:not([gap]) {
         grid-gap: var(--nu-theme-border-width);
       }
-      ${nuTag} > *:not([theme]):not([background]) {
+      ${nuTag} > :not([background]) {
         background-color: var(--nu-theme-background-color);
       }
       ${nuTag}:not([padding]) > *:not([padding]):not(nu-line) {

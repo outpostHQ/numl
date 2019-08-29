@@ -79,7 +79,7 @@ export default class NuBlock extends NuElement {
 
         const newVal = excludeMod(val, 'special');
 
-        if (newVal) {
+        if (newVal != null) {
           val = newVal;
           color = 'var(--nu-theme-special-color)';
         }
@@ -87,7 +87,7 @@ export default class NuBlock extends NuElement {
         for (let s of BORDER_STYLES) {
           const newVal = excludeMod(val, s);
 
-          if (newVal) {
+          if (newVal != null) {
             val = newVal;
             style = s;
           }
@@ -96,7 +96,7 @@ export default class NuBlock extends NuElement {
         for (let s of DIRECTIONS) {
           const newVal = excludeMod(val, s);
 
-          if (newVal) {
+          if (newVal != null) {
             val = newVal;
             dirs.push(s);
           }
@@ -108,6 +108,11 @@ export default class NuBlock extends NuElement {
 
         if (style === 'center') {
           val = `calc(${val} / 2)`;
+        }
+
+        if (style === 'hidden') {
+          style = 'solid';
+          color = 'transparent';
         }
 
         if (STROKE_STYLES.includes(style)) {

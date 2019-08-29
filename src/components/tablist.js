@@ -15,6 +15,12 @@ export default class NuTablist extends NuFlex {
     };
   }
 
+  static get nuDefaults() {
+    return {
+      gap: 1,
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag}:not([gap]) > * {

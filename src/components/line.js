@@ -18,7 +18,7 @@ export default class NuLine extends NuBlock {
     };
   }
 
-  static get nuAttrs() {
+  static get nuDefaults() {
     return {
       place: 'stretch',
     };
