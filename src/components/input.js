@@ -58,6 +58,14 @@ export default class NuInput extends NuGrid {
         outline: none;
         border-radius: inherit;
       }
+      
+      ${nuTag} input:not(:first-child) {
+        padding-left: 0;
+      }
+      
+      ${nuTag} input:not(:last-child) {
+        padding-right: 0;
+      }
 
       ${nuTag} input[disabled] {
         color: var(--minor-color);
