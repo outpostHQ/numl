@@ -66,11 +66,11 @@ export default class NuElement extends NuBase {
 
         if (!val) val = 'default';
 
-        const isColorScheme = isColorScheme(val);
+        const colorScheme = isColorScheme(val);
         const mainThemeName = getMainThemeName(val);
 
         return THEME_ATTRS_LIST.reduce((obj, name) => {
-          if (isColorScheme && !name.includes('-color')) {
+          if (colorScheme && !name.includes('-color')) {
             obj[`--nu-theme-${name}`] = `var(--nu-${mainThemeName}-${name})`;
           } else {
             obj[`--nu-theme-${name}`] = `var(--nu-${val}-${name})`;
