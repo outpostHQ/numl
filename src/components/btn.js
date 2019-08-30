@@ -46,6 +46,7 @@ export default class NuBtn extends NuAbstractBtn {
         background-color: var(--nu-theme-special-hover-color);
       }
 
+      ${nuTag}[disabled][aria-pressed="true"],
       ${nuTag}[nu-active]:not([disabled]):not([aria-pressed="true"]),
       ${nuTag}[aria-pressed="true"][role="radio"][nu-active]:not([disabled]),
       ${nuTag}[aria-pressed="true"]:not([disabled]):not([nu-active]) {
