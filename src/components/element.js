@@ -224,7 +224,17 @@ export default class NuElement extends NuBase {
         respEl = respEl.parentNode;
       }
 
-      if (!respEl) return;
+      if (!respEl) {
+        setTimeout(() => {
+          const newValue = this.getAttribute(name);
+
+          if (value !== newValue) return;
+
+          this.nuApplyCSS(name, value);
+        }, 100);
+
+        return;
+      }
 
       const values = value.split('|');
       const styles = values.map((val, i) => {

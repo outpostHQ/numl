@@ -40,8 +40,12 @@ export default class NuHeading extends NuBlock {
     };
   }
 
-  get getDefaultLevel() {
-    return this.constructor.nuDefaultLevel;
+  static nuCSS({ nuTag }) {
+    return `
+      ${nuTag} {
+        position: relative;
+      }
+    `;
   }
 
   nuChanged(name, oldValue, value) {

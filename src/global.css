@@ -47,7 +47,7 @@ body[data-nu-root] > *:not([size]) {
 }
 
 html.nu-prefers-high-contrast.nu-prefers-color-scheme-dark body {
-  filter: brightness(1.2) contrast(1.2);
+  filter: invert(100%) brightness(0.666) contrast(1.5) brightness(1.5) invert(100%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -59,8 +59,12 @@ html.nu-prefers-high-contrast.nu-prefers-color-scheme-dark body {
     filter: invert(100%) hue-rotate(180deg);
   }
 
+  html.nu-prefers-color-scheme .nu-dark-dim {
+    filter: invert(5%);
+  }
+
   html.nu-prefers-high-contrast.nu-prefers-color-scheme body {
-    filter: brightness(1.2) contrast(1.2);
+    filter: invert(100%) brightness(0.666) contrast(1.5) brightness(1.5) invert(100%);
   }
 }
 
@@ -82,13 +86,17 @@ html.nu-prefers-color-scheme-dark .nu-dark-invert {
   filter: invert(100%) hue-rotate(180deg);
 }
 
+html.nu-prefers-color-scheme-dark .nu-dark-dim {
+  filter: invert(5%);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .nu-prefers-reduced-motion [data-nu-theme] {
+  .nu-prefers-reduced-motion [nu-themes], .nu-prefers-reduced-motion [theme] {
     --nu-theme-animation-time: 0.001s;
   }
 }
 
-.nu-prefers-reduced-motion-reduce [nu-themes] {
+.nu-prefers-reduced-motion-reduce [nu-themes], .nu-prefers-reduced-motion-reduce [theme] {
   --nu-theme-animation-time: 0.001s !important;
 }
 

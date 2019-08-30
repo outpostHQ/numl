@@ -38,8 +38,12 @@ export default class NuBtn extends NuAbstractBtn {
         border-radius: inherit;
       }
 
-      ${nuTag}:not([disabled])[tabindex]:hover::after {
-        background-color: rgba(128, 128, 128, calc(var(--nu-theme-shadow-intensity) / 2));
+      ${nuTag}:not([disabled]):not([special])[tabindex]:hover::after {
+        background-color: var(--nu-theme-hover-color);
+      }
+      
+      ${nuTag}:not([disabled])[special][tabindex]:hover::after {
+        background-color: var(--nu-theme-special-hover-color);
       }
 
       ${nuTag}[nu-active]:not([disabled]):not([aria-pressed="true"]),

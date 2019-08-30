@@ -44,7 +44,7 @@ export default class NuMenuitem extends NuAbstractBtn {
       }
 
       ${nuTag}:not([disabled])[tabindex]:hover::after {
-        background-color: rgba(128, 128, 128, calc(var(--nu-theme-shadow-intensity) / 2));
+        background-color: var(--nu-theme-hover-color);
       }
 
       ${nuTag}[nu-active][tabindex]:not([disabled]):not([nu-toggled]),

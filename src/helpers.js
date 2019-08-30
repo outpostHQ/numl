@@ -191,7 +191,7 @@ export const CUSTOM_UNITS = {
 /**
  * Unit conversion for attribute values.
  * @param {String} unit - String for conversion.
- * @param {String} multiplier - If presented then use multiply custom unit (for example `2x`).
+ * @param {String} [multiplier] - If presented then use multiply custom unit (for example `2x`).
  * @returns {string|*}
  */
 export function convertUnit(unit, multiplier) {

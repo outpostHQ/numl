@@ -65,6 +65,7 @@ export const THEME_COLOR_ATTRS_LIST = [
   'shadow-color',
   'heading-color',
   'hover-color',
+  'special-hover-color',
   'special-background-color',
   'focus-color',
 ];
@@ -81,5 +82,7 @@ export const THEME_ATTRS_LIST = [
   'animation-time',
   'heading-color',
   'hover-color',
+  'special-hover-color',
+  'special-background-color',
   'focus-color',
 ];

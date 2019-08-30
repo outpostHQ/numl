@@ -1,4 +1,14 @@
-import { mixColors, invertColor, toKebabCase, extractColor, generalizeColor, getLuminance, contastRatio, convertUnit } from "./helpers";
+import {
+  mixColors,
+  invertColor,
+  toKebabCase,
+  extractColor,
+  generalizeColor,
+  getLuminance,
+  contastRatio,
+  convertUnit,
+  setAlphaChannel
+} from "./helpers";
 import { THEME_COLOR_ATTRS_LIST } from "./attrs";
 
 export function convertThemeName(theme, name) {
@@ -23,15 +33,20 @@ export function generateTheme(props, darkProps, parentProps) {
     borderRadius: convertUnit(props.borderRadius || parentProps.borderRadius),
     borderWidth: convertUnit(props.borderWidth || parentProps.borderWidth),
     shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
-    specialBackgroundColor: contastRatio(specialColor, color) > .5 ? color : backgroundColor,
+    specialBackgroundColor: props.specialBackgroundColor,
     // Use parent shadow intensity value only if both shadow color and shadow intensity
     // are not specified in the props
     shadowIntensity: props.shadowIntensity || (!props.shadowColor && parentProps.shadowIntensity),
     focusColor: generalizeColor(props.focusColor),
     headingColor: generalizeColor(props.headingColor),
     hoverColor: generalizeColor(props.hoverColor),
+    specialHoverColor: generalizeColor(props.specialHoverColor),
     animationTime: props.animationTime || parentProps.animationTime,
   };
+
+  lightTheme.specialBackgroundColor = lightTheme.specialBackgroundColor
+    || (contastRatio(lightTheme.specialColor, lightTheme.backgroundColor) > .4
+      ? lightTheme.backgroundColor : lightTheme.color);
 
   let darkTheme;
 
@@ -41,13 +56,27 @@ export function generateTheme(props, darkProps, parentProps) {
       if ((THEME_COLOR_ATTRS_LIST.includes(toKebabCase(varName)))
         && lightTheme[varName]
         && varName !== 'shadowColor') {
-        vars[varName] = darkProps[varName] || invertColor(lightTheme[varName], 40);
+        vars[varName] = generalizeColor(darkProps[varName]) || invertColor(lightTheme[varName], 40);
       } else {
-        vars[varName] = darkProps[varName] || lightTheme[varName];
+        vars[varName] = generalizeColor(darkProps[varName]) || lightTheme[varName];
       }
 
       return vars;
     }, {});
+
+    const specialLightLuminance = getLuminance(lightTheme.specialColor);
+    const specialDarkLuminance = getLuminance(darkTheme.specialColor);
+
+    if (specialLightLuminance < specialDarkLuminance && specialLightLuminance > .3
+      || specialLightLuminance > specialDarkLuminance && specialDarkLuminance < .3) {
+      Object.assign(darkTheme, {
+        specialColor: generalizeColor(darkProps.specialColor) || lightTheme.specialColor,
+      });
+
+      darkTheme.specialBackgroundColor = generalizeColor(darkProps.specialBackgroundColor)
+        || (contastRatio(darkTheme.specialColor, lightTheme.backgroundColor) > .4
+          ? lightTheme.backgroundColor : lightTheme.color);
+    }
   } else {
     darkTheme = { ...lightTheme };
   }
@@ -59,9 +88,13 @@ export function generateTheme(props, darkProps, parentProps) {
       focusColor: theme.focusColor
         || mixColors(theme.specialColor, theme.backgroundColor),
       headingColor: theme.headingColor
-        || mixColors(theme.color, theme.backgroundColor, .1),
-      hoverColor: theme.hoverColor
-        || mixColors(theme.backgroundColor, theme.specialColor, .1),
+        || (getLuminance(lightTheme.backgroundColor) > getLuminance(lightTheme.color)
+          ? mixColors(theme.color, theme.backgroundColor, .1)
+          : theme.color),
+      hoverColor: setAlphaChannel(theme.hoverColor
+        || theme.specialColor, .1),
+      specialHoverColor: setAlphaChannel(theme.specialHoverColor
+        || theme.specialBackgroundColor, .1),
     });
 
     const shadowIntensity = Math.min(Number(theme.shadowIntensity), 1);

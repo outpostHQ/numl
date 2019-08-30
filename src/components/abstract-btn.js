@@ -112,14 +112,14 @@ export default class NuAbstractBtn extends NuGrid {
   }
 
   nuTap() {
-    const href = this.getAttribute('href');
+    if (this.hasAttribute('disabled')) return;
 
     this.nuEmit('tap');
 
     const parent = this.parentNode;
     const value = this.getAttribute('value') || this.getAttribute('controls');
 
-    if (value && parent.nuSetValue) {
+    if (value && parent.nuSetValue && parent.value !== value) {
       parent.nuSetValue(value);
     }
   }
