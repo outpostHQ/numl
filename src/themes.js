@@ -11,8 +11,20 @@ import {
 } from "./helpers";
 import { THEME_COLOR_ATTRS_LIST } from "./attrs";
 
+export function isColorScheme(themeName) {
+  return themeName.endsWith('-dark') || themeName.endsWith('-light');
+}
+
+export function getMainThemeName(themeName) {
+  return themeName.replace('-dark', '').replace('-light', '');
+}
+
 export function convertThemeName(theme, name) {
+  const colorScheme = isColorScheme(name);
+
   return Object.keys(theme).reduce((map, style) => {
+    if (colorScheme && !style.includes('-color')) return map;
+
     map[style.replace('theme', name)] = theme[style];
 
     return map;
@@ -56,7 +68,7 @@ export function generateTheme(props, darkProps, parentProps) {
         if ((THEME_COLOR_ATTRS_LIST.includes(toKebabCase(varName)))
           && lightTheme[varName]
           && varName !== 'shadowColor') {
-          vars[varName] = generalizeColor(darkProps[varName]) || invertColor(lightTheme[varName], 40);
+          vars[varName] = generalizeColor(darkProps[varName]) || invertColor(lightTheme[varName], 32);
         } else {
           vars[varName] = generalizeColor(darkProps[varName]) || lightTheme[varName];
         }

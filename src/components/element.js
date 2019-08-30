@@ -3,7 +3,7 @@ import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
 import NuBase from '../base';
 import { THEME_ATTRS_LIST } from '../attrs';
-import { generateTheme, convertThemeName } from '../themes';
+import { generateTheme, convertThemeName, getMainThemeName, isColorScheme } from '../themes';
 
 const plugins = {
   cursor: 'cursor',
@@ -66,8 +66,15 @@ export default class NuElement extends NuBase {
 
         if (!val) val = 'default';
 
+        const isColorScheme = isColorScheme(val);
+        const mainThemeName = getMainThemeName(val);
+
         return THEME_ATTRS_LIST.reduce((obj, name) => {
-          obj[`--nu-theme-${name}`] = `var(--nu-${val}-${name})`;
+          if (isColorScheme && !name.includes('-color')) {
+            obj[`--nu-theme-${name}`] = `var(--nu-${mainThemeName}-${name})`;
+          } else {
+            obj[`--nu-theme-${name}`] = `var(--nu-${val}-${name})`;
+          }
 
           return obj;
         }, {});
@@ -534,7 +541,8 @@ export default class NuElement extends NuBase {
 
     const parentStyles = window.getComputedStyle(this.parentNode);
     const parentProps = THEME_ATTRS_LIST.reduce((map, name) => {
-      const propName = `--nu-theme-${toKebabCase(name)}`;
+      const themeName = toKebabCase(name);
+      const propName = `--nu-theme-${themeName}`;
       const value = parentStyles.getPropertyValue(propName);
 
       if (value) {
@@ -586,14 +594,15 @@ export default class NuElement extends NuBase {
         ${commonCSS}
         @media (prefers-color-scheme: dark) {
           html.nu-prefers-color-scheme ${baseQuery}{${darkStyles}}
-          html:not(.nu-prefers-color-scheme-light) ${baseQuery}{${darkStyles}}
+          html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}
           html.nu-prefers-color-scheme-light ${baseQuery}{${lightStyles}}
         }
         @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
           html.nu-prefers-color-scheme ${baseQuery}{${lightStyles}}
-          html:not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightStyles}}
-          html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}/
+          html.nu-prefers-color-scheme-light ${baseQuery}{${lightStyles}}
+          html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}
         }
+        html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-light):not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightStyles}}
       `
       ).element;
     } else {
