@@ -21,6 +21,11 @@
     border-color="#888"
     special-color="#3297db"
     shadow-intensity=".2"></nd-theme>
+  <nd-theme
+    name="success"
+    color="#00d97e"
+    background-color="#fff"
+    special-color="#00d97e"></nd-theme>
 <!--  #1885d9-->
   <nd-mod name="red">
     color: red;
@@ -38,7 +43,7 @@
         <nu-block>
           <nu-btn-group
             id="btn-group"
-            value="two"
+            value="three"
             width="40|100%"
             flow="row|column"
             items-padding=".5" size="1.6 2.5| |.75 1|.5 .75">
@@ -70,7 +75,7 @@
 
         <nu-line></nu-line>
 
-        <nu-block border="1br outside">Block with some text</nu-block>
+        <nu-block border="1br outside" theme="success">Block with some text <nu-badge>Some badge</nu-badge></nu-block>
 
         <nu-grid rows="1rem auto"></nu-grid>
 

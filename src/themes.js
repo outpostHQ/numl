@@ -45,7 +45,7 @@ export function generateTheme(props, darkProps, parentProps) {
   };
 
   lightTheme.specialBackgroundColor = lightTheme.specialBackgroundColor
-    || (contastRatio(lightTheme.specialColor, lightTheme.backgroundColor) > .4
+    || (contastRatio(lightTheme.specialColor, lightTheme.backgroundColor) > .3
       ? lightTheme.backgroundColor : lightTheme.color);
 
   let darkTheme;
@@ -98,10 +98,11 @@ export function generateTheme(props, darkProps, parentProps) {
     });
 
     const shadowIntensity = Math.min(Number(theme.shadowIntensity), 1);
+
     theme.shadowIntensity = Math.min(shadowIntensity
-      + (1 - getLuminance(theme.backgroundColor)) * (1 - shadowIntensity), 1);
+      * (.6 - getLuminance(theme.backgroundColor) * .5) * 5, 1);
     theme.specialShadowIntensity = Math.min(shadowIntensity
-      + (1 - getLuminance(theme.specialColor)) * (1 - shadowIntensity), 1);
+      * (.6 - getLuminance(theme.specialColor) * .5) * 5, 1);
 
     return Object.keys(theme).reduce((map, propName) => {
       map[`--nu-theme-${toKebabCase(propName)}`] = theme[propName];
