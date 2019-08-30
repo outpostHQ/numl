@@ -45,24 +45,24 @@ export function generateTheme(props, darkProps, parentProps) {
   };
 
   lightTheme.specialBackgroundColor = lightTheme.specialBackgroundColor
-    || (contastRatio(lightTheme.specialColor, lightTheme.backgroundColor) > .3
+    || (contastRatio(lightTheme.specialColor, lightTheme.backgroundColor) > contastRatio(lightTheme.specialColor, lightTheme.color)
       ? lightTheme.backgroundColor : lightTheme.color);
 
   let darkTheme;
 
   if (getLuminance(lightTheme.color) < getLuminance(lightTheme.backgroundColor)) {
     darkTheme = Object.keys(lightTheme)
-    .reduce((vars, varName) => {
-      if ((THEME_COLOR_ATTRS_LIST.includes(toKebabCase(varName)))
-        && lightTheme[varName]
-        && varName !== 'shadowColor') {
-        vars[varName] = generalizeColor(darkProps[varName]) || invertColor(lightTheme[varName], 40);
-      } else {
-        vars[varName] = generalizeColor(darkProps[varName]) || lightTheme[varName];
-      }
+      .reduce((vars, varName) => {
+        if ((THEME_COLOR_ATTRS_LIST.includes(toKebabCase(varName)))
+          && lightTheme[varName]
+          && varName !== 'shadowColor') {
+          vars[varName] = generalizeColor(darkProps[varName]) || invertColor(lightTheme[varName], 40);
+        } else {
+          vars[varName] = generalizeColor(darkProps[varName]) || lightTheme[varName];
+        }
 
-      return vars;
-    }, {});
+        return vars;
+      }, {});
 
     const specialLightLuminance = getLuminance(lightTheme.specialColor);
     const specialDarkLuminance = getLuminance(darkTheme.specialColor);
@@ -72,11 +72,11 @@ export function generateTheme(props, darkProps, parentProps) {
       Object.assign(darkTheme, {
         specialColor: generalizeColor(darkProps.specialColor) || lightTheme.specialColor,
       });
-
-      darkTheme.specialBackgroundColor = generalizeColor(darkProps.specialBackgroundColor)
-        || (contastRatio(darkTheme.specialColor, lightTheme.backgroundColor) > .4
-          ? lightTheme.backgroundColor : lightTheme.color);
     }
+
+    darkTheme.specialBackgroundColor = generalizeColor(darkProps.specialBackgroundColor)
+      || (contastRatio(darkTheme.specialColor, lightTheme.backgroundColor) > contastRatio(darkTheme.specialColor, lightTheme.color)
+        ? lightTheme.backgroundColor : lightTheme.color);
   } else {
     darkTheme = { ...lightTheme };
   }
