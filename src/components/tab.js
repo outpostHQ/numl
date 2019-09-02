@@ -50,31 +50,4 @@ export default class NuTab extends NuAbstractBtn {
       }
     `;
   }
-
-  nusetValue(value) {
-    super.nuSetValue(value);
-
-    setTimeout(() => {
-      if (value !== this.nuHasMod('toggled')) return;
-
-      const controlsName = this.getAttribute('controls');
-
-      if (!controlsName) return;
-
-      const link = this.nuInvertQuery(`[nu-id="${controlsName}"]`);
-
-      if (link && link.nuSetMod) {
-        const linkId = generateId(link);
-        const tabId = generateId(this);
-
-        this.nuSetAria('controls', linkId);
-        link.nuSetAria('labelledby', tabId);
-        link.nuSetMod('hidden', !value);
-
-        if (!link.nuRole) {
-          link.nuRole = 'tabpanel';
-        }
-      }
-    }, 0);
-  }
 }

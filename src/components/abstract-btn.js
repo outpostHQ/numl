@@ -117,7 +117,8 @@ export default class NuAbstractBtn extends NuGrid {
     this.nuEmit('tap');
 
     const parent = this.parentNode;
-    const value = this.getAttribute('value') || this.getAttribute('controls');
+    const value = this.getAttribute('value')
+      || this.getAttribute('controls');
 
     if (value && parent.nuSetValue && parent.value !== value) {
       parent.nuSetValue(value);
@@ -155,9 +156,9 @@ export default class NuAbstractBtn extends NuGrid {
 
       const controlsName = this.getAttribute('controls');
 
-      if (!controlsName) return;
+      if (!controlsName || !controlsName.startsWith('#')) return;
 
-      const link = this.nuInvertQuery(`[nu-id="${controlsName}"]`);
+      const link = this.nuInvertQuery(`[nu-id="${controlsName.replace('#', '')}"]`);
 
       if (link && link.nuSetMod) {
         const linkId = generateId(link);
