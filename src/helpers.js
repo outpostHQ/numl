@@ -348,17 +348,35 @@ export function error(...args) {
 
 let globalId = 0;
 
+const ID_MAP = {
+
+};
+
 /**
  * Return current id of the element and generate it if it's no presented.
  * @param {Element} el
  * @returns {String}
  */
-export function generateId(el) {
-  if (el.id) return el.id;
+export function generateId(element) {
+  let name = element.id;
 
-  globalId += 1;
+  if (name && name.includes('--')) return name;
 
-  return (el.id = `nu-${globalId}`);
+  name = name || 'nu';
+
+  if (name !== 'nu') {
+    element.setAttribute('nu-id', name);
+  }
+
+  if (!ID_MAP[name]) {
+    ID_MAP[name] = 0;
+  }
+
+  const id = (ID_MAP[name] += 1);
+
+  element.id = `${name}--${id}`;
+
+  return element.id;
 }
 
 const dim = document.createElement('div');
@@ -697,18 +715,26 @@ export const STATES_MAP = {
 /**
  * Extract state values from single value.
  * Example: "blue :active[red]"
- * Example output: [{ '': 'blue' }, { 'actiive': 'red' }}]
+ * Example output: [{ '': 'blue' }, { 'active': 'red' }}]
  * @param {String} attrValue
  * @returns {Object[]}
  */
 export function splitStates(attrValue) {
-  const tmp = attrValue.split(/\s+\:/g);
+  const tmp = attrValue.split(/[\s^]+(?=[\:#])/g);
 
   return tmp
     .map(val => {
       if (!val) return;
 
-      const tmp2 = val.replace(/^\:/, '').split(/\[|\]/g);
+      /**
+       * If true then val applies on element state.
+       * If false then val applies on parent state.
+       * @type {Boolean}
+       */
+      const idMatch = val.match(/^#([a-z\-]+)/);
+      const id = idMatch ? idMatch[1] : null;
+
+      const tmp2 = val.replace(/.*\:/, '').split(/\[|\]/g);
 
       if (tmp2.length === 1) {
         return { $suffix: '', value: val };
@@ -716,7 +742,11 @@ export function splitStates(attrValue) {
 
       const state = STATES_MAP[tmp2[0]];
 
-      return state ? { $suffix: state, value: tmp2[1] } : null;
+      return state ? {
+        $suffix: !id ? state : null,
+        $prefix: id ? `[nu-id="${id}"]${state}` : null,
+        value: tmp2[1],
+      } : null;
     })
     .filter(val => val);
 }
@@ -732,14 +762,21 @@ export function computeStyles(name, value, attrs) {
   if (value == null) return;
 
   // Style splitter for states system
-  if (value.match(/\:[a-z0-9\-]+\[/)) {
+  if (value.match(/[\:\#][a-z0-9\-]+\[/)) {
     // split values between states
     const states = splitStates(value);
 
     const arr = states.reduce((arr, state) => {
       const styles = (computeStyles(name, state.value, attrs) || []).map(stls => {
+        /**
+         * @TODO: review that function
+         */
         if (state.$suffix) {
           stls.$suffix = `${state.$suffix}${stls.suffix || ''}`;
+        }
+
+        if (state.$prefix) {
+          stls.$prefix = `${state.$prefix}${stls.$prefix || ''}`;
         }
 
         return stls;

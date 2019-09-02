@@ -157,7 +157,7 @@ export default class NuAbstractBtn extends NuGrid {
 
       if (!controlsName) return;
 
-      const link = this.nuInvertQuery(`[name="${controlsName}"]`);
+      const link = this.nuInvertQuery(`[nu-id="${controlsName}"]`);
 
       if (link && link.nuSetMod) {
         const linkId = generateId(link);

@@ -57,7 +57,7 @@ export function generateTheme(props, darkProps, parentProps) {
   };
 
   lightTheme.specialBackgroundColor = lightTheme.specialBackgroundColor
-    || (contastRatio(lightTheme.specialColor, lightTheme.backgroundColor) > contastRatio(lightTheme.specialColor, lightTheme.color)
+    || (contastRatio(lightTheme.specialColor, lightTheme.backgroundColor) * 1.5 > contastRatio(lightTheme.specialColor, lightTheme.color)
       ? lightTheme.backgroundColor : lightTheme.color);
 
   let darkTheme;
@@ -87,7 +87,7 @@ export function generateTheme(props, darkProps, parentProps) {
     }
 
     darkTheme.specialBackgroundColor = generalizeColor(darkProps.specialBackgroundColor)
-      || (contastRatio(darkTheme.specialColor, lightTheme.backgroundColor) > contastRatio(darkTheme.specialColor, lightTheme.color)
+      || (contastRatio(darkTheme.specialColor, lightTheme.backgroundColor) * 1.5 > contastRatio(darkTheme.specialColor, lightTheme.color)
         ? lightTheme.backgroundColor : lightTheme.color);
   } else {
     darkTheme = { ...lightTheme };

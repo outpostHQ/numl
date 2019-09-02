@@ -75,9 +75,9 @@
           <nu-line></nu-line>
         </nu-block>
 
-        <nu-block name="first" background="blue :hover[red]">First tab panel</nu-block>
-        <nu-block name="second">Second tab panel</nu-block>
-        <nu-block name="third">Third tab panel</nu-block>
+        <nu-block id="first" background="blue :hover[red]">First tab panel</nu-block>
+        <nu-block id="second">Second tab panel</nu-block>
+        <nu-block id="third">Third tab panel</nu-block>
 
         <nu-line></nu-line>
 
@@ -91,6 +91,7 @@
         </nu-input>
 
         <nu-card
+          id="some-card"
           mod="sm"
           theme="primary"
           shadow="0 :hover[3x]"
@@ -109,7 +110,7 @@
             </nu-block>
             <nu-flex mod="md" gap=".5">
               <nu-btn special>Special button</nu-btn>
-              <nu-btn>Not so special button</nu-btn>
+              <nu-btn theme="default #some-card:hover[primary]" special>Not so special button</nu-btn>
             </nu-flex>
           </nu-flex>
         </nu-card>
@@ -227,7 +228,7 @@
 </nu-grid>
 
 <script>
-const btn = document.getElementById("btn-group");
+const btn = Nude.getElementById("btn-group");
 
 btn.addEventListener('input', function (evt) {
   console.log('!', evt.detail, evt.target.value);

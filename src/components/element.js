@@ -18,7 +18,7 @@ const RESPONSIVE_ATTR = 'responsive';
  */
 export default class NuElement extends NuBase {
   static get nuTag() {
-    return 'nu-element'; // abstract tag
+    return ''; // abstract tag
   }
 
   /**
@@ -70,7 +70,7 @@ export default class NuElement extends NuBase {
         const mainThemeName = getMainThemeName(val);
 
         return THEME_ATTRS_LIST.reduce((obj, name) => {
-          if (colorScheme && !name.includes('-color')) {
+          if (colorScheme && !name.endsWith('-color') && name !== 'color') {
             obj[`--nu-theme-${name}`] = `var(--nu-${mainThemeName}-${name})`;
           } else {
             obj[`--nu-theme-${name}`] = `var(--nu-${val}-${name})`;
@@ -408,6 +408,8 @@ export default class NuElement extends NuBase {
    * @param {*} value
    */
   nuChanged(name, oldValue, value) {
+    super.nuChanged(name, oldValue, value);
+
     switch (name) {
       case RESPONSIVE_ATTR:
         generateId(this);

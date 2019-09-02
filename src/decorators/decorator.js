@@ -10,11 +10,9 @@ export default class NuDecorator extends NuBase {
     super.nuMounted();
 
     if (!this.parentNode) return;
-
-    this.nuParentId = generateId(this.parentNode);
   }
 
   get nuParentContext() {
-    return `#${this.nuParentId}`;
+    return `#${this.parentNode.nuId}`;
   }
 }

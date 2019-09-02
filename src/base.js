@@ -1,10 +1,26 @@
-import { attrsQuery } from './css';
-import { getParent, invertQuery, generateId, devMode, warn, log } from './helpers';
+import { attrsQuery, generateCSS, injectStyleTag } from './css';
+import { getParent, invertQuery, generateId, devMode, warn, log, computeStyles } from './helpers';
 
 export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
+
+/**
+ * List of all Nude tags.
+ * @type {String[]}
+ */
+export const TAG_LIST = [];
+/**
+ * List of all Nude tags that are inline.
+ * @type {String[]}
+ */
+export const INLINE_TAG_LIST = [];
+/**
+ * List of all Nude tags that are not inline.
+ * @type {String[]}
+ */
+export const BLOCK_TAG_LIST = [];
 
 /**
  * @class
@@ -51,7 +67,9 @@ export default class NuBase extends HTMLElement {
    * @returns {Object}
    */
   static get nuAttrs() {
-    return {};
+    return {
+      id: '',
+    };
   }
 
   /**
@@ -59,7 +77,7 @@ export default class NuBase extends HTMLElement {
    * @returns {Array}
    */
   static get nuAttrsList() {
-    return [];
+    return Object.keys(this.nuAllAttrs);
   }
 
   /**
@@ -91,19 +109,65 @@ export default class NuBase extends HTMLElement {
     return this.nuAttrsList;
   }
 
+  static nuInit() {
+    const tag = this.nuTag;
+
+    if (!tag || TAG_LIST.includes(tag)) return;
+
+    TAG_LIST.push(tag);
+
+    [this.nuDisplay.startsWith('inline') ? INLINE_TAG_LIST : BLOCK_TAG_LIST].push(tag);
+
+    let el = this,
+      css = '';
+
+    do {
+      if (!el.nuCSS) break;
+      if (el.nuCSS === (el.nuParent && el.nuParent.nuCSS)) continue;
+
+      css = `${el.nuCSS(this)}${css}`;
+    } while ((el = el.nuParent));
+
+    const allAttrs = this.nuAllAttrs;
+    const allDefaults = this.nuAllDefaults;
+
+    let defaultsCSS = '';
+
+    Object.keys(allDefaults)
+      .forEach(name => {
+        const value = allDefaults[name];
+
+        if (value == null) return;
+
+        const styles = computeStyles(name, String(value), allAttrs);
+
+        if (!styles) return;
+
+        const query = name === 'mod' ? tag : `${tag}:not([${name}])`;
+
+        defaultsCSS += generateCSS(query, styles);
+      });
+
+    injectStyleTag(`${css}${defaultsCSS}`, tag);
+
+    customElements.define(tag, this);
+
+    log('custom element registered', tag);
+  }
+
   /**
    * Element initialization logic
    */
   static nuCSS({ nuTag, nuDisplay }) {
     return `
       ${
-        DOUBLE_DISPLAY.includes(nuDisplay)
-          ? `
+      DOUBLE_DISPLAY.includes(nuDisplay)
+        ? `
           ${nuTag}:not([inline]){display:${nuDisplay};}
           ${nuTag}[inline]{display:inline-${nuDisplay};}
         `
-          : `${nuTag}{display:${nuDisplay};}`
-      }
+        : `${nuTag}{display:${nuDisplay};}`
+    }
       ${nuTag}[nu-hidden] {
         display: none;
       }
@@ -147,7 +211,9 @@ export default class NuBase extends HTMLElement {
    * @returns {String}
    */
   get nuId() {
-    return this.id || generateId(this);
+    if (this.id && this.id.includes('--')) return this.id;
+
+    return generateId(this);
   }
 
   /**
@@ -196,7 +262,11 @@ export default class NuBase extends HTMLElement {
    * @param {*} oldValue
    * @param {*} value
    */
-  nuChanged(name, oldValue, value) {}
+  nuChanged(name, oldValue, value) {
+    if (name === 'id') {
+      return this.nuId;
+    }
+  }
 
   /**
    * Called when element is connected to the DOM.
@@ -211,7 +281,8 @@ export default class NuBase extends HTMLElement {
    * Called when element is disconnected from the DOM.
    * Can be called more than once.
    */
-  nuUnmounted() {}
+  nuUnmounted() {
+  }
 
   /**
    * Get parent that satisfies specified selector

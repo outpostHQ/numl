@@ -61,7 +61,7 @@ export default class NuTab extends NuAbstractBtn {
 
       if (!controlsName) return;
 
-      const link = this.nuInvertQuery(`[name="${controlsName}"]`);
+      const link = this.nuInvertQuery(`[nu-id="${controlsName}"]`);
 
       if (link && link.nuSetMod) {
         const linkId = generateId(link);

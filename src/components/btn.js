@@ -53,7 +53,7 @@ export default class NuBtn extends NuAbstractBtn {
         --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-intensity));
       }
 
-      ${nuTag}[special] {
+      ${nuTag}[special]:not([background]) {
         --nu-theme-shadow-intensity: var(--nu-theme-special-shadow-intensity);
         background-color: var(--nu-theme-special-color) !important;
         color: var(--nu-theme-special-background-color) !important;
