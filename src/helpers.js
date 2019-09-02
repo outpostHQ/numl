@@ -740,9 +740,12 @@ export function splitStates(attrValue) {
       if (tmp2.length === 1) {
         return {
           states: [],
+          parentStates: [],
           notStates: [],
+          parentNotStates: [],
           id,
-          value: val };
+          value: val
+        };
       }
 
       const states = tmp2[0].split(':');
@@ -756,8 +759,10 @@ export function splitStates(attrValue) {
       }
 
       return {
-        states,
+        states: !id ? states : [],
+        parentStates: id ? states : [],
         notStates: [],
+        parentNotStates: [],
         id,
         value: tmp2[1].trim(),
       };
@@ -781,23 +786,25 @@ export function splitStates(attrValue) {
         }
       }
 
-      const diffStates1 = map2.states.filter(s => !map1.states.includes(s));
-      const diffStates2 = map1.states.filter(s => !map2.states.includes(s));
+      [['states', 'notStates'], ['parentStates', 'parentNotStates']].forEach(([sKey, nKey]) => {
+        const diffStates1 = map2[sKey].filter(s => !map1[sKey].includes(s));
+        const diffStates2 = map1[sKey].filter(s => !map2[sKey].includes(s));
 
-      map1.notStates.push(...diffStates1);
-      map2.notStates.push(...diffStates2);
+        map1[nKey].push(...diffStates1);
+        map2[nKey].push(...diffStates2);
+      });
     }
   }
 
-  console.log(JSON.stringify(stateMaps));
-
   return stateMaps.map(stateMap => {
-    const query = (stateMap.id ? `[nu-id="${stateMap.id}"]` : '')
-      + stateMap.states.map(s => STATES_MAP[s]).join('')
-      + stateMap.notStates.map(s => `:not(${STATES_MAP[s]})`).join('');
-
     return {
-      [stateMap.id ? '$prefix' : '$suffix']: query,
+      $prefix: stateMap.id && (stateMap.parentStates.length || stateMap.parentNotStates.length)
+        ? `[nu-id="${stateMap.id}"]`
+        + stateMap.parentStates.map(s => STATES_MAP[s]).join('')
+        + stateMap.parentNotStates.map(s => `:not(${STATES_MAP[s]})`).join('')
+        : null,
+      $suffix: stateMap.states.map(s => STATES_MAP[s]).join('')
+        + stateMap.notStates.map(s => `:not(${STATES_MAP[s]})`).join(''),
       value: stateMap.value,
     };
   });
@@ -828,7 +835,7 @@ export function computeStyles(name, value, attrs) {
          * @TODO: review that function
          */
         if (state.$suffix) {
-          stls.$suffix = `${state.$suffix}${stls.suffix || ''}`;
+          stls.$suffix = `${state.$suffix}${stls.$suffix || ''}`;
         }
 
         if (state.$prefix) {
