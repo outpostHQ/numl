@@ -723,6 +723,8 @@ export const STATES_MAP = {
 export function splitStates(attrValue) {
   const tmp = attrValue.split(/[\s^]+(?=[\:#])/g);
 
+  let id;
+
   let stateMaps = tmp
     .map(val => {
       if (!val) return;
@@ -733,9 +735,14 @@ export function splitStates(attrValue) {
        * @type {Boolean}
        */
       const idMatch = val.match(/^#([a-z\-]+)/);
-      const id = idMatch ? idMatch[1] : null;
 
-      const tmp2 = val.replace(/.*\:/, '').split(/\[|\]/g);
+      if (idMatch && idMatch[1] && id && idMatch[1] !== id) {
+        return warn('too complex state (skipped):', `"${attrValue}"`);
+      }
+
+      id = idMatch ? idMatch[1] : null;
+
+      const tmp2 = val.replace(/.*?\:/, '').split(/\[|\]/g);
 
       if (tmp2.length === 1) {
         return {
@@ -743,7 +750,6 @@ export function splitStates(attrValue) {
           parentStates: [],
           notStates: [],
           parentNotStates: [],
-          id,
           value: val
         };
       }
@@ -763,7 +769,6 @@ export function splitStates(attrValue) {
         parentStates: id ? states : [],
         notStates: [],
         parentNotStates: [],
-        id,
         value: tmp2[1].trim(),
       };
     })
@@ -773,18 +778,6 @@ export function splitStates(attrValue) {
     for (let j = i + 1; j < stateMaps.length; j++) {
       const map1 = stateMaps[i];
       const map2 = stateMaps[j];
-
-      if (map1.id && map2.id && map1.id !== map2.id) {
-        return warn('too complex state (skipped):', `"${attrValue}"`);
-      }
-
-      if (map1.id !== map2.id) {
-        if (!map1.id) {
-          map1.id = map2.id;
-        } else {
-          map2.id = map1.id;
-        }
-      }
 
       [['states', 'notStates'], ['parentStates', 'parentNotStates']].forEach(([sKey, nKey]) => {
         const diffStates1 = map2[sKey].filter(s => !map1[sKey].includes(s));
@@ -798,8 +791,8 @@ export function splitStates(attrValue) {
 
   return stateMaps.map(stateMap => {
     return {
-      $prefix: stateMap.id && (stateMap.parentStates.length || stateMap.parentNotStates.length)
-        ? `[nu-id="${stateMap.id}"]`
+      $prefix: id && (stateMap.parentStates.length || stateMap.parentNotStates.length)
+        ? `[nu-id="${id}"]`
         + stateMap.parentStates.map(s => STATES_MAP[s]).join('')
         + stateMap.parentNotStates.map(s => `:not(${STATES_MAP[s]})`).join('')
         : null,
@@ -808,10 +801,6 @@ export function splitStates(attrValue) {
       value: stateMap.value,
     };
   });
-
-  // const defaultState = states.find(state => !state.$suffix && !state.$prefix);
-
-  // return states;
 }
 
 /**
