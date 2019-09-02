@@ -204,7 +204,8 @@ export function convertUnit(unit, multiplier) {
         return ((Number(tmp[0]) / Number(tmp[1])) * 100).toFixed(4) + '%';
       })
       .replace(/([\d.]+)([^a-z\d%.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
-  };
+  }
+  ;
 
   if (multiplier) {
     unit = convertCustomUnit(unit, 'x', multiplier);
@@ -227,9 +228,9 @@ export function unit(name, $suffix) {
   return val =>
     val
       ? {
-          $suffix,
-          [name]: convertUnit(val)
-        }
+        $suffix,
+        [name]: convertUnit(val)
+      }
       : null;
 }
 
@@ -290,7 +291,8 @@ export function sizeUnit(name, $suffix) {
 export function getParent(element, selector) {
   const elements = [...document.querySelectorAll(selector)];
 
-  while ((element = element.parentNode) && !elements.includes(element)) {}
+  while ((element = element.parentNode) && !elements.includes(element)) {
+  }
 
   return element;
 }
@@ -348,9 +350,7 @@ export function error(...args) {
 
 let globalId = 0;
 
-const ID_MAP = {
-
-};
+const ID_MAP = {};
 
 /**
  * Return current id of the element and generate it if it's no presented.
@@ -396,9 +396,9 @@ export function extractColor(color, ignoreAlpha = false) {
   const arr = !dimStyle.color
     ? null // incorrect color
     : dimStyle.color
-        .slice(dimStyle.color.indexOf('(') + 1, -1)
-        .split(', ')
-        .map(Number);
+      .slice(dimStyle.color.indexOf('(') + 1, -1)
+      .split(', ')
+      .map(Number);
 
   if (!arr) return arr;
 
@@ -712,6 +712,7 @@ export const STATES_MAP = {
   sticky: '[nu-sticky]',
 };
 
+
 /**
  * Extract state values from single value.
  * Example: "blue :active[red]"
@@ -722,7 +723,7 @@ export const STATES_MAP = {
 export function splitStates(attrValue) {
   const tmp = attrValue.split(/[\s^]+(?=[\:#])/g);
 
-  return tmp
+  let stateMaps = tmp
     .map(val => {
       if (!val) return;
 
@@ -737,18 +738,73 @@ export function splitStates(attrValue) {
       const tmp2 = val.replace(/.*\:/, '').split(/\[|\]/g);
 
       if (tmp2.length === 1) {
-        return { $suffix: '', value: val };
+        return {
+          states: [],
+          notStates: [],
+          id,
+          value: val };
       }
 
-      const state = STATES_MAP[tmp2[0]];
+      const states = tmp2[0].split(':');
 
-      return state ? {
-        $suffix: !id ? state : null,
-        $prefix: id ? `[nu-id="${id}"]${state}` : null,
-        value: tmp2[1],
-      } : null;
+      if (devMode) {
+        const notFound = states.find(s => !STATES_MAP[s]);
+
+        if (notFound) {
+          warn('state not found:', notFound);
+        }
+      }
+
+      return {
+        states,
+        notStates: [],
+        id,
+        value: tmp2[1].trim(),
+      };
     })
     .filter(val => val);
+
+  for (let i = 0; i < stateMaps.length; i++) {
+    for (let j = i + 1; j < stateMaps.length; j++) {
+      const map1 = stateMaps[i];
+      const map2 = stateMaps[j];
+
+      if (map1.id && map2.id && map1.id !== map2.id) {
+        return warn('too complex state (skipped):', `"${attrValue}"`);
+      }
+
+      if (map1.id !== map2.id) {
+        if (!map1.id) {
+          map1.id = map2.id;
+        } else {
+          map2.id = map1.id;
+        }
+      }
+
+      const diffStates1 = map2.states.filter(s => !map1.states.includes(s));
+      const diffStates2 = map1.states.filter(s => !map2.states.includes(s));
+
+      map1.notStates.push(...diffStates1);
+      map2.notStates.push(...diffStates2);
+    }
+  }
+
+  console.log(JSON.stringify(stateMaps));
+
+  return stateMaps.map(stateMap => {
+    const query = (stateMap.id ? `[nu-id="${stateMap.id}"]` : '')
+      + stateMap.states.map(s => STATES_MAP[s]).join('')
+      + stateMap.notStates.map(s => `:not(${STATES_MAP[s]})`).join('');
+
+    return {
+      [stateMap.id ? '$prefix' : '$suffix']: query,
+      value: stateMap.value,
+    };
+  });
+
+  // const defaultState = states.find(state => !state.$suffix && !state.$prefix);
+
+  // return states;
 }
 
 /**
@@ -762,7 +818,7 @@ export function computeStyles(name, value, attrs) {
   if (value == null) return;
 
   // Style splitter for states system
-  if (value.match(/[\:\#][a-z0-9\-]+\[/)) {
+  if (value.match(/[\:\#][a-z0-9\-\:]+\[/)) {
     // split values between states
     const states = splitStates(value);
 
@@ -776,7 +832,7 @@ export function computeStyles(name, value, attrs) {
         }
 
         if (state.$prefix) {
-          stls.$prefix = `${state.$prefix}${stls.$prefix || ''}`;
+          stls.$prefix = `${stls.$prefix || ''}${state.$prefix}`;
         }
 
         return stls;
@@ -832,4 +888,30 @@ export function excludeMod(str, mod) {
   }
 
   return;
+}
+
+export function parseAllValues(value) {
+  return value
+    ? value.split('|').reduce((arr, value) => {
+      splitStates(value).forEach(state => arr.push(state.value));
+
+      return arr;
+    }, [])
+    : [];
+}
+
+export function svgElement(svgText) {
+  dim.innerHTML = svgText;
+
+  const svgNode = dim.childNodes[0];
+
+  dim.removeChild(svgNode);
+
+  return svgNode;
+}
+
+export function arrayDiff(arrA, arrB) {
+  return arrA
+    .filter(x => !arrB.includes(x))
+    .concat(arrB.filter(x => !arrA.includes(x)));
 }

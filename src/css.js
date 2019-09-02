@@ -55,7 +55,13 @@ export function generateCSS(query, styles, context = '') {
     }
 
     if (map.$prefix) {
-      currentQuery = `${map.$prefix} ${currentQuery}`;
+      if (currentQuery.startsWith('#')) {
+        const index = currentQuery.indexOf(' ');
+
+        currentQuery = `${currentQuery.slice(0, index)} ${map.$prefix} ${currentQuery.slice(index)}`;
+      } else {
+        currentQuery = `${map.$prefix} ${currentQuery}`;
+      }
     }
 
     delete map.$suffix;

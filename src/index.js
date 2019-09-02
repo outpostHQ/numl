@@ -48,6 +48,7 @@ import {
   CUSTOM_UNITS,
   STATES_MAP,
   splitDimensions,
+  parseAllValues,
 } from './helpers';
 
 let featherPromise;
@@ -110,6 +111,7 @@ const Nude = {
     convertCustomUnit,
     splitDimensions,
     excludeMod,
+    parseAllValues,
   },
 };
 

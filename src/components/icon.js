@@ -1,5 +1,5 @@
 import {
-  convertUnit,
+  convertUnit, parseAllValues, svgElement,
 } from '../helpers';
 import NuBlock from './block';
 
@@ -13,6 +13,8 @@ export default class NuIcon extends NuBlock {
   }
 
   static get nuAttrs() {
+    const display = this.nuDisplay;
+
     return {
       size(val) {
         const converted = convertUnit(val || '');
@@ -23,7 +25,13 @@ export default class NuIcon extends NuBlock {
           '--nu-size': converted,
         } : null;
       },
-      name: '',
+      name(val) {
+        return val
+          ? {
+            $suffix: ` > [name="${val}"]`,
+            display: `${display} !important`,
+          } : null;
+      },
     };
   }
 
@@ -62,7 +70,20 @@ export default class NuIcon extends NuBlock {
     super.nuChanged(name, oldValue, value);
 
     if (name === 'name') {
-      window.Nude.iconLoader(value).then(svg => this.innerHTML = svg);
+      const names = parseAllValues(value);
+
+      names.forEach(name => {
+        if (this.querySelector(`svg[name="${name}"]`)) return;
+
+        window.Nude.iconLoader(name).then(svg => {
+          const svgNode = svgElement(svg);
+
+          svgNode.setAttribute('name', name);
+          svgNode.style.display = 'none';
+
+          this.appendChild(svgNode);
+        });
+      });
     }
   }
 
