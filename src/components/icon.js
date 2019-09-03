@@ -12,6 +12,10 @@ export default class NuIcon extends NuBlock {
     return 'inline-block';
   }
 
+  static get nuRole() {
+    return 'img';
+  }
+
   static get nuAttrs() {
     const display = this.nuDisplay;
 
@@ -71,6 +75,9 @@ export default class NuIcon extends NuBlock {
 
     if (name === 'name') {
       const names = parseAllValues(value);
+
+      // empty tag
+      this.innerHTML = '';
 
       names.forEach(name => {
         if (this.querySelector(`svg[name="${name}"]`)) return;

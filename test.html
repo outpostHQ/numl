@@ -2,7 +2,7 @@
 <head>
   <script src="src/pack.js"></script>
   <script>
-  Nude.init();
+    Nude.init();
   </script>
 </head>
 <body class="nu-defaults" style="--primary-color: limegreen;" debug>
@@ -38,6 +38,23 @@
   <nd-var name="--my-padding" value="2|1.5|1|.5"></nd-var>
 
   <nu-flex flow="column" gap="1">
+    <nu-card responsive="420px" width="clamp(320px, 100%, auto)">
+      <nu-flex gap="1" items="start" flow="row|column">
+        <nu-icon name="package" size="4"></nu-icon>
+        <nu-flow gap=".5" grow="1">
+          <nu-heading level="3">Product name</nu-heading>
+          <nu-block>Very very long product description</nu-block>
+          <nu-flex gap="1" items="center|start" flow="row|column-reverse">
+            <nu-btn special>
+              <nu-icon name="dollar-sign" inline></nu-icon>
+              Order now
+            </nu-btn>
+            <nu-badge mod="lg|md">Only $99.99</nu-badge>
+          </nu-flex>
+        </nu-flow>
+      </nu-flex>
+    </nu-card>
+
     <nu-card shadow radius="2x" padding="var(--my-padding)" border="2x dashed">
       <nu-pane>
         <nu-heading>Card 1</nu-heading>
