@@ -57,6 +57,7 @@ export default class NuInput extends NuGrid {
         border: none;
         outline: none;
         border-radius: inherit;
+        box-sizing: border-box;
       }
       
       ${nuTag} input:not(:first-child) {
