@@ -171,6 +171,9 @@ export default class NuBase extends HTMLElement {
       ${nuTag}[nu-hidden] {
         display: none;
       }
+      ${nuTag}{
+        box-sizing: border-box;
+      }
     `;
   }
 

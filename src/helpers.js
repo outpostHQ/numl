@@ -159,7 +159,7 @@ export const COLORS = {
  * Required root element attribute.
  * @type {String}
  */
-export const ROOT_CONTEXT = '[data-nu-root]';
+export const ROOT_CONTEXT = 'html';
 
 /**
  * Script injection.

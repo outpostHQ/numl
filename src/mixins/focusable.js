@@ -3,7 +3,7 @@ import { ROOT_CONTEXT } from '../helpers';
 export default function focusable(tag, { force, cell } = {}) {
   const context = force
     ? ''
-    : `${ROOT_CONTEXT}[data-nu-focus-enabled] `;
+    : `${ROOT_CONTEXT}.nu-focus-enabled `;
 
   return `
     ${tag} {

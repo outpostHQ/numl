@@ -66,7 +66,7 @@ function enableFocus() {
     const root = document.querySelector(ROOT_CONTEXT);
 
     if (root) {
-      root.dataset.nuFocusEnabled = '';
+      root.classList.add('nu-focus-enabled');
     }
 
     enableTimerId = 0;
@@ -80,7 +80,7 @@ function disableFocus() {
     const root = document.querySelector(ROOT_CONTEXT);
 
     if (root) {
-      delete root.dataset.nuFocusEnabled;
+      root.classList.remove('nu-focus-enabled');
     }
 
     disableTimerId = 0;

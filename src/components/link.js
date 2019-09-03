@@ -39,7 +39,7 @@ export default class NuBadge extends NuElement {
         text-decoration-style: double;
       }
 
-      ${ROOT_CONTEXT}[data-nu-focus-enabled] ${nuTag}:focus,
+      ${ROOT_CONTEXT}.nu-focus-enabled ${nuTag}:focus,
       ${nuTag}:active {
         z-index: 1;
         box-shadow: inset 0 -0.1875em var(--nu-theme-special-background-color);
@@ -59,7 +59,7 @@ export default class NuBadge extends NuElement {
         opacity: 0;
       }
 
-      ${ROOT_CONTEXT}[data-nu-focus-enabled] ${nuTag}:focus::before,
+      ${ROOT_CONTEXT}.nu-focus-enabled ${nuTag}:focus::before,
       ${nuTag}:active::before {
         box-shadow: inset 0 -0.1875em var(--nu-theme-special-color);
         opacity: .5;

@@ -2,7 +2,7 @@ import { convertUnit, generateId, toCamelCase, toKebabCase, computeStyles } from
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
 import NuBase from '../base';
-import { THEME_ATTRS_LIST } from '../attrs';
+import { THEME_ATTRS_LIST, THEME_SCHEME_ATTRS } from '../attrs';
 import { generateTheme, convertThemeName, getMainThemeName, isColorScheme } from '../themes';
 
 const plugins = {
@@ -70,7 +70,7 @@ export default class NuElement extends NuBase {
         const mainThemeName = getMainThemeName(val);
 
         return THEME_ATTRS_LIST.reduce((obj, name) => {
-          if (colorScheme && !name.endsWith('-color') && name !== 'color') {
+          if (colorScheme && THEME_SCHEME_ATTRS.includes(name)) {
             obj[`--nu-theme-${name}`] = `var(--nu-${mainThemeName}-${name})`;
           } else {
             obj[`--nu-theme-${name}`] = `var(--nu-${val}-${name})`;

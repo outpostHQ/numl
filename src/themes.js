@@ -9,7 +9,7 @@ import {
   convertUnit,
   setAlphaChannel
 } from "./helpers";
-import { THEME_COLOR_ATTRS_LIST } from "./attrs";
+import { THEME_COLOR_ATTRS_LIST, THEME_SCHEME_ATTRS } from "./attrs";
 
 export function isColorScheme(themeName) {
   return themeName.endsWith('-dark') || themeName.endsWith('-light');
@@ -23,7 +23,7 @@ export function convertThemeName(theme, name) {
   const colorScheme = isColorScheme(name);
 
   return Object.keys(theme).reduce((map, style) => {
-    if (colorScheme && !style.includes('-color')) return map;
+    if (colorScheme && THEME_SCHEME_ATTRS.includes(style)) return map;
 
     map[style.replace('theme', name)] = theme[style];
 
@@ -93,7 +93,7 @@ export function generateTheme(props, darkProps, parentProps) {
     darkTheme = { ...lightTheme };
   }
 
-  return [lightTheme, darkTheme].map(theme => {
+  return [lightTheme, darkTheme].map((theme, i) => {
     Object.assign(theme, {
       shadowIntensity: Number(theme.shadowIntensity
         || extractColor(theme.shadowColor)[3]),
@@ -111,10 +111,16 @@ export function generateTheme(props, darkProps, parentProps) {
 
     const shadowIntensity = Math.min(Number(theme.shadowIntensity), 1);
 
-    theme.shadowIntensity = Math.min(shadowIntensity
+    theme.shadowOpacity = Math.min(shadowIntensity
       * (.7 - getLuminance(theme.backgroundColor) * .5) * 5, 1);
-    theme.specialShadowIntensity = Math.min(shadowIntensity
+    theme.specialShadowOpacity = Math.min(shadowIntensity
       * (.7 - getLuminance(theme.specialColor) * .5) * 5, 1);
+
+    // if dark mode
+    if (i && getLuminance(theme.specialBackgroundColor) > .9) {
+      theme.specialColor = mixColors(theme.specialColor, 'rgba(0, 0, 0)', .1);
+      theme.specialBackgroundColor = mixColors(theme.specialBackgroundColor, 'rgba(0, 0, 0)', .1);
+    }
 
     return Object.keys(theme).reduce((map, propName) => {
       map[`--nu-theme-${toKebabCase(propName)}`] = theme[propName];

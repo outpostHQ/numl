@@ -70,6 +70,13 @@ export const THEME_COLOR_ATTRS_LIST = [
   'focus-color',
 ];
 
+export const THEME_SCHEME_ATTRS = [
+  ...THEME_COLOR_ATTRS_LIST,
+  'shadow-intensity',
+  'shadow-opacity',
+  'special-shadow-opacity',
+];
+
 export const THEME_ATTRS_LIST = [
   'color',
   'background-color',
@@ -79,11 +86,12 @@ export const THEME_ATTRS_LIST = [
   'border-width',
   'shadow-color',
   'shadow-intensity',
+  'shadow-opacity',
   'animation-time',
   'heading-color',
   'hover-color',
   'special-hover-color',
   'special-background-color',
-  'special-shadow-intensity',
+  'special-shadow-opacity',
   'focus-color',
 ];

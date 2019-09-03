@@ -89,11 +89,11 @@ export default class NuSwitch extends NuBlock {
       }
 
       ${nuTag}[nu-active]:not([disabled]):not([aria-checked="true"]) {
-        --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-shadow-intensity));
+        --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
       }
       
       ${nuTag}[nu-active][aria-checked="true"]:not([disabled]) {
-        --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-special-shadow-intensity));
+        --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-special-shadow-opacity));
       }
 
       ${focusable(nuTag)}

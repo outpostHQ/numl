@@ -151,7 +151,7 @@ export default class NuBlock extends NuElement {
         const depth = val === '' ? '1rem' : convertUnit(val, '.5rem');
 
         return {
-          '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-theme-shadow-intensity) / ${(Number(val) ||
+          '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-theme-shadow-opacity) / ${(Number(val) ||
             1) * 2}))`,
         };
       },

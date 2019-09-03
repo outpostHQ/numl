@@ -49,7 +49,7 @@ export default class NuMenuitem extends NuAbstractBtn {
 
       ${nuTag}[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
       ${nuTag}[nu-toggled]:not([disabled]):not([tabindex]) {
-        --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-intensity));
+        --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
       }
 
       ${nuTag}[special] {
