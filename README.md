@@ -74,7 +74,10 @@ That's all. Now your application is **NUDE-ready**! Try to write some HTML to bu
       <nu-heading level="3">Product name</nu-heading>
       <nu-block>Very very long product description</nu-block>
       <nu-flex gap="1" items="center|start" flow="row|column-reverse">
-        <nu-btn special>Order now</nu-btn>
+        <nu-btn special>
+          <nu-icon name="dollar-sign" inline></nu-icon>
+          Order now
+        </nu-btn>
         <nu-badge mod="lg|md">Only $99.99</nu-badge>
       </nu-flex>
     </nu-flow>
