@@ -55,7 +55,7 @@ export default class NuBtn extends NuAbstractBtn {
 
       ${nuTag}[special]:not([background]) {
         --nu-theme-shadow-opacity: var(--nu-theme-special-shadow-opacity);
-        --nu-theme-heading-color: var(--nu-theme-special-background-color);
+        --nu-theme-hover-color: var(--nu-theme-special-hover-color);
         background-color: var(--nu-theme-special-color) !important;
         color: var(--nu-theme-special-background-color) !important;
       }
