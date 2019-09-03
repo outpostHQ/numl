@@ -84,5 +84,6 @@ export const THEME_ATTRS_LIST = [
   'hover-color',
   'special-hover-color',
   'special-background-color',
+  'special-shadow-intensity',
   'focus-color',
 ];
