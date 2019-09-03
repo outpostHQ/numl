@@ -1,6 +1,6 @@
 {
   "name": "nude-elements",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "module": "dist/nude.js",
   "devDependencies": {
     "@babel/core": "7.2.0",

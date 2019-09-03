@@ -106,7 +106,7 @@ export function generateTheme(props, darkProps, parentProps) {
       hoverColor: setAlphaChannel(theme.hoverColor
         || theme.specialColor, .1),
       specialHoverColor: setAlphaChannel(theme.specialHoverColor
-        || theme.specialBackgroundColor, .1),
+        || theme.specialBackgroundColor, .06),
     });
 
     const shadowIntensity = Math.min(Number(theme.shadowIntensity), 1);

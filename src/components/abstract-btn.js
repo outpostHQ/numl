@@ -51,7 +51,9 @@ export default class NuAbstractBtn extends NuGrid {
         box-shadow: var(--nu-stroke-shadow),
           var(--nu-toggle-shadow),
           var(--nu-depth-shadow);
-        transition: box-shadow var(--nu-theme-animation-time) linear;
+        transition: box-shadow var(--nu-theme-animation-time) linear,
+          background var(--nu-theme-animation-time) linear,
+          color var(--nu-theme-animation-time) linear;
         user-select: none;
         vertical-align: middle;
         opacity: 1;
