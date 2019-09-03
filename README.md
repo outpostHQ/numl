@@ -10,6 +10,7 @@
 * **Transferable** markup to be easily copy-pasted to your new project.
 * **Compatible** with any popular framework: Vue, React, Angular, Svelte, etc...
 * **Compact** size with no dependencies.
+* **Dark Mode** effortlessly. Darker colors will be generated automatically based on themes you use in you app.
 * **CSS Generation** under the hood to create only CSS your application needs.
 * **No Build Step** needed. Edit attributes and move elements in runtime and see how they change instantly.
 * **No-JS** support with pregenerated CSS.
