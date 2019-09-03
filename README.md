@@ -54,26 +54,32 @@ Based on [caniuse.com](caniuse.com). Real-world support table will be presented 
 Add `nude.js` to your page and initialize it.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nude-elements/dist/nude.pack.css" />
-<script src="https://cdn.jsdelivr.net/npm/nude-elements/dist/nude.pack.js">
-  Nude.init();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/nude-elements/dist/nude.pack.js"></script>
+<script>Nude.init();</script>
 ```
 
-Add `data-nu-root` attribute to the root element. Preferably, to the `body` tag.
+Add `nu-defaults` attribute to the root element. Preferably, to the `body` tag. This step is optional but make sure you did it if you want to give your app more elegant look.
 
 ```html
-<body data-nu-root></body>
+<body class="nu-defaults"></body>
 ```
 
 That's all. Now your application is **NUDE-ready**! Try to write some HTML to build awesome interfaces.
 
 ```html
-<nu-flex flow="column" gap=".5">
-  <nu-block>
-    Example text. <nu-link>Example link</nu-link>. <nu-badge>Example badge</nu-badge>.
-  </nu-block>
-</nu-flex>
+<nu-card responsive="420px" width="clamp(320px, 100%, auto)">
+  <nu-flex gap="1" items="start" flow="row|column">
+    <nu-icon name="package" size="4"></nu-icon>
+    <nu-flow gap=".5" grow="1">
+      <nu-heading level="3">Product name</nu-heading>
+      <nu-block>Very very long product description</nu-block>
+      <nu-flex gap="1" items="center|start" flow="row|column-reverse">
+        <nu-btn special>Order now</nu-btn>
+        <nu-badge mod="lg|md">Only $99.99</nu-badge>
+      </nu-flex>
+    </nu-flow>
+  </nu-flex>
+</nu-card>
 ```
 
 Nude Elements are also available via npm.
