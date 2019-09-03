@@ -117,6 +117,7 @@ const Nude = {
 
 Nude.elements = {
   NuBase,
+  NuElement,
   NuGridTable,
   NuPane,
   NuLine,
@@ -189,6 +190,7 @@ export {
   NdMod,
   NdVar,
   NuElement,
+  NuBase,
   NuDecorator,
   NuAbstractBtn
 };
