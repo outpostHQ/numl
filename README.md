@@ -68,7 +68,7 @@ Add `nu-defaults` attribute to the root element. Preferably, to the `body` tag. 
 That's all. Now your application is **NUDE-ready**! Try to write some HTML to build awesome interfaces.
 
 ```html
-<nu-card responsive="420px" width="clamp(320px, 100%, auto)">
+<nu-card responsive="420px" width="clamp(320px, 100%, initial)">
   <nu-flex gap="1" items="start" flow="row|column">
     <nu-icon name="package" size="4"></nu-icon>
     <nu-flow gap=".5" grow="1">
