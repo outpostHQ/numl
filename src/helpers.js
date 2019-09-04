@@ -4,6 +4,8 @@
  * Without such dict it would be impossible to declare computed color properties in themes.
  * @type {Object}
  */
+import { THEME_COLOR_ATTRS_LIST } from './attrs';
+
 export const COLORS = {
   indianred: '#CD5C5C',
   lightcoral: '#F08080',
@@ -187,6 +189,24 @@ export const CUSTOM_UNITS = {
   'br': 'var(--nu-theme-border-radius)',
   'bw': 'var(--nu-theme-border-width)',
 };
+
+export const COLOR_LIST = [...THEME_COLOR_ATTRS_LIST].map(color => color.replace('-color', ''));
+
+export function colorUnit(style, initial) {
+  return (color) => {
+    if (color == null) return;
+
+    if (!color) color = initial;
+
+    if (color === 'text') return { [style]: 'var(--nu-theme-color)' };
+
+    if (COLOR_LIST.includes(color)) {
+      return { [style]: `var(--nu-theme-${color}-color)` };
+    }
+
+    return { [style]: color };
+  };
+}
 
 /**
  * Unit conversion for attribute values.

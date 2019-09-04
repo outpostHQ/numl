@@ -38,7 +38,7 @@
   <nd-var name="--my-padding" value="2|1.5|1|.5"></nd-var>
 
   <nu-flex flow="column" gap="1">
-    <nu-card responsive="420px" width="clamp(320px, 100%, auto)">
+    <nu-card responsive="420px" width="clamp(320px, 100%, initial)">
       <nu-flex gap="1" items="start" flow="row|column">
         <nu-icon name="package" size="4"></nu-icon>
         <nu-flow gap=".5" grow="1">
@@ -49,7 +49,10 @@
               <nu-icon name="dollar-sign" inline></nu-icon>
               Order now
             </nu-btn>
-            <nu-badge mod="lg|md">Only $99.99</nu-badge>
+            <nu-badge mod="lg|md">
+              <nu-triangle dir="right" inline></nu-triangle>
+              Only $99.99
+            </nu-badge>
           </nu-flex>
         </nu-flow>
       </nu-flex>

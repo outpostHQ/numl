@@ -26,6 +26,7 @@ import NuMenu from './components/menu';
 import NuMenuItem from './components/menuitem';
 import NuTablist from './components/tablist';
 import NuAbstractBtn from './components/abstract-btn';
+import NuTriangle from './components/triangle';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NdTheme from './decorators/theme';
@@ -142,7 +143,8 @@ Nude.elements = {
   NdTheme,
   NdMod,
   NdVar,
-  NuAbstractBtn
+  NuAbstractBtn,
+  NuTriangle,
 };
 
 Nude.init = (...elements) => {
@@ -192,5 +194,6 @@ export {
   NuElement,
   NuBase,
   NuDecorator,
-  NuAbstractBtn
+  NuAbstractBtn,
+  NuTriangle,
 };

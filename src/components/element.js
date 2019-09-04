@@ -1,4 +1,11 @@
-import { convertUnit, generateId, toCamelCase, toKebabCase, computeStyles } from '../helpers';
+import {
+  convertUnit,
+  generateId,
+  toCamelCase,
+  toKebabCase,
+  computeStyles,
+  colorUnit
+} from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
 import NuBase from '../base';
@@ -34,7 +41,7 @@ export default class NuElement extends NuBase {
    * @returns {String} - `flex` | `grid`.
    */
   static get nuDisplay() {
-    return '';
+    return 'block';
   }
 
   /**
@@ -79,28 +86,8 @@ export default class NuElement extends NuBase {
           return obj;
         }, {});
       },
-      color(val) {
-        if (val == null) return null;
-
-        return {
-          color: val
-            ? val !== 'special'
-              ? val
-              : 'var(--nu-theme-special-color)'
-            : 'var(--nu-theme-color)'
-        };
-      },
-      background(val) {
-        if (val == null) return null;
-
-        return {
-          background: val
-            ? val !== 'special'
-              ? val
-              : 'var(--nu-theme-special-color)'
-            : 'var(--nu-theme-background-color)'
-        };
-      },
+      color: colorUnit('color', 'text'),
+      background: colorUnit('background', 'background'),
       transform(val) {
         return val ? { 'transform': val } : null;
       },
