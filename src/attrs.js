@@ -57,18 +57,9 @@ export const GRID_ATTRS = {
   gap: unit('grid-gap'),
 };
 
-export const THEME_COLOR_ATTRS_LIST = [
-  'color',
-  'background-color',
-  'special-color',
-  'border-color',
-  'shadow-color',
-  'heading-color',
-  'hover-color',
-  'special-hover-color',
-  'special-background-color',
-  'focus-color',
-];
+import { THEME_COLOR_ATTRS_LIST } from './helpers';
+
+export { THEME_COLOR_ATTRS_LIST };
 
 export const THEME_SCHEME_ATTRS = [
   ...THEME_COLOR_ATTRS_LIST,
@@ -78,20 +69,11 @@ export const THEME_SCHEME_ATTRS = [
 ];
 
 export const THEME_ATTRS_LIST = [
-  'color',
-  'background-color',
-  'special-color',
-  'border-color',
+  ...THEME_COLOR_ATTRS_LIST,
   'border-radius',
   'border-width',
-  'shadow-color',
   'shadow-intensity',
   'shadow-opacity',
   'animation-time',
-  'heading-color',
-  'hover-color',
-  'special-hover-color',
-  'special-background-color',
   'special-shadow-opacity',
-  'focus-color',
 ];

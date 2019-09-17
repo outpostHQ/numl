@@ -42,6 +42,8 @@ export function generateTheme(props, darkProps, parentProps) {
     backgroundColor,
     borderColor,
     specialColor,
+    minorColor: generalizeColor(props.minorColor),
+    minorBackgroundColor: generalizeColor(props.minorBackgroundColor),
     borderRadius: convertUnit(props.borderRadius || parentProps.borderRadius),
     borderWidth: convertUnit(props.borderWidth || parentProps.borderWidth),
     shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
@@ -97,6 +99,10 @@ export function generateTheme(props, darkProps, parentProps) {
     Object.assign(theme, {
       shadowIntensity: Number(theme.shadowIntensity
         || extractColor(theme.shadowColor)[3]),
+      minorColor: theme.minorColor
+        || mixColors(mixColors(theme.color, theme.specialColor, .2), theme.backgroundColor, .2),
+      minorBackgroundColor: theme.minorBackgroundColor
+        || mixColors(mixColors(theme.backgroundColor, theme.specialColor, .1), theme.color, .1),
       focusColor: theme.focusColor
         || mixColors(theme.specialColor, theme.backgroundColor),
       headingColor: theme.headingColor
@@ -121,6 +127,9 @@ export function generateTheme(props, darkProps, parentProps) {
       theme.specialColor = mixColors(theme.specialColor, 'rgba(0, 0, 0)', .1);
       theme.specialBackgroundColor = mixColors(theme.specialBackgroundColor, 'rgba(0, 0, 0)', .1);
     }
+
+    theme.specialMinorColor = theme.specialMinorColor
+        || mixColors(theme.specialBackgroundColor, theme.specialColor, .2);
 
     return Object.keys(theme).reduce((map, propName) => {
       map[`--nu-theme-${toKebabCase(propName)}`] = theme[propName];
