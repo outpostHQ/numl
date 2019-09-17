@@ -40,16 +40,16 @@ export default class NuFlex extends NuBlock {
         return { $suffix: '>*', '--nu-flex-gap': convertUnit(val) };
       },
       order: 'order',
-      'items-basis': unit('flex-basis', '>*:not([basis])'),
+      'items-basis': unit('flex-basis', '>:not([basis])'),
       'items-grow'(val) {
         return {
-          $suffix: ':not([grow])',
+          $suffix: '>:not([grow])',
           'flex-grow': val
         };
       },
       'items-shrink'(val) {
         return {
-          $suffix: ':not([shrink])',
+          $suffix: '>:not([shrink])',
           'flex-shrink': val
         };
       }
