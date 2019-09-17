@@ -88,7 +88,7 @@ $ npm install nude-elements
 
 Import the module to your application:
 ```javascript
-import Nude from 'nude-elements';
+import Nude from 'numl';
 
 Nude.init();
 ```
