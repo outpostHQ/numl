@@ -114,7 +114,7 @@ export default class NuAbstractBtn extends NuGrid {
       }
 
       if (this.parentNode.nuSetValue) {
-        this.parentNode.nuSetValue(this.parentNode.value);
+        this.parentNode.nuSetValue(this.parentNode.value, false);
       }
     }, 0);
   }
