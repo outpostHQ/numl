@@ -192,7 +192,7 @@ export default class NuAbstractBtn extends NuGrid {
     return this.getAttribute('aria-pressed') === 'true';
   }
 
-  get value() {
+  nuGetValue() {
     return this.getAttribute('value') || this.getAttribute('controls');
   }
 }

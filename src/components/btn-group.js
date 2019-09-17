@@ -110,7 +110,7 @@ export default class NuBtnGroup extends NuFlex {
         const el = this.querySelector(`nu-btn[value]`);
 
         if (el) {
-          this.nuSetValue(el.value);
+          this.nuSetValue(el.nuGetValue());
         }
       }, 0);
     }
