@@ -109,6 +109,12 @@ export default class NuAbstractBtn extends NuGrid {
         case 'NU-TABLIST':
           this.setAttribute('role', 'tab');
           break;
+        default:
+          return;
+      }
+
+      if (this.parentNode.nuSetValue) {
+        this.parentNode.nuSetValue(this.parentNode.value);
       }
     }, 0);
   }
@@ -144,6 +150,11 @@ export default class NuAbstractBtn extends NuGrid {
           this.nuSetValue(value);
         }
 
+        break;
+      case 'value':
+        if (this.parentNode && this.parentNode.nuSetValue) {
+          this.parentNode.nuSetValue(this.parentNode.value);
+        }
         break;
     }
   }
