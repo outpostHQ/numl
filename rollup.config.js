@@ -11,7 +11,7 @@ export default [
     input: 'src/pack.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework Pack', file: pkg.module.replace('.js', '.pack.js'), format: 'es' }
+      { name: 'NudeFramework Pack', file: pkg.module, format: 'es' }
     ],
     plugins: [
       replace({
@@ -30,7 +30,7 @@ export default [
     input: 'src/pack.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework Pack Dev', file: pkg.module.replace('.js', '.pack.dev.js'), format: 'es' }
+      { name: 'NudeFramework Pack Dev', file: pkg.module.replace('.js', '.dev.js'), format: 'es' }
     ],
     plugins: [
       replace({
@@ -45,7 +45,7 @@ export default [
     input: 'src/index.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework', file: pkg.module, format: 'es' }
+      { name: 'NudeFramework Module', file: pkg.module.replace('.js', '.module.js'), format: 'es' }
     ],
     plugins: [
       replace({
@@ -64,7 +64,7 @@ export default [
     input: 'src/index.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework Dev', file: pkg.module.replace('.js', '.dev.js'), format: 'es' }
+      { name: 'NudeFramework Module Dev', file: pkg.module.replace('.js', '.module.dev.js'), format: 'es' }
     ],
     plugins: [
       replace({

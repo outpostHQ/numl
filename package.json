@@ -1,7 +1,7 @@
 {
-  "name": "nude-elements",
-  "version": "0.3.3",
-  "module": "dist/nude.js",
+  "name": "numl",
+  "version": "0.4.0",
+  "module": "dist/numl.js",
   "devDependencies": {
     "@babel/core": "7.2.0",
     "css-color-function": "^1.3.3",

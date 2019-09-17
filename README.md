@@ -42,30 +42,25 @@ Based on [caniuse.com](caniuse.com). Real-world support table will be presented 
 
 ## Getting started
 
-`npm run build` builds the library to `dist`, generating five files:
+`npm run build` builds the library to `dist`, generating four files:
 
-* `dist/nude.js` - ES-module. Tree-shaking-friendly bundle. Elements' CSS included.
-* `dist/nude.dev.js` - Same as above but without minification and with helpful warnings.
-* `dist/nude.pack.js` - Classic JS-Bundle with all elements. Elements' CSS included. (Exposes global `Nude` object)
-* `dist/nude.pack.dev.js` - Same as above but without minification and with helpful warnings. (Exposes global `Nude` object)
+* `dist/numl.js` - Classic JS-Bundle with all elements. Elements' CSS included. (Exposes global `Nude` object)
+* `dist/numl.dev.js` - Same as above but with helpful warnings and without minification. (Exposes global `Nude` object)
+* `dist/numl.module.js` - ES-module. Tree-shaking-friendly bundle. Elements' CSS included.
+* `dist/numl.module.dev.js` - Same as above but with helpful warnings and without minification.
 
 `npm run dev` builds the library, then keeps rebuilding it whenever the source files change.
 
 ## Usage
-Add `nude.js` to your page and initialize it.
+Add `numl.js` to your page and initialize it.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/nude-elements/dist/nude.pack.js"></script>
-<script>Nude.init();</script>
+<script src="https://cdn.jsdelivr.net/npm/numl/dist/numl.js"></script>
 ```
 
-Add `nu-defaults` attribute to the root element. Preferably, to the `body` tag. This step is optional but make sure you did it if you want to give your app more elegant look.
+And that's all! Now your application is **NUDE-ready**!
 
-```html
-<body class="nu-defaults"></body>
-```
-
-That's all. Now your application is **NUDE-ready**! Try to write some HTML to build awesome interfaces.
+Try to write some HTML to build awesome interfaces.
 
 ```html
 <nu-card responsive="420px" width="clamp(320px, 100%, initial)">

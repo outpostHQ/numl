@@ -129,6 +129,7 @@ set('relative', { 'position': 'relative' });
 set('color', { 'color': 'var(--nu-theme-color)' });
 set('background', { 'background-color': 'var(--nu-theme-background-color)' });
 set('special', { 'color': 'var(--nu-theme-special-color)' });
+set('minor', { 'color': 'var(--nu-theme-minor-color)' });
 set('transparent', { 'background-color': 'transparent' });
 set('swap', { 'color': 'var(--nu-theme-background-color)', 'background-color': 'var(--nu-theme-color)' });
 

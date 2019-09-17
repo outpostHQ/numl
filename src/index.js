@@ -50,6 +50,8 @@ import {
   STATES_MAP,
   splitDimensions,
   parseAllValues,
+  mixColors,
+  setImmediate,
 } from './helpers';
 
 let featherPromise;
@@ -92,6 +94,7 @@ window.addEventListener('mousedown', disableFocus);
 window.addEventListener('keydown', enableFocus);
 
 const Nude = {
+  tags: {},
   modifiers,
   css,
   iconLoader(name) {
@@ -113,51 +116,25 @@ const Nude = {
     splitDimensions,
     excludeMod,
     parseAllValues,
+    mixColors,
+    setImmediate,
   },
 };
 
-Nude.elements = {
-  NuBase,
-  NuElement,
-  NuGridTable,
-  NuPane,
-  NuLine,
-  NuLayout,
-  NuIcon,
-  NuCard,
-  NuBtn,
-  NuTab,
-  NuBlock,
-  NuHeading,
-  NuGrid,
-  NuBadge,
-  NuInput,
-  NuScroll,
-  NuSwitch,
-  NuFlex,
-  NuBtnGroup,
-  NuTablist,
-  NuMenu,
-  NuMenuItem,
-  NuLink,
-  NdTheme,
-  NdMod,
-  NdVar,
-  NuAbstractBtn,
-  NuTriangle,
-};
-
 Nude.init = (...elements) => {
-  Object.values(elements.length ? elements : Nude.elements).forEach(el => {
+  elements.forEach(el => {
+    // if tag is already registered then skip
+    if (Nude.tags[el.nuTag]) return;
+
     el.nuInit();
+
+    Nude.tags[el.nuTag] = el;
   });
 };
 
 Nude.getElementById = function(id) {
   return document.querySelector(`[nu-id="${id}"]`);
 };
-
-window.Nude = Nude;
 
 export default Nude;
 
@@ -167,6 +144,8 @@ export {
   STATES_MAP,
   CUSTOM_UNITS,
   ROOT_CONTEXT,
+  NuElement,
+  NuBase,
   NuGrid,
   NuBlock,
   NuHeading,
@@ -191,8 +170,6 @@ export {
   NdTheme,
   NdMod,
   NdVar,
-  NuElement,
-  NuBase,
   NuDecorator,
   NuAbstractBtn,
   NuTriangle,

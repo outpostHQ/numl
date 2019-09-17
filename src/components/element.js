@@ -18,6 +18,7 @@ const plugins = {
 };
 
 const RESPONSIVE_ATTR = 'responsive';
+const backgroundUnit = colorUnit('background-color', 'background');
 
 /**
  * @class
@@ -76,7 +77,7 @@ export default class NuElement extends NuBase {
         const colorScheme = isColorScheme(val);
         const mainThemeName = getMainThemeName(val);
 
-        return THEME_ATTRS_LIST.reduce((obj, name) => {
+        const themeStyles = THEME_ATTRS_LIST.reduce((obj, name) => {
           if (colorScheme && THEME_SCHEME_ATTRS.includes(name)) {
             obj[`--nu-theme-${name}`] = `var(--nu-${mainThemeName}-${name})`;
           } else {
@@ -85,9 +86,21 @@ export default class NuElement extends NuBase {
 
           return obj;
         }, {});
+
+        themeStyles.color = themeStyles['--nu-theme-color'];
+
+        return themeStyles;
       },
       color: colorUnit('color', 'text'),
-      background: colorUnit('background', 'background'),
+      background(val) {
+        if (val && (val.includes('url(') || val.includes('gradient'))) {
+          return {
+            background: val,
+          };
+        }
+
+        return backgroundUnit(val);
+      },
       transform(val) {
         return val ? { 'transform': val } : null;
       },
@@ -214,7 +227,7 @@ export default class NuElement extends NuBase {
 
       let respEl = this;
 
-      while (respEl && (!respEl.getAttribute(RESPONSIVE_ATTR) || !respEl.nuResponsive)) {
+      while (respEl && (!respEl.getAttribute || !respEl.getAttribute(RESPONSIVE_ATTR) || !respEl.nuResponsive)) {
         respEl = respEl.parentNode;
       }
 
@@ -531,7 +544,7 @@ export default class NuElement extends NuBase {
     const parentStyles = window.getComputedStyle(this.parentNode);
     const parentProps = THEME_ATTRS_LIST.reduce((map, name) => {
       const themeName = toKebabCase(name);
-      const propName = `--nu-theme-${themeName}`;
+      const propName = `--nu-default-${themeName}`;
       const value = parentStyles.getPropertyValue(propName);
 
       if (value) {

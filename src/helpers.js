@@ -4,7 +4,21 @@
  * Without such dict it would be impossible to declare computed color properties in themes.
  * @type {Object}
  */
-import { THEME_COLOR_ATTRS_LIST } from './attrs';
+export const THEME_COLOR_ATTRS_LIST = [
+  'color',
+  'background-color',
+  'special-color',
+  'border-color',
+  'shadow-color',
+  'heading-color',
+  'hover-color',
+  'special-hover-color',
+  'special-background-color',
+  'focus-color',
+  'minor-color',
+  'minor-background-color',
+  'special-minor-color',
+];
 
 export const COLORS = {
   indianred: '#CD5C5C',
@@ -931,3 +945,22 @@ export function arrayDiff(arrA, arrB) {
     .filter(x => !arrB.includes(x))
     .concat(arrB.filter(x => !arrA.includes(x)));
 }
+
+const TASKS = [];
+const TASK_EVENT = 'nude:task';
+
+export function setImmediate(callback) {
+  TASKS.push(callback);
+
+  window.postMessage(TASK_EVENT, '*');
+}
+
+window.addEventListener('message', function(event) {
+  if (event.data !== TASK_EVENT) return;
+
+  for (let task of TASKS) {
+    task();
+  }
+
+  TASKS.splice(0);
+});

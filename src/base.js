@@ -153,6 +153,8 @@ export default class NuBase extends HTMLElement {
     customElements.define(tag, this);
 
     log('custom element registered', tag);
+
+    return tag;
   }
 
   /**
