@@ -44,7 +44,6 @@ import {
   splitStates,
   convertCustomUnit,
   excludeMod,
-  COLORS,
   ROOT_CONTEXT,
   CUSTOM_UNITS,
   STATES_MAP,
@@ -137,8 +136,6 @@ Nude.getElementById = function(id) {
 };
 
 export default Nude;
-
-export const HTML_COLORS = COLORS;
 
 export {
   STATES_MAP,

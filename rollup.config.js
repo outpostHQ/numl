@@ -75,4 +75,16 @@ export default [
       })
     ]
   },
+  {
+    input: 'src/colors.js',
+    external: ['ms'],
+    output: [
+      { name: 'HTML Colors Module', file: pkg.module.replace('.js', '.colors.js'), format: 'es' }
+    ],
+    plugins: [
+      replace({
+        'process.env.NODE_ENV': '"production"',
+      }),
+    ]
+  },
 ];

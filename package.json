@@ -28,17 +28,24 @@
   ],
   "size-limit": [
     {
-      "name": "nude",
+      "name": "numl",
       "webpack": false,
       "path": [
-        "dist/nude.js"
+        "dist/numl.js"
       ]
     },
     {
-      "name": "nude pack",
+      "name": "numl module",
       "webpack": false,
       "path": [
-        "dist/nude.pack.js"
+        "dist/numl.module.js"
+      ]
+    },
+    {
+      "name": "colors module",
+      "webpack": false,
+      "path": [
+        "dist/numl.colors.js"
       ]
     }
   ]
