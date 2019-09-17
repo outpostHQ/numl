@@ -3,9 +3,9 @@ import Modifiers from '../modifiers';
 import { error } from '../helpers';
 import { parseStyles } from '../css';
 
-export default class NdMod extends NuDecorator {
+export default class NuMod extends NuDecorator {
   static get nuTag() {
-    return 'nd-mod';
+    return 'nu-mod';
   }
 
   static get nuAttrsList() {

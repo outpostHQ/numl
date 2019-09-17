@@ -29,9 +29,9 @@ import NuAbstractBtn from './components/abstract-btn';
 import NuTriangle from './components/triangle';
 // decorators
 import NuDecorator from './decorators/decorator';
-import NdTheme from './decorators/theme';
-import NdMod from './decorators/mod';
-import NdVar from './decorators/var';
+import NuTheme from './decorators/theme';
+import NuMod from './decorators/mod';
+import NuVar from './decorators/var';
 // helpers
 import {
   injectScript,
@@ -164,9 +164,9 @@ export {
   NuMenu,
   NuMenuItem,
   NuLink,
-  NdTheme,
-  NdMod,
-  NdVar,
+  NuTheme,
+  NuMod,
+  NuVar,
   NuDecorator,
   NuAbstractBtn,
   NuTriangle,

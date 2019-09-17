@@ -17,9 +17,9 @@ function extractTheme(el) {
   }, { light: {}, dark: {} });
 }
 
-export default class NdTheme extends NuDecorator {
+export default class NuTheme extends NuDecorator {
   static get nuTag() {
-    return 'nd-theme';
+    return 'nu-theme';
   }
 
   static get nuAttrsList() {

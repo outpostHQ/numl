@@ -2,9 +2,9 @@ import NuDecorator from './decorator';
 import { error } from '../helpers';
 import { parseStyles, injectCSS } from '../css';
 
-export default class NdVar extends NuDecorator {
+export default class NuVar extends NuDecorator {
   static get nuTag() {
-    return 'nd-var';
+    return 'nu-var';
   }
 
   static get nuAttrsList() {
