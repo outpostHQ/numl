@@ -14,6 +14,13 @@ export default class NuBadge extends NuElement {
     return {
       border: NuBlock.nuAttrs.border,
       radius: NuBlock.nuAttrs.radius,
+      shadow: NuBlock.nuAttrs.shadow,
+    };
+  }
+
+  static get nuDefaults() {
+    return {
+      background: 'text',
     };
   }
 
@@ -27,14 +34,16 @@ export default class NuBadge extends NuElement {
         box-shadow: var(--nu-stroke-shadow), var(--nu-depth-shadow);
         border-radius: var(--nu-border-radius);
         padding: 0 .5em;
-        color: var(--nu-theme-background-color) !important;
         white-space: nowrap;
       }
-      ${nuTag}:not([special]) {
-        background-color: var(--nu-theme-color) !important;
+      ${nuTag}:not([color]) {
+        color: var(--nu-theme-background-color) !important;
       }
-      ${nuTag}[special] {
+      ${nuTag}[special]:not([background]) {
         background-color: var(--nu-theme-special-color) !important;
+      }
+      ${nuTag}[special]:not([color]) {
+        color: var(--nu-theme-special-background-color) !important;
       }
     `;
   }
