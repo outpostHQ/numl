@@ -101,5 +101,4 @@ Run `npm run play` to view test page with few examples.
 
 ## License
 
-[MIT](LICENSE).
-фслф
+[MIT](LICENSE)
