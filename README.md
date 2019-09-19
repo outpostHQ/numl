@@ -83,7 +83,7 @@ Try to write some HTML to build awesome interfaces.
 
 Nude Elements are also available via npm.
 ```bash
-$ npm install nude-elements
+$ npm install numl --save
 ```
 
 Import the module to your application:
