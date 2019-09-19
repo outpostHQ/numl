@@ -88,9 +88,7 @@ $ npm install nude-elements
 
 Import the module to your application:
 ```javascript
-import Nude from 'numl';
-
-Nude.init();
+import 'numl';
 ```
 
 ## Local playground
@@ -104,3 +102,4 @@ Run `npm run play` to view test page with few examples.
 ## License
 
 [MIT](LICENSE).
+фслф

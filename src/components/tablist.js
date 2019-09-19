@@ -46,7 +46,7 @@ export default class NuTablist extends NuFlex {
     super.nuMounted();
 
     setTimeout(() => {
-      const value = this.value;
+      const value = this.nuGetValue();
 
       if (value) {
         this.nuSetValue(value, false);
@@ -55,20 +55,20 @@ export default class NuTablist extends NuFlex {
           const el = this.querySelector(`nu-tab[value]:not([disabled]), nu-tab[controls]:not([disabled])`);
 
           if (el) {
-            this.nuSetValue(el.value);
+            this.nuSetValue(el.nuGetValue());
           }
         }, 0);
       }
     }, 0);
   }
 
-  get value() {
+  nuGetValue() {
     const value = this.getAttribute('value');
 
     if (value) {
       const el = this.querySelector(`nu-tab[aria-pressed="true"]:not([disabled])`);
 
-      return el ? el.value : value;
+      return el ? el.nuGetValue() : value;
     }
   }
 
@@ -77,7 +77,7 @@ export default class NuTablist extends NuFlex {
       [...this.childNodes].forEach(el => {
         if (el.tagName !== 'NU-TAB') return;
 
-        if (el.value === value) {
+        if (el.nuGetValue() === value) {
           el.nuSetValue(true);
           el.nuSetAria('selected', true);
           el.nuSetFocusable(false);

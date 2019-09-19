@@ -116,7 +116,7 @@ export default class NuBtnGroup extends NuFlex {
     }
   }
 
-  get value() {
+  nuGetValue() {
     const value = this.getAttribute('value');
 
     if (value) {

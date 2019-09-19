@@ -36,6 +36,7 @@ export default class NuAbstractBtn extends NuGrid {
       flow: 'column',
       content: 'center',
       gap: .5,
+      transition: 'box-shadow, background, color',
     };
   }
 
@@ -51,9 +52,6 @@ export default class NuAbstractBtn extends NuGrid {
         box-shadow: var(--nu-stroke-shadow),
           var(--nu-toggle-shadow),
           var(--nu-depth-shadow);
-        transition: box-shadow var(--nu-theme-animation-time) linear,
-          background var(--nu-theme-animation-time) linear,
-          color var(--nu-theme-animation-time) linear;
         user-select: none;
         vertical-align: middle;
         opacity: 1;
@@ -99,7 +97,7 @@ export default class NuAbstractBtn extends NuGrid {
 
       switch (this.parentNode.tagName) {
         case 'NU-BTN-GROUP':
-          if (this.parentNode.value) {
+          if (this.parentNode.nuGetValue()) {
             this.setAttribute('role', 'radio');
           }
           break;
@@ -114,7 +112,7 @@ export default class NuAbstractBtn extends NuGrid {
       }
 
       if (this.parentNode.nuSetValue) {
-        this.parentNode.nuSetValue(this.parentNode.value, false);
+        this.parentNode.nuSetValue(this.parentNode.nuGetValue(), false);
       }
     }, 0);
   }
@@ -125,10 +123,9 @@ export default class NuAbstractBtn extends NuGrid {
     this.nuEmit('tap');
 
     const parent = this.parentNode;
-    const value = this.getAttribute('value')
-      || this.getAttribute('controls');
+    const value = this.nuGetValue();
 
-    if (value && parent.nuSetValue && parent.value !== value) {
+    if (value && parent.nuSetValue && parent.nuGetValue() !== value) {
       parent.nuSetValue(value);
     }
   }
@@ -153,7 +150,7 @@ export default class NuAbstractBtn extends NuGrid {
         break;
       case 'value':
         if (this.parentNode && this.parentNode.nuSetValue) {
-          this.parentNode.nuSetValue(this.parentNode.value);
+          this.parentNode.nuSetValue(this.parentNode.nuGetValue());
         }
         break;
     }

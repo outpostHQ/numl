@@ -94,6 +94,10 @@ export default class NuBadge extends NuElement {
     document.body.removeChild(link);
   }
 
+  nuGetValue() {
+    return this.getAttribute('href');
+  }
+
   nuMounted() {
     super.nuMounted();
 

@@ -144,6 +144,18 @@ export default class NuElement extends NuBase {
 
         return { display: 'none !important' };
       },
+      opacity(val) {
+        if (val == null) return;
+
+        return { opacity: val };
+      },
+      transition(val) {
+        if (val == null) return;
+
+        val = val.split(',').map(s => `${s} var(--nu-theme-animation-time) linear`).join(',');
+
+        return { transition: val };
+      },
       ...plugins
     };
   }

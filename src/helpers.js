@@ -196,6 +196,16 @@ export function invertQuery(element, selector) {
 }
 
 /**
+ * Return a closest element that has provided id.
+ * @param {Element} element
+ * @param {String} id
+ * @returns {undefined|Element}
+ */
+export function invertQueryById(element, id) {
+  return invertQuery(element, `[id="^${id}--"]`);
+}
+
+/**
  * Tell if library run in dev mode.
  * @type {Boolean}
  */

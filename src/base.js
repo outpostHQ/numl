@@ -1,5 +1,14 @@
 import { attrsQuery, generateCSS, injectStyleTag } from './css';
-import { getParent, invertQuery, generateId, devMode, warn, log, computeStyles } from './helpers';
+import {
+  getParent,
+  invertQuery,
+  generateId,
+  devMode,
+  warn,
+  log,
+  computeStyles,
+  invertQueryById
+} from './helpers';
 
 export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 
@@ -303,6 +312,14 @@ export default class NuBase extends HTMLElement {
    */
   nuInvertQuery(selector) {
     return invertQuery(this, selector);
+  }
+
+  /**
+   * Get closest element that satisfies specified selector
+   * @param {String} id
+   */
+  nuInvertQueryById(id) {
+    return invertQueryById(this, id);
   }
 
   /**
