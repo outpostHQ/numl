@@ -42,8 +42,8 @@ export default class NuTablist extends NuFlex {
     }
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     setTimeout(() => {
       const value = this.nuGetValue();

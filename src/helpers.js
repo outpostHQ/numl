@@ -188,11 +188,25 @@ export function getParent(element, selector) {
  * @returns {undefined|Element}
  */
 export function invertQuery(element, selector) {
-  do {
-    const found = element.querySelector(selector);
+  const origElement = element;
 
-    if (found) return found;
-  } while ((element = element.parentNode));
+  let prevElement = element;
+
+  do {
+    const found = [...element.querySelectorAll(selector)];
+
+    if (found) {
+      if (found.includes(prevElement) && prevElement !== origElement) {
+        return prevElement;
+      }
+
+      const foundEl = found.find(el => el !== origElement);
+
+      if (foundEl) return foundEl;
+    }
+
+    prevElement = element;
+  } while (element = element.parentNode);
 }
 
 /**
@@ -202,7 +216,7 @@ export function invertQuery(element, selector) {
  * @returns {undefined|Element}
  */
 export function invertQueryById(element, id) {
-  return invertQuery(element, `[id="^${id}--"]`);
+  return invertQuery(element, `[id^="${id}--"], [id="${id}"]`);
 }
 
 /**

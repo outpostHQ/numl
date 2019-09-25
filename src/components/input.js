@@ -124,8 +124,8 @@ export default class NuInput extends NuGrid {
     }
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     setTimeout(() => {
       this.nuChanged('disabled', '', this.getAttribute('disabled'));

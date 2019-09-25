@@ -32,8 +32,8 @@ export default class NuTheme extends NuDecorator {
     this.nuApply();
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     // run only once
     if (this.nuIsMounted) return;
@@ -41,8 +41,8 @@ export default class NuTheme extends NuDecorator {
     setTimeout(() => this.nuApply());
   }
 
-  nuUnmounted() {
-    super.nuUnmounted();
+  nuDisconnected() {
+    super.nuDisconnected();
 
     const name = this.getAttribute('name');
 

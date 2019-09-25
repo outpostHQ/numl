@@ -62,7 +62,7 @@ export default class NuScroll extends NuElement {
     }
   }
 
-  nuMounted() {
+  nuConnected() {
     this.nuUpdate();
 
     ['wheel', 'scroll'].forEach(eventName => {

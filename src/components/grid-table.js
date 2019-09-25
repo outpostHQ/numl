@@ -44,8 +44,8 @@ export default class NuGridTable extends NuGrid {
     `;
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
   }
 }
 

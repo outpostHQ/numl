@@ -208,7 +208,7 @@ export default class NuBase extends HTMLElement {
    * @private
    */
   connectedCallback() {
-    this.nuMounted();
+    this.nuConnected();
 
     this.nuIsMounted = true;
   }
@@ -217,7 +217,7 @@ export default class NuBase extends HTMLElement {
    * @private
    */
   disconnectedCallback() {
-    this.nuUnmounted();
+    this.nuDisconnected();
   }
 
   /**
@@ -287,7 +287,7 @@ export default class NuBase extends HTMLElement {
    * Can be called more than once.
    * While using frameworks this method can be fired without element having parentNode.
    */
-  nuMounted() {
+  nuConnected() {
     setTimeout(() => (this.nuParent = this.parentNode));
   }
 
@@ -295,7 +295,7 @@ export default class NuBase extends HTMLElement {
    * Called when element is disconnected from the DOM.
    * Can be called more than once.
    */
-  nuUnmounted() {
+  nuDisconnected() {
   }
 
   /**

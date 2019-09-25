@@ -98,8 +98,8 @@ export default class NuBtnGroup extends NuFlex {
     }
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     const value = this.getAttribute('value');
 

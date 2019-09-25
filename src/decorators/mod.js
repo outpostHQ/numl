@@ -12,8 +12,8 @@ export default class NuMod extends NuDecorator {
     return ['name'];
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     this.nuApply();
   }

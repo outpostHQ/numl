@@ -64,8 +64,8 @@ export default class NuHeading extends NuBlock {
     }
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     if (!this.hasAttribute('level')) {
       this.nuChanged('level');

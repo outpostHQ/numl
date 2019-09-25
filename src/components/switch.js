@@ -104,8 +104,8 @@ export default class NuSwitch extends NuBlock {
     super();
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     this.nuSetValue(this.getAttribute('checked'));
 

@@ -98,8 +98,8 @@ export default class NuBadge extends NuElement {
     return this.getAttribute('href');
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     this.setAttribute('tabindex', '0');
 

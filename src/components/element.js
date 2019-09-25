@@ -4,11 +4,12 @@ import {
   toCamelCase,
   toKebabCase,
   computeStyles,
-  colorUnit
+  colorUnit,
+  setImmediate,
 } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
-import NuBase from '../base';
+import NuBase, { DOUBLE_DISPLAY } from '../base';
 import { THEME_ATTRS_LIST, THEME_SCHEME_ATTRS } from '../attrs';
 import { generateTheme, convertThemeName, getMainThemeName, isColorScheme } from '../themes';
 
@@ -19,6 +20,7 @@ const plugins = {
 
 const RESPONSIVE_ATTR = 'responsive';
 const backgroundUnit = colorUnit('background-color', 'background');
+const baseColorUnit = colorUnit('color', 'text');
 
 /**
  * @class
@@ -65,6 +67,23 @@ export default class NuElement extends NuBase {
         return { [tmp[0]]: convertUnit(tmp[1]) };
       },
       /**
+       * CSS Display value.
+       * @param val
+       */
+      display(val) {
+        if (!val) return;
+
+        return DOUBLE_DISPLAY.includes(val)
+          ? [{
+            $suffix: ':not([inline])',
+            display: val,
+          }, {
+            $suffix: '[inline]',
+            display: `inline-${val}`,
+          }]
+          : { display: val };
+      },
+      /**
        * Apply theme to the element by providing specific custom properties.
        * @param {String} val - Theme name.
        * @returns {*}
@@ -91,7 +110,20 @@ export default class NuElement extends NuBase {
 
         return themeStyles;
       },
-      color: colorUnit('color', 'text'),
+      color(val) {
+        if (!val) return;
+
+        if (val.includes(' ')) {
+          const tmp = val.split(' ');
+
+          return {
+            ...baseColorUnit(tmp[0]),
+            ...backgroundUnit(tmp[1]),
+          };
+        }
+
+        return colorUnit('color', 'text');
+      },
       background(val) {
         if (val && (val.includes('url(') || val.includes('gradient'))) {
           return {
@@ -116,8 +148,8 @@ export default class NuElement extends NuBase {
       cursor(val) {
         return val
           ? {
-              cursor: val
-            }
+            cursor: val
+          }
           : null;
       },
       size(val) {
@@ -156,7 +188,11 @@ export default class NuElement extends NuBase {
 
         return { transition: val };
       },
-      ...plugins
+      ...plugins,
+      controls: '',
+      label: '',
+      labelledby: '',
+      describedby: '',
     };
   }
 
@@ -202,7 +238,7 @@ export default class NuElement extends NuBase {
       this.setAttribute('role', nuRole);
     }
 
-    this.nuMounted();
+    this.nuConnected();
 
     this.nuIsMounted = true;
   }
@@ -411,7 +447,8 @@ export default class NuElement extends NuBase {
    * Can be called twice or more.
    * While using frameworks this method can be fired without element having parentNode.
    */
-  nuMounted() {}
+  nuConnected() {
+  }
 
   /**
    * Attribute change reaction.
@@ -443,6 +480,34 @@ export default class NuElement extends NuBase {
             }
           });
         }, 0);
+        break;
+      case 'label':
+      case 'valuemin':
+      case 'valuemax':
+      case 'valuenow':
+      case 'setsize':
+      case 'posinset':
+        this.nuSetAria(name, value);
+        break;
+      case 'controls':
+      case 'labelledby':
+      case 'describedby':
+      case 'owns':
+      case 'flowto':
+      case 'activedescendant':
+        setImmediate(() => {
+          const ariaValue = value.split(/\s+/g).map((id) => {
+            const link = this.nuInvertQueryById(id);
+
+            if (!link) return '';
+
+            return generateId(link);
+          }).join(' ');
+
+          if (ariaValue.trim()) {
+            this.nuSetAria(name, ariaValue);
+          }
+        });
         break;
     }
   }
@@ -586,12 +651,12 @@ export default class NuElement extends NuBase {
     const defaultStyles =
       name === 'default'
         ? stylesString(
-            THEME_ATTRS_LIST.reduce((obj, attr) => {
-              obj[`--nu-theme-${attr}`] = `var(--nu-${name}-${attr})`;
+        THEME_ATTRS_LIST.reduce((obj, attr) => {
+          obj[`--nu-theme-${attr}`] = `var(--nu-${name}-${attr})`;
 
-              return obj;
-            }, {})
-          )
+          return obj;
+        }, {})
+        )
         : '';
     const commonCSS = `
       ${defaultStyles ? `${baseQuery}{${defaultStyles}}` : ''}

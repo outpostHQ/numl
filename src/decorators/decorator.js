@@ -6,8 +6,8 @@ export default class NuDecorator extends NuBase {
     return 'none';
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     if (!this.parentNode) return;
   }

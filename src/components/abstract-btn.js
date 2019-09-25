@@ -1,6 +1,6 @@
 import NuGrid from './grid';
 import focusable from '../mixins/focusable';
-import { generateId, bindActiveEvents } from '../helpers';
+import { generateId, bindActiveEvents, setImmediate, invertQuery } from '../helpers';
 
 export default class NuAbstractBtn extends NuGrid {
   static get nuTag() {
@@ -81,8 +81,8 @@ export default class NuAbstractBtn extends NuGrid {
     `;
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     if (!this.hasAttribute('pressed')) {
       this.nuSetValue(false);
@@ -159,22 +159,22 @@ export default class NuAbstractBtn extends NuGrid {
   nuSetValue(value) {
     this.nuSetAria('pressed', value);
 
-    setTimeout(() => {
+    setImmediate(() => {
       if (this.nuRole !== 'tab') return;
 
       if (value !== this.pressed) return;
 
       const controlsName = this.getAttribute('controls');
 
-      if (!controlsName || !controlsName.startsWith('#')) return;
+      if (!controlsName) return;
 
-      const link = this.nuInvertQuery(`[nu-id="${controlsName.replace('#', '')}"]`);
+      const link = this.nuInvertQueryById(controlsName);
 
       if (link && link.nuSetMod) {
         const linkId = generateId(link);
         const tabId = generateId(this);
 
-        this.nuSetAria('controls', linkId);
+        link.nuSetAria('controls', linkId);
         link.nuSetAria('labelledby', tabId);
         link.nuSetMod('hidden', !value);
 
@@ -182,7 +182,7 @@ export default class NuAbstractBtn extends NuGrid {
           link.nuRole = 'tabpanel';
         }
       }
-    }, 0);
+    });
   }
 
   get pressed() {

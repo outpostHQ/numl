@@ -11,8 +11,8 @@ export default class NuVar extends NuDecorator {
     return ['name', 'value'];
   }
 
-  nuMounted() {
-    super.nuMounted();
+  nuConnected() {
+    super.nuConnected();
 
     this.nuApply();
   }

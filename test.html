@@ -35,18 +35,21 @@
   <nu-var name="--my-padding" value="2|1.5|1|.5"></nu-var>
 
   <nu-flex flow="column" gap="1">
-    <nu-card responsive="420px" width="clamp(320px, 100%, initial)">
+    <nu-card
+      responsive="420px" width="clamp(320px, 100%, initial)"
+      labelledby="heading"
+      describedby="description price">
       <nu-flex gap="1" items="start" flow="row|column">
         <nu-icon name="package" size="4"></nu-icon>
         <nu-flow gap=".5" grow="1">
-          <nu-heading level="3">Product name</nu-heading>
-          <nu-block>Very very long product description</nu-block>
+          <nu-heading level="3" id="heading">Product name</nu-heading>
+          <nu-block id="description">Very very long product description</nu-block>
           <nu-flex gap="1" items="center|start" flow="row|column-reverse">
             <nu-btn special>
               <nu-icon name="dollar-sign" inline></nu-icon>
               Order now
             </nu-btn>
-            <nu-badge mod="lg|md">
+            <nu-badge mod="lg|md" id="price">
               <nu-triangle dir="right" inline></nu-triangle>
               Only $99.99
             </nu-badge>
@@ -86,15 +89,15 @@
 
         <nu-block>
           <nu-tablist gap="2||.5|0">
-            <nu-tab controls="#first">First</nu-tab>
-            <nu-tab controls="#second">Second</nu-tab>
-            <nu-tab controls="#third">Third</nu-tab>
+            <nu-tab controls="first">First</nu-tab>
+            <nu-tab controls="second">Second</nu-tab>
+            <nu-tab controls="third">Third</nu-tab>
           </nu-tablist>
           <nu-line></nu-line>
         </nu-block>
 
         <nu-block id="first" background="blue :hover[red]">First tab panel</nu-block>
-        <nu-block id="second">Second tab panel</nu-block>
+        <nu-block id="second" color="minor minor-background">Second tab panel</nu-block>
         <nu-block id="third">Third tab panel</nu-block>
 
         <nu-line></nu-line>
