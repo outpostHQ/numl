@@ -12,15 +12,17 @@ export default class NuScroll extends NuElement {
     return 'scrollbar';
   }
 
-  static get nuDisplay() {
-    return 'block';
-  }
-
   static get nuAttrs() {
     return {
       orientation: '',
       size: unit('--nu-line-size'),
       color: '--nu-line-color',
+    };
+  }
+
+  static get nuDefaults() {
+    return {
+      display: 'block',
     };
   }
 

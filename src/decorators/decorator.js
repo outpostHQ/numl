@@ -2,10 +2,6 @@ import { generateId } from '../helpers';
 import NuBase from '../base';
 
 export default class NuDecorator extends NuBase {
-  static get nuDisplay() {
-    return 'none';
-  }
-
   nuConnected() {
     super.nuConnected();
 

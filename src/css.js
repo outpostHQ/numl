@@ -34,7 +34,9 @@ export function stylesString(styles) {
       .forEach(style => {
         const value = String(styles[style]);
 
-        if (value && !CSS.supports(style, value.replace('!important', ''))) {
+        if (value
+          && !CSS.supports(style, value.replace('!important', ''))
+          && !value.endsWith('-reverse')) {
           warn('unsupported style detected:', `{ ${style}: ${value}; }`);
         }
       });

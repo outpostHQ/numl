@@ -1,7 +1,7 @@
 import NuFlex from './flex';
 import { unit, convertUnit } from '../helpers';
 
-const FLOW_ATTR = NuFlex.nuAttrs.flow;
+const FLOW_ATTR = NuFlex.nuAllAttrs.flow;
 
 export default class NuBtnGroup extends NuFlex {
   static get nuTag() {
@@ -17,11 +17,11 @@ export default class NuBtnGroup extends NuFlex {
       padding: '',
       value: '',
       'items-padding': unit('padding', true),
-      flow(val) {
+      flow(val, defaults) {
         if (!val) return;
 
         return [
-          ...FLOW_ATTR(val),
+          ...FLOW_ATTR(val, defaults),
           {
             $suffix: `:not([gap]) > :first-child:not(:last-child)`,
             '--nu-border-radius': val.startsWith('row')

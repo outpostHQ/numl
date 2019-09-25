@@ -717,7 +717,7 @@ export function splitStates(attrValue) {
  * @param {Object} attrs - Map of attribute handlers.
  * @returns {String|Object|Array}
  */
-export function computeStyles(name, value, attrs) {
+export function computeStyles(name, value, attrs, defaults) {
   if (value == null) return;
 
   // Style splitter for states system
@@ -726,7 +726,7 @@ export function computeStyles(name, value, attrs) {
     const states = splitStates(value);
 
     const arr = states.reduce((arr, state) => {
-      const styles = (computeStyles(name, state.value, attrs) || []).map(stls => {
+      const styles = (computeStyles(name, state.value, attrs, defaults) || []).map(stls => {
         /**
          * @TODO: review that function
          */
@@ -759,7 +759,7 @@ export function computeStyles(name, value, attrs) {
     case 'string':
       return value ? [{ [attrValue]: value }] : null;
     case 'function':
-      const styles = attrValue(value);
+      const styles = attrValue(value, defaults);
 
       if (!styles) return null;
 

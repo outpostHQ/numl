@@ -1,4 +1,5 @@
 import Nude, {
+  NuBase,
   NuGrid,
   NuBlock,
   NuHeading,
@@ -30,7 +31,7 @@ import Nude, {
 
 window.Nude = Nude;
 
-Nude.init(
+Nude.elements = {
   NuGrid,
   NuBlock,
   NuHeading,
@@ -58,7 +59,13 @@ Nude.init(
   NuDecorator,
   NuAbstractBtn,
   NuTriangle,
+};
+
+Nude.init(
+  ...Object.values(Nude.elements),
 );
+
+Nude.elements.NuBase = NuBase;
 
 export {
   NuGrid,

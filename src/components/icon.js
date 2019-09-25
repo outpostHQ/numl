@@ -8,17 +8,11 @@ export default class NuIcon extends NuBlock {
     return 'nu-icon';
   }
 
-  static get nuDisplay() {
-    return 'inline-block';
-  }
-
   static get nuRole() {
     return 'img';
   }
 
   static get nuAttrs() {
-    const display = this.nuDisplay;
-
     return {
       size(val) {
         const converted = convertUnit(val || '');
@@ -29,13 +23,19 @@ export default class NuIcon extends NuBlock {
           '--nu-size': converted,
         } : null;
       },
-      name(val) {
+      name(val, defaults) {
         return val
           ? {
             $suffix: ` > [name="${val}"]`,
-            display: `${display} !important`,
+            display: `${defaults.display} !important`,
           } : null;
       },
+    };
+  }
+
+  static get nuDefaults() {
+    return {
+      display: 'inline-block',
     };
   }
 

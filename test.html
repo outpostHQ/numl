@@ -28,7 +28,7 @@
     color="#e63757"
     background-color="#fff"
     special-color="#e63757"></nu-theme>
-<!--  #1885d9-->
+  <!--  #1885d9-->
   <nu-mod name="red">
     color: red;
   </nu-mod>
@@ -36,26 +36,26 @@
 
   <nu-flex flow="column" gap="1">
     <nu-card
+      display="flex"
       responsive="420px" width="clamp(320px, 100%, initial)"
       labelledby="heading"
-      describedby="description price">
-      <nu-flex gap="1" items="start" flow="row|column">
-        <nu-icon name="package" size="4"></nu-icon>
-        <nu-flow gap=".5" grow="1">
-          <nu-heading level="3" id="heading">Product name</nu-heading>
-          <nu-block id="description">Very very long product description</nu-block>
-          <nu-flex gap="1" items="center|start" flow="row|column-reverse">
-            <nu-btn special>
-              <nu-icon name="dollar-sign" inline></nu-icon>
-              Order now
-            </nu-btn>
-            <nu-badge mod="lg|md" id="price">
-              <nu-triangle dir="right" inline></nu-triangle>
-              Only $99.99
-            </nu-badge>
-          </nu-flex>
-        </nu-flow>
-      </nu-flex>
+      describedby="description price"
+      gap="1" items="start" flow="row|column">
+      <nu-icon name="package" size="4"></nu-icon>
+      <nu-flow gap=".5" grow="1">
+        <nu-heading level="3" id="heading">Product name</nu-heading>
+        <nu-block id="description">Very very long product description</nu-block>
+        <nu-flex gap="1" items="center|start" flow="row|column-reverse">
+          <nu-btn special>
+            <nu-icon name="dollar-sign" inline></nu-icon>
+            Order now
+          </nu-btn>
+          <nu-badge mod="lg|md" id="price">
+            <nu-triangle dir="right" inline></nu-triangle>
+            Only $99.99
+          </nu-badge>
+        </nu-flex>
+      </nu-flow>
     </nu-card>
 
     <nu-card shadow radius="2x" padding="var(--my-padding)" border="2x dashed">
@@ -73,7 +73,8 @@
             flow="row|column"
             theme="danger"
             items-padding=".5" size="1.6 2.5| |.75 1|.5 .75">
-            <nu-btn value="one" special id="btn" theme="default :pressed[primary] :hover[danger] :pressed:hover[default]">
+            <nu-btn value="one" special id="btn"
+                    theme="default :pressed[primary] :hover[danger] :pressed:hover[default]">
               <nu-icon name="truck #btn:pressed[zap]|package :hover[x]" inline></nu-icon>
               One
             </nu-btn>
@@ -102,7 +103,9 @@
 
         <nu-line></nu-line>
 
-        <nu-block border="1br outside" theme="success">Block with some text <nu-badge>Some badge</nu-badge></nu-block>
+        <nu-block border="1br outside" theme="success">Block with some text
+          <nu-badge>Some badge</nu-badge>
+        </nu-block>
 
         <nu-grid rows="1rem auto"></nu-grid>
 
@@ -131,7 +134,8 @@
             </nu-block>
             <nu-flex mod="md" gap=".5">
               <nu-btn special>Special button</nu-btn>
-              <nu-btn theme="default #some-card:hover[primary]" special>Not so special button</nu-btn>
+              <nu-btn theme="default #some-card:hover[primary]" special>Not so special button
+              </nu-btn>
             </nu-flex>
           </nu-flex>
         </nu-card>

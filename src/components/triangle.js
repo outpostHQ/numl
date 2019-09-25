@@ -27,10 +27,6 @@ export default class NuTriangle extends NuElement {
     return 'nu-triangle';
   }
 
-  static get nuDisplay() {
-    return 'block';
-  }
-
   static get nuAttrs() {
     return {
       dir(val) {
@@ -64,6 +60,7 @@ export default class NuTriangle extends NuElement {
 
   static get nuDefaults() {
     return {
+      display: 'block',
       dir: 'up',
       size: '.5em 1em',
       color: 'border',

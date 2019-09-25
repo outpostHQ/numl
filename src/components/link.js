@@ -7,17 +7,13 @@ export default class NuBadge extends NuElement {
     return 'nu-link';
   }
 
-  static get nuDisplay() {
-    return 'inline-block';
-  }
-
   static get nuRole() {
     return 'link';
   }
 
   static get nuDefaults() {
     return {
-      color: 'inherit',
+      color: 'special',
       mod: 'nowrap',
       cursor: 'pointer',
     };
@@ -63,10 +59,6 @@ export default class NuBadge extends NuElement {
       ${nuTag}:active::before {
         box-shadow: inset 0 -0.1875em var(--nu-theme-special-color);
         opacity: .5;
-      }
-
-      ${nuTag}[special] {
-        color: var(--nu-theme-special-color) !important;
       }
     `;
   }

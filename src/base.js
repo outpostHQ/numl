@@ -45,13 +45,6 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
-   * Default display style
-   */
-  static get nuDisplay() {
-    return 'inline';
-  }
-
-  /**
    * Parent element
    */
   static get nuParent() {
@@ -94,7 +87,9 @@ export default class NuBase extends HTMLElement {
    * They are used only to generate initial CSS for elements.
    */
   static get nuDefaults() {
-    return {};
+    return {
+      display: 'none',
+    };
   }
 
   /**
@@ -125,8 +120,6 @@ export default class NuBase extends HTMLElement {
 
     TAG_LIST.push(tag);
 
-    [this.nuDisplay.startsWith('inline') ? INLINE_TAG_LIST : BLOCK_TAG_LIST].push(tag);
-
     let el = this,
       css = '';
 
@@ -148,7 +141,7 @@ export default class NuBase extends HTMLElement {
 
         if (value == null) return;
 
-        const styles = computeStyles(name, String(value), allAttrs);
+        const styles = computeStyles(name, String(value), allAttrs, allDefaults);
 
         if (!styles) return;
 
@@ -169,18 +162,10 @@ export default class NuBase extends HTMLElement {
   /**
    * Element initialization logic
    */
-  static nuCSS({ nuTag, nuDisplay }) {
+  static nuCSS({ nuTag }) {
     return `
-      ${
-      DOUBLE_DISPLAY.includes(nuDisplay)
-        ? `
-          ${nuTag}:not([inline]){display:${nuDisplay};}
-          ${nuTag}[inline]{display:inline-${nuDisplay};}
-        `
-        : `${nuTag}{display:${nuDisplay};}`
-    }
       ${nuTag}[nu-hidden] {
-        display: none;
+        display: none !important;
       }
       ${nuTag}{
         box-sizing: border-box;

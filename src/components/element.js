@@ -1,5 +1,6 @@
 import {
   convertUnit,
+  unit,
   generateId,
   toCamelCase,
   toKebabCase,
@@ -10,8 +11,15 @@ import {
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
 import NuBase, { DOUBLE_DISPLAY } from '../base';
-import { THEME_ATTRS_LIST, THEME_SCHEME_ATTRS } from '../attrs';
+import { THEME_ATTRS_LIST, THEME_SCHEME_ATTRS, PLACE_ATTRS } from '../attrs';
 import { generateTheme, convertThemeName, getMainThemeName, isColorScheme } from '../themes';
+
+export const FLEX_MAP = {
+  row: 'margin-right',
+  column: 'margin-bottom',
+  'row-reverse': 'margin-left',
+  'column-reverse': 'margin-top'
+};
 
 const plugins = {
   cursor: 'cursor',
@@ -37,14 +45,6 @@ export default class NuElement extends NuBase {
    */
   static get nuRole() {
     return '';
-  }
-
-  /**
-   * Element layout type.
-   * @returns {String} - `flex` | `grid`.
-   */
-  static get nuDisplay() {
-    return 'block';
   }
 
   /**
@@ -84,6 +84,101 @@ export default class NuElement extends NuBase {
           : { display: val };
       },
       /**
+       * CSS Flow value. Used for flex and grid layouts.
+       * @param val
+       * @returns {*[]}
+       */
+      flow(val, defaults) {
+        if (!val) return;
+
+        const isFlexByDefault = defaults.display.endsWith('flex');
+
+        const dirStyle = FLEX_MAP[val];
+        const arr = [{
+          $suffix: ':not([display$="flex"])',
+          'grid-auto-flow': val,
+        }];
+
+        if (!isFlexByDefault) {
+          arr.push({
+            $suffix: ':not([display])',
+            'grid-auto-flow': val,
+          });
+        }
+
+        [isFlexByDefault ? ':not([display])' : '', '[display$="flex"]']
+          .forEach($suffix => {
+            if (!$suffix) return;
+
+            arr.push(
+              {
+                $suffix,
+                'flex-flow': `${val} nowrap`,
+              },
+              {
+                $suffix: `${$suffix}>:not(:last-child)`,
+                [dirStyle]: 'var(--nu-flex-gap)',
+              },
+            );
+          });
+
+        return arr;
+      },
+      /**
+       * CSS Gap value. Used for flex and grid layouts.
+       * @param val
+       * @returns {*}
+       */
+      gap(val, defaults) {
+        val = convertUnit(val || '0');
+
+        const isFlexByDefault = defaults.display.endsWith('flex');
+
+        const arr = [{
+          $suffix: ':not([display$="flex"])',
+          'grid-gap': val,
+        }];
+
+        if (!isFlexByDefault) {
+          arr.push({
+            $suffix: ':not([display])',
+            'grid-gap': val,
+          });
+        }
+
+        [isFlexByDefault ? ':not([display])' : '', '[display$="flex"]']
+          .forEach(($suffix) => {
+            arr.push({
+              $suffix: `${$suffix}>*`,
+              '--nu-flex-gap': convertUnit(val),
+            });
+          });
+
+        return arr;
+      },
+      order: 'order',
+      'items-basis': unit('flex-basis', '>:not([basis])'),
+      'items-grow'(val) {
+        return {
+          $suffix: '>:not([grow])',
+          'flex-grow': val
+        };
+      },
+      'items-shrink'(val) {
+        return {
+          $suffix: '>:not([shrink])',
+          'flex-shrink': val
+        };
+      },
+      ...PLACE_ATTRS,
+      'template-areas': 'grid-template-areas',
+      areas: 'grid-template-areas',
+      'auto-flow': 'grid-auto-flow',
+      'template-columns': unit('grid-template-columns'),
+      'template-rows': unit('grid-template-rows'),
+      cols: unit('grid-template-columns'),
+      rows: unit('grid-template-rows'),
+      /**
        * Apply theme to the element by providing specific custom properties.
        * @param {String} val - Theme name.
        * @returns {*}
@@ -122,7 +217,7 @@ export default class NuElement extends NuBase {
           };
         }
 
-        return colorUnit('color', 'text');
+        return baseColorUnit(val);
       },
       background(val) {
         if (val && (val.includes('url(') || val.includes('gradient'))) {
@@ -202,6 +297,16 @@ export default class NuElement extends NuBase {
    */
   static get nuAttrsList() {
     return Object.keys(this.nuAllAttrs);
+  }
+
+  /**
+   * Element default attribute values.
+   * They are used only to generate initial CSS for elements.
+   */
+  static get nuDefaults() {
+    return {
+      display: 'inline-block',
+    };
   }
 
   /**
@@ -314,7 +419,7 @@ export default class NuElement extends NuBase {
           }
         }
 
-        const stls = computeStyles(name, val, this.constructor.nuAllAttrs);
+        const stls = computeStyles(name, val, this.constructor.nuAllAttrs, this.constructor.nuAllDefaults);
 
         return generateCSS(query, stls);
       });
@@ -322,7 +427,7 @@ export default class NuElement extends NuBase {
       return respEl.nuResponsive()(styles);
     }
 
-    let styles = computeStyles(name, value, this.constructor.nuAllAttrs);
+    let styles = computeStyles(name, value, this.constructor.nuAllAttrs, this.constructor.nuAllDefaults);
 
     return generateCSS(query, styles);
   }
@@ -360,28 +465,6 @@ export default class NuElement extends NuBase {
 
     if (css) {
       injectCSS(query, query, css);
-    }
-  }
-
-  /**
-   * Calculate the style that needs to be applied based on corresponding attribute.
-   * @param {String} name - Attribute name.
-   * @param {String} value - Original attribute name.
-   * @param {Object} attrs - Map of attribute handlers.
-   * @returns {String|Object|Array}
-   */
-  nuComputeStyle(name, value, attrs) {
-    const attrValue = attrs[name];
-
-    if (!attrValue) return null;
-
-    switch (typeof attrValue) {
-      case 'string':
-        return value ? { [attrValue]: value } : null;
-      case 'function':
-        return attrValue(value);
-      default:
-        return null;
     }
   }
 

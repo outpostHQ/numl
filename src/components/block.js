@@ -35,8 +35,10 @@ export default class NuBlock extends NuElement {
     return 'nu-block';
   }
 
-  static get nuDisplay() {
-    return 'block';
+  static get nuDefaults() {
+    return {
+      display: 'block',
+    };
   }
 
   static get nuAttrs() {

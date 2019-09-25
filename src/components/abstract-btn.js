@@ -11,10 +11,6 @@ export default class NuAbstractBtn extends NuGrid {
     return 'button';
   }
 
-  static get nuDisplay() {
-    return 'inline-grid';
-  }
-
   static get nuAttrs() {
     return {
       disabled: '',
@@ -28,6 +24,7 @@ export default class NuAbstractBtn extends NuGrid {
 
   static get nuDefaults() {
     return {
+      display: 'inline-grid',
       padding: .5,
       color: 'inherit',
       background: '',

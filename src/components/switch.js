@@ -7,10 +7,6 @@ export default class NuSwitch extends NuBlock {
     return 'nu-switch';
   }
 
-  static get nuDisplay() {
-    return 'inline-block';
-  }
-
   static get nuRole() {
     return 'switch';
   }
@@ -19,6 +15,12 @@ export default class NuSwitch extends NuBlock {
     return {
       disabled: '',
       checked: '',
+    };
+  }
+
+  static get nuDefaults() {
+    return {
+      display: 'inline-block',
     };
   }
 
