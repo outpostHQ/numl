@@ -16,7 +16,6 @@ export default class NuBtnGroup extends NuFlex {
     return {
       padding: '',
       value: '',
-      'items-padding': unit('padding', true),
       flow(val, defaults) {
         if (!val) return;
 

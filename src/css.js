@@ -92,7 +92,7 @@ export function injectCSS(name, selector, css) {
     try {
       testEl.querySelector(selector);
     } catch(e) {
-      warn('invalid selector detected', sel, css);
+      warn('invalid selector detected', selector, css);
     }
   }
 

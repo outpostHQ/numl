@@ -48,6 +48,7 @@ export default class NuBlock extends NuElement {
       width: sizeUnit('width'),
       height: sizeUnit('height'),
       padding: unit('padding'),
+      'item:padding': unit('padding', '>*'),
       space(val) {
         if (!val) return;
 

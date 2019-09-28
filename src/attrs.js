@@ -39,22 +39,8 @@ export const FLEX_ITEM_ATTRS = {
 export const GRID_ITEM_ATTRS = {
   ...PLACE_SELF_ATTRS,
   column: 'grid-column',
-  col: 'grid-column',
   row: 'grid-row',
   area: 'grid-area',
-};
-
-export const GRID_ATTRS = {
-  ...PLACE_ATTRS,
-  'template-areas': 'grid-template-areas',
-  areas: 'grid-template-areas',
-  'auto-flow': 'grid-auto-flow',
-  flow: 'grid-auto-flow',
-  'template-columns': unit('grid-template-columns'),
-  'template-rows': unit('grid-template-rows'),
-  cols: unit('grid-template-columns'),
-  rows: unit('grid-template-rows'),
-  gap: unit('grid-gap'),
 };
 
 import { THEME_COLOR_ATTRS_LIST } from './helpers';

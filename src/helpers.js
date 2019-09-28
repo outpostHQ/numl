@@ -615,10 +615,10 @@ export const STATES_MAP = {
   focus: '[nu-focus]',
   hover: ':hover',
   pressed: '[aria-pressed="true"]',
+  disabled: '[disabled]',
   active: '[nu-active]',
   sticky: '[nu-sticky]',
 };
-
 
 /**
  * Extract state values from single value.

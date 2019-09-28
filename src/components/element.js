@@ -91,36 +91,48 @@ export default class NuElement extends NuBase {
       flow(val, defaults) {
         if (!val) return;
 
+        const flexValue = `${val} nowrap`;
         const isFlexByDefault = defaults.display.endsWith('flex');
+        const isGridByDefault = defaults.display.endsWith('grid');
+        const isGridValue = CSS.supports('grid-auto-flow', val);
+        const isFlexValue = CSS.supports('flex-flow', flexValue);
 
         const dirStyle = FLEX_MAP[val];
-        const arr = [{
-          $suffix: ':not([display$="flex"])',
-          'grid-auto-flow': val,
-        }];
+        const arr = [];
 
-        if (!isFlexByDefault) {
-          arr.push({
-            $suffix: ':not([display])',
-            'grid-auto-flow': val,
-          });
+        if (isGridValue) {
+          if (isGridByDefault) {
+            arr.push({
+              $suffix: ':not([display])',
+              'grid-auto-flow': val,
+            });
+          } else {
+            arr.push({
+              $suffix: '[display$="grid"]',
+              'grid-auto-flow': val,
+            });
+          }
         }
 
-        [isFlexByDefault ? ':not([display])' : '', '[display$="flex"]']
-          .forEach($suffix => {
-            if (!$suffix) return;
+        if (isFlexValue) {
+          if (isFlexByDefault) {
+            arr.push({
+              $suffix: ':not([display])',
+              'flex-flow': flexValue,
+            }, {
+              $suffix: `:not([display])>:not(:last-child)`,
+              [dirStyle]: 'var(--nu-flex-gap)',
+            });
+          }
 
-            arr.push(
-              {
-                $suffix,
-                'flex-flow': `${val} nowrap`,
-              },
-              {
-                $suffix: `${$suffix}>:not(:last-child)`,
-                [dirStyle]: 'var(--nu-flex-gap)',
-              },
-            );
+          arr.push({
+            $suffix: '[display$="flex"]',
+            'flex-flow': flexValue,
+          }, {
+            $suffix: `[display$="flex"]>:not(:last-child)`,
+            [dirStyle]: 'var(--nu-flex-gap)',
           });
+        }
 
         return arr;
       },
@@ -133,38 +145,41 @@ export default class NuElement extends NuBase {
         val = convertUnit(val || '0');
 
         const isFlexByDefault = defaults.display.endsWith('flex');
+        const isGridByDefault = defaults.display.endsWith('grid');
 
         const arr = [{
-          $suffix: ':not([display$="flex"])',
+          $suffix: '[display$="grid"]',
           'grid-gap': val,
+        }, {
+          $suffix: `[display$="flex"]>*`,
+          '--nu-flex-gap': val,
         }];
 
-        if (!isFlexByDefault) {
+        if (isGridByDefault) {
           arr.push({
             $suffix: ':not([display])',
             'grid-gap': val,
           });
         }
 
-        [isFlexByDefault ? ':not([display])' : '', '[display$="flex"]']
-          .forEach(($suffix) => {
-            arr.push({
-              $suffix: `${$suffix}>*`,
-              '--nu-flex-gap': convertUnit(val),
-            });
+        if (isFlexByDefault) {
+          arr.push({
+            $suffix: `:not([display])>*`,
+            '--nu-flex-gap': val,
           });
+        }
 
         return arr;
       },
       order: 'order',
-      'items-basis': unit('flex-basis', '>:not([basis])'),
-      'items-grow'(val) {
+      'item:basis': unit('flex-basis', '>:not([basis])'),
+      'item:grow'(val) {
         return {
           $suffix: '>:not([grow])',
           'flex-grow': val
         };
       },
-      'items-shrink'(val) {
+      'item:shrink'(val) {
         return {
           $suffix: '>:not([shrink])',
           'flex-shrink': val
@@ -176,7 +191,7 @@ export default class NuElement extends NuBase {
       'auto-flow': 'grid-auto-flow',
       'template-columns': unit('grid-template-columns'),
       'template-rows': unit('grid-template-rows'),
-      cols: unit('grid-template-columns'),
+      columns: unit('grid-template-columns'),
       rows: unit('grid-template-rows'),
       /**
        * Apply theme to the element by providing specific custom properties.

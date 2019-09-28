@@ -38,12 +38,8 @@ export default class NuBtn extends NuAbstractBtn {
         border-radius: inherit;
       }
 
-      ${nuTag}:not([disabled]):not([special])[tabindex]:hover::after {
+      ${nuTag}:not([disabled])[tabindex]:hover::after {
         background-color: var(--nu-theme-hover-color);
-      }
-      
-      ${nuTag}:not([disabled])[special][tabindex]:hover::after {
-        background-color: var(--nu-theme-special-hover-color);
       }
 
       ${nuTag}[disabled][aria-pressed="true"],
@@ -62,7 +58,8 @@ export default class NuBtn extends NuAbstractBtn {
       }
       
       ${nuTag}[special]:not([background]) > * {
-        --nu-theme-border-color: var(--nu-theme-special-background-color);      
+        --nu-theme-border-color: var(--nu-theme-special-background-color);
+        --nu-theme-hover-color: --nu-theme-special-hover-color;
       }
 
       ${nuTag}[cell] {
