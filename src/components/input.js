@@ -1,5 +1,5 @@
 import {
-  unit,
+  convertUnit,
 } from '../helpers';
 import NuGrid from './grid';
 import focusable from '../mixins/focusable';
@@ -16,7 +16,14 @@ export default class NuInput extends NuGrid {
       value: '',
       maxlength: '',
       name: '',
-      padding: unit('--nu-padding'),
+      padding: val =>
+        val != null
+          ? {
+              '-nu-padding': val
+                ? convertUnit(val, 'var(--nu-theme-padding)')
+                : 'var(--nu-theme-padding)'
+            }
+          : null,
     };
   }
 
@@ -24,7 +31,7 @@ export default class NuInput extends NuGrid {
     return {
       flow: 'column',
       radius: '',
-      padding: .5,
+      padding: '.5x',
       mod: 'center',
       background: '',
       border: '1x',

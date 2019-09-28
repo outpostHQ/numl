@@ -12,7 +12,7 @@ export default class NuTab extends NuAbstractBtn {
 
   static get nuDefaults() {
     return {
-      padding: '.5 0',
+      padding: '.5x 0',
       background: 'transparent',
       radius: 0,
     };

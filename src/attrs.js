@@ -58,6 +58,7 @@ export const THEME_ATTRS_LIST = [
   ...THEME_COLOR_ATTRS_LIST,
   'border-radius',
   'border-width',
+  'padding',
   'shadow-intensity',
   'shadow-opacity',
   'animation-time',

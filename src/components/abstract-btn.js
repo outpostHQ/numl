@@ -25,7 +25,7 @@ export default class NuAbstractBtn extends NuGrid {
   static get nuDefaults() {
     return {
       display: 'inline-grid',
-      padding: .5,
+      padding: '.5x',
       color: 'inherit',
       background: '',
       radius: '',

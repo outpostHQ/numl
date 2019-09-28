@@ -7,6 +7,7 @@ import {
   computeStyles,
   colorUnit,
   setImmediate,
+  excludeMod,
 } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
@@ -19,6 +20,34 @@ export const FLEX_MAP = {
   column: 'margin-bottom',
   'row-reverse': 'margin-left',
   'column-reverse': 'margin-top'
+};
+
+export const STROKE_STYLES = [
+  'inside',
+  'center',
+  'outside',
+];
+
+export const BORDER_STYLES = [
+  ...STROKE_STYLES,
+  'none',
+  'hidden',
+  'dotted',
+  'dashed',
+  'solid',
+  'double',
+  'groove',
+  'ridge',
+  'inset',
+  'outset',
+];
+
+export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
+export const DIRECTIONS_HANDLERS = {
+  top(val, outside) { return `0 calc(${val} * ${outside ? -1 : 1})`;},
+  right(val, outside) { return `calc(${val} * ${outside ? 1 : -1}) 0`;},
+  bottom(val, outside) { return `0 calc(${val} * ${outside ? 1 : -1})`;},
+  left(val, outside) { return `calc(${val} * ${outside ? -1 : 1}) 0`;},
 };
 
 const plugins = {
@@ -82,6 +111,124 @@ export default class NuElement extends NuBase {
             display: `inline-${val}`,
           }]
           : { display: val };
+      },
+      radius: val =>
+        val != null
+          ? {
+              '--nu-border-radius': val
+                ? convertUnit(val, 'var(--nu-theme-border-radius)')
+                : 'var(--nu-theme-border-radius)'
+            }
+          : null,
+      padding: val =>
+        val != null
+          ? {
+              'padding': val
+                ? convertUnit(val, 'var(--nu-theme-padding)')
+                : 'var(--nu-theme-padding)'
+            }
+          : null,
+      'item:padding': unit('padding', '>*'),
+      space(val) {
+        if (!val) return;
+
+        val = convertUnit(val);
+
+        const spaces = splitDimensions(val).map(sp =>
+          !sp.match(/^0[^\.]/) ? `calc(${sp} * -1)` : ''
+        );
+
+        return {
+          'margin-top': spaces[0],
+          'margin-right': spaces[1],
+          'margin-bottom': spaces[2],
+          'margin-left': spaces[3]
+        };
+      },
+      border(val) {
+        if (val == null) return val;
+
+        let style = 'solid';
+        let dirs = [];
+        let color = 'var(--nu-theme-border-color)';
+
+        const newVal = excludeMod(val, 'special');
+
+        if (newVal != null) {
+          val = newVal;
+          color = 'var(--nu-theme-special-color)';
+        }
+
+        for (let s of BORDER_STYLES) {
+          const newVal = excludeMod(val, s);
+
+          if (newVal != null) {
+            val = newVal;
+            style = s;
+          }
+        }
+
+        for (let s of DIRECTIONS) {
+          const newVal = excludeMod(val, s);
+
+          if (newVal != null) {
+            val = newVal;
+            dirs.push(s);
+          }
+        }
+
+        val = val
+          ? convertUnit(val, 'var(--nu-theme-border-width)')
+          : 'var(--nu-theme-border-width)';
+
+        if (style === 'center') {
+          val = `calc(${val} / 2)`;
+        }
+
+        if (style === 'hidden') {
+          style = 'solid';
+          color = 'transparent';
+        }
+
+        if (STROKE_STYLES.includes(style)) {
+          if (dirs.length) {
+            return {
+              '--nu-stroke-shadow': dirs.map(dir => {
+                let pos = DIRECTIONS_HANDLERS[dir];
+
+                return `${style !== 'inside' ? pos(val, true) : '0 0'} 0 ${dirs.length ? 0 : val} ${color},
+                  inset ${style !== 'outside' ? pos(val) : '0 0'} 0 ${dirs.length ? 0 : val} ${color}`;
+              }).join(','),
+            };
+          }
+
+          return {
+            '--nu-stroke-shadow': `0 0 0 ${style !== 'inside' ? val : 0} ${color},
+            inset 0 0 0 ${style !== 'outside' ? val : 0} ${color}`,
+          };
+        }
+
+        const border = `${val} ${style} ${color}`;
+
+        if (dirs.length) {
+          return dirs.reduce((styles, dir) => {
+            styles[`border-${dir}`] = border;
+
+            return styles;
+          }, {});
+        }
+
+        return { border };
+      },
+      shadow(val) {
+        if (val == null) return val;
+
+        const depth = val === '' ? '1rem' : convertUnit(val, '.5rem');
+
+        return {
+          '--nu-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-theme-shadow-opacity) / ${(Number(val) ||
+            1) * 2}))`,
+        };
       },
       /**
        * CSS Flow value. Used for flex and grid layouts.

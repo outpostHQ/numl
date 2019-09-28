@@ -45,6 +45,7 @@ export function generateTheme(props, darkProps, parentProps) {
     minorColor: generalizeColor(props.minorColor),
     minorBackgroundColor: generalizeColor(props.minorBackgroundColor),
     borderRadius: convertUnit(props.borderRadius || parentProps.borderRadius),
+    padding: convertUnit(props.padding || parentProps.padding),
     borderWidth: convertUnit(props.borderWidth || parentProps.borderWidth),
     shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
     specialBackgroundColor: props.specialBackgroundColor,

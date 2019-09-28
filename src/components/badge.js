@@ -17,6 +17,7 @@ export default class NuBadge extends NuElement {
   static get nuDefaults() {
     return {
       background: 'text',
+      padding: '0 1em',
     };
   }
 
@@ -29,7 +30,6 @@ export default class NuBadge extends NuElement {
 
         box-shadow: var(--nu-stroke-shadow), var(--nu-depth-shadow);
         border-radius: var(--nu-border-radius);
-        padding: 0 .5em;
         white-space: nowrap;
       }
       ${nuTag}:not([color]) {
