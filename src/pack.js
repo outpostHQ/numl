@@ -66,3 +66,36 @@ Nude.init(
 );
 
 Nude.elements.NuBase = NuBase;
+
+export default Nude;
+
+export {
+  NuBase,
+  NuGrid,
+  NuBlock,
+  NuHeading,
+  NuBtn,
+  NuTab,
+  NuCard,
+  NuIcon,
+  NuLayout,
+  NuLine,
+  NuPane,
+  NuGridTable,
+  NuBadge,
+  NuInput,
+  NuScroll,
+  NuSwitch,
+  NuFlex,
+  NuBtnGroup,
+  NuTablist,
+  NuMenu,
+  NuMenuItem,
+  NuLink,
+  NuTheme,
+  NuMod,
+  NuVar,
+  NuDecorator,
+  NuAbstractBtn,
+  NuTriangle,
+};

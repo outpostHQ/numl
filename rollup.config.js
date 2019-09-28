@@ -45,7 +45,7 @@ export default [
     input: 'src/index.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework Module', file: pkg.module.replace('.js', '.module.js'), format: 'es' }
+      { name: 'NudeFramework Module', file: pkg.module.replace('.js', '.treeshaking.js'), format: 'es' }
     ],
     plugins: [
       replace({
@@ -64,7 +64,7 @@ export default [
     input: 'src/index.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework Module Dev', file: pkg.module.replace('.js', '.module.dev.js'), format: 'es' }
+      { name: 'NudeFramework Module Dev', file: pkg.module.replace('.js', '.treeshaking.dev.js'), format: 'es' }
     ],
     plugins: [
       replace({
