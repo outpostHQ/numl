@@ -1,7 +1,9 @@
 import {
-  convertUnit, parseAllValues, svgElement,
+  convertUnit, parseAllValues, svgElement, injectScript,
 } from '../helpers';
 import NuBlock from './block';
+
+let featherPromise;
 
 export default class NuIcon extends NuBlock {
   static get nuTag() {
@@ -10,6 +12,15 @@ export default class NuIcon extends NuBlock {
 
   static get nuRole() {
     return 'img';
+  }
+
+  static nuLoader(name) {
+    return (
+      featherPromise ||
+      (featherPromise = !window.feather
+        ? injectScript('https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.22.1/feather.js')
+        : Promise.resolve())
+    ).then(() => window.feather.icons[name].toSvg());
   }
 
   static get nuAttrs() {
@@ -82,7 +93,7 @@ export default class NuIcon extends NuBlock {
       names.forEach(name => {
         if (this.querySelector(`svg[name="${name}"]`)) return;
 
-        window.Nude.iconLoader(name).then(svg => {
+        this.constructor.nuLoader(name).then(svg => {
           const svgNode = svgElement(svg);
 
           svgNode.setAttribute('name', name);

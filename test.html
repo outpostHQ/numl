@@ -38,7 +38,8 @@
   <nu-flex flow="column" gap="1">
     <nu-card
       display="flex"
-      responsive="420px" width="clamp(320px, 100%, initial)"
+      width="clamp(320px, 100%, initial)"
+      responsive="420px"
       labelledby="heading"
       describedby="description price"
       gap="1" items="start" flow="row|column">
@@ -110,7 +111,7 @@
 
         <nu-grid rows="1rem auto"></nu-grid>
 
-        <nu-input cols="auto 1fr">
+        <nu-input display="grid" columns="auto 1fr">
           <nu-icon name="x"></nu-icon>
           <input/>
         </nu-input>
@@ -183,7 +184,7 @@
     special-color="#1885d9"
     shadow-opacity=".2"></nu-theme>
   <nu-card padding="1" gap="1" grow="1" radius=".5" shadow=".5">
-    <nu-flex gap="1" flow="column">
+    <nu-flex gap="1" flow="column" items.padding="2">
       <nu-block>
         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       </nu-block>

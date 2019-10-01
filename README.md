@@ -44,10 +44,10 @@ Based on [caniuse.com](caniuse.com). Real-world support table will be presented 
 
 `npm run build` builds the library to `dist`, generating four files:
 
-* `dist/numl.js` - ES-module with auto initialization. Elements' CSS included. (Exposes global `Nude` object)
-* `dist/numl.dev.js` - Same as above but with helpful warnings and without minification. (Exposes global `Nude` object)
-* `dist/numl.treeshaking.js` - ES-module. Tree-shaking-friendly bundle. Elements' CSS included.
-* `dist/numl.treeshaking.dev.js` - Same as above but with helpful warnings and without minification.
+* `dist/numl.js` - IIFE-module with auto initialization. Elements' CSS included. (Exports global `Nude` object)
+* `dist/numl.dev.js` - Same as above but with helpful warnings and without minification. (Exports global `Nude` object)
+* `dist/numl.module.js` - ES-module. Tree-shaking-friendly bundle. Elements' CSS included.
+* `dist/numl.module.dev.js` - Same as above but with helpful warnings and without minification.
 
 `npm run dev` builds the library, then keeps rebuilding it whenever the source files change.
 

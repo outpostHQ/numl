@@ -11,14 +11,13 @@ export default class NuCard extends NuBlock {
       color: '',
       background: '',
       border: '1x',
+      radius: '1x',
     };
   }
 
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
-        --nu-border-radius: var(--nu-theme-border-radius);
-
         transition: background var(--nu-theme-animation-time) linear,
           color var(--nu-theme-animation-time) linear,
           box-shadow var(--nu-theme-animation-time) linear,

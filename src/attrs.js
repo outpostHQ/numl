@@ -31,9 +31,6 @@ export const FLEX_ITEM_ATTRS = {
   grow: 'flex-grow',
   shrink: 'flex-shrink',
   basis: unit('flex-basis'),
-  'flex-grow': 'flex-grow',
-  'flex-shrink': 'flex-shrink',
-  'flex-basis': unit('flex-basis'),
 };
 
 export const GRID_ITEM_ATTRS = {

@@ -24,14 +24,14 @@ export default class NuBtnGroup extends NuFlex {
           {
             $suffix: `:not([gap]) > :first-child:not(:last-child)`,
             '--nu-border-radius': val.startsWith('row')
-              ? 'var(--nu-item-border-radius) 0 0 var(--nu-item-border-radius)'
-              : 'var(--nu-item-border-radius) var(--nu-item-border-radius) 0 0'
+              ? 'var(--nu-item-border-radius) 0 0 var(--nu-item-border-radius) !important'
+              : 'var(--nu-item-border-radius) var(--nu-item-border-radius) 0 0 !important'
           },
           {
             $suffix: `:not([gap]) > :last-child:not(:first-child)`,
             '--nu-border-radius': val.startsWith('row')
-              ? '0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0'
-              : '0 0 var(--nu-item-border-radius) var(--nu-item-border-radius)'
+              ? '0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0 !important'
+              : '0 0 var(--nu-item-border-radius) var(--nu-item-border-radius) !important'
           }
         ];
       },
@@ -45,12 +45,13 @@ export default class NuBtnGroup extends NuFlex {
           '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`,
           '--nu-flex-gap': `calc(${width} * -1)`
         };
-      }
+      },
     };
   }
 
   static get nuDefaults() {
     return {
+      flow: 'row',
       gap: 'calc(var(--nu-theme-border-width) * -1)',
     };
   }
@@ -71,17 +72,11 @@ export default class NuBtnGroup extends NuFlex {
       ${nuTag}:not([gap]) > * {
         --nu-flex-gap: calc(var(--nu-theme-border-width) * -1);
       }
-      ${nuTag}:not([gap]) > *:not(:last-child):not(:first-child) {
-        --nu-border-radius: 0;
+      ${nuTag}:not([gap]) > :not(:last-child):not(:first-child) {
+        --nu-border-radius: 0 !important;
       }
-      ${nuTag}:not([gap]) > *:last-child:first-child {
-        --nu-border-radius: inherit;
-      }
-      ${nuTag}:not([gap]):not([flow]) > :first-child:not(:last-child) {
-        --nu-border-radius: var(--nu-item-border-radius) 0 0 var(--nu-item-border-radius);
-      }
-      ${nuTag}:not([gap]):not([flow]) > :last-child:not(:first-child) {
-        --nu-border-radius: 0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0;
+      ${nuTag}:not([gap]) > :last-child:first-child {
+        --nu-border-radius: inherit !important;
       }
     `;
   }

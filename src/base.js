@@ -160,20 +160,6 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
-   * Element initialization logic
-   */
-  static nuCSS({ nuTag }) {
-    return `
-      ${nuTag}[nu-hidden] {
-        display: none !important;
-      }
-      ${nuTag}{
-        box-sizing: border-box;
-      }
-    `;
-  }
-
-  /**
    * @private
    * @param {String} name
    * @param {*} oldValue

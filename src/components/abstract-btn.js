@@ -1,6 +1,8 @@
 import NuGrid from './grid';
 import focusable from '../mixins/focusable';
-import { generateId, bindActiveEvents, setImmediate, invertQuery } from '../helpers';
+import { generateId, bindActiveEvents, setImmediate, invertQuery, colorUnit } from '../helpers';
+
+const backgroundUnit = colorUnit('background-color', 'background');
 
 export default class NuAbstractBtn extends NuGrid {
   static get nuTag() {
@@ -19,6 +21,7 @@ export default class NuAbstractBtn extends NuGrid {
       target: '',
       controls: '',
       value: '',
+      background: colorUnit('background-color', 'background'),
     };
   }
 
@@ -42,18 +45,15 @@ export default class NuAbstractBtn extends NuGrid {
       ${nuTag} {
         --nu-toggle-color: transparent;
         --nu-depth-color: transparent;
-        --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
+        --nu-hover-color: transparent;
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
         position: relative;
-        box-shadow: var(--nu-stroke-shadow),
-          var(--nu-toggle-shadow),
-          var(--nu-depth-shadow);
         user-select: none;
         vertical-align: middle;
         opacity: 1;
         z-index: 0; /* to make :hover::after z-index work as expected */
-        box-sizing: border-box;
+        background-image: linear-gradient(to right, var(--nu-hover-color), var(--nu-hover-color));
       }
 
       ${nuTag}[tabindex] {
@@ -66,7 +66,6 @@ export default class NuAbstractBtn extends NuGrid {
       }
 
       ${nuTag}[nu-active] {
-        text-decoration: none;
         z-index: 2;
       }
 

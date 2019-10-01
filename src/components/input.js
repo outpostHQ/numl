@@ -1,10 +1,10 @@
 import {
-  convertUnit,
+  unit,
 } from '../helpers';
-import NuGrid from './grid';
+import NuBlock from './block';
 import focusable from '../mixins/focusable';
 
-export default class NuInput extends NuGrid {
+export default class NuInput extends NuBlock {
   static get nuTag() {
     return 'nu-input';
   }
@@ -16,14 +16,11 @@ export default class NuInput extends NuGrid {
       value: '',
       maxlength: '',
       name: '',
-      padding: val =>
-        val != null
-          ? {
-              '-nu-padding': val
-                ? convertUnit(val, 'var(--nu-theme-padding)')
-                : 'var(--nu-theme-padding)'
-            }
-          : null,
+      padding: unit('--nu-padding', {
+        multiplier: 'var(--nu-theme-padding)',
+        empty: 'var(--nu-theme-padding)',
+        convert: true,
+      }),
     };
   }
 

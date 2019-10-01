@@ -11,7 +11,7 @@ export default [
     input: 'src/pack.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework Pack', file: pkg.module, format: 'es' }
+      { name: 'Nude', file: pkg.module, format: 'iife', exports: 'default' }
     ],
     plugins: [
       replace({
@@ -22,7 +22,7 @@ export default [
       }),
       postcss({
         plugins: [cssnano()],
-        extensions: [ '.css' ],
+        extensions: ['.css'],
       })
     ]
   },
@@ -30,14 +30,19 @@ export default [
     input: 'src/pack.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework Pack Dev', file: pkg.module.replace('.js', '.dev.js'), format: 'es' }
+      {
+        name: 'Nude',
+        file: pkg.module.replace('.js', '.dev.js'),
+        format: 'iife',
+        exports: 'default'
+      }
     ],
     plugins: [
       replace({
         'process.env.NODE_ENV': '"development"',
       }),
       postcss({
-        extensions: [ '.css' ],
+        extensions: ['.css'],
       })
     ]
   },
@@ -45,7 +50,7 @@ export default [
     input: 'src/index.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework Module', file: pkg.module.replace('.js', '.treeshaking.js'), format: 'es' }
+      { name: 'Nude', file: pkg.module.replace('.js', '.module.js'), format: 'es' }
     ],
     plugins: [
       replace({
@@ -56,7 +61,7 @@ export default [
       }),
       postcss({
         plugins: [cssnano()],
-        extensions: [ '.css' ],
+        extensions: ['.css'],
       })
     ]
   },
@@ -64,14 +69,18 @@ export default [
     input: 'src/index.js',
     external: ['ms'],
     output: [
-      { name: 'NudeFramework Module Dev', file: pkg.module.replace('.js', '.treeshaking.dev.js'), format: 'es' }
+      {
+        name: 'Nude',
+        file: pkg.module.replace('.js', '.module.dev.js'),
+        format: 'es'
+      }
     ],
     plugins: [
       replace({
         'process.env.NODE_ENV': '"development"',
       }),
       postcss({
-        extensions: [ '.css' ],
+        extensions: ['.css'],
       })
     ]
   },

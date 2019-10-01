@@ -53,12 +53,6 @@ import {
   setImmediate,
 } from './helpers';
 
-let featherPromise;
-
-if (window.feather) {
-  featherPromise = Promise.resolve();
-}
-
 let enableTimerId, disableTimerId;
 
 function enableFocus() {
@@ -96,12 +90,6 @@ const Nude = {
   tags: {},
   modifiers,
   css,
-  iconLoader(name) {
-    return (
-      featherPromise ||
-      injectScript('https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.22.1/feather.js')
-    ).then(() => window.feather.icons[name].toSvg());
-  },
   helpers: {
     invertColor,
     hueRotate,
@@ -133,6 +121,10 @@ Nude.init = (...elements) => {
 
 Nude.getElementById = function(id) {
   return document.querySelector(`[nu-id="${id}"]`);
+};
+
+Nude.getElementsById = function(id) {
+  return document.querySelectorAll(`[nu-id="${id}"]`);
 };
 
 export default Nude;

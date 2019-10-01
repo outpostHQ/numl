@@ -103,6 +103,7 @@ Object.keys(SIZES).forEach((size) => {
 ['s', 'strikethrough'].forEach(name => set(name, { 'text-decoration': 'line-through' }));
 [1,2,3,4,5,6,7,8,9].forEach(index => set(`w${index}`, { 'font-weight': `${index}00` }));
 ['uppercase', 'lowercase'].forEach(name => set(name, { 'text-transform': name }));
+['baseline', 'sub', 'super', 'text-top', 'text-bottom', 'middle', 'top', 'bottom'].forEach(name => set(name, { 'vertical-align': name }));
 
 ['left', 'right', 'center', 'justify'].forEach(name => set(name, { 'text-align': name}));
 

@@ -8,6 +8,7 @@ import {
   colorUnit,
   setImmediate,
   excludeMod,
+  sizeUnit,
 } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
@@ -20,6 +21,11 @@ export const FLEX_MAP = {
   column: 'margin-bottom',
   'row-reverse': 'margin-left',
   'column-reverse': 'margin-top'
+};
+
+export const SIZINGS = {
+  content: 'content-box',
+  border: 'border-box',
 };
 
 export const STROKE_STYLES = [
@@ -44,10 +50,18 @@ export const BORDER_STYLES = [
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
 export const DIRECTIONS_HANDLERS = {
-  top(val, outside) { return `0 calc(${val} * ${outside ? -1 : 1})`;},
-  right(val, outside) { return `calc(${val} * ${outside ? 1 : -1}) 0`;},
-  bottom(val, outside) { return `0 calc(${val} * ${outside ? 1 : -1})`;},
-  left(val, outside) { return `calc(${val} * ${outside ? -1 : 1}) 0`;},
+  top(val, outside) {
+    return `0 calc(${val} * ${outside ? -1 : 1})`;
+  },
+  right(val, outside) {
+    return `calc(${val} * ${outside ? 1 : -1}) 0`;
+  },
+  bottom(val, outside) {
+    return `0 calc(${val} * ${outside ? 1 : -1})`;
+  },
+  left(val, outside) {
+    return `calc(${val} * ${outside ? -1 : 1}) 0`;
+  },
 };
 
 const plugins = {
@@ -112,23 +126,39 @@ export default class NuElement extends NuBase {
           }]
           : { display: val };
       },
-      radius: val =>
-        val != null
-          ? {
-              '--nu-border-radius': val
-                ? convertUnit(val, 'var(--nu-theme-border-radius)')
-                : 'var(--nu-theme-border-radius)'
-            }
-          : null,
-      padding: val =>
-        val != null
-          ? {
-              'padding': val
-                ? convertUnit(val, 'var(--nu-theme-padding)')
-                : 'var(--nu-theme-padding)'
-            }
-          : null,
-      'item:padding': unit('padding', '>*'),
+      width: sizeUnit('width'),
+      height: sizeUnit('height'),
+      sizing(val) {
+        val = SIZINGS[val];
+
+        if (!val) return null;
+
+        return { 'box-sizing': val };
+      },
+      radius: unit('border-radius', {
+        multiplier: 'var(--nu-theme-border-radius)',
+        empty: 'var(--nu-theme-border-radius)',
+        property: true,
+        convert: true,
+      }),
+      'items-radius': unit('border-radius', {
+        suffix: '>:not([radius])',
+        multiplier: 'var(--nu-theme-border-radius)',
+        empty: 'var(--nu-theme-border-radius)',
+        property: true,
+        convert: true,
+      }),
+      padding: unit('padding', {
+        multiplier: 'var(--nu-theme-padding)',
+        empty: 'var(--nu-theme-padding)',
+        convert: true,
+      }),
+      'items-padding': unit('padding', {
+        suffix: '>:not[padding]',
+        multiplier: 'var(--nu-theme-padding)',
+        empty: 'var(--nu-theme-padding)',
+        convert: true,
+      }),
       space(val) {
         if (!val) return;
 
@@ -319,19 +349,12 @@ export default class NuElement extends NuBase {
         return arr;
       },
       order: 'order',
-      'item:basis': unit('flex-basis', '>:not([basis])'),
-      'item:grow'(val) {
-        return {
-          $suffix: '>:not([grow])',
-          'flex-grow': val
-        };
-      },
-      'item:shrink'(val) {
-        return {
-          $suffix: '>:not([shrink])',
-          'flex-shrink': val
-        };
-      },
+      grow: 'flex-grow',
+      shrink: 'flex-shrink',
+      basis: unit('flex-basis', { convert: true }),
+      'items-basis': unit('flex-basis', { suffix: '>:not([basis])', convert: true }),
+      'items-grow': unit('flex-grow', { suffix: '>:not([grow])' }),
+      'items-shrink': unit('flex-shrink', { suffix: '>:not([shrink])' }),
       ...PLACE_ATTRS,
       'template-areas': 'grid-template-areas',
       areas: 'grid-template-areas',
@@ -468,7 +491,28 @@ export default class NuElement extends NuBase {
   static get nuDefaults() {
     return {
       display: 'inline-block',
+      sizing: 'border',
     };
+  }
+
+  /**
+   * Element initialization logic
+   */
+  static nuCSS({ nuTag }) {
+    return `
+      ${nuTag}[nu-hidden] {
+        display: none !important;
+      }
+      ${nuTag}{
+        --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        --nu-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
+        --nu-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
+
+        box-shadow: var(--nu-stroke-shadow),
+          var(--nu-toggle-shadow),
+          var(--nu-depth-shadow);
+      }
+    `;
   }
 
   /**

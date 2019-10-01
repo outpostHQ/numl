@@ -88,7 +88,6 @@ export function convertUnit(unit, multiplier) {
       })
       .replace(/([\d.]+)([^a-z\d%.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
   }
-  ;
 
   if (multiplier) {
     unit = convertCustomUnit(unit, 'x', multiplier);
@@ -104,17 +103,72 @@ export function convertUnit(unit, multiplier) {
 /**
  * Returns simple unit handler for the attribute.
  * @param {String} name - Attribute name.
- * @param {String} $suffix - Query suffix for styles.
+ * @param {String} [suffix] - Query suffix for styles.
+ * @param {String} [multiplier] - Multiplier option.
+ * @param {String} [empty] - Default value if empty value is provided.
+ * @param {Boolean|String} [property] - Duplicate style as custom property.
+ * @param {Boolean} [convert] - Do unit conversion for value or not.
  * @returns {null|Object}
  */
-export function unit(name, $suffix) {
-  return val =>
-    val
-      ? {
-        $suffix,
-        [name]: convertUnit(val)
-      }
-      : null;
+export function unit(name, { suffix, multiplier, empty, property, convert } = {}) {
+  const propertyName = !property
+    ? null
+    : typeof property === 'boolean'
+      ? `--nu-${name}`
+      : property;
+  const propertyUsage = `var(${propertyName})`;
+
+  if (suffix && property) {
+    return function(val) {
+      if (val == null) return null;
+
+      if (!val && !empty) return null;
+
+      val = convert ? convertUnit(val || empty, multiplier) : val || empty;
+
+      return {
+        $suffix: suffix,
+        [name]: propertyUsage,
+        [propertyName]: val,
+      };
+    };
+  } else if (suffix) {
+    return function(val) {
+      if (val == null) return null;
+
+      if (!val && !empty) return null;
+
+      val = convert ? convertUnit(val || empty, multiplier) : val || empty;
+
+      return {
+        $suffix: suffix,
+        [name]: val,
+      };
+    };
+  } else if (property) {
+    return function(val) {
+      if (val == null) return null;
+
+      if (!val && !empty) return null;
+
+      val = convert ? convertUnit(val || empty, multiplier) : val || empty;
+
+      return {
+        [name]: propertyUsage,
+        [propertyName]: val,
+      };
+    };
+  }
+
+  return function(val) {
+      if (val == null) return null;
+
+      if (!val && !empty) return null;
+
+      val = convert ? convertUnit(val || empty, multiplier) : val || empty;
+
+      return { [name]: val };
+    };
 }
 
 /**
@@ -828,7 +882,7 @@ export function setImmediate(callback) {
   window.postMessage(TASK_EVENT, '*');
 }
 
-window.addEventListener('message', function(event) {
+window.addEventListener('message', function (event) {
   if (event.data !== TASK_EVENT) return;
 
   for (let task of TASKS) {
