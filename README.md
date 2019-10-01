@@ -1,7 +1,14 @@
 # <img src="https://github.com/tenphi/nude/blob/master/logo.png?raw=true" alt="NUDE Elements" width="416">
-**NUDE Elements** is the *Bootstrap of the Future*. It’s JS-powered CSS Framework, that reinvents the way we create modern web apps. With NUDE Elements you can build gorgeous dynamic accessible web interfaces writing only HTML. It’s ridiculously simple to connect your favorite framework in case you need more.
+**NUDE Elements** is a mix of four concepts: 
+
+* **Language** - Alternative markup language for the modern web that meant to be a partial HTML/CSS replacement to describe complex responsive interfaces and dynamic relations between elements without frustration but with fun and highest compatibility with other modern technologies.
+* **Methodology** - Simple and intuitive methodology to ensure your apps look and work great. It eliminates some confusing conceptions as "margins" and brings clarity and order to your markup.
+* **Framework** - Powerful next-generation JS-Powered CSS-Framework based on Custom Elements that solves many fundamental problems like element inheritance, efficient runtime CSS-generation, theme color generation, sane id linking and affordable accessibility.
+* **Library** - Highly-customizable built-in components to ensure you have everything to start creating handy components and wonderful accessible interfaces with responsiveness.
 
 **UNDER RAPID DEVELOPMENT, API is subject to change**
+
+## Features
 
 * **Simple API** of elements based on well-known web standards.
 * **Powerful** layout elements that help you create virtually **any interface** you want.
@@ -18,9 +25,9 @@
 * **ARIA** support.
 * **Framework** to create your own elements, modifiers and plugins.
 
-## In Action
+## Sites that use **NUDE Elements** 
 
-You can see **NUDE** in action on the **[Sellerscale](https://sellerscale.com)** site.
+* **[Sellerscale](https://sellerscale.com)**
 
 ## Development status (v1)
 
