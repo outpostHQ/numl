@@ -12,7 +12,25 @@ export default class NuLine extends NuBlock {
 
   static get nuAttrs() {
     return {
-      orientation: '',
+      orient(val) {
+        if (val === 'y') {
+          return {
+            'min-width': 'var(--nu-line-size)',
+            'max-width': 'var(--nu-line-size)',
+            'min-height': '100%',
+            'max-height': '100%',
+            'grid-row': '1 / -1',
+          };
+        } else {
+          return {
+            'min-height': 'var(--nu-line-size)',
+            'max-height': 'var(--nu-line-size)',
+            'min-width': '100%',
+            'max-width': '100%',
+            'grid-column': '1 / -1',
+          };
+        }
+      },
       size: unit('--nu-line-size'),
       background: null,
     };
@@ -21,6 +39,7 @@ export default class NuLine extends NuBlock {
   static get nuDefaults() {
     return {
       place: 'stretch',
+      orient: 'x',
     };
   }
 
@@ -35,38 +54,9 @@ export default class NuLine extends NuBlock {
         color: var(--nu-theme-border-color);
       }
 
-      ${nuTag}:not([orientation="vertical"]) {
-        min-height: var(--nu-line-size);
-        max-height: var(--nu-line-size);
-        min-width: 100%;
-        max-width: 100%;
-        grid-column: 1 / -1;
-      }
-
-      ${nuTag}[orientation="vertical"] {
-        min-width: var(--nu-line-size);
-        max-width: var(--nu-line-size);
-        min-height: 100%;
-        max-height: 100%;
-        grid-row: 1 / -1;
-      }
-
       ${nuTag}[special]:not([color]) {
         color: var(--nu-theme-special-color);
       }
     `;
-  }
-
-  constructor() {
-    super();
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
-    if (name === 'orientation') {
-      this.nuSetMod('vertical', value === 'vertical');
-      this.nuSetAria('orientation', value === 'vertical' ? 'vertical' : null);
-    }
   }
 }
