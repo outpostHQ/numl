@@ -7,7 +7,7 @@ export default class NuBtn extends NuAbstractBtn {
 
   static get nuDefaults() {
     return {
-      padding: '.5x 1x',
+      padding: '1x 2x',
       border: '1x',
       radius: '1x',
     };
