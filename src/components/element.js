@@ -9,12 +9,27 @@ import {
   setImmediate,
   excludeMod,
   sizeUnit,
+  splitDimensions,
 } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
 import NuBase, { DOUBLE_DISPLAY } from '../base';
-import { THEME_ATTRS_LIST, THEME_SCHEME_ATTRS, PLACE_ATTRS } from '../attrs';
+import { THEME_ATTRS_LIST, THEME_SCHEME_ATTRS } from '../attrs';
 import { generateTheme, convertThemeName, getMainThemeName, isColorScheme } from '../themes';
+
+export const PLACE_VALUES = [
+  'content', 'items', 'self'
+].map((name) => {
+  return CSS.supports(`place-${name}`, 'stretch stretch')
+    ? `place-${name}` : function(val) {
+      const values = val && val.trim().split(/\s+/);
+
+      return val ? {
+        [`align-${name}`]: values[0],
+        [`justify-${name}`]: values[1] || values[0],
+      } : null;
+    };
+});
 
 export const FLEX_MAP = {
   row: 'margin-right',
@@ -355,14 +370,22 @@ export default class NuElement extends NuBase {
       'items-basis': unit('flex-basis', { suffix: '>:not([basis])', convert: true }),
       'items-grow': unit('flex-grow', { suffix: '>:not([grow])' }),
       'items-shrink': unit('flex-shrink', { suffix: '>:not([shrink])' }),
-      ...PLACE_ATTRS,
+      'place-content': PLACE_VALUES[0],
+      'place-items': PLACE_VALUES[1],
+      'content': PLACE_VALUES[0],
+      'items': PLACE_VALUES[1],
       'template-areas': 'grid-template-areas',
       areas: 'grid-template-areas',
       'auto-flow': 'grid-auto-flow',
-      'template-columns': unit('grid-template-columns'),
-      'template-rows': unit('grid-template-rows'),
-      columns: unit('grid-template-columns'),
-      rows: unit('grid-template-rows'),
+      'template-columns': unit('grid-template-columns', { convert: true }),
+      'template-rows': unit('grid-template-rows', { convert: true }),
+      columns: unit('grid-template-columns', { convert: true }),
+      rows: unit('grid-template-rows', { convert: true }),
+      column: 'grid-column',
+      row: 'grid-row',
+      area: 'grid-area',
+      'place-self': PLACE_VALUES[2],
+      place: PLACE_VALUES[2],
       /**
        * Apply theme to the element by providing specific custom properties.
        * @param {String} val - Theme name.

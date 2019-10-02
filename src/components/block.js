@@ -1,5 +1,3 @@
-import { GRID_ITEM_ATTRS, FLEX_ITEM_ATTRS } from '../attrs';
-import { sizeUnit } from '../helpers';
 import NuElement from './element';
 
 export default class NuBlock extends NuElement {
