@@ -39,11 +39,11 @@
     <nu-card
       display="flex"
       width="clamp(320px, 100%, initial)"
-      responsive="420px"
+      responsive="480px"
       labelledby="heading"
       describedby="description price"
-      gap="1" items="start" flow="row|column">
-      <nu-icon name="package" size="4"></nu-icon>
+      gap="1" flow="row|column" items="start|initial">
+      <nu-icon name="package" size="4" place="start"></nu-icon>
       <nu-flow gap=".5" grow="1">
         <nu-heading level="3" id="heading">Product name</nu-heading>
         <nu-line></nu-line>
@@ -53,10 +53,9 @@
             <nu-icon name="dollar-sign" inline></nu-icon>
             Order now
           </nu-btn>
-          <nu-badge mod="lg|md" id="price">
-            <nu-triangle dir="right" inline></nu-triangle>
+          <nu-block mod="w6" color="special" size="lg|md" id="price" padding=".5x 1x">
             Only $99.99
-          </nu-badge>
+          </nu-block>
         </nu-flex>
       </nu-flow>
     </nu-card>

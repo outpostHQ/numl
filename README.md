@@ -70,21 +70,28 @@ And that's all! Now your application is **NUDE-ready**!
 Try to write some HTML to build awesome interfaces.
 
 ```html
-<nu-card responsive="420px" width="clamp(320px, 100%, initial)">
-  <nu-flex gap="1" items="start" flow="row|column">
-    <nu-icon name="package" size="4"></nu-icon>
-    <nu-flow gap=".5" grow="1">
-      <nu-heading level="3">Product name</nu-heading>
-      <nu-block>Very very long product description</nu-block>
-      <nu-flex gap="1" items="center|start" flow="row|column-reverse">
-        <nu-btn special>
-          <nu-icon name="dollar-sign" inline></nu-icon>
-          Order now
-        </nu-btn>
-        <nu-badge mod="lg|md">Only $99.99</nu-badge>
-      </nu-flex>
-    </nu-flow>
-  </nu-flex>
+<nu-card
+  display="flex"
+  width="clamp(320px, 100%, initial)"
+  responsive="480px"
+  labelledby="heading"
+  describedby="description price"
+  gap="1" flow="row|column" items="start|initial">
+  <nu-icon name="package" size="4" place="start"></nu-icon>
+  <nu-flow gap=".5" grow="1">
+    <nu-heading level="3" id="heading">Product name</nu-heading>
+    <nu-line></nu-line>
+    <nu-block id="description">Very very long product description</nu-block>
+    <nu-flex gap="1" items="center|start" flow="row|column-reverse">
+      <nu-btn special>
+        <nu-icon name="dollar-sign" inline></nu-icon>
+        Order now
+      </nu-btn>
+      <nu-block mod="w6" color="special" size="lg|md" id="price" padding=".5x 1x">
+        Only $99.99
+      </nu-block>
+    </nu-flex>
+  </nu-flow>
 </nu-card>
 ```
 
