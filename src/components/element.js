@@ -414,7 +414,7 @@ export default class NuElement extends NuBase {
         return themeStyles;
       },
       color(val) {
-        if (!val) return;
+        if (val == null) return;
 
         if (val.includes(' ')) {
           const tmp = val.split(' ');

@@ -47,7 +47,9 @@ export default class NuTheme extends NuDecorator {
     const name = this.getAttribute('name');
 
     // remove theme
-    this.nuParent.nuDeclareTheme(name || 'default');
+    if (this.nuParent) {
+      this.nuParent.nuDeclareTheme(name || 'default');
+    }
   }
 
   nuApply() {
