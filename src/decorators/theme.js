@@ -57,7 +57,7 @@ export default class NuTheme extends NuDecorator {
     let theme = extractTheme(this);
 
     if (!name) {
-      const defaultThemeEl = [...this.parentNode.querySelectorAll('nd-theme:not([name])')]
+      const defaultThemeEl = [...this.parentNode.querySelectorAll('nu-theme:not([name])')]
         .find(el => el.parentNode === this.parentNode);
 
       if (defaultThemeEl) {

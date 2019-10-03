@@ -668,7 +668,7 @@ export default class NuElement extends NuBase {
    * @param {*} force - replace current CSS rule
    */
   nuApplyCSS(name, value, force = false) {
-    // do not handle [var] attribute, it's for nd-var purposes.
+    // do not handle [var] attribute, it's for nu-var purposes.
     if (name === 'var') return;
 
     const isResponsive = value.includes('|');

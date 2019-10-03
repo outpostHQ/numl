@@ -17,7 +17,7 @@ export default class NuBadge extends NuElement {
   static get nuDefaults() {
     return {
       background: 'text',
-      padding: '0 1em',
+      padding: '0 .5em',
     };
   }
 

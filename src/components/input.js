@@ -26,12 +26,14 @@ export default class NuInput extends NuBlock {
 
   static get nuDefaults() {
     return {
+      display: 'grid',
       flow: 'column',
       radius: '',
-      padding: '.5x',
+      padding: '1x',
       mod: 'center',
       background: '',
       border: '1x',
+      place: 'stretch',
     };
   }
 
@@ -42,8 +44,6 @@ export default class NuInput extends NuBlock {
         --nu-depth-shadow: 0 0 0 var(--nu-theme-border-width) var(--nu-depth-color);
 
         position: relative;
-        align-self: stretch;
-        justify-self: stretch;
         outline: none;
       }
 
@@ -90,8 +90,6 @@ export default class NuInput extends NuBlock {
       }
 
       ${nuTag}[cell] {
-        align-self: stretch;
-        justify-self: stretch;
         width: 100%;
         height: 100%;
       }
@@ -138,9 +136,5 @@ export default class NuInput extends NuBlock {
         this.nuRef.setAttribute('placeholder', '...');
       }
     });
-  }
-
-  nuUpdateTheme(theme) {
-    super.nuUpdateTheme(theme);
   }
 }
