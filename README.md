@@ -95,6 +95,8 @@ Try to write some HTML to build awesome interfaces.
 </nu-card>
 ```
 
+[Open in CodePen](https://codepen.io/tenphi/pen/zYOgjrP)
+
 Desktop render
 
 <img src="https://github.com/tenphi/nude/blob/master/example-desktop.png?raw=true" alt="NUDE Elements" width="492">
