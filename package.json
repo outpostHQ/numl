@@ -1,7 +1,12 @@
 {
   "name": "numl",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "module": "dist/numl.js",
+  "homepage": "https://github.com/tenphi/nude#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tenphi/nude.git"
+  },
   "devDependencies": {
     "@babel/core": "7.2.0",
     "css-color-function": "^1.3.3",
