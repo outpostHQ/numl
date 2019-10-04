@@ -95,6 +95,14 @@ Try to write some HTML to build awesome interfaces.
 </nu-card>
 ```
 
+Desktop render
+
+<img src="https://github.com/tenphi/nude/blob/master/example-desktop.png?raw=true" alt="NUDE Elements" width="492">
+
+Mobile render
+
+<img src="https://github.com/tenphi/nude/blob/master/example-mobile.png?raw=true" alt="NUDE Elements" width="357">
+
 Nude Elements are also available via npm.
 ```bash
 $ npm install numl --save
