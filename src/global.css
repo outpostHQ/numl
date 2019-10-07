@@ -20,6 +20,7 @@ body {
   --nu-default-special-hover-color: rgba(255, 255, 255, 0.1);
   --nu-default-special-shadow-opacity: 0.35538111934997146;
 
+  --nu-theme-border-radius: var(--nu-default-border-radius);
   --nu-theme-padding: var(--nu-default-padding);
   --nu-theme-border-width: var(--nu-default-border-width);
   --nu-theme-animation-time: var(--nu-default-animation-time);

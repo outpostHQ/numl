@@ -51,6 +51,7 @@ export function injectScript(src) {
 export const CUSTOM_UNITS = {
   'br': 'var(--nu-theme-border-radius)',
   'bw': 'var(--nu-theme-border-width)',
+  'p': 'var(--nu-theme-padding)',
 };
 
 export const COLOR_LIST = [...THEME_COLOR_ATTRS_LIST].map(color => color.replace('-color', ''));
