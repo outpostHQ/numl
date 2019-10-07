@@ -834,7 +834,7 @@ export function computeStyles(name, value, attrs, defaults) {
  */
 export function convertCustomUnit(value, unit, multiplier) {
   return value.replace(
-    new RegExp(`[0-9\.]+${unit}`, 'gi'),
+    new RegExp(`[0-9\.]+${unit}(?![a-z])`, 'gi'),
     s => `calc(${multiplier} * ${s.slice(0, -unit.length)})`
   );
 }
