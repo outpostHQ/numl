@@ -120,7 +120,7 @@ export function unit(name, { suffix, multiplier, empty, property, convert } = {}
   const propertyUsage = `var(${propertyName})`;
 
   if (suffix && property) {
-    return function(val) {
+    return function (val) {
       if (val == null) return null;
 
       if (!val && !empty) return null;
@@ -134,7 +134,7 @@ export function unit(name, { suffix, multiplier, empty, property, convert } = {}
       };
     };
   } else if (suffix) {
-    return function(val) {
+    return function (val) {
       if (val == null) return null;
 
       if (!val && !empty) return null;
@@ -147,7 +147,7 @@ export function unit(name, { suffix, multiplier, empty, property, convert } = {}
       };
     };
   } else if (property) {
-    return function(val) {
+    return function (val) {
       if (val == null) return null;
 
       if (!val && !empty) return null;
@@ -161,15 +161,15 @@ export function unit(name, { suffix, multiplier, empty, property, convert } = {}
     };
   }
 
-  return function(val) {
-      if (val == null) return null;
+  return function (val) {
+    if (val == null) return null;
 
-      if (!val && !empty) return null;
+    if (!val && !empty) return null;
 
-      val = convert ? convertUnit(val || empty, multiplier) : val || empty;
+    val = convert ? convertUnit(val || empty, multiplier) : val || empty;
 
-      return { [name]: val };
-    };
+    return { [name]: val };
+  };
 }
 
 /**

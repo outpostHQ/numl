@@ -36,7 +36,7 @@ export default class NuAbstractBtn extends NuGrid {
       flow: 'column',
       content: 'center',
       gap: .5,
-      transition: 'box-shadow, background, color',
+      transition: 'box-shadow, color, background-image, background-color',
     };
   }
 
