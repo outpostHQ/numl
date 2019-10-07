@@ -35,7 +35,7 @@ export function stylesString(styles) {
         const value = String(styles[style]);
 
         if (value
-          && !value.startsWith('-')
+          && !style.startsWith('-')
           && !CSS.supports(style, value.replace('!important', ''))
           && !value.endsWith('-reverse')) {
           warn('unsupported style detected:', `{ ${style}: ${value}; }`);
