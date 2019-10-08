@@ -21,7 +21,7 @@ export const PLACE_VALUES = [
   'content', 'items', 'self'
 ].map((name) => {
   return CSS.supports(`place-${name}`, 'stretch stretch')
-    ? `place-${name}` : function(val) {
+    ? `place-${name}` : function (val) {
       const values = val && val.trim().split(/\s+/);
 
       return val ? {
@@ -892,6 +892,20 @@ export default class NuElement extends NuBase {
     }
 
     return context;
+  }
+
+  /**
+   * Scroll to element.
+   * @param id
+   */
+  nuScrollTo(id) {
+    if (!id) return;
+
+    const element = this.nuInvertQueryById(id);
+
+    if (element) {
+      scrollTo(0, element.getBoundingClientRect().y + window.pageYOffset);
+    }
   }
 
   /**

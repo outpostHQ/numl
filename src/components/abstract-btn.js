@@ -116,6 +116,10 @@ export default class NuAbstractBtn extends NuGrid {
   nuTap() {
     if (this.hasAttribute('disabled')) return;
 
+    if (this.hasAttribute('scrollto')) {
+      this.nuScrollTo(this.getAttribute('scrollto'));
+    }
+
     this.nuEmit('tap');
 
     const parent = this.parentNode;

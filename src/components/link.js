@@ -1,6 +1,6 @@
 import NuElement from './element';
-import NuBtn from './btn';
 import { ROOT_CONTEXT, bindActiveEvents } from '../helpers';
+import NuAbstractBtn from './abstract-btn';
 
 export default class NuBadge extends NuElement {
   static get nuTag() {
@@ -64,20 +64,11 @@ export default class NuBadge extends NuElement {
   }
 
   nuTap() {
-    NuBtn.prototype.nuTap.call(this);
+    NuAbstractBtn.prototype.nuTap.call(this);
 
     const href = this.getAttribute('href');
 
-    if (!href) {
-      const id = this.getAttribute('scrollto');
-      const element = this.nuInvertQueryById(id);
-
-      if (element) {
-        scrollTo(0, element.getBoundingClientRect().y + window.pageYOffset);
-      }
-
-      return;
-    }
+    if (!href) return;
 
     const target = this.getAttribute('target');
     const link = document.createElement('a');
