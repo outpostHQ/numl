@@ -68,7 +68,16 @@ export default class NuBadge extends NuElement {
 
     const href = this.getAttribute('href');
 
-    if (!href) return;
+    if (!href) {
+      const id = this.getAttribute('scrollto');
+      const element = this.nuInvertQueryById(id);
+
+      if (element) {
+        scrollTo(0, element.getBoundingClientRect().y + window.pageYOffset);
+      }
+
+      return;
+    }
 
     const target = this.getAttribute('target');
     const link = document.createElement('a');

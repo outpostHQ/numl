@@ -475,7 +475,7 @@ export default class NuElement extends NuBase {
         };
       },
       hidden(val) {
-        if (val !== 'true' && val !== '') return null;
+        if (val !== 'true' && val !== 'y' && val !== '') return null;
 
         return { display: 'none !important' };
       },
