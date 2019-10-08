@@ -5,6 +5,7 @@ import pkg from './package.json';
 import cssnano from 'cssnano';
 
 const ENV = process.env.ROLLUP_WATCH ? 'development' : 'production';
+const VERSION = `"${pkg.version}"`;
 
 export default [
   {
@@ -16,6 +17,7 @@ export default [
     plugins: [
       replace({
         'process.env.NODE_ENV': '"production"',
+        'process.env.APP_VERSION': VERSION,
       }),
       minify({
         comments: false,
@@ -40,6 +42,7 @@ export default [
     plugins: [
       replace({
         'process.env.NODE_ENV': '"development"',
+        'process.env.APP_VERSION': VERSION,
       }),
       postcss({
         extensions: ['.css'],
@@ -55,6 +58,7 @@ export default [
     plugins: [
       replace({
         'process.env.NODE_ENV': '"production"',
+        'process.env.APP_VERSION': VERSION,
       }),
       minify({
         comments: false,
@@ -78,6 +82,7 @@ export default [
     plugins: [
       replace({
         'process.env.NODE_ENV': '"development"',
+        'process.env.APP_VERSION': VERSION,
       }),
       postcss({
         extensions: ['.css'],
@@ -93,6 +98,7 @@ export default [
     plugins: [
       replace({
         'process.env.NODE_ENV': '"production"',
+        'process.env.APP_VERSION': VERSION,
       }),
     ]
   },

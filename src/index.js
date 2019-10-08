@@ -106,6 +106,7 @@ const Nude = {
     mixColors,
     setImmediate,
   },
+  version: process.env.APP_VERSION,
 };
 
 Nude.init = (...elements) => {
