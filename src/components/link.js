@@ -19,6 +19,10 @@ export default class NuBadge extends NuElement {
     };
   }
 
+  static nuNavigate() {
+    return NuAbstractBtn.nuNavigate.apply(this, arguments);
+  };
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {

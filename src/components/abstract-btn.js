@@ -25,6 +25,22 @@ export default class NuAbstractBtn extends NuGrid {
     };
   }
 
+  static nuNavigate(href, openNewTab) {
+    const link = document.createElement('a');
+
+    link.href = href;
+
+    if (openNewTab) {
+      link.target = '_blank';
+    }
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+  }
+
   static get nuDefaults() {
     return {
       display: 'inline-grid',
@@ -91,16 +107,16 @@ export default class NuAbstractBtn extends NuGrid {
     setTimeout(() => {
       if (!this.parentNode) return;
 
-      switch (this.parentNode.tagName) {
-        case 'NU-BTN-GROUP':
+      switch (this.parentNode.nuRole) {
+        case 'radiogroup':
           if (this.parentNode.nuGetValue()) {
             this.setAttribute('role', 'radio');
           }
           break;
-        case 'NU-MENU':
+        case 'menu':
           this.setAttribute('role', 'menuitem');
           break;
-        case 'NU-TABLIST':
+        case 'tablist':
           this.setAttribute('role', 'tab');
           break;
         default:
@@ -118,6 +134,12 @@ export default class NuAbstractBtn extends NuGrid {
 
     if (this.hasAttribute('scrollto')) {
       this.nuScrollTo(this.getAttribute('scrollto'));
+    }
+
+    if (this.hasAttribute('to')) {
+      const href = this.getAttribute('to');
+
+      this.constructor.nuNavigate(href.replace(/^!/, ''), href.startsWith('!'));
     }
 
     this.nuEmit('tap');
