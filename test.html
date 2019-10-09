@@ -60,11 +60,21 @@
       </nu-flow>
     </nu-card>
 
-    <nu-card shadow radius="2x" padding="var(--my-padding)" border="2x dashed">
+    <nu-card display="flex" flow="column" gap="1" shadow radius="2x" padding="var(--my-padding)" border="2x dashed">
       <nu-pane>
         <nu-heading>Card 1</nu-heading>
         <nu-btn>Card action</nu-btn>
       </nu-pane>
+
+      <nu-card width="10" height="10">
+        <nu-card
+          width="50%"
+          shadow
+          padding="0 .25"
+          color="minor"
+          background="minor-background"
+          place="outside-top right">123</nu-card>
+      </nu-card>
 
       <nu-flex flow="column" gap="1">
         <nu-block>

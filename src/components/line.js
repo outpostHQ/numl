@@ -31,7 +31,11 @@ export default class NuLine extends NuBlock {
           };
         }
       },
-      size: unit('--nu-line-size'),
+      size: unit('--nu-line-size', {
+        convert: true,
+        multiplier: 'var(--nu-theme-border-width)',
+        empty: 'var(--nu-theme-border-radius)',
+      }),
       background: null,
     };
   }

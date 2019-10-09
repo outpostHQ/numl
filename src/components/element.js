@@ -10,6 +10,7 @@ import {
   excludeMod,
   sizeUnit,
   splitDimensions,
+  hasMod, devMode, warn,
 } from '../helpers';
 import Modifiers, { SIZES } from '../modifiers';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
@@ -30,6 +31,20 @@ export const PLACE_VALUES = [
       } : null;
     };
 });
+
+export const PLACE_ABS_OUTSIDE = [
+  'outside-top', 'outside-right', 'outside-bottom', 'outside-left',
+];
+
+export const PLACE_ABS_INSIDE = [
+  'top', 'right', 'bottom', 'left',
+];
+
+export const PLACE_ABS = [
+  'center',
+  ...PLACE_ABS_INSIDE,
+  ...PLACE_ABS_OUTSIDE,
+];
 
 export const FLEX_MAP = {
   row: 'margin-right',
@@ -384,8 +399,75 @@ export default class NuElement extends NuBase {
       column: 'grid-column',
       row: 'grid-row',
       area: 'grid-area',
-      'place-self': PLACE_VALUES[2],
-      place: PLACE_VALUES[2],
+      place(val) {
+        if (!val) return;
+
+        const abs = PLACE_ABS.find(place => hasMod(val, place));
+
+        if (abs) {
+          const styles = {
+            position: 'absolute',
+          };
+          let transX = '0';
+          let transY = '0';
+
+          PLACE_ABS_INSIDE.forEach((place, i) => {
+            if (!hasMod(val, place)) return;
+
+            styles[place] = '0';
+            delete styles[PLACE_ABS_INSIDE[(PLACE_ABS_INSIDE.indexOf(place) + 2) % 4]];
+
+            if (i % 2 && !styles.top && !styles.bottom) {
+              styles.top = '50%';
+            }
+
+            if (i % 2 === 0 && !styles.left && !styles.right) {
+              styles.left = '50%';
+            }
+          });
+
+          PLACE_ABS_OUTSIDE.forEach((place, i) => {
+            if (!hasMod(val, place)) return;
+
+            styles[PLACE_ABS_INSIDE[(PLACE_ABS_OUTSIDE.indexOf(place) + 2) % 4]] = '100%';
+            delete styles[PLACE_ABS_INSIDE[PLACE_ABS_OUTSIDE.indexOf(place)]];
+
+            if (i % 2 && !styles.top && !styles.bottom) {
+              styles.top = '50%';
+            }
+
+            if (i % 2 === 0 && !styles.left && !styles.right) {
+              styles.left = '50%';
+            }
+          });
+
+          if (hasMod(val, 'center')) {
+            if (!styles.left) {
+              styles.left = '50%';
+            }
+
+            if (!styles.top) {
+              styles.top = '50%';
+            }
+          }
+
+          if (styles.left === '50%') {
+            transX = '-50%';
+          }
+
+          if (styles.top === '50%') {
+            transY = '-50%';
+          }
+
+          styles.transform = `translate(${transX}, ${transY})`;
+
+          return styles;
+        }
+
+        return typeof (PLACE_VALUES[2]) === 'string'
+          ? { [PLACE_VALUES[2]]: val }
+          : PLACE_VALUES[2](val);
+      },
       /**
        * Apply theme to the element by providing specific custom properties.
        * @param {String} val - Theme name.
