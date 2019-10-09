@@ -41,7 +41,7 @@ export const PLACE_ABS_INSIDE = [
 ];
 
 export const PLACE_ABS = [
-  'center',
+  'inside',
   ...PLACE_ABS_INSIDE,
   ...PLACE_ABS_OUTSIDE,
 ];
@@ -441,7 +441,7 @@ export default class NuElement extends NuBase {
             }
           });
 
-          if (hasMod(val, 'center')) {
+          if (hasMod(val, 'inside')) {
             if (!styles.left) {
               styles.left = '50%';
             }
