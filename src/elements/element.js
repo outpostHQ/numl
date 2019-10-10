@@ -61,6 +61,7 @@ export const PLACE_ABS_INSIDE = [
 
 export const PLACE_ABS = [
   'inside',
+  'cover',
   ...PLACE_ABS_INSIDE,
   ...PLACE_ABS_OUTSIDE,
   ...PLACE_ABS_CENTER,
@@ -436,6 +437,16 @@ export default class NuElement extends NuBase {
           };
           let transX = 0;
           let transY = 0;
+
+          if (val.trim() === 'cover') {
+            return {
+              ...styles,
+              top: '0',
+              right: '0',
+              bottom: '0',
+              left: '0',
+            };
+          }
 
           PLACE_ABS_CENTER.forEach((place, i) => {
             if (!hasMod(val, place)) return;
