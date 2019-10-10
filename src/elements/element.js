@@ -575,7 +575,8 @@ export default class NuElement extends NuBase {
       background(val) {
         if (val && (val.includes('url(') || val.includes('gradient'))) {
           return {
-            background: val,
+            'background-image': val,
+            'background-color': 'var(--nu-theme-background-color)',
           };
         }
 
