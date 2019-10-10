@@ -477,6 +477,8 @@ export function getLuminance(color) {
  * @returns {String}
  */
 export function mixColors(clr1, clr2, pow = 0.5) {
+  if (!clr1 || !clr2) return clr1 || clr2 || 'rgba(0, 0, 0, 1)';
+
   const color1 = extractColor(clr1, true);
   const color2 = extractColor(clr2, true);
 
