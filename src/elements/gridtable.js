@@ -3,7 +3,7 @@ import NuGrid from './grid';
 
 export default class NuGridTable extends NuGrid {
   static get nuTag() {
-    return 'nu-grid-table';
+    return 'nu-gridtable';
   }
 
   static get nuRole() {

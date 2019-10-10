@@ -5,7 +5,7 @@ const FLOW_ATTR = NuFlex.nuAllAttrs.flow;
 
 export default class NuBtnGroup extends NuFlex {
   static get nuTag() {
-    return 'nu-btn-group';
+    return 'nu-btngroup';
   }
 
   static get nuRole() {
