@@ -212,10 +212,14 @@ export default class NuElement extends NuBase {
       space(val) {
         if (!val) return;
 
-        val = convertUnit(val);
+        val = convertUnit(val, 'var(--nu-theme-padding)');
+
+        if (val.startsWith('calc(')) {
+          val = val.slice(5, -1);
+        }
 
         const spaces = splitDimensions(val).map(sp =>
-          !sp.match(/^0[^\.]/) ? `calc(${sp} * -1)` : ''
+          !sp.match(/^0[^\.]/) ? `calc(${sp || val} * -1)` : ''
         );
 
         return {
@@ -369,7 +373,9 @@ export default class NuElement extends NuBase {
        * @returns {*}
        */
       gap(val, defaults) {
-        val = convertUnit(val || '0');
+        if (val == null) return;
+
+        val = convertUnit(val || '1x', 'var(--nu-theme-border-width)');
 
         const isFlexByDefault = defaults.display.endsWith('flex');
         const isGridByDefault = defaults.display.endsWith('grid');

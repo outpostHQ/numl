@@ -28,6 +28,11 @@ import Nude, {
   NuAbstractBtn,
   NuTriangle,
   NuTooltip,
+  NuCell,
+  NuColumnHeader,
+  NuRow,
+  NuRowGroup,
+  NuTable,
 } from './index';
 
 Nude.elements = {
@@ -56,9 +61,13 @@ Nude.elements = {
   NuMod,
   NuVar,
   NuDecorator,
-  NuAbstractBtn,
   NuTriangle,
   NuTooltip,
+  NuCell,
+  NuColumnHeader,
+  NuRow,
+  NuRowGroup,
+  NuTable,
 };
 
 Nude.init(

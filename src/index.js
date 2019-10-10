@@ -28,6 +28,11 @@ import NuTablist from './elements/tablist';
 import NuAbstractBtn from './elements/abstract-btn';
 import NuTriangle from './elements/triangle';
 import NuTooltip from './elements/tooltip';
+import NuTable from './elements/table';
+import NuRow from './elements/row';
+import NuRowGroup from './elements/rowgroup';
+import NuCell from './elements/cell';
+import NuColumnHeader from './elements/columnheader';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -165,4 +170,9 @@ export {
   NuAbstractBtn,
   NuTriangle,
   NuTooltip,
+  NuCell,
+  NuColumnHeader,
+  NuRow,
+  NuRowGroup,
+  NuTable,
 };

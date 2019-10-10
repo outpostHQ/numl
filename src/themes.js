@@ -103,7 +103,9 @@ export function generateTheme(props, darkProps, parentProps) {
       minorColor: theme.minorColor
         || mixColors(mixColors(theme.color, theme.specialColor, .2), theme.backgroundColor, .2),
       minorBackgroundColor: theme.minorBackgroundColor
-        || mixColors(mixColors(theme.backgroundColor, theme.specialColor, .1), theme.color, .1),
+        || mixColors(mixColors(theme.backgroundColor, theme.specialColor, .05), theme.color, .05),
+      subtleColor: theme.minorBackgroundColor
+        || mixColors(mixColors(theme.backgroundColor, theme.specialColor, .02), theme.color, .01),
       focusColor: theme.focusColor
         || mixColors(theme.specialColor, theme.backgroundColor),
       headingColor: theme.headingColor
@@ -113,7 +115,7 @@ export function generateTheme(props, darkProps, parentProps) {
       hoverColor: setAlphaChannel(theme.hoverColor
         || theme.specialColor, .1),
       specialHoverColor: setAlphaChannel(theme.specialHoverColor
-        || theme.specialBackgroundColor, .06),
+        || theme.specialBackgroundColor, .075),
     });
 
     const shadowIntensity = Math.min(Number(theme.shadowIntensity), 1);

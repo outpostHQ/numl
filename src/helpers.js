@@ -18,6 +18,7 @@ export const THEME_COLOR_ATTRS_LIST = [
   'minor-color',
   'minor-background-color',
   'special-minor-color',
+  'subtle-color',
 ];
 
 /**
@@ -673,6 +674,8 @@ export const STATES_MAP = {
   disabled: '[disabled]',
   active: '[nu-active]',
   sticky: '[nu-sticky]',
+  even: ':nth-child(even)',
+  odd: ':nth-child(odd)',
 };
 
 /**

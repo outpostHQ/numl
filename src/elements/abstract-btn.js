@@ -6,7 +6,7 @@ const backgroundUnit = colorUnit('background-color', 'background');
 
 export default class NuAbstractBtn extends NuGrid {
   static get nuTag() {
-    return 'nu-abstract-btn';
+    return '';
   }
 
   static get nuRole() {

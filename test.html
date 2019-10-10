@@ -60,7 +60,9 @@
       </nu-flow>
     </nu-card>
 
-    <nu-card display="flex" flow="column" gap="1" shadow radius="2x" padding="var(--my-padding)" border="2x dashed">
+    <nu-card
+      display="flex" flow="column" gap="1" shadow radius="2x"
+      padding="var(--my-padding)" border="2x dashed">
       <nu-pane>
         <nu-heading>Card 1</nu-heading>
         <nu-btn>Card action</nu-btn>
@@ -68,6 +70,35 @@
 
       <nu-card width="10" height="10">
         <nu-tooltip place="center-bottom outside-right">123</nu-tooltip>
+      </nu-card>
+
+      <nu-card padding="0" mod="no-overflow">
+        <nu-table width="100%" border="1x bottom">
+          <nu-rowgroup>
+            <nu-row>
+              <nu-columnheader>Header 1</nu-columnheader>
+              <nu-columnheader>Header 2</nu-columnheader>
+              <nu-columnheader>Header 3</nu-columnheader>
+            </nu-row>
+          </nu-rowgroup>
+          <nu-rowgroup>
+            <nu-row background=":even[subtle]">
+              <nu-cell>Cell 1</nu-cell>
+              <nu-cell>Cell 2</nu-cell>
+              <nu-cell>Cell 3</nu-cell>
+            </nu-row>
+            <nu-row background=":even[subtle]">
+              <nu-cell>Cell 1</nu-cell>
+              <nu-cell>Cell 2</nu-cell>
+              <nu-cell>Cell 3</nu-cell>
+            </nu-row>
+            <nu-row background=":even[subtle]">
+              <nu-cell>Cell 1</nu-cell>
+              <nu-cell>Cell 2</nu-cell>
+              <nu-cell>Cell 3</nu-cell>
+            </nu-row>
+          </nu-rowgroup>
+        </nu-table>
       </nu-card>
 
       <nu-flex flow="column" gap="1">
