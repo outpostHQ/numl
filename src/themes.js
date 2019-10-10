@@ -127,8 +127,8 @@ export function generateTheme(props, darkProps, parentProps) {
 
     // if dark mode
     if (i && getLuminance(theme.specialBackgroundColor) > .9) {
-      theme.specialColor = mixColors(theme.specialColor, 'rgba(0, 0, 0)', .1);
-      theme.specialBackgroundColor = mixColors(theme.specialBackgroundColor, 'rgba(0, 0, 0)', .1);
+      theme.specialColor = mixColors(theme.specialColor, 'rgb(0, 0, 0)', .1);
+      theme.specialBackgroundColor = mixColors(theme.specialBackgroundColor, 'rgb(0, 0, 0)', .1);
     }
 
     theme.specialMinorColor = theme.specialMinorColor
