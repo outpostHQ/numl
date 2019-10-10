@@ -1,10 +1,10 @@
-import NuGrid from './grid';
+import NuElement from './element';
 import focusable from '../mixins/focusable';
-import { generateId, bindActiveEvents, setImmediate, invertQuery, colorUnit } from '../helpers';
+import { generateId, bindActiveEvents, setImmediate,  colorUnit } from '../helpers';
 
 const backgroundUnit = colorUnit('background-color', 'background');
 
-export default class NuAbstractBtn extends NuGrid {
+export default class NuActiveElement extends NuElement {
   static get nuTag() {
     return '';
   }
@@ -21,7 +21,6 @@ export default class NuAbstractBtn extends NuGrid {
       target: '',
       controls: '',
       value: '',
-      background: colorUnit('background-color', 'background'),
     };
   }
 
@@ -44,7 +43,6 @@ export default class NuAbstractBtn extends NuGrid {
   static get nuDefaults() {
     return {
       display: 'inline-grid',
-      padding: '1x',
       color: 'inherit',
       background: '',
       radius: '',
@@ -65,8 +63,6 @@ export default class NuAbstractBtn extends NuGrid {
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
         position: relative;
-        user-select: none;
-        vertical-align: middle;
         opacity: 1;
         z-index: 0; /* to make :hover::after z-index work as expected */
         background-image: linear-gradient(to right, var(--nu-hover-color), var(--nu-hover-color));
@@ -79,6 +75,10 @@ export default class NuAbstractBtn extends NuGrid {
       ${nuTag}[disabled] {
         opacity: .5;
         cursor: default;
+      }
+      
+      ${nuTag}:not([disabled])[tabindex]:hover {
+        --nu-hover-color: var(--nu-theme-hover-color);
       }
 
       ${nuTag}[nu-active] {

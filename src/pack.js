@@ -25,7 +25,7 @@ import Nude, {
   NuMod,
   NuVar,
   NuDecorator,
-  NuAbstractBtn,
+  NuActiveElement,
   NuTriangle,
   NuTooltip,
   NuCell,

@@ -1,6 +1,6 @@
-import NuAbstractBtn from './abstract-btn';
+import NuActiveElement from './activeelement';
 
-export default class NuMenuitem extends NuAbstractBtn {
+export default class NuMenuitem extends NuActiveElement {
   static get nuTag() {
     return 'nu-menuitem';
   }
@@ -11,6 +11,7 @@ export default class NuMenuitem extends NuAbstractBtn {
 
   static get nuDefaults() {
     return {
+      padding: '1x',
       background: 'transparent',
       width: '100%',
       content: 'center start',
@@ -24,6 +25,8 @@ export default class NuMenuitem extends NuAbstractBtn {
         --nu-toggle-color: transparent;
         --nu-depth-color: transparent;
         --nu-focus-inset: inset 0 0;
+        
+        user-select: none;
       }
 
       ${nuTag}:not([disabled])[tabindex]:hover {

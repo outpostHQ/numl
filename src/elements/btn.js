@@ -1,6 +1,6 @@
-import NuAbstractBtn from './abstract-btn';
+import NuActiveElement from './activeelement';
 
-export default class NuBtn extends NuAbstractBtn {
+export default class NuBtn extends NuActiveElement {
   static get nuTag() {
     return 'nu-btn';
   }
@@ -10,6 +10,9 @@ export default class NuBtn extends NuAbstractBtn {
       padding: '1x 2x',
       border: '1x',
       radius: '1x',
+      flow: 'column',
+      gap: '1x',
+      items: 'center',
     };
   }
 
@@ -18,6 +21,9 @@ export default class NuBtn extends NuAbstractBtn {
       ${nuTag} {
         --nu-toggle-color: transparent;
         --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
+        
+        text-align: center;
+        user-select: none;
       }
 
       ${nuTag}:not([disabled])[tabindex]:hover {

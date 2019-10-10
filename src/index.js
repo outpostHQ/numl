@@ -25,7 +25,7 @@ import NuBtnGroup from './elements/btngroup';
 import NuMenu from './elements/menu';
 import NuMenuItem from './elements/menuitem';
 import NuTablist from './elements/tablist';
-import NuAbstractBtn from './elements/abstract-btn';
+import NuActiveElement from './elements/activeelement';
 import NuTriangle from './elements/triangle';
 import NuTooltip from './elements/tooltip';
 import NuTable from './elements/table';
@@ -167,7 +167,7 @@ export {
   NuMod,
   NuVar,
   NuDecorator,
-  NuAbstractBtn,
+  NuActiveElement,
   NuTriangle,
   NuTooltip,
   NuCell,

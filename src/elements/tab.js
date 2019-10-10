@@ -1,7 +1,7 @@
-import NuAbstractBtn from './abstract-btn';
+import NuActiveElement from './activeelement';
 import focusable from '../mixins/focusable';
 
-export default class NuTab extends NuAbstractBtn {
+export default class NuTab extends NuActiveElement {
   static get nuTag() {
     return 'nu-tab';
   }
@@ -12,7 +12,7 @@ export default class NuTab extends NuAbstractBtn {
 
   static get nuDefaults() {
     return {
-      padding: '.5x 0',
+      padding: '1x 0',
       background: 'transparent',
       radius: 0,
     };
@@ -24,6 +24,7 @@ export default class NuTab extends NuAbstractBtn {
         --nu-toggle-color: transparent;
         --nu-depth-color: transparent;
         --nu-stroke-color: transparent;
+        --nu-hover-color: transparent !important;
 
         --nu-toggle-shadow: 0 calc(-1 * var(--nu-theme-border-width)) 0 0 var(--nu-toggle-color) inset;
         --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
