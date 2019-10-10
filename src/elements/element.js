@@ -338,12 +338,12 @@ export default class NuElement extends NuBase {
               $suffix: ':not([display])',
               'grid-auto-flow': val,
             });
-          } else {
-            arr.push({
-              $suffix: '[display$="grid"]',
-              'grid-auto-flow': val,
-            });
           }
+
+          arr.push({
+            $suffix: '[display$="grid"]',
+            'grid-auto-flow': val,
+          });
         }
 
         if (isFlexValue) {
@@ -376,7 +376,7 @@ export default class NuElement extends NuBase {
       gap(val, defaults) {
         if (val == null) return;
 
-        val = convertUnit(val || '1x', 'var(--nu-theme-border-width)');
+        val = convertUnit(val || '1x', 'var(--nu-theme-padding)');
 
         const isFlexByDefault = defaults.display.endsWith('flex');
         const isGridByDefault = defaults.display.endsWith('grid');

@@ -7,12 +7,14 @@ export default class NuBtn extends NuActiveElement {
 
   static get nuDefaults() {
     return {
+      display: 'inline-grid',
       padding: '1x 2x',
       border: '1x',
       radius: '1x',
       flow: 'column',
       gap: '1x',
-      items: 'center',
+      content: 'center',
+      background: '',
     };
   }
 
@@ -22,7 +24,6 @@ export default class NuBtn extends NuActiveElement {
         --nu-toggle-color: transparent;
         --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
         
-        text-align: center;
         user-select: none;
       }
 

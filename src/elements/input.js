@@ -45,6 +45,7 @@ export default class NuInput extends NuBlock {
 
         position: relative;
         outline: none;
+        user-select: none;
       }
 
       ${nuTag} input {

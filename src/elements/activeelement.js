@@ -42,14 +42,10 @@ export default class NuActiveElement extends NuElement {
 
   static get nuDefaults() {
     return {
-      display: 'inline-grid',
       color: 'inherit',
       background: '',
       radius: '',
       mod: 'nowrap',
-      flow: 'column',
-      content: 'center',
-      gap: .5,
       transition: 'box-shadow, color, background-image, background-color',
     };
   }

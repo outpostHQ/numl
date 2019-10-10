@@ -3,8 +3,8 @@ import { unit } from '../helpers';
 
 const gapAttr = unit('border-spacing', {
   convert: true,
-  multiplier: 'var(--nu-theme-border-width)',
-  empty: 'var(--nu-theme-border-width)',
+  multiplier: 'var(--nu-theme-padding)',
+  empty: 'var(--nu-theme-padding)',
 });
 
 const borderAttr = NuElement.nuAttrs.border;

@@ -14,6 +14,7 @@ export default class NuColumnHeader extends NuCell {
       display: 'table-cell',
       color: 'minor',
       background: 'minor-background',
+      mod: 'w6',
     };
   }
 

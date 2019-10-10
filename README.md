@@ -92,7 +92,7 @@ Current status of development is [HERE](https://github.com/tenphi/nude/projects/
 
 Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
 
-And here is our [Telegram Chat](https://t.me/nudeml).
+And here is our [Telegram Chat](https://t.me/nudeml). (Ask your questions here!)
 
 ### Browser Support
 
@@ -124,6 +124,10 @@ Run `npm run play` to view test page with few examples.
 ## Documentation
 
 *IN PROGRESS*
+
+* [Introduction](docs/introduction.md) - `90% Complete`
+* [Modifiers](docs/modifiers.md) - `80% Complete`
+* [Attributes](docs/attributes.md) - `5% Complete`
 
 ## Contribution
 

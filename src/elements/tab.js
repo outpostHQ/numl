@@ -12,9 +12,13 @@ export default class NuTab extends NuActiveElement {
 
   static get nuDefaults() {
     return {
+      display: 'inline-grid',
       padding: '1x 0',
       background: 'transparent',
       radius: 0,
+      flow: 'column',
+      gap: '1x',
+      items: 'center',
     };
   }
 

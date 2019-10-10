@@ -14,7 +14,6 @@ export default class NuMenuitem extends NuActiveElement {
       padding: '1x',
       background: 'transparent',
       width: '100%',
-      content: 'center start',
       radius: 0,
     };
   }

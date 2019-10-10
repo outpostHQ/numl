@@ -107,10 +107,8 @@ Object.keys(SIZES).forEach((size) => {
 
 ['left', 'right', 'center', 'justify'].forEach(name => set(name, { 'text-align': name}));
 
-set('content-box', { 'box-sizing': 'content-box' });
-set('border-box', { 'box-sizing': 'border-box' });
 set('monospace', { 'font-family': 'monospace' });
-set('spacing', { 'letter-spacing': 'var(--nu-pixel)' });
+set('spacing', { 'letter-spacing': 'var(--nu-theme-border-width)' });
 set('ellipsis', {
   'max-width': '100%',
   'overflow': 'hidden',
@@ -122,7 +120,6 @@ set('nowrap', { 'white-space': 'nowrap' });
 set('scroll', { 'overflow': 'auto' });
 set('no-overflow', { 'overflow': 'hidden' });
 
-set('rounded', { 'border-radius': 'var(--nu-theme-border-radius)' });
 set('round', { 'border-radius': '9999rem' });
 set('ellipse', { 'border-radius': '50%' });
 set('relative', { 'position': 'relative' });
