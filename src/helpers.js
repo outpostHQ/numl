@@ -683,7 +683,7 @@ export const STATES_MAP = {
  * @returns {Object[]}
  */
 export function splitStates(attrValue) {
-  const tmp = attrValue.split(/[\s^]+(?=[\:#])/g);
+  const tmp = attrValue.replace(/\^:/g, '#--parent--:').split(/[\s^]+(?=[\:#])/g);
 
   let id;
 
@@ -754,7 +754,7 @@ export function splitStates(attrValue) {
   return stateMaps.map(stateMap => {
     return {
       $prefix: id && (stateMap.parentStates.length || stateMap.parentNotStates.length)
-        ? `[nu-id="${id}"]`
+        ? (id === '--parent--' ? '*' : `[nu-id="${id}"]`)
         + stateMap.parentStates.map(s => STATES_MAP[s]).join('')
         + stateMap.parentNotStates.map(s => `:not(${STATES_MAP[s]})`).join('')
         : null,
@@ -776,7 +776,7 @@ export function computeStyles(name, value, attrs, defaults) {
   if (value == null) return;
 
   // Style splitter for states system
-  if (value.match(/[\:\#][a-z0-9\-\:]+\[/)) {
+  if (value.match(/[\:\#\^][a-z0-9\-\:]+\[/)) {
     // split values between states
     const states = splitStates(value);
 

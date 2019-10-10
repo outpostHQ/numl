@@ -3,30 +3,31 @@ import css from './css';
 import modifiers from './modifiers';
 // elements
 import NuBase from './base';
-import NuElement from './components/element';
-import NuGrid from './components/grid';
-import NuBlock from './components/block';
-import NuHeading from './components/heading';
-import NuIcon from './components/icon';
-import NuLine from './components/line';
-import NuPane from './components/pane';
-import NuCard from './components/card';
-import NuLayout from './components/flow';
-import NuBtn from './components/btn';
-import NuTab from './components/tab';
-import NuSwitch from './components/switch';
-import NuGridTable from './components/grid-table';
-import NuBadge from './components/badge';
-import NuLink from './components/link';
-import NuInput from './components/input';
-import NuScroll from './components/scroll';
-import NuFlex from './components/flex';
-import NuBtnGroup from './components/btn-group';
-import NuMenu from './components/menu';
-import NuMenuItem from './components/menuitem';
-import NuTablist from './components/tablist';
-import NuAbstractBtn from './components/abstract-btn';
-import NuTriangle from './components/triangle';
+import NuElement from './elements/element';
+import NuGrid from './elements/grid';
+import NuBlock from './elements/block';
+import NuHeading from './elements/heading';
+import NuIcon from './elements/icon';
+import NuLine from './elements/line';
+import NuPane from './elements/pane';
+import NuCard from './elements/card';
+import NuLayout from './elements/flow';
+import NuBtn from './elements/btn';
+import NuTab from './elements/tab';
+import NuSwitch from './elements/switch';
+import NuGridTable from './elements/grid-table';
+import NuBadge from './elements/badge';
+import NuLink from './elements/link';
+import NuInput from './elements/input';
+import NuScroll from './elements/scroll';
+import NuFlex from './elements/flex';
+import NuBtnGroup from './elements/btn-group';
+import NuMenu from './elements/menu';
+import NuMenuItem from './elements/menuitem';
+import NuTablist from './elements/tablist';
+import NuAbstractBtn from './elements/abstract-btn';
+import NuTriangle from './elements/triangle';
+import NuTooltip from './elements/tooltip';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -163,4 +164,5 @@ export {
   NuDecorator,
   NuAbstractBtn,
   NuTriangle,
+  NuTooltip,
 };

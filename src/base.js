@@ -202,6 +202,14 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
+   * Simple getter to tell others that it's a NUDE Element.
+   * @returns {boolean}
+   */
+  get nuElement() {
+    return true;
+  }
+
+  /**
    * Set a local modifier.
    * @param {String} name
    * @param {String|boolean|*} value - TRUE sets attribute without false, FALSE = removes attribute.

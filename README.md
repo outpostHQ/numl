@@ -25,39 +25,6 @@
 * **ARIA** support.
 * **Framework** to create your own elements, modifiers and plugins.
 
-## Sites that use **NUDE Elements** 
-
-* **[Sellerscale](https://sellerscale.com)**
-
-## Development status (v1)
-
-Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
-
-Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
-
-### Browser Support
-
-Based on [caniuse.com](caniuse.com). Real-world support table will be presented after production-release.
-
-* Microsoft Edge 15-18 (with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
-* Microsoft Edge 76+
-* Google Chrome 57+
-* Mozilla Firefox 52+
-* Apple Safari 10.1+
-* Apple iOS Safari 10.3+
-* Google Android 67+
-
-## Getting started
-
-`npm run build` builds the library to `dist`, generating four files:
-
-* `dist/numl.js` - IIFE-module with auto initialization. Elements' CSS included. (Exports global `Nude` object)
-* `dist/numl.dev.js` - Same as above but with helpful warnings and without minification. (Exports global `Nude` object)
-* `dist/numl.module.js` - ES-module. Tree-shaking-friendly bundle. Elements' CSS included.
-* `dist/numl.module.dev.js` - Same as above but with helpful warnings and without minification.
-
-`npm run dev` builds the library, then keeps rebuilding it whenever the source files change.
-
 ## Usage
 Add `numl.js` to your page and initialize it.
 
@@ -115,6 +82,41 @@ Import the module to your application:
 import 'numl';
 ```
 
+## Sites that use **NUDE Elements** 
+
+* **[Sellerscale](https://sellerscale.com)**
+
+## Development status (v1)
+
+Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
+
+Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
+
+And here is our [Telegram Chat](https://t.me/nudeml).
+
+### Browser Support
+
+Based on [caniuse.com](caniuse.com). Real-world support table will be presented after production-release.
+
+* Microsoft Edge 15-18 (with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
+* Microsoft Edge 76+
+* Google Chrome 57+
+* Mozilla Firefox 52+
+* Apple Safari 10.1+
+* Apple iOS Safari 10.3+
+* Google Android 67+
+
+## Build
+
+`npm run build` builds the library to `dist`, generating four files:
+
+* `dist/numl.js` - IIFE-module with auto initialization. Elements' CSS included. (Exports global `Nude` object)
+* `dist/numl.dev.js` - Same as above but with helpful warnings and without minification. (Exports global `Nude` object)
+* `dist/numl.module.js` - ES-module. Tree-shaking-friendly bundle. Elements' CSS included.
+* `dist/numl.module.dev.js` - Same as above but with helpful warnings and without minification.
+
+`npm run dev` builds the library, then keeps rebuilding it whenever the source files change.
+
 ## Local playground
 
 Run `npm run play` to view test page with few examples.
@@ -122,6 +124,10 @@ Run `npm run play` to view test page with few examples.
 ## Documentation
 
 *IN PROGRESS*
+
+## Contribution
+
+There is no contribution guideline just yet but we would love to hear any feedback from you. Feel free to leave a note at [tenphi@gmail.com](mailto:tenphi@gmail.com?subject=NUDE%20Feeback).
 
 ## License
 

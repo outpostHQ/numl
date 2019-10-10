@@ -27,6 +27,7 @@ import Nude, {
   NuDecorator,
   NuAbstractBtn,
   NuTriangle,
+  NuTooltip,
 } from './index';
 
 Nude.elements = {
@@ -57,6 +58,7 @@ Nude.elements = {
   NuDecorator,
   NuAbstractBtn,
   NuTriangle,
+  NuTooltip,
 };
 
 Nude.init(

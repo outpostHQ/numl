@@ -18,6 +18,14 @@ import NuBase, { DOUBLE_DISPLAY } from '../base';
 import { THEME_ATTRS_LIST, THEME_SCHEME_ATTRS } from '../attrs';
 import { generateTheme, convertThemeName, getMainThemeName, isColorScheme } from '../themes';
 
+const Z_MAP = {
+  '': '0',
+  'below': '-1',
+  'above': '1',
+  'front': '9999',
+  'back': '-9999',
+};
+
 export const PLACE_VALUES = [
   'content', 'items', 'self'
 ].map((name) => {
@@ -32,9 +40,20 @@ export const PLACE_VALUES = [
     };
 });
 
-export const PLACE_ABS_OUTSIDE = [
+const PLACE_ABS_OUTSIDE = [
   'outside-top', 'outside-right', 'outside-bottom', 'outside-left',
 ];
+
+const PLACE_ABS_CENTER = [
+  'center-top', 'center-right', 'center-bottom', 'center-left',
+];
+
+const PLACE_ABS_CENTER_STYLES = {
+  'center-top': { y: '-50%' },
+  'center-right': { x: '50%' },
+  'center-bottom': { y: '50%' },
+  'center-left': { x: '-50%' },
+};
 
 export const PLACE_ABS_INSIDE = [
   'top', 'right', 'bottom', 'left',
@@ -44,6 +63,7 @@ export const PLACE_ABS = [
   'inside',
   ...PLACE_ABS_INSIDE,
   ...PLACE_ABS_OUTSIDE,
+  ...PLACE_ABS_CENTER,
 ];
 
 export const FLEX_MAP = {
@@ -408,8 +428,31 @@ export default class NuElement extends NuBase {
           const styles = {
             position: 'absolute',
           };
-          let transX = '0';
-          let transY = '0';
+          let transX = 0;
+          let transY = 0;
+
+          PLACE_ABS_CENTER.forEach((place, i) => {
+            if (!hasMod(val, place)) return;
+
+            styles[PLACE_ABS_INSIDE[PLACE_ABS_CENTER.indexOf(place)]] = '0';
+            delete styles[PLACE_ABS_INSIDE[(PLACE_ABS_CENTER.indexOf(place) + 2) % 4]];
+
+            if (PLACE_ABS_CENTER_STYLES[place].x) {
+              transX = PLACE_ABS_CENTER_STYLES[place].x;
+            }
+
+            if (PLACE_ABS_CENTER_STYLES[place].y) {
+              transY = PLACE_ABS_CENTER_STYLES[place].y;
+            }
+
+            if (i % 2 && !styles.top && !styles.bottom) {
+              styles.top = '50%';
+            }
+
+            if (i % 2 === 0 && !styles.left && !styles.right) {
+              styles.left = '50%';
+            }
+          });
 
           PLACE_ABS_INSIDE.forEach((place, i) => {
             if (!hasMod(val, place)) return;
@@ -467,6 +510,20 @@ export default class NuElement extends NuBase {
         return typeof (PLACE_VALUES[2]) === 'string'
           ? { [PLACE_VALUES[2]]: val }
           : PLACE_VALUES[2](val);
+      },
+      z(val) {
+        if (val == null) return;
+
+        return {
+          'z-index': Z_MAP[val] || val,
+        };
+      },
+      events(val) {
+        if (val == null) return;
+
+        return {
+          'pointer-events': val === 'none' ? val : 'auto',
+        };
       },
       /**
        * Apply theme to the element by providing specific custom properties.
