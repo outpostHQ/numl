@@ -11,9 +11,13 @@ export default class NuMenuitem extends NuActiveElement {
 
   static get nuDefaults() {
     return {
+      display: 'inline-grid',
       padding: '1x',
       background: 'transparent',
       width: '100%',
+      flow: 'column',
+      gap: '1x',
+      content: 'center start',
       radius: 0,
     };
   }

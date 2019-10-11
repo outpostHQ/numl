@@ -69,7 +69,7 @@ NUDE transforms unique attributes to CSS right in Runtime! So when you write:
 <nu-block border></nu-block>
 ```
 
-You will get following CSS-tag injected:
+You will get the following CSS injected:
 ```css
 nu-block[border=""] {
   border: var(--nu-theme-border-width) solid var(--nu-theme-border-color);
