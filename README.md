@@ -17,12 +17,12 @@
 * **Transferable** markup to be easily copy-pasted to your new project.
 * **Compatible** with any popular framework: Vue, React, Angular, Svelte, etc...
 * **Compact** size with no dependencies.
-* **Dark Mode** effortlessly. Darker colors will be generated automatically based on themes you use in you app.
+* **Dark Mode** effortlessly. Darker colors will be generated automatically based on colors you use in you app.
 * **CSS Generation** under the hood to create only CSS your application needs.
 * **No Build Step** needed. Edit attributes and move elements in runtime and see how they change instantly.
 * **No-JS** support with pregenerated CSS.
 * **Support** for all modern browsers. (small polyfill needed)
-* **ARIA** support.
+* **Accessibility** features to simplify ARIA declarations and automate them where it's possible.
 * **Framework** to create your own elements, modifiers and plugins.
 
 ## Usage
@@ -125,9 +125,16 @@ Run `npm run play` to view test page with few examples.
 
 *IN PROGRESS*
 
-* [Introduction](docs/introduction.md) - `90% Complete`
+* [Introduction](docs/introduction.md)
 * [Modifiers](docs/modifiers.md) - `80% Complete`
 * [Attributes](docs/attributes.md) - `5% Complete`
+* [Markup methodology](docs/markup.md) - `0% Complete`
+* [Theme system](docs/themes.md) - `0% Complete`
+* [Responsive system](docs/responsive.md) - `0% Complete`
+* [State system](docs/states.md) - `0% Complete`
+* [Widgets](docs/widgets.md) - `0% Complete`
+* [Integration with Frameworks](docs/integration.md)
+* [Known issues](docs/issues.md)
 
 ## Contribution
 
