@@ -47,6 +47,40 @@ There are some more parameters you can specify with your theme besides colors:
 
 As you see in NUDE we **name colors by their role**, not by their visual characteristics or by their specific usage. It keeps the number of colors minimal but helps NUDE understand their purpose and do some automation to generate not provided color and even DARK THEME!
 
-## Dark theme
+## Prefers color scheme
 
 With NUDE it can be fully automatic to generate Dark Theme for your site.
+
+There are some requirements to make it work:
+
+**First step**: you need to specify default theme for your top-level NUDE Element. Even empty theme will be enough.
+
+```html
+<nu-block>
+  <nu-theme></nu-theme>
+</nu-block>
+```
+
+It will generate all needed custom properties to make Dark Theme work.
+
+**Second step**: There are some classes that you should add to the `html` tag for the following cases:
+
+* Do nothing or add `nu-prefers-color-scheme-light` to activate Light Theme.
+* Add `nu-prefers-color-scheme-dark` to activate Dark Theme.
+* Add `nu-prefers-color-scheme` to activate auto-switching depending on system preference. 
+
+## Prefers reduced motion
+
+You can add classes to the `html` element to control over `reduced-motion` preference.
+
+* Do nothing to ignore that media query.
+* Add `nu-prefers-reduced-motion-reduce` to reduce motion in user interface.
+* Add `nu-prefers-reduced-motion` to reduce motion depending on system preference.
+
+## Prefers contrast
+
+NUDE currently supports this feature via CSS filter. It's not perfect and have some issues with fixed positioning but you can use if you really want.
+
+You can add class `nu-prefers-contrast-high` to the `html` element to increase contrast of your site. But currently there is no way to inherit system preference.
+
+NUDE will support generated contrast theme later.

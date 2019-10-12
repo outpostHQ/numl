@@ -69,7 +69,7 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
   display: none !important;
 }
 
-html.nu-prefers-high-contrast.nu-prefers-color-scheme-dark body {
+html.nu-prefers-contrast-high.nu-prefers-color-scheme-dark body {
   filter: invert(100%) brightness(0.666) contrast(1.5) brightness(1.5) invert(100%);
 }
 
@@ -86,18 +86,18 @@ html.nu-prefers-high-contrast.nu-prefers-color-scheme-dark body {
     filter: invert(5%);
   }
 
-  html.nu-prefers-high-contrast.nu-prefers-color-scheme body {
+  html.nu-prefers-contrast-high.nu-prefers-color-scheme body {
     filter: invert(100%) brightness(0.666) contrast(1.5) brightness(1.5) invert(100%);
   }
 }
 
 @media (prefers-color-scheme: light) {
-  html.nu-prefers-high-contrast.nu-prefers-color-scheme body {
+  html.nu-prefers-contrast-high.nu-prefers-color-scheme body {
     filter: brightness(.5) contrast(1.5) brightness(2);
   }
 }
 
-html.nu-prefers-high-contrast:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark) body {
+html.nu-prefers-contrast-high:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark) body {
   filter: brightness(.5) contrast(1.5) brightness(2);
 }
 

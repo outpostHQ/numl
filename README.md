@@ -126,11 +126,11 @@ Run `npm run play` to view test page with few examples.
 *IN PROGRESS*
 
 * [Introduction](docs/introduction.md)
-* [Modifiers](docs/modifiers.md) - `80% Complete`
+* [Modifiers](docs/modifiers.md)
 * [Attributes](docs/attributes.md) - `5% Complete`
 * [Markup methodology](docs/markup.md) - `0% Complete`
-* [Theme system](docs/themes.md) - `0% Complete`
-* [Responsive system](docs/responsive.md) - `0% Complete`
+* [Theme system](docs/themes.md)
+* [Responsive system](docs/responsive.md)
 * [State system](docs/states.md) - `0% Complete`
 * [Widgets](docs/widgets.md) - `0% Complete`
 * [Integration with Frameworks](docs/integration.md)

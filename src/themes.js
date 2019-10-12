@@ -57,6 +57,7 @@ export function generateTheme(props, darkProps, parentProps) {
     hoverColor: generalizeColor(props.hoverColor),
     specialHoverColor: generalizeColor(props.specialHoverColor),
     animationTime: props.animationTime || parentProps.animationTime,
+    subtleColor: props.subtleColor,
   };
 
   lightTheme.specialBackgroundColor = lightTheme.specialBackgroundColor
@@ -104,7 +105,7 @@ export function generateTheme(props, darkProps, parentProps) {
         || mixColors(mixColors(theme.color, theme.specialColor, .2), theme.backgroundColor, .2),
       minorBackgroundColor: theme.minorBackgroundColor
         || mixColors(mixColors(theme.backgroundColor, theme.specialColor, .05), theme.color, .05),
-      subtleColor: theme.minorBackgroundColor
+      subtleColor: theme.subtleColor
         || mixColors(mixColors(theme.backgroundColor, theme.specialColor, .02), theme.color, .01),
       focusColor: theme.focusColor
         || mixColors(theme.specialColor, theme.backgroundColor),
