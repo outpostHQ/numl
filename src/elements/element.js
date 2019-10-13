@@ -917,6 +917,7 @@ export default class NuElement extends NuBase {
    * While using frameworks this method can be fired without element having parentNode.
    */
   nuConnected() {
+    this.setAttribute('nu', '');
   }
 
   /**

@@ -131,7 +131,7 @@ Run `npm run play` to view test page with few examples.
 * [Markup methodology](docs/markup.md) - `0% Complete`
 * [Theme system](docs/themes.md)
 * [Responsive system](docs/responsive.md)
-* [State system](docs/states.md) - `0% Complete`
+* [State system](docs/states.md)
 * [Widgets](docs/widgets.md) - `0% Complete`
 * [Integration with Frameworks](docs/integration.md)
 * [Known issues](docs/issues.md)

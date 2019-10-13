@@ -754,12 +754,15 @@ export function splitStates(attrValue) {
     }
   }
 
+  const isParent = (id === '--parent--');
+
   return stateMaps.map(stateMap => {
     return {
       $prefix: id && (stateMap.parentStates.length || stateMap.parentNotStates.length)
-        ? (id === '--parent--' ? '*' : `[nu-id="${id}"]`)
+        ? (isParent ? '[nu]' : `[nu-id="${id}"]`)
         + stateMap.parentStates.map(s => STATES_MAP[s]).join('')
         + stateMap.parentNotStates.map(s => `:not(${STATES_MAP[s]})`).join('')
+        + (isParent ? '>' : '')
         : null,
       $suffix: stateMap.states.map(s => STATES_MAP[s]).join('')
         + stateMap.notStates.map(s => `:not(${STATES_MAP[s]})`).join(''),
