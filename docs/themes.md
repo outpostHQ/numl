@@ -16,6 +16,8 @@ At first, let's define default theme for the element.
 
 These four colors are base colors for theme. They are required to generate a full-featured color theme with all needed shades for your application.
 
+But there is no need to provide all four required colors. Theme will inherit attribute value if it's not specified. Named themes will inherit values from default theme and default theme will inherit values from parent default theme (or NUDE defaults). 
+
 You can use any color declaration that browser supports and even Custom Properties (but after theme generation is complete you won't be able to manipulate colors by changing Custom Properties). Usage of HTML color names (like `yellow`, `green` and etc) requires additional file named `numl.colors.js` to be included in your app before NUDE. You can even add your own predefined colors if you need.
 
 Such declaration will define a set of custom properties that will contain corresponding colors and params:
