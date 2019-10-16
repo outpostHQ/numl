@@ -109,7 +109,7 @@ import 'numl';
 
 ## Sites that use **NUDE Elements** 
 
-* **[Sellerscale](https://sellerscale.com)**
+* **[Sellerscale](https://sellerscale.com)** – [Project Screenshot](https://github.com/tenphi/nude/blob/master/example-application.png?raw=true)
 
 ## Development status (v1)
 
