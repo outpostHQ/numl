@@ -28,7 +28,7 @@
 
 **Q: Why should I use NUDE instead of popular CSS-framework like Tailwind?**
 
-**A:** Popular CSS-frameworks tend to decide what you need and provide tools that limit the power of CSS. Unlike them, NUDE unleashes the power of CSS by making it dynamic and parametrizable.
+**A:** Popular CSS-frameworks tend to decide what you need and provide tools that limit the power of CSS. Unlike them, NUDE unleashes the power of CSS by making it dynamic and parametrizable without the need to use a preprocessor.
 
 **Q: Why should I use NUDE instead of writing CSS from the scratch?**
 
