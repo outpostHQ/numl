@@ -41,7 +41,7 @@ export default class NuBase extends HTMLElement {
    * @returns {String}
    */
   static get nuTag() {
-    return '';
+    return 'nu-base'; // abstract tag
   }
 
   /**
@@ -71,6 +71,23 @@ export default class NuBase extends HTMLElement {
   static get nuAttrs() {
     return {
       id: '',
+      /**
+       * CSS Display value.
+       * @param val
+       */
+      display(val) {
+        if (!val) return;
+
+        return DOUBLE_DISPLAY.includes(val)
+          ? [{
+            $suffix: ':not([inline])',
+            display: val,
+          }, {
+            $suffix: '[inline]',
+            display: `inline-${val}`,
+          }]
+          : { display: val };
+      },
     };
   }
 
@@ -100,7 +117,7 @@ export default class NuBase extends HTMLElement {
       DEFAULTS_MAP[this.nuTag] ||
       (DEFAULTS_MAP[this.nuTag] = {
         ...(this.nuParent.nuAllDefaults || {}),
-        ...this.nuDefaults,
+        ...(this.nuDefaults || {}),
       })
     );
   }

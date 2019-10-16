@@ -49,9 +49,21 @@
         <nu-line></nu-line>
         <nu-block id="description">Very very long product description</nu-block>
         <nu-flex gap="1" items="center|start" flow="row|column-reverse">
-          <nu-btn special>
+          <nu-btn special role="checkbox">
             <nu-icon name="dollar-sign" inline></nu-icon>
             Order now
+            <nu-popup display="flex" flow="column" gap="0" padding=".5 0">
+              <nu-menuitem prevent>Item 1</nu-menuitem>
+              <nu-menuitem>Item 2</nu-menuitem>
+            </nu-popup>
+          </nu-btn>
+          <nu-btn special role="checkbox">
+            <nu-icon name="dollar-sign" inline></nu-icon>
+            Order now
+            <nu-popupmenu>
+              <nu-menuitem prevent>Item 1</nu-menuitem>
+              <nu-menuitem>Item 2</nu-menuitem>
+            </nu-popupmenu>
           </nu-btn>
           <nu-block mod="w6" color="special" size="lg|md" id="price" padding=".5x 1x">
             Only $99.99
@@ -142,7 +154,7 @@
         </nu-block>
 
         <nu-block>
-          <nu-tablist gap="2||.5|0">
+          <nu-tablist value="first" gap="2||.5|0">
             <nu-tab controls="first">First</nu-tab>
             <nu-tab controls="second">Second</nu-tab>
             <nu-tab controls="third">Third</nu-tab>

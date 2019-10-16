@@ -33,6 +33,8 @@ import Nude, {
   NuRow,
   NuRowGroup,
   NuTable,
+  NuPopup,
+  NuPopupMenu,
 } from './index';
 
 Nude.elements = {
@@ -68,6 +70,8 @@ Nude.elements = {
   NuRow,
   NuRowGroup,
   NuTable,
+  NuPopup,
+  NuPopupMenu,
 };
 
 Nude.init(

@@ -1,6 +1,6 @@
-import NuFlex from './flex';
+import NuRadioGroup from './radiogroup';
 
-export default class NuTablist extends NuFlex {
+export default class NuTablist extends NuRadioGroup {
   static get nuTag() {
     return 'nu-tablist';
   }
@@ -27,70 +27,5 @@ export default class NuTablist extends NuFlex {
         --nu-flex-gap: 1rem;
       }
     `;
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
-    if (!this.nuIsMounted) return;
-
-    switch (name) {
-      case 'value':
-        this.nuSetValue(value, false);
-
-        break;
-    }
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    setTimeout(() => {
-      const value = this.nuGetValue();
-
-      if (value) {
-        this.nuSetValue(value, false);
-      } else {
-        setTimeout(() => {
-          const el = this.querySelector(`nu-tab[value]:not([disabled]), nu-tab[controls]:not([disabled])`);
-
-          if (el) {
-            this.nuSetValue(el.nuGetValue());
-          }
-        }, 0);
-      }
-    }, 0);
-  }
-
-  nuGetValue() {
-    const value = this.getAttribute('value');
-
-    if (value) {
-      const el = this.querySelector(`nu-tab[aria-pressed="true"]:not([disabled])`);
-
-      return el ? el.nuGetValue() : value;
-    }
-  }
-
-  nuSetValue(value, announce = true) {
-    setTimeout(() => {
-      [...this.childNodes].forEach(el => {
-        if (el.tagName !== 'NU-TAB') return;
-
-        if (el.nuGetValue() === value) {
-          el.nuSetValue(true);
-          el.nuSetAria('selected', true);
-          el.nuSetFocusable(false);
-        } else {
-          el.nuSetValue(false);
-          el.nuSetAria('selected', false);
-          el.nuSetFocusable(true);
-        }
-      });
-
-      if (announce) {
-        this.nuEmit('input', value);
-      }
-    }, 0);
   }
 }

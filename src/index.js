@@ -33,6 +33,8 @@ import NuRow from './elements/row';
 import NuRowGroup from './elements/rowgroup';
 import NuCell from './elements/cell';
 import NuColumnHeader from './elements/columnheader';
+import NuPopup from './elements/popup';
+import NuPopupMenu from './elements/popupmenu';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -175,4 +177,6 @@ export {
   NuRow,
   NuRowGroup,
   NuTable,
+  NuPopup,
+  NuPopupMenu,
 };

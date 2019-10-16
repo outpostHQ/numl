@@ -29,5 +29,7 @@ export default class NuTooltip extends NuBlock {
     if (parent && parent.nuElement && !parent.hasAttribute('describedby')) {
       this.parentNode.setAttribute('describedby', this.nuId);
     }
+
+    this.nuSetAria('hidden', true);
   }
 }
