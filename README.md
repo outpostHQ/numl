@@ -10,20 +10,45 @@
 
 ## Features
 
-* **Simple API** of elements based on well-known web standards.
-* **Powerful** layout elements that help you create virtually **any interface** you want.
+* **Descriptive** markup language that based on well-known web standards.
+* **Powerful** layout attributes that help you create virtually **any interface** you want.
 * **Responsiveness** with effort so little you've never seen before.
 * **Future proof** thanks to implementation based on **Custom Elements**.
-* **Transferable** markup to be easily copy-pasted to your new project.
+* **Transferable** markup that can be easily copy-pasted to your new project.
 * **Compatible** with any popular framework: Vue, React, Angular, Svelte, etc...
-* **Compact** size with no dependencies.
 * **Dark Mode** effortlessly. Darker colors will be generated automatically based on colors you use in you app.
 * **CSS Generation** under the hood to create only CSS your application needs.
 * **No Build Step** needed. Edit attributes and move elements in runtime and see how they change instantly.
 * **No-JS** support with pregenerated CSS.
-* **Support** for all modern browsers. (small polyfill needed)
+* **Support** for all modern browsers. (small polyfill needed for Edge)
 * **Accessibility** features to simplify ARIA declarations and automate them where it's possible.
 * **Framework** to create your own elements, modifiers and plugins.
+
+## FAQ
+
+**Q: Why should I use NUDE instead of popular CSS-framework like Tailwind?**
+
+**A:** Popular CSS-frameworks tend to decide what you need and provide tools that limit the power of CSS. Unlike them, NUDE unleashes the power of CSS by making it dynamic and parametrizable.
+
+**Q: Why should I use NUDE instead of writing CSS from the scratch?**
+
+**A:** CSS is complex but the modern web is not possible without it. Instead of replacing CSS, NUDE simplifies every aspect of CSS development by providing handy abstractions for responsiveness, theming, complex selectors, etc. It provides reasonable defaults leaving you with ability to change them if you need it. It greatly reduces amount of work that needed to be done not only for developers but for designers too!
+
+**Q: I am a web designer. How can NUDE help me?**
+
+**A:** Many web designers learn CSS frameworks these days. So it’s a good choice to try. NUDE is much more flexible and easy to learn than other powerful alternatives. For example it do a lot of color magic by generating and adapting them for various purposes. Also it can help you to learn more about modern best practices and accessibility features of the web which we think is very important. 
+
+**Q: How can I use NUDE with older browsers?**
+
+**A:** NUDE substantially depends on Custom Elements and Custom Properties. The CE can be easily polyfilled back to IE11 but CP can’t. While NUDE methodology don’t strictly require CP, they makes NUDE implementation much easier and faster in performance. See details in the related [ISSUE](https://github.com/tenphi/nude/issues/2).
+
+**Q: Is NUDE SEO-friendly?**
+
+**A:** NUDE’s focus is to provide a language for creating accessible and beautiful interfaces. SEO is a completely different task that often contradicts to best practices and accessibility. We believe such task can be achieved separately by using preprocessors and other technics without touching NUDE philosophy.
+
+**Q: Is NUDE production-ready?**
+
+**A:** It's NOT despite the fact it's widely used in production by the Author of NUDE. And he is working hard to make it production-ready for everyone as soon as possible but without community support it will be a long run. So give it a try, leave some feedback, post issues and tell friends to support our project!
 
 ## Usage
 Add `numl.js` to your page and initialize it.
@@ -126,7 +151,7 @@ Run `npm run play` to view test page with few examples.
 *IN PROGRESS*
 
 * [Introduction](docs/introduction.md)
-* [Modifiers](docs/modifiers.md)
+* [Modifiers](docs/modifiers.md) – *DEPRECATED* (will be updated in `v0.7`)
 * [Attributes](docs/attributes.md) - `5% Complete`
 * [Markup methodology](docs/markup.md) - `0% Complete`
 * [Theme system](docs/themes.md)

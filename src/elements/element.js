@@ -62,6 +62,7 @@ export const PLACE_ABS_INSIDE = [
 export const PLACE_ABS = [
   'inside',
   'cover',
+  'fixed',
   ...PLACE_ABS_INSIDE,
   ...PLACE_ABS_OUTSIDE,
   ...PLACE_ABS_CENTER,
@@ -429,11 +430,19 @@ export default class NuElement extends NuBase {
       place(val) {
         if (!val) return;
 
+        let pos = '';
+
+        if (hasMod(val, 'relative')) {
+          val = excludeMod(val, 'relative');
+
+          pos = 'relative';
+        }
+
         const abs = PLACE_ABS.find(place => hasMod(val, place));
 
         if (abs) {
           const styles = {
-            position: 'absolute',
+            position: hasMod(val, 'fixed') ? 'fixed' : 'absolute',
           };
           let transX = 0;
           let transY = 0;
@@ -524,9 +533,15 @@ export default class NuElement extends NuBase {
           return styles;
         }
 
-        return typeof (PLACE_VALUES[2]) === 'string'
-          ? { [PLACE_VALUES[2]]: val }
-          : PLACE_VALUES[2](val);
+        if (pos) {
+          return typeof (PLACE_VALUES[2]) === 'string'
+            ? { [PLACE_VALUES[2]]: val, position: pos }
+            : { ...PLACE_VALUES[2](val), position: pos };
+        } else {
+          return typeof (PLACE_VALUES[2]) === 'string'
+            ? { [PLACE_VALUES[2]]: val }
+            : PLACE_VALUES[2](val);
+        }
       },
       z(val) {
         if (val == null) return;
@@ -565,9 +580,10 @@ export default class NuElement extends NuBase {
           return obj;
         }, {});
 
-        themeStyles.color = themeStyles['--nu-theme-color'];
-
-        return themeStyles;
+        return [themeStyles, {
+          $suffix: ':not([color])',
+          color: themeStyles['--nu-theme-color'],
+        }];
       },
       color(val) {
         if (val == null) return;

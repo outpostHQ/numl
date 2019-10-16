@@ -1,5 +1,7 @@
 # Modifiers
 
+**This specification is DEPRECATED and will be replaced in `v0.7`. Documentation will be updated. Migration will be very simple so you can continue to use it for now.**
+
 It's not very handy to use unique attributes to specify static modifiers for the blocks like `font-style: italic;` or `text-decoration: underline`. To solve this problem NUDE uses atomic CSS approach by providing `mod` attribute.
 
 ```html
