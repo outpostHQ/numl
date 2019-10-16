@@ -1,6 +1,6 @@
 import NuDecorator from './decorator';
 import { error } from '../helpers';
-import { parseStyles, injectCSS } from '../css';
+import { injectCSS } from '../css';
 
 export default class NuVar extends NuDecorator {
   static get nuTag() {

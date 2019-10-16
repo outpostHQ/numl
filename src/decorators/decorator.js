@@ -1,11 +1,14 @@
-import { generateId } from '../helpers';
 import NuBase from '../base';
 
 export default class NuDecorator extends NuBase {
-  nuConnected() {
-    super.nuConnected();
+  static get nuTag() {
+    return 'nu-decorator'; // abstract tag
+  }
 
-    if (!this.parentNode) return;
+  static get nuDefaults() {
+    return {
+      display: 'none',
+    };
   }
 
   get nuParentContext() {

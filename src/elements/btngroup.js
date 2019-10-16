@@ -1,9 +1,10 @@
+import NuRadioGroup from './radiogroup';
 import NuFlex from './flex';
-import { unit, convertUnit } from '../helpers';
+import { convertUnit } from '../helpers';
 
 const FLOW_ATTR = NuFlex.nuAllAttrs.flow;
 
-export default class NuBtnGroup extends NuFlex {
+export default class NuBtnGroup extends NuRadioGroup {
   static get nuTag() {
     return 'nu-btngroup';
   }
@@ -79,72 +80,5 @@ export default class NuBtnGroup extends NuFlex {
         --nu-border-radius: inherit !important;
       }
     `;
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
-    switch (name) {
-      case 'value':
-        this.nuSetValue(value, false);
-
-        break;
-    }
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    const value = this.getAttribute('value');
-
-    if (value) {
-      this.nuSetValue(value, false);
-    } else {
-      setTimeout(() => {
-        const el = this.querySelector(`nu-btn[value]`);
-
-        if (el) {
-          this.nuSetValue(el.nuGetValue());
-        }
-      }, 0);
-    }
-  }
-
-  nuGetValue() {
-    const value = this.getAttribute('value');
-
-    if (value) {
-      const el = this.querySelector(`nu-btn[aria-pressed="true"]`);
-
-      if (el) {
-        return el.getAttribute('value');
-      } else {
-        return value;
-      }
-    }
-  }
-
-  nuSetValue(value, announce = true) {
-    setTimeout(() => {
-      [...this.childNodes].forEach(el => {
-        if (el.tagName !== 'NU-BTN') return;
-
-        // if (el.hasAttribute('disabled')) return;
-
-        if (el.getAttribute('value') === value) {
-          el.nuSetAria('checked', true);
-          el.nuSetFocusable(false);
-          el.nuSetValue(true);
-        } else {
-          el.nuSetAria('checked', false);
-          el.nuSetFocusable(true);
-          el.nuSetValue(false);
-        }
-      });
-
-      if (announce) {
-        this.nuEmit('input', value);
-      }
-    }, 0);
   }
 }

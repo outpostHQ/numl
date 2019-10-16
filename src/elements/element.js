@@ -131,7 +131,7 @@ const baseColorUnit = colorUnit('color', 'text');
  */
 export default class NuElement extends NuBase {
   static get nuTag() {
-    return ''; // abstract tag
+    return 'nu-element'; // abstract tag
   }
 
   /**
@@ -160,23 +160,6 @@ export default class NuElement extends NuBase {
         const tmp = val.split(':');
 
         return { [tmp[0]]: convertUnit(tmp[1]) };
-      },
-      /**
-       * CSS Display value.
-       * @param val
-       */
-      display(val) {
-        if (!val) return;
-
-        return DOUBLE_DISPLAY.includes(val)
-          ? [{
-            $suffix: ':not([inline])',
-            display: val,
-          }, {
-            $suffix: '[inline]',
-            display: `inline-${val}`,
-          }]
-          : { display: val };
       },
       width: sizeUnit('width'),
       height: sizeUnit('height'),
@@ -669,6 +652,16 @@ export default class NuElement extends NuBase {
       label: '',
       labelledby: '',
       describedby: '',
+      valuemin: '',
+      valuemax: '',
+      valuenow: '',
+      setsize: '',
+      posinset: '',
+      expanded: '',
+      owns: '',
+      flowto: '',
+      haspopup: '',
+      activedescendant: ''
     };
   }
 
@@ -973,6 +966,7 @@ export default class NuElement extends NuBase {
       case 'valuenow':
       case 'setsize':
       case 'posinset':
+      case 'expanded':
         this.nuSetAria(name, value);
         break;
       case 'controls':
@@ -980,6 +974,7 @@ export default class NuElement extends NuBase {
       case 'describedby':
       case 'owns':
       case 'flowto':
+      case 'haspopup':
       case 'activedescendant':
         setImmediate(() => {
           const ariaValue = value.split(/\s+/g).map((id) => {

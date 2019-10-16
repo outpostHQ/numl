@@ -1,12 +1,12 @@
 import NuElement from './element';
 import focusable from '../mixins/focusable';
-import { generateId, bindActiveEvents, setImmediate,  colorUnit } from '../helpers';
+import { generateId, bindActiveEvents, setImmediate, colorUnit } from '../helpers';
 
 const backgroundUnit = colorUnit('background-color', 'background');
 
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
-    return '';
+    return 'nu-activeelement'; // abstract tag
   }
 
   static get nuRole() {
@@ -92,10 +92,6 @@ export default class NuActiveElement extends NuElement {
   nuConnected() {
     super.nuConnected();
 
-    if (!this.hasAttribute('pressed')) {
-      this.nuSetValue(false);
-    }
-
     this.nuSetFocusable(!this.hasAttribute('disabled'));
 
     bindActiveEvents.call(this);
@@ -105,9 +101,7 @@ export default class NuActiveElement extends NuElement {
 
       switch (this.parentNode.nuRole) {
         case 'radiogroup':
-          if (this.parentNode.nuGetValue()) {
-            this.setAttribute('role', 'radio');
-          }
+          this.setAttribute('role', 'radio');
           break;
         case 'menu':
           this.setAttribute('role', 'menuitem');
@@ -119,14 +113,22 @@ export default class NuActiveElement extends NuElement {
           return;
       }
 
-      if (this.parentNode.nuSetValue) {
-        this.parentNode.nuSetValue(this.parentNode.nuGetValue(), false);
+      if (this.nuIsToggle()) {
+        this.nuSetPressed(this.nuPressed);
       }
+
+      if (this.hasAttribute('to')
+        && this.getAttribute('role') === 'button') {
+        this.setAttribute('role', 'link');
+      }
+
+      this.nuControl();
     }, 0);
   }
 
   nuTap() {
-    if (this.hasAttribute('disabled')) return;
+    if (this.hasAttribute('disabled')
+      || this.getAttribute('tabindex') === '-1') return;
 
     if (this.hasAttribute('scrollto')) {
       this.nuScrollTo(this.getAttribute('scrollto'));
@@ -140,12 +142,38 @@ export default class NuActiveElement extends NuElement {
 
     this.nuEmit('tap');
 
-    const parent = this.parentNode;
-    const value = this.nuGetValue();
+    this.nuToggle();
+    this.nuControl();
 
-    if (value && parent.nuSetValue && parent.nuGetValue() !== value) {
-      parent.nuSetValue(value);
+    if (this.hasAttribute('prevent')) return;
+
+    const popup = this.nuQueryParent('[nu-popup]');
+
+    if (popup) {
+      popup.parentNode.nuSetPressed(false);
+      popup.parentNode.focus();
     }
+  }
+
+  nuControl() {
+    if (!this.hasAttribute('controls')) return;
+
+    const role = this.getAttribute('role');
+
+    setTimeout(() => {
+      (this.getAttribute('aria-controls') || '').split(' ')
+        .forEach(id => {
+          const el = document.getElementById(id);
+
+          if (!el) return;
+
+          el.style.display = this.nuPressed ? '' : 'none';
+
+          if (role === 'tab' && !el.hasAttribute('aria-labelledby')) {
+            el.setAttribute('aria-labelledby', this.nuId);
+          }
+        });
+    }, 0);
   }
 
   nuChanged(name, oldValue, value) {
@@ -159,55 +187,66 @@ export default class NuActiveElement extends NuElement {
       case 'pressed':
         value = value != null;
 
-        if (value && parent.nuSetValue) {
-          parent.nuSetValue(value);
-        } else {
-          this.nuSetValue(value);
-        }
+        this.nuSetPressed(value);
 
         break;
       case 'value':
-        if (this.parentNode && this.parentNode.nuSetValue) {
-          this.parentNode.nuSetValue(this.parentNode.nuGetValue());
-        }
+        this.nuSetValue(value);
+
+        break;
+      case 'controls':
+        if (this.hasAttribute('value')) break;
+
+        this.nuSetValue(value);
+
         break;
     }
   }
 
+  nuToggle() {
+    if (!this.nuIsToggle()) return;
+
+    this.nuSetPressed(!this.nuPressed);
+  }
+
+  nuSetPressed(pressed) {
+    if (pressed === this.nuPressed) return;
+
+    this.nuPressed = pressed;
+
+    if (!this.nuIsToggle()) return;
+
+    if (this.nuIsRadio()) {
+      this.setAttribute('tabindex', pressed ? '-1' : '0');
+    }
+
+    this.nuSetAria('pressed', pressed);
+    this.nuEmit('pressed', pressed);
+    this.nuControl();
+
+    const innerPopup = this.querySelector('[nu-popup]');
+
+    if (innerPopup) {
+      innerPopup[this.nuPressed ? 'nuOpen' : 'nuClose']();
+    }
+  }
+
   nuSetValue(value) {
-    this.nuSetAria('pressed', value);
+    if (value === this.nuValue) return;
 
-    setImmediate(() => {
-      if (this.nuRole !== 'tab') return;
+    this.nuValue = value;
 
-      if (value !== this.pressed) return;
-
-      const controlsName = this.getAttribute('controls');
-
-      if (!controlsName) return;
-
-      const link = this.nuInvertQueryById(controlsName);
-
-      if (link && link.nuSetMod) {
-        const linkId = generateId(link);
-        const tabId = generateId(this);
-
-        link.nuSetAria('controls', linkId);
-        link.nuSetAria('labelledby', tabId);
-        link.nuSetMod('hidden', !value);
-
-        if (!link.nuRole) {
-          link.nuRole = 'tabpanel';
-        }
-      }
-    });
+    setTimeout(() => {
+      this.nuEmit('value', value);
+      this.nuControl();
+    }, 0);
   }
 
-  get pressed() {
-    return this.getAttribute('aria-pressed') === 'true';
+  nuIsToggle() {
+    return ['checkbox', 'radio', 'tab'].includes(this.getAttribute('role'));
   }
 
-  nuGetValue() {
-    return this.getAttribute('value') || this.getAttribute('controls');
+  nuIsRadio() {
+    return ['radio', 'tab'].includes(this.getAttribute('role'));
   }
 }

@@ -5,6 +5,10 @@ export default class NuCard extends NuBlock {
     return 'nu-card';
   }
 
+  static get nuRole() {
+    return 'article';
+  }
+
   static get nuDefaults() {
     return {
       padding: '2x',
@@ -12,6 +16,7 @@ export default class NuCard extends NuBlock {
       background: '',
       border: '1x',
       radius: '1x',
+      gap: '0',
     };
   }
 

@@ -46,7 +46,7 @@ export default class NuBtn extends NuActiveElement {
         color: var(--nu-theme-special-background-color) !important;
       }
       
-      ${nuTag}[special]:not([background]) > * {
+      ${nuTag}[special]:not([background]) > *:not([nu-popup]) {
         --nu-theme-border-color: var(--nu-theme-special-background-color);
         --nu-theme-hover-color: --nu-theme-special-hover-color;
       }
