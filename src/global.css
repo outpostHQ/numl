@@ -11,7 +11,7 @@ body {
   --nu-default-border-color: rgba(210, 221, 236, 1);
   --nu-default-special-color: rgba(24, 133, 217, 1);
   --nu-default-shadow-color: rgba(0, 0, 0, 0.2);
-  --nu-default-special-background-color: rgba(255, 255, 255, 1);
+  --nu-default-special-contrast-color: rgba(255, 255, 255, 1);
   --nu-default-shadow-intensity: 0.2;
   --nu-default-shadow-opacity: 0.1;
   --nu-default-focus-color: rgba(139, 194, 236, 1);
@@ -29,7 +29,7 @@ body {
   --nu-theme-border-color: var(--nu-default-border-color);
   --nu-theme-special-color: var(--nu-default-special-color);
   --nu-theme-shadow-color: var(--nu-default-shadow-color);
-  --nu-theme-special-background-color: var(--nu-default-special-background-color);
+  --nu-theme-special-contrast-color: var(--nu-default-special-contrast-color);
   --nu-theme-shadow-intensity: var(--nu-default-shadow-intensity);
   --nu-theme-shadow-opacity: var(--nu-default-shadow-opacity);
   --nu-theme-focus-color: var(--nu-default-focus-color);

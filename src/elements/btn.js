@@ -41,7 +41,7 @@ export default class NuBtn extends NuActiveElement {
       ${nuTag}[special] {
         --nu-theme-shadow-opacity: var(--nu-theme-special-shadow-opacity);
         --nu-theme-hover-color: var(--nu-theme-special-hover-color);
-        --nu-theme-heading-color: var(--nu-theme-special-background-color);
+        --nu-theme-heading-color: var(--nu-theme-special-contrast-color);
       }
       
       ${nuTag}[special]:not([background]) {
@@ -49,11 +49,11 @@ export default class NuBtn extends NuActiveElement {
       }
       
       ${nuTag}[special]:not([color]) {
-        color: var(--nu-theme-special-background-color) !important;
+        color: var(--nu-theme-special-contrast-color) !important;
       }
       
       ${nuTag}[special] > *:not([theme]):not([nu-popup]) {
-        --nu-theme-border-color: var(--nu-theme-special-background-color);
+        --nu-theme-border-color: var(--nu-theme-special-contrast-color);
       }
     `;
   }

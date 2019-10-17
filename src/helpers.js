@@ -13,7 +13,7 @@ export const THEME_COLOR_ATTRS_LIST = [
   'heading-color',
   'hover-color',
   'special-hover-color',
-  'special-background-color',
+  'special-contrast-color',
   'focus-color',
   'minor-color',
   'minor-background-color',
