@@ -32,9 +32,9 @@ export default class NuBtn extends NuActiveElement {
         --nu-hover-color: var(--nu-theme-hover-color);
       }
 
-      ${nuTag}[disabled][aria-pressed="true"],
-      ${nuTag}[nu-active]:not([disabled]):not([aria-pressed="true"]),
-      ${nuTag}[aria-pressed="true"]:not([disabled]):not([nu-active]) {
+      ${nuTag}[disabled][nu-pressed],
+      ${nuTag}[nu-active]:not([disabled]):not([nu-pressed]),
+      ${nuTag}[nu-pressed]:not([disabled]):not([nu-active]) {
         --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
       }
 

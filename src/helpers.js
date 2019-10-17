@@ -670,7 +670,7 @@ export function hslToRgb(h, s, l) {
 export const STATES_MAP = {
   focus: '[nu-focus]',
   hover: ':hover',
-  pressed: '[aria-pressed="true"]',
+  pressed: '[nu-pressed]',
   disabled: '[disabled]',
   active: '[nu-active]',
   sticky: '[nu-sticky]',
