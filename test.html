@@ -49,7 +49,7 @@
         <nu-line></nu-line>
         <nu-block id="description">Very very long product description</nu-block>
         <nu-flex gap="1" items="center|start" flow="row|column-reverse">
-          <nu-btn special role="checkbox">
+          <nu-btn special role="checkbox" color="special-background :pressed[red]">
             <nu-icon name="dollar-sign" inline></nu-icon>
             Order now
             <nu-popupmenu>
@@ -185,10 +185,13 @@
 
         <nu-grid rows="1rem auto"></nu-grid>
 
-        <nu-input display="grid" columns="auto 1fr">
-          <nu-icon name="x"></nu-icon>
-          <input/>
-        </nu-input>
+        <nu-group border="1x" radius="1x">
+          <nu-icon name="user" width="2.5"></nu-icon>
+          <nu-input display="grid" grow="1" border="0">
+            <input/>
+          </nu-input>
+          <nu-btn border="0" special>Submit</nu-btn>
+        </nu-group>
 
         <nu-card
           id="some-card"

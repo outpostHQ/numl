@@ -36,6 +36,7 @@ import NuColumnHeader from './elements/columnheader';
 import NuPopup from './elements/popup';
 import NuPopupMenu from './elements/popupmenu';
 import NuSubMenu from './elements/submenu';
+import NuGroup from './elements/group';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -181,4 +182,5 @@ export {
   NuPopup,
   NuPopupMenu,
   NuSubMenu,
+  NuGroup,
 };
