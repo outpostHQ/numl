@@ -50,25 +50,10 @@ export default class NuBtn extends NuActiveElement {
       
       ${nuTag}[special]:not([color]) {
         color: var(--nu-theme-special-background-color) !important;
-      }      
+      }
       
       ${nuTag}[special] > *:not([theme]):not([nu-popup]) {
         --nu-theme-border-color: var(--nu-theme-special-background-color);
-      }
-
-      ${nuTag}[cell] {
-        align-self: stretch;
-        justify-self: stretch;
-        width: 100%;
-        height: 100%;
-      }
-      
-      ${nuTag}[cell]:not([radius]) {
-        --nu-border-radius: 0;
-      }
-      
-      ${nuTag}[cell]:not([border]) {
-        border: none;
       }
     `;
   }
