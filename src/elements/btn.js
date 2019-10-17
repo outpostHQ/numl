@@ -15,6 +15,7 @@ export default class NuBtn extends NuActiveElement {
       gap: '1x',
       content: 'center',
       background: '',
+      mod: 'nowrap',
     };
   }
 
@@ -37,17 +38,22 @@ export default class NuBtn extends NuActiveElement {
         --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
       }
 
-      ${nuTag}[special]:not([background]) {
+      ${nuTag}[special] {
         --nu-theme-shadow-opacity: var(--nu-theme-special-shadow-opacity);
         --nu-theme-hover-color: var(--nu-theme-special-hover-color);
         --nu-theme-heading-color: var(--nu-theme-special-background-color);
-        background-color: var(--nu-theme-special-color) !important;
-        color: var(--nu-theme-special-background-color) !important;
       }
       
-      ${nuTag}[special]:not([background]) > *:not([nu-popup]) {
+      ${nuTag}[special]:not([background]) {
+        background-color: var(--nu-theme-special-color) !important;
+      }
+      
+      ${nuTag}[special]:not([color]) {
+        color: var(--nu-theme-special-background-color) !important;
+      }      
+      
+      ${nuTag}[special] > *:not([theme]):not([nu-popup]) {
         --nu-theme-border-color: var(--nu-theme-special-background-color);
-        --nu-theme-hover-color: --nu-theme-special-hover-color;
       }
 
       ${nuTag}[cell] {
