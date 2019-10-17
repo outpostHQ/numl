@@ -33,7 +33,6 @@ export default class NuBtn extends NuActiveElement {
 
       ${nuTag}[disabled][aria-pressed="true"],
       ${nuTag}[nu-active]:not([disabled]):not([aria-pressed="true"]),
-      ${nuTag}[aria-pressed="true"][role="radio"][nu-active]:not([disabled]),
       ${nuTag}[aria-pressed="true"]:not([disabled]):not([nu-active]) {
         --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
       }
