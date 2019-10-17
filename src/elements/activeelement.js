@@ -99,27 +99,28 @@ export default class NuActiveElement extends NuElement {
     setTimeout(() => {
       if (!this.parentNode) return;
 
-      switch (this.parentNode.nuRole) {
-        case 'radiogroup':
-          this.setAttribute('role', 'radio');
-          break;
-        case 'menu':
-          this.setAttribute('role', 'menuitem');
-          break;
-        case 'tablist':
-          this.setAttribute('role', 'tab');
-          break;
-        default:
-          return;
-      }
-
       if (this.nuIsToggle()) {
         this.nuSetPressed(this.nuPressed);
       }
 
-      if (this.hasAttribute('to')
-        && this.getAttribute('role') === 'button') {
-        this.setAttribute('role', 'link');
+      if (this.getAttribute('role') === 'button') {
+        if (this.hasAttribute('to')) {
+          this.setAttribute('role', 'link');
+        } else {
+          switch (this.parentNode.nuRole) {
+            case 'radiogroup':
+              this.setAttribute('role', 'radio');
+              break;
+            case 'menu':
+              this.setAttribute('role', 'menuitem');
+              break;
+            case 'tablist':
+              this.setAttribute('role', 'tab');
+              break;
+            default:
+              return;
+          }
+        }
       }
 
       this.nuControl();

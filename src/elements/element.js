@@ -967,6 +967,7 @@ export default class NuElement extends NuBase {
       case 'setsize':
       case 'posinset':
       case 'expanded':
+      case 'haspopup':
         this.nuSetAria(name, value);
         break;
       case 'controls':
@@ -974,7 +975,6 @@ export default class NuElement extends NuBase {
       case 'describedby':
       case 'owns':
       case 'flowto':
-      case 'haspopup':
       case 'activedescendant':
         setImmediate(() => {
           const ariaValue = value.split(/\s+/g).map((id) => {

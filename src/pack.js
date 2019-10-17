@@ -35,6 +35,7 @@ import Nude, {
   NuTable,
   NuPopup,
   NuPopupMenu,
+  NuSubMenu,
 } from './index';
 
 Nude.elements = {
@@ -72,6 +73,7 @@ Nude.elements = {
   NuTable,
   NuPopup,
   NuPopupMenu,
+  NuSubMenu,
 };
 
 Nude.init(

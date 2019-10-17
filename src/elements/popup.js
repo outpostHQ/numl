@@ -18,7 +18,7 @@ export default class NuPopup extends NuCard {
       place: 'outside-bottom',
       border: '1x outside',
       width: '100%',
-      mod: 'wrap no-overflow',
+      mod: 'wrap',
       theme: 'default',
     };
   }
@@ -27,7 +27,7 @@ export default class NuPopup extends NuCard {
     super.nuConnected();
 
     this.nuSetMod('popup', true);
-    this.parentNode.setAttribute('haspopup', this.nuId);
+    this.parentNode.nuSetAria('haspopup', true);
 
     this.addEventListener('mousedown', (event) => {
       event.nuPopup = this;
@@ -44,32 +44,54 @@ export default class NuPopup extends NuCard {
     });
 
     this.nuClose();
+
+    this.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        this.parentNode.nuSetPressed(false);
+      }
+    });
   }
 
   nuOpen() {
     this.style.display = this.getAttribute('display')
       || this.constructor.nuAllDefaults.display;
+    this.parentNode.nuSetAria('expanded', true);
+
+    const activeElement = this.querySelector('[tabindex]:not([tabindex="-1"]');
+
+    if (activeElement) activeElement.focus();
   }
 
   nuClose() {
     this.style.display = 'none';
+    this.parentNode.nuSetAria('expanded', false);
+
+    const expandedElements = [...this.querySelectorAll('[aria-expanded="true"]')];
+
+    expandedElements.forEach(el => {
+      el.nuSetPressed(false);
+    });
   }
 }
 
 function findParentPopup(element) {
+  const elements = [];
+
   do {
-    if (element.nuHasMod && element.hasAttribute('haspopup')) {
-      return element.querySelector('[nu-popup]');
+    if (element.hasAttribute && element.hasAttribute('aria-haspopup')) {
+      elements.push(element.querySelector('[nu-popup]'));
     }
   } while (element = element.parentNode);
+
+  return elements;
 }
 
 function handleOutside(event) {
-  const popup = event.nuPopup || findParentPopup(event.target);
+  const popups = event.nuPopup || findParentPopup(event.target);
 
   [...document.querySelectorAll('[nu-popup]')]
     .forEach((currentPopup) => {
-      if (currentPopup !== popup && currentPopup.parentNode.nuSetPressed) {
+      if (!popups.includes(currentPopup)) {
         currentPopup.parentNode.nuSetPressed(false);
       }
     });

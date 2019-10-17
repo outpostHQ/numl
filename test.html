@@ -52,10 +52,21 @@
           <nu-btn special role="checkbox">
             <nu-icon name="dollar-sign" inline></nu-icon>
             Order now
-            <nu-popup display="flex" flow="column" gap="0" padding=".5 0">
+            <nu-popupmenu>
               <nu-menuitem prevent>Item 1</nu-menuitem>
-              <nu-menuitem>Item 2</nu-menuitem>
-            </nu-popup>
+              <nu-menuitem prevent role="checkbox">
+                Item 2
+                <nu-submenu>
+                  <nu-menuitem prevent>Item 1</nu-menuitem>
+                  <nu-menuitem prevent role="checkbox">
+                    Item 2
+                    <nu-popupmenu place="outside-right top">
+                      Something else
+                    </nu-popupmenu>
+                  </nu-menuitem>
+                </nu-submenu>
+              </nu-menuitem>
+            </nu-popupmenu>
           </nu-btn>
           <nu-btn special role="checkbox">
             <nu-icon name="dollar-sign" inline></nu-icon>
