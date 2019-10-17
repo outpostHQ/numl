@@ -39,7 +39,7 @@ export default class NuBadge extends NuElement {
         background-color: var(--nu-theme-special-color) !important;
       }
       ${nuTag}[special]:not([color]) {
-        color: var(--nu-theme-special-background-color) !important;
+        color: var(--nu-theme-special-contrast-color) !important;
       }
     `;
   }

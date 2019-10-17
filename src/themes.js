@@ -48,7 +48,7 @@ export function generateTheme(props, darkProps, parentProps) {
     padding: convertUnit(props.padding || parentProps.padding),
     borderWidth: convertUnit(props.borderWidth || parentProps.borderWidth),
     shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
-    specialBackgroundColor: props.specialBackgroundColor,
+    specialContrastColor: props.specialContrastColor,
     // Use parent shadow intensity value only if both shadow color and shadow intensity
     // are not specified in the props
     shadowIntensity: props.shadowIntensity || (!props.shadowColor && parentProps.shadowIntensity),
@@ -60,7 +60,7 @@ export function generateTheme(props, darkProps, parentProps) {
     subtleColor: props.subtleColor,
   };
 
-  lightTheme.specialBackgroundColor = lightTheme.specialBackgroundColor
+  lightTheme.specialContrastColor = lightTheme.specialContrastColor
     || (contastRatio(lightTheme.specialColor, lightTheme.backgroundColor) * 1.5 > contastRatio(lightTheme.specialColor, lightTheme.color)
       ? lightTheme.backgroundColor : lightTheme.color);
 
@@ -90,7 +90,7 @@ export function generateTheme(props, darkProps, parentProps) {
       });
     }
 
-    darkTheme.specialBackgroundColor = generalizeColor(darkProps.specialBackgroundColor)
+    darkTheme.specialContrastColor = generalizeColor(darkProps.specialContrastColor)
       || (contastRatio(darkTheme.specialColor, lightTheme.backgroundColor) * 1.5 > contastRatio(darkTheme.specialColor, lightTheme.color)
         ? lightTheme.backgroundColor : lightTheme.color);
   } else {
@@ -116,7 +116,7 @@ export function generateTheme(props, darkProps, parentProps) {
       hoverColor: setAlphaChannel(theme.hoverColor
         || theme.specialColor, .1),
       specialHoverColor: setAlphaChannel(theme.specialHoverColor
-        || theme.specialBackgroundColor, .075),
+        || theme.specialContrastColor, .075),
     });
 
     const shadowIntensity = Math.min(Number(theme.shadowIntensity), 1);
@@ -127,13 +127,13 @@ export function generateTheme(props, darkProps, parentProps) {
       * (.7 - getLuminance(theme.specialColor) * .5) * 5, 1);
 
     // if dark mode
-    if (i && getLuminance(theme.specialBackgroundColor) > .9) {
+    if (i && getLuminance(theme.specialContrastColor) > .9) {
       theme.specialColor = mixColors(theme.specialColor, 'rgb(0, 0, 0)', .1);
-      theme.specialBackgroundColor = mixColors(theme.specialBackgroundColor, 'rgb(0, 0, 0)', .1);
+      theme.specialContrastColor = mixColors(theme.specialContrastColor, 'rgb(0, 0, 0)', .1);
     }
 
     theme.specialMinorColor = theme.specialMinorColor
-        || mixColors(theme.specialBackgroundColor, theme.specialColor, .2);
+        || mixColors(theme.specialContrastColor, theme.specialColor, .2);
 
     return Object.keys(theme).reduce((map, propName) => {
       map[`--nu-theme-${toKebabCase(propName)}`] = theme[propName];
