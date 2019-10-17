@@ -27,7 +27,6 @@ export default class NuPopup extends NuCard {
     super.nuConnected();
 
     this.nuSetMod('popup', true);
-    this.parentNode.nuSetAria('haspopup', true);
 
     this.addEventListener('mousedown', (event) => {
       event.nuPopup = this;
@@ -48,13 +47,14 @@ export default class NuPopup extends NuCard {
     this.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         this.parentNode.nuSetPressed(false);
+        this.parentNode.focus();
+        event.stopPropagation();
       }
     });
   }
 
   nuOpen() {
-    this.style.display = this.getAttribute('display')
-      || this.constructor.nuAllDefaults.display;
+    this.hidden = false;
     this.parentNode.nuSetAria('expanded', true);
 
     const activeElement = this.querySelector('[tabindex]:not([tabindex="-1"]');
@@ -63,7 +63,7 @@ export default class NuPopup extends NuCard {
   }
 
   nuClose() {
-    this.style.display = 'none';
+    this.hidden = true;
     this.parentNode.nuSetAria('expanded', false);
 
     const expandedElements = [...this.querySelectorAll('[aria-expanded="true"]')];
