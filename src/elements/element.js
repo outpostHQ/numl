@@ -421,6 +421,23 @@ export default class NuElement extends NuBase {
           pos = 'relative';
         }
 
+        if (val.trim() === 'fill') {
+          return [{
+            'min-width': '100%',
+            'min-height': '100%',
+            'align-self': 'stretch',
+            'justify-self': 'stretch',
+          }, {
+            $suffix: ':not([radius])',
+            '--nu-border-radius': '0',
+          }, {
+            $suffix: ':not([border])',
+            'border': 'none',
+            '--nu-border-shadow': 'inset 0 0 0 0 var(--nu-theme-border-color)',
+            '--nu-focus-inset': 'inset 0 0',
+          }];
+        }
+
         const abs = PLACE_ABS.find(place => hasMod(val, place));
 
         if (abs) {

@@ -90,19 +90,6 @@ export default class NuInput extends NuBlock {
         width: calc(var(--nu-padding) * 2 + 1em);
       }
 
-      ${nuTag}[cell] {
-        width: 100%;
-        height: 100%;
-      }
-      
-      ${nuTag}[cell]:not([radius]) {
-        --nu-border-radius: 0rem;
-      }
-      
-      ${nuTag}[cell]:not([border]) {
-        border: none;
-      }
-
       ${focusable(nuTag, { force: true })}
     `;
   }

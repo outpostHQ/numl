@@ -31,8 +31,5 @@ export default function focusable(tag, { force, cell } = {}) {
     ${context}${tag}:not([disabled])[nu-focus] {
       --nu-focus-color: var(--nu-theme-focus-color);
     }
-    ${context}${tag}:not([disabled])[nu-focus]${cell ? '' : '[cell]'} {
-      --nu-focus-inset: inset 0 0;
-    }
   `;
 }
