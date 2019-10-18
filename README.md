@@ -1,4 +1,7 @@
 # <img src="https://github.com/tenphi/nude/blob/master/logo.png?raw=true" alt="NUDE Elements" width="416">
+
+[![Join the chat at https://gitter.im/tenphi/nude](https://badges.gitter.im/tenphi/nude.svg)](https://gitter.im/tenphi/nude?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 **NUDE Elements** is a mix of four concepts: 
 
 * **Language** - Alternative markup language for the modern web that meant to be a partial HTML/CSS replacement to describe complex responsive interfaces and dynamic relations between elements without frustration but with fun and highest compatibility with other modern technologies.
