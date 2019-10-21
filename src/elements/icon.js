@@ -105,6 +105,12 @@ export default class NuIcon extends NuBlock {
     }
   }
 
+  nuConnected() {
+    super.nuConnected();
+
+    this.nuSetAria('hidden', false);
+  }
+
   nuUpdateTheme(attrTheme) {
     super.nuUpdateTheme(attrTheme);
   }

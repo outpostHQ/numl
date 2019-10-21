@@ -1,13 +1,12 @@
 import NuElement from './element';
 import { unit } from '../helpers';
+import borderAttr from '../attributes/border';
 
 const gapAttr = unit('border-spacing', {
   convert: true,
   multiplier: 'var(--nu-theme-padding)',
   empty: 'var(--nu-theme-padding)',
 });
-
-const borderAttr = NuElement.nuAttrs.border;
 
 export default class NuTable extends NuElement {
   static get nuTag() {
@@ -41,6 +40,10 @@ export default class NuTable extends NuElement {
           {
             ...styles,
             $suffix: ' nu-cell:not([border])',
+          },
+          {
+            ...styles,
+            $suffix: ' nu-rowheader:not([border])',
           },
           {
             ...styles,

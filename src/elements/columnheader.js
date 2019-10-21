@@ -1,21 +1,12 @@
-import NuCell from './cell';
+import NuRowHeader from './rowheader';
 
-export default class NuColumnHeader extends NuCell {
+export default class NuColumnHeader extends NuRowHeader {
   static get nuTag() {
     return 'nu-columnheader';
   }
 
   static get nuRole() {
     return 'columnheader';
-  }
-
-  static get nuDefaults() {
-    return {
-      display: 'table-cell',
-      color: 'minor',
-      background: 'minor-background',
-      mod: 'w6',
-    };
   }
 
   nuConnected() {
@@ -26,5 +17,14 @@ export default class NuColumnHeader extends NuCell {
     if (parentGroup && parentGroup.constructor.nuRole === 'rowgroup') {
       parentGroup.setAttribute('display', 'table-header-group');
     }
+  }
+
+  static get nuDefaults() {
+    return {
+      color: 'minor',
+      background: 'minor-background',
+      mod: 'w6',
+      border: null,
+    };
   }
 }
