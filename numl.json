@@ -23,7 +23,7 @@
           "description": "Style `grid-template-columns`"
         },
         {
-          "name": "cols",
+          "name": "columns",
           "description": "Style `grid-template-columns`"
         },
         {
@@ -712,10 +712,6 @@
       "description": "Style `grid-column`"
     },
     {
-      "name": "col",
-      "description": "Style `grid-column`"
-    },
-    {
       "name": "row",
       "description": "Style `grid-row`"
     },
@@ -752,24 +748,12 @@
       "description": "Style `border-radius`"
     },
     {
-      "name": "flex-basis",
-      "description": "Style `flex-basis`"
-    },
-    {
       "name": "basis",
       "description": "Style `flex-basis`"
     },
     {
-      "name": "flex-grow",
-      "description": "Style `flex-grow`"
-    },
-    {
       "name": "grow",
       "description": "Style `flex-grow`"
-    },
-    {
-      "name": "flex-shrink",
-      "description": "Style `flex-shrink`"
     },
     {
       "name": "shrink",
@@ -789,13 +773,8 @@
       ]
     },
     {
-      "name": "mod",
-      "description": "Modifiers attribute",
-      "values": [
-        { "name": "default" },
-        { "name": "minor" },
-        { "name": "primary" }
-      ]
+      "name": "text",
+      "description": "Text modifiers"
     }
   ]
 }

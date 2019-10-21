@@ -46,7 +46,7 @@ export default class NuActiveElement extends NuElement {
       background: '',
       radius: '',
       mod: 'nowrap',
-      transition: 'box-shadow, color, background-image, background-color',
+      transition: 'box-shadow, color, background-color',
     };
   }
 
@@ -61,8 +61,19 @@ export default class NuActiveElement extends NuElement {
         position: relative;
         opacity: 1;
         z-index: 0; /* to make :hover::after z-index work as expected */
-        background-image: linear-gradient(to right, var(--nu-hover-color), var(--nu-hover-color));
+        user-select: none;
       }
+      
+      ${nuTag}::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: inherit;
+        background-color: var(--nu-hover-color);
+      } 
 
       ${nuTag}[tabindex] {
         cursor: pointer;

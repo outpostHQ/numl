@@ -19,6 +19,9 @@ export default function gapAttr(val, defaults) {
   }, {
     $suffix: `[display$="flex"]>*`,
     '--nu-flex-gap': val,
+  }, {
+    $suffix: `[display]:not([display$="flex"]):not([display$="grid"])>*`,
+    '--nu-flex-gap': val,
   }];
 
   if (isGridByDefault) {
@@ -26,9 +29,12 @@ export default function gapAttr(val, defaults) {
       $suffix: ':not([display])',
       'grid-gap': val,
     });
-  }
-
-  if (isFlexByDefault) {
+  } else if (isFlexByDefault) {
+    arr.push({
+      $suffix: `:not([display])>*`,
+      '--nu-flex-gap': val,
+    });
+  } else {
     arr.push({
       $suffix: `:not([display])>*`,
       '--nu-flex-gap': val,

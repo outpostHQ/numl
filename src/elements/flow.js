@@ -1,6 +1,6 @@
-import NuFlex from './flex';
+import NuElement from './element';
 
-export default class NuFlow extends NuFlex {
+export default class NuFlow extends NuElement {
   static get nuTag() {
     return 'nu-flow';
   }
@@ -8,6 +8,7 @@ export default class NuFlow extends NuFlex {
   static get nuDefaults() {
     return {
       flow: 'column',
+      gap: 0,
     };
   }
 
