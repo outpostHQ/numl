@@ -73,6 +73,7 @@ export default class NuActiveElement extends NuElement {
         left: 0;
         border-radius: inherit;
         background-color: var(--nu-hover-color);
+        transition: background-color var(--nu-theme-animation-time) linear;
       } 
 
       ${nuTag}[tabindex] {
