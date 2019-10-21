@@ -1,6 +1,6 @@
-import NuElement from './element';
+import NuBlock from './block';
 
-export default class NuFlow extends NuElement {
+export default class NuFlow extends NuBlock {
   static get nuTag() {
     return 'nu-flow';
   }
@@ -10,15 +10,5 @@ export default class NuFlow extends NuElement {
       flow: 'column',
       gap: 0,
     };
-  }
-
-  static nuCSS({ nuTag }) {
-    return `
-      ${nuTag}{
-        align-content: stretch;
-        justify-content: flex-start;
-        align-items: stretch;
-      }
-    `;
   }
 }
