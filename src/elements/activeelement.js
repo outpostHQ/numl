@@ -106,10 +106,6 @@ export default class NuActiveElement extends NuElement {
 
       if (!this.parentNode) return;
 
-      if (this.nuIsToggle()) {
-        this.nuSetPressed(this.nuPressed);
-      }
-
       if (this.getAttribute('role') === 'button') {
         if (this.hasAttribute('to')) {
           this.setAttribute('role', 'link');
@@ -128,6 +124,10 @@ export default class NuActiveElement extends NuElement {
               return;
           }
         }
+      }
+
+      if (this.nuIsToggle()) {
+        this.nuSetPressed(this.nuPressed);
       }
 
       this.nuControl();
@@ -175,7 +175,7 @@ export default class NuActiveElement extends NuElement {
 
           if (!el) return;
 
-          el.style.display = this.nuPressed ? '' : 'none';
+          el.hidden = this.nuPressed !== true;
 
           if (role === 'tab' && !el.hasAttribute('aria-labelledby')) {
             el.setAttribute('aria-labelledby', this.nuId);
@@ -220,9 +220,9 @@ export default class NuActiveElement extends NuElement {
   nuSetPressed(pressed) {
     if (pressed === this.nuPressed) return;
 
-    this.nuPressed = pressed;
-
     if (!this.nuIsToggle()) return;
+
+    this.nuPressed = pressed;
 
     if (this.nuIsRadio()) {
       this.setAttribute('tabindex', pressed ? '-1' : '0');
@@ -252,7 +252,9 @@ export default class NuActiveElement extends NuElement {
   }
 
   nuIsToggle() {
-    return this.hasAttribute('aria-pressed') || this.hasAttribute('aria-expanded');
+    return this.hasAttribute('aria-pressed')
+      || this.hasAttribute('aria-expanded')
+      || ['checkbox', 'radio', 'tab'].includes(this.getAttribute('role'));
   }
 
   nuIsRadio() {

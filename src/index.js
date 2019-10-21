@@ -1,6 +1,5 @@
 import './global.css';
 import css from './css';
-import modifiers from './modifiers';
 // elements
 import NuBase from './base';
 import NuElement from './elements/element';
@@ -33,14 +32,13 @@ import NuRow from './elements/row';
 import NuRowGroup from './elements/rowgroup';
 import NuCell from './elements/cell';
 import NuColumnHeader from './elements/columnheader';
+import NuRowHeader from './elements/rowheader';
 import NuPopup from './elements/popup';
 import NuPopupMenu from './elements/popupmenu';
-import NuSubMenu from './elements/submenu';
 import NuGroup from './elements/group';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
-import NuMod from './decorators/mod';
 import NuVar from './decorators/var';
 // helpers
 import {
@@ -61,6 +59,7 @@ import {
   parseAllValues,
   mixColors,
   setImmediate,
+  extractMods,
 } from './helpers';
 
 let enableTimerId, disableTimerId;
@@ -98,7 +97,6 @@ window.addEventListener('keydown', enableFocus);
 
 const Nude = {
   tags: {},
-  modifiers,
   css,
   helpers: {
     invertColor,
@@ -115,6 +113,7 @@ const Nude = {
     parseAllValues,
     mixColors,
     setImmediate,
+    extractMods,
   },
   version: process.env.APP_VERSION,
 };
@@ -168,7 +167,6 @@ export {
   NuMenuItem,
   NuLink,
   NuTheme,
-  NuMod,
   NuVar,
   NuDecorator,
   NuActiveElement,
@@ -176,11 +174,11 @@ export {
   NuTooltip,
   NuCell,
   NuColumnHeader,
+  NuRowHeader,
   NuRow,
   NuRowGroup,
   NuTable,
   NuPopup,
   NuPopupMenu,
-  NuSubMenu,
   NuGroup,
 };

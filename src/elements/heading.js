@@ -1,5 +1,5 @@
 import NuBlock from './block';
-import { SIZES } from '../modifiers';
+import { SIZES } from '../attributes/text';
 import { devMode, warn } from '../helpers';
 
 const LEVELS = [1,2,3,4,5,6];

@@ -1,4 +1,5 @@
 import Nude, {
+  NuElement,
   NuBase,
   NuGrid,
   NuBlock,
@@ -22,7 +23,6 @@ import Nude, {
   NuMenuItem,
   NuLink,
   NuTheme,
-  NuMod,
   NuVar,
   NuDecorator,
   NuActiveElement,
@@ -30,16 +30,17 @@ import Nude, {
   NuTooltip,
   NuCell,
   NuColumnHeader,
+  NuRowHeader,
   NuRow,
   NuRowGroup,
   NuTable,
   NuPopup,
   NuPopupMenu,
-  NuSubMenu,
   NuGroup,
 } from './index';
 
 Nude.elements = {
+  NuElement,
   NuGrid,
   NuBlock,
   NuHeading,
@@ -62,19 +63,18 @@ Nude.elements = {
   NuMenuItem,
   NuLink,
   NuTheme,
-  NuMod,
   NuVar,
   NuDecorator,
   NuTriangle,
   NuTooltip,
   NuCell,
   NuColumnHeader,
+  NuRowHeader,
   NuRow,
   NuRowGroup,
   NuTable,
   NuPopup,
   NuPopupMenu,
-  NuSubMenu,
   NuGroup,
 };
 

@@ -94,8 +94,18 @@ export default class NuInput extends NuBlock {
     `;
   }
 
-  nuCSSRef() {
+  nuGetRef() {
     this.nuRef = this.querySelector('input');
+
+    if (!this.nuRef) {
+      const input = document.createElement('input');
+
+      this.appendChild(input);
+
+      this.nuRef = input;
+    }
+
+    return this.nuRef;
   }
 
   nuChanged(name, oldValue, value) {
@@ -103,7 +113,7 @@ export default class NuInput extends NuBlock {
 
     switch (name) {
       case 'disabled':
-        this.nuCSSRef();
+        this.nuGetRef();
 
         if (this.nuRef) {
           this.nuRef.disabled = value != null;

@@ -1,4 +1,6 @@
 import NuCard from './card';
+import placeAttr from '../attributes/place';
+import { extractMods } from '../helpers';
 
 export default class NuPopup extends NuCard {
   static get nuTag() {
@@ -7,6 +9,31 @@ export default class NuPopup extends NuCard {
 
   static get nuRole() {
     return 'dialog';
+  }
+
+  static get nuAttrs() {
+    return {
+      place(val) {
+        const { mods } = extractMods(val, ['top', 'bottom']);
+
+        let sideStyle;
+
+        if (mods.includes('top')) {
+          sideStyle = 'margin-top'
+        } else if (mods.includes('bottom')) {
+          sideStyle = 'margin-bottom';
+        }
+
+        if (sideStyle) {
+          return [{
+            $suffix: ':not([space])',
+            [sideStyle]: 'calc(var(--nu-theme-padding) * -1)',
+          }, placeAttr(val)];
+        }
+
+        return placeAttr(val);
+      }
+    };
   }
 
   static get nuDefaults() {

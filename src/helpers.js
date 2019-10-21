@@ -905,3 +905,20 @@ window.addEventListener('message', function (event) {
 
   TASKS.splice(0);
 });
+
+export function extractMods(val, modList) {
+  const arr = val.split(/\s+/g);
+  const mods = [];
+
+  const value = arr.filter(mod => {
+    if (modList.includes(mod)) {
+      mods.push(mod);
+
+      return false;
+    }
+
+    return true;
+  }).join(' ');
+
+  return { value, mods };
+}
