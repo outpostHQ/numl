@@ -171,7 +171,8 @@ export default function placeAttr(val) {
       transY = '-50%';
     }
 
-    styles.transform = `translate(${transX}, ${transY})`;
+    styles['--nu-abs-transform'] = `translate(${transX}, ${transY})`;
+    styles.transform = 'var(--nu-abs-transform, translate(0, 0)) var(--nu-local-transform, translate(0, 0))';
 
     return styles;
   }

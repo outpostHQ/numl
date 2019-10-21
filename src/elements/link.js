@@ -14,7 +14,7 @@ export default class NuLink extends NuActiveElement {
     return {
       display: 'inline-block',
       color: 'special',
-      mod: 'nowrap',
+      text: 'nowrap',
       cursor: 'pointer',
       radius: '.5x',
     };

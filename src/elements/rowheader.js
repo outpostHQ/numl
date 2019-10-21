@@ -13,7 +13,7 @@ export default class NuRowHeader extends NuCell {
     return {
       color: 'minor',
       background: 'minor-background',
-      mod: 'w6',
+      text: 'w6',
       border: '1x right',
     };
   }

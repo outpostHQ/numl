@@ -15,7 +15,7 @@ export default class NuBtn extends NuActiveElement {
       gap: '1x',
       content: 'center',
       background: '',
-      mod: 'nowrap',
+      text: 'nowrap',
     };
   }
 
