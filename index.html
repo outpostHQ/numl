@@ -353,7 +353,7 @@
 
       <nu-heading level="3">Group buttons</nu-heading>
 
-      <nu-btngroup value="one">
+      <nu-btngroup value="one" id="btn-group">
         <nu-btn value="one">One</nu-btn>
         <nu-btn value="two">Two</nu-btn>
         <nu-btn value="three">Three</nu-btn>
@@ -642,11 +642,11 @@
 </nu-block>
 
 <script>
-// const btn = Nude.getElementById("btn-group");
-//
-// btn.addEventListener('input', function (evt) {
-//   console.log('!', evt.detail, evt.target.value);
-// });
+const btn = Nude.getElementById("btn-group");
+
+btn.addEventListener('input', function (evt) {
+  console.log('!', evt.detail);
+});
 </script>
 </body>
 
