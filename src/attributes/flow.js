@@ -23,14 +23,27 @@ export default function flowAttr(val, defaults) {
   const dirStyle = FLEX_MAP[val];
   const arr = [];
 
-  if (isGridValue) {
-    if (isGridByDefault) {
-      arr.push({
-        $suffix: ':not([display])',
-        'grid-auto-flow': val,
-      });
-    }
+  if (isGridByDefault) {
+    arr.push({
+      $suffix: ':not([display])',
+      'grid-auto-flow': val,
+    });
+  } else if (isFlexByDefault) {
+    arr.push({
+      $suffix: ':not([display])',
+      'flex-flow': flexValue,
+    }, {
+      $suffix: `:not([display])>:not(:last-child)`,
+      [dirStyle]: 'var(--nu-flex-gap)',
+    });
+  } else {
+    arr.push({
+      $suffix: `:not([display])>:not(:last-child)`,
+      'margin-bottom': 'var(--nu-flex-gap)',
+    });
+  }
 
+  if (isGridValue) {
     arr.push({
       $suffix: '[display$="grid"]',
       'grid-auto-flow': val,
@@ -38,16 +51,6 @@ export default function flowAttr(val, defaults) {
   }
 
   if (isFlexValue) {
-    if (isFlexByDefault) {
-      arr.push({
-        $suffix: ':not([display])',
-        'flex-flow': flexValue,
-      }, {
-        $suffix: `:not([display])>:not(:last-child)`,
-        [dirStyle]: 'var(--nu-flex-gap)',
-      });
-    }
-
     arr.push({
       $suffix: '[display$="flex"]',
       'flex-flow': flexValue,

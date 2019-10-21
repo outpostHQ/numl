@@ -32,10 +32,15 @@
   <!--  #1885d9-->
   <nu-var name="--my-padding" value="2|1.5|1|.5"></nu-var>
 
-  <nu-flex flow="column" gap="1">
+  <nu-flow gap="1">
     <nu-heading level="1">NUDE Elements playground</nu-heading>
 
     <nu-heading level="2">Complex example</nu-heading>
+
+    <nu-btn special color="special-contrast :pressed[red]">
+      <nu-icon name="dollar-sign" inline></nu-icon>
+      Order now
+    </nu-btn>
 
     <nu-card
       display="flex"
@@ -129,7 +134,7 @@
 
     <nu-heading level="2">Themes</nu-heading>
 
-    <nu-card labelledby=":prev" display="flex" gap="1" flow="column">
+    <nu-card labelledby=":prev" gap="1">
       <nu-heading level="3">Simple-colored cards</nu-heading>
 
       <nu-theme
@@ -154,7 +159,7 @@
         special-color="#fff"></nu-theme>
 
       <nu-grid columns="1fr 1fr|1fr" gap="1">
-        <nu-card display="flex" flow="column" gap=".5" theme="language">
+        <nu-card gap=".5" theme="language">
           <nu-heading level="3" size="h5" inline>Language</nu-heading>
           <nu-block>
             Alternative markup language for the modern web that meant to be a partial HTML/CSS
@@ -164,7 +169,7 @@
           </nu-block>
           <nu-btn special>Learn more</nu-btn>
         </nu-card>
-        <nu-card display="flex" flow="column" gap=".5" theme="methodology">
+        <nu-card gap=".5" theme="methodology">
           <nu-heading level="3" size="h5">Methodology</nu-heading>
           <nu-block grow="1">
             Simple and intuitive methodology to ensure your apps look and work great. It
@@ -173,7 +178,7 @@
           </nu-block>
           <nu-btn special>Learn more</nu-btn>
         </nu-card>
-        <nu-card display="flex" flow="column" gap=".5" theme="framework">
+        <nu-card gap=".5" theme="framework">
           <nu-heading level="3" size="h5">Framework</nu-heading>
           <nu-block grow="1">
             Powerful next-generation JS-Powered CSS-Framework based on Custom Elements that solves
@@ -182,7 +187,7 @@
           </nu-block>
           <nu-btn special>Learn more</nu-btn>
         </nu-card>
-        <nu-card display="flex" flow="column" gap=".5" theme="library">
+        <nu-card gap=".5" theme="library">
           <nu-heading level="3" size="h5">Library</nu-heading>
           <nu-block grow="1">
             Highly-customizable built-in components to ensure you have everything to start
@@ -220,7 +225,7 @@
 
       <nu-block>A color for border and line elements.</nu-block>
 
-      <nu-card display="flex" gap="1" flow="row">
+      <nu-card display="flex" flow="row" gap="1">
         <nu-block>Side</nu-block>
         <nu-line orient="y"></nu-line>
         <nu-block>Side</nu-block>
@@ -250,17 +255,17 @@
 
       <nu-block>To differentiate similar blocks from each other.</nu-block>
 
-      <nu-flow height="5">
-        <nu-block background=":even[subtle]">Block 1</nu-block>
-        <nu-block background=":even[subtle]">Block 2</nu-block>
-        <nu-block background=":even[subtle]">Block 3</nu-block>
-        <nu-block background=":even[subtle]">Block 4</nu-block>
+      <nu-flow border>
+        <nu-block background=":even[subtle]" padding>Block 1</nu-block>
+        <nu-block background=":even[subtle]" padding>Block 2</nu-block>
+        <nu-block background=":even[subtle]" padding>Block 3</nu-block>
+        <nu-block background=":even[subtle]" padding>Block 4</nu-block>
       </nu-flow>
     </nu-card>
 
     <nu-heading level="2">Layout</nu-heading>
 
-    <nu-card labelledby=":prev" display="flex" flow="column" gap=".5">
+    <nu-card labelledby=":prev" gap=".5">
       <nu-heading level="3">Flexbox</nu-heading>
 
       <nu-heading level="4">Simple layout with Flexbox using gap polyfill</nu-heading>
@@ -326,7 +331,7 @@
 
     <nu-heading level="2">Lines</nu-heading>
 
-    <nu-card labelledby=":prev" display="flex" flow="column" gap="1">
+    <nu-card labelledby=":prev" gap="1">
       <nu-heading level="3">Horizontal line</nu-heading>
 
       <nu-flow>
@@ -342,7 +347,7 @@
 
     <nu-heading level="2">Buttons</nu-heading>
 
-    <nu-card labelledby=":prev" display="flex" flow="column" gap="1">
+    <nu-card labelledby=":prev" gap="1">
       <nu-flex gap=".5">
         <nu-btn>Simple button</nu-btn>
         <nu-btn special>Special button</nu-btn>
@@ -398,7 +403,7 @@
 
     <nu-heading level="2">Inputs</nu-heading>
 
-    <nu-card labelledby=":prev" display="flex" flow="column" gap="1">
+    <nu-card labelledby=":prev" gap="1">
       <nu-heading level="3">Simple input</nu-heading>
 
       <nu-block>
@@ -539,7 +544,7 @@
 
     <nu-heading level="2">Tables</nu-heading>
 
-    <nu-card labelledby=":prev" display="flex" flow="column" gap="1">
+    <nu-card labelledby=":prev" gap="1">
       <nu-heading level="3">Table with column headers</nu-heading>
 
       <nu-card padding="0" mod="no-overflow">
@@ -620,7 +625,7 @@
 
     <nu-heading level="2">States & complex states</nu-heading>
 
-    <nu-card labelledby=":prev" display="flex" flow="column" gap="1">
+    <nu-card labelledby=":prev" gap="1">
       <nu-heading level="3">Change color of toggle button</nu-heading>
 
       <nu-block>
@@ -638,7 +643,7 @@
       </nu-block>
     </nu-card>
 
-  </nu-flex>
+  </nu-flow>
 </nu-block>
 
 <script>

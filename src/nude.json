@@ -2,7 +2,7 @@
   "types": [
     {
       "id": "Color",
-      "description": "",
+      "description": ""
     }
   ],
   "elements": [
@@ -24,7 +24,7 @@
           "name": "cursor",
           "type": "Cursor",
           "description": "Mapping to `cursor` style."
-        },
+        }
       ]
     }
   ]

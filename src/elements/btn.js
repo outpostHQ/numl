@@ -24,8 +24,6 @@ export default class NuBtn extends NuActiveElement {
       ${nuTag} {
         --nu-toggle-color: transparent;
         --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
-        
-        user-select: none;
       }
 
       ${nuTag}:not([disabled])[tabindex]:hover {
