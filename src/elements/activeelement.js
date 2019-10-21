@@ -64,7 +64,7 @@ export default class NuActiveElement extends NuElement {
         user-select: none;
       }
       
-      ${nuTag}::after {
+      ${nuTag}[tabindex]:not([tabindex="-1"]):not([disabled])::after {
         content: '';
         position: absolute;
         top: 0;
