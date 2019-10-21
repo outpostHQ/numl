@@ -17,16 +17,13 @@ export default class NuLine extends NuBlock {
           return {
             'min-width': 'var(--nu-line-size)',
             'max-width': 'var(--nu-line-size)',
-            'min-height': '100%',
-            'max-height': '100%',
+            'min-height': '1em',
             'grid-row': '1 / -1',
           };
         } else {
           return {
             'min-height': 'var(--nu-line-size)',
             'max-height': 'var(--nu-line-size)',
-            'min-width': '100%',
-            'max-width': '100%',
             'grid-column': '1 / -1',
           };
         }
