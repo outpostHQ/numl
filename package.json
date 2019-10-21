@@ -24,7 +24,13 @@
   "scripts": {
     "build": "rollup -c && size-limit",
     "dev": "rollup -c -w",
+<<<<<<< HEAD
     "play": "rm test/* && parcel --out-dir test test.html --open",
+=======
+    "play": "rm -vrf test && mkdir test && parcel --out-dir test index.html --open",
+    "build-play": "rm -vrf playground && mkdir playground && parcel build --out-dir playground index.html",
+    "upload": "npm run build-play && now --prod playground --name nude-playground",
+>>>>>>> minor build fix
     "size": "size-limit",
     "start": "npm run play",
     "prepublishOnly": "npm run build"

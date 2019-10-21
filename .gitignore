@@ -5,3 +5,5 @@ test
 .idea
 .cache
 generate/*
+playground/*
+
