@@ -30,7 +30,7 @@ export default class NuInput extends NuBlock {
       flow: 'column',
       radius: '',
       padding: '1x',
-      mod: 'center',
+      text: 'center',
       background: '',
       border: '1x',
       place: 'stretch',

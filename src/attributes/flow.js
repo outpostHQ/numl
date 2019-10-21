@@ -38,7 +38,7 @@ export default function flowAttr(val, defaults) {
     });
   } else {
     arr.push({
-      $suffix: `:not([display])>:not(:last-child)`,
+      $suffix: `[gap]:not([display])>:not(:last-child)`,
       'margin-bottom': 'var(--nu-flex-gap)',
     });
   }

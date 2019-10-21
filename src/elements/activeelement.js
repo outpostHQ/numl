@@ -45,7 +45,7 @@ export default class NuActiveElement extends NuElement {
       color: 'inherit',
       background: '',
       radius: '',
-      mod: 'nowrap',
+      text: 'nowrap',
       transition: 'box-shadow, color, background-color',
     };
   }

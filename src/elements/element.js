@@ -33,6 +33,7 @@ import spaceAttr from '../attributes/space';
 import radiusAttr from '../attributes/radius';
 import overflowAttr from '../attributes/overflow';
 import hideAttr from '../attributes/hide';
+import imageAttr from '../attributes/image';
 
 const plugins = {
   cursor: 'cursor',
@@ -132,6 +133,7 @@ export default class NuElement extends NuBase {
       theme: themeAttr,
       color: colorAttr,
       background: backgroundAttr,
+      image: imageAttr,
       transform: transformAttr,
       text: textAttr,
       cursor: 'cursor',
