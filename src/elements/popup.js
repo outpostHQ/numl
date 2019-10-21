@@ -78,6 +78,14 @@ export default class NuPopup extends NuCard {
         event.stopPropagation();
       }
     });
+
+    this.addEventListener('mouseenter', () => {
+      this.parentNode.style.setProperty('--nu-hover-color', 'transparent');
+    });
+
+    this.addEventListener('mouseleave', () => {
+      this.parentNode.style.removeProperty('--nu-hover-color');
+    });
   }
 
   nuOpen() {
