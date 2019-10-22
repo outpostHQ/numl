@@ -24,7 +24,7 @@ export default class NuTablist extends NuRadioGroup {
   static nuCSS({ nuTag }) {
     return `
       ${nuTag}:not([gap]) > * {
-        --nu-flex-gap: 1rem;
+        --nu-gap: 1rem;
       }
     `;
   }
