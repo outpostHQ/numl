@@ -294,8 +294,12 @@
 
       <nu-heading level="4">Wrapped flexbox.</nu-heading>
 
-      <nu-block color="special">Container of wrapped flexbox and its items can't have flex layout! It's <b>polyfill</b> requirements!</nu-block>
+      <nu-block color="special">
+        Container of wrapped flexbox can't have non-zero gap attr (if it's not a grid)!
+        It's <b>polyfill</b> requirements!
+      </nu-block>
 
+      <!-- additional block wrapper is required in this case -->
       <nu-block>
         <nu-flex flow="row wrap" gap="1 2" items-grow="1">
           <nu-card width="min(20)">Card 1</nu-card>
