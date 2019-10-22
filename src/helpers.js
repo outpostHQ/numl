@@ -928,3 +928,7 @@ export function stripCalc(val) {
 
   return val.startsWith('calc(') ? val.slice(5, -1) : val;
 }
+
+export function splitStyleValue(val) {
+  return val.split(/\s+(?![^(.]+\))/);
+}
