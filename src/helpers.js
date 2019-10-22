@@ -922,3 +922,9 @@ export function extractMods(val, modList) {
 
   return { value, mods };
 }
+
+export function stripCalc(val) {
+  val = val.trim();
+
+  return val.startsWith('calc(') ? val.slice(5, -1) : val;
+}

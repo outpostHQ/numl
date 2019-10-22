@@ -39,7 +39,7 @@ export default class NuGroup extends NuElement {
     return {
       display: 'flex',
       flow: 'row',
-      gap: 'calc(var(--nu-theme-border-width) * -1)',
+      gap: '0',
       radius: '0',
     };
   }
