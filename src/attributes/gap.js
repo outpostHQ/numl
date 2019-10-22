@@ -18,10 +18,10 @@ export default function gapAttr(val, defaults) {
     'grid-gap': val,
   }, {
     $suffix: `[display$="flex"]>*`,
-    '--nu-flex-gap': val,
+    '--nu-gap': val,
   }, {
     $suffix: `[display]:not([display$="flex"]):not([display$="grid"])>*`,
-    '--nu-flex-gap': val,
+    '--nu-gap': val,
   }];
 
   if (isGridByDefault) {
@@ -32,12 +32,12 @@ export default function gapAttr(val, defaults) {
   } else if (isFlexByDefault) {
     arr.push({
       $suffix: `:not([display])>*`,
-      '--nu-flex-gap': val,
+      '--nu-gap': val,
     });
   } else {
     arr.push({
       $suffix: `:not([display])>*`,
-      '--nu-flex-gap': val,
+      '--nu-gap': val,
     });
   }
 

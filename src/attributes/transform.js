@@ -1,6 +1,19 @@
-export default function transformAttr(val) {
-  return val ? {
-    '--nu-local-transform': val,
-    'transform': 'var(--nu-abs-transform, translate(0, 0)) var(--nu-local-transform, translate(0, 0))',
-  } : null;
+export default function transformAttr(val, defaults) {
+  if (!val) return;
+
+  const hasPlaceAttr = !!defaults.place;
+
+  if (hasPlaceAttr) {
+    return [{
+      '--nu-local-transform': val,
+    }];
+  } else {
+    return [{
+      $suffix: ':not([place])',
+      'transform': val,
+    }, {
+      $suffix: '[place]',
+      '--nu-local-transform': val,
+    }]
+  }
 }

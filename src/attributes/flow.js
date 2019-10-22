@@ -34,12 +34,12 @@ export default function flowAttr(val, defaults) {
       'flex-flow': flexValue,
     }, {
       $suffix: `:not([display])>:not(:last-child)`,
-      [dirStyle]: 'var(--nu-flex-gap)',
+      [dirStyle]: 'var(--nu-gap)',
     });
   } else {
     arr.push({
       $suffix: `[gap]:not([display])>:not(:last-child)`,
-      'margin-bottom': 'var(--nu-flex-gap)',
+      'margin-bottom': 'var(--nu-gap)',
     });
   }
 
@@ -56,7 +56,7 @@ export default function flowAttr(val, defaults) {
       'flex-flow': flexValue,
     }, {
       $suffix: `[display$="flex"]>:not(:last-child)`,
-      [dirStyle]: 'var(--nu-flex-gap)',
+      [dirStyle]: 'var(--nu-gap)',
     });
   }
 

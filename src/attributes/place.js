@@ -177,13 +177,18 @@ export default function placeAttr(val) {
     return styles;
   }
 
+  let styles;
+
   if (pos) {
-    const styles = PLACE_VALUES[2](val);
+    styles = PLACE_VALUES[2](val);
 
     styles.position = pos;
-
-    return styles;
   } else {
-    return PLACE_VALUES[2](val);
+    styles = PLACE_VALUES[2](val);
   }
+
+  styles['--nu-abs-transform'] = 'translate(0, 0)';
+  styles.transform = 'var(--nu-abs-transform, translate(0, 0)) var(--nu-local-transform, translate(0, 0))';
+
+  return styles;
 };

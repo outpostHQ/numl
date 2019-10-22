@@ -20,7 +20,7 @@ export default class NuBtnGroup extends NuRadioGroup {
         return {
           $suffix: '>:not([border])',
           '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`,
-          '--nu-flex-gap': `calc(${width} * -1)`
+          '--nu-gap': `calc(${width} * -1)`
         };
       },
     };
