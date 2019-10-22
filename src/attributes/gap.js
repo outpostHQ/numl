@@ -11,8 +11,8 @@ export default function gapAttr(val) {
   val = convertUnit(val || '1x', 'var(--nu-theme-padding)');
 
   const values = splitDimensions(val);
-  const vGap = values[0];
-  const hGap = values[1];
+  const vGap = values[0] || val;
+  const hGap = values[1] || vGap;
 
   return [{
     '--nu-grid-gap': val,

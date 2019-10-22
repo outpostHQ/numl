@@ -17,8 +17,8 @@ export default class NuMenuitem extends NuBtn {
       flow: 'grid-column',
       gap: '1x',
       content: 'center start',
-      radius: 0,
-      border: 0,
+      radius: '0',
+      border: '0',
     };
   }
 

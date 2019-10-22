@@ -2,6 +2,9 @@ const MAP = {
   'no': {
     overflow: 'hidden',
   },
+  'yes': {
+    overflow: 'visible',
+  },
   'scroll': {
     overflow: 'scroll',
   },

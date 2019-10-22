@@ -9,7 +9,7 @@ export default class NuFlex extends NuBlock {
     return {
       display: 'flex',
       flow: 'row',
-      gap: 0,
+      gap: '0',
     };
   }
 }
