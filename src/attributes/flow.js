@@ -26,7 +26,7 @@ const MOD_LIST = Object.keys(FLEX_MAP).concat(['wrap', 'nowrap']);
  * @param defaults
  * @returns {*[]}
  */
-export default function flowAttr(val) {
+export default function flowAttr(val, defaults) {
   val = val.trim();
 
   if (!val) return;
@@ -54,7 +54,7 @@ export default function flowAttr(val) {
     return [{
       'flex-flow': mods.join(' '),
     }, {
-      $suffix: `[gap]>:not(:last-child)`,
+      $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:last-child)`,
       [dirStyle]: dirProp,
     }];
   }

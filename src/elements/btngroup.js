@@ -1,6 +1,6 @@
 import NuRadioGroup from './radiogroup';
 import NuGroup from './group';
-import { convertUnit } from '../helpers';
+import { convertUnit, stripCalc } from '../helpers';
 
 export default class NuBtnGroup extends NuRadioGroup {
   static get nuTag() {
@@ -15,12 +15,15 @@ export default class NuBtnGroup extends NuRadioGroup {
       border(val) {
         if (val == null) return val;
 
-        const width = val ? convertUnit(val) : 'var(--nu-theme-border-width)';
+        const width = val
+          ? convertUnit(val, 'var(--nu-theme-border-width)')
+          : 'var(--nu-theme-border-width)';
 
         return {
           $suffix: '>:not([border])',
           '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`,
-          '--nu-gap': `calc(${width} * -1)`
+          '--nu-v-gap': `calc(${stripCalc(width)} * -1) !important`,
+          '--nu-h-gap': `calc(${stripCalc(width)} * -1) !important`,
         };
       },
     };
