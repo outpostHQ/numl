@@ -51,12 +51,6 @@ export default class NuGroup extends NuElement {
         
         border-radius: calc(var(--nu-border-radius, 0) + 1px) !important;
       }
-      ${nuTag} > * {
-        --nu-gap: calc(var(--nu-theme-border-width) * -1);
-      }
-      ${nuTag}:not([gap]) > * {
-        --nu-gap: calc(var(--nu-theme-border-width) * -1);
-      }
       ${nuTag}:not([gap]) > :not(:last-child):not(:first-child) {
         --nu-border-radius: 0 !important;
       }

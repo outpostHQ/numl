@@ -1,45 +1,26 @@
-import { convertUnit } from '../helpers';
+import { convertUnit, splitDimensions } from '../helpers';
 
 /**
  * CSS Gap value. Used for flex and grid layouts.
  * @param val
  * @returns {*}
  */
-export default function gapAttr(val, defaults) {
+export default function gapAttr(val) {
   if (val == null) return;
 
   val = convertUnit(val || '1x', 'var(--nu-theme-padding)');
 
-  const isFlexByDefault = defaults.display.endsWith('flex');
-  const isGridByDefault = defaults.display.endsWith('grid');
+  const values = splitDimensions(val);
+  const vGap = values[0];
+  const hGap = values[1];
 
-  const arr = [{
-    $suffix: '[display$="grid"]',
-    'grid-gap': val,
+  return [{
+    '--nu-grid-gap': val,
+    '--nu-v-gap': vGap,
+    '--nu-h-gap': hGap,
   }, {
-    $suffix: `[display$="flex"]>*`,
-    '--nu-gap': val,
-  }, {
-    $suffix: `[display]:not([display$="flex"]):not([display$="grid"])>*`,
-    '--nu-gap': val,
+    $suffix: '>*',
+    '--nu-v-gap': `${vGap} !important`,
+    '--nu-h-gap': `${hGap} !important`,
   }];
-
-  if (isGridByDefault) {
-    arr.push({
-      $suffix: ':not([display])',
-      'grid-gap': val,
-    });
-  } else if (isFlexByDefault) {
-    arr.push({
-      $suffix: `:not([display])>*`,
-      '--nu-gap': val,
-    });
-  } else {
-    arr.push({
-      $suffix: `:not([display])>*`,
-      '--nu-gap': val,
-    });
-  }
-
-  return arr;
 }

@@ -8,7 +8,6 @@ export default class NuFlow extends NuBlock {
   static get nuDefaults() {
     return {
       flow: 'column',
-      gap: 0,
     };
   }
 }

@@ -1,9 +1,24 @@
-export const FLEX_MAP = {
+import { extractMods } from '../helpers';
+
+const FLEX_MAP = {
   row: 'margin-right',
   column: 'margin-bottom',
   'row-reverse': 'margin-left',
-  'column-reverse': 'margin-top'
+  'column-reverse': 'margin-top',
 };
+
+const FLEX_MAP_SECOND = {
+  row: 'margin-bottom',
+  column: 'margin-right',
+  'row-reverse': 'margin-top',
+  'column-reverse': 'margin-left',
+};
+
+function getProp(dir, invert = false) {
+  return (invert ^ dir.includes('row')) ? 'var(--nu-h-gap)' : 'var(--nu-v-gap)';
+}
+
+const MOD_LIST = Object.keys(FLEX_MAP).concat(['wrap', 'nowrap']);
 
 /**
  * CSS Flow value. Used for flex and grid layouts.
@@ -11,54 +26,51 @@ export const FLEX_MAP = {
  * @param defaults
  * @returns {*[]}
  */
-export default function flowAttr(val, defaults) {
+export default function flowAttr(val) {
+  val = val.trim();
+
   if (!val) return;
 
-  const flexValue = `${val} nowrap`;
-  const isFlexByDefault = defaults.display.endsWith('flex');
-  const isGridByDefault = defaults.display.endsWith('grid');
-  const isGridValue = CSS.supports('grid-auto-flow', val);
-  const isFlexValue = CSS.supports('flex-flow', flexValue);
+  const isGrid = val.trim().startsWith('grid-');
 
-  const dirStyle = FLEX_MAP[val];
-  const arr = [];
+  if (isGrid) {
+    val = val.replace('grid-', '');
 
-  if (isGridByDefault) {
-    arr.push({
-      $suffix: ':not([display])',
+    return [{
       'grid-auto-flow': val,
-    });
-  } else if (isFlexByDefault) {
-    arr.push({
-      $suffix: ':not([display])',
-      'flex-flow': flexValue,
+      'grid-gap': 'var(--nu-grid-gap, 0)',
+    }];
+  }
+
+  const { mods } = extractMods(val, MOD_LIST);
+  const dir = mods.find(mod => FLEX_MAP[mod]);
+
+  if (!dir) return;
+
+  const dirStyle = FLEX_MAP[dir];
+  const dirProp = getProp(dir);
+
+  if (!mods.includes('wrap')) {
+    return [{
+      'flex-flow': mods.join(' '),
     }, {
-      $suffix: `:not([display])>:not(:last-child)`,
-      [dirStyle]: 'var(--nu-gap)',
-    });
-  } else {
-    arr.push({
-      $suffix: `[gap]:not([display])>:not(:last-child)`,
-      'margin-bottom': 'var(--nu-gap)',
-    });
+      $suffix: `[gap]>:not(:last-child)`,
+      [dirStyle]: dirProp,
+    }];
   }
 
-  if (isGridValue) {
-    arr.push({
-      $suffix: '[display$="grid"]',
-      'grid-auto-flow': val,
-    });
-  }
+  const dirSecondStyle = FLEX_MAP_SECOND[dir];
+  const invertProp = getProp(dir, true);
 
-  if (isFlexValue) {
-    arr.push({
-      $suffix: '[display$="flex"]',
-      'flex-flow': flexValue,
-    }, {
-      $suffix: `[display$="flex"]>:not(:last-child)`,
-      [dirStyle]: 'var(--nu-gap)',
-    });
-  }
-
-  return arr;
+  return [{
+    'flex-flow': mods.join(' '),
+  },{
+    $suffix: ':not(:empty)',
+    [dirStyle]: `calc(${dirProp} * -1)`,
+    [dirSecondStyle]: `calc(${invertProp} * -1)`,
+  }, {
+    $suffix: '[gap]>*',
+    [dirStyle]: dirProp,
+    [dirSecondStyle]: invertProp,
+  }];
 }
