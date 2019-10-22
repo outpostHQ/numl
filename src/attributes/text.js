@@ -6,30 +6,6 @@ function set(name, styles) {
   MAP[name] = styles;
 }
 
-export const SIZES = {
-  xxs: [.666, 1],
-  xs: [.75, 1],
-  sm: [.875, 1.5],
-  md: [1, 1.5],
-  lg: [1.25, 2],
-  xl: [1.5, 2],
-  xxl: [2, 2.5],
-  h1: [2, 2.5, 700],
-  h2: [1.8, 2.5, 700],
-  h3: [1.6, 2, 700],
-  h4: [1.4, 2, 700],
-  h5: [1.2, 1.5, 700],
-  h6: [1, 1.5, 500],
-};
-
-Object.keys(SIZES).forEach((size) => {
-  set(size, {
-    'font-size': `${SIZES[size][0]}rem`,
-    'line-height': `${SIZES[size][1]}rem`,
-    'font-weight': size.startsWith('h') ? String(SIZES[size][2]) : '',
-  });
-});
-
 ['i', 'italic'].forEach(name => set(name, { 'font-style': 'italic' }));
 ['u', 'underline'].forEach(name => set(name, { 'text-decoration': 'underline' }));
 ['s', 'strikethrough'].forEach(name => set(name, { 'text-decoration': 'line-through' }));

@@ -1,5 +1,20 @@
-import { SIZES } from './text';
 import { convertUnit } from '../helpers';
+
+export const SIZES = {
+  xxs: [.666, 1],
+  xs: [.75, 1],
+  sm: [.875, 1.5],
+  md: [1, 1.5],
+  lg: [1.25, 2],
+  xl: [1.5, 2],
+  xxl: [2, 2.5],
+  h1: [2, 2.5],
+  h2: [1.8, 2.5],
+  h3: [1.6, 2],
+  h4: [1.4, 2],
+  h5: [1.2, 1.5],
+  h6: [1, 1.5],
+};
 
 export default function sizeAttr(val) {
   if (!val) return null;

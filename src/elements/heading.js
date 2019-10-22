@@ -1,5 +1,5 @@
 import NuBlock from './block';
-import { SIZES } from '../attributes/text';
+import { SIZES } from '../attributes/size';
 import { devMode, warn } from '../helpers';
 
 const LEVELS = [1,2,3,4,5,6];
@@ -23,7 +23,8 @@ export default class NuHeading extends NuBlock {
           'font-size': `${SIZES[`h${val}`][0]}rem`,
           'line-height': `${SIZES[`h${val}`][1]}rem`,
         }, {
-          'font-weight': `${SIZES[`h${val}`][2]}`,
+          $suffix: ':not([text])',
+          'font-weight': 700,
         }];
       },
     };
