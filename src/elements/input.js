@@ -27,7 +27,7 @@ export default class NuInput extends NuBlock {
   static get nuDefaults() {
     return {
       display: 'grid',
-      flow: 'column',
+      flow: 'grid-column',
       radius: '',
       padding: '1x',
       text: 'center',

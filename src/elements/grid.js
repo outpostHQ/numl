@@ -8,7 +8,7 @@ export default class NuGrid extends NuBlock {
   static get nuDefaults() {
     return {
       display: 'grid',
-      flow: 'row',
+      flow: 'grid-row',
     };
   }
 }

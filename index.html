@@ -286,11 +286,25 @@
 
       <nu-heading level="4">Control placement of individual items</nu-heading>
 
-      <nu-flex gap=".5" height="10">
+      <nu-flex gap=".5" height="10" content="space-between">
         <nu-card place="flex-end">Card 1</nu-card>
         <nu-card place="center">Card 2</nu-card>
         <nu-card place="flex-start">Card 3</nu-card>
       </nu-flex>
+
+      <nu-heading level="4">Wrapped flexbox.</nu-heading>
+
+      <nu-block color="special">Container of wrapped flexbox and its items can't have flex layout! It's <b>polyfill</b> requirements!</nu-block>
+
+      <nu-block>
+        <nu-flex flow="row wrap" gap="1 2" items-grow="1">
+          <nu-card width="min(20)">Card 1</nu-card>
+          <nu-card width="min(20)">Card 2</nu-card>
+          <nu-card width="min(20)">Card 3</nu-card>
+          <nu-card width="min(20)">Card 4</nu-card>
+          <nu-card width="min(20)">Card 5</nu-card>
+        </nu-flex>
+      </nu-block>
 
       <h3>Grid</h3>
 
@@ -304,7 +318,7 @@
 
       <nu-heading level="4">Control grid content position</nu-heading>
 
-      <nu-grid gap=".5" flow="column" content="space-between">
+      <nu-grid gap=".5" flow="grid-column" content="space-between">
         <nu-card>Card 1</nu-card>
         <nu-card>Card 2</nu-card>
         <nu-card>Card 3</nu-card>

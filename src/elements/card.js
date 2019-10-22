@@ -16,7 +16,6 @@ export default class NuCard extends NuBlock {
       background: '',
       border: '1x',
       radius: '1x',
-      gap: '0',
       flow: 'column',
     };
   }

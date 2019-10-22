@@ -95,7 +95,7 @@ export default class NuElement extends NuBase {
         convert: true,
       }),
       'items-padding': unit('padding', {
-        suffix: '>:not[padding]',
+        suffix: '>:not([padding])',
         multiplier: 'var(--nu-theme-padding)',
         empty: 'var(--nu-theme-padding)',
         convert: true,
