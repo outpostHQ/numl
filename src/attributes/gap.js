@@ -1,4 +1,4 @@
-import { convertUnit, splitDimensions } from '../helpers';
+import { convertUnit, splitStyleValue } from '../helpers';
 
 /**
  * CSS Gap value. Used for flex and grid layouts.
@@ -10,7 +10,7 @@ export default function gapAttr(val) {
 
   val = convertUnit(val || '1x', 'var(--nu-theme-padding)');
 
-  const values = splitDimensions(val);
+  const values = splitStyleValue(val);
   const vGap = values[0] || val;
   const hGap = values[1] || vGap;
 
