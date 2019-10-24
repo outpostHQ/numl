@@ -27,6 +27,8 @@ export const THEME_COLOR_ATTRS_LIST = [
  */
 export const ROOT_CONTEXT = 'html';
 
+export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
+
 /**
  * Script injection.
  * @param {String} src
@@ -502,12 +504,14 @@ export function contastRatio(clr1, clr2) {
  * @returns {String[]}
  */
 export function splitDimensions(style) {
-  dimStyle.padding = '';
-  dimStyle.padding = style;
+  const split = splitStyleValue(style);
 
-  return dimStyle.padding
-    ? [dimStyle.paddingTop, dimStyle.paddingRight, dimStyle.paddingBottom, dimStyle.paddingLeft]
-    : null;
+  return [
+    split[0],
+    split[1] || split[0],
+    split[2] || split[0],
+    split[3] || split[1] || split[0],
+  ];
 }
 
 /**
@@ -926,7 +930,9 @@ export function extractMods(val, modList) {
 export function stripCalc(val) {
   val = val.trim();
 
-  return val.startsWith('calc(') ? val.slice(5, -1) : val;
+  val = val.startsWith('calc(') ? val.slice(5, -1) : val;
+
+  return val.replace(/calc\(([^)]+)\)/g, (s,s1) => s1);
 }
 
 export function splitStyleValue(val) {
@@ -938,12 +944,10 @@ export function fixPosition(element) {
   const maxW = window.innerWidth;
 
   if (x + width > maxW) {
-    console.log('fix left', x, width, maxW);
     const offset = - parseInt(x + width - maxW + 1);
 
     element.style.setProperty('--nu-transform', `translate(${offset}px, 0)`);
   } else if (x < 0) {
-    console.log('fix right');
     const offset = - x;
 
     element.style.setProperty('--nu-transform', `translate(${offset}px, 0)`);

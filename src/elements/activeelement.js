@@ -1,6 +1,8 @@
 import NuElement from './element';
 import focusable from '../mixins/focusable';
-import { generateId, bindActiveEvents, setImmediate, colorUnit } from '../helpers';
+import { bindActiveEvents, colorUnit } from '../helpers';
+import transformMixin from '../mixins/transform';
+import backgroundMixin from '../mixins/background';
 
 const backgroundUnit = colorUnit('background-color', 'background');
 
@@ -50,18 +52,31 @@ export default class NuActiveElement extends NuElement {
     };
   }
 
+  static get nuMixins() {
+    return {
+      transform: transformMixin,
+      background: backgroundMixin,
+    };
+  }
+
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
         --nu-toggle-color: transparent;
         --nu-depth-color: transparent;
         --nu-hover-color: transparent;
-        --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        --nu-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
+        --nu-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
 
         position: relative;
         opacity: 1;
         z-index: 0; /* to make :hover::after z-index work as expected */
         user-select: none;
+
+        box-shadow: var(--nu-stroke-shadow),
+          var(--nu-toggle-shadow),
+          var(--nu-depth-shadow);
       }
       
       ${nuTag}[tabindex]:not([tabindex="-1"]):not([disabled])::after {

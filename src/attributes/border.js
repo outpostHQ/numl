@@ -1,4 +1,7 @@
 import { excludeMod, convertUnit } from '../helpers';
+import shadowMixin from '../mixins/shadow';
+
+const mixin = shadowMixin();
 
 const STROKE_STYLES = [
   'inside',
@@ -106,8 +109,10 @@ export default function borderAttr(val) {
       styles[`border-${dir}`] = border;
 
       return styles;
-    }, {});
+    }, {
+      ...mixin.attributes.border,
+    });
   }
 
-  return { border };
+  return { border, ...mixin.attributes.border };
 }

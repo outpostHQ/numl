@@ -9,8 +9,9 @@ import {
   computeStyles,
   invertQueryById
 } from './helpers';
-import { transformMixin } from './mixins/transform';
-import { backgroundMixin } from './mixins/background';
+import transformMixin from './mixins/transform';
+import backgroundMixin from './mixins/background';
+import shadowMixin from './mixins/shadow';
 
 export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 
@@ -134,6 +135,17 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
+   * Element's mixins to share styles between attributes
+   */
+  static get nuMixins() {
+    return {
+      background: backgroundMixin,
+      shadow: shadowMixin,
+      transform: transformMixin,
+    };
+  }
+
+  /**
    * @private
    * @returns {String[]}
    */
@@ -163,6 +175,45 @@ export default class NuBase extends HTMLElement {
 
     let defaultsCSS = '';
 
+    const mixins = this.nuMixins;
+    const mixinList = Object.keys(mixins);
+
+    mixinList.forEach(mixinName => {
+      const mixin = mixins[mixinName]();
+      const attrs = Object.keys(mixin.attributes);
+      const defaultAttrs = attrs.filter(attr => allDefaults[attr] != null);
+      const optionalAttrs = attrs.filter(attr => allDefaults[attr] == null);
+      const styles = [];
+
+      if (defaultAttrs.length) {
+        styles.push({
+          ...mixin.shared,
+        });
+      } else {
+        styles.push(...optionalAttrs.map(attr => {
+          return {
+            $suffix: `[${attr}]`,
+            ...mixin.shared,
+          };
+        }));
+      }
+
+      styles.push(...optionalAttrs.map(attr => {
+        const conditionSelector = optionalAttrs
+          .filter(attr2 => attr2 !== attr)
+          .map(attr2 => `[${attr2}]`).join('');
+
+        return {
+          $suffix: `${conditionSelector}:not([${attr}])`,
+          ...mixin.attributes[attr],
+        };
+      }));
+
+      styles.forEach((stls) => {
+        defaultsCSS += generateCSS(tag, [stls]);
+      });
+    });
+
     Object.keys(allDefaults)
       .forEach(name => {
         const value = allDefaults[name];
@@ -173,7 +224,7 @@ export default class NuBase extends HTMLElement {
 
         if (!styles) return;
 
-        const query = name === 'mod' ? tag : `${tag}:not([${name}])`;
+        const query = `${tag}:not([${name}])`;
 
         defaultsCSS += generateCSS(query, styles);
       });

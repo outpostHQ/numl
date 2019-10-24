@@ -24,7 +24,7 @@ export default class NuVar extends NuDecorator {
     const context = this.nuParentContext;
 
     if (!name || !value) {
-      return error(`modifier name or value is not specified`, this);
+      return error(`variable name or value is not specified`, this);
     }
 
     setTimeout(() => {

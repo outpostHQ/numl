@@ -172,7 +172,6 @@ export default function placeAttr(val) {
     }
 
     styles['--nu-transform-place'] = `translate(${transX}, ${transY})`;
-    styles.transform = 'var(--nu-transform-place, translate(0, 0)) var(--nu-transform, translate(0, 0))';
 
     return styles;
   }
@@ -188,7 +187,6 @@ export default function placeAttr(val) {
   }
 
   styles['--nu-transform-place'] = 'translate(0, 0)';
-  styles.transform = 'var(--nu-transform-place, translate(0, 0)) var(--nu-transform, translate(0, 0))';
 
   return styles;
 };
