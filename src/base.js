@@ -9,6 +9,8 @@ import {
   computeStyles,
   invertQueryById
 } from './helpers';
+import { transformMixin } from './mixins/transform';
+import { backgroundMixin } from './mixins/background';
 
 export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 
@@ -19,17 +21,19 @@ export const DEFAULTS_MAP = {};
  * List of all Nude tags.
  * @type {String[]}
  */
-export const TAG_LIST = [];
-/**
- * List of all Nude tags that are inline.
- * @type {String[]}
- */
-export const INLINE_TAG_LIST = [];
-/**
- * List of all Nude tags that are not inline.
- * @type {String[]}
- */
-export const BLOCK_TAG_LIST = [];
+const TAG_LIST = [];
+
+const MIXINS = {
+  transform: transformMixin,
+  background: backgroundMixin,
+};
+
+const MIXIN_MAP = {
+  background: 'background',
+  image: 'background',
+  transform: 'transform',
+  place: 'transform',
+};
 
 /**
  * @class
@@ -78,7 +82,7 @@ export default class NuBase extends HTMLElement {
       display(val) {
         if (!val) return;
 
-        return DOUBLE_DISPLAY.includes(val)
+        return (DOUBLE_DISPLAY.includes(val)
           ? [{
             $suffix: ':not([inline])',
             display: val,
@@ -86,7 +90,14 @@ export default class NuBase extends HTMLElement {
             $suffix: '[inline]',
             display: `inline-${val}`,
           }]
-          : { display: val };
+          : [{ display: val }])
+          .concat(val.endsWith('grid')
+            ? [{
+              $suffix: '>*',
+              '--nu-v-gap': '0 !important',
+              '--nu-h-gap': '0 !important',
+            }]
+            : []);
       },
     };
   }
@@ -257,12 +268,13 @@ export default class NuBase extends HTMLElement {
    * @param {String} name
    * @param {*} detail
    */
-  nuEmit(name, detail = null) {
+  nuEmit(name, detail = null, options = {}) {
     this.dispatchEvent(
       new CustomEvent(name, {
         detail,
-        bubbles: !this.hasAttribute('prevent')
-      })
+        bubbles: true,
+        ...options,
+      }),
     );
   }
 

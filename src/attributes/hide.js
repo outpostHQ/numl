@@ -1,5 +1,7 @@
 export default function hideAttr(val) {
-  if (val !== 'y' && val !== 'yes' && val !== '') return null;
+  if (val === 'y' || val === 'yes' || val === '') {
+    return { display: 'none !important' };
+  }
 
-  return { display: 'none !important' };
+  return null;
 }

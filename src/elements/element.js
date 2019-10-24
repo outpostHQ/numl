@@ -21,7 +21,7 @@ import shadowAttr from '../attributes/shadow';
 import flowAttr from '../attributes/flow';
 import gapAttr from '../attributes/gap';
 import zAttr from '../attributes/z';
-import eventsAttr from '../attributes/events';
+import interactiveAttr from '../attributes/interactive';
 import themeAttr from '../attributes/theme';
 import sizingAttr from '../attributes/sizing';
 import sizeAttr from '../attributes/size';
@@ -129,7 +129,7 @@ export default class NuElement extends NuBase {
       area: 'grid-area',
       place: placeAttr,
       z: zAttr,
-      events: eventsAttr,
+      interactive: interactiveAttr,
       theme: themeAttr,
       color: colorAttr,
       background: backgroundAttr,
@@ -527,18 +527,9 @@ export default class NuElement extends NuBase {
     return (this.nuResponsiveDecorator = styles => {
       return mediaPoints
         .map((point, i) => {
-          let stls;
+          const stls = styles[i];
 
-          if (styles[i]) {
-            stls = styles[i];
-          } else {
-            for (let j = i - 1; j >= 0; j--) {
-              if (styles[j]) {
-                stls = styles[j];
-                break;
-              }
-            }
-          }
+          if (!stls) return;
 
           return `${point}{\n${stls || ''}\n}\n`;
         })

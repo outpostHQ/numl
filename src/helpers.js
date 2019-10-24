@@ -932,3 +932,20 @@ export function stripCalc(val) {
 export function splitStyleValue(val) {
   return val.split(/\s+(?![^(.]+\))/);
 }
+
+export function fixPosition(element) {
+  const { x, width } = element.getBoundingClientRect();
+  const maxW = window.innerWidth;
+
+  if (x + width > maxW) {
+    console.log('fix left', x, width, maxW);
+    const offset = - parseInt(x + width - maxW + 1);
+
+    element.style.setProperty('--nu-transform', `translate(${offset}px, 0)`);
+  } else if (x < 0) {
+    console.log('fix right');
+    const offset = - x;
+
+    element.style.setProperty('--nu-transform', `translate(${offset}px, 0)`);
+  }
+}

@@ -29,4 +29,10 @@ export default class NuMenuitem extends NuBtn {
       }
     `;
   }
+
+  nuConnected() {
+    super.nuConnected();
+
+    this.setAttribute('type', 'submit');
+  }
 }

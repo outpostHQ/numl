@@ -1,6 +1,6 @@
 import NuCard from './card';
 import placeAttr from '../attributes/place';
-import { extractMods } from '../helpers';
+import { extractMods, fixPosition } from '../helpers';
 
 export default class NuPopup extends NuCard {
   static get nuTag() {
@@ -32,7 +32,7 @@ export default class NuPopup extends NuCard {
         }
 
         return placeAttr(val);
-      }
+      },
     };
   }
 
@@ -86,6 +86,14 @@ export default class NuPopup extends NuCard {
     this.addEventListener('mouseleave', () => {
       this.parentNode.style.removeProperty('--nu-hover-color');
     });
+
+    this.addEventListener('submit', (event) => {
+      this.nuClose();
+
+      if (this.getAttribute('role') !== 'menu') {
+        event.stopPropagation();
+      }
+    });
   }
 
   nuOpen() {
@@ -94,18 +102,18 @@ export default class NuPopup extends NuCard {
 
     const activeElement = this.querySelector('[tabindex]:not([tabindex="-1"]');
 
+    fixPosition(this);
+
+    setTimeout(() => fixPosition(this), 0);
+
     if (activeElement) activeElement.focus();
   }
 
   nuClose() {
     this.hidden = true;
-    this.parentNode.nuSetAria('expanded', false);
+    this.parentNode.nuSetPressed(false);
 
-    const expandedElements = [...this.querySelectorAll('[aria-expanded="true"]')];
-
-    expandedElements.forEach(el => {
-      el.nuSetPressed(false);
-    });
+    this.style.removeProperty('--nu-transform');
   }
 }
 

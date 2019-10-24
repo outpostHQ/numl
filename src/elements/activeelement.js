@@ -90,11 +90,11 @@ export default class NuActiveElement extends NuElement {
       }
 
       ${nuTag}[nu-active] {
-        z-index: 2;
+        z-index: 3;
       }
 
       ${nuTag}[nu-pressed] {
-        z-index: 1;
+        z-index: 2;
       }
 
       ${focusable(nuTag)}
@@ -114,6 +114,10 @@ export default class NuActiveElement extends NuElement {
       if (innerPopup) {
         this.nuSetAria('haspopup', true);
         this.nuSetAria('expanded', this.nuPressed || false);
+        this.setAttribute('role', 'button');
+        this.setAttribute('type', 'dropdown');
+
+        return;
       }
 
       if (!this.parentNode) return;
@@ -160,18 +164,13 @@ export default class NuActiveElement extends NuElement {
       this.constructor.nuNavigate(href.replace(/^!/, ''), href.startsWith('!'));
     }
 
-    this.nuEmit('tap');
+    this.nuEmit('tap', this.nuValue, { bubbles: false });
 
     this.nuToggle();
     this.nuControl();
 
-    if (this.hasAttribute('prevent')) return;
-
-    const popup = this.nuQueryParent('[nu-popup]');
-
-    if (popup) {
-      popup.parentNode.nuSetPressed(false);
-      popup.parentNode.focus();
+    if (this.getAttribute('type') === 'submit') {
+      this.nuEmit('submit', this.nuValue);
     }
   }
 

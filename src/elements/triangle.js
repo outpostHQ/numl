@@ -64,7 +64,7 @@ export default class NuTriangle extends NuElement {
       dir: 'up',
       size: '.5em 1em',
       color: 'border',
-      text: 'no-overflow',
+      overflow: 'no',
     };
   }
 

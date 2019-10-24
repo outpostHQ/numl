@@ -17,7 +17,7 @@ export default class NuTooltip extends NuBlock {
       radius: '1x',
       border: '1x outside',
       size: 'sm',
-      events: 'none',
+      interactive: 'no',
     };
   }
 

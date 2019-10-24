@@ -171,8 +171,8 @@ export default function placeAttr(val) {
       transY = '-50%';
     }
 
-    styles['--nu-abs-transform'] = `translate(${transX}, ${transY})`;
-    styles.transform = 'var(--nu-abs-transform, translate(0, 0)) var(--nu-local-transform, translate(0, 0))';
+    styles['--nu-transform-place'] = `translate(${transX}, ${transY})`;
+    styles.transform = 'var(--nu-transform-place, translate(0, 0)) var(--nu-transform, translate(0, 0))';
 
     return styles;
   }
@@ -187,8 +187,8 @@ export default function placeAttr(val) {
     styles = PLACE_VALUES[2](val);
   }
 
-  styles['--nu-abs-transform'] = 'translate(0, 0)';
-  styles.transform = 'var(--nu-abs-transform, translate(0, 0)) var(--nu-local-transform, translate(0, 0))';
+  styles['--nu-transform-place'] = 'translate(0, 0)';
+  styles.transform = 'var(--nu-transform-place, translate(0, 0)) var(--nu-transform, translate(0, 0))';
 
   return styles;
 };

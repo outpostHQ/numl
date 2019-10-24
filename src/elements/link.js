@@ -17,6 +17,7 @@ export default class NuLink extends NuActiveElement {
       text: 'nowrap',
       cursor: 'pointer',
       radius: '.5x',
+      background: 'transparent',
     };
   }
 

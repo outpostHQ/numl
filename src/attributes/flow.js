@@ -1,4 +1,5 @@
 import { extractMods } from '../helpers';
+import attrGap from './gap';
 
 const FLEX_MAP = {
   row: 'margin-right',
@@ -31,46 +32,50 @@ export default function flowAttr(val, defaults) {
 
   if (!val) return;
 
-  const isGrid = val.trim().startsWith('grid-');
-
-  if (isGrid) {
-    val = val.replace('grid-', '');
-
-    return [{
-      'grid-auto-flow': val,
-      'grid-gap': 'var(--nu-grid-gap, 0)',
-    }];
-  }
-
   const { mods } = extractMods(val, MOD_LIST);
   const dir = mods.find(mod => FLEX_MAP[mod]);
 
   if (!dir) return;
 
-  const dirStyle = FLEX_MAP[dir];
-  const dirProp = getProp(dir);
+  const isGridValue = CSS.supports('grid-auto-flow', val);
+  const isFlexValue = CSS.supports('flex-flow', val);
 
-  if (!mods.includes('wrap')) {
-    return [{
-      'flex-flow': mods.join(' '),
-    }, {
-      $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:last-child)`,
-      [dirStyle]: dirProp,
-    }];
+  const styles = [];
+
+  if (isGridValue) {
+    styles.push({
+      'grid-auto-flow': val,
+    });
   }
 
-  const dirSecondStyle = FLEX_MAP_SECOND[dir];
-  const invertProp = getProp(dir, true);
+  if (isFlexValue) {
+    const dirStyle = FLEX_MAP[dir];
+    const dirProp = getProp(dir);
 
-  return [{
-    'flex-flow': mods.join(' '),
-  },{
-    $suffix: ':not(:empty)',
-    [dirStyle]: `calc(${dirProp} * -1)`,
-    [dirSecondStyle]: `calc(${invertProp} * -1)`,
-  }, {
-    $suffix: '[gap]>*',
-    [dirStyle]: dirProp,
-    [dirSecondStyle]: invertProp,
-  }];
+    if (!mods.includes('wrap')) {
+      styles.push({
+        'flex-flow': mods.join(' '),
+      }, {
+        $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:last-child)`,
+        [dirStyle]: dirProp,
+      });
+    } else {
+      const dirSecondStyle = FLEX_MAP_SECOND[dir];
+      const invertProp = getProp(dir, true);
+
+      styles.push({
+        'flex-flow': mods.join(' '),
+      }, {
+        $suffix: ':not(:empty)',
+        [dirStyle]: `calc(${dirProp} * -1)`,
+        [dirSecondStyle]: `calc(${invertProp} * -1)`,
+      }, {
+        $suffix: '[gap]>*',
+        [dirStyle]: dirProp,
+        [dirSecondStyle]: invertProp,
+      });
+    }
+  }
+
+  return styles;
 }
