@@ -14,7 +14,7 @@ export default class NuMenuitem extends NuBtn {
       padding: '1x',
       background: 'transparent',
       width: '100%',
-      flow: 'grid-column',
+      flow: 'column',
       gap: '1x',
       content: 'center start',
       radius: '0',
