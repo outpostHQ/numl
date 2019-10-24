@@ -253,8 +253,6 @@ export default class NuElement extends NuBase {
     if (isResponsive) {
       this.nuSetMod(RESPONSIVE_ATTR, true);
 
-      // if (value !== this.getAttribute(name)) return;
-
       let respEl = this;
 
       while (respEl && (!respEl.getAttribute || !respEl.getAttribute(RESPONSIVE_ATTR) || !respEl.nuResponsive)) {
@@ -273,8 +271,10 @@ export default class NuElement extends NuBase {
         return;
       }
 
+      const zones = respEl.getAttribute(RESPONSIVE_ATTR).split('|');
       const values = value.split('|');
-      const styles = values.map((val, i) => {
+      const styles = zones.map((zone, i) => {
+        let val = values[i];
         // if default value
         if (val && !val.trim()) return;
 

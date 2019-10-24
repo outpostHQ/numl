@@ -24,9 +24,8 @@ export default function themeAttr(val, defaults) {
     return obj;
   }, {});
 
-  return [themeStyles].concat(!defaults.color
-    ? [{
-    $suffix: ':not([color])',
+  return [themeStyles, {
+    $suffix: ':not([special]):not([color])',
     color: themeStyles['--nu-theme-color'],
-    }] : []);
+  }];
 }

@@ -26,6 +26,12 @@ export default class NuBadge extends NuElement {
 
   static nuCSS({ nuTag }) {
     return `
+      ${nuTag}[theme]:not([color]) {
+        color: var(--nu-theme-background-color) !important;
+      }
+      ${nuTag}[theme]:not([background]) {
+        background-color: var(--nu-theme-color) !important;
+      }
       ${nuTag}[special]:not([background]) {
         background-color: var(--nu-theme-special-color) !important;
       }
