@@ -48,6 +48,7 @@
       responsive="480px"
       labelledby="heading"
       describedby="description price"
+      shadow
       gap="1" flow="row|column" items="start|initial">
       <nu-icon name="package" size="4" place="start"></nu-icon>
       <nu-flow gap=".5" grow="1">
@@ -59,12 +60,13 @@
             <nu-icon name="dollar-sign" inline></nu-icon>
             Order now
           </nu-btn>
-          <nu-block mod="w6" color="special" size="lg|md" id="price" padding=".5x 1x">
+          <nu-block text="w6" color="special" size="lg|md" id="price" padding=".5x 1x">
             Only $99.99
           </nu-block>
         </nu-flex>
       </nu-flow>
-    </nu-card>
+    </nu-card
+      space="1x">
 
     <nu-heading level="2">Typography</nu-heading>
 
@@ -581,7 +583,7 @@
     <nu-card labelledby=":prev" gap="1">
       <nu-heading level="3">Table with column headers</nu-heading>
 
-      <nu-card padding="0" mod="no-overflow">
+      <nu-card padding="0" overflow="no">
         <nu-table width="100%" border="1x bottom">
           <nu-rowgroup>
             <nu-row>
@@ -612,7 +614,7 @@
 
       <nu-heading level="3">Table with row headers</nu-heading>
 
-      <nu-card padding="0" mod="no-overflow">
+      <nu-card padding="0" overflow="no">
         <nu-table width="100%" border="1x bottom">
           <nu-rowgroup>
             <nu-row background=":even[subtle]">

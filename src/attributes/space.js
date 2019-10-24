@@ -1,16 +1,24 @@
-import { splitDimensions, convertUnit } from '../helpers';
+import { splitDimensions, convertUnit, stripCalc, extractMods, DIRECTIONS } from '../helpers';
 
 export default function spaceAttr(val) {
   if (!val) return;
 
-  val = convertUnit(val, 'var(--nu-theme-padding)');
+  let { value, mods } = extractMods(val, DIRECTIONS);
 
-  if (val.startsWith('calc(')) {
-    val = val.slice(5, -1);
+  value = convertUnit(value, 'var(--nu-theme-padding)');
+
+  if (mods.length) {
+    value = stripCalc(value);
+
+    return mods.reduce((styles, mod) => {
+      styles[`margin-${mod}`] = `calc(${value} * -1)`;
+
+      return styles;
+    }, {});
   }
 
-  const spaces = splitDimensions(val).map(sp =>
-    !sp.match(/^0[^\.]/) ? `calc(${sp || val} * -1)` : ''
+  const spaces = splitDimensions(value).map(sp =>
+    sp !== '0' ? `calc(${stripCalc(sp)} * -1)` : ''
   );
 
   return {

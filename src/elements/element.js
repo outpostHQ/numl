@@ -34,6 +34,7 @@ import radiusAttr from '../attributes/radius';
 import overflowAttr from '../attributes/overflow';
 import hideAttr from '../attributes/hide';
 import imageAttr from '../attributes/image';
+import paddingAttr from '../attributes/padding';
 
 const plugins = {
   cursor: 'cursor',
@@ -89,11 +90,7 @@ export default class NuElement extends NuBase {
         property: true,
         convert: true,
       }),
-      padding: unit('padding', {
-        multiplier: 'var(--nu-theme-padding)',
-        empty: 'var(--nu-theme-padding)',
-        convert: true,
-      }),
+      padding: paddingAttr,
       'items-padding': unit('padding', {
         suffix: '>:not([padding])',
         multiplier: 'var(--nu-theme-padding)',
@@ -185,15 +182,6 @@ export default class NuElement extends NuBase {
     return `
       ${nuTag}[hidden] {
         display: none !important;
-      }
-      ${nuTag}{
-        --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-        --nu-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
-        --nu-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
-
-        box-shadow: var(--nu-stroke-shadow),
-          var(--nu-toggle-shadow),
-          var(--nu-depth-shadow);
       }
     `;
   }
