@@ -932,7 +932,7 @@ export function stripCalc(val) {
 
   val = val.startsWith('calc(') ? val.slice(5, -1) : val;
 
-  return val.replace(/calc\(([^)]+)\)/g, (s,s1) => s1);
+  return val.replace(/calc\(([^)]+)\)/g, (s, s1) => s1);
 }
 
 export function splitStyleValue(val) {
@@ -940,15 +940,17 @@ export function splitStyleValue(val) {
 }
 
 export function fixPosition(element) {
+  element.style.removeProperty('--nu-transform');
+
   const { x, width } = element.getBoundingClientRect();
   const maxW = window.innerWidth;
 
   if (x + width > maxW) {
-    const offset = - parseInt(x + width - maxW + 1);
+    const offset = -parseInt(x + width - maxW + 1);
 
     element.style.setProperty('--nu-transform', `translate(${offset}px, 0)`);
   } else if (x < 0) {
-    const offset = - x;
+    const offset = -x;
 
     element.style.setProperty('--nu-transform', `translate(${offset}px, 0)`);
   }

@@ -104,8 +104,6 @@ export default class NuPopup extends NuCard {
 
     fixPosition(this);
 
-    setTimeout(() => fixPosition(this), 0);
-
     if (activeElement) activeElement.focus();
   }
 
