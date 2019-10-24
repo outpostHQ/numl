@@ -11,7 +11,7 @@ export default class NuBtn extends NuActiveElement {
       padding: '1x 2x',
       border: '1x',
       radius: '1x',
-      flow: 'grid-column',
+      flow: 'column',
       gap: '1x',
       content: 'center',
       background: '',

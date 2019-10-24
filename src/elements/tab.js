@@ -16,7 +16,7 @@ export default class NuTab extends NuActiveElement {
       padding: '1x 0',
       background: 'transparent',
       radius: '0',
-      flow: 'grid-column',
+      flow: 'column',
       gap: '1x',
       items: 'center',
     };
