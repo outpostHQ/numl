@@ -1,4 +1,5 @@
 import NuBlock from './block';
+import { fixPosition } from '../helpers';
 
 export default class NuTooltip extends NuBlock {
   static get nuTag() {
@@ -26,10 +27,26 @@ export default class NuTooltip extends NuBlock {
 
     const parent = this.parentNode;
 
+    this.nuParent = parent;
+
     if (parent && parent.nuElement && !parent.hasAttribute('describedby')) {
       this.parentNode.setAttribute('describedby', this.nuId);
     }
 
     this.nuSetAria('hidden', true);
+
+    this.nuOnMouseEnter = () => {
+      fixPosition(this);
+    };
+
+    parent.addEventListener('mouseenter', this.nuOnMouseEnter);
+  }
+
+  nuDisconnected() {
+    super.nuDisconnected();
+
+    if (this.nuOnMouseEnter) {
+      this.nuParent.removeEventListener('mouseenter', this.nuOnMouseEnter);
+    }
   }
 }

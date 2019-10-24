@@ -38,7 +38,6 @@ export default class NuHeading extends NuBlock {
     return {
       level: 1,
       color: 'var(--nu-theme-heading-color)',
-      place: 'relative',
     };
   }
 

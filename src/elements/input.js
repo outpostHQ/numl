@@ -33,7 +33,6 @@ export default class NuInput extends NuBlock {
       text: 'center',
       background: '',
       border: '1x',
-      place: 'relative',
     };
   }
 
@@ -42,6 +41,7 @@ export default class NuInput extends NuBlock {
       ${nuTag} {
         outline: none;
         user-select: none;
+        position: relative;
       }
 
       ${nuTag} input {

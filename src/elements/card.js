@@ -18,7 +18,12 @@ export default class NuCard extends NuBlock {
       radius: '1x',
       flow: 'column',
       transition: 'background, color, box-shadow, transform, border, border-radius',
-      place: 'relative',
     };
+  }
+
+  static nuCSS({ nuTag }) {
+    return `
+      ${nuTag} { position: relative; }
+    `;
   }
 }

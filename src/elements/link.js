@@ -19,7 +19,6 @@ export default class NuLink extends NuActiveElement {
       radius: '.5x',
       background: 'transparent',
       transition: 'box-shadow',
-      place: 'relative',
     };
   }
 
@@ -27,6 +26,7 @@ export default class NuLink extends NuActiveElement {
     return `
       ${nuTag} {
         font-weight: bolder;
+        position: relative;
       }
       
       ${nuTag}:not([disabled])[nu-active] {
