@@ -123,6 +123,12 @@ export default class NuActiveElement extends NuElement {
 
     bindActiveEvents.call(this);
 
+    this.addEventListener('keydown', (event) => {
+      if (this.getAttribute('aria-expanded') && event.key === 'Escape') {
+        this.nuSetPressed(false);
+      }
+    });
+
     setTimeout(() => {
       const innerPopup = this.querySelector('[nu-popup]');
 

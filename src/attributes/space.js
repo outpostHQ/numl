@@ -18,7 +18,7 @@ export default function spaceAttr(val) {
   }
 
   const spaces = splitDimensions(value).map(sp =>
-    sp !== '0' ? `calc(${stripCalc(sp)} * -1)` : ''
+    !sp.match(/^0[^.]/) ? `calc(${stripCalc(sp)} * -1)` : ''
   );
 
   return {
