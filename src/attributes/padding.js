@@ -7,7 +7,7 @@ const paddingUnit = unit('padding', {
 });
 
 export default function paddingAttr(val) {
-  if (!val) return;
+  if (val == null) return;
 
   let { value, mods } = extractMods(val, DIRECTIONS);
 
