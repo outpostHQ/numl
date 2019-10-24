@@ -16,25 +16,16 @@ export default class NuBadge extends NuElement {
 
   static get nuDefaults() {
     return {
+      color: 'background',
       background: 'text',
       padding: '0 .5em',
+      radius: '1x',
+      text: 'nowrap',
     };
   }
 
   static nuCSS({ nuTag }) {
     return `
-      ${nuTag} {
-        --nu-border-radius: .5rem;
-        --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-        --nu-stroke-shadow: 0 0 0 0 var(--nu-theme-border-color), inset 0 0 0 0 var(--nu-theme-border-color);
-
-        box-shadow: var(--nu-stroke-shadow), var(--nu-depth-shadow);
-        border-radius: var(--nu-border-radius);
-        white-space: nowrap;
-      }
-      ${nuTag}:not([color]) {
-        color: var(--nu-theme-background-color) !important;
-      }
       ${nuTag}[special]:not([background]) {
         background-color: var(--nu-theme-special-color) !important;
       }

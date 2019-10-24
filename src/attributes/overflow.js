@@ -1,4 +1,7 @@
 const MAP = {
+  'auto': {
+    overflow: 'auto',
+  },
   'no': {
     overflow: 'hidden',
   },

@@ -8,11 +8,37 @@ export default function colorAttr(val) {
 
   val = val.trim();
 
-  if (val === 'swap') {
-    return {
-      color: 'var(--nu-theme-background-color)',
-      'background-color': 'var(--nu-theme-color)',
-    };
+  switch (val) {
+    case 'auto':
+      return {
+        color: 'var(--nu-theme-color)',
+        'background-color': 'var(--nu-theme-background-color)',
+      };
+    case 'minor auto':
+      return {
+        color: 'var(--nu-theme-minor-color)',
+        'background-color': 'var(--nu-theme-minor-background-color)',
+      };
+    case 'special auto':
+      return {
+        color: 'var(--nu-theme-special-color)',
+        'background-color': 'var(--nu-theme-special-contrast-color)',
+      };
+    case '!':
+      return {
+        color: 'var(--nu-theme-background-color)',
+        'background-color': 'var(--nu-theme-color)',
+      };
+    case '!minor':
+      return {
+        color: 'var(--nu-theme-minor-background-color)',
+        'background-color': 'var(--nu-theme-minor-color)',
+      };
+    case '!special':
+      return {
+        color: 'var(--nu-theme-special-contrast-color)',
+        'background-color': 'var(--nu-theme-special-color)',
+      };
   }
 
   if (val.includes(' ')) {
