@@ -6,7 +6,7 @@ import { THEME_ATTRS_LIST, THEME_SCHEME_ATTRS } from '../attrs';
  * @param {String} val - Theme name.
  * @returns {*}
  */
-export default function themeAttr(val) {
+export default function themeAttr(val, defaults) {
   if (val == null) return;
 
   if (!val) val = 'default';
@@ -24,8 +24,9 @@ export default function themeAttr(val) {
     return obj;
   }, {});
 
-  return [themeStyles, {
+  return [themeStyles].concat(!defaults.color
+    ? [{
     $suffix: ':not([color])',
     color: themeStyles['--nu-theme-color'],
-  }];
+    }] : []);
 }
