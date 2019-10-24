@@ -322,7 +322,7 @@
 
       <nu-heading level="4">Control grid content position</nu-heading>
 
-      <nu-grid gap=".5" flow="grid-column" content="space-between">
+      <nu-grid gap=".5" flow="column" content="space-between">
         <nu-card>Card 1</nu-card>
         <nu-card>Card 2</nu-card>
         <nu-card>Card 3</nu-card>
@@ -446,26 +446,42 @@
     <nu-heading level="2">Popups</nu-heading>
 
     <nu-card labelledby=":prev">
-      <nu-btn special>
-        <nu-block text="w6">Dropdown button</nu-block>
-        <nu-icon name="chevron-down"></nu-icon>
-        <nu-popupmenu>
-          <nu-menuitem prevent>Menu button level 1</nu-menuitem>
-          <nu-menuitem prevent>
-            Submenu level 1
-            <nu-popupmenu place="outside-right top">
-              <nu-menuitem prevent>Menu button level 2</nu-menuitem>
-              <nu-menuitem prevent>
-                Submenu level 2
-                <nu-popupmenu place="outside-right top">
-                  <nu-menuitem prevent>Menu button level 3</nu-menuitem>
-                  <nu-menuitem prevent>etc...</nu-menuitem>
-                </nu-popupmenu>
-              </nu-menuitem>
-            </nu-popupmenu>
-          </nu-menuitem>
-        </nu-popupmenu>
-      </nu-btn>
+      <nu-flex gap=".5">
+        <nu-btn special>
+          <nu-block text="w6">Dropdown menu</nu-block>
+          <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
+          <nu-popupmenu>
+            <nu-menuitem value="first-item">Menu button level 1</nu-menuitem>
+            <nu-menuitem>
+              Submenu level 1
+              <nu-popupmenu place="outside-right top">
+                <nu-menuitem>Menu button level 2</nu-menuitem>
+                <nu-menuitem>
+                  Submenu level 2
+                  <nu-popupmenu place="outside-right top">
+                    <nu-menuitem>Menu button level 3</nu-menuitem>
+                    <nu-menuitem>etc...</nu-menuitem>
+                  </nu-popupmenu>
+                </nu-menuitem>
+              </nu-popupmenu>
+            </nu-menuitem>
+          </nu-popupmenu>
+        </nu-btn>
+        <nu-btn special>
+          <nu-block text="w6">Dropdown card</nu-block>
+          <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
+          <nu-popup gap=".5" width="24">
+            <nu-block>
+              Simple buttons don't trigger <nu-el color="special">close</nu-el> event.
+            </nu-block>
+            <nu-btn>Simple button</nu-btn>
+            <nu-block>
+              Submit buttons trigger <nu-el color="special">close</nu-el> event.
+            </nu-block>
+            <nu-btn type="submit">Submit button</nu-btn>
+          </nu-popup>
+        </nu-btn>
+      </nu-flex>
     </nu-card>
 
     <nu-heading level="2">Tooltips & [place] attribute</nu-heading>

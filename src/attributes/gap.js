@@ -15,12 +15,10 @@ export default function gapAttr(val) {
   const hGap = values[1] || vGap;
 
   return [{
-    '--nu-grid-gap': val,
-    '--nu-v-gap': vGap,
-    '--nu-h-gap': hGap,
+    'grid-gap': val,
   }, {
     $suffix: '>*',
-    '--nu-v-gap': `${vGap} !important`,
-    '--nu-h-gap': `${hGap} !important`,
+    '--nu-v-gap': vGap,
+    '--nu-h-gap': hGap,
   }];
 }

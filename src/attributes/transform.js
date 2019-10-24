@@ -5,7 +5,7 @@ export default function transformAttr(val, defaults) {
 
   if (hasPlaceAttr) {
     return [{
-      '--nu-local-transform': val,
+      '--nu-transform': val,
     }];
   } else {
     return [{
@@ -13,7 +13,7 @@ export default function transformAttr(val, defaults) {
       'transform': val,
     }, {
       $suffix: '[place]',
-      '--nu-local-transform': val,
+      '--nu-transform': val,
     }]
   }
 }
