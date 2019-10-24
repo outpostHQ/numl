@@ -70,7 +70,7 @@ export default function flowAttr(val, defaults) {
         [dirStyle]: `calc(${dirProp} * -1)`,
         [dirSecondStyle]: `calc(${invertProp} * -1)`,
       }, {
-        $suffix: '[gap]>*',
+        $suffix: `${defaults.gap ? '' : '[gap]'}>*`,
         [dirStyle]: dirProp,
         [dirSecondStyle]: invertProp,
       });
