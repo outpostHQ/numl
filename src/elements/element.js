@@ -271,10 +271,10 @@ export default class NuElement extends NuBase {
         return;
       }
 
-      const zones = respEl.getAttribute(RESPONSIVE_ATTR).split('|');
+      const zones = ['max'].concat(respEl.getAttribute(RESPONSIVE_ATTR).split('|'));
       const values = value.split('|');
       const styles = zones.map((zone, i) => {
-        let val = values[i];
+        let val = values[i] || '';
         // if default value
         if (val && !val.trim()) return;
 
