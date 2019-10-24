@@ -65,18 +65,15 @@ export default class NuTriangle extends NuElement {
       size: '.5em 1em',
       color: 'border',
       overflow: 'no',
+      text: 'middle',
+      height: '0',
+      width: '0',
     };
   }
 
   static nuCSS({ nuTag }) {
     return `
-      ${nuTag} {
-        width: 0;
-        height: 0;
-        vertical-align: middle;
-      }
       ${nuTag}[inline] {
-        position: relative;
         bottom: 0.0675em;
       }
     `;

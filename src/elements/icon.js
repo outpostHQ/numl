@@ -47,6 +47,10 @@ export default class NuIcon extends NuBlock {
   static get nuDefaults() {
     return {
       display: 'inline-block',
+      place: 'relative',
+      text: 'middle',
+      width: 'min(1em)',
+      height: 'min(1em)',
     };
   }
 
@@ -55,10 +59,6 @@ export default class NuIcon extends NuBlock {
       ${nuTag} {
         --nu-size: 1em;
 
-        position: relative;
-        vertical-align: middle;
-        min-width: 1em;
-        min-height: 1em;
         background-color: transparent !important;
       }
 

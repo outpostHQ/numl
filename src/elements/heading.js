@@ -38,15 +38,8 @@ export default class NuHeading extends NuBlock {
     return {
       level: 1,
       color: 'var(--nu-theme-heading-color)',
+      place: 'relative',
     };
-  }
-
-  static nuCSS({ nuTag }) {
-    return `
-      ${nuTag} {
-        position: relative;
-      }
-    `;
   }
 
   nuChanged(name, oldValue, value) {

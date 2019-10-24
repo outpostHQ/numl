@@ -24,24 +24,19 @@ export default class NuGridTable extends NuGrid {
       gap: 'var(--nu-theme-border-width)',
       background: 'var(--nu-theme-border-color)',
       color: 'var(--nu-theme-color)',
+      overflow: 'auto',
     };
   }
 
   static nuCSS({ nuTag }) {
     return `
-      ${nuTag} {
-        overflow: auto;
-      }
-      ${nuTag}:not([gap]) {
-        grid-gap: var(--nu-theme-border-width);
-      }
       ${nuTag} > :not([background]) {
         background-color: var(--nu-theme-background-color);
       }
       ${nuTag}:not([padding]) > *:not([padding]):not(nu-line) {
         padding: .5rem;
       }
-      ${nuTag} > * {
+      ${nuTag} > *:not([place]) {
         position: relative;
       }
     `;

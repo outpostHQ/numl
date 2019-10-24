@@ -33,17 +33,13 @@ export default class NuInput extends NuBlock {
       text: 'center',
       background: '',
       border: '1x',
-      place: 'stretch',
+      place: 'relative',
     };
   }
 
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
-        --nu-depth-color: transparent;
-        --nu-depth-shadow: 0 0 0 var(--nu-theme-border-width) var(--nu-depth-color);
-
-        position: relative;
         outline: none;
         user-select: none;
       }

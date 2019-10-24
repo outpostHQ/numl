@@ -14,21 +14,19 @@ export default class NuLink extends NuActiveElement {
     return {
       display: 'inline-block',
       color: 'special',
-      text: 'nowrap',
+      text: 'nowrap u',
       cursor: 'pointer',
       radius: '.5x',
       background: 'transparent',
+      transition: 'box-shadow',
+      place: 'relative',
     };
   }
 
   static nuCSS({ nuTag }) {
     return `
       ${nuTag} {
-        position: relative;
-        transition: box-shadow var(--nu-theme-animation-time) linear;
-        text-decoration: underline;
         font-weight: bolder;
-        outline: none;
       }
       
       ${nuTag}:not([disabled])[nu-active] {
