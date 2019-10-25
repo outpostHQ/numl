@@ -95,8 +95,8 @@ export default class NuBase extends HTMLElement {
           .concat(val.endsWith('grid')
             ? [{
               $suffix: '>*',
-              '--nu-v-gap': '0 !important',
-              '--nu-h-gap': '0 !important',
+              '--nu-v-gap': '- !important',
+              '--nu-h-gap': '- !important',
             }]
             : []);
       },
@@ -180,23 +180,15 @@ export default class NuBase extends HTMLElement {
 
     mixinList.forEach(mixinName => {
       const mixin = mixins[mixinName]();
-      const attrs = Object.keys(mixin.attributes);
+      const attrs = Object.keys(mixin.fallbacks);
       const defaultAttrs = attrs.filter(attr => allDefaults[attr] != null);
       const optionalAttrs = attrs.filter(attr => allDefaults[attr] == null);
       const styles = [];
 
-      if (defaultAttrs.length) {
-        styles.push({
-          ...mixin.shared,
-        });
-      } else {
-        styles.push(...optionalAttrs.map(attr => {
-          return {
-            $suffix: `[${attr}]`,
-            ...mixin.shared,
-          };
-        }));
-      }
+      styles.push({
+        $suffix: optionalAttrs.map(attr => `[${attr}]`).join(''),
+        ...mixin.shared,
+      });
 
       styles.push(...optionalAttrs.map(attr => {
         const conditionSelector = optionalAttrs
@@ -205,7 +197,7 @@ export default class NuBase extends HTMLElement {
 
         return {
           $suffix: `${conditionSelector}:not([${attr}])`,
-          ...mixin.attributes[attr],
+          ...mixin.fallbacks[attr],
         };
       }));
 

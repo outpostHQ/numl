@@ -1,7 +1,6 @@
 import { excludeMod, convertUnit } from '../helpers';
-import shadowMixin from '../mixins/shadow';
 
-const mixin = shadowMixin();
+export const DEFAULT_STROKE_SHADOW = '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)';
 
 const STROKE_STYLES = [
   'inside',
@@ -110,9 +109,9 @@ export default function borderAttr(val) {
 
       return styles;
     }, {
-      ...mixin.attributes.border,
+      '--nu-stroke-shadow': DEFAULT_STROKE_SHADOW,
     });
   }
 
-  return { border, ...mixin.attributes.border };
+  return { border, '--nu-stroke-shadow': DEFAULT_STROKE_SHADOW };
 }

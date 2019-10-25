@@ -1,11 +1,17 @@
 export default function transformMixin() {
   return {
-    attributes: {
+    fallbacks: {
       transform: {
-        '--nu-transform': 'translate(0, 0)',
+        // it's a hack to reset property
+        // without activating child's style
+        '--nu-transform-place': '-',
+        transform: 'var(--nu-transform-place)',
       },
       place: {
-        '--nu-transform-place': 'translate(0, 0)',
+        // it's a hack to reset property
+        // without activating child's style
+        '--nu-transform': '-',
+        transform: 'var(--nu-transform)',
       },
     },
     shared: {
