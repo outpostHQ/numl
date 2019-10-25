@@ -1,6 +1,6 @@
 export default function backgroundMixin() {
   return {
-    attributes: {
+    fallbacks: {
       background: {
         '--nu-background-color': 'transparent',
       },

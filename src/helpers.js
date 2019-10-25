@@ -949,9 +949,17 @@ export function fixPosition(element) {
     const offset = -parseInt(x + width - maxW + 1);
 
     element.style.setProperty('--nu-transform', `translate(${offset}px, 0)`);
+
+    if (!element.hasAttribute('transform')) {
+      element.setAttribute('transform', '');
+    }
   } else if (x < 0) {
     const offset = -x;
 
     element.style.setProperty('--nu-transform', `translate(${offset}px, 0)`);
+
+    if (!element.hasAttribute('transform')) {
+      element.setAttribute('transform', '');
+    }
   }
 }

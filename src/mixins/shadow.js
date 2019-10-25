@@ -1,15 +1,21 @@
+import { DEFAULT_STROKE_SHADOW } from '../attributes/border';
+
 export default function shadowMixin() {
   return {
-    attributes: {
+    fallbacks: {
       shadow: {
-        '--nu-depth-shadow': '0 0 0 0 rgba(0, 0, 0, 0)',
+        // it's a hack to reset property
+        // without activating child's style
+        'box-shadow': 'var(--nu-stroke-shadow)',
       },
       border: {
-        '--nu-stroke-shadow': '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)',
+        // it's a hack to reset property
+        // without activating child's style
+        'box-shadow': 'var(--nu-depth-shadow, 0 0 0 0 rgba(0, 0, 0, 0))',
       },
     },
     shared: {
-      'box-shadow': 'var(--nu-stroke-shadow), var(--nu-depth-shadow)',
+      'box-shadow': `var(--nu-stroke-shadow, ${DEFAULT_STROKE_SHADOW}), var(--nu-depth-shadow, 0 0 0 0 rgba(0, 0, 0, 0))`,
     },
   };
 }

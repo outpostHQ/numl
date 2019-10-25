@@ -69,8 +69,8 @@ export default class NuActiveElement extends NuElement {
         --nu-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
         --nu-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
 
-        position: relative;
         opacity: 1;
+        position: relative;
         z-index: 0; /* to make :hover::after z-index work as expected */
         user-select: none;
 

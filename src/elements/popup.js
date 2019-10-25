@@ -47,6 +47,7 @@ export default class NuPopup extends NuCard {
       width: '100%',
       text: 'wrap',
       theme: 'default',
+      cursor: 'default',
     };
   }
 
