@@ -33,7 +33,7 @@ export default class NuLine extends NuBlock {
         multiplier: 'var(--nu-theme-border-width)',
         empty: 'var(--nu-theme-border-radius)',
       }),
-      background: null,
+      fill: null,
     };
   }
 

@@ -14,7 +14,7 @@ export default class NuTooltip extends NuBlock {
       opacity: '0 ^:hover[1]',
       transition: 'opacity',
       place: 'outside-top',
-      background: '',
+      fill: '',
       radius: '1x',
       border: '1x outside',
       size: 'sm',

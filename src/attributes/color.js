@@ -9,32 +9,32 @@ export default function colorAttr(val) {
   val = val.trim();
 
   switch (val) {
-    case 'auto':
+    case 'fill':
       return {
         color: 'var(--nu-theme-color)',
         'background-color': 'var(--nu-theme-background-color)',
       };
-    case 'minor auto':
+    case 'minor fill':
       return {
         color: 'var(--nu-theme-minor-color)',
         'background-color': 'var(--nu-theme-minor-background-color)',
       };
-    case 'special auto':
+    case 'special fill':
       return {
         color: 'var(--nu-theme-special-color)',
         'background-color': 'var(--nu-theme-special-contrast-color)',
       };
-    case '!':
+    case 'swap':
       return {
         color: 'var(--nu-theme-background-color)',
         'background-color': 'var(--nu-theme-color)',
       };
-    case '!minor':
+    case 'minor swap':
       return {
         color: 'var(--nu-theme-minor-background-color)',
         'background-color': 'var(--nu-theme-minor-color)',
       };
-    case '!special':
+    case 'special swap':
       return {
         color: 'var(--nu-theme-special-contrast-color)',
         'background-color': 'var(--nu-theme-special-color)',

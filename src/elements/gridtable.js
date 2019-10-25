@@ -21,16 +21,16 @@ export default class NuGridTable extends NuGrid {
 
   static get nuDefaults() {
     return {
-      gap: 'var(--nu-theme-border-width)',
-      background: 'var(--nu-theme-border-color)',
-      color: 'var(--nu-theme-color)',
+      gap: '1bw',
+      fill: 'border',
+      color: '',
       overflow: 'auto',
     };
   }
 
   static nuCSS({ nuTag }) {
     return `
-      ${nuTag} > :not([background]) {
+      ${nuTag} > :not([fill]) {
         background-color: var(--nu-theme-background-color);
       }
       ${nuTag}:not([padding]) > *:not([padding]):not(nu-line) {

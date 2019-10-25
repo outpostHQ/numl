@@ -22,7 +22,7 @@ export default class NuColumnHeader extends NuRowHeader {
   static get nuDefaults() {
     return {
       color: 'minor',
-      background: 'minor-background',
+      fill: '!minor',
       text: 'w6',
       border: null,
     };
