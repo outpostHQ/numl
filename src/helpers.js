@@ -57,21 +57,29 @@ export const CUSTOM_UNITS = {
   'p': 'var(--nu-theme-padding)',
 };
 
-export const COLOR_LIST = [...THEME_COLOR_ATTRS_LIST].map(color => color.replace('-color', ''));
+export const COLOR_MAP = THEME_COLOR_ATTRS_LIST.reduce((map, color) => {
+  if (color === 'color') {
+    map['text'] = map['color'] = color;
+  } else {
+    map[color.replace('-color', '')] = color;
+  }
+
+  return map;
+}, {});
+
+COLOR_MAP['!'] = COLOR_MAP['background'];
+COLOR_MAP['!minor'] = COLOR_MAP['minor-background'];
+COLOR_MAP['!special'] = COLOR_MAP['special-contrast'];
 
 export function colorUnit(style, initial) {
   return (color) => {
     if (color == null) return;
 
-    if (!color) color = initial;
+    color = color.trim() || initial;
 
-    if (color === 'text') return { [style]: 'var(--nu-theme-color)' };
+    if (!COLOR_MAP[color]) return { [style]: color };
 
-    if (COLOR_LIST.includes(color)) {
-      return { [style]: `var(--nu-theme-${color}-color)` };
-    }
-
-    return { [style]: color };
+    return { [style]: `var(--nu-theme-${COLOR_MAP[color]})` };
   };
 }
 

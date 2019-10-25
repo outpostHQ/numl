@@ -13,7 +13,7 @@ export default class NuCard extends NuBlock {
     return {
       padding: '2x',
       color: '',
-      background: '',
+      fill: '',
       border: '1x',
       radius: '1x',
       flow: 'column',

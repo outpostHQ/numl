@@ -24,18 +24,6 @@ export const DEFAULTS_MAP = {};
  */
 const TAG_LIST = [];
 
-const MIXINS = {
-  transform: transformMixin,
-  background: backgroundMixin,
-};
-
-const MIXIN_MAP = {
-  background: 'background',
-  image: 'background',
-  transform: 'transform',
-  place: 'transform',
-};
-
 /**
  * @class
  * @abstract

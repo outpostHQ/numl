@@ -14,7 +14,7 @@ export default class NuBtn extends NuActiveElement {
       flow: 'column',
       gap: '1x',
       content: 'center',
-      background: '',
+      fill: '',
       text: 'nowrap',
     };
   }
@@ -43,7 +43,7 @@ export default class NuBtn extends NuActiveElement {
         --nu-theme-heading-color: var(--nu-theme-special-contrast-color);
       }
       
-      ${nuTag}[special]:not([background]) {
+      ${nuTag}[special]:not([fill]) {
         background-color: var(--nu-theme-special-color) !important;
       }
       

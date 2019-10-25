@@ -12,7 +12,7 @@ export default class NuMenuitem extends NuBtn {
   static get nuDefaults() {
     return {
       padding: '1x',
-      background: 'transparent',
+      fill: 'transparent',
       width: '100%',
       flow: 'column',
       gap: '1x',

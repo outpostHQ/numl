@@ -241,7 +241,7 @@
         Minor content or label
       </nu-block>
 
-      <nu-card background="minor-background" color="minor">
+      <nu-card color="minor fill">
         Minor region
       </nu-card>
 
@@ -258,10 +258,10 @@
       <nu-block>To differentiate similar blocks from each other.</nu-block>
 
       <nu-flow border>
-        <nu-block background=":even[subtle]" padding>Block 1</nu-block>
-        <nu-block background=":even[subtle]" padding>Block 2</nu-block>
-        <nu-block background=":even[subtle]" padding>Block 3</nu-block>
-        <nu-block background=":even[subtle]" padding>Block 4</nu-block>
+        <nu-block fill=":even[subtle]" padding>Block 1</nu-block>
+        <nu-block fill=":even[subtle]" padding>Block 2</nu-block>
+        <nu-block fill=":even[subtle]" padding>Block 3</nu-block>
+        <nu-block fill=":even[subtle]" padding>Block 4</nu-block>
       </nu-flow>
     </nu-card>
 
@@ -593,17 +593,17 @@
             </nu-row>
           </nu-rowgroup>
           <nu-rowgroup>
-            <nu-row background=":even[subtle]">
+            <nu-row fill=":even[subtle]">
               <nu-cell>Cell 1</nu-cell>
               <nu-cell>Cell 2</nu-cell>
               <nu-cell>Cell 3</nu-cell>
             </nu-row>
-            <nu-row background=":even[subtle]">
+            <nu-row fill=":even[subtle]">
               <nu-cell>Cell 1</nu-cell>
               <nu-cell>Cell 2</nu-cell>
               <nu-cell>Cell 3</nu-cell>
             </nu-row>
-            <nu-row background=":even[subtle]">
+            <nu-row fill=":even[subtle]">
               <nu-cell>Cell 1</nu-cell>
               <nu-cell>Cell 2</nu-cell>
               <nu-cell>Cell 3</nu-cell>
@@ -617,19 +617,19 @@
       <nu-card padding="0" overflow="no">
         <nu-table width="100%" border="1x bottom">
           <nu-rowgroup>
-            <nu-row background=":even[subtle]">
+            <nu-row fill=":even[subtle]">
               <nu-rowheader width="15">Row header 1</nu-rowheader>
               <nu-cell>Cell 1</nu-cell>
               <nu-cell>Cell 2</nu-cell>
               <nu-cell>Cell 3</nu-cell>
             </nu-row>
-            <nu-row background=":even[subtle]">
+            <nu-row fill=":even[subtle]">
               <nu-rowheader>Row header 2</nu-rowheader>
               <nu-cell>Cell 1</nu-cell>
               <nu-cell>Cell 2</nu-cell>
               <nu-cell>Cell 3</nu-cell>
             </nu-row>
-            <nu-row background=":even[subtle]">
+            <nu-row fill=":even[subtle]">
               <nu-rowheader>Row header 3</nu-rowheader>
               <nu-cell>Cell 1</nu-cell>
               <nu-cell>Cell 2</nu-cell>
@@ -672,7 +672,7 @@
 
       <nu-block>
         <nu-btn
-          background="#666 :pressed:hover[green] :hover[blue] :pressed[special]"
+          fill="#666 :pressed:hover[green] :hover[blue] :pressed[special]"
           color="white" role="checkbox">
           Toggle Button
         </nu-btn>

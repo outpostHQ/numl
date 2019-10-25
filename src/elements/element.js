@@ -27,7 +27,7 @@ import sizingAttr from '../attributes/sizing';
 import sizeAttr from '../attributes/size';
 import transitionAttr from '../attributes/transition';
 import colorAttr from '../attributes/color';
-import backgroundAttr from '../attributes/background';
+import fillAttr from '../attributes/fill';
 import transformAttr from '../attributes/transform';
 import spaceAttr from '../attributes/space';
 import radiusAttr from '../attributes/radius';
@@ -129,7 +129,7 @@ export default class NuElement extends NuBase {
       interactive: interactiveAttr,
       theme: themeAttr,
       color: colorAttr,
-      background: backgroundAttr,
+      fill: fillAttr,
       image: imageAttr,
       transform: transformAttr,
       text: textAttr,
