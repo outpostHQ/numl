@@ -40,6 +40,7 @@ import NuGroup from './elements/group';
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
 import NuVar from './decorators/var';
+import NuDefine from './decorators/define';
 // helpers
 import {
   injectScript,
@@ -168,6 +169,7 @@ export {
   NuLink,
   NuTheme,
   NuVar,
+  NuDefine,
   NuDecorator,
   NuActiveElement,
   NuTriangle,

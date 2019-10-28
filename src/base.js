@@ -239,8 +239,6 @@ export default class NuBase extends HTMLElement {
    */
   connectedCallback() {
     this.nuConnected();
-
-    this.nuIsMounted = true;
   }
 
   /**
@@ -327,7 +325,7 @@ export default class NuBase extends HTMLElement {
    * While using frameworks this method can be fired without element having parentNode.
    */
   nuConnected() {
-    setTimeout(() => (this.nuParent = this.parentNode));
+
   }
 
   /**
