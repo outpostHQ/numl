@@ -231,7 +231,7 @@ export default class NuElement extends NuBase {
       this.setAttribute('role', nuRole);
     }
 
-    const as = this.getAttribute('as');
+    const as = this.getAttribute('as') || this.getAttribute('nu-id');
 
     if (as) {
       const define = this.nuContext[`define:${as}`];
