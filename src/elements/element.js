@@ -37,8 +37,8 @@ import imageAttr from '../attributes/image';
 import paddingAttr from '../attributes/padding';
 
 const plugins = {
-  cursor: 'cursor',
-  responsive: ''
+  responsive: '',
+  as: '',
 };
 
 const RESPONSIVE_ATTR = 'responsive';
@@ -214,10 +214,35 @@ export default class NuElement extends NuBase {
    * @private
    */
   connectedCallback() {
+    const parent = this.parentNode;
+
+    // cache parent to have reference in onDisconnected callback
+    this.nuParent = parent;
+
+    if (parent.nuContext) {
+      this.nuContext = Object.create(parent.nuContext);
+    } else {
+      this.nuContext = {};
+    }
+
     const nuRole = this.constructor.nuRole;
 
-    if (!this.hasAttribute('role') && nuRole) {
+    if (nuRole && !this.hasAttribute('role')) {
       this.setAttribute('role', nuRole);
+    }
+
+    const as = this.getAttribute('as');
+
+    if (as) {
+      const define = this.nuContext[`define:${as}`];
+
+      if (define) {
+        define.forEach(attr => {
+          if (!this.hasAttribute(attr.name)) {
+            this.setAttribute(attr.name, attr.value);
+          }
+        });
+      }
     }
 
     this.nuConnected();
@@ -409,6 +434,13 @@ export default class NuElement extends NuBase {
    */
   nuConnected() {
     this.setAttribute('nu', '');
+  }
+
+  /**
+   * Called when element parent changed its context.
+   */
+  nuContextChanged() {
+
   }
 
   /**

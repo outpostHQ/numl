@@ -32,6 +32,8 @@
   <!--  #1885d9-->
   <nu-var name="--my-padding" value="2|1.5|1|.5"></nu-var>
 
+  <nu-define name="section" flow="column" gap="1" labelledby=":prev"></nu-define>
+
   <nu-flow gap="1">
     <nu-heading level="1">NUDE Elements playground</nu-heading>
 
@@ -65,8 +67,7 @@
           </nu-block>
         </nu-flex>
       </nu-flow>
-    </nu-card
-      space="1x">
+    </nu-card>
 
     <nu-heading level="2">Typography</nu-heading>
 
@@ -136,7 +137,7 @@
 
     <nu-heading level="2">Themes</nu-heading>
 
-    <nu-card labelledby=":prev" gap="1">
+    <nu-card as="section">
       <nu-heading level="3">Simple-colored cards</nu-heading>
 
       <nu-theme
@@ -267,7 +268,7 @@
 
     <nu-heading level="2">Layout</nu-heading>
 
-    <nu-card labelledby=":prev" gap=".5">
+    <nu-card as="section">
       <nu-heading level="3">Flexbox</nu-heading>
 
       <nu-heading level="4">Simple layout with Flexbox using gap polyfill</nu-heading>
@@ -341,7 +342,7 @@
 
     <nu-heading level="2">Links</nu-heading>
 
-    <nu-card labelledby=":prev">
+    <nu-card as="section">
       <nu-flex gap=".5" items="center">
         <nu-link>Simple link</nu-link>
         <nu-link to="https://github.com/tenphi/nude">Open link in the current tab</nu-link>
@@ -351,7 +352,7 @@
 
     <nu-heading level="2">Lines</nu-heading>
 
-    <nu-card labelledby=":prev" gap="1">
+    <nu-card as="section">
       <nu-heading level="3">Horizontal line</nu-heading>
 
       <nu-flow>
@@ -367,7 +368,7 @@
 
     <nu-heading level="2">Buttons</nu-heading>
 
-    <nu-card labelledby=":prev" gap="1">
+    <nu-card as="section">
       <nu-flex gap=".5">
         <nu-btn>Simple button</nu-btn>
         <nu-btn special>Special button</nu-btn>
@@ -423,7 +424,7 @@
 
     <nu-heading level="2">Inputs</nu-heading>
 
-    <nu-card labelledby=":prev" gap="1">
+    <nu-card as="section">
       <nu-heading level="3">Simple input</nu-heading>
 
       <nu-block>
@@ -447,7 +448,7 @@
 
     <nu-heading level="2">Popups</nu-heading>
 
-    <nu-card labelledby=":prev">
+    <nu-card as="section">
       <nu-flex gap=".5">
         <nu-btn special>
           <nu-block text="w6">Dropdown menu</nu-block>
@@ -488,7 +489,7 @@
 
     <nu-heading level="2">Tooltips & [place] attribute</nu-heading>
 
-    <nu-card labelledby=":prev" overflow="no">
+    <nu-card as="section" overflow="no">
       <nu-block text="w6">Order of place modifiers is not strict!</nu-block>
 
       <nu-grid items="center" columns="1fr 1fr 1fr" gap="2" padding="2">
@@ -580,7 +581,7 @@
 
     <nu-heading level="2">Tables</nu-heading>
 
-    <nu-card labelledby=":prev" gap="1">
+    <nu-card as="section" gap="1">
       <nu-heading level="3">Table with column headers</nu-heading>
 
       <nu-card padding="0" overflow="no">
@@ -650,7 +651,7 @@
 
     <nu-heading level="2">Triangles *CRAZY*</nu-heading>
 
-    <nu-card labelledby=":prev">
+    <nu-card as="section">
       <nu-flex gap=".5">
         <nu-triangle dir="up"></nu-triangle>
         <nu-triangle dir="right"></nu-triangle>
@@ -661,7 +662,7 @@
 
     <nu-heading level="2">States & complex states</nu-heading>
 
-    <nu-card labelledby=":prev" gap="1">
+    <nu-card as="section">
       <nu-heading level="3">Change color of toggle button</nu-heading>
 
       <nu-block>
