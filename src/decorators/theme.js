@@ -27,7 +27,7 @@ export default class NuTheme extends NuDecorator {
   }
 
   nuChanged(name, oldValue, value) {
-    if (!this.nuIsMounted) return;
+    if (!this.nuIsConnected) return;
 
     this.nuApply();
   }
@@ -36,7 +36,7 @@ export default class NuTheme extends NuDecorator {
     super.nuConnected();
 
     // run only once
-    if (this.nuIsMounted) return;
+    if (this.nuIsConnected) return;
 
     setTimeout(() => this.nuApply());
   }

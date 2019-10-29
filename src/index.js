@@ -40,7 +40,7 @@ import NuGroup from './elements/group';
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
 import NuVar from './decorators/var';
-import NuDefine from './decorators/define';
+import NuAttrs from './decorators/attrs';
 // helpers
 import {
   injectScript,
@@ -169,7 +169,6 @@ export {
   NuLink,
   NuTheme,
   NuVar,
-  NuDefine,
   NuDecorator,
   NuActiveElement,
   NuTriangle,
@@ -183,4 +182,5 @@ export {
   NuPopup,
   NuPopupMenu,
   NuGroup,
+  NuAttrs,
 };

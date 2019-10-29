@@ -18,6 +18,21 @@ export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
 
+export function getAllAttrs() {
+  return Object.keys(ATTRS_MAP).reduce((arr, tag) => {
+    const map = ATTRS_MAP[tag];
+
+    Object.keys(map)
+      .forEach(attr => {
+        if (!arr.includes(attr)) {
+          arr.push(attr);
+        }
+      });
+
+    return arr;
+  }, []);
+}
+
 /**
  * List of all Nude tags.
  * @type {String[]}
@@ -239,6 +254,8 @@ export default class NuBase extends HTMLElement {
    */
   connectedCallback() {
     this.nuConnected();
+
+    this.nuIsConnected = true;
   }
 
   /**
@@ -246,6 +263,8 @@ export default class NuBase extends HTMLElement {
    */
   disconnectedCallback() {
     this.nuDisconnected();
+
+    delete this.nuIsConnected;
   }
 
   /**

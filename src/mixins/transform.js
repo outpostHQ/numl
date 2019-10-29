@@ -4,13 +4,13 @@ export default function transformMixin() {
       transform: {
         // it's a hack to reset property
         // without activating child's style
-        '--nu-transform-place': '-',
+        // '--nu-transform-place': '-',
         transform: 'var(--nu-transform-place)',
       },
       place: {
         // it's a hack to reset property
         // without activating child's style
-        '--nu-transform': '-',
+        // '--nu-transform': '-',
         transform: 'var(--nu-transform)',
       },
     },

@@ -8,7 +8,7 @@ import {
   colorUnit,
   setImmediate,
   sizeUnit,
-  splitDimensions,
+  splitDimensions, log,
 } from '../helpers';
 import textAttr from '../attributes/text';
 import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
@@ -234,20 +234,62 @@ export default class NuElement extends NuBase {
     const as = this.getAttribute('as') || this.getAttribute('nu-id');
 
     if (as) {
-      const define = this.nuContext[`define:${as}`];
+      const key = `attrs:${as}`;
+      const define = this.nuContext[key];
 
       if (define) {
+        const ignoreAttrs = [];
+        const changeAttrs = [];
+
         define.forEach(attr => {
-          if (!this.hasAttribute(attr.name)) {
-            this.setAttribute(attr.name, attr.value);
+          const attrName = attr.name;
+
+          if (!this.hasAttribute(attrName)) {
+            this.setAttribute(attrName, attr.value);
+
+            changeAttrs.push(attrName);
+          } else {
+            ignoreAttrs.push(attrName);
           }
         });
+
+        if (!this.nuHasContextHook(key)) {
+          this.nuSetContextHook(key, () => {
+            const define = this.nuContext[key];
+            const attrs = define.map(attr => attr.name);
+
+            changeAttrs.forEach(attr => {
+              if (!attrs.includes(attr)) {
+                define.push({
+                  name: attr,
+                  value: null,
+                });
+              }
+            });
+
+            define.forEach(attr => {
+              const attrName = attr.name;
+
+              if (ignoreAttrs.includes(attrName)) return;
+
+              if (attr.value != null) {
+                this.setAttribute(attrName, attr.value);
+              } else {
+                this.removeAttribute(attrName);
+              }
+
+              if (!changeAttrs.includes(attrName)) {
+                changeAttrs.push(attrName);
+              }
+            });
+          });
+        }
       }
     }
 
     this.nuConnected();
 
-    this.nuIsMounted = true;
+    this.nuIsConnected = true;
   }
 
   /**
@@ -439,8 +481,56 @@ export default class NuElement extends NuBase {
   /**
    * Called when element parent changed its context.
    */
-  nuContextChanged() {
+  nuContextChanged(name) {
+    const hooks = this.nuContextHooks;
 
+    if (!hooks || !hooks[name]) return;
+
+    hooks[name]();
+
+    log('hook fired', {
+      el: this,
+      hook: name,
+    });
+  }
+
+  nuSetContext(name, value) {
+    if (value == null) {
+      delete this.nuContext[name];
+    } else if (this.nuContext[name] !== value) {
+      this.nuContext[name] = value;
+    } else {
+      return;
+    }
+
+    log('context changed', {
+      el: this,
+      name, value,
+    });
+
+    const elements = this.querySelectorAll('[nu]');
+
+    elements.forEach(el => el.nuContextChanged(name));
+  }
+
+  nuSetContextHook(name, hook) {
+    if (!hook) return;
+
+    if (!this.nuContextHooks) {
+      this.nuContextHooks = {};
+    }
+
+    if (!this.nuContextHooks) {
+      this.nuContextHooks = {};
+    }
+
+    hook.nuCache = this.nuContext && this.nuContext[name];
+
+    this.nuContextHooks[name] = hook;
+  }
+
+  nuHasContextHook(name) {
+    return this.nuContextHooks && this.nuContextHooks[name];
   }
 
   /**
