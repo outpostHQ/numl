@@ -24,7 +24,7 @@ import Nude, {
   NuLink,
   NuTheme,
   NuVar,
-  NuDefine,
+  NuAttrs,
   NuDecorator,
   NuActiveElement,
   NuTriangle,
@@ -63,10 +63,6 @@ Nude.elements = {
   NuMenu,
   NuMenuItem,
   NuLink,
-  NuTheme,
-  NuVar,
-  NuDefine,
-  NuDecorator,
   NuTriangle,
   NuTooltip,
   NuCell,
@@ -78,6 +74,11 @@ Nude.elements = {
   NuPopup,
   NuPopupMenu,
   NuGroup,
+  // decorators
+  NuDecorator,
+  NuTheme,
+  NuVar,
+  NuAttrs,
 };
 
 Nude.init(

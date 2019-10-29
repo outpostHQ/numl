@@ -81,7 +81,12 @@ export default function placeAttr(val) {
 
   if (val.trim() === 'fill') {
     // copy FILL_STYLES
-    return [FILL_STYLES[0], { ...FILL_STYLES[1] }, { ...FILL_STYLES[2] }];
+    return [
+      FILL_STYLES[0],
+      { ...FILL_STYLES[1] },
+      { ...FILL_STYLES[2] },
+      { '--nu-transform-place': 'translate(0, 0)' },
+    ];
   }
 
   const abs = PLACE_ABS.find(place => hasMod(val, place));
@@ -185,6 +190,8 @@ export default function placeAttr(val) {
   } else {
     styles = PLACE_VALUES[2](val);
   }
+
+  styles['--nu-transform-place'] = 'translate(0, 0)';
 
   return styles;
 };
