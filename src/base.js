@@ -61,6 +61,23 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
+   * Method to extract element css with current element context.
+   * @private
+   * @param cls
+   * @returns {string}
+   */
+  static nuExtractCSS(cls) {
+    const _this = this;
+
+    return this.nuCSS({
+      tag: cls.nuTag,
+      get css() {
+        return _this.nuParentCSS(cls);
+      },
+    });
+  }
+
+  /**
    * Parent element
    */
   static get nuParent() {
@@ -208,12 +225,7 @@ export default class NuBase extends HTMLElement {
 
     let el = this;
 
-    const parentCSS = el.nuParentCSS.bind(el);
-
-    let css = el.nuCSS({
-      tag: el.nuTag,
-      get css() { return parentCSS(el)},
-    });
+    let css = el.nuExtractCSS(el);
 
     const allAttrs = this.nuAllAttrs;
     const allDefaults = this.nuAllDefaults;
@@ -420,9 +432,9 @@ export default class NuBase extends HTMLElement {
    */
   nuInvertQueryById(id) {
     if (id === ':prev') {
-      return  this.previousElementSibling;
+      return this.previousElementSibling;
     } else if (id === ':next') {
-      return  this.nextElementSibling;
+      return this.nextElementSibling;
     }
 
     return invertQueryById(this, id);
