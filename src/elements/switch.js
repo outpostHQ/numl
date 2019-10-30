@@ -1,8 +1,9 @@
-import NuBlock from './block';
+import NuActiveElement from './activeelement';
 import focusable from '../mixins/focusable';
 import { bindActiveEvents } from '../helpers';
+import NuElement from './element';
 
-export default class NuSwitch extends NuBlock {
+export default class NuSwitch extends NuActiveElement {
   static get nuTag() {
     return 'nu-switch';
   }
@@ -19,6 +20,7 @@ export default class NuSwitch extends NuBlock {
     return {
       disabled: '',
       checked: '',
+      radius: 'round',
     };
   }
 
@@ -28,9 +30,9 @@ export default class NuSwitch extends NuBlock {
     };
   }
 
-  static nuCSS({ tag, css }) {
+  static nuCSS({ tag }) {
     return `
-      ${css}
+      ${NuElement.nuExtractCSS(this)}
       ${tag} {
         --nu-depth-color: transparent;
         --nu-border-radius: calc(var(--nu-size) / 2);
@@ -38,7 +40,7 @@ export default class NuSwitch extends NuBlock {
 
         --nu-border-shadow: inset 0 0 0 var(--nu-theme-border-width) var(--nu-theme-border-color);
         --nu-depth-shadow: 0 .25rem 1.5rem var(--nu-depth-color);
-        --nu-background-color: var(--nu-theme-background-color);
+        --nu-switch-background-color: var(--nu-theme-background-color);
         --nu-switch-shadow: 0 0 1rem 0 var(--nu-switch-color) inset;
 
         --nu-size: 2em;
@@ -53,7 +55,7 @@ export default class NuSwitch extends NuBlock {
         width: calc(var(--nu-size) * 2);
         height: var(--nu-size);
         border-radius: var(--nu-border-radius);
-        background-color: var(--nu-background-color);
+        background-color: var(--nu-switch-background-color) !important;
         cursor: pointer;
         box-shadow: var(--nu-depth-shadow),
           var(--nu-switch-shadow),
@@ -88,72 +90,22 @@ export default class NuSwitch extends NuBlock {
         cursor: default;
       }
 
-      ${tag}[aria-checked="true"] {
-        --nu-background-color: var(--nu-theme-special-color);
+      ${tag}[nu-pressed] {
+        --nu-switch-background-color: var(--nu-theme-special-color);
         --nu-circle-offset: calc(var(--nu-size) * 2 - var(--nu-circle-padding) - var(--nu-circle-size));
         --nu-circle-opacity: 1;
         --nu-circle-background-color: var(--nu-theme-background-color);
       }
 
-      ${tag}[nu-active]:not([disabled]):not([aria-checked="true"]) {
+      ${tag}[nu-active]:not([disabled]):not([nu-pressed]) {
         --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
       }
       
-      ${tag}[nu-active][aria-checked="true"]:not([disabled]) {
+      ${tag}[nu-active][nu-pressed]:not([disabled]) {
         --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-special-shadow-opacity));
       }
 
       ${focusable(tag)}
     `;
-  }
-
-  constructor() {
-    super();
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    this.nuSetValue(this.getAttribute('checked'));
-
-    this.nuSetFocusable(!this.hasAttribute('disabled'));
-
-    bindActiveEvents.call(this);
-  }
-
-  get value() {
-    return this.getAttribute('aria-checked') === 'true';
-  }
-
-  nuTap() {
-    this.nuToggle();
-
-    this.nuEmit('tap');
-  }
-
-  nuSetValue(value) {
-    if (value) {
-      this.nuSetAria('checked', true);
-    } else {
-      this.nuSetAria('checked', false);
-    }
-  }
-
-  nuToggle() {
-    this.nuSetValue(!this.value);
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
-    switch (name) {
-      case 'disabled':
-        this.nuSetMod('disabled', value != null);
-        this.nuSetFocusable(value == null);
-        break;
-      case 'checked':
-        this.nuSetValue(value != null);
-        break;
-    }
   }
 }

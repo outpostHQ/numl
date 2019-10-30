@@ -230,6 +230,7 @@ export default class NuActiveElement extends NuElement {
         this.nuSetFocusable(value == null);
         break;
       case 'pressed':
+      case 'checked':
         value = value != null;
 
         this.nuSetPressed(value);
@@ -265,7 +266,14 @@ export default class NuActiveElement extends NuElement {
       this.setAttribute('tabindex', pressed ? '-1' : '0');
     }
 
-    this.nuSetAria(this.hasAttribute('aria-expanded') ? 'expanded' : 'pressed', pressed);
+    if (this.hasAttribute('aria-expanded')) {
+      this.nuSetAria('expanded', pressed);
+    } else if (this.nuIsCheckbox()) {
+      this.nuSetAria('checked', pressed);
+    } else {
+      this.nuSetAria('pressed', pressed);
+    }
+
     this.nuSetMod('pressed', pressed);
     this.nuEmit('pressed', pressed);
     this.nuControl();
@@ -291,10 +299,15 @@ export default class NuActiveElement extends NuElement {
   nuIsToggle() {
     return this.hasAttribute('aria-pressed')
       || this.hasAttribute('aria-expanded')
-      || ['checkbox', 'radio', 'tab'].includes(this.getAttribute('role'));
+      || this.hasAttribute('aria-checked')
+      || ['checkbox', 'radio', 'tab', 'switch'].includes(this.getAttribute('role'));
   }
 
   nuIsRadio() {
     return ['radio', 'tab'].includes(this.getAttribute('role'));
+  }
+
+  nuIsCheckbox() {
+    return ['radio', 'checkbox', 'switch'].includes(this.getAttribute('role'));
   }
 }

@@ -42,7 +42,7 @@ export default class NuBtnGroup extends NuRadioGroup {
 
   static nuCSS({ tag }) {
     return `
-      ${NuGroup.nuCSS({ tag, get css() { return NuGroup.nuParentCSS.call(NuGroup, this); } })}
+      ${NuGroup.nuExtractCSS(this)}
       
       ${tag} > *:not([grow]) {
         flex-grow:1;
