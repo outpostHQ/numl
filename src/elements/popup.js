@@ -11,6 +11,10 @@ export default class NuPopup extends NuCard {
     return 'dialog';
   }
 
+  static get nuId() {
+    return 'popup';
+  }
+
   static get nuAttrs() {
     return {
       place(val) {

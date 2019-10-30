@@ -11,6 +11,10 @@ export default class NuSwitch extends NuBlock {
     return 'switch';
   }
 
+  static get nuId() {
+    return 'btn';
+  }
+
   static get nuAttrs() {
     return {
       disabled: '',

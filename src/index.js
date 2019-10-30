@@ -36,6 +36,8 @@ import NuRowHeader from './elements/rowheader';
 import NuPopup from './elements/popup';
 import NuPopupMenu from './elements/popupmenu';
 import NuGroup from './elements/group';
+import NuCheckbox from './elements/checkbox';
+import NuLabel from './elements/label';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -62,36 +64,7 @@ import {
   setImmediate,
   extractMods,
 } from './helpers';
-
-let enableTimerId, disableTimerId;
-
-function enableFocus() {
-  if (enableTimerId) return;
-
-  enableTimerId = setTimeout(() => {
-    const root = document.querySelector(ROOT_CONTEXT);
-
-    if (root) {
-      root.classList.add('nu-focus-enabled');
-    }
-
-    enableTimerId = 0;
-  }, 100);
-}
-
-function disableFocus() {
-  if (disableTimerId) return;
-
-  disableTimerId = setTimeout(() => {
-    const root = document.querySelector(ROOT_CONTEXT);
-
-    if (root) {
-      root.classList.remove('nu-focus-enabled');
-    }
-
-    disableTimerId = 0;
-  }, 100);
-}
+import { enableFocus, disableFocus } from './focus';
 
 window.addEventListener('mousedown', disableFocus);
 window.addEventListener('keydown', enableFocus);
@@ -167,9 +140,6 @@ export {
   NuMenu,
   NuMenuItem,
   NuLink,
-  NuTheme,
-  NuVar,
-  NuDecorator,
   NuActiveElement,
   NuTriangle,
   NuTooltip,
@@ -182,5 +152,10 @@ export {
   NuPopup,
   NuPopupMenu,
   NuGroup,
+  NuCheckbox,
+  NuLabel,
   NuAttrs,
+  NuTheme,
+  NuVar,
+  NuDecorator,
 };

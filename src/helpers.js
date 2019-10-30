@@ -502,7 +502,7 @@ export function mixColors(clr1, clr2, pow = 0.5) {
  * @param {String|Array} clr2
  * @returns {Number} - contrast ratio between 0 and 1.
  */
-export function contastRatio(clr1, clr2) {
+export function contrastRatio(clr1, clr2) {
   return Math.abs(getLuminance(clr1) - getLuminance(clr2));
 }
 

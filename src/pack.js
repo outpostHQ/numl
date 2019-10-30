@@ -38,6 +38,8 @@ import Nude, {
   NuPopup,
   NuPopupMenu,
   NuGroup,
+  NuCheckbox,
+  NuLabel,
 } from './index';
 
 Nude.elements = {
@@ -74,6 +76,8 @@ Nude.elements = {
   NuPopup,
   NuPopupMenu,
   NuGroup,
+  NuCheckbox,
+  NuLabel,
   // decorators
   NuDecorator,
   NuTheme,
