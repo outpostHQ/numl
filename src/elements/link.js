@@ -10,6 +10,10 @@ export default class NuLink extends NuActiveElement {
     return 'link';
   }
 
+  static get nuId() {
+    return 'link';
+  }
+
   static get nuDefaults() {
     return {
       display: 'inline-block',

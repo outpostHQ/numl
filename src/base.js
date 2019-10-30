@@ -53,6 +53,14 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
+   * Auto-id applied to element.
+   * @returns {string}
+   */
+  static get nuId() {
+    return '';
+  }
+
+  /**
    * Parent element
    */
   static get nuParent() {
@@ -272,7 +280,9 @@ export default class NuBase extends HTMLElement {
    * @returns {String}
    */
   get nuId() {
-    if (this.id && this.id.includes('--')) return this.id;
+    if (this.id && this.id.includes('--')) {
+      return this.id;
+    }
 
     return generateId(this);
   }
@@ -375,6 +385,12 @@ export default class NuBase extends HTMLElement {
    * @param {String} id
    */
   nuInvertQueryById(id) {
+    if (id === ':prev') {
+      return  this.previousElementSibling;
+    } else if (id === ':next') {
+      return  this.nextElementSibling;
+    }
+
     return invertQueryById(this, id);
   }
 

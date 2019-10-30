@@ -5,7 +5,7 @@ import {
   extractColor,
   generalizeColor,
   getLuminance,
-  contastRatio,
+  contrastRatio,
   convertUnit,
   setAlphaChannel
 } from "./helpers";
@@ -61,7 +61,7 @@ export function generateTheme(props, darkProps, parentProps) {
   };
 
   lightTheme.specialContrastColor = lightTheme.specialContrastColor
-    || (contastRatio(lightTheme.specialColor, lightTheme.backgroundColor) * 1.5 > contastRatio(lightTheme.specialColor, lightTheme.color)
+    || (contrastRatio(lightTheme.specialColor, lightTheme.backgroundColor) * 1.5 > contrastRatio(lightTheme.specialColor, lightTheme.color)
       ? lightTheme.backgroundColor : lightTheme.color);
 
   let darkTheme;
@@ -91,7 +91,7 @@ export function generateTheme(props, darkProps, parentProps) {
     }
 
     darkTheme.specialContrastColor = generalizeColor(darkProps.specialContrastColor)
-      || (contastRatio(darkTheme.specialColor, lightTheme.backgroundColor) * 1.5 > contastRatio(darkTheme.specialColor, lightTheme.color)
+      || (contrastRatio(darkTheme.specialColor, lightTheme.backgroundColor) * 1.5 > contrastRatio(darkTheme.specialColor, lightTheme.color)
         ? lightTheme.backgroundColor : lightTheme.color);
   } else {
     darkTheme = { ...lightTheme };

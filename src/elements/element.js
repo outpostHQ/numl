@@ -225,6 +225,14 @@ export default class NuElement extends NuBase {
       this.nuContext = {};
     }
 
+    if (!this.id) {
+      const nuId = this.constructor.nuId;
+
+      if (nuId) {
+        this.id = nuId;
+      }
+    }
+
     const nuRole = this.constructor.nuRole;
 
     if (nuRole && !this.hasAttribute('role')) {
@@ -290,6 +298,22 @@ export default class NuElement extends NuBase {
     this.nuConnected();
 
     this.nuIsConnected = true;
+  }
+
+  /**
+   * @private
+   */
+  disconnectedCallback() {
+    this.nuDisconnected();
+
+    if (this.nuDisconnectedHooks) {
+      this.nuDisconnectedHooks.forEach(cb => cb());
+      delete this.nuDisconnectedHooks;
+
+      log('disconnected hooks', { el: this });
+    }
+
+    delete this.nuIsConnected;
   }
 
   /**
@@ -529,6 +553,16 @@ export default class NuElement extends NuBase {
     this.nuContextHooks[name] = hook;
   }
 
+  nuSetDisconnectedHook(hook) {
+    if (!hook) return;
+
+    if (!this.nuDisconnectedHooks) {
+      this.nuDisconnectedHooks = [];
+    }
+
+    this.nuDisconnectedHooks.push(hook);
+  }
+
   nuHasContextHook(name) {
     return this.nuContextHooks && this.nuContextHooks[name];
   }
@@ -584,13 +618,7 @@ export default class NuElement extends NuBase {
           const ariaValue = value.split(/\s+/g).map((id) => {
             let link;
 
-            if (id === ':prev') {
-              link = this.previousElementSibling;
-            } else if (id === ':next') {
-              link = this.nextElementSibling;
-            } else {
-              link = this.nuInvertQueryById(id);
-            }
+            link = this.nuInvertQueryById(id);
 
             if (!link) return '';
 

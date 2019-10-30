@@ -9,6 +9,10 @@ export default class NuCard extends NuBlock {
     return 'article';
   }
 
+  static get nuId() {
+    return 'card';
+  }
+
   static get nuDefaults() {
     return {
       padding: '2x',

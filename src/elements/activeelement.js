@@ -15,6 +15,10 @@ export default class NuActiveElement extends NuElement {
     return 'button';
   }
 
+  static get nuId() {
+    return 'btn';
+  }
+
   static get nuAttrs() {
     return {
       disabled: '',

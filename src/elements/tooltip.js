@@ -6,6 +6,10 @@ export default class NuTooltip extends NuBlock {
     return 'nu-tooltip';
   }
 
+  static get nuId() {
+    return 'tooltip';
+  }
+
   static get nuDefaults() {
     return {
       shadow: '',

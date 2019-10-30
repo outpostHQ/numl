@@ -56,7 +56,11 @@ export default class NuTable extends NuElement {
         empty: 'var(--nu-theme-padding)',
         convert: true,
       }),
-      radius: null,
+      radius: unit('--nu-border-radius', {
+        multiplier: 'var(--nu-theme-border-radius)',
+        empty: 'var(--nu-theme-border-radius)',
+        convert: true,
+      }),
     };
   }
 
@@ -87,6 +91,22 @@ export default class NuTable extends NuElement {
       
       ${nuTag} > nu-rowgroup > nu-row > *:last-child {
         border-right: 0 !important;
+      }
+      
+      ${nuTag} >  nu-rowgroup:first-child >  nu-row:first-child > *:first-child {
+        border-top-left-radius: var(--nu-theme-border-radius);
+      }
+      
+      ${nuTag} >  nu-rowgroup:first-child >  nu-row:first-child > *:last-child {
+        border-top-right-radius: var(--nu-theme-border-radius);
+      }
+      
+      ${nuTag} >  nu-rowgroup:last-child >  nu-row:last-child > *:first-child {
+        border-bottom-left-radius: var(--nu-theme-border-radius);
+      }
+      
+      ${nuTag} >  nu-rowgroup:last-child >  nu-row:last-child > *:last-child {
+        border-bottom-right-radius: var(--nu-theme-border-radius);
       }
     `;
   }
