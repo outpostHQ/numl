@@ -63,9 +63,10 @@ export default class NuActiveElement extends NuElement {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} {
+      ${css}
+      ${tag} {
         --nu-toggle-color: transparent;
         --nu-depth-color: transparent;
         --nu-hover-color: transparent;
@@ -83,7 +84,7 @@ export default class NuActiveElement extends NuElement {
           var(--nu-depth-shadow);
       }
       
-      ${nuTag}[tabindex]:not([tabindex="-1"]):not([disabled])::after {
+      ${tag}[tabindex]:not([tabindex="-1"]):not([disabled])::after {
         content: '';
         position: absolute;
         top: 0;
@@ -95,28 +96,28 @@ export default class NuActiveElement extends NuElement {
         transition: background-color var(--nu-theme-animation-time) linear;
       } 
 
-      ${nuTag}[tabindex] {
+      ${tag}[tabindex] {
         cursor: pointer;
       }
 
-      ${nuTag}[disabled] {
+      ${tag}[disabled] {
         opacity: .5;
         cursor: default;
       }
       
-      ${nuTag}:not([disabled])[tabindex]:hover {
+      ${tag}:not([disabled])[tabindex]:hover {
         --nu-hover-color: var(--nu-theme-hover-color);
       }
 
-      ${nuTag}[nu-active] {
+      ${tag}[nu-active] {
         z-index: 3;
       }
 
-      ${nuTag}[nu-pressed] {
+      ${tag}[nu-pressed] {
         z-index: 2;
       }
 
-      ${focusable(nuTag)}
+      ${focusable(tag)}
     `;
   }
 

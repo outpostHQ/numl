@@ -28,15 +28,16 @@ export default class NuGridTable extends NuGrid {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} > :not([fill]) {
+      ${css}
+      ${tag} > :not([fill]) {
         background-color: var(--nu-theme-background-color);
       }
-      ${nuTag}:not([padding]) > *:not([padding]):not(nu-line) {
+      ${tag}:not([padding]) > *:not([padding]):not(nu-line) {
         padding: .5rem;
       }
-      ${nuTag} > *:not([place]) {
+      ${tag} > *:not([place]) {
         position: relative;
       }
     `;

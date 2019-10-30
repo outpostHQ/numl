@@ -19,39 +19,40 @@ export default class NuBtn extends NuActiveElement {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} {
+      ${css}
+      ${tag} {
         --nu-toggle-color: transparent;
         --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
       }
 
-      ${nuTag}:not([disabled])[tabindex]:hover {
+      ${tag}:not([disabled])[tabindex]:hover {
         --nu-hover-color: var(--nu-theme-hover-color);
       }
 
-      ${nuTag}[disabled][nu-pressed],
-      ${nuTag}[nu-active]:not([disabled]):not([nu-pressed]),
-      ${nuTag}[nu-active][nu-pressed]:not([disabled]),
-      ${nuTag}[nu-pressed]:not([disabled]):not([nu-active]) {
+      ${tag}[disabled][nu-pressed],
+      ${tag}[nu-active]:not([disabled]):not([nu-pressed]),
+      ${tag}[nu-active][nu-pressed]:not([disabled]),
+      ${tag}[nu-pressed]:not([disabled]):not([nu-active]) {
         --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
       }
 
-      ${nuTag}[special] {
+      ${tag}[special] {
         --nu-theme-shadow-opacity: var(--nu-theme-special-shadow-opacity);
         --nu-theme-hover-color: var(--nu-theme-special-hover-color);
         --nu-theme-heading-color: var(--nu-theme-special-contrast-color);
       }
       
-      ${nuTag}[special]:not([fill]) {
+      ${tag}[special]:not([fill]) {
         background-color: var(--nu-theme-special-color) !important;
       }
       
-      ${nuTag}[special]:not([color]) {
+      ${tag}[special]:not([color]) {
         color: var(--nu-theme-special-contrast-color) !important;
       }
       
-      ${nuTag}[special] > *:not([theme]):not([nu-popup]) {
+      ${tag}[special] > *:not([theme]):not([nu-popup]) {
         --nu-theme-border-color: var(--nu-theme-special-contrast-color);
       }
     `;

@@ -26,18 +26,19 @@ export default class NuLink extends NuActiveElement {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} {
+      ${css}
+      ${tag} {
         font-weight: bolder;
         position: relative;
       }
       
-      ${nuTag}:not([disabled])[nu-active] {
+      ${tag}:not([disabled])[nu-active] {
         --nu-hover-color: var(--nu-theme-hover-color);
       }
       
-      ${focusable(nuTag)}
+      ${focusable(tag)}
     `;
   }
 }

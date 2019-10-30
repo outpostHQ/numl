@@ -73,39 +73,40 @@ export default class NuTable extends NuElement {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag}{ overflow: hidden; }
+      ${css}
+      ${tag}{ overflow: hidden; }
       
-      ${nuTag} >  nu-rowgroup:first-child >  nu-row:first-child > * {
+      ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > * {
         border-top: 0 !important;
       }
       
-      ${nuTag} >  nu-rowgroup:last-child >  nu-row:last-child > * {
+      ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > * {
         border-bottom: 0 !important;
       }
       
-      ${nuTag} >  nu-rowgroup >  nu-row > *:first-child {
+      ${tag} >  nu-rowgroup >  nu-row > *:first-child {
         border-left: 0 !important;
       }
       
-      ${nuTag} > nu-rowgroup > nu-row > *:last-child {
+      ${tag} > nu-rowgroup > nu-row > *:last-child {
         border-right: 0 !important;
       }
       
-      ${nuTag} >  nu-rowgroup:first-child >  nu-row:first-child > *:first-child {
+      ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > *:first-child {
         border-top-left-radius: var(--nu-theme-border-radius);
       }
       
-      ${nuTag} >  nu-rowgroup:first-child >  nu-row:first-child > *:last-child {
+      ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > *:last-child {
         border-top-right-radius: var(--nu-theme-border-radius);
       }
       
-      ${nuTag} >  nu-rowgroup:last-child >  nu-row:last-child > *:first-child {
+      ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > *:first-child {
         border-bottom-left-radius: var(--nu-theme-border-radius);
       }
       
-      ${nuTag} >  nu-rowgroup:last-child >  nu-row:last-child > *:last-child {
+      ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > *:last-child {
         border-bottom-right-radius: var(--nu-theme-border-radius);
       }
     `;

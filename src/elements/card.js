@@ -25,9 +25,10 @@ export default class NuCard extends NuBlock {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} { position: relative; }
+      ${css}
+      ${tag} { position: relative; }
     `;
   }
 }

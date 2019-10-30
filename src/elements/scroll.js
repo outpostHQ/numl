@@ -26,9 +26,10 @@ export default class NuScroll extends NuElement {
     };
   }
 
-  nuCSS({ nuTag }) {
+  nuCSS({ tag, css }) {
     return `
-      ${nuTag} {
+      ${css}
+      ${tag} {
         --nu-line-color: var(--nu-theme-special-color);
         --nu-line-size: .25rem;
         --nu-line-offset: 0%;

@@ -178,9 +178,10 @@ export default class NuElement extends NuBase {
   /**
    * Element initialization logic
    */
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag}[hidden] {
+      ${css}
+      ${tag}[hidden] {
         display: none !important;
       }
     `;
