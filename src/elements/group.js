@@ -44,17 +44,18 @@ export default class NuGroup extends NuElement {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} {
+      ${css}
+      ${tag} {
         --nu-item-border-radius: var(--nu-border-radius);
         
         border-radius: calc(var(--nu-border-radius, 0) + 1px) !important;
       }
-      ${nuTag}:not([gap]) > :not(:last-child):not(:first-child) {
+      ${tag}:not([gap]) > :not(:last-child):not(:first-child) {
         --nu-border-radius: 0 !important;
       }
-      ${nuTag}:not([gap]) > :last-child:first-child {
+      ${tag}:not([gap]) > :last-child:first-child {
         --nu-border-radius: inherit !important;
       }
     `;

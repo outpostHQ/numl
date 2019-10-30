@@ -53,16 +53,17 @@ export default class NuIcon extends NuBlock {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} {
+      ${css}
+      ${tag} {
         --nu-size: 1em;
 
         position: relative;
         background-color: transparent !important;
       }
 
-      ${nuTag} > svg {
+      ${tag} > svg {
         position: absolute;
         left: 50%;
         top: 50%;
@@ -71,11 +72,11 @@ export default class NuIcon extends NuBlock {
         transform: translate(-50%, -50%);
       }
 
-      ${nuTag} > :not(svg) {
+      ${tag} > :not(svg) {
         display: none;
       }
 
-      ${nuTag}[inline] {
+      ${tag}[inline] {
         bottom: 0.0675em;
       }
     `;

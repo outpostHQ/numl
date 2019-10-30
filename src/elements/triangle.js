@@ -71,9 +71,10 @@ export default class NuTriangle extends NuElement {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag}[inline] {
+      ${css}
+      ${tag}[inline] {
         bottom: 0.0675em;
       }
     `;

@@ -36,15 +36,16 @@ export default class NuInput extends NuBlock {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} {
+      ${css}
+      ${tag} {
         outline: none;
         user-select: none;
         position: relative;
       }
 
-      ${nuTag} input {
+      ${tag} input {
         padding: var(--nu-padding);
         width: 100%;
         max-width: 100%;
@@ -61,32 +62,32 @@ export default class NuInput extends NuBlock {
         box-sizing: border-box;
       }
       
-      ${nuTag} input:not(:first-child) {
+      ${tag} input:not(:first-child) {
         padding-left: 0;
       }
       
-      ${nuTag} input:not(:last-child) {
+      ${tag} input:not(:last-child) {
         padding-right: 0;
       }
 
-      ${nuTag} input[disabled] {
+      ${tag} input[disabled] {
         color: var(--minor-color);
         background: var(--minor-background-color);
         -webkit-text-fill-color: var(--minor-color);
         -webkit-opacity: 1;
       }
 
-      ${nuTag} input::placeholder {
+      ${tag} input::placeholder {
         -webkit-text-fill-color: currentColor;
         color: currentColor;
         opacity: .5;
       }
       
-      ${nuTag} nu-icon:not([width]) {
+      ${tag} nu-icon:not([width]) {
         width: calc(var(--nu-padding) * 2 + 1em);
       }
 
-      ${focusable(nuTag, { force: true })}
+      ${focusable(tag, { force: true })}
     `;
   }
 

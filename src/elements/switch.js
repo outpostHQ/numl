@@ -28,9 +28,10 @@ export default class NuSwitch extends NuBlock {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} {
+      ${css}
+      ${tag} {
         --nu-depth-color: transparent;
         --nu-border-radius: calc(var(--nu-size) / 2);
         --nu-switch-color: rgba(0, 0, 0, 0);
@@ -63,7 +64,7 @@ export default class NuSwitch extends NuBlock {
         vertical-align: middle;
       }
 
-      ${nuTag}::after {
+      ${tag}::after {
         content: "";
         position: absolute;
         display: block;
@@ -82,27 +83,27 @@ export default class NuSwitch extends NuBlock {
         opacity: var(--nu-circle-opacity);
       }
 
-      ${nuTag}[disabled] {
+      ${tag}[disabled] {
         opacity: .5;
         cursor: default;
       }
 
-      ${nuTag}[aria-checked="true"] {
+      ${tag}[aria-checked="true"] {
         --nu-background-color: var(--nu-theme-special-color);
         --nu-circle-offset: calc(var(--nu-size) * 2 - var(--nu-circle-padding) - var(--nu-circle-size));
         --nu-circle-opacity: 1;
         --nu-circle-background-color: var(--nu-theme-background-color);
       }
 
-      ${nuTag}[nu-active]:not([disabled]):not([aria-checked="true"]) {
+      ${tag}[nu-active]:not([disabled]):not([aria-checked="true"]) {
         --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
       }
       
-      ${nuTag}[nu-active][aria-checked="true"]:not([disabled]) {
+      ${tag}[nu-active][aria-checked="true"]:not([disabled]) {
         --nu-switch-color: rgba(0, 0, 0, var(--nu-theme-special-shadow-opacity));
       }
 
-      ${focusable(nuTag)}
+      ${focusable(tag)}
     `;
   }
 

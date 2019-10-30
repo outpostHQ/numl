@@ -24,18 +24,19 @@ export default class NuBadge extends NuElement {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag}[theme]:not([color]) {
+      ${css}
+      ${tag}[theme]:not([color]) {
         color: var(--nu-theme-background-color) !important;
       }
-      ${nuTag}[theme]:not([fill]) {
+      ${tag}[theme]:not([fill]) {
         background-color: var(--nu-theme-color) !important;
       }
-      ${nuTag}[special]:not([fill]) {
+      ${tag}[special]:not([fill]) {
         background-color: var(--nu-theme-special-color) !important;
       }
-      ${nuTag}[special]:not([color]) {
+      ${tag}[special]:not([color]) {
         color: var(--nu-theme-special-contrast-color) !important;
       }
     `;

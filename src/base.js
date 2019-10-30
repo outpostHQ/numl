@@ -64,7 +64,42 @@ export default class NuBase extends HTMLElement {
    * Parent element
    */
   static get nuParent() {
-    return Object.getPrototypeOf(this);
+    const parent = Object.getPrototypeOf(this);
+
+    if (parent.nuTag != null) return parent;
+
+    return;
+  }
+
+  /**
+   * Method to generate parent CSS with current element context.
+   * @private
+   * @param cls
+   * @returns {string}
+   */
+  static nuParentCSS(cls) {
+    let parent = this.nuParent;
+
+    if (parent && parent.nuCSS) {
+      return parent.nuCSS({
+        tag: cls.nuTag,
+        get css() {
+          return parent.nuParentCSS.call(parent, cls);
+        },
+      });
+    }
+
+    return '';
+  }
+
+  /**
+   * Static css generation method for an element.
+   * @param tag - current tag name
+   * @param css - current css
+   * @returns {string}
+   */
+  static nuCSS({ tag, css }) {
+    return '';
   }
 
   /**
@@ -74,7 +109,7 @@ export default class NuBase extends HTMLElement {
     return (
       ATTRS_MAP[this.nuTag] ||
       (ATTRS_MAP[this.nuTag] = {
-        ...(this.nuParent.nuAllAttrs || {}),
+        ...(this.nuParent && this.nuParent.nuAllAttrs || {}),
         ...this.nuAttrs
       })
     );
@@ -139,7 +174,7 @@ export default class NuBase extends HTMLElement {
     return (
       DEFAULTS_MAP[this.nuTag] ||
       (DEFAULTS_MAP[this.nuTag] = {
-        ...(this.nuParent.nuAllDefaults || {}),
+        ...(this.nuParent && this.nuParent.nuAllDefaults || {}),
         ...(this.nuDefaults || {}),
       })
     );
@@ -171,15 +206,14 @@ export default class NuBase extends HTMLElement {
 
     TAG_LIST.push(tag);
 
-    let el = this,
-      css = '';
+    let el = this;
 
-    do {
-      if (!el.nuCSS) break;
-      if (el.nuCSS === (el.nuParent && el.nuParent.nuCSS)) continue;
+    const parentCSS = el.nuParentCSS.bind(el);
 
-      css = `${el.nuCSS(this)}${css}`;
-    } while ((el = el.nuParent));
+    let css = el.nuCSS({
+      tag: el.nuTag,
+      get css() { return parentCSS(el)},
+    });
 
     const allAttrs = this.nuAllAttrs;
     const allDefaults = this.nuAllDefaults;

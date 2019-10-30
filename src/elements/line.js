@@ -44,9 +44,10 @@ export default class NuLine extends NuBlock {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} {
+      ${css}
+      ${tag} {
         --nu-line-size: var(--nu-theme-border-width);
 
         position: relative;
@@ -55,7 +56,7 @@ export default class NuLine extends NuBlock {
         color: var(--nu-theme-border-color);
       }
 
-      ${nuTag}[special]:not([color]) {
+      ${tag}[special]:not([color]) {
         color: var(--nu-theme-special-color);
       }
     `;

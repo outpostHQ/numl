@@ -22,9 +22,10 @@ export default class NuMenuitem extends NuBtn {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag, css }) {
     return `
-      ${nuTag} {
+      ${css}
+      ${tag} {
         --nu-focus-inset: inset 0 0;
       }
     `;

@@ -40,11 +40,11 @@ export default class NuBtnGroup extends NuRadioGroup {
     };
   }
 
-  static nuCSS({ nuTag }) {
+  static nuCSS({ tag }) {
     return `
-      ${NuGroup.nuCSS({ nuTag })}
+      ${NuGroup.nuCSS({ tag, get css() { return NuGroup.nuParentCSS.call(NuGroup, this); } })}
       
-      ${nuTag} > *:not([grow]) {
+      ${tag} > *:not([grow]) {
         flex-grow:1;
       }
     `;
