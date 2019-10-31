@@ -161,6 +161,49 @@ Run `npm run play` to view test page with few examples.
 * [Integration with Frameworks](docs/integration.md)
 * [Known issues](docs/issues.md)
 
+## Roadmap
+
+### v0.8
+
+* Rework of theme system.
+* Improve performance of responsive system.
+* Improve widgets' logic.
+* New variable system.
+* New useful elements.
+
+## Changelog
+
+### v0.7
+
+* `mod` attribute replaced with `text` attribute and move all non-text-related modifiers to other attributes. Now it’s not possible to specify text size with `text` attribute. Use `size` attribute instead.
+* Dynamic `display` attribute. How you can change it depending on responsive points or state.
+* Full rework of `gap` and `flow` attributes to better support dynamic `display` attribute.
+* Attribute `gap` support for all block elements. It add needed margins to all children except the last one.
+* Responsive system fix to support attributes that generates nothing for some values.
+* Added `nu-popup` and `nu-popupmenu` elements with accessibility features and intuitive mechanics.
+* Simplified event mechanics for widgets.
+* Added new `:prev` and `:next` shortcuts for accessibility link attributes.
+* New base inline element `nu-el`.
+* `hidden` attribute renamed to `hide`.
+* Added attribute `overflow`.
+* Added `image` attribute for background image declaration.
+* `events` attribute renamed to `interactive` and change its API.
+* `cell` attribute replaced with `fill` value for `place` attribute.
+* New modifiers for `radius` attribute: `round` and `ellipse`.
+* Added wrapped `flex` with two-dimension gap. Just use `flow` attribute with `wrap` modifier. (Polyfill has restrictions)
+* Direction modifiers for `padding` and `space` attributes.
+* CSS Mixins to share styles between attributes and optimize style applying. It's under-the-hood improvement that speeds up elements’ rendering and fixes several bugs. It almost completely fulfills NUDE’s promise to apply styles only when they are needed.
+* Added new `color` attribute modifiers: `fill`, `minor fill`, `special fill`, `swap`, `minor swap`, `special swap`. They currently don’t affect shadow intensity; New color shotcuts presented;
+*  `background` attribute has been renamed to `fill`.
+* Added `nu-rowheader` element for tables.
+* Framework: Added context system to access element's context provided by parent elements and register hooks for context change. It’s very important feature that drastically simplifies implementation of widgets and internal systems.
+* New`nu-attrs` element to declare attributes with their values in context to cast them into elements within that context. It’s a handy alternative to CSS classes. You can dynamically change attributes to affect related elements.
+* Static css inheritance reworked. API was simplified.
+* Added cleaning system to remove CSS that can’t be used again.
+* Added `nu-checkbox` element.
+* Added `nu-label` element.
+* Multiple fixes to various element styles.
+
 ## Contribution
 
 There is no contribution guideline just yet but we would love to hear any feedback from you. Feel free to leave a note at [tenphi@gmail.com](mailto:tenphi@gmail.com?subject=NUDE%20Feeback).

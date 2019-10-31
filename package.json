@@ -13,7 +13,7 @@
     "cssnano": "^4.1.10",
     "inline-assets": "^1.4.3",
     "install": "^0.13.0",
-    "npm": "^6.12.0",
+    "npm": "^6.12.1",
     "parcel-bundler": "^1.12.4",
     "rollup": "^1.25.1",
     "rollup-plugin-babel-minify": "^8.0.0",
