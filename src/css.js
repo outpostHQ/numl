@@ -1,4 +1,4 @@
-import { devMode, warn } from "./helpers";
+import { devMode, log, warn } from "./helpers";
 
 export const map = {};
 const testEl = document.createElement('div');
@@ -114,12 +114,23 @@ export function injectCSS(name, selector, css) {
   return map[name];
 }
 
+export function cleanCSSByPart(selectorPart) {
+  const keys = Object.keys(map).filter(selector => selector.includes(selectorPart));
+
+  keys.forEach(key => {
+    removeCSS(key);
+    log('css removed:', key)
+  });
+}
+
 export function removeCSS(name) {
   if (!map[name]) return;
 
   const el = map[name].element;
 
   el.parentNode.removeChild(el);
+
+  delete map[name];
 }
 
 export function hasCSS(name) {
