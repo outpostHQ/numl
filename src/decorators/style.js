@@ -1,9 +1,9 @@
 import NuDecorator from './decorator';
 import { getAllAttrs } from '../base';
 
-export default class NuAttrs extends NuDecorator {
+export default class NuStyle extends NuDecorator {
   static get nuTag() {
-    return 'nu-attrs';
+    return 'nu-style';
   }
 
   static get nuAttrsList() {

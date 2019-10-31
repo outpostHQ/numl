@@ -42,7 +42,7 @@ import NuLabel from './elements/label';
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
 import NuVar from './decorators/var';
-import NuAttrs from './decorators/attrs';
+import NuStyle from './decorators/style';
 // helpers
 import {
   injectScript,
@@ -154,7 +154,7 @@ export {
   NuGroup,
   NuCheckbox,
   NuLabel,
-  NuAttrs,
+  NuStyle,
   NuTheme,
   NuVar,
   NuDecorator,
