@@ -24,7 +24,7 @@ import Nude, {
   NuLink,
   NuTheme,
   NuVar,
-  NuAttrs,
+  NuStyle,
   NuDecorator,
   NuActiveElement,
   NuTriangle,
@@ -82,7 +82,7 @@ Nude.elements = {
   NuDecorator,
   NuTheme,
   NuVar,
-  NuAttrs,
+  NuStyle,
 };
 
 Nude.init(

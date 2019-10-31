@@ -91,6 +91,7 @@ export default class NuActiveElement extends NuElement {
         right: 0;
         bottom: 0;
         left: 0;
+        z-index: -1;
         border-radius: inherit;
         background-color: var(--nu-hover-color);
         transition: background-color var(--nu-theme-animation-time) linear;
