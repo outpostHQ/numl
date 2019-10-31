@@ -11,7 +11,15 @@ import {
   splitDimensions, log,
 } from '../helpers';
 import textAttr from '../attributes/text';
-import { hasCSS, injectCSS, removeCSS, attrsQuery, generateCSS, stylesString } from '../css';
+import {
+  hasCSS,
+  injectCSS,
+  removeCSS,
+  attrsQuery,
+  generateCSS,
+  stylesString,
+  cleanCSSByPart
+} from '../css';
 import NuBase from '../base';
 import { THEME_ATTRS_LIST } from '../attrs';
 import { generateTheme, convertThemeName } from '../themes';
@@ -312,6 +320,10 @@ export default class NuElement extends NuBase {
       delete this.nuDisconnectedHooks;
 
       log('disconnected hooks', { el: this });
+    }
+
+    if (this.id) {
+      cleanCSSByPart(this.id);
     }
 
     delete this.nuIsConnected;
@@ -792,9 +804,11 @@ export default class NuElement extends NuBase {
 
     let styleElement;
 
+    const styleTagName = `theme:${name}:${baseQuery}`;
+
     if (matchMedia('(prefers-color-scheme)').matches) {
       styleElement = injectCSS(
-        `theme:${name}:${baseQuery}`,
+        styleTagName,
         baseQuery,
         `
         ${commonCSS}
@@ -813,7 +827,7 @@ export default class NuElement extends NuBase {
       ).element;
     } else {
       styleElement = injectCSS(
-        `theme:${baseQuery}`,
+        styleTagName,
         baseQuery,
         `
         ${commonCSS}
