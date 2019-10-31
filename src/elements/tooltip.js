@@ -18,11 +18,14 @@ export default class NuTooltip extends NuBlock {
       opacity: '0 ^:hover[1]',
       transition: 'opacity',
       place: 'outside-top',
-      fill: '',
+      fill: 'subtle',
+      color: 'minor',
       radius: '1x',
       border: '1x outside',
       size: 'sm',
       interactive: 'no',
+      text: 'wrap',
+      width: 'min(15)',
     };
   }
 

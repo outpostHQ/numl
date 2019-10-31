@@ -39,7 +39,7 @@ export default class NuCell extends NuElement {
     return {
       display: 'table-cell',
       padding: 'var(--nu-padding)',
-      // border: '',
+      text: 'middle',
     };
   }
 }

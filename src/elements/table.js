@@ -76,7 +76,6 @@ export default class NuTable extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag}{ overflow: hidden; }
       
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > * {
         border-top: 0 !important;
@@ -95,19 +94,19 @@ export default class NuTable extends NuElement {
       }
       
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > *:first-child {
-        border-top-left-radius: var(--nu-theme-border-radius);
+        border-top-left-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
       }
       
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > *:last-child {
-        border-top-right-radius: var(--nu-theme-border-radius);
+        border-top-right-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
       }
       
       ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > *:first-child {
-        border-bottom-left-radius: var(--nu-theme-border-radius);
+        border-bottom-left-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
       }
       
       ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > *:last-child {
-        border-bottom-right-radius: var(--nu-theme-border-radius);
+        border-bottom-right-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
       }
     `;
   }

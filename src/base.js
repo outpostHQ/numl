@@ -238,7 +238,6 @@ export default class NuBase extends HTMLElement {
     mixinList.forEach(mixinName => {
       const mixin = mixins[mixinName]();
       const attrs = Object.keys(mixin.fallbacks);
-      const defaultAttrs = attrs.filter(attr => allDefaults[attr] != null);
       const optionalAttrs = attrs.filter(attr => allDefaults[attr] == null);
       const styles = [];
 
@@ -273,7 +272,7 @@ export default class NuBase extends HTMLElement {
 
         if (!styles) return;
 
-        const query = `${tag}:not([${name}])`;
+        const query = `${tag}${name !== 'text' ? `:not([${name}])` : ''}`;
 
         defaultsCSS += generateCSS(query, styles);
       });

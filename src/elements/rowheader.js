@@ -11,9 +11,7 @@ export default class NuRowHeader extends NuCell {
 
   static get nuDefaults() {
     return {
-      color: 'minor',
-      fill: '!minor',
-      text: 'w6',
+      text: 'w6 middle',
       border: '1x right',
     };
   }
