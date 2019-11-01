@@ -197,7 +197,7 @@ Run `npm run play` to view test page with few examples.
 *  `background` attribute has been renamed to `fill`.
 * Added `nu-rowheader` element for tables.
 * Framework: Added context system to access element's context provided by parent elements and register hooks for context change. It’s very important feature that drastically simplifies implementation of widgets and internal systems.
-* New`nu-attrs` element to declare attributes with their values in context to cast them into elements within that context. It’s a handy alternative to CSS classes. You can dynamically change attributes to affect related elements.
+* New`nu-style` element to declare attributes with their values in context to cast them into elements within that context. It’s a handy alternative to CSS classes. You can dynamically change attributes to affect related elements.
 * Static css inheritance reworked. API was simplified.
 * Added cleaning system to remove CSS that can’t be used again.
 * Added `nu-checkbox` element.
