@@ -42,18 +42,14 @@ export default class NuTooltip extends NuBlock {
 
     this.nuSetAria('hidden', true);
 
-    this.nuOnMouseEnter = () => {
+    const onMouseEnter = () => {
       fixPosition(this);
     };
 
-    parent.addEventListener('mouseenter', this.nuOnMouseEnter);
-  }
+    parent.addEventListener('mouseenter', onMouseEnter);
 
-  nuDisconnected() {
-    super.nuDisconnected();
-
-    if (this.nuOnMouseEnter) {
-      this.nuParent.removeEventListener('mouseenter', this.nuOnMouseEnter);
-    }
+    this.nuSetDisconnectedHook(() => {
+      parent.removeEventListener('mouseenter', onMouseEnter);
+    });
   }
 }
