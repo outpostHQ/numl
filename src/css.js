@@ -6,6 +6,10 @@ const testEl = document.createElement('div');
 export function injectStyleTag(css, name) {
   css = css || '';
 
+  if (devMode) {
+    css = beautifyCSS(css);
+  }
+
   const style = document.createElement('style');
 
   if (name) {
@@ -76,14 +80,14 @@ export function generateCSS(query, styles, context = '') {
 
 export function parseStyles(str) {
   return str
-  .split(/;/g)
-  .map(s => s.trim())
-  .filter(s => s)
-  .map(s => s.split(':'))
-  .reduce((st, s) => {
-    st[s[0]] = s[1].trim();
-    return st;
-  }, {});
+    .split(/;/g)
+    .map(s => s.trim())
+    .filter(s => s)
+    .map(s => s.split(':'))
+    .reduce((st, s) => {
+      st[s[0]] = s[1].trim();
+      return st;
+    }, {});
 }
 
 export function injectCSS(name, selector, css) {
@@ -92,7 +96,7 @@ export function injectCSS(name, selector, css) {
   if (devMode) {
     try {
       testEl.querySelector(selector);
-    } catch(e) {
+    } catch (e) {
       warn('invalid selector detected', selector, css);
     }
   }
@@ -137,10 +141,36 @@ export function hasCSS(name) {
   return !!map[name];
 }
 
-const css = {
-  has(name) {
-    return !!map[name];
-  },
-};
+/**
+ * Very fast css beautification without parsing.
+ * Do not support media queries
+ * Use in Dev Mode only!
+ * @param css
+ * @returns {string}
+ */
+export function beautifyCSS(css) {
+  let flag = false;
 
-export default css;
+  return css.replace(/[{;}](?!$)/g, s => s + '\n')
+    .split(/\n/g)
+    .map(s => s.trim())
+    .filter(s => s)
+    .map(s => {
+      if (!s.includes('{') && !s.includes('}') && flag) {
+        if (s.includes(':')) {
+          s = s.replace(/:(?!\s)(?!not\()(?!:)/, ': ');
+          return `  ${s}`;
+        }
+
+        return `    ${s}`;
+      }
+
+      if (s.includes('{')) {
+        flag = true;
+      } else if (s.includes('}')) {
+        flag = false;
+      }
+
+      return s;
+    }).join('\n');
+}

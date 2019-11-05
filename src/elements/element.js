@@ -231,7 +231,7 @@ export default class NuElement extends NuBase {
     if (parent.nuContext) {
       this.nuContext = Object.create(parent.nuContext);
     } else {
-      this.nuContext = {};
+      this.nuContext = { $root: this };
     }
 
     if (!this.id) {
@@ -251,7 +251,7 @@ export default class NuElement extends NuBase {
     const as = this.getAttribute('as') || this.getAttribute('nu-id');
 
     if (as) {
-      const key = `attrs:${as}`;
+      const key = `style:${as}`;
       const define = this.nuContext[key];
 
       if (define) {

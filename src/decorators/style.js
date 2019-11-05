@@ -44,7 +44,7 @@ export default class NuStyle extends NuDecorator {
       });
     });
 
-    parent.nuSetContext(`attrs:${id}`, define);
+    parent.nuSetContext(`style:${id}`, define);
   }
 
   nuDisconnected() {

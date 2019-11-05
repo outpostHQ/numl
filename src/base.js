@@ -1,4 +1,4 @@
-import { attrsQuery, generateCSS, injectStyleTag } from './css';
+import { beautifyCSS, generateCSS, injectStyleTag } from './css';
 import {
   getParent,
   invertQuery,
@@ -95,15 +95,14 @@ export default class NuBase extends HTMLElement {
    * @returns {string}
    */
   static nuParentCSS(cls) {
-    let parent = this.nuParent;
+    let parent = this;
+
+    do {
+      parent = parent.nuParent;
+    } while (parent && parent.nuCSS && parent.nuCSS === this.nuCSS);
 
     if (parent && parent.nuCSS) {
-      return parent.nuCSS({
-        tag: cls.nuTag,
-        get css() {
-          return parent.nuParentCSS.call(parent, cls);
-        },
-      });
+      return parent.nuExtractCSS(cls);
     }
 
     return '';

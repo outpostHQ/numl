@@ -7,8 +7,8 @@ export default class NuPane extends NuFlex {
 
   static get nuDefaults() {
     return {
-      'place-content': 'stretch space-between',
-      'place-items': 'center',
+      content: 'stretch space-between',
+      items: 'center',
       gap: .5,
       width: '100%',
     };

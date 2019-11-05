@@ -47,6 +47,7 @@ Nude.elements = {
   NuGrid,
   NuBlock,
   NuHeading,
+  NuActiveElement,
   NuBtn,
   NuTab,
   NuCard,

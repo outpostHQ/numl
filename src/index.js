@@ -1,5 +1,4 @@
 import './global.css';
-import css from './css';
 // elements
 import NuBase from './base';
 import NuElement from './elements/element';
@@ -71,7 +70,6 @@ window.addEventListener('keydown', enableFocus);
 
 const Nude = {
   tags: {},
-  css,
   helpers: {
     invertColor,
     hueRotate,

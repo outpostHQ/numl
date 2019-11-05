@@ -50,7 +50,7 @@ export default [
     ]
   },
   {
-    input: 'src/index.js',
+    input: 'src/frontend.js',
     external: ['ms'],
     output: [
       { name: 'Nude', file: pkg.module.replace('.js', '.module.js'), format: 'es' }
@@ -70,7 +70,7 @@ export default [
     ]
   },
   {
-    input: 'src/index.js',
+    input: 'src/frontend.js',
     external: ['ms'],
     output: [
       {
