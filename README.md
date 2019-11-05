@@ -151,8 +151,8 @@ Run `npm run play` to view test page with few examples.
 *IN PROGRESS*
 
 * [Introduction](docs/introduction.md)
-* [Elements](docs/elements/index.md) - `60% Complete`
-* [Attributes](docs/attributes/index.md) - `5% Complete`
+* [Elements](docs/elements/README.md) - `60% Complete`
+* [Attributes](docs/attributes/README.md) - `5% Complete`
 * [Markup methodology](docs/markup.md) - `0% Complete`
 * [Theme system](docs/themes.md)
 * [Responsive system](docs/responsive.md)
