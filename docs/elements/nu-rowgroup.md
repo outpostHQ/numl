@@ -7,10 +7,10 @@
 
 
 ## Own default values
-* **`[display]="table-row-group"`**
+* **`[display]`: `"table-row-group"`**
 
 ## Inherited default values
-* **`[sizing]="border"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

@@ -6,8 +6,8 @@
 
 
 ## Own default values
-* **`[display]="inline-block"`**
-* **`[sizing]="border"`**
+* **`[display]`: `"inline-block"`**
+* **`[sizing]`: `"border"`**
 
 ## Inherited default values
 *none*

@@ -8,13 +8,13 @@
 
 
 ## Own default values
-* **`[border]="1x right"`**
-* **`[text]="w6 middle"`**
+* **`[border]`: `"1x right"`**
+* **`[text]`: `"w6 middle"`**
 
 ## Inherited default values
-* **`[display]="table-cell"`**
-* **`[padding]="var(--nu-padding)"`**
-* **`[sizing]="border"`**
+* **`[display]`: `"table-cell"`**
+* **`[padding]`: `"var(--nu-padding)"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

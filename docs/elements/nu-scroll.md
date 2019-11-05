@@ -7,10 +7,10 @@
 
 
 ## Own default values
-* **`[display]="block"`**
+* **`[display]`: `"block"`**
 
 ## Inherited default values
-* **`[sizing]="border"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

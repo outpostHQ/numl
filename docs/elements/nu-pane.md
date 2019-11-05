@@ -6,15 +6,15 @@
 
 
 ## Own default values
-* **`[content]="stretch space-between"`**
-* **`[gap]=0.5`**
-* **`[items]="center"`**
-* **`[width]="100%"`**
+* **`[content]`: `"stretch space-between"`**
+* **`[gap]`: `0.5`**
+* **`[items]`: `"center"`**
+* **`[width]`: `"100%"`**
 
 ## Inherited default values
-* **`[display]="flex"`**
-* **`[flow]="row"`**
-* **`[sizing]="border"`**
+* **`[display]`: `"flex"`**
+* **`[flow]`: `"row"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

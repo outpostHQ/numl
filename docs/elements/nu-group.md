@@ -7,13 +7,13 @@
 
 
 ## Own default values
-* **`[display]="flex"`**
-* **`[flow]="row"`**
-* **`[gap]="0"`**
-* **`[radius]="0"`**
+* **`[display]`: `"flex"`**
+* **`[flow]`: `"row"`**
+* **`[gap]`: `"0"`**
+* **`[radius]`: `"0"`**
 
 ## Inherited default values
-* **`[sizing]="border"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

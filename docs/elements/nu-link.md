@@ -8,16 +8,16 @@
 
 
 ## Own default values
-* **`[color]="special"`**
-* **`[cursor]="pointer"`**
-* **`[display]="inline-block"`**
-* **`[fill]=null`**
-* **`[radius]=".5x"`**
-* **`[text]="nowrap u"`**
-* **`[transition]="box-shadow"`**
+* **`[color]`: `"special"`**
+* **`[cursor]`: `"pointer"`**
+* **`[display]`: `"inline-block"`**
+* **`[fill]`: `null`**
+* **`[radius]`: `".5x"`**
+* **`[text]`: `"nowrap u"`**
+* **`[transition]`: `"box-shadow"`**
 
 ## Inherited default values
-* **`[sizing]="border"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

@@ -6,17 +6,17 @@
 
 
 ## Own default values
-* **`[color]="border"`**
-* **`[dir]="up"`**
-* **`[display]="block"`**
-* **`[height]="0"`**
-* **`[overflow]="no"`**
-* **`[size]=".5em 1em"`**
-* **`[text]="middle"`**
-* **`[width]="0"`**
+* **`[color]`: `"border"`**
+* **`[dir]`: `"up"`**
+* **`[display]`: `"block"`**
+* **`[height]`: `"0"`**
+* **`[overflow]`: `"no"`**
+* **`[size]`: `".5em 1em"`**
+* **`[text]`: `"middle"`**
+* **`[width]`: `"0"`**
 
 ## Inherited default values
-* **`[sizing]="border"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

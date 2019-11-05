@@ -8,12 +8,12 @@
 
 
 ## Own default values
-* **`[color]="var(--nu-theme-heading-color)"`**
-* **`[level]=1`**
+* **`[color]`: `"var(--nu-theme-heading-color)"`**
+* **`[level]`: `1`**
 
 ## Inherited default values
-* **`[display]="block"`**
-* **`[sizing]="border"`**
+* **`[display]`: `"block"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

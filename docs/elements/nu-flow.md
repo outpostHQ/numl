@@ -6,11 +6,11 @@
 
 
 ## Own default values
-* **`[flow]="column"`**
+* **`[flow]`: `"column"`**
 
 ## Inherited default values
-* **`[display]="block"`**
-* **`[sizing]="border"`**
+* **`[display]`: `"block"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

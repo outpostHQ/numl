@@ -8,17 +8,17 @@
 
 
 ## Own default values
-* **`[border]="1x"`**
-* **`[color]=""`**
-* **`[fill]=""`**
-* **`[flow]="column"`**
-* **`[padding]="2x"`**
-* **`[radius]="1x"`**
-* **`[transition]="background, color, box-shadow, transform, border, border-radius"`**
+* **`[border]`: `"1x"`**
+* **`[color]`: `""`**
+* **`[fill]`: `""`**
+* **`[flow]`: `"column"`**
+* **`[padding]`: `"2x"`**
+* **`[radius]`: `"1x"`**
+* **`[transition]`: `"background, color, box-shadow, transform, border, border-radius"`**
 
 ## Inherited default values
-* **`[display]="block"`**
-* **`[sizing]="border"`**
+* **`[display]`: `"block"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

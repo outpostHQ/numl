@@ -8,15 +8,15 @@
 
 
 ## Own default values
-* **`[color]="inherit"`**
-* **`[fill]=""`**
-* **`[radius]=""`**
-* **`[text]="nowrap"`**
-* **`[transition]="box-shadow, color, background-color"`**
+* **`[color]`: `"inherit"`**
+* **`[fill]`: `""`**
+* **`[radius]`: `""`**
+* **`[text]`: `"nowrap"`**
+* **`[transition]`: `"box-shadow, color, background-color"`**
 
 ## Inherited default values
-* **`[display]="inline-block"`**
-* **`[sizing]="border"`**
+* **`[display]`: `"inline-block"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

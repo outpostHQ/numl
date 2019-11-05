@@ -7,13 +7,13 @@
 
 
 ## Own default values
-* **`[border]="1x"`**
-* **`[display]="table"`**
-* **`[gap]=""`**
-* **`[padding]=""`**
+* **`[border]`: `"1x"`**
+* **`[display]`: `"table"`**
+* **`[gap]`: `""`**
+* **`[padding]`: `""`**
 
 ## Inherited default values
-* **`[sizing]="border"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

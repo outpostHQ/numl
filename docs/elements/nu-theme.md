@@ -9,7 +9,7 @@
 *none*
 
 ## Inherited default values
-* **`[display]="none"`**
+* **`[display]`: `"none"`**
 
 
 ## Own attributes

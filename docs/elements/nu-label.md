@@ -7,12 +7,12 @@
 
 
 ## Own default values
-* **`[cursor]="default"`**
-* **`[text]="w6"`**
+* **`[cursor]`: `"default"`**
+* **`[text]`: `"w6"`**
 
 ## Inherited default values
-* **`[display]="inline-block"`**
-* **`[sizing]="border"`**
+* **`[display]`: `"inline-block"`**
+* **`[sizing]`: `"border"`**
 
 
 ## Own attributes

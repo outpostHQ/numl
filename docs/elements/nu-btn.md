@@ -8,20 +8,20 @@
 
 
 ## Own default values
-* **`[border]="1x"`**
-* **`[content]="center"`**
-* **`[display]="inline-grid"`**
-* **`[fill]=""`**
-* **`[flow]="column"`**
-* **`[gap]="1x"`**
-* **`[padding]="1x 2x"`**
-* **`[radius]="1x"`**
-* **`[text]="nowrap"`**
+* **`[border]`: `"1x"`**
+* **`[content]`: `"center"`**
+* **`[display]`: `"inline-grid"`**
+* **`[fill]`: `""`**
+* **`[flow]`: `"column"`**
+* **`[gap]`: `"1x"`**
+* **`[padding]`: `"1x 2x"`**
+* **`[radius]`: `"1x"`**
+* **`[text]`: `"nowrap"`**
 
 ## Inherited default values
-* **`[color]="inherit"`**
-* **`[sizing]="border"`**
-* **`[transition]="box-shadow, color, background-color"`**
+* **`[color]`: `"inherit"`**
+* **`[sizing]`: `"border"`**
+* **`[transition]`: `"box-shadow, color, background-color"`**
 
 
 ## Own attributes
