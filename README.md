@@ -6,6 +6,8 @@
 * **Framework** - Powerful next-generation JS-Powered CSS-Framework based on Custom Elements that solves many fundamental problems like element inheritance, efficient runtime CSS-generation, theme color generation, sane id linking and affordable accessibility.
 * **Library** - Highly-customizable built-in components to ensure you have everything to start creating handy components and wonderful accessible interfaces with responsiveness.
 
+**PRE-ALPHA VERSION**
+
 **UNDER RAPID DEVELOPMENT, API is subject to change**
 
 ## Features
