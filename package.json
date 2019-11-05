@@ -30,6 +30,7 @@
     "now": "npm run build-play && now --prod playground --name nude-playground",
     "size": "size-limit",
     "start": "npm run play",
+    "generate-docs": "node ./generate/backend.js",
     "prepublishOnly": "npm run build"
   },
   "files": [

@@ -116,7 +116,7 @@ nu-tab {
   opacity: 1;
   position: relative;
   z-index: 0;
-    /* to make :hover::after z-index work as expected */
+  /* to make : hover::after z-index work as expected */
   user-select: none;
   box-shadow: var(--nu-stroke-shadow),
     var(--nu-toggle-shadow),
@@ -183,7 +183,7 @@ nu-tab {
   --nu-toggle-shadow: 0 calc(-1 * var(--nu-theme-border-width)) 0 0 var(--nu-toggle-color) inset;
   --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
-    nu-tab[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
+nu-tab[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
 nu-tab[nu-toggled]:not([disabled]):not([tabindex]) {
   --nu-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-toggle-color) inset;
   --nu-toggle-color: var(--nu-theme-special-color);
@@ -194,7 +194,7 @@ nu-tab[special] {
 nu-tab:not([disabled])[tabindex]:hover {
   --nu-toggle-color: var(--nu-theme-special-color);
 }
-    nu-tab[nu-active][tabindex]:not([disabled]):not([aria-pressed="true"]),
+nu-tab[nu-active][tabindex]:not([disabled]):not([aria-pressed="true"]),
 nu-tab[aria-pressed="true"]:not([disabled]):not([nu-active]) {
   --nu-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-toggle-color) inset;
   --nu-toggle-color: var(--nu-theme-special-color);

@@ -106,6 +106,6 @@ nu-btngroup:not([gap]) > :last-child:first-child {
   --nu-border-radius: inherit !important;
 }
 nu-btngroup > *:not([grow]) {
-    flex-grow:1;
+  flex-grow: 1;
 }
 ```

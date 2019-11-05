@@ -111,7 +111,7 @@ nu-activeelement {
   opacity: 1;
   position: relative;
   z-index: 0;
-    /* to make :hover::after z-index work as expected */
+  /* to make : hover::after z-index work as expected */
   user-select: none;
   box-shadow: var(--nu-stroke-shadow),
     var(--nu-toggle-shadow),

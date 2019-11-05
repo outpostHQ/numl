@@ -118,7 +118,7 @@ nu-menuitem {
   opacity: 1;
   position: relative;
   z-index: 0;
-    /* to make :hover::after z-index work as expected */
+  /* to make : hover::after z-index work as expected */
   user-select: none;
   box-shadow: var(--nu-stroke-shadow),
     var(--nu-toggle-shadow),
@@ -184,9 +184,9 @@ nu-menuitem {
 nu-menuitem:not([disabled])[tabindex]:hover {
   --nu-hover-color: var(--nu-theme-hover-color);
 }
-    nu-menuitem[disabled][nu-pressed],
-    nu-menuitem[nu-active]:not([disabled]):not([nu-pressed]),
-    nu-menuitem[nu-active][nu-pressed]:not([disabled]),
+nu-menuitem[disabled][nu-pressed],
+nu-menuitem[nu-active]:not([disabled]):not([nu-pressed]),
+nu-menuitem[nu-active][nu-pressed]:not([disabled]),
 nu-menuitem[nu-pressed]:not([disabled]):not([nu-active]) {
   --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
 }

@@ -117,7 +117,7 @@ nu-btn {
   opacity: 1;
   position: relative;
   z-index: 0;
-    /* to make :hover::after z-index work as expected */
+  /* to make : hover::after z-index work as expected */
   user-select: none;
   box-shadow: var(--nu-stroke-shadow),
     var(--nu-toggle-shadow),
@@ -183,9 +183,9 @@ nu-btn {
 nu-btn:not([disabled])[tabindex]:hover {
   --nu-hover-color: var(--nu-theme-hover-color);
 }
-    nu-btn[disabled][nu-pressed],
-    nu-btn[nu-active]:not([disabled]):not([nu-pressed]),
-    nu-btn[nu-active][nu-pressed]:not([disabled]),
+nu-btn[disabled][nu-pressed],
+nu-btn[nu-active]:not([disabled]):not([nu-pressed]),
+nu-btn[nu-active][nu-pressed]:not([disabled]),
 nu-btn[nu-pressed]:not([disabled]):not([nu-active]) {
   --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
 }
