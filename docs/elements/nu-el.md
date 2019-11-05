@@ -18,7 +18,6 @@
 * `area`
 * `areas`
 * `as`
-* `auto-flow`
 * `basis`
 * `border`
 * `color`
@@ -53,8 +52,6 @@
 * `owns`
 * `padding`
 * `place`
-* `place-content`
-* `place-items`
 * `posinset`
 * `radius`
 * `responsive`
@@ -66,9 +63,6 @@
 * `size`
 * `sizing`
 * `space`
-* `template-areas`
-* `template-columns`
-* `template-rows`
 * `text`
 * `theme`
 * `transform`
@@ -76,7 +70,6 @@
 * `valuemax`
 * `valuemin`
 * `valuenow`
-* `var`
 * `width`
 * `z`
 
