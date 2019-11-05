@@ -1,2 +1,2 @@
-# `[responsive]` `style` attribute
+# `[responsive]` `helper` attribute
 

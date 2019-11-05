@@ -75,7 +75,7 @@
 * **[`[posinset]`](../attributes/posinset.md)** `aria`
 * `pressed`
 * **[`[radius]`](../attributes/radius.md)** `style`
-* **[`[responsive]`](../attributes/responsive.md)** `style`
+* **[`[responsive]`](../attributes/responsive.md)** `helper`
 * **[`[row]`](../attributes/row.md)** `style`
 * **[`[rows]`](../attributes/rows.md)** `style`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`

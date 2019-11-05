@@ -62,7 +62,7 @@
 * **[`[owns]`](../attributes/owns.md)** `aria`
 * **[`[place]`](../attributes/place.md)** `style`
 * **[`[posinset]`](../attributes/posinset.md)** `aria`
-* **[`[responsive]`](../attributes/responsive.md)** `style`
+* **[`[responsive]`](../attributes/responsive.md)** `helper`
 * **[`[row]`](../attributes/row.md)** `style`
 * **[`[rows]`](../attributes/rows.md)** `style`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`

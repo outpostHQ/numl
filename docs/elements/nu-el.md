@@ -54,7 +54,7 @@
 * **place** `style`
 * **posinset** `aria`
 * **radius** `style`
-* **responsive** `style`
+* **responsive** `helper`
 * **row** `style`
 * **rows** `style`
 * **setsize** `aria`
