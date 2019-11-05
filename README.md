@@ -52,6 +52,9 @@
 
 **A:** It's NOT despite the fact it's widely used in production by the Author of NUDE. And he is working hard to make it production-ready for everyone as soon as possible but without community support it will be a long run. So give it a try, leave some feedback, post issues and tell friends to support our project!
 
+## Playground
+See [Online playground](https://nude-playground.tenphi.now.sh/). You can edit markup using DevTools and instantly see changes!
+
 ## Usage
 Add `numl.js` to your page and initialize it.
 
