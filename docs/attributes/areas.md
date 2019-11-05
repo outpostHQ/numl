@@ -1,2 +1,2 @@
-# `[areas]` attribute
+# `[areas]` `style` attribute
 

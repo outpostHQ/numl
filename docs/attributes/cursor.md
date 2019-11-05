@@ -1,2 +1,2 @@
-# `[cursor]` attribute
+# `[cursor]` `style` attribute
 

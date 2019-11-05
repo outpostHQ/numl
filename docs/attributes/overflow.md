@@ -1,2 +1,2 @@
-# `[overflow]` attribute
+# `[overflow]` `style` attribute
 

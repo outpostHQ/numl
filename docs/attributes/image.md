@@ -1,3 +1,3 @@
-# `[image]` attribute
+# `[image]` `style` attribute
 
 Define background image for an element.

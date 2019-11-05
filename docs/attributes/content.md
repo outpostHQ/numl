@@ -1,2 +1,2 @@
-# `[content]` attribute
+# `[content]` `style` attribute
 

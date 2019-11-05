@@ -1,2 +1,2 @@
-# `[z]` attribute
+# `[z]` `style` attribute
 

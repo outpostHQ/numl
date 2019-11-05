@@ -1,2 +1,2 @@
-# `[expanded]` attribute
+# `[expanded]` `aria` attribute
 

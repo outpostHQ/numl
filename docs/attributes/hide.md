@@ -1,2 +1,2 @@
-# `[hide]` attribute
+# `[hide]` `style` attribute
 

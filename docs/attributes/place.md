@@ -1,2 +1,2 @@
-# `[place]` attribute
+# `[place]` `style` attribute
 

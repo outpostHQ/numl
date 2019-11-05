@@ -1,2 +1,2 @@
-# `[as]` attribute
+# `[as]` `helper` attribute
 

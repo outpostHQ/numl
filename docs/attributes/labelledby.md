@@ -1,2 +1,2 @@
-# `[labelledby]` attribute
+# `[labelledby]` `aria` attribute
 

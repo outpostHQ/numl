@@ -1,2 +1,2 @@
-# `[theme]` attribute
+# `[theme]` `helper` attribute
 

@@ -1,2 +1,2 @@
-# `[shadow]` attribute
+# `[shadow]` `style` attribute
 

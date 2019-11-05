@@ -1,2 +1,2 @@
-# `[describedby]` attribute
+# `[describedby]` `aria` attribute
 

@@ -1,2 +1,2 @@
-# `[transition]` attribute
+# `[transition]` `style` attribute
 

@@ -1,2 +1,2 @@
-# `[opacity]` attribute
+# `[opacity]` `style` attribute
 

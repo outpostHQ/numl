@@ -1,2 +1,2 @@
-# `[size]` attribute
+# `[size]` `style` attribute
 

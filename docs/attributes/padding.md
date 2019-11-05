@@ -1,2 +1,2 @@
-# `[padding]` attribute
+# `[padding]` `style` attribute
 

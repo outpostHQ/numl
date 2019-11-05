@@ -1,2 +1,2 @@
-# `[valuenow]` attribute
+# `[valuenow]` `aria` attribute
 

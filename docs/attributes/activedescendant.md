@@ -1,2 +1,2 @@
-# `[activedescendant]` attribute
+# `[activedescendant]` `aria` attribute
 

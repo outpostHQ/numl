@@ -1,2 +1,2 @@
-# `[gap]` attribute
+# `[gap]` `style` attribute
 

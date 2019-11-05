@@ -1,2 +1,2 @@
-# `[interactive]` attribute
+# `[interactive]` `style` attribute
 

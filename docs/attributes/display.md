@@ -1,4 +1,4 @@
-# `[display]` attribute
+# `[display]` `style` attribute
 
 It's basic attribute to tell what layout element has.
 

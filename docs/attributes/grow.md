@@ -1,2 +1,2 @@
-# `[grow]` attribute
+# `[grow]` `style` attribute
 

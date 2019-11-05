@@ -1,2 +1,2 @@
-# `[column]` attribute
+# `[column]` `style` attribute
 

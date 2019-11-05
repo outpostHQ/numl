@@ -1,2 +1,2 @@
-# `[border]` attribute
+# `[border]` `style` attribute
 

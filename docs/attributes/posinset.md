@@ -1,2 +1,2 @@
-# `[posinset]` attribute
+# `[posinset]` `aria` attribute
 

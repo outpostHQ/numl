@@ -1,2 +1,2 @@
-# `[flow]` attribute
+# `[flow]` `style` attribute
 

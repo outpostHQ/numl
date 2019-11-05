@@ -1,2 +1,2 @@
-# `[haspopup]` attribute
+# `[haspopup]` `aria` attribute
 

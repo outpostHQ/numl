@@ -1,1 +1,0 @@
-# `[place-items]` attribute

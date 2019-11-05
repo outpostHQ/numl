@@ -1,2 +1,2 @@
-# `[controls]` attribute
+# `[controls]` `aria` attribute
 

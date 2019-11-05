@@ -1,2 +1,2 @@
-# `[items-radius]` attribute
+# `[items-radius]` `style` attribute
 
