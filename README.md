@@ -1,10 +1,21 @@
 # <img src="https://github.com/tenphi/nude/blob/master/logo.png?raw=true" alt="NUDE Elements" width="416">
-**NUDE Elements** is a mix of four concepts: 
+**NUDE Elements** is: 
 
-* **Language** - Alternative markup language for the modern web that meant to be a partial HTML/CSS replacement to describe complex responsive interfaces and dynamic relations between elements without frustration but with fun and highest compatibility with other modern technologies.
-* **Methodology** - Simple and intuitive methodology to ensure your apps look and work great. It eliminates some confusing conceptions as "margins" and brings clarity and order to your markup.
-* **Framework** - Powerful next-generation JS-Powered CSS-Framework based on Custom Elements that solves many fundamental problems like element inheritance, efficient runtime CSS-generation, theme color generation, sane id linking and affordable accessibility.
-* **Library** - Highly-customizable built-in components to ensure you have everything to start creating handy components and wonderful accessible interfaces with responsiveness.
+* Accessible production-ready **Prototyping solution**
+* High-quality **Design-system Generator** for dummies
+* Highly-customizable **UI library** for your favorite framework
+* Powerful **CSS-Framework** with css-generation, inheritance and more
+* Markup **Methodology** that is enjoyable to follow
+* All-in-one **Language** to describe interfaces that look and work great
+
+and also... it's **just a single js-file** that you can include into your website to start creating magic:
+
+* **No** build step needed (*don't wait! create!*)
+* **No** dependencies included
+* **No** config (*your markup is your config*)
+* **No** `init()` method to activate
+* **No** confusing classes to style
+* **No** frustration in usage
 
 **PRE-ALPHA VERSION**
 
