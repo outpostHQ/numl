@@ -8,15 +8,15 @@
 
 
 ## Own default values
-* **[border]** `style`: `null`
-* **[color]** `style`: `"minor"`
-* **[fill]** `style`: `"!minor"`
+* **`[border]=null`**
+* **`[color]="minor"`**
+* **`[fill]="!minor"`**
 
 ## Inherited default values
-* **[display]** `style`: `"table-cell"`
-* **[padding]** `style`: `"var(--nu-padding)"`
-* **[sizing]** `style`: `"border"`
-* **[text]** `style`: `"w6 middle"`
+* **`[display]="table-cell"`**
+* **`[padding]="var(--nu-padding)"`**
+* **`[sizing]="border"`**
+* **`[text]="w6 middle"`**
 
 
 ## Own attributes

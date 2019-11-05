@@ -8,12 +8,12 @@
 
 
 ## Own default values
-* **[gap]** `style`: `1`
+* **`[gap]=1`**
 
 ## Inherited default values
-* **[display]** `style`: `"flex"`
-* **[flow]** `style`: `"row"`
-* **[sizing]** `style`: `"border"`
+* **`[display]="flex"`**
+* **`[flow]="row"`**
+* **`[sizing]="border"`**
 
 
 ## Own attributes

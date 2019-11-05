@@ -8,13 +8,13 @@
 
 
 ## Own default values
-* **[gap]** `style`: `"calc(var(--nu-theme-border-width) * -1)"`
-* **[radius]** `style`: `"1x"`
+* **`[gap]="calc(var(--nu-theme-border-width) * -1)"`**
+* **`[radius]="1x"`**
 
 ## Inherited default values
-* **[display]** `style`: `"flex"`
-* **[flow]** `style`: `"row"`
-* **[sizing]** `style`: `"border"`
+* **`[display]="flex"`**
+* **`[flow]="row"`**
+* **`[sizing]="border"`**
 
 
 ## Own attributes

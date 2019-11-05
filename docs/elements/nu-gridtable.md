@@ -7,15 +7,15 @@
 
 
 ## Own default values
-* **[color]** `style`: `""`
-* **[fill]** `style`: `"border"`
-* **[gap]** `style`: `"1bw"`
-* **[overflow]** `style`: `"auto"`
+* **`[color]=""`**
+* **`[fill]="border"`**
+* **`[gap]="1bw"`**
+* **`[overflow]="auto"`**
 
 ## Inherited default values
-* **[display]** `style`: `"grid"`
-* **[flow]** `style`: `"grid-row"`
-* **[sizing]** `style`: `"border"`
+* **`[display]="grid"`**
+* **`[flow]="grid-row"`**
+* **`[sizing]="border"`**
 
 
 ## Own attributes

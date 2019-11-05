@@ -8,12 +8,12 @@
 
 
 ## Own default values
-* **[display]** `style`: `"table-cell"`
-* **[padding]** `style`: `"var(--nu-padding)"`
-* **[text]** `style`: `"middle"`
+* **`[display]="table-cell"`**
+* **`[padding]="var(--nu-padding)"`**
+* **`[text]="middle"`**
 
 ## Inherited default values
-* **[sizing]** `style`: `"border"`
+* **`[sizing]="border"`**
 
 
 ## Own attributes

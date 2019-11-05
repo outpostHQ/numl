@@ -7,11 +7,11 @@
 
 
 ## Own default values
-* **[display]** `style`: `"table-row"`
-* **[fill]** `style`: `""`
+* **`[display]="table-row"`**
+* **`[fill]=""`**
 
 ## Inherited default values
-* **[sizing]** `style`: `"border"`
+* **`[sizing]="border"`**
 
 
 ## Own attributes

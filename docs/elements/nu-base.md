@@ -5,7 +5,7 @@
 
 
 ## Own default values
-* **[display]** `style`: `"none"`
+* **`[display]="none"`**
 
 ## Inherited default values
 *none*

@@ -6,10 +6,10 @@
 
 
 ## Own default values
-* **[display]** `style`: `"block"`
+* **`[display]="block"`**
 
 ## Inherited default values
-* **[sizing]** `style`: `"border"`
+* **`[sizing]="border"`**
 
 
 ## Own attributes

@@ -11,9 +11,9 @@
 *none*
 
 ## Inherited default values
-* **[display]** `style`: `"block"`
-* **[flow]** `style`: `"column"`
-* **[sizing]** `style`: `"border"`
+* **`[display]="block"`**
+* **`[flow]="column"`**
+* **`[sizing]="border"`**
 
 
 ## Own attributes

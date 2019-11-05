@@ -6,12 +6,12 @@
 
 
 ## Own default values
-* **[display]** `style`: `"flex"`
-* **[flow]** `style`: `"row"`
-* **[gap]** `style`: `"0"`
+* **`[display]="flex"`**
+* **`[flow]="row"`**
+* **`[gap]="0"`**
 
 ## Inherited default values
-* **[sizing]** `style`: `"border"`
+* **`[sizing]="border"`**
 
 
 ## Own attributes

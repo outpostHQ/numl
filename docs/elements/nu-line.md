@@ -7,12 +7,12 @@
 
 
 ## Own default values
-* **[orient]** `style`: `"x"`
-* **[place]** `style`: `"stretch"`
+* **`[orient]="x"`**
+* **`[place]="stretch"`**
 
 ## Inherited default values
-* **[display]** `style`: `"block"`
-* **[sizing]** `style`: `"border"`
+* **`[display]="block"`**
+* **`[sizing]="border"`**
 
 
 ## Own attributes

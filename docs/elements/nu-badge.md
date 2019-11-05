@@ -6,15 +6,15 @@
 
 
 ## Own default values
-* **[color]** `style`: `"swap"`
-* **[fill]** `style`: `"text"`
-* **[padding]** `style`: `"0 .5em"`
-* **[radius]** `style`: `"1x"`
-* **[text]** `style`: `"nowrap"`
+* **`[color]="swap"`**
+* **`[fill]="text"`**
+* **`[padding]="0 .5em"`**
+* **`[radius]="1x"`**
+* **`[text]="nowrap"`**
 
 ## Inherited default values
-* **[display]** `style`: `"inline-block"`
-* **[sizing]** `style`: `"border"`
+* **`[display]="inline-block"`**
+* **`[sizing]="border"`**
 
 
 ## Own attributes

@@ -7,24 +7,24 @@
 
 
 ## Own default values
-* **[border]** `style`: `"1x outside"`
-* **[color]** `style`: `"minor"`
-* **[fill]** `style`: `"subtle"`
-* **[interactive]** `style`: `"no"`
-* **[opacity]** `style`: `"0 ^:hover[1]"`
-* **[padding]** `style`: `".25 .5"`
-* **[place]** `style`: `"outside-top"`
-* **[radius]** `style`: `"1x"`
-* **[shadow]** `style`: `""`
-* **[size]** `style`: `"sm"`
-* **[text]** `style`: `"wrap"`
-* **[transition]** `style`: `"opacity"`
-* **[width]** `style`: `"min(15)"`
-* **[z]** `style`: `"front"`
+* **`[border]="1x outside"`**
+* **`[color]="minor"`**
+* **`[fill]="subtle"`**
+* **`[interactive]="no"`**
+* **`[opacity]="0 ^:hover[1]"`**
+* **`[padding]=".25 .5"`**
+* **`[place]="outside-top"`**
+* **`[radius]="1x"`**
+* **`[shadow]=""`**
+* **`[size]="sm"`**
+* **`[text]="wrap"`**
+* **`[transition]="opacity"`**
+* **`[width]="min(15)"`**
+* **`[z]="front"`**
 
 ## Inherited default values
-* **[display]** `style`: `"block"`
-* **[sizing]** `style`: `"border"`
+* **`[display]="block"`**
+* **`[sizing]="border"`**
 
 
 ## Own attributes

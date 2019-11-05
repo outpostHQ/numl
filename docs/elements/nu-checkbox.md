@@ -8,22 +8,22 @@
 
 
 ## Own default values
-* **[border]** `style`: `"1x"`
-* **[content]** `style`: `"stretch"`
-* **[cursor]** `style`: `"default"`
-* **[display]** `style`: `"inline-grid"`
-* **[fill]** `style`: `""`
-* **[height]** `style`: `"1em"`
-* **[items]** `style`: `"center"`
-* **[padding]** `style`: `"0"`
-* **[radius]** `style`: `".5x"`
-* **[sizing]** `style`: `"content"`
-* **[width]** `style`: `"1em"`
+* **`[border]="1x"`**
+* **`[content]="stretch"`**
+* **`[cursor]="default"`**
+* **`[display]="inline-grid"`**
+* **`[fill]=""`**
+* **`[height]="1em"`**
+* **`[items]="center"`**
+* **`[padding]="0"`**
+* **`[radius]=".5x"`**
+* **`[sizing]="content"`**
+* **`[width]="1em"`**
 
 ## Inherited default values
-* **[color]** `style`: `"inherit"`
-* **[text]** `style`: `"nowrap"`
-* **[transition]** `style`: `"box-shadow, color, background-color"`
+* **`[color]="inherit"`**
+* **`[text]="nowrap"`**
+* **`[transition]="box-shadow, color, background-color"`**
 
 
 ## Own attributes

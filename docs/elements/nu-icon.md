@@ -7,13 +7,13 @@
 
 
 ## Own default values
-* **[display]** `style`: `"inline-block"`
-* **[height]** `style`: `"min(1em)"`
-* **[text]** `style`: `"middle"`
-* **[width]** `style`: `"min(1em)"`
+* **`[display]="inline-block"`**
+* **`[height]="min(1em)"`**
+* **`[text]="middle"`**
+* **`[width]="min(1em)"`**
 
 ## Inherited default values
-* **[sizing]** `style`: `"border"`
+* **`[sizing]="border"`**
 
 
 ## Own attributes

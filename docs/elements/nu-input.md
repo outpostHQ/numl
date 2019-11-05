@@ -6,16 +6,16 @@
 
 
 ## Own default values
-* **[border]** `style`: `"1x"`
-* **[display]** `style`: `"grid"`
-* **[fill]** `style`: `""`
-* **[flow]** `style`: `"column"`
-* **[padding]** `style`: `"1x"`
-* **[radius]** `style`: `""`
-* **[text]** `style`: `"center"`
+* **`[border]="1x"`**
+* **`[display]="grid"`**
+* **`[fill]=""`**
+* **`[flow]="column"`**
+* **`[padding]="1x"`**
+* **`[radius]=""`**
+* **`[text]="center"`**
 
 ## Inherited default values
-* **[sizing]** `style`: `"border"`
+* **`[sizing]="border"`**
 
 
 ## Own attributes

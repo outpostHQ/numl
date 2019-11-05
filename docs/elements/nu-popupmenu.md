@@ -8,25 +8,25 @@
 
 
 ## Own default values
-* **[flow]** `style`: `"column"`
-* **[padding]** `style`: `".5 0"`
+* **`[flow]="column"`**
+* **`[padding]=".5 0"`**
 
 ## Inherited default values
-* **[border]** `style`: `"1x outside"`
-* **[color]** `style`: `""`
-* **[cursor]** `style`: `"default"`
-* **[display]** `style`: `"block"`
-* **[fill]** `style`: `""`
-* **[opacity]** `style`: `"0 ^:pressed[1]"`
-* **[place]** `style`: `"outside-bottom"`
-* **[radius]** `style`: `"1x"`
-* **[shadow]** `style`: `""`
-* **[sizing]** `style`: `"border"`
-* **[text]** `style`: `"wrap"`
-* **[theme]** `helper`: `"default"`
-* **[transition]** `style`: `"opacity"`
-* **[width]** `style`: `"100%"`
-* **[z]** `style`: `"front"`
+* **`[border]="1x outside"`**
+* **`[color]=""`**
+* **`[cursor]="default"`**
+* **`[display]="block"`**
+* **`[fill]=""`**
+* **`[opacity]="0 ^:pressed[1]"`**
+* **`[place]="outside-bottom"`**
+* **`[radius]="1x"`**
+* **`[shadow]=""`**
+* **`[sizing]="border"`**
+* **`[text]="wrap"`**
+* **`[theme]="default"`**
+* **`[transition]="opacity"`**
+* **`[width]="100%"`**
+* **`[z]="front"`**
 
 
 ## Own attributes

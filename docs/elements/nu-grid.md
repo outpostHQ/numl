@@ -6,11 +6,11 @@
 
 
 ## Own default values
-* **[display]** `style`: `"grid"`
-* **[flow]** `style`: `"grid-row"`
+* **`[display]="grid"`**
+* **`[flow]="grid-row"`**
 
 ## Inherited default values
-* **[sizing]** `style`: `"border"`
+* **`[sizing]="border"`**
 
 
 ## Own attributes
