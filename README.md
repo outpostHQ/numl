@@ -151,7 +151,7 @@ Run `npm run play` to view test page with few examples.
 *IN PROGRESS*
 
 * [Introduction](docs/introduction.md)
-* [Modifiers](docs/modifiers.md) – *DEPRECATED* (will be updated in `v0.7`)
+* [Elements](docs/elements.md) - `60% Complete`
 * [Attributes](docs/attributes.md) - `5% Complete`
 * [Markup methodology](docs/markup.md) - `0% Complete`
 * [Theme system](docs/themes.md)

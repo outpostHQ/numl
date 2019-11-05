@@ -1,0 +1,2 @@
+# `[shrink]` attribute
+
