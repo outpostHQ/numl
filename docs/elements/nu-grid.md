@@ -1,16 +1,16 @@
 # `nu-grid` element
 
 ## Base info
-* Inherits from: [`nu-block`](./nu-block.md)
+* Parent: [`nu-block`](./nu-block.md)
 * Type: `element`
 
 
 ## Own default values
-* `display`: `grid`
-* `flow`: `grid-row`
+* `display`: `"grid"`
+* `flow`: `"grid-row"`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

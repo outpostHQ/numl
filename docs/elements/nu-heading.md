@@ -1,19 +1,19 @@
 # `nu-heading` element
 
 ## Base info
-* Inherits from: [`nu-block`](./nu-block.md)
+* Parent: [`nu-block`](./nu-block.md)
 * Type: `element`
 * Role: `heading`
 * Auto ID: `heading`
 
 
 ## Own default values
-* `color`: `var(--nu-theme-heading-color)`
+* `color`: `"var(--nu-theme-heading-color)"`
 * `level`: `1`
 
 ## Inherited default values
-* `display`: `block`
-* `sizing`: `border`
+* `display`: `"block"`
+* `sizing`: `"border"`
 
 
 ## Own attributes

@@ -1,18 +1,18 @@
 # `nu-label` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 * Auto ID: `label`
 
 
 ## Own default values
-* `cursor`: `default`
-* `text`: `w6`
+* `cursor`: `"default"`
+* `text`: `"w6"`
 
 ## Inherited default values
-* `display`: `inline-block`
-* `sizing`: `border`
+* `display`: `"inline-block"`
+* `sizing`: `"border"`
 
 
 ## Own attributes

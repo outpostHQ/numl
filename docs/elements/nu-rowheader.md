@@ -1,20 +1,20 @@
 # `nu-rowheader` element
 
 ## Base info
-* Inherits from: [`nu-cell`](./nu-cell.md)
+* Parent: [`nu-cell`](./nu-cell.md)
 * Type: `element`
 * Role: `rowheader`
 * Auto ID: `cell`
 
 
 ## Own default values
-* `border`: `1x right`
-* `text`: `w6 middle`
+* `border`: `"1x right"`
+* `text`: `"w6 middle"`
 
 ## Inherited default values
-* `display`: `table-cell`
-* `padding`: `var(--nu-padding)`
-* `sizing`: `border`
+* `display`: `"table-cell"`
+* `padding`: `"var(--nu-padding)"`
+* `sizing`: `"border"`
 
 
 ## Own attributes

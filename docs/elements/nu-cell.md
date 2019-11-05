@@ -1,19 +1,19 @@
 # `nu-cell` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 * Role: `cell`
 * Auto ID: `cell`
 
 
 ## Own default values
-* `display`: `table-cell`
-* `padding`: `var(--nu-padding)`
-* `text`: `middle`
+* `display`: `"table-cell"`
+* `padding`: `"var(--nu-padding)"`
+* `text`: `"middle"`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

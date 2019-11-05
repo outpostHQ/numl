@@ -1,27 +1,27 @@
 # `nu-btn` element
 
 ## Base info
-* Inherits from: [`nu-activeelement`](./nu-activeelement.md)
+* Parent: [`nu-activeelement`](./nu-activeelement.md)
 * Type: `element`
 * Role: `button`
 * Auto ID: `btn`
 
 
 ## Own default values
-* `border`: `1x`
-* `content`: `center`
-* `display`: `inline-grid`
-* `fill`: ``
-* `flow`: `column`
-* `gap`: `1x`
-* `padding`: `1x 2x`
-* `radius`: `1x`
-* `text`: `nowrap`
+* `border`: `"1x"`
+* `content`: `"center"`
+* `display`: `"inline-grid"`
+* `fill`: `""`
+* `flow`: `"column"`
+* `gap`: `"1x"`
+* `padding`: `"1x 2x"`
+* `radius`: `"1x"`
+* `text`: `"nowrap"`
 
 ## Inherited default values
-* `color`: `inherit`
-* `sizing`: `border`
-* `transition`: `box-shadow, color, background-color`
+* `color`: `"inherit"`
+* `sizing`: `"border"`
+* `transition`: `"box-shadow, color, background-color"`
 
 
 ## Own attributes

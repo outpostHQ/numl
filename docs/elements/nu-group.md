@@ -1,19 +1,19 @@
 # `nu-group` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 * Role: `group`
 
 
 ## Own default values
-* `display`: `flex`
-* `flow`: `row`
-* `gap`: `0`
-* `radius`: `0`
+* `display`: `"flex"`
+* `flow`: `"row"`
+* `gap`: `"0"`
+* `radius`: `"0"`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

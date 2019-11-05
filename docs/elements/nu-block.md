@@ -1,15 +1,15 @@
 # `nu-block` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 
 
 ## Own default values
-* `display`: `block`
+* `display`: `"block"`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

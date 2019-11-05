@@ -1,20 +1,20 @@
 # `nu-badge` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 
 
 ## Own default values
-* `color`: `swap`
-* `fill`: `text`
-* `padding`: `0 .5em`
-* `radius`: `1x`
-* `text`: `nowrap`
+* `color`: `"swap"`
+* `fill`: `"text"`
+* `padding`: `"0 .5em"`
+* `radius`: `"1x"`
+* `text`: `"nowrap"`
 
 ## Inherited default values
-* `display`: `inline-block`
-* `sizing`: `border`
+* `display`: `"inline-block"`
+* `sizing`: `"border"`
 
 
 ## Own attributes

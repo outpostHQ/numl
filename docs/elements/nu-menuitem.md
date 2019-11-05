@@ -1,28 +1,28 @@
 # `nu-menuitem` element
 
 ## Base info
-* Inherits from: [`nu-btn`](./nu-btn.md)
+* Parent: [`nu-btn`](./nu-btn.md)
 * Type: `element`
 * Role: `menuitem`
 * Auto ID: `btn`
 
 
 ## Own default values
-* `border`: `0`
-* `content`: `center start`
-* `fill`: `transparent`
-* `flow`: `column`
-* `gap`: `1x`
-* `padding`: `1x`
-* `radius`: `0`
-* `width`: `100%`
+* `border`: `"0"`
+* `content`: `"center start"`
+* `fill`: `"transparent"`
+* `flow`: `"column"`
+* `gap`: `"1x"`
+* `padding`: `"1x"`
+* `radius`: `"0"`
+* `width`: `"100%"`
 
 ## Inherited default values
-* `color`: `inherit`
-* `display`: `inline-grid`
-* `sizing`: `border`
-* `text`: `nowrap`
-* `transition`: `box-shadow, color, background-color`
+* `color`: `"inherit"`
+* `display`: `"inline-grid"`
+* `sizing`: `"border"`
+* `text`: `"nowrap"`
+* `transition`: `"box-shadow, color, background-color"`
 
 
 ## Own attributes

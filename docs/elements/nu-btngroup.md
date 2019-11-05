@@ -1,20 +1,20 @@
 # `nu-btngroup` element
 
 ## Base info
-* Inherits from: [`nu-radiogroup`](./nu-radiogroup.md)
+* Parent: [`nu-radiogroup`](./nu-radiogroup.md)
 * Type: `element`
 * Role: `radiogroup`
 * Auto ID: `btngroup`
 
 
 ## Own default values
-* `gap`: `calc(var(--nu-theme-border-width) * -1)`
-* `radius`: `1x`
+* `gap`: `"calc(var(--nu-theme-border-width) * -1)"`
+* `radius`: `"1x"`
 
 ## Inherited default values
-* `display`: `flex`
-* `flow`: `row`
-* `sizing`: `border`
+* `display`: `"flex"`
+* `flow`: `"row"`
+* `sizing`: `"border"`
 
 
 ## Own attributes

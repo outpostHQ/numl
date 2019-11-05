@@ -1,21 +1,21 @@
 # `nu-input` element
 
 ## Base info
-* Inherits from: [`nu-block`](./nu-block.md)
+* Parent: [`nu-block`](./nu-block.md)
 * Type: `element`
 
 
 ## Own default values
-* `border`: `1x`
-* `display`: `grid`
-* `fill`: ``
-* `flow`: `column`
-* `padding`: `1x`
-* `radius`: ``
-* `text`: `center`
+* `border`: `"1x"`
+* `display`: `"grid"`
+* `fill`: `""`
+* `flow`: `"column"`
+* `padding`: `"1x"`
+* `radius`: `""`
+* `text`: `"center"`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

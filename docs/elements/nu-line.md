@@ -1,18 +1,18 @@
 # `nu-line` element
 
 ## Base info
-* Inherits from: [`nu-block`](./nu-block.md)
+* Parent: [`nu-block`](./nu-block.md)
 * Type: `element`
 * Role: `separator`
 
 
 ## Own default values
-* `orient`: `x`
-* `place`: `stretch`
+* `orient`: `"x"`
+* `place`: `"stretch"`
 
 ## Inherited default values
-* `display`: `block`
-* `sizing`: `border`
+* `display`: `"block"`
+* `sizing`: `"border"`
 
 
 ## Own attributes

@@ -1,22 +1,22 @@
 # `nu-triangle` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 
 
 ## Own default values
-* `color`: `border`
-* `dir`: `up`
-* `display`: `block`
-* `height`: `0`
-* `overflow`: `no`
-* `size`: `.5em 1em`
-* `text`: `middle`
-* `width`: `0`
+* `color`: `"border"`
+* `dir`: `"up"`
+* `display`: `"block"`
+* `height`: `"0"`
+* `overflow`: `"no"`
+* `size`: `".5em 1em"`
+* `text`: `"middle"`
+* `width`: `"0"`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

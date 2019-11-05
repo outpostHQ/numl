@@ -1,16 +1,16 @@
 # `nu-flow` element
 
 ## Base info
-* Inherits from: [`nu-block`](./nu-block.md)
+* Parent: [`nu-block`](./nu-block.md)
 * Type: `element`
 
 
 ## Own default values
-* `flow`: `column`
+* `flow`: `"column"`
 
 ## Inherited default values
-* `display`: `block`
-* `sizing`: `border`
+* `display`: `"block"`
+* `sizing`: `"border"`
 
 
 ## Own attributes

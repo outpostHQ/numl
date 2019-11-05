@@ -1,7 +1,7 @@
 # `nu-style` element
 
 ## Base info
-* Inherits from: [`nu-decorator`](./nu-decorator.md)
+* Parent: [`nu-decorator`](./nu-decorator.md)
 * Type: `decorator`
 
 
@@ -9,7 +9,7 @@
 *none*
 
 ## Inherited default values
-* `display`: `none`
+* `display`: `"none"`
 
 
 ## Own attributes

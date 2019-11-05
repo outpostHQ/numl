@@ -1,12 +1,12 @@
 # `nu-decorator` element
 
 ## Base info
-* Inherits from: [`nu-base`](./nu-base.md)
+* Parent: [`nu-base`](./nu-base.md)
 * Type: `decorator`
 
 
 ## Own default values
-* `display`: `none`
+* `display`: `"none"`
 
 ## Inherited default values
 *none*

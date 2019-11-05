@@ -1,16 +1,16 @@
 # `nu-rowgroup` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 * Role: `rowgroup`
 
 
 ## Own default values
-* `display`: `table-row-group`
+* `display`: `"table-row-group"`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

@@ -1,23 +1,23 @@
 # `nu-link` element
 
 ## Base info
-* Inherits from: [`nu-activeelement`](./nu-activeelement.md)
+* Parent: [`nu-activeelement`](./nu-activeelement.md)
 * Type: `element`
 * Role: `link`
 * Auto ID: `link`
 
 
 ## Own default values
-* `color`: `special`
-* `cursor`: `pointer`
-* `display`: `inline-block`
+* `color`: `"special"`
+* `cursor`: `"pointer"`
+* `display`: `"inline-block"`
 * `fill`: `null`
-* `radius`: `.5x`
-* `text`: `nowrap u`
-* `transition`: `box-shadow`
+* `radius`: `".5x"`
+* `text`: `"nowrap u"`
+* `transition`: `"box-shadow"`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

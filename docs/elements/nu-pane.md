@@ -1,20 +1,20 @@
 # `nu-pane` element
 
 ## Base info
-* Inherits from: [`nu-flex`](./nu-flex.md)
+* Parent: [`nu-flex`](./nu-flex.md)
 * Type: `element`
 
 
 ## Own default values
-* `content`: `stretch space-between`
+* `content`: `"stretch space-between"`
 * `gap`: `0.5`
-* `items`: `center`
-* `width`: `100%`
+* `items`: `"center"`
+* `width`: `"100%"`
 
 ## Inherited default values
-* `display`: `flex`
-* `flow`: `row`
-* `sizing`: `border`
+* `display`: `"flex"`
+* `flow`: `"row"`
+* `sizing`: `"border"`
 
 
 ## Own attributes

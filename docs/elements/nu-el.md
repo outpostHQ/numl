@@ -1,13 +1,13 @@
 # `nu-el` element
 
 ## Base info
-* Inherits from: [`nu-base`](./nu-base.md)
+* Parent: [`nu-base`](./nu-base.md)
 * Type: `element`
 
 
 ## Own default values
-* `display`: `inline-block`
-* `sizing`: `border`
+* `display`: `"inline-block"`
+* `sizing`: `"border"`
 
 ## Inherited default values
 *none*

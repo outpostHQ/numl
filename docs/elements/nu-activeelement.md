@@ -1,22 +1,22 @@
 # `nu-activeelement` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 * Role: `button`
 * Auto ID: `btn`
 
 
 ## Own default values
-* `color`: `inherit`
-* `fill`: ``
-* `radius`: ``
-* `text`: `nowrap`
-* `transition`: `box-shadow, color, background-color`
+* `color`: `"inherit"`
+* `fill`: `""`
+* `radius`: `""`
+* `text`: `"nowrap"`
+* `transition`: `"box-shadow, color, background-color"`
 
 ## Inherited default values
-* `display`: `inline-block`
-* `sizing`: `border`
+* `display`: `"inline-block"`
+* `sizing`: `"border"`
 
 
 ## Own attributes

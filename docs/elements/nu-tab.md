@@ -1,26 +1,26 @@
 # `nu-tab` element
 
 ## Base info
-* Inherits from: [`nu-activeelement`](./nu-activeelement.md)
+* Parent: [`nu-activeelement`](./nu-activeelement.md)
 * Type: `element`
 * Role: `tab`
 * Auto ID: `btn`
 
 
 ## Own default values
-* `display`: `inline-grid`
-* `fill`: `transparent`
-* `flow`: `column`
-* `gap`: `1x`
-* `items`: `center`
-* `padding`: `1x 0`
-* `radius`: `0`
+* `display`: `"inline-grid"`
+* `fill`: `"transparent"`
+* `flow`: `"column"`
+* `gap`: `"1x"`
+* `items`: `"center"`
+* `padding`: `"1x 0"`
+* `radius`: `"0"`
 
 ## Inherited default values
-* `color`: `inherit`
-* `sizing`: `border`
-* `text`: `nowrap`
-* `transition`: `box-shadow, color, background-color`
+* `color`: `"inherit"`
+* `sizing`: `"border"`
+* `text`: `"nowrap"`
+* `transition`: `"box-shadow, color, background-color"`
 
 
 ## Own attributes

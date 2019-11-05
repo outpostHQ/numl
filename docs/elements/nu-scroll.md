@@ -1,16 +1,16 @@
 # `nu-scroll` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 * Role: `scrollbar`
 
 
 ## Own default values
-* `display`: `block`
+* `display`: `"block"`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

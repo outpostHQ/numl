@@ -1,19 +1,19 @@
 # `nu-table` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 * Role: `table`
 
 
 ## Own default values
-* `border`: `1x`
-* `display`: `table`
-* `gap`: ``
-* `padding`: ``
+* `border`: `"1x"`
+* `display`: `"table"`
+* `gap`: `""`
+* `padding`: `""`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

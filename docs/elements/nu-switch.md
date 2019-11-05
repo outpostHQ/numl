@@ -1,22 +1,22 @@
 # `nu-switch` element
 
 ## Base info
-* Inherits from: [`nu-activeelement`](./nu-activeelement.md)
+* Parent: [`nu-activeelement`](./nu-activeelement.md)
 * Type: `element`
 * Role: `switch`
 * Auto ID: `btn`
 
 
 ## Own default values
-* `display`: `inline-block`
+* `display`: `"inline-block"`
 
 ## Inherited default values
-* `color`: `inherit`
-* `fill`: ``
-* `radius`: ``
-* `sizing`: `border`
-* `text`: `nowrap`
-* `transition`: `box-shadow, color, background-color`
+* `color`: `"inherit"`
+* `fill`: `""`
+* `radius`: `""`
+* `sizing`: `"border"`
+* `text`: `"nowrap"`
+* `transition`: `"box-shadow, color, background-color"`
 
 
 ## Own attributes

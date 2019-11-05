@@ -1,17 +1,17 @@
 # `nu-row` element
 
 ## Base info
-* Inherits from: [`nu-el`](./nu-el.md)
+* Parent: [`nu-el`](./nu-el.md)
 * Type: `element`
 * Role: `row`
 
 
 ## Own default values
-* `display`: `table-row`
-* `fill`: ``
+* `display`: `"table-row"`
+* `fill`: `""`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

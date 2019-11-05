@@ -5,7 +5,7 @@
 
 
 ## Own default values
-* `display`: `none`
+* `display`: `"none"`
 
 ## Inherited default values
 *none*

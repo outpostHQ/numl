@@ -1,7 +1,7 @@
 # `nu-tablist` element
 
 ## Base info
-* Inherits from: [`nu-radiogroup`](./nu-radiogroup.md)
+* Parent: [`nu-radiogroup`](./nu-radiogroup.md)
 * Type: `element`
 * Role: `tablist`
 * Auto ID: `tablist`
@@ -11,9 +11,9 @@
 * `gap`: `1`
 
 ## Inherited default values
-* `display`: `flex`
-* `flow`: `row`
-* `sizing`: `border`
+* `display`: `"flex"`
+* `flow`: `"row"`
+* `sizing`: `"border"`
 
 
 ## Own attributes

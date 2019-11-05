@@ -1,19 +1,19 @@
 # `nu-icon` element
 
 ## Base info
-* Inherits from: [`nu-block`](./nu-block.md)
+* Parent: [`nu-block`](./nu-block.md)
 * Type: `element`
 * Role: `img`
 
 
 ## Own default values
-* `display`: `inline-block`
-* `height`: `min(1em)`
-* `text`: `middle`
-* `width`: `min(1em)`
+* `display`: `"inline-block"`
+* `height`: `"min(1em)"`
+* `text`: `"middle"`
+* `width`: `"min(1em)"`
 
 ## Inherited default values
-* `sizing`: `border`
+* `sizing`: `"border"`
 
 
 ## Own attributes

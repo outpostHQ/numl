@@ -1,30 +1,30 @@
 # `nu-tooltip` element
 
 ## Base info
-* Inherits from: [`nu-block`](./nu-block.md)
+* Parent: [`nu-block`](./nu-block.md)
 * Type: `element`
 * Auto ID: `tooltip`
 
 
 ## Own default values
-* `border`: `1x outside`
-* `color`: `minor`
-* `fill`: `subtle`
-* `interactive`: `no`
-* `opacity`: `0 ^:hover[1]`
-* `padding`: `.25 .5`
-* `place`: `outside-top`
-* `radius`: `1x`
-* `shadow`: ``
-* `size`: `sm`
-* `text`: `wrap`
-* `transition`: `opacity`
-* `width`: `min(15)`
-* `z`: `front`
+* `border`: `"1x outside"`
+* `color`: `"minor"`
+* `fill`: `"subtle"`
+* `interactive`: `"no"`
+* `opacity`: `"0 ^:hover[1]"`
+* `padding`: `".25 .5"`
+* `place`: `"outside-top"`
+* `radius`: `"1x"`
+* `shadow`: `""`
+* `size`: `"sm"`
+* `text`: `"wrap"`
+* `transition`: `"opacity"`
+* `width`: `"min(15)"`
+* `z`: `"front"`
 
 ## Inherited default values
-* `display`: `block`
-* `sizing`: `border`
+* `display`: `"block"`
+* `sizing`: `"border"`
 
 
 ## Own attributes
