@@ -1,7 +1,7 @@
-# `nu-menuitem` element
+# `<nu-menuitem/>` element
 
 ## Base info
-* Parent: [`nu-btn`](./nu-btn.md)
+* Parent: [`<nu-btn`/>](./nu-btn.md)
 * Type: `element`
 * Role: `menuitem`
 * Auto ID: `btn`

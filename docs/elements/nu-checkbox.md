@@ -1,7 +1,7 @@
-# `nu-checkbox` element
+# `<nu-checkbox/>` element
 
 ## Base info
-* Parent: [`nu-activeelement`](./nu-activeelement.md)
+* Parent: [`<nu-activeelement`/>](./nu-activeelement.md)
 * Type: `element`
 * Role: `checkbox`
 * Auto ID: `checkbox`

@@ -1,7 +1,7 @@
-# `nu-label` element
+# `<nu-label/>` element
 
 ## Base info
-* Parent: [`nu-el`](./nu-el.md)
+* Parent: [`<nu-el`/>](./nu-el.md)
 * Type: `element`
 * Auto ID: `label`
 

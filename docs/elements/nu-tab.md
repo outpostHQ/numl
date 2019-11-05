@@ -1,7 +1,7 @@
-# `nu-tab` element
+# `<nu-tab/>` element
 
 ## Base info
-* Parent: [`nu-activeelement`](./nu-activeelement.md)
+* Parent: [`<nu-activeelement`/>](./nu-activeelement.md)
 * Type: `element`
 * Role: `tab`
 * Auto ID: `btn`

@@ -1,7 +1,7 @@
-# `nu-gridtable` element
+# `<nu-gridtable/>` element
 
 ## Base info
-* Parent: [`nu-grid`](./nu-grid.md)
+* Parent: [`<nu-grid`/>](./nu-grid.md)
 * Type: `element`
 * Role: `grid`
 

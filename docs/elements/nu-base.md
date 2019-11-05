@@ -1,4 +1,4 @@
-# `nu-base` element
+# `<nu-base/>` element
 
 ## Base info
 * Type: `element`

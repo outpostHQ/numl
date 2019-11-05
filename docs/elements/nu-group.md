@@ -1,7 +1,7 @@
-# `nu-group` element
+# `<nu-group/>` element
 
 ## Base info
-* Parent: [`nu-el`](./nu-el.md)
+* Parent: [`<nu-el`/>](./nu-el.md)
 * Type: `element`
 * Role: `group`
 

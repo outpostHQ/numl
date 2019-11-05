@@ -1,7 +1,7 @@
-# `nu-popupmenu` element
+# `<nu-popupmenu/>` element
 
 ## Base info
-* Parent: [`nu-popup`](./nu-popup.md)
+* Parent: [`<nu-popup`/>](./nu-popup.md)
 * Type: `element`
 * Role: `menu`
 * Auto ID: `popup`

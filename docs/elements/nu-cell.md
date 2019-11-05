@@ -1,7 +1,7 @@
-# `nu-cell` element
+# `<nu-cell/>` element
 
 ## Base info
-* Parent: [`nu-el`](./nu-el.md)
+* Parent: [`<nu-el`/>](./nu-el.md)
 * Type: `element`
 * Role: `cell`
 * Auto ID: `cell`

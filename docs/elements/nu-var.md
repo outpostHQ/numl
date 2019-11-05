@@ -1,7 +1,7 @@
-# `nu-var` element
+# `<nu-var/>` element
 
 ## Base info
-* Parent: [`nu-decorator`](./nu-decorator.md)
+* Parent: [`<nu-decorator`/>](./nu-decorator.md)
 * Type: `decorator`
 
 

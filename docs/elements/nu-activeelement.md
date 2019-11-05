@@ -1,7 +1,7 @@
-# `nu-activeelement` element
+# `<nu-activeelement/>` element
 
 ## Base info
-* Parent: [`nu-el`](./nu-el.md)
+* Parent: [`<nu-el`/>](./nu-el.md)
 * Type: `element`
 * Role: `button`
 * Auto ID: `btn`

@@ -1,7 +1,7 @@
-# `nu-columnheader` element
+# `<nu-columnheader/>` element
 
 ## Base info
-* Parent: [`nu-rowheader`](./nu-rowheader.md)
+* Parent: [`<nu-rowheader`/>](./nu-rowheader.md)
 * Type: `element`
 * Role: `columnheader`
 * Auto ID: `cell`

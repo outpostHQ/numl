@@ -1,7 +1,7 @@
-# `nu-btngroup` element
+# `<nu-btngroup/>` element
 
 ## Base info
-* Parent: [`nu-radiogroup`](./nu-radiogroup.md)
+* Parent: [`<nu-radiogroup`/>](./nu-radiogroup.md)
 * Type: `element`
 * Role: `radiogroup`
 * Auto ID: `btngroup`

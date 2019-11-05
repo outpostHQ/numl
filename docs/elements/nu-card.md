@@ -1,7 +1,7 @@
-# `nu-card` element
+# `<nu-card/>` element
 
 ## Base info
-* Parent: [`nu-block`](./nu-block.md)
+* Parent: [`<nu-block`/>](./nu-block.md)
 * Type: `element`
 * Role: `article`
 * Auto ID: `card`

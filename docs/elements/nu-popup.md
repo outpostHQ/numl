@@ -1,7 +1,7 @@
-# `nu-popup` element
+# `<nu-popup/>` element
 
 ## Base info
-* Parent: [`nu-card`](./nu-card.md)
+* Parent: [`<nu-card`/>](./nu-card.md)
 * Type: `element`
 * Role: `dialog`
 * Auto ID: `popup`

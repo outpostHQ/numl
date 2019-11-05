@@ -1,7 +1,7 @@
-# `nu-menu` element
+# `<nu-menu/>` element
 
 ## Base info
-* Parent: [`nu-flow`](./nu-flow.md)
+* Parent: [`<nu-flow`/>](./nu-flow.md)
 * Type: `element`
 * Role: `menu`
 * Auto ID: `menu`

@@ -1,7 +1,7 @@
-# `nu-icon` element
+# `<nu-icon/>` element
 
 ## Base info
-* Parent: [`nu-block`](./nu-block.md)
+* Parent: [`<nu-block`/>](./nu-block.md)
 * Type: `element`
 * Role: `img`
 

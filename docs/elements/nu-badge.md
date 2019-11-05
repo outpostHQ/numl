@@ -1,7 +1,7 @@
-# `nu-badge` element
+# `<nu-badge/>` element
 
 ## Base info
-* Parent: [`nu-el`](./nu-el.md)
+* Parent: [`<nu-el`/>](./nu-el.md)
 * Type: `element`
 
 

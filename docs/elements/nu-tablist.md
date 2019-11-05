@@ -1,7 +1,7 @@
-# `nu-tablist` element
+# `<nu-tablist/>` element
 
 ## Base info
-* Parent: [`nu-radiogroup`](./nu-radiogroup.md)
+* Parent: [`<nu-radiogroup`/>](./nu-radiogroup.md)
 * Type: `element`
 * Role: `tablist`
 * Auto ID: `tablist`

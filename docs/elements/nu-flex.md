@@ -1,7 +1,7 @@
-# `nu-flex` element
+# `<nu-flex/>` element
 
 ## Base info
-* Parent: [`nu-block`](./nu-block.md)
+* Parent: [`<nu-block`/>](./nu-block.md)
 * Type: `element`
 
 

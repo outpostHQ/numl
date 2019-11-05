@@ -1,7 +1,7 @@
-# `nu-link` element
+# `<nu-link/>` element
 
 ## Base info
-* Parent: [`nu-activeelement`](./nu-activeelement.md)
+* Parent: [`<nu-activeelement`/>](./nu-activeelement.md)
 * Type: `element`
 * Role: `link`
 * Auto ID: `link`

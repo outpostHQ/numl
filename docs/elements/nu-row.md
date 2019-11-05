@@ -1,7 +1,7 @@
-# `nu-row` element
+# `<nu-row/>` element
 
 ## Base info
-* Parent: [`nu-el`](./nu-el.md)
+* Parent: [`<nu-el`/>](./nu-el.md)
 * Type: `element`
 * Role: `row`
 

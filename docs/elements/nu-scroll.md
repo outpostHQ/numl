@@ -1,7 +1,7 @@
-# `nu-scroll` element
+# `<nu-scroll/>` element
 
 ## Base info
-* Parent: [`nu-el`](./nu-el.md)
+* Parent: [`<nu-el`/>](./nu-el.md)
 * Type: `element`
 * Role: `scrollbar`
 

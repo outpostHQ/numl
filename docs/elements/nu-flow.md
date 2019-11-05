@@ -1,7 +1,7 @@
-# `nu-flow` element
+# `<nu-flow/>` element
 
 ## Base info
-* Parent: [`nu-block`](./nu-block.md)
+* Parent: [`<nu-block`/>](./nu-block.md)
 * Type: `element`
 
 

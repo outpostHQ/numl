@@ -1,7 +1,7 @@
-# `nu-switch` element
+# `<nu-switch/>` element
 
 ## Base info
-* Parent: [`nu-activeelement`](./nu-activeelement.md)
+* Parent: [`<nu-activeelement`/>](./nu-activeelement.md)
 * Type: `element`
 * Role: `switch`
 * Auto ID: `btn`

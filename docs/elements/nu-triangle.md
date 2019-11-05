@@ -1,7 +1,7 @@
-# `nu-triangle` element
+# `<nu-triangle/>` element
 
 ## Base info
-* Parent: [`nu-el`](./nu-el.md)
+* Parent: [`<nu-el`/>](./nu-el.md)
 * Type: `element`
 
 
