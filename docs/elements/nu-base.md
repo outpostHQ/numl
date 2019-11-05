@@ -5,15 +5,15 @@
 
 
 ## Own default values
-* `display`: `"none"`
+* **[display]** `style`: `"none"`
 
 ## Inherited default values
 *none*
 
 
 ## Own attributes
-* `display`
-* `id`
+* **display** `style`
+* **id** `style`
 
 
 ## Inherited attributes
