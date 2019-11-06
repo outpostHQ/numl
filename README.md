@@ -1,4 +1,9 @@
 # <img src="https://github.com/tenphi/nude/blob/master/logo.png?raw=true" alt="NUDE Elements" width="416">
+
+**PRE-ALPHA VERSION**
+
+**UNDER RAPID DEVELOPMENT, API is subject to change**
+
 **NUDE Elements** is: 
 
 * Accessible production-ready **Prototyping solution**
@@ -8,34 +13,25 @@
 * Markup **Methodology** that is enjoyable to follow
 * All-in-one **Language** to describe interfaces that look and work great
 
-and also... it's **just a single js-file** that you can include into your website to start creating magic:
+And also... it's **just a single js-file** that you can include into your website to start doing magic:
 
 * **No** build step needed (*don't wait! create!*)
 * **No** dependencies included
-* **No** config (*your markup is your config*)
-* **No** `init()` method to activate
+* **No** config needed (*your markup is your config*)
+* **No** scripting to activate
 * **No** confusing classes to style
 * **No** frustration in usage
 
-**PRE-ALPHA VERSION**
+With **NUDE Elements** you can: 
 
-**UNDER RAPID DEVELOPMENT, API is subject to change**
-
-## Features
-
-* **Descriptive** markup language that based on well-known web standards.
-* **Powerful** layout attributes that help you create virtually **any interface** you want.
-* **Responsiveness** with effort so little you've never seen before.
-* **Future proof** thanks to implementation based on **Custom Elements**.
-* **Transferable** markup that can be easily copy-pasted to your new project.
-* **Compatible** with any popular framework: Vue, React, Angular, Svelte, etc...
-* **Dark Mode** effortlessly. Darker colors will be generated automatically based on colors you use in you app.
-* **CSS Generation** under the hood to create only CSS your application needs.
-* **No Build Step** needed. Edit attributes and move elements in runtime and see how they change instantly.
-* **No-JS** support with pregenerated CSS.
-* **Support** for all modern browsers. (small polyfill needed for Edge)
-* **Accessibility** features to simplify ARIA declarations and automate them where it's possible.
-* **Framework** to create your own elements, modifiers and plugins.
+* Create virtually **any interface** you want
+* Make your interface accessible without fighting IDs and specifications
+* Add responsiveness with effort so little you've never seen before
+* Copy-paste your markup from project to project, regardless of the framework used
+* Be calm for technical debt in markup code
+* Create your own elements with ease
+* Add Dark Theme to your NUDE-powered site effortlessly
+* Enjoy while doing what you love
 
 ## FAQ
 
