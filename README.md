@@ -24,11 +24,11 @@ With **NUDE Elements** you can:
 
 * Create virtually **any interface** you want
 * Make your interface **accessible** without fighting IDs and specifications
+* Create your own elements with ease
 * Add **responsiveness** with effort so little you've never seen before
 * **Copy-paste** your markup from project to project, regardless of the framework used
-* Be calm for technical debt in markup code
-* Create your own elements with ease
 * Add **Dark Theme** to your NUDE-powered site effortlessly
+* Be calm for technical debt in markup code
 * **Enjoy** while doing what you love
 
 ## FAQ
