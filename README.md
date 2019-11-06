@@ -7,7 +7,7 @@
 * Accessible production-ready **Prototyping solution**
 * High-quality **Design-system Generator** for dummies
 * Highly-customizable **UI library** for your favorite framework
-* Powerful **CSS-Framework** with css-generation, inheritance and more
+* Powerful **CSS/JS-Framework** with css-generation, inheritance and more
 * Markup **Methodology** that is enjoyable to follow
 * All-in-one **Language** to describe interfaces that look and work great
 
@@ -24,7 +24,7 @@ With **NUDE Elements** you can:
 
 * Create virtually **any interface** you want
 * Make your interface **accessible** without fighting IDs and specifications
-* Create your own elements with ease
+* Create your own element or a whole Design System with ease
 * Add **responsiveness** with effort so little you've never seen before
 * **Copy-paste** your markup from project to project, regardless of the framework used
 * Add **Dark Theme** to your NUDE-powered site effortlessly
@@ -33,13 +33,21 @@ With **NUDE Elements** you can:
 
 ## FAQ
 
+**Q: There are many CSS-Frameworks out there. Why is NUDE different?**
+
+**A:** CSS-Frameworks solve problems related to styling while NUDE tend to solve many others related to interface creation like accessibility, color generation, style/logic sharing and context awareness. It's more complex and ambitious. 
+
 **Q: Why should I use NUDE instead of popular CSS-framework like Tailwind?**
 
-**A:** Popular CSS-frameworks tend to decide what you need and provide tools that limit the power of CSS. Unlike them, NUDE unleashes the power of CSS by making it dynamic and parametrizable without the need to use a preprocessor.
+**A:** Popular CSS-frameworks tend to decide what you need and provide tools that limit the power of CSS. Unlike them, NUDE unleashes the power of CSS by making it dynamic and parameterizable without the need to use a preprocessor.
 
 **Q: Why should I use NUDE instead of writing CSS from the scratch?**
 
 **A:** CSS is complex but the modern web is not possible without it. Instead of replacing CSS, NUDE simplifies every aspect of CSS development by providing handy abstractions for responsiveness, theming, complex selectors, etc. It provides reasonable defaults leaving you with ability to change them if you need it. It greatly reduces amount of work that needed to be done not only for developers but for designers too!
+
+**Q: Why should I use NUDE instead of using CSS-in-JS approach?**
+
+**A:** CSS-in-JS really simplifies some aspects of writing CSS. But it's still CSS. It's like you move your problems from one file to another. NUDE solves many problems by itself, providing you API to solve many others without stuffing your JS files. In fact, it greatly reduces them by providing useful declarations in markup. 
 
 **Q: I am a web designer. How can NUDE help me?**
 
