@@ -35,7 +35,7 @@ With **NUDE Elements** you can:
 
 **Q: There are many CSS-Frameworks out there. Why is NUDE different?**
 
-**A:** CSS-Frameworks solve problems related to styling while NUDE tend to solve many others related to interface creation like accessibility, color generation, style/logic sharing and context awareness. It's more complex and ambitious. 
+**A:** CSS-Frameworks solve problems related to styling while NUDE tend to solve many others related to interface creation like accessibility, color generation, style/logic sharing and context awareness. It's just more complex and ambitious. 
 
 **Q: Why should I use NUDE instead of popular CSS-framework like Tailwind?**
 
