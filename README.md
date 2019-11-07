@@ -4,10 +4,10 @@
 
 **NUDE Elements** is: 
 
-* Accessible production-ready **Prototyping solution**
-* High-quality **Design-system Generator** for dummies
-* Highly-customizable **UI library** for your favorite framework
-* Powerful **CSS/JS-Framework** with css-generation, inheritance and more
+* Customizable **Design System** for any project and scale
+* Accessible production-ready **Prototyping Solution**
+* Handy **UI library** for your favorite framework
+* Powerful **CSS/JS-Framework** with CSS generation, inheritance and more
 * Markup **Methodology** that is enjoyable to follow
 * All-in-one **Language** to describe interfaces that look and work great
 
@@ -24,7 +24,7 @@ With **NUDE Elements** you can:
 
 * Create virtually **any interface** you want
 * Make your interface **accessible** without fighting IDs and specifications
-* Create your own element or a whole Design System with ease
+* Create your own element or a whole **Design System** with ease
 * Add **responsiveness** with effort so little you've never seen before
 * **Copy-paste** your markup from project to project, regardless of the framework used
 * Add **Dark Theme** to your NUDE-powered site effortlessly
