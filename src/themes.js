@@ -165,7 +165,7 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
     case 'swap':
       theme.bg = findContrastColor(color, tonedBgLightness, minContrast);
       theme.text = setPastelLuminance(setLuminance(color, tonedBgLightness));
-      [theme.special, theme.contrast] = [theme.contrast, theme.special];
+      [theme.special, theme.contrast] = [theme.contrast, [...theme.text]];
       isInvert = true;
       break;
     case 'special':
