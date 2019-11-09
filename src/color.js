@@ -75,11 +75,11 @@ export function mix(hslA, hslB, pow = 0.5) {
   });
 }
 
-export function findContrastColor(hsl, refL = 1, ratio = 4.5) {
+export function findContrastColor(hsl, refL = 1, ratio = 4.5, dir) {
   hsl = [...hsl];
 
   const l1 = toRelative(refL);
-  const l2 = getLuminanceByRatio(l1, ratio);
+  const l2 = getLuminanceByRatio(l1, ratio, dir);
 
   if (l2 == null) return null; // can't be found
 
@@ -100,16 +100,17 @@ export function invertColor(rgb, offset = INVERT_OFFSET) {
   return hsluvToRgb(hsl);
 }
 
-export function getLuminanceByRatio(l1, ratio = 4.5) {
+export function getLuminanceByRatio(l1, ratio = 4.5, dir) {
   ratio += 0.04; // compensation for error (RGB rounding)
 
   l1 = l1 / 100;
+
+  ratio = (dir ? 1 / ratio : ratio);
 
   let l2 = (l1 + 0.05) * ratio - 0.05;
 
   if (l2 > 1 || l2 < 0) {
     l2 = (l1 + 0.05) / ratio - 0.05;
-  } else {
   }
 
   if (l2 > 1 || l2 < 0) {
@@ -187,9 +188,17 @@ function findClosest(val, arr) {
 }
 
 export function toRelative(l) {
+  if (TO_RELATIVE_CACHE[l]) {
+    return TO_RELATIVE_CACHE[l];
+  }
+
   const rgb = hsluvToRgb([0, 0, l]);
 
-  return getRelativeLuminance(rgb);
+  const value = getRelativeLuminance(rgb);
+
+  TO_RELATIVE_CACHE[l] = value;
+
+  return value;
 }
 
 // export function toRelative(l) {

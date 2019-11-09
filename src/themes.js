@@ -31,7 +31,7 @@ const darkNormalBaseTextColor = [0, 0, 88.82];
 const darkContrastBaseTextColor = [0, 0, 94.45];
 const baseBgColor = [0, 0, 100];
 const normalMinLightness = 12.25;
-const contrastMinLightness = 4.68;
+const contrastMinLightness = 12.25;
 const darkNormanBaseBgColor = [0, 0, normalMinLightness];
 const darkContrastBaseBgColor = [0, 0, contrastMinLightness];
 
@@ -117,7 +117,7 @@ function setSaturation(color, saturation) {
       newColor[1] = 100;
       break;
     case 'desaturated':
-      newColor = setOptimalSaturation(color);
+      newColor = setPastelLuminance(color, 80);
       break;
     default:
   }
@@ -143,19 +143,15 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
   const textColor = getBaseTextColor(highContrast, darkScheme);
   const bgColor = getBaseBgColor(highContrast, darkScheme);
   const bgLightness = bgColor[2];
+  const isMain = type === 'main';
+
+  let isInvert = false;
 
   color = setSaturation(color, saturation);
 
-  theme.contrast = getTheBrightest(textColor, bgColor);
-  theme.special = findContrastColor(color, theme.contrast[2], minContrast);
+  const originalContrast = theme.contrast = getTheBrightest(textColor, bgColor);
+  const originalSpecial = theme.special = findContrastColor(color, theme.contrast[2], minContrast);
   // themes with same hue should have focus color with consistent setPastelLuminance saturation
-  theme.focus = setPastelLuminance(mix(theme.special, theme.contrast));
-
-  if (highContrast) {
-    theme.border = [...theme.focus];
-  } else {
-    theme.border = mix(setPastelLuminance(setLuminance(color, tonedBgLightness)), theme.focus, .2);
-  }
 
   switch (type || 'main') {
     case 'common':
@@ -169,15 +165,26 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
     case 'swap':
       theme.bg = findContrastColor(color, tonedBgLightness, minContrast);
       theme.text = setPastelLuminance(setLuminance(color, tonedBgLightness));
+      [theme.special, theme.contrast] = [theme.contrast, theme.special];
+      isInvert = true;
       break;
     case 'special':
       theme.text = getTheBrightest(textColor, bgColor);
-      theme.bg = findContrastColor(color, bgLightness, minContrast);
+      theme.bg = findContrastColor(color, theme.text[2], minContrast);
+      [theme.special, theme.contrast] = [theme.contrast, theme.special];
+      isInvert = true;
       break;
     case 'main':
       theme.bg = bgColor;
       theme.text = textColor;
-      theme.subtle = mix(bgColor, theme.focus, highContrast ? 0.18 : .06);
+  }
+
+  theme.focus = setPastelLuminance(mix(theme.special, theme.contrast));
+  const borderReferenceColor = mix(setOptimalSaturation(originalSpecial), originalContrast, isMain ? .5 : 0);
+  theme.border = findContrastColor(borderReferenceColor, isInvert ? theme.text[2] : tonedBgLightness, ((darkScheme && !isMain) || highContrast) ? 1.5 : 1.25, !darkScheme);
+
+  if (type === 'main') {
+    theme.subtle = mix(bgColor, theme.focus, highContrast ? 0.18 : .06);
   }
 
   // in soft variant it's impossible to reduce contrast for headings
@@ -185,8 +192,8 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
     ? mix(theme.text, theme.bg, .1)
     : theme.text;
   theme.hover = setOpacity(findContrastColor(theme.focus, theme.bg[2], highContrast ? 2.2 : 1.6), .2);
-  theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity);
-  theme['special-intensity'] = getShadowIntensity(theme.special[2], shadowIntensity);
+  theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity, darkScheme);
+  theme['special-intensity'] = getShadowIntensity(theme.special[2], shadowIntensity, darkScheme);
 
   if (highContrast) {
     theme.intensity = Math.sqrt(theme.intensity);
@@ -200,10 +207,11 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
  * Get shadow intensity based on theme and user custom intensity param
  * @param bgLightness – background lightness
  * @param shadowIntensity – User-specified intensity
+ * @param darkScheme – User-specified intensity
  * @returns {Number} – 0 to 1
  */
-export function getShadowIntensity(bgLightness, shadowIntensity = .2) {
-  return (1 - Math.pow(bgLightness / 100, 3)) * (.8 - shadowIntensity) + shadowIntensity;
+export function getShadowIntensity(bgLightness, shadowIntensity = .2, darkScheme) {
+  return (1 - Math.pow(bgLightness / 100, 3)) * ((darkScheme ? .9  : .8) - shadowIntensity) + shadowIntensity;
 }
 
 export function themeToProps(name, theme) {
@@ -386,7 +394,7 @@ export function composeThemeName({ name, type, contrast, saturation, lightness }
  * @param customProps {Object<String,String>} – All custom properties of theme
  */
 export function declareTheme(el, name, referenceColor, customProps) {
-  log('declare theme', el, name);
+  log('declare theme', { element: el, name });
 
   if (devMode && !el.nuContext) {
     log('element context not found');
@@ -470,7 +478,7 @@ export function applyTheme(element, { name, color, type, contrast, saturation, l
   const darkNormalProps = stylesString(themeToProps(themeName, darkNormalTheme));
   const darkContrastProps = stylesString(themeToProps(themeName, darkContrastTheme));
 
-  log('apply theme', element, themeName, color);
+  log('apply theme', { element, themeName, color });
 
   const baseQuery = `#${element.nuId}`;
   const styleTagName = `theme:${themeName}:${baseQuery}`;
@@ -532,8 +540,10 @@ export function applyTheme(element, { name, color, type, contrast, saturation, l
           html.nu-prefers-color-scheme:not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
         }
         
-        html.nu-prefers-color-scheme-dark ${baseQuery}{${darkNormalProps}}
-        html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightNormalProps}}
+        html.nu-prefers-color-scheme-dark.nu-prefers-contrast-high ${baseQuery}{${darkContrastProps}}
+        html.nu-prefers-color-scheme-dark:not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
+        html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark).nu-prefers-contrast-high ${baseQuery}{${lightContrastProps}}
+        html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark):not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
       `
     );
   } else {
