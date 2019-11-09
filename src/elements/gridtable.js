@@ -32,7 +32,7 @@ export default class NuGridTable extends NuGrid {
     return `
       ${css}
       ${tag} > :not([fill]) {
-        background-color: var(--nu-background-color);
+        background-color: var(--nu-bg-color);
       }
       ${tag}:not([padding]) > *:not([padding]):not(nu-line) {
         padding: .5rem;
