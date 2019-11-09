@@ -26,7 +26,7 @@ export default class NuMenuitem extends NuBtn {
     return `
       ${css}
       ${tag} {
-        --nu-focus-inset: inset 0 0;
+        --nu-local-focus-inset: inset 0 0;
       }
     `;
   }

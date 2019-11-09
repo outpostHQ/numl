@@ -4,6 +4,6 @@ export default function imageAttr(val) {
     'background-position': 'center',
     'background-size': 'contain',
     'background': val,
-    'background-color': 'var(--nu-background-color, var(--nu-theme-background-color))',
+    'background-color': 'var(--nu-local-background-color, var(--nu-background-color))',
   };
 }

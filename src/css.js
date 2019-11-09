@@ -119,6 +119,7 @@ export function injectCSS(name, selector, css) {
 }
 
 export function cleanCSSByPart(selectorPart) {
+  log('clean css by part', selectorPart);
   const keys = Object.keys(map).filter(selector => selector.includes(selectorPart));
 
   keys.forEach(key => {

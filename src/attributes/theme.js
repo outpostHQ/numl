@@ -1,31 +1,38 @@
-import { isColorScheme, getMainThemeName } from '../themes';
-import { THEME_ATTRS_LIST, THEME_SCHEME_ATTRS } from '../attrs';
+import { composeThemeName, parseThemeAttr, THEME_PROPS_LIST } from '../themes';
 
 /**
  * Apply theme to the element by providing specific custom properties.
  * @param {String} val - Theme name.
  * @returns {*}
  */
-export default function themeAttr(val, defaults) {
+export default function themeAttr(val) {
   if (val == null) return;
 
-  if (!val) val = 'default';
+  const theme = parseThemeAttr(val);
 
-  const colorScheme = isColorScheme(val);
-  const mainThemeName = getMainThemeName(val);
+  if (!theme) return;
 
-  const themeStyles = THEME_ATTRS_LIST.reduce((obj, name) => {
-    if (colorScheme && THEME_SCHEME_ATTRS.includes(name)) {
-      obj[`--nu-theme-${name}`] = `var(--nu-${mainThemeName}-${name})`;
-    } else {
-      obj[`--nu-theme-${name}`] = `var(--nu-${val}-${name})`;
-    }
+  const themeName = composeThemeName(theme);
 
-    return obj;
-  }, {});
+  const styles = [THEME_PROPS_LIST.reduce((map, prop) => {
+    if (theme.name !== 'main' && prop === 'subtle-color') return map;
 
-  return [themeStyles, {
-    $suffix: ':not([special]):not([color])',
-    color: themeStyles['--nu-theme-color'],
-  }];
+    map[`--nu-${prop}`] = `var(--nu-${themeName}-${prop})`;
+
+    return map;
+  }, {})];
+
+  styles.push({
+    $suffix: ':not([color])',
+    color: 'var(--nu-text-color)',
+  });
+
+  if (theme.type !== 'common') {
+    styles.push({
+      $suffix: ':not([background])',
+      'background-color': 'var(--nu-bg-color)',
+    });
+  }
+
+  return styles;
 }

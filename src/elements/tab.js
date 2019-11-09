@@ -26,33 +26,33 @@ export default class NuTab extends NuActiveElement {
     return `
       ${css}
       ${tag} {
-        --nu-toggle-color: transparent;
-        --nu-depth-color: transparent;
-        --nu-stroke-color: transparent;
-        --nu-hover-color: transparent !important;
+        --nu-local-toggle-color: transparent;
+        --nu-local-depth-color: transparent;
+        --nu-local-stroke-color: transparent;
+        --nu-local-hover-color: transparent !important;
 
-        --nu-toggle-shadow: 0 calc(-1 * var(--nu-theme-border-width)) 0 0 var(--nu-toggle-color) inset;
-        --nu-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        --nu-local-toggle-shadow: 0 calc(-1 * var(--nu-border-width)) 0 0 var(--nu-local-toggle-color) inset;
+        --nu-local-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
       }
 
       ${tag}[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
       ${tag}[nu-toggled]:not([disabled]):not([tabindex]) {
-        --nu-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-toggle-color) inset;
-        --nu-toggle-color: var(--nu-theme-special-color);
+        --nu-local-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-local-toggle-color) inset;
+        --nu-local-toggle-color: var(--nu-special-color);
       }
 
       ${tag}[special] {
-        color: var(--nu-theme-special-color) !important;
+        color: var(--nu-special-color) !important;
       }
 
       ${tag}:not([disabled])[tabindex]:hover {
-        --nu-toggle-color: var(--nu-theme-special-color);
+        --nu-local-toggle-color: var(--nu-special-color);
       }
 
       ${tag}[nu-active][tabindex]:not([disabled]):not([aria-pressed="true"]),
       ${tag}[aria-pressed="true"]:not([disabled]):not([nu-active]) {
-        --nu-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-toggle-color) inset;
-        --nu-toggle-color: var(--nu-theme-special-color);
+        --nu-local-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-local-toggle-color) inset;
+        --nu-local-toggle-color: var(--nu-special-color);
       }
     `;
   }

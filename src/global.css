@@ -2,41 +2,12 @@ body {
   --nu-base: 16px;
   --nu-pixel: 1px;
 
-  --nu-default-border-radius: 0.5rem;
-  --nu-default-padding: 0.5rem;
-  --nu-default-border-width: 1px;
-  --nu-default-animation-time: 0.08s;
-  --nu-default-color: rgba(51, 51, 51, 1);
-  --nu-default-background-color: rgba(255, 255, 255, 1);
-  --nu-default-border-color: rgba(210, 221, 236, 1);
-  --nu-default-special-color: rgba(24, 133, 217, 1);
-  --nu-default-shadow-color: rgba(0, 0, 0, 0.2);
-  --nu-default-special-contrast-color: rgba(255, 255, 255, 1);
-  --nu-default-shadow-intensity: 0.2;
-  --nu-default-shadow-opacity: 0.1;
-  --nu-default-focus-color: rgba(139, 194, 236, 1);
-  --nu-default-heading-color: rgba(71, 71, 71, 1);
-  --nu-default-hover-color: rgba(24, 133, 217, 0.1);
-  --nu-default-special-hover-color: rgba(255, 255, 255, 0.1);
-  --nu-default-special-shadow-opacity: 0.35538111934997146;
-
-  --nu-theme-border-radius: var(--nu-default-border-radius);
-  --nu-theme-padding: var(--nu-default-padding);
-  --nu-theme-border-width: var(--nu-default-border-width);
-  --nu-theme-animation-time: var(--nu-default-animation-time);
-  --nu-theme-color: var(--nu-default-color);
-  --nu-theme-background-color: var(--nu-default-background-color);
-  --nu-theme-border-color: var(--nu-default-border-color);
-  --nu-theme-special-color: var(--nu-default-special-color);
-  --nu-theme-shadow-color: var(--nu-default-shadow-color);
-  --nu-theme-special-contrast-color: var(--nu-default-special-contrast-color);
-  --nu-theme-shadow-intensity: var(--nu-default-shadow-intensity);
-  --nu-theme-shadow-opacity: var(--nu-default-shadow-opacity);
-  --nu-theme-focus-color: var(--nu-default-focus-color);
-  --nu-theme-heading-color: var(--nu-default-heading-color);
-  --nu-theme-hover-color: var(--nu-default-hover-color);
-  --nu-theme-special-hover-color: var(--nu-default-special-hover-color);
-  --nu-theme-special-shadow-opacity: var(--nu-default-special-shadow-opacity);
+  --nu-border-radius: 0.5rem;
+  --nu-padding: 0.5rem;
+  --nu-border-width: 1px;
+  --nu-animation-time: 0.08s;
+  --nu-text-color: rgba(51, 51, 51, 1);
+  --nu-bg-color: rgba(255, 255, 255, 1);
 }
 
 body:not(.nu-prevent-defaults) {
@@ -52,8 +23,8 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
   padding: 0;
   font-family: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
   font-size: var(--nu-base);
-  color: var(--nu-theme-color);
-  background: var(--nu-theme-background-color);
+  color: var(--nu-text-color);
+  background: var(--nu-bg-color);
   font-weight: 400;
   word-spacing: calc(1rem / 8);
   min-height: 100vh;
@@ -114,11 +85,11 @@ html.nu-prefers-color-scheme-dark .nu-dark-dim {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nu-prefers-reduced-motion [nu-themes], .nu-prefers-reduced-motion [theme] {
-    --nu-theme-animation-time: 0.001s;
+  .nu-prefers-reduced-motion [theme] {
+    --nu-animation-time: 0.001s;
   }
 }
 
-.nu-prefers-reduced-motion-reduce [nu-themes], .nu-prefers-reduced-motion-reduce [theme] {
-  --nu-theme-animation-time: 0.001s !important;
+.nu-prefers-reduced-motion-reduce [theme] {
+  --nu-animation-time: 0.001s !important;
 }

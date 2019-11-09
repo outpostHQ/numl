@@ -1,29 +1,27 @@
 import NuDecorator from './decorator';
-import { toCamelCase } from '../helpers';
-import { THEME_ATTRS_LIST } from '../attrs';
+import { declareTheme, generateReferenceColor, removeTheme } from '../themes';
+import { convertUnit } from '../helpers';
 
-function extractTheme(el) {
-  return THEME_ATTRS_LIST.reduce((theme, name) => {
-    const attrValue = el.getAttribute(name);
-
-    if (!attrValue) return theme;
-
-    const tmp = attrValue.split('|');
-
-    theme.light[toCamelCase(name)] = tmp[0];
-    theme.dark[toCamelCase(name)] = tmp[1];
-
-    return theme;
-  }, { light: {}, dark: {} });
-}
-
+/**
+ * @class
+ * @property nuParent
+ */
 export default class NuTheme extends NuDecorator {
   static get nuTag() {
     return 'nu-theme';
   }
 
   static get nuAttrsList() {
-    return THEME_ATTRS_LIST;
+    return [
+      'name',
+      'hue',
+      'saturation',
+      'from',
+      'border-radius',
+      'border-width',
+      'padding',
+      'animation-time',
+    ];
   }
 
   nuChanged(name, oldValue, value) {
@@ -38,44 +36,57 @@ export default class NuTheme extends NuDecorator {
     // run only once
     if (this.nuIsConnected) return;
 
+    this.nuParent = this.parentNode;
+
     setTimeout(() => this.nuApply());
   }
 
   nuDisconnected() {
     super.nuDisconnected();
 
-    const name = this.getAttribute('name');
-
     // remove theme
-    if (this.nuParent) {
-      this.nuParent.nuDeclareTheme(name || 'default');
+    if (this.nuParent && this.nuName) {
+      removeTheme(this.nuParent, this.nuName, this.nuProps || {});
     }
   }
 
   nuApply() {
-    const name = this.getAttribute('name');
-    let theme = extractTheme(this);
+    const attrs = [...this.attributes].reduce((map, attr) => {
+      map[attr.name] = attr.value;
 
-    if (!name) {
-      const defaultThemeEl = [...this.parentNode.querySelectorAll('nu-theme:not([name])')]
-        .find(el => el.parentNode === this.parentNode);
+      return map;
+    }, {});
 
-      if (defaultThemeEl) {
-        const defaultTheme = extractTheme(defaultThemeEl);
+    const { name = 'main', hue, saturation, from, ...props } = attrs;
 
-        theme = {
-          light: {
-            ...defaultTheme.light,
-            ...theme.light,
-          },
-          dark: {
-            ...defaultTheme.dark,
-            ...theme.dark,
-          },
-        };
-      }
+    const referenceColor = generateReferenceColor({ hue, saturation, from });
+
+    const customProps = Object.keys(props || {})
+      .reduce((map, prop) => {
+        map[`--nu-${prop}`] = convertUnit(props[prop]);
+
+        return map;
+      }, {});
+
+    if (!referenceColor) return;
+
+    if ((this.nuName && this.nuName !== name)
+      || (this.nuReferenceColor && JSON.stringify(this.nuReferenceColor) !== JSON.stringify(referenceColor))
+      || (this.nuProps && JSON.stringify(this.nuProps) !== JSON.stringify(customProps))) {
+      removeTheme(this.nuParent, this.nuName, this.nuProps);
+
+      setTimeout(() => {
+        [...this.nuParent.querySelectorAll('[nu][theme]')]
+          .forEach(el => {
+            el.nuEnsureThemes(true);
+          });
+      }, 0);
     }
 
-    this.parentNode.nuDeclareTheme(name || 'default', theme.light, theme.dark);
+    this.nuName = name;
+    this.nuProps = customProps;
+    this.nuReferenceColor = referenceColor;
+
+    declareTheme(this.nuParent, name, referenceColor, customProps);
   }
 }

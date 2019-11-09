@@ -16,9 +16,9 @@ export default class NuInput extends NuBlock {
       value: '',
       maxlength: '',
       name: '',
-      padding: unit('--nu-padding', {
-        multiplier: 'var(--nu-theme-padding)',
-        empty: 'var(--nu-theme-padding)',
+      padding: unit('--nu-local-padding', {
+        multiplier: 'var(--nu-padding)',
+        empty: 'var(--nu-padding)',
         convert: true,
       }),
     };
@@ -46,7 +46,7 @@ export default class NuInput extends NuBlock {
       }
 
       ${tag} input {
-        padding: var(--nu-padding);
+        padding: var(--nu-local-padding);
         width: 100%;
         max-width: 100%;
         min-width: 100%;
@@ -71,9 +71,9 @@ export default class NuInput extends NuBlock {
       }
 
       ${tag} input[disabled] {
-        color: var(--nu-theme-minor-color);
-        background: var(--nu-theme-minor-background-color);
-        -webkit-text-fill-color: var(--nu-theme-minor-color);
+        color: var(--nu-focus-color);
+        background: var(--nu-hover-color);
+        -webkit-text-fill-color: var(--nu-focus-color);
         -webkit-opacity: 1;
       }
 
@@ -84,7 +84,7 @@ export default class NuInput extends NuBlock {
       }
       
       ${tag} nu-icon:not([width]) {
-        width: calc(var(--nu-padding) * 2 + 1em);
+        width: calc(var(--nu-local-padding) * 2 + 1em);
       }
 
       ${focusable(tag, { force: true })}

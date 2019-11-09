@@ -30,8 +30,8 @@ export default class NuLine extends NuBlock {
       },
       size: unit('--nu-line-size', {
         convert: true,
-        multiplier: 'var(--nu-theme-border-width)',
-        empty: 'var(--nu-theme-border-radius)',
+        multiplier: 'var(--nu-border-width)',
+        empty: 'var(--nu-border-radius)',
       }),
       fill: null,
     };
@@ -48,16 +48,16 @@ export default class NuLine extends NuBlock {
     return `
       ${css}
       ${tag} {
-        --nu-line-size: var(--nu-theme-border-width);
+        --nu-line-size: var(--nu-border-width);
 
         position: relative;
         line-height: 0;
         background-color: currentColor !important;
-        color: var(--nu-theme-border-color);
+        color: var(--nu-border-color);
       }
 
       ${tag}[special]:not([color]) {
-        color: var(--nu-theme-special-color);
+        color: var(--nu-special-color);
       }
     `;
   }

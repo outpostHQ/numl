@@ -4,8 +4,8 @@ import borderAttr from '../attributes/border';
 
 const gapAttr = unit('border-spacing', {
   convert: true,
-  multiplier: 'var(--nu-theme-padding)',
-  empty: 'var(--nu-theme-padding)',
+  multiplier: 'var(--nu-cell-padding)',
+  empty: 'var(--nu-cell-padding)',
 });
 
 export default class NuTable extends NuElement {
@@ -51,14 +51,14 @@ export default class NuTable extends NuElement {
           },
         ];
       },
-      padding: unit('--nu-padding', {
-        multiplier: 'var(--nu-theme-padding)',
-        empty: 'var(--nu-theme-padding)',
+      padding: unit('--nu-cell-padding', {
+        multiplier: 'var(--nu-padding)',
+        empty: 'var(--nu-padding)',
         convert: true,
       }),
-      radius: unit('--nu-border-radius', {
-        multiplier: 'var(--nu-theme-border-radius)',
-        empty: 'var(--nu-theme-border-radius)',
+      radius: unit('--nu-local-border-radius', {
+        multiplier: 'var(--nu-border-radius)',
+        empty: 'var(--nu-border-radius)',
         convert: true,
       }),
     };
@@ -77,6 +77,10 @@ export default class NuTable extends NuElement {
     return `
       ${css}
       
+      ${tag} {
+        --nu-cell-padding: var(--nu-padding);
+      }
+      
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > * {
         border-top: 0 !important;
       }
@@ -94,19 +98,19 @@ export default class NuTable extends NuElement {
       }
       
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > *:first-child {
-        border-top-left-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
+        border-top-left-radius: var(--nu-local-border-radius, var(--nu-border-radius));
       }
       
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > *:last-child {
-        border-top-right-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
+        border-top-right-radius: var(--nu-local-border-radius, var(--nu-border-radius));
       }
       
       ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > *:first-child {
-        border-bottom-left-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
+        border-bottom-left-radius: var(--nu-local-border-radius, var(--nu-border-radius));
       }
       
       ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > *:last-child {
-        border-bottom-right-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
+        border-bottom-right-radius: var(--nu-local-border-radius, var(--nu-border-radius));
       }
     `;
   }

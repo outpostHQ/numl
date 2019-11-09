@@ -20,12 +20,12 @@ export default class NuBtnGroup extends NuRadioGroup {
         if (val == null) return val;
 
         const width = val
-          ? convertUnit(val, 'var(--nu-theme-border-width)')
-          : 'var(--nu-theme-border-width)';
+          ? convertUnit(val, 'var(--nu-border-width)')
+          : 'var(--nu-border-width)';
 
         return {
           $suffix: '>:not([border])',
-          '--nu-border-shadow': `var(--nu-border-inset, 0 0) 0 ${width} var(--nu-theme-border-color)`,
+          '--nu-local-border-shadow': `0 0 ${width} var(--nu-border-color)`,
           '--nu-v-gap': `calc(${stripCalc(width)} * -1) !important`,
           '--nu-h-gap': `calc(${stripCalc(width)} * -1) !important`,
         };
@@ -35,7 +35,7 @@ export default class NuBtnGroup extends NuRadioGroup {
 
   static get nuDefaults() {
     return {
-      gap: 'calc(var(--nu-theme-border-width) * -1)',
+      gap: 'calc(var(--nu-border-width) * -1)',
       radius: '1x',
     };
   }

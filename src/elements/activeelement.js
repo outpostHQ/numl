@@ -48,8 +48,7 @@ export default class NuActiveElement extends NuElement {
 
   static get nuDefaults() {
     return {
-      color: 'inherit',
-      fill: '',
+      fill: 'bg',
       radius: '',
       text: 'nowrap',
       transition: 'box-shadow, color, background-color',
@@ -67,21 +66,21 @@ export default class NuActiveElement extends NuElement {
     return `
       ${css}
       ${tag} {
-        --nu-toggle-color: transparent;
-        --nu-depth-color: transparent;
-        --nu-hover-color: transparent;
-        --nu-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-        --nu-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
-        --nu-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
+        --nu-local-toggle-color: transparent;
+        --nu-local-depth-color: transparent;
+        --nu-local-hover-color: transparent;
+        --nu-local-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        --nu-local-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
+        --nu-local-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
 
         opacity: 1;
         position: relative;
         z-index: 0; /* to make :hover::after z-index work as expected */
         user-select: none;
 
-        box-shadow: var(--nu-stroke-shadow),
-          var(--nu-toggle-shadow),
-          var(--nu-depth-shadow);
+        box-shadow: var(--nu-local-stroke-shadow),
+          var(--nu-local-toggle-shadow),
+          var(--nu-local-depth-shadow);
       }
       
       ${tag}[tabindex]:not([tabindex="-1"]):not([disabled])::after {
@@ -93,8 +92,8 @@ export default class NuActiveElement extends NuElement {
         left: 0;
         z-index: -1;
         border-radius: inherit;
-        background-color: var(--nu-hover-color);
-        transition: background-color var(--nu-theme-animation-time) linear;
+        background-color: var(--nu-local-hover-color);
+        transition: background-color var(--nu-animation-time) linear;
       } 
 
       ${tag}[tabindex] {
@@ -107,7 +106,7 @@ export default class NuActiveElement extends NuElement {
       }
       
       ${tag}:not([disabled])[tabindex]:hover {
-        --nu-hover-color: var(--nu-theme-hover-color);
+        --nu-local-hover-color: var(--nu-hover-color);
       }
 
       ${tag}[nu-active] {

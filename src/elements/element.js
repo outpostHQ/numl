@@ -8,7 +8,7 @@ import {
   colorUnit,
   setImmediate,
   sizeUnit,
-  splitDimensions, log,
+  splitDimensions, log, parseAllValues,
 } from '../helpers';
 import textAttr from '../attributes/text';
 import {
@@ -17,12 +17,13 @@ import {
   removeCSS,
   attrsQuery,
   generateCSS,
-  stylesString,
   cleanCSSByPart
 } from '../css';
 import NuBase from '../base';
-import { THEME_ATTRS_LIST } from '../attrs';
-import { generateTheme, convertThemeName } from '../themes';
+import {
+  parseThemeAttr,
+  applyTheme
+} from '../themes';
 import placeAttr, { PLACE_VALUES } from '../attributes/place';
 import borderAttr from '../attributes/border';
 import shadowAttr from '../attributes/shadow';
@@ -47,6 +48,7 @@ import paddingAttr from '../attributes/padding';
 const plugins = {
   responsive: '',
   as: '',
+  special: '',
 };
 
 const RESPONSIVE_ATTR = 'responsive';
@@ -93,16 +95,16 @@ export default class NuElement extends NuBase {
       radius: radiusAttr,
       'items-radius': unit('border-radius', {
         suffix: '>:not([radius])',
-        multiplier: 'var(--nu-theme-border-radius)',
-        empty: 'var(--nu-theme-border-radius)',
+        multiplier: 'var(--nu-border-radius)',
+        empty: 'var(--nu-border-radius)',
         property: true,
         convert: true,
       }),
       padding: paddingAttr,
       'items-padding': unit('padding', {
         suffix: '>:not([padding])',
-        multiplier: 'var(--nu-theme-padding)',
-        empty: 'var(--nu-theme-padding)',
+        multiplier: 'var(--nu-padding)',
+        empty: 'var(--nu-padding)',
         convert: true,
       }),
       overflow: overflowAttr,
@@ -231,7 +233,7 @@ export default class NuElement extends NuBase {
     if (parent.nuContext) {
       this.nuContext = Object.create(parent.nuContext);
     } else {
-      this.nuContext = { $root: this };
+      this.nuContext = { $root: this, $responsiveRoot: this };
     }
 
     if (!this.id) {
@@ -513,6 +515,30 @@ export default class NuElement extends NuBase {
    */
   nuConnected() {
     this.setAttribute('nu', '');
+
+    if (this.hasAttribute('theme')) {
+      setTimeout(() => {
+        this.nuEnsureThemes();
+      }, 0);
+    }
+  }
+
+  nuEnsureThemes(force) {
+    const values = parseAllValues(this.getAttribute('theme'));
+
+    values.forEach((val) => {
+      const theme = parseThemeAttr(val);
+      const themeName = composeThemeName(theme);
+      const key = `theme:${themeName}`;
+      const baseTheme = this.nuContext[`theme:${theme.name}`];
+
+      if (baseTheme && (!this.nuContext[key] || force)) {
+        applyTheme(baseTheme.$context, {
+          color: baseTheme.color,
+          ...theme,
+        });
+      }
+    });
   }
 
   /**
@@ -611,6 +637,18 @@ export default class NuElement extends NuBase {
           });
         }, 0);
         break;
+      case 'theme':
+        if (!this.nuIsConnected) break;
+
+        this.nuEnsureThemes();
+
+        break;
+      // case 'special':
+      //   if (this.hasAttribute('theme')) break;
+      //
+      //   this.setAttribute('theme', 'special');
+      //
+      //   break;
       case 'label':
       case 'valuemin':
       case 'valuemax':
@@ -719,130 +757,5 @@ export default class NuElement extends NuBase {
     if (element) {
       scrollTo(0, element.getBoundingClientRect().y + window.pageYOffset);
     }
-  }
-
-  /**
-   * Declare theme in current context.
-   * @param {String} name – Theme name.
-   * @param {Object} props - Light theme props.
-   * @param {Object} props - Dark theme props.
-   */
-  nuDeclareTheme(name, props, darkProps = {}) {
-    if (
-      this.nuThemes[name] &&
-      this.nuThemes[name].styleElement &&
-      this.nuThemes[name].styleElement.parentNode
-    ) {
-      let el = this.nuThemes[name].styleElement;
-
-      el.parentNode.removeChild(el);
-    }
-
-    if (!props) {
-      delete this.nuThemes[name];
-      this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));
-
-      return;
-    }
-
-    if (name !== 'default' && this.nuThemes.default) {
-      props = {
-        ...{
-          ...this.nuThemes.default.light,
-          ...this.nuThemes.default.dark
-        },
-        ...props
-      };
-    }
-
-    generateId(this);
-
-    const parentStyles = window.getComputedStyle(this.parentNode);
-    const parentProps = THEME_ATTRS_LIST.reduce((map, name) => {
-      const themeName = toKebabCase(name);
-      const propName = `--nu-default-${themeName}`;
-      const value = parentStyles.getPropertyValue(propName);
-
-      if (value) {
-        map[toCamelCase(name)] = value;
-      }
-
-      return map;
-    }, {});
-
-    [props, darkProps].forEach(themeProps => {
-      Object.keys(themeProps).forEach(name => {
-        if (themeProps[name] && ~themeProps[name].indexOf('var(')) {
-          const varName = themeProps[name].trim().slice(4, -1);
-
-          themeProps[name] = parentStyles.getPropertyValue(varName).trim();
-        }
-      });
-    });
-
-    const [lightTheme, darkTheme] = generateTheme(props, darkProps, parentProps);
-
-    const baseQuery = `#${this.nuId}`;
-    const forceLightStyles = stylesString(convertThemeName(lightTheme, `${name}-light`));
-    const forceDarkStyles = stylesString(convertThemeName(darkTheme, `${name}-dark`));
-    const lightStyles = stylesString(convertThemeName(lightTheme, name));
-    const darkStyles = stylesString(convertThemeName(darkTheme, name));
-    const defaultStyles =
-      name === 'default'
-        ? stylesString(
-        THEME_ATTRS_LIST.reduce((obj, attr) => {
-          obj[`--nu-theme-${attr}`] = `var(--nu-${name}-${attr})`;
-
-          return obj;
-        }, {})
-        )
-        : '';
-    const commonCSS = `
-      ${defaultStyles ? `${baseQuery}{${defaultStyles}}` : ''}
-      ${baseQuery}{${forceLightStyles}${forceDarkStyles}}
-    `;
-
-    let styleElement;
-
-    const styleTagName = `theme:${name}:${baseQuery}`;
-
-    if (matchMedia('(prefers-color-scheme)').matches) {
-      styleElement = injectCSS(
-        styleTagName,
-        baseQuery,
-        `
-        ${commonCSS}
-        @media (prefers-color-scheme: dark) {
-          html.nu-prefers-color-scheme ${baseQuery}{${darkStyles}}
-          html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}
-          html.nu-prefers-color-scheme-light ${baseQuery}{${lightStyles}}
-        }
-        @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
-          html.nu-prefers-color-scheme ${baseQuery}{${lightStyles}}
-          html.nu-prefers-color-scheme-light ${baseQuery}{${lightStyles}}
-          html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}
-        }
-        html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-light):not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightStyles}}
-      `
-      ).element;
-    } else {
-      styleElement = injectCSS(
-        styleTagName,
-        baseQuery,
-        `
-        ${commonCSS}
-        html:not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightStyles}}
-        html.nu-prefers-color-scheme-dark ${baseQuery}{${darkStyles}}
-      `
-      ).element;
-    }
-
-    this.nuThemes[name] = {
-      light: lightStyles,
-      dark: darkStyles,
-      styleElement
-    };
-
-    this.nuSetMod(`themes`, Object.keys(this.nuThemes).join(' '));
   }
 }

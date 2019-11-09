@@ -1,144 +1,561 @@
 import {
-  mixColors,
-  invertColor,
-  toKebabCase,
-  extractColor,
-  generalizeColor,
-  getLuminance,
-  contrastRatio,
-  convertUnit,
-  setAlphaChannel
+  log, extractMods, intersection, devMode, generateId
 } from "./helpers";
-import { THEME_COLOR_ATTRS_LIST, THEME_SCHEME_ATTRS } from "./attrs";
+import {
+  findContrastColor,
+  mix,
+  setPastelLuminance,
+  setLuminance,
+  setOpacity,
+  toRelative, hslToRgbaStr,
+  setOptimalSaturation, strToHsl, getTheBrightest, fromRelative, getContrastRatio,
+} from './color';
+import { cleanCSSByPart, injectCSS, stylesString } from './css';
 
-export function isColorScheme(themeName) {
-  return themeName.endsWith('-dark') || themeName.endsWith('-light');
+export const THEME_PROPS_LIST = [
+  // theme props
+  'text-color',
+  'bg-color',
+  'border-color',
+  'special-color',
+  'contrast-color',
+  'hover-color',
+  'focus-color',
+  'subtle-color',
+  'intensity',
+  'special-intensity',
+];
+const normalBaseTextColor = [0, 0, 19.87];
+const contrastBaseTextColor = [0, 0, 12.25];
+const darkNormalBaseTextColor = [0, 0, 88.82];
+const darkContrastBaseTextColor = [0, 0, 94.45];
+const baseBgColor = [0, 0, 100];
+const normalMinLightness = 12.25;
+const contrastMinLightness = 4.68;
+const darkNormanBaseBgColor = [0, 0, normalMinLightness];
+const darkContrastBaseBgColor = [0, 0, contrastMinLightness];
+
+/**
+ * Get minimal possible contrast ratio between text and foreground.
+ * @param type {String}
+ * @param highContrast {Boolean}
+ * @returns {Number}
+ */
+function getMinContrast(type = 'common', highContrast) {
+  if (highContrast) {
+    return type === 'contrast'
+      ? 7
+      : (type === 'soft'
+        ? 4.5
+        : 7);
+  } else {
+    return type === 'contrast'
+      ? 7
+      : (type === 'soft'
+        ? 3
+        : 4.5);
+  }
 }
 
-export function getMainThemeName(themeName) {
-  return themeName.replace('-dark', '').replace('-light', '');
+const BG_OFFSET = {
+  normal: 7,
+  dim: 3,
+  bold: 12,
+};
+
+/**
+ * Get background lightness by params.
+ * @param [type] {String}
+ * @param [highContrast] {Boolean}
+ * @param [darkScheme] {Boolean}
+ * @returns {Number}
+ */
+function getBgLightness(type = 'common', highContrast, darkScheme) {
+  if (darkScheme) {
+    return (highContrast ? contrastMinLightness : normalMinLightness) + BG_OFFSET[type];
+  } else {
+    return 100 - BG_OFFSET[type];
+  }
 }
 
-export function convertThemeName(theme, name) {
-  const colorScheme = isColorScheme(name);
+/**
+ * Get lightness of subtle color by params.
+ * @param [type] {String}
+ * @param [highContrast] {Boolean}
+ * @param [darkScheme] {Boolean}
+ * @returns {Number}
+ */
+function getSubtleLightness(highContrast, darkScheme) {
+  if (darkScheme) {
+    return (highContrast ? contrastMinLightness : normalMinLightness) + 2;
+  } else {
+    return 98;
+  }
+}
 
-  return Object.keys(theme).reduce((map, style) => {
-    if (colorScheme && THEME_SCHEME_ATTRS.includes(style)) return map;
+function getBaseTextColor(highContrast, darkScheme) {
+  if (darkScheme) {
+    return highContrast ? darkContrastBaseTextColor : darkNormalBaseTextColor;
+  } else {
+    return highContrast ? contrastBaseTextColor : normalBaseTextColor;
+  }
+}
 
-    map[style.replace('theme', name)] = theme[style];
+function getBaseBgColor(highContrast, darkScheme) {
+  if (darkScheme) {
+    return highContrast ? darkContrastBaseBgColor : darkNormanBaseBgColor;
+  } else {
+    return baseBgColor;
+  }
+}
+
+function setSaturation(color, saturation) {
+  let newColor = color.slice();
+
+  switch (saturation) {
+    case 'saturated':
+      newColor[1] = 100;
+      break;
+    case 'desaturated':
+      newColor = setOptimalSaturation(color);
+      break;
+    default:
+  }
+
+  return newColor;
+}
+
+/**
+ * Generate theme with specific params
+ * @param color {Array<Number>} – reference theme color
+ * @param [type] {String} – [main] | common | toned | swap | special
+ * @param [contrast] {String} – [normal] | contrast | soft
+ * @param [lightness] {String} – [normal] | dim | bold
+ * @param [saturation] {String} – [normal] | saturated | desaturated
+ * @param [darkScheme] {Boolean} - true | false
+ * @param [highContrast] {Boolean} - true | false
+ * @param [shadowIntensity] {Number} – 0 to 1
+ */
+export function generateTheme({ color, type, contrast, lightness, saturation, darkScheme, highContrast, shadowIntensity }) {
+  const theme = {};
+  const minContrast = getMinContrast(contrast, highContrast);
+  const tonedBgLightness = getBgLightness(lightness, highContrast, darkScheme);
+  const textColor = getBaseTextColor(highContrast, darkScheme);
+  const bgColor = getBaseBgColor(highContrast, darkScheme);
+  const bgLightness = bgColor[2];
+
+  color = setSaturation(color, saturation);
+
+  theme.contrast = getTheBrightest(textColor, bgColor);
+  theme.special = findContrastColor(color, theme.contrast[2], minContrast);
+  // themes with same hue should have focus color with consistent setPastelLuminance saturation
+  theme.focus = setPastelLuminance(mix(theme.special, theme.contrast));
+
+  if (highContrast) {
+    theme.border = [...theme.focus];
+  } else {
+    theme.border = mix(setPastelLuminance(setLuminance(color, tonedBgLightness)), theme.focus, .2);
+  }
+
+  switch (type || 'main') {
+    case 'common':
+      theme.bg = bgColor;
+      theme.text = findContrastColor(color, tonedBgLightness, minContrast);
+      break;
+    case 'toned':
+      theme.bg = setPastelLuminance(setLuminance(color, tonedBgLightness));
+      theme.text = findContrastColor(color, tonedBgLightness, minContrast);
+      break;
+    case 'swap':
+      theme.bg = findContrastColor(color, tonedBgLightness, minContrast);
+      theme.text = setPastelLuminance(setLuminance(color, tonedBgLightness));
+      break;
+    case 'special':
+      theme.text = getTheBrightest(textColor, bgColor);
+      theme.bg = findContrastColor(color, bgLightness, minContrast);
+      break;
+    case 'main':
+      theme.bg = bgColor;
+      theme.text = textColor;
+      theme.subtle = mix(bgColor, theme.focus, highContrast ? 0.18 : .06);
+  }
+
+  // in soft variant it's impossible to reduce contrast for headings
+  theme.heading = contrast !== 'soft'
+    ? mix(theme.text, theme.bg, .1)
+    : theme.text;
+  theme.hover = setOpacity(findContrastColor(theme.focus, theme.bg[2], highContrast ? 2.2 : 1.6), .2);
+  theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity);
+  theme['special-intensity'] = getShadowIntensity(theme.special[2], shadowIntensity);
+
+  if (highContrast) {
+    theme.intensity = Math.sqrt(theme.intensity);
+    theme['special-intensity'] = Math.sqrt(theme['special-intensity']);
+  }
+
+  return theme;
+}
+
+/**
+ * Get shadow intensity based on theme and user custom intensity param
+ * @param bgLightness – background lightness
+ * @param shadowIntensity – User-specified intensity
+ * @returns {Number} – 0 to 1
+ */
+export function getShadowIntensity(bgLightness, shadowIntensity = .2) {
+  return (1 - Math.pow(bgLightness / 100, 3)) * (.8 - shadowIntensity) + shadowIntensity;
+}
+
+export function themeToProps(name, theme) {
+  return Object.keys(theme).reduce((map, color) => {
+    if (name !== 'main' && color === 'subtle') return map;
+
+    if (!Array.isArray(theme[color])) {
+      const key = `--nu-${name}-${color}`;
+
+      map[key] = theme[color];
+    } else {
+      const key = `--nu-${name}-${color}-color`;
+      const hsl = theme[color];
+
+      map[key] = hslToRgbaStr(hsl);
+    }
 
     return map;
   }, {});
 }
 
-export function generateTheme(props, darkProps, parentProps) {
-  const color = generalizeColor(props.color || parentProps.color);
-  const backgroundColor = generalizeColor(props.backgroundColor || parentProps.backgroundColor);
-  const specialColor = generalizeColor(props.specialColor || parentProps.specialColor);
-  const borderColor = generalizeColor(props.borderColor || parentProps.borderColor);
+export function generateReferenceColor({ hue, saturation, from }) {
+  if (hue) {
+    let hsl;
 
-  const lightTheme = {
-    color,
-    backgroundColor,
-    borderColor,
-    specialColor,
-    minorColor: generalizeColor(props.minorColor),
-    minorBackgroundColor: generalizeColor(props.minorBackgroundColor),
-    borderRadius: convertUnit(props.borderRadius || parentProps.borderRadius),
-    padding: convertUnit(props.padding || parentProps.padding),
-    borderWidth: convertUnit(props.borderWidth || parentProps.borderWidth),
-    shadowColor: generalizeColor(props.shadowColor || parentProps.shadowColor),
-    specialContrastColor: props.specialContrastColor,
-    // Use parent shadow intensity value only if both shadow color and shadow intensity
-    // are not specified in the props
-    shadowIntensity: props.shadowIntensity || (!props.shadowColor && parentProps.shadowIntensity),
-    focusColor: generalizeColor(props.focusColor),
-    headingColor: generalizeColor(props.headingColor),
-    hoverColor: generalizeColor(props.hoverColor),
-    specialHoverColor: generalizeColor(props.specialHoverColor),
-    animationTime: props.animationTime || parentProps.animationTime,
-    subtleColor: props.subtleColor,
-  };
-
-  lightTheme.specialContrastColor = lightTheme.specialContrastColor
-    || (contrastRatio(lightTheme.specialColor, lightTheme.backgroundColor) * 1.5 > contrastRatio(lightTheme.specialColor, lightTheme.color)
-      ? lightTheme.backgroundColor : lightTheme.color);
-
-  let darkTheme;
-
-  if (getLuminance(lightTheme.color) < getLuminance(lightTheme.backgroundColor)) {
-    darkTheme = Object.keys(lightTheme)
-      .reduce((vars, varName) => {
-        if ((THEME_COLOR_ATTRS_LIST.includes(toKebabCase(varName)))
-          && lightTheme[varName]
-          && varName !== 'shadowColor') {
-          vars[varName] = generalizeColor(darkProps[varName]) || invertColor(lightTheme[varName], 32);
-        } else {
-          vars[varName] = generalizeColor(darkProps[varName]) || lightTheme[varName];
-        }
-
-        return vars;
-      }, {});
-
-    const specialLightLuminance = getLuminance(lightTheme.specialColor);
-    const specialDarkLuminance = getLuminance(darkTheme.specialColor);
-
-    if (specialLightLuminance < specialDarkLuminance && specialLightLuminance > .3
-      || specialLightLuminance > specialDarkLuminance && specialDarkLuminance < .3) {
-      Object.assign(darkTheme, {
-        specialColor: generalizeColor(darkProps.specialColor) || lightTheme.specialColor,
-      });
+    if (saturation) {
+      hsl = [parseInt(hue, 10), parseInt(saturation), 80];
+    } else {
+      hsl = setOptimalSaturation([parseInt(hue, 10), 50, 80]);
     }
 
-    darkTheme.specialContrastColor = generalizeColor(darkProps.specialContrastColor)
-      || (contrastRatio(darkTheme.specialColor, lightTheme.backgroundColor) * 1.5 > contrastRatio(darkTheme.specialColor, lightTheme.color)
-        ? lightTheme.backgroundColor : lightTheme.color);
-  } else {
-    darkTheme = { ...lightTheme };
+    return hsl;
+  } else if (from) {
+    let hsl = strToHsl(from);
+
+    if (saturation) {
+      if (saturation === 'auto') {
+        hsl = setOptimalSaturation(hsl);
+      } else {
+        hsl[1] = parseInt(saturation);
+      }
+    }
+
+    return hsl;
   }
 
-  return [lightTheme, darkTheme].map((theme, i) => {
-    Object.assign(theme, {
-      shadowIntensity: Number(theme.shadowIntensity
-        || extractColor(theme.shadowColor)[3]),
-      minorColor: theme.minorColor
-        || mixColors(mixColors(theme.color, theme.specialColor, .2), theme.backgroundColor, .2),
-      minorBackgroundColor: theme.minorBackgroundColor
-        || mixColors(mixColors(theme.backgroundColor, theme.specialColor, .05), theme.color, .05),
-      subtleColor: theme.subtleColor
-        || mixColors(mixColors(theme.backgroundColor, theme.specialColor, .02), theme.color, .01),
-      focusColor: theme.focusColor
-        || mixColors(theme.specialColor, theme.backgroundColor),
-      headingColor: theme.headingColor
-        || (getLuminance(lightTheme.backgroundColor) > getLuminance(lightTheme.color)
-          ? mixColors(theme.color, theme.backgroundColor, .1)
-          : theme.color),
-      hoverColor: setAlphaChannel(theme.hoverColor
-        || theme.specialColor, .1),
-      specialHoverColor: setAlphaChannel(theme.specialHoverColor
-        || theme.specialContrastColor, .075),
-    });
+  log('incorrect theme declaration');
+}
 
-    const shadowIntensity = Math.min(Number(theme.shadowIntensity), 1);
+const CONTRAST_MODS = [
+  'contrast',
+  'soft',
+];
+const LIGHTNESS_MODS = [
+  'dim',
+  'bold',
+];
+const SATURATION_MODS = [
+  'saturated',
+  'desaturated',
+];
+const TYPE_MODS = [
+  'common',
+  'toned',
+  'swap',
+  'special',
+];
+const ALL_MODS = [
+  ...CONTRAST_MODS,
+  ...LIGHTNESS_MODS,
+  ...SATURATION_MODS,
+  ...TYPE_MODS,
+];
 
-    theme.shadowOpacity = Math.min(shadowIntensity
-      * (.7 - getLuminance(theme.backgroundColor) * .5) * 5, 1);
-    theme.specialShadowOpacity = Math.min(shadowIntensity
-      * (.7 - getLuminance(theme.specialColor) * .5) * 5, 1);
+function incorrectTheme(prop, value) {
+  log(`incorrect '${prop}' value in theme attribute`, value);
+}
 
-    // if dark mode
-    if (i && getLuminance(theme.specialContrastColor) > .9) {
-      theme.specialColor = mixColors(theme.specialColor, 'rgb(0, 0, 0)', .1);
-      theme.specialContrastColor = mixColors(theme.specialContrastColor, 'rgb(0, 0, 0)', .1);
-    }
+export function parseThemeAttr(attr) {
+  let { value, mods } = extractMods(attr, ALL_MODS);
+  let contrast, lightness, saturation, type;
 
-    theme.specialMinorColor = theme.specialMinorColor
-        || mixColors(theme.specialContrastColor, theme.specialColor, .2);
+  const contrastMods = intersection(mods, CONTRAST_MODS);
 
-    return Object.keys(theme).reduce((map, propName) => {
-      map[`--nu-theme-${toKebabCase(propName)}`] = theme[propName];
+  if (devMode && contrastMods.length > 2) {
+    incorrectTheme('contrast', attr);
+    return;
+  } else if (contrastMods.length === 1) {
+    contrast = contrastMods[0];
+  } else {
+    contrast = 'normal';
+  }
 
-      return map;
-    }, {});
+  const lightnessMods = intersection(mods, LIGHTNESS_MODS);
+
+  if (devMode && lightnessMods.length > 2) {
+    incorrectTheme('lightness', attr);
+    return;
+  } else if (lightnessMods.length === 1) {
+    lightness = lightnessMods[0];
+  } else {
+    lightness = 'normal';
+  }
+
+  const saturationMods = intersection(mods, SATURATION_MODS);
+
+  if (devMode && saturationMods.length > 2) {
+    incorrectTheme('saturation', attr);
+    return;
+  } else if (saturationMods.length === 1) {
+    saturation = saturationMods[0];
+  } else {
+    saturation = 'normal';
+  }
+
+  const typeMods = intersection(mods, TYPE_MODS);
+
+  if (devMode && typeMods.length > 2) {
+    incorrectTheme('type', attr);
+    return;
+  } else if (typeMods.length === 1) {
+    type = typeMods[0];
+  }
+
+  if (!value) {
+    value = 'main';
+  }
+
+  if (!value.match(/^[a-z0-9-]+$/i)) {
+    incorrectTheme('name', attr);
+  }
+
+  if (value === 'main' && !type) {
+    type = 'main';
+  } else if (!type) {
+    type = 'common';
+  }
+
+  return {
+    name: value,
+    type,
+    contrast,
+    saturation,
+    lightness,
+  };
+}
+
+export function composeThemeName({ name, type, contrast, saturation, lightness }) {
+  let themeName = name;
+  let suffix = '';
+
+  if (type !== 'main') {
+    suffix += type[0] + type[1];
+  }
+
+  if (suffix || contrast !== 'normal') {
+    suffix += contrast[0];
+  }
+
+  if (suffix || saturation !== 'normal') {
+    suffix += saturation[0];
+  }
+
+  if (suffix || lightness !== 'normal') {
+    suffix += lightness[0];
+  }
+
+  if (suffix) {
+    themeName += `-${suffix}`;
+  }
+
+  return themeName;
+}
+
+/**
+ * Declare theme on element.
+ * @param el – Element to remove theme
+ * @param name {String} – Name of theme
+ * @param referenceColor {Array<Number>} – Reference color of theme
+ * @param customProps {Object<String,String>} – All custom properties of theme
+ */
+export function declareTheme(el, name, referenceColor, customProps) {
+  log('declare theme', el, name);
+
+  if (devMode && !el.nuContext) {
+    log('element context not found');
+    return;
+  }
+
+  generateId(el);
+
+  const key = `theme:${name}`;
+
+  if (!el.nuContext[key]) {
+    el.nuContext[key] = {
+      color: referenceColor,
+      $context: el,
+    };
+  }
+
+  if (!el.hasAttribute('theme') && name === 'main') {
+    el.setAttribute('theme', 'main');
+  }
+
+  applyTheme(el, {
+    name,
+    color: referenceColor,
+    type: 'main',
+    contrast: 'normal',
+    lightness: 'normal',
+    saturation: 'normal',
   });
+
+  if (Object.keys(customProps).length) {
+    const propsKey = `theme:${name}:${el.nuId}:props`;
+    const query = `#${el.nuId}`;
+
+    injectCSS(propsKey, query, `${query}{${stylesString(customProps)}}`);
+  }
+}
+
+/**
+ * Remove declaration of theme on element.
+ * @param el – Element to remove theme
+ * @param name {String} – Name of theme
+ * @param customProps {Array<String>} – All custom properties of theme
+ */
+export function removeTheme(el, name, customProps) {
+  if (devMode && !el.nuContext) {
+    log('element context not found');
+    return;
+  }
+
+  const key = `theme:${name}`;
+  const propsKey = `theme:${name}:${el.nuId}:props`;
+
+  cleanCSSByPart(propsKey);
+
+  Object.keys(el.nuContext)
+    .forEach(prop => {
+      if (prop.startsWith(key)) {
+        delete el.nuContext[prop];
+        cleanCSSByPart(`${prop}:#${el.nuId}`);
+      }
+    });
+}
+
+export function applyTheme(element, { name, color, type, contrast, saturation, lightness }) {
+  const lightNormalTheme = generateTheme({
+    color, type, contrast, saturation, lightness,
+  });
+  const lightContrastTheme = generateTheme({
+    color, type, contrast, saturation, lightness, highContrast: true,
+  });
+  const darkNormalTheme = generateTheme({
+    color, type, contrast, saturation, lightness, darkScheme: true,
+  });
+  const darkContrastTheme = generateTheme({
+    color, type, contrast, saturation, lightness, highContrast: true, darkScheme: true,
+  });
+  const themeName = composeThemeName({ name, type, contrast, saturation, lightness });
+  const lightNormalProps = stylesString(themeToProps(themeName, lightNormalTheme));
+  const lightContrastProps = stylesString(themeToProps(themeName, lightContrastTheme));
+  const darkNormalProps = stylesString(themeToProps(themeName, darkNormalTheme));
+  const darkContrastProps = stylesString(themeToProps(themeName, darkContrastTheme));
+
+  log('apply theme', element, themeName, color);
+
+  const baseQuery = `#${element.nuId}`;
+  const styleTagName = `theme:${themeName}:${baseQuery}`;
+
+  const prefersContrastSupport = matchMedia('(prefers-contrast)').matches;
+  const prefersColorSchemeSupport = matchMedia('(prefers-color-scheme)').matches;
+
+  if (prefersContrastSupport && prefersColorSchemeSupport) {
+    injectCSS(
+      styleTagName,
+      baseQuery,
+      `
+        @media (prefers-color-scheme: dark) and (prefers-contrast: high) {
+          html.nu-prefers-color-scheme.nu-prefers-contrast ${baseQuery}{${darkContrastProps}}
+        }
+        @media (prefers-color-scheme: dark) and (prefers-contrast: low), @media (prefers-color-scheme: dark) and (prefers-contrast: no-reference) {
+          html.nu-prefers-color-scheme.nu-prefers-contrast ${baseQuery}{${darkNormalProps}}
+        }
+        @media @media (prefers-color-scheme: light) and (prefers-contrast: high), @media (prefers-color-scheme: no-reference)  and (prefers-contrast: high) {
+          html.nu-prefers-color-scheme.nu-prefers-contrast ${baseQuery}{${lightContrastProps}}
+        }
+        @media @media (prefers-color-scheme: light) and (prefers-contrast: low), @media (prefers-color-scheme: no-reference)  and (prefers-contrast: low), @media @media (prefers-color-scheme: light) and (prefers-contrast: no-reference), @media (prefers-color-scheme: no-reference)  and (prefers-contrast: no-reference) {
+          html.nu-prefers-color-scheme.nu-prefers-contrast ${baseQuery}{${lightNormalProps}}
+        }
+        
+        @media (prefers-contrast: high) {
+          html.nu-prefers-color-scheme-dark.nu-prefers-contrast ${baseQuery}{${darkContrastProps}}
+          html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark).nu-prefers-contrast ${baseQuery}{${lightContrastProps}}
+        }
+        
+        @media (prefers-color-scheme: light), @media (prefers-color-scheme: no-reference) {
+          html.nu-prefers-color-scheme-dark.nu-prefers-contrast ${baseQuery}{${darkNormalProps}}
+          html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark).nu-prefers-contrast ${baseQuery}{${lightNormalProps}}
+        }
+        
+        @media (prefers-color-scheme: dark) {
+          html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${darkContrastProps}}
+          html.nu-prefers-color-scheme:(.nu-prefers-contrast):not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
+        }
+        @media (prefers-color-scheme: light), @media (prefers-color-scheme: no-reference) {
+          html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${lightContrastProps}}
+          html.nu-prefers-color-scheme:not(.nu-prefers-contrast):not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
+        }
+        
+        html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark):not(.nu-prefers-contrast):not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
+      `
+    );
+  } else if (prefersColorSchemeSupport) {
+    injectCSS(
+      styleTagName,
+      baseQuery,
+      `
+        @media (prefers-color-scheme: dark) {
+          html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${darkContrastProps}}
+          html.nu-prefers-color-scheme:not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
+        }
+        @media (prefers-color-scheme: light), @media (prefers-color-scheme: no-reference) {
+          html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${lightContrastProps}}
+          html.nu-prefers-color-scheme:not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
+        }
+        
+        html.nu-prefers-color-scheme-dark ${baseQuery}{${darkNormalProps}}
+        html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightNormalProps}}
+      `
+    );
+  } else {
+    injectCSS(
+      styleTagName,
+      baseQuery,
+      `
+        html:not(.nu-prefers-color-scheme-dark):not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
+        html.nu-prefers-color-scheme-dark:not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
+        html.nu-prefers-contrast-high:not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightContrastProps}}
+        html.nu-prefers-contrast-high.nu-prefers-color-scheme-dark ${baseQuery}{${darkContrastProps}}
+      `
+    );
+  }
+
+  element.nuContext[`theme:${themeName}`] = {
+    name,
+    color,
+    type,
+    contrast,
+    saturation,
+    lightness,
+    $context: element
+  };
 }

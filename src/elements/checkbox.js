@@ -34,12 +34,12 @@ export default class NuCheckbox extends NuActiveElement {
     return `
       ${css}
       ${tag} {
-        --nu-toggle-color: transparent;
-        --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
+        --nu-local-toggle-color: transparent;
+        --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
       }
 
       ${tag}:not([disabled])[tabindex]:hover {
-        --nu-hover-color: var(--nu-theme-hover-color);
+        --nu-local-hover-color: var(--nu-hover-color);
       }
     `;
   }
