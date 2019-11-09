@@ -23,37 +23,29 @@ export default class NuBtn extends NuActiveElement {
     return `
       ${css}
       ${tag} {
-        --nu-toggle-color: transparent;
-        --nu-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
+        --nu-local-toggle-color: transparent;
+        --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-local-toggle-color) inset;
       }
 
       ${tag}:not([disabled])[tabindex]:hover {
-        --nu-hover-color: var(--nu-theme-hover-color);
+        --nu-local-hover-color: var(--nu-hover-color);
       }
 
       ${tag}[disabled][nu-pressed],
       ${tag}[nu-active]:not([disabled]):not([nu-pressed]),
       ${tag}[nu-active][nu-pressed]:not([disabled]),
       ${tag}[nu-pressed]:not([disabled]):not([nu-active]) {
-        --nu-toggle-color: rgba(0, 0, 0, var(--nu-theme-shadow-opacity));
-      }
-
-      ${tag}[special] {
-        --nu-theme-shadow-opacity: var(--nu-theme-special-shadow-opacity);
-        --nu-theme-hover-color: var(--nu-theme-special-hover-color);
-        --nu-theme-heading-color: var(--nu-theme-special-contrast-color);
+        --nu-local-toggle-color: rgba(0, 0, 0, var(--nu-intensity));
       }
       
-      ${tag}[special]:not([fill]) {
-        background-color: var(--nu-theme-special-color) !important;
+      ${tag}[special]:not([theme]):not([color]) {
+        color: var(--nu-contrast-color);
       }
       
-      ${tag}[special]:not([color]) {
-        color: var(--nu-theme-special-contrast-color) !important;
-      }
+      ${tag}[special]:not([theme]):not([fill]) {
+        --nu-intensity: var(--nu-special-intensity);
       
-      ${tag}[special] > *:not([theme]):not([nu-popup]) {
-        --nu-theme-border-color: var(--nu-theme-special-contrast-color);
+        background-color: var(--nu-special-color);
       }
     `;
   }

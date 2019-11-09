@@ -30,7 +30,7 @@ export default class NuScroll extends NuElement {
     return `
       ${css}
       ${tag} {
-        --nu-line-color: var(--nu-theme-special-color);
+        --nu-line-color: var(--nu-special-color);
         --nu-line-size: .25rem;
         --nu-line-offset: 0%;
         --nu-line-length: 0%;
@@ -44,8 +44,8 @@ export default class NuScroll extends NuElement {
         line-height: 0;
         background-color: var(--nu-line-color);
         opacity: .5;
-        transition: opacity var(--nu-theme-animation-time) linear,
-          transform calc(var(--nu-theme-animation-time) / 2) ease-out;
+        transition: opacity var(--nu-animation-time) linear,
+          transform calc(var(--nu-animation-time) / 2) ease-out;
         border-radius: .25rem;
         pointer-events: none;
       }

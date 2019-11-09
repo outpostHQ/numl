@@ -7,29 +7,8 @@
 <nu-block padding="2||1" responsive="1280px|960px|640px" color>
   <nu-theme
     padding=".5"
-    color="#333"
-    background-color="#fff"
-    special-color="#1885d9"
-    border-color="#d2ddec"
-    shadow-intensity=".2">
+    hue="12">
   </nu-theme>
-  <nu-theme
-    name="primary"
-    color="#333"
-    background-color="#fff"
-    border-color="#888"
-    special-color="#3297db"
-    shadow-intensity=".2"></nu-theme>
-  <nu-theme
-    name="success"
-    color="#00d97e"
-    background-color="#fff"
-    special-color="#00d97e"></nu-theme>
-  <nu-theme
-    name="danger"
-    color="#e63757"
-    background-color="#fff"
-    special-color="#e63757"></nu-theme>
   <!--  #1885d9-->
   <nu-var name="--my-padding" value="2|1.5|1|.5"></nu-var>
 
@@ -58,7 +37,7 @@
         <nu-line></nu-line>
         <nu-block id="description">Very very long product description</nu-block>
         <nu-flex gap="1" items="center|start" flow="row|column-reverse">
-          <nu-btn special color="special-contrast :pressed[red]">
+          <nu-btn special>
             <nu-icon name="dollar-sign" inline></nu-icon>
             Order now
           </nu-btn>
@@ -143,27 +122,19 @@
 
       <nu-theme
         name="language"
-        color="#581b6c"
-        background-color="#f6d6ff"
-        special-color="#fff"></nu-theme>
+        hue="45"></nu-theme>
       <nu-theme
         name="methodology"
-        color="#913900"
-        background-color="#ffe1e0"
-        special-color="#fff"></nu-theme>
+        hue="145"></nu-theme>
       <nu-theme
         name="framework"
-        color="#838804"
-        background-color="#f9fae2"
-        special-color="#fff"></nu-theme>
+        hue="210"></nu-theme>
       <nu-theme
         name="library"
-        color="#005f79"
-        background-color="#d3f3ff"
-        special-color="#fff"></nu-theme>
+        hue="260"></nu-theme>
 
       <nu-grid columns="1fr 1fr|1fr" gap="1">
-        <nu-card gap=".5" theme="language">
+        <nu-card gap=".5" theme="language toned">
           <nu-heading level="3" size="h5" inline>Language</nu-heading>
           <nu-block>
             Alternative markup language for the modern web that meant to be a partial HTML/CSS

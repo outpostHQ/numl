@@ -5,9 +5,9 @@ export default function focusable(tag, { force, cell } = {}) {
 
   return `
     ${tag} {
-      --nu-focus-color: transparent;
-      --nu-focus-inset: ${cell ? 'inset' : '0 0'};
-      --nu-focus-shadow: var(--nu-focus-inset) 0 0.1875rem var(--nu-focus-color);
+      --nu-local-focus-color: transparent;
+      --nu-local-focus-inset: ${cell ? 'inset' : '0 0'};
+      --nu-local-focus-shadow: var(--nu-local-focus-inset) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color);
 
       outline: none;
     }
@@ -21,15 +21,15 @@ export default function focusable(tag, { force, cell } = {}) {
       bottom: 0;
       left: 0;
       pointer-events: none;
-      border-radius: var(--nu-border-radius);
-      box-shadow: var(--nu-focus-shadow);
-      transition: box-shadow var(--nu-theme-animation-time) linear;
+      border-radius: var(--nu-local-border-radius, var(--nu-border-radius));
+      box-shadow: var(--nu-local-focus-shadow);
+      transition: box-shadow var(--nu-animation-time) linear;
     }
     ${context}${tag}:not([disabled])[nu-focus] {
       z-index: 10;
     }
     ${context}${tag}:not([disabled])[nu-focus] {
-      --nu-focus-color: var(--nu-theme-focus-color);
+      --nu-local-focus-color: var(--nu-focus-color);
     }
   `;
 }

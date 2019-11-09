@@ -51,14 +51,14 @@ const FILL_STYLES = [{
   'min-height': '100%',
   'align-self': 'stretch',
   'justify-self': 'stretch',
-  '--nu-focus-inset': 'inset 0 0',
+  '--nu-local-focus-inset': 'inset 0 0',
 }, {
   $suffix: ':not([radius])',
-  '--nu-border-radius': '0',
+  '--nu-local-border-radius': '0',
 }, {
   $suffix: ':not([border])',
   'border': 'none',
-  '--nu-border-shadow': 'inset 0 0 0 0 var(--nu-theme-border-color)',
+  '--nu-local-border-shadow': 'inset 0 0 0 0 var(--nu-border-color)',
 }];
 
 const COVER_STYLES = {

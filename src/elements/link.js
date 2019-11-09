@@ -35,7 +35,7 @@ export default class NuLink extends NuActiveElement {
       }
       
       ${tag}:not([disabled])[nu-active] {
-        --nu-hover-color: var(--nu-theme-hover-color);
+        --nu-local-hover-color: var(--nu-hover-color);
       }
       
       ${focusable(tag)}

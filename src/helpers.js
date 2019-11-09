@@ -52,34 +52,18 @@ export function injectScript(src) {
  * @type {Object}
  */
 export const CUSTOM_UNITS = {
-  'br': 'var(--nu-theme-border-radius)',
-  'bw': 'var(--nu-theme-border-width)',
-  'p': 'var(--nu-theme-padding)',
+  'br': 'var(--nu-border-radius)',
+  'bw': 'var(--nu-border-width)',
+  'p': 'var(--nu-padding)',
 };
-
-export const COLOR_MAP = THEME_COLOR_ATTRS_LIST.reduce((map, color) => {
-  if (color === 'color') {
-    map['text'] = map['color'] = color;
-  } else {
-    map[color.replace('-color', '')] = color;
-  }
-
-  return map;
-}, {});
-
-COLOR_MAP['!'] = COLOR_MAP['background'];
-COLOR_MAP['!minor'] = COLOR_MAP['minor-background'];
-COLOR_MAP['!special'] = COLOR_MAP['special-contrast'];
 
 export function colorUnit(style, initial) {
   return (color) => {
     if (color == null) return;
 
-    color = color.trim() || initial;
+    if (!color) color = initial;
 
-    if (!COLOR_MAP[color]) return { [style]: color };
-
-    return { [style]: `var(--nu-theme-${COLOR_MAP[color]})` };
+    return { [style]: `var(--nu-${color}-color)` };
   };
 }
 
@@ -126,7 +110,7 @@ export function unit(name, { suffix, multiplier, empty, property, convert } = {}
   const propertyName = !property
     ? null
     : typeof property === 'boolean'
-      ? `--nu-${name}`
+      ? `--nu-local-${name}`
       : property;
   const propertyUsage = `var(${propertyName})`;
 
@@ -353,158 +337,6 @@ export function generateId(element) {
 }
 
 const dim = document.createElement('div');
-const dimStyle = dim.style;
-
-/**
- * Extract rgba channels for color.
- * @param {String} color – CSS color string.
- * @returns {Number[]} – Array with values: Red channel, Green channel, Blue channel, Alpha channel.
- */
-export function extractColor(color, ignoreAlpha = false) {
-  if (typeof color !== 'string') return null;
-
-  dimStyle.color = '';
-  dimStyle.color = (window.HTML_COLORS && window.HTML_COLORS[color.toLowerCase()]) || color;
-
-  const arr = !dimStyle.color
-    ? null // incorrect color
-    : dimStyle.color
-      .slice(dimStyle.color.indexOf('(') + 1, -1)
-      .split(', ')
-      .map(Number);
-
-  if (!arr) return arr;
-
-  if (ignoreAlpha) {
-    return arr.slice(0, 3);
-  }
-
-  arr[3] = arr[3] || 1;
-
-  return arr;
-}
-
-/**
- * Set alpha channel to the color.
- * @param {String|Array} color
- * @param {Number} alpha
- * @returns {String}
- */
-export function setAlphaChannel(color, alpha = 1) {
-  const rgba = typeof color === 'string' ? extractColor(color) : color;
-
-  if (!rgba) return rgba;
-
-  return colorString(...rgba.slice(0, 3), alpha);
-}
-
-/**
- * Generate RGBA color string.
- * @param {Number} red
- * @param {Number} green
- * @param {Number} blue
- * @param {Number} alpha
- * @returns {String}
- */
-export function colorString(red, green, blue, alpha = 1) {
-  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-}
-
-/**
- * Convert color to RGBA declaration.
- * @param {String|Array} color
- * @param {Boolean} ignoreAlpha
- * @returns {undefined|String}
- */
-export function generalizeColor(color, ignoreAlpha = false) {
-  if (!color) return color;
-
-  const rgba = extractColor(color, ignoreAlpha);
-
-  if (!rgba) return;
-
-  return colorString(...rgba, 1);
-}
-
-/**
- * Smart color inversion.
- * @param {String|Array} color
- * @param {Number} min - minimal value for color channel
- * @param {Number} max - maximum value for color channel
- * @returns {String}
- */
-export function invertColor(color, min = 0, max = 255) {
-  const rgba = extractColor(color);
-
-  return colorString(
-    ...hueRotate(
-      rgba.map((v, i) => {
-        if (i === 3) return v;
-
-        const inv = 255 - v;
-
-        return Math.round((inv * (max - min)) / max + min);
-      })
-    )
-  );
-}
-
-/**
- * Rotate color hue. It is used in dark theme generation.
- * @param {String|Array} color
- * @param {Number} angle
- * @returns {Array}
- */
-export function hueRotate(color, angle = 180) {
-  const rgba = typeof color === 'string' ? extractColor(color) : color;
-  const hsl = rgbToHsl(...rgba);
-
-  hsl[0] = (hsl[0] + angle / 360) % 1;
-
-  const rotated = hslToRgb(...hsl).concat([rgba[3]]);
-
-  return rotated;
-}
-
-/**
- * Get luminance of the color.
- * @param {String|Array} color
- * @returns {Number} - Float value from 0 to 1.
- */
-export function getLuminance(color) {
-  color = extractColor(color, true).map(n => n / 255);
-
-  const [r, g, b] = color;
-
-  return Math.sqrt(r * r * 0.241 + g * g * 0.691 + b * b * 0.068);
-}
-
-/**
- * Calculate middle color.
- * @param {String|Array} clr1
- * @param {String|Array} clr2
- * @param {Number} pow - middle color distance from clr1 (0) to clr2 (1).
- * @returns {String}
- */
-export function mixColors(clr1, clr2, pow = 0.5) {
-  const color1 = extractColor(clr1, true);
-  const color2 = extractColor(clr2, true);
-
-  const color = color1.map((c, i) => parseInt((color2[i] - c) * pow + c));
-
-  return colorString(color[0], color[1], color[2], 1);
-}
-
-/**
- * Calculate contrast ratio between 2 colors.
- * Uses luminance formula.
- * @param {String|Array} clr1
- * @param {String|Array} clr2
- * @returns {Number} - contrast ratio between 0 and 1.
- */
-export function contrastRatio(clr1, clr2) {
-  return Math.abs(getLuminance(clr1) - getLuminance(clr2));
-}
 
 /**
  * Split style into 4 directions. For example padding.
@@ -970,4 +802,8 @@ export function fixPosition(element) {
       element.setAttribute('transform', '');
     }
   }
+}
+
+export function intersection(arr1, arr2) {
+  return arr1.filter(i => arr2.includes(i));
 }

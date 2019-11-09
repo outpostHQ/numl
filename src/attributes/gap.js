@@ -8,7 +8,7 @@ import { convertUnit, splitStyleValue } from '../helpers';
 export default function gapAttr(val) {
   if (val == null) return;
 
-  val = convertUnit(val || '1x', 'var(--nu-theme-padding)');
+  val = convertUnit(val || '1x', 'var(--nu-padding)');
 
   const values = splitStyleValue(val);
   const vGap = values[0] || val;

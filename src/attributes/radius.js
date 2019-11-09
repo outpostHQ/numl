@@ -1,8 +1,8 @@
 import { unit } from '../helpers';
 
 const radiusUnit = unit('border-radius', {
-  multiplier: 'var(--nu-theme-border-radius)',
-  empty: 'var(--nu-theme-border-radius)',
+  multiplier: 'var(--nu-border-radius)',
+  empty: 'var(--nu-border-radius)',
   property: true,
   convert: true,
 });

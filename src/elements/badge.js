@@ -16,7 +16,7 @@ export default class NuBadge extends NuElement {
 
   static get nuDefaults() {
     return {
-      color: 'swap',
+      color: 'bg',
       fill: 'text',
       padding: '0 .5em',
       radius: '1x',
@@ -27,17 +27,11 @@ export default class NuBadge extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag}[theme]:not([color]) {
-        color: var(--nu-theme-background-color) !important;
-      }
-      ${tag}[theme]:not([fill]) {
-        background-color: var(--nu-theme-color) !important;
-      }
       ${tag}[special]:not([fill]) {
-        background-color: var(--nu-theme-special-color) !important;
+        background-color: var(--nu-special-color) !important;
       }
       ${tag}[special]:not([color]) {
-        color: var(--nu-theme-special-contrast-color) !important;
+        color: var(--nu-contrast-color) !important;
       }
     `;
   }

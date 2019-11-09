@@ -5,7 +5,7 @@ export default function spaceAttr(val) {
 
   let { value, mods } = extractMods(val, DIRECTIONS);
 
-  value = convertUnit(value, 'var(--nu-theme-padding)');
+  value = convertUnit(value, 'var(--nu-padding)');
 
   if (mods.length) {
     value = stripCalc(value);

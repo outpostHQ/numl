@@ -1,6 +1,6 @@
 import { colorUnit } from '../helpers';
 
-const backgroundUnit = colorUnit('--nu-background-color', 'background');
+const backgroundUnit = colorUnit('--nu-background-color', 'bg');
 
 export default function fillAttr(val) {
   return {

@@ -45,12 +45,6 @@ import NuStyle from './decorators/style';
 // helpers
 import {
   injectScript,
-  invertColor,
-  hueRotate,
-  extractColor,
-  setAlphaChannel,
-  generalizeColor,
-  getLuminance,
   splitStates,
   convertCustomUnit,
   excludeMod,
@@ -59,31 +53,39 @@ import {
   STATES_MAP,
   splitDimensions,
   parseAllValues,
-  mixColors,
   setImmediate,
   extractMods,
 } from './helpers';
 import { enableFocus, disableFocus } from './focus';
+import color from './color';
+import { generateTheme, themeToProps, generateReferenceColor, composeThemeName } from './themes';
 
+window.color = color;
 window.addEventListener('mousedown', disableFocus);
 window.addEventListener('keydown', enableFocus);
+window.generateTheme = generateTheme;
+window.generateReferenceColor = generateReferenceColor;
+window.themeToProps = themeToProps;
+window.composeThemeName = composeThemeName;
+
+setTimeout(() => {
+  // color.calcError();
+  console.log(generateReferenceColor({
+    name: 'some',
+    from: 'rgb(24,64,140)',
+    saturation: 'auto',
+  }));
+}, 500);
 
 const Nude = {
   tags: {},
   helpers: {
-    invertColor,
-    hueRotate,
     injectScript,
-    extractColor,
-    setAlphaChannel,
-    generalizeColor,
-    getLuminance,
     splitStates,
     convertCustomUnit,
     splitDimensions,
     excludeMod,
     parseAllValues,
-    mixColors,
     setImmediate,
     extractMods,
   },

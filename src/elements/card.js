@@ -16,8 +16,7 @@ export default class NuCard extends NuBlock {
   static get nuDefaults() {
     return {
       padding: '2x',
-      color: '',
-      fill: '',
+      theme: 'main',
       border: '1x',
       radius: '1x',
       flow: 'column',

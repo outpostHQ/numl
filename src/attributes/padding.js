@@ -1,8 +1,8 @@
 import { unit, extractMods, DIRECTIONS } from '../helpers';
 
 const paddingUnit = unit('padding', {
-  multiplier: 'var(--nu-theme-padding)',
-  empty: 'var(--nu-theme-padding)',
+  multiplier: 'var(--nu-padding)',
+  empty: 'var(--nu-padding)',
   convert: true,
 });
 
