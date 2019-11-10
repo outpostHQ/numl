@@ -144,6 +144,7 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
   const bgColor = getBaseBgColor(highContrast, darkScheme);
   const bgLightness = bgColor[2];
   const isMain = type === 'main';
+  const isCommon = type === 'common';
 
   let isInvert = false;
 
@@ -181,7 +182,7 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
 
   theme.focus = setPastelLuminance(mix(theme.special, theme.contrast));
   const borderReferenceColor = mix(setOptimalSaturation(originalSpecial), originalContrast, isMain ? .5 : 0);
-  theme.border = findContrastColor(borderReferenceColor, isInvert ? theme.text[2] : tonedBgLightness, ((darkScheme && !isMain) || highContrast) ? 1.5 : (isMain ? 1 : 1.25), !darkScheme);
+  theme.border = findContrastColor(borderReferenceColor, (!isCommon && !isMain) ? theme.text[2] : tonedBgLightness, ((darkScheme && !isMain) || highContrast) ? 1.5 : (isMain ? 1 : 1.25), darkScheme ^ (isCommon || isMain));
 
   if (type === 'main') {
     theme.subtle = mix(bgColor, theme.focus, highContrast ? 0.18 : .06);

@@ -3,8 +3,8 @@
   <title>NUDE Elements Playground</title>
   <script src="src/pack.js"></script>
 </head>
-<body class="nu-defaults">
-<nu-block padding="2||1" responsive="1280px|960px|640px" color>
+<body>
+<nu-block padding="2||1" responsive="1280px|960px|640px" color fill>
   <nu-theme
     padding=".5"
     hue="256">
@@ -1702,7 +1702,10 @@
 
   </nu-flow>
 
-  <nu-card place="fixed right bottom" transform="translate(-1rem, -1rem)" padding="1x" size="xs">
+  <nu-card
+    place="fixed right bottom" transform="translate(-1rem, -1rem)"
+    padding="1x" size="xs"
+    z="front">
     <nu-theme hue="248"></nu-theme>
     <nu-flex gap=".5" items="stretch" flow="column">
       <nu-block>Prefers color scheme:</nu-block>
@@ -1728,6 +1731,7 @@ const schemeClass = 'nu-prefers-color-scheme';
 const schemeValues = ['auto', 'dark', 'light'];
 const contrastClass = 'nu-prefers-contrast';
 const contrastValues = ['auto', 'high', 'low'];
+const reduceMotionClass = 'nu-prefers-reduced-motion';
 
 function getClassName(base, value) {
   if (value === 'auto') {
@@ -1737,6 +1741,14 @@ function getClassName(base, value) {
   }
 }
 
+function reduceMotion() {
+  htmlEl.classList.add(reduceMotionClass);
+}
+
+function restoreMotion() {
+  htmlEl.classList.remove(reduceMotionClass);
+}
+
 const htmlEl = document.querySelector('html');
 
 htmlEl.classList.add(schemeClass, contrastClass);
@@ -1744,13 +1756,21 @@ htmlEl.classList.add(schemeClass, contrastClass);
 schemeWidget.addEventListener('input', function (evt) {
   const value = evt.detail;
 
-  schemeValues.forEach(val => {
-    htmlEl.classList.remove(getClassName(schemeClass, val));
-  });
+  reduceMotion();
 
-  const className = getClassName(schemeClass, value);
+  setTimeout(() => {
+    schemeValues.forEach(val => {
+      htmlEl.classList.remove(getClassName(schemeClass, val));
+    });
 
-  htmlEl.classList.add(className);
+    const className = getClassName(schemeClass, value);
+
+    htmlEl.classList.add(className);
+
+    setTimeout(() => {
+      restoreMotion();
+    }, 3000);
+  }, 0);
 });
 
 contrastWidget.addEventListener('input', function (evt) {
