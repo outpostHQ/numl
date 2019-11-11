@@ -1,10 +1,8 @@
 import minify from 'rollup-plugin-babel-minify';
-import postcss from 'rollup-plugin-postcss'
 import replace from 'rollup-plugin-replace';
 import pkg from './package.json';
-import cssnano from 'cssnano';
 
-const ENV = process.env.ROLLUP_WATCH ? 'development' : 'production';
+// const ENV = process.env.ROLLUP_WATCH ? 'development' : 'production';
 const VERSION = `"${pkg.version}"`;
 
 export default [
@@ -22,10 +20,6 @@ export default [
       minify({
         comments: false,
       }),
-      postcss({
-        plugins: [cssnano()],
-        extensions: ['.css'],
-      })
     ]
   },
   {
@@ -44,9 +38,6 @@ export default [
         'process.env.NODE_ENV': '"development"',
         'process.env.APP_VERSION': VERSION,
       }),
-      postcss({
-        extensions: ['.css'],
-      })
     ]
   },
   {
@@ -63,10 +54,6 @@ export default [
       minify({
         comments: false,
       }),
-      postcss({
-        plugins: [cssnano()],
-        extensions: ['.css'],
-      })
     ]
   },
   {
@@ -84,9 +71,6 @@ export default [
         'process.env.NODE_ENV': '"development"',
         'process.env.APP_VERSION': VERSION,
       }),
-      postcss({
-        extensions: ['.css'],
-      })
     ]
   },
 ];
