@@ -27,12 +27,5 @@ export default function themeAttr(val) {
     color: 'var(--nu-text-color)',
   });
 
-  if (theme.type !== 'common') {
-    styles.push({
-      $suffix: ':not([background])',
-      'background-color': 'var(--nu-bg-color)',
-    });
-  }
-
   return styles;
 }

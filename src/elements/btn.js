@@ -14,7 +14,7 @@ export default class NuBtn extends NuActiveElement {
       flow: 'column',
       gap: '1x',
       content: 'center',
-      fill: '',
+      fill: 'bg',
       text: 'nowrap',
     };
   }
@@ -39,13 +39,13 @@ export default class NuBtn extends NuActiveElement {
       }
       
       ${tag}[special]:not([theme]):not([color]) {
-        color: var(--nu-contrast-color);
+        color: var(--nu-special-bg-color);
       }
       
       ${tag}[special]:not([theme]):not([fill]) {
         --nu-intensity: var(--nu-special-intensity);
       
-        background-color: var(--nu-special-color);
+        background-color: var(--nu-special-text-color);
       }
     `;
   }

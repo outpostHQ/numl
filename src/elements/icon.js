@@ -25,15 +25,6 @@ export default class NuIcon extends NuBlock {
 
   static get nuAttrs() {
     return {
-      size(val) {
-        const converted = convertUnit(val || '');
-
-        return val ? {
-          'min-width': converted,
-          'min-height': converted,
-          '--nu-size': converted,
-        } : null;
-      },
       name(val, defaults) {
         return val
           ? {
@@ -48,8 +39,8 @@ export default class NuIcon extends NuBlock {
     return {
       display: 'inline-block',
       text: 'middle',
-      width: 'min(1em)',
-      height: 'min(1em)',
+      width: 'min(1fs)',
+      height: 'min(1fs)',
     };
   }
 
@@ -57,8 +48,6 @@ export default class NuIcon extends NuBlock {
     return `
       ${css}
       ${tag} {
-        --nu-size: 1em;
-
         position: relative;
         background-color: transparent !important;
       }
@@ -67,8 +56,8 @@ export default class NuIcon extends NuBlock {
         position: absolute;
         left: 50%;
         top: 50%;
-        width: var(--nu-size);
-        height: var(--nu-size);
+        width: var(--nu-font-size);
+        height: var(--nu-font-size);
         transform: translate(-50%, -50%);
       }
 

@@ -17,12 +17,13 @@ export const THEME_PROPS_LIST = [
   'text-color',
   'bg-color',
   'border-color',
-  'special-color',
-  'contrast-color',
   'hover-color',
   'focus-color',
   'subtle-color',
   'intensity',
+  'special-color',
+  'special-text-color',
+  'special-bg-color',
   'special-intensity',
 ];
 const normalBaseTextColor = [0, 0, 19.87];
@@ -150,8 +151,8 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
 
   color = setSaturation(color, saturation);
 
-  const originalContrast = theme.contrast = getTheBrightest(textColor, bgColor);
-  const originalSpecial = theme.special = findContrastColor(color, theme.contrast[2], minContrast);
+  const originalContrast = theme['special-bg'] = getTheBrightest(textColor, bgColor);
+  const originalSpecial = theme['special-text'] = findContrastColor(color, theme['special-bg'][2], minContrast);
   // themes with same hue should have focus color with consistent setPastelLuminance saturation
 
   switch (type || 'main') {
@@ -166,13 +167,13 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
     case 'swap':
       theme.bg = findContrastColor(color, tonedBgLightness, minContrast);
       theme.text = setPastelLuminance(setLuminance(color, tonedBgLightness));
-      [theme.special, theme.contrast] = [theme.contrast, darkScheme ? [...theme.text] : theme.special];
+      [theme['special-text'], theme['special-bg']] = [theme['special-bg'], darkScheme ? [...theme.text] : theme['special-text']];
       isInvert = true;
       break;
     case 'special':
       theme.text = getTheBrightest(textColor, bgColor);
       theme.bg = findContrastColor(color, theme.text[2], minContrast);
-      [theme.special, theme.contrast] = [theme.contrast, theme.special];
+      [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
       isInvert = true;
       break;
     case 'main':
@@ -180,25 +181,32 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
       theme.text = textColor;
   }
 
-  theme.focus = setPastelLuminance(mix(theme.special, theme.contrast));
+  theme.focus = setPastelLuminance(mix(theme['special-text'], theme['special-bg']));
   const borderReferenceColor = mix(setOptimalSaturation(originalSpecial), originalContrast, isMain ? .5 : 0);
   theme.border = findContrastColor(borderReferenceColor, (!isCommon && !isMain) ? theme.text[2] : tonedBgLightness, ((darkScheme && !isMain) || highContrast) ? 1.5 : (isMain ? 1 : 1.25), darkScheme ^ (isCommon || isMain));
 
   if (type === 'main') {
     theme.subtle = mix(bgColor, theme.focus, highContrast ? 0.18 : .06);
+    theme.special = findContrastColor(color, theme.bg[2], minContrast);
+  } else {
+    theme.special = findContrastColor(theme.text, theme.bg[2], minContrast + 1);
   }
-
   // in soft variant it's impossible to reduce contrast for headings
   theme.heading = contrast !== 'soft'
     ? mix(theme.text, theme.bg, .1)
     : theme.text;
   theme.hover = setOpacity(findContrastColor(theme.focus, theme.bg[2], highContrast ? 2.2 : 1.6), .2);
   theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity, darkScheme);
-  theme['special-intensity'] = getShadowIntensity(theme.special[2], shadowIntensity, darkScheme);
+  theme['special-intensity'] = getShadowIntensity(theme['special-text'][2], shadowIntensity, darkScheme);
 
   if (highContrast) {
     theme.intensity = Math.sqrt(theme.intensity);
     theme['special-intensity'] = Math.sqrt(theme['special-intensity']);
+  }
+
+  // If special-bg color is brighter than background we need to compensate it in shadow intensity
+  if (theme['special-intensity'] < theme['intensity']) {
+    theme['special-intensity'] = Math.sqrt(theme['intensity'] * theme['special-intensity']);
   }
 
   return theme;
@@ -212,7 +220,7 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
  * @returns {Number} – 0 to 1
  */
 export function getShadowIntensity(bgLightness, shadowIntensity = .2, darkScheme) {
-  return (1 - Math.pow(bgLightness / 100, 3)) * ((darkScheme ? .9  : .8) - shadowIntensity) + shadowIntensity;
+  return (1 - Math.pow(bgLightness / 100, 1)) * ((darkScheme ? .9  : .8) - shadowIntensity) + shadowIntensity;
 }
 
 export function themeToProps(name, theme) {

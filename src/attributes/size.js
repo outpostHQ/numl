@@ -30,8 +30,13 @@ export default function sizeAttr(val) {
     values[1] = SIZES[tmp[1]] ? String(SIZES[tmp[1]][1]) : tmp[1];
   }
 
+  const fontSize = convertUnit(values[0]);
+  const lineHeight = convertUnit(values[1] || '1.5');
+
   return {
-    'font-size': convertUnit(values[0]),
-    'line-height': convertUnit(values[1] || '1.5')
+    'font-size': fontSize,
+    'line-height': lineHeight,
+    '--nu-font-size': fontSize,
+    '--nu-line-height': lineHeight,
   };
 }

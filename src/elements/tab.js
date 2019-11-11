@@ -38,21 +38,21 @@ export default class NuTab extends NuActiveElement {
       ${tag}[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
       ${tag}[nu-toggled]:not([disabled]):not([tabindex]) {
         --nu-local-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-local-toggle-color) inset;
-        --nu-local-toggle-color: var(--nu-special-color);
+        --nu-local-toggle-color: var(--nu-special-text-color);
       }
 
       ${tag}[special] {
-        color: var(--nu-special-color) !important;
+        color: var(--nu-special-text-color) !important;
       }
 
       ${tag}:not([disabled])[tabindex]:hover {
-        --nu-local-toggle-color: var(--nu-special-color);
+        --nu-local-toggle-color: var(--nu-special-text-color);
       }
 
       ${tag}[nu-active][tabindex]:not([disabled]):not([aria-pressed="true"]),
       ${tag}[aria-pressed="true"]:not([disabled]):not([nu-active]) {
         --nu-local-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-local-toggle-color) inset;
-        --nu-local-toggle-color: var(--nu-special-color);
+        --nu-local-toggle-color: var(--nu-special-text-color);
       }
     `;
   }

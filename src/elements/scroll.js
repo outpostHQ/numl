@@ -30,7 +30,7 @@ export default class NuScroll extends NuElement {
     return `
       ${css}
       ${tag} {
-        --nu-line-color: var(--nu-special-color);
+        --nu-line-color: var(--nu-special-text-color);
         --nu-line-size: .25rem;
         --nu-line-offset: 0%;
         --nu-line-length: 0%;
