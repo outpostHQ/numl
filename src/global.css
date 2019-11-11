@@ -76,6 +76,6 @@ html.nu-prefers-color-scheme-dark .nu-dark-dim {
   }
 }
 
-.nu-prefers-reduced-motion-reduce [theme], body {
+html.nu-prefers-reduced-motion-reduce [theme], html.nu-prefers-reduced-motion-reduce body {
   --nu-animation-time: 0.001s !important;
 }
