@@ -50,13 +50,6 @@
       "path": [
         "dist/numl.module.js"
       ]
-    },
-    {
-      "name": "colors module",
-      "webpack": false,
-      "path": [
-        "dist/numl.colors.js"
-      ]
     }
   ]
 }
