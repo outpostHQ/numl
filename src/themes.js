@@ -187,7 +187,7 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
 
   if (type === 'main') {
     theme.subtle = mix(bgColor, theme.focus, highContrast ? 0.18 : .06);
-    theme.special = findContrastColor(color, theme.bg[2], minContrast);
+    theme.special = findContrastColor(color, theme.subtle[2], minContrast);
   } else {
     theme.special = findContrastColor(theme.text, theme.bg[2], minContrast + 1);
   }
