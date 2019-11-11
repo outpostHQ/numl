@@ -22,7 +22,7 @@ import {
 import NuBase from '../base';
 import {
   parseThemeAttr,
-  applyTheme, composeThemeName
+  applyTheme, composeThemeName, applyDefaultMods
 } from '../themes';
 import placeAttr, { PLACE_VALUES } from '../attributes/place';
 import borderAttr from '../attributes/border';
@@ -532,11 +532,15 @@ export default class NuElement extends NuBase {
       const key = `theme:${themeName}`;
       const baseTheme = this.nuContext[`theme:${theme.name}`];
 
+      if (baseTheme.mods) {
+        applyDefaultMods(theme, baseTheme.mods);
+      }
+
       if (baseTheme && (!this.nuContext[key] || force)) {
         applyTheme(baseTheme.$context, {
           color: baseTheme.color,
           ...theme,
-        });
+        }, themeName);
       }
     });
   }

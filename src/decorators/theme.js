@@ -2,6 +2,18 @@ import NuDecorator from './decorator';
 import { declareTheme, generateReferenceColor, removeTheme } from '../themes';
 import { convertUnit } from '../helpers';
 
+const ATTRS_LIST = [
+  'name',
+  'hue',
+  'saturation',
+  'from',
+  'mods',
+  'border-radius',
+  'border-width',
+  'padding',
+  'animation-time',
+];
+
 /**
  * @class
  * @property nuParent
@@ -12,16 +24,7 @@ export default class NuTheme extends NuDecorator {
   }
 
   static get nuAttrsList() {
-    return [
-      'name',
-      'hue',
-      'saturation',
-      'from',
-      'border-radius',
-      'border-width',
-      'padding',
-      'animation-time',
-    ];
+    return [...ATTRS_LIST];
   }
 
   nuChanged(name, oldValue, value) {
@@ -57,13 +60,16 @@ export default class NuTheme extends NuDecorator {
       return map;
     }, {});
 
-    const { name = 'main', hue, saturation, from, ...props } = attrs;
+    const { name = 'main', hue, saturation, from, mods, ...props } = attrs;
 
     const referenceColor = generateReferenceColor({ hue, saturation, from });
+    const defaultMods = mods || '';
 
     const customProps = Object.keys(props || {})
       .reduce((map, prop) => {
-        map[`--nu-${prop}`] = convertUnit(props[prop]);
+        if (!ATTRS_LIST.includes(prop)) return map;
+
+          map[`--nu-${prop}`] = convertUnit(props[prop]);
 
         return map;
       }, {});
@@ -72,7 +78,8 @@ export default class NuTheme extends NuDecorator {
 
     if ((this.nuName && this.nuName !== name)
       || (this.nuReferenceColor && JSON.stringify(this.nuReferenceColor) !== JSON.stringify(referenceColor))
-      || (this.nuProps && JSON.stringify(this.nuProps) !== JSON.stringify(customProps))) {
+      || (this.nuProps && JSON.stringify(this.nuProps) !== JSON.stringify(customProps))
+      || (this.nuMods && this.nuMods !== defaultMods)) {
       removeTheme(this.nuParent, this.nuName, this.nuProps);
 
       setTimeout(() => {
@@ -86,7 +93,8 @@ export default class NuTheme extends NuDecorator {
     this.nuName = name;
     this.nuProps = customProps;
     this.nuReferenceColor = referenceColor;
+    this.nuMods = defaultMods;
 
-    declareTheme(this.nuParent, name, referenceColor, customProps);
+    declareTheme(this.nuParent, name, referenceColor, customProps, defaultMods || '');
   }
 }
