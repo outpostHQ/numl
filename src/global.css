@@ -8,14 +8,17 @@ body {
   --nu-animation-time: 0.08s;
   --nu-text-color: rgba(51, 51, 51, 1);
   --nu-bg-color: rgba(255, 255, 255, 1);
+
+  --nu-font-size: 1rem;
+  --nu-line-height: 1.5rem;
 }
 
 body:not(.nu-prevent-defaults) {
-  line-height: 1;
+  line-height: 1rem;
 }
 
 body:not(.nu-prevent-defaults) > *:not([size]) {
-  line-height: 1.5;
+  line-height: 1.5rem;
 }
 
 .nu-defaults, body:not(.nu-prevent-defaults) {
@@ -34,7 +37,7 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
 }
 
 .nu-defaults:not(body) {
-  line-height: 1.5;
+  line-height: 1.5rem;
 }
 
 [nu-hidden] {

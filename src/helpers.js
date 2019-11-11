@@ -1,27 +1,4 @@
 /**
- * Dict for all browser built-in colors.
- * It's included to support such declarations in themes.
- * Without such dict it would be impossible to declare computed color properties in themes.
- * @type {Object}
- */
-export const THEME_COLOR_ATTRS_LIST = [
-  'color',
-  'background-color',
-  'special-color',
-  'border-color',
-  'shadow-color',
-  'heading-color',
-  'hover-color',
-  'special-hover-color',
-  'special-contrast-color',
-  'focus-color',
-  'minor-color',
-  'minor-background-color',
-  'special-minor-color',
-  'subtle-color',
-];
-
-/**
  * Required root element attribute.
  * @type {String}
  */
@@ -55,6 +32,8 @@ export const CUSTOM_UNITS = {
   'br': 'var(--nu-border-radius)',
   'bw': 'var(--nu-border-width)',
   'p': 'var(--nu-padding)',
+  'fs': 'var(--nu-font-size)',
+  'lh': 'var(--nu-line-height)',
 };
 
 export function colorUnit(style, initial) {

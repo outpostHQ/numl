@@ -16,23 +16,23 @@ export default class NuBadge extends NuElement {
 
   static get nuDefaults() {
     return {
-      color: 'bg',
-      fill: 'text',
+      display: 'inline-grid',
+      flow: 'column',
+      gap: '1x',
+      items: 'center',
       padding: '0 .5em',
-      radius: '1x',
-      text: 'nowrap',
+      radius: 'round',
+      text: 'middle nowrap',
+      border: '1x',
+      fill: 'bg',
     };
   }
 
-  static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag}[special]:not([fill]) {
-        background-color: var(--nu-special-color) !important;
-      }
-      ${tag}[special]:not([color]) {
-        color: var(--nu-contrast-color) !important;
-      }
-    `;
+  nuChanged(name, oldValue, value) {
+    super.nuChanged(name, oldValue, value);
+
+    if (name === 'special' && value != null && !this.hasAttribute('theme')) {
+      this.setAttribute('theme', 'special');
+    }
   }
 }
