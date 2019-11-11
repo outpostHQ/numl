@@ -22,7 +22,7 @@ import {
 import NuBase from '../base';
 import {
   parseThemeAttr,
-  applyTheme
+  applyTheme, composeThemeName
 } from '../themes';
 import placeAttr, { PLACE_VALUES } from '../attributes/place';
 import borderAttr from '../attributes/border';

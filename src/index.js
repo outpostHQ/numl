@@ -1,4 +1,3 @@
-import './global.css';
 // elements
 import NuBase from './base';
 import NuElement from './elements/element';
@@ -57,25 +56,9 @@ import {
   extractMods,
 } from './helpers';
 import { enableFocus, disableFocus } from './focus';
-import color from './color';
-import { generateTheme, themeToProps, generateReferenceColor, composeThemeName } from './themes';
 
-window.color = color;
 window.addEventListener('mousedown', disableFocus);
 window.addEventListener('keydown', enableFocus);
-window.generateTheme = generateTheme;
-window.generateReferenceColor = generateReferenceColor;
-window.themeToProps = themeToProps;
-window.composeThemeName = composeThemeName;
-
-setTimeout(() => {
-  // color.calcError();
-  console.log(generateReferenceColor({
-    name: 'some',
-    from: 'rgb(24,64,140)',
-    saturation: 'auto',
-  }));
-}, 500);
 
 const Nude = {
   tags: {},
