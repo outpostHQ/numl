@@ -115,10 +115,10 @@ function setSaturation(color, saturation) {
 
   switch (saturation) {
     case 'saturated':
-      newColor[1] = 100;
+      newColor[1] = Math.min(color[1] * 2, 100);
       break;
     case 'desaturated':
-      newColor = setPastelLuminance(color, 80);
+      newColor[1] = color[1] / 2;
       break;
     default:
   }
