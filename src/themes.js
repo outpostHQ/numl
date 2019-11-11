@@ -155,7 +155,7 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
   const originalSpecial = theme['special-text'] = findContrastColor(color, theme['special-bg'][2], minContrast);
   // themes with same hue should have focus color with consistent setPastelLuminance saturation
 
-  switch (type || 'main') {
+  switch (type || 'common') {
     case 'common':
       theme.bg = bgColor;
       theme.text = findContrastColor(color, tonedBgLightness, minContrast);
@@ -299,7 +299,7 @@ function incorrectTheme(prop, value) {
   log(`incorrect '${prop}' value in theme attribute`, value);
 }
 
-export function parseThemeAttr(attr) {
+export function parseThemeAttr(attr, initial) {
   let { value, mods } = extractMods(attr, ALL_MODS);
   let contrast, lightness, saturation, type;
 
@@ -372,6 +372,8 @@ export function composeThemeName({ name, type, contrast, saturation, lightness }
   let themeName = name;
   let suffix = '';
 
+  type = type || 'common';
+
   if (type !== 'main') {
     suffix += type[0] + type[1];
   }
@@ -402,7 +404,7 @@ export function composeThemeName({ name, type, contrast, saturation, lightness }
  * @param referenceColor {Array<Number>} – Reference color of theme
  * @param customProps {Object<String,String>} – All custom properties of theme
  */
-export function declareTheme(el, name, referenceColor, customProps) {
+export function declareTheme(el, name, referenceColor, customProps, defaultMods) {
   log('declare theme', { element: el, name });
 
   if (devMode && !el.nuContext) {
@@ -417,6 +419,7 @@ export function declareTheme(el, name, referenceColor, customProps) {
   if (!el.nuContext[key]) {
     el.nuContext[key] = {
       color: referenceColor,
+      mods: defaultMods,
       $context: el,
     };
   }
@@ -441,6 +444,51 @@ export function declareTheme(el, name, referenceColor, customProps) {
     injectCSS(propsKey, query, `${query}{${stylesString(customProps)}}`);
   }
 }
+
+/**
+ * Apply default mods to theme.
+ * @param theme
+ * @param defaultMods {String}
+ */
+export function applyDefaultMods(theme, defaultMods) {
+  const { value, mods } = extractMods(defaultMods, ALL_MODS);
+  const saturationMod = mods.find(mod => SATURATION_MODS.includes(mod));
+  const lightnessMod = mods.find(mod => LIGHTNESS_MODS.includes(mod));
+  const contrastMod = mods.find(mod => CONTRAST_MODS.includes(mod));
+  const typeMod = mods.find(mod => TYPE_MODS.includes(mod));
+
+  if (saturationMod) {
+    if (theme.saturation === 'normal') {
+      theme.saturation = saturationMod;
+    } else if (theme.saturation !== saturationMod) {
+      theme.saturation = 'normal';
+    }
+  }
+
+  if (lightnessMod) {
+    if (theme.lightness === 'normal') {
+      theme.lightness = lightnessMod;
+    } else if (theme.lightness !== lightnessMod) {
+      theme.lightness = 'normal';
+    }
+  }
+
+  if (contrastMod) {
+    if (theme.contrast === 'normal') {
+      theme.contrast = contrastMod;
+    } else if (theme.contrast !== contrastMod) {
+      theme.contrast = 'normal';
+    }
+  }
+
+  if (typeMod) {
+    theme.type = typeMod;
+  }
+
+  return theme;
+}
+
+window.applyDefaultMods = applyDefaultMods
 
 /**
  * Remove declaration of theme on element.
@@ -468,7 +516,7 @@ export function removeTheme(el, name, customProps) {
     });
 }
 
-export function applyTheme(element, { name, color, type, contrast, saturation, lightness }) {
+export function applyTheme(element, { name, color, type, contrast, saturation, lightness }, themeName) {
   const lightNormalTheme = generateTheme({
     color, type, contrast, saturation, lightness,
   });
@@ -481,7 +529,7 @@ export function applyTheme(element, { name, color, type, contrast, saturation, l
   const darkContrastTheme = generateTheme({
     color, type, contrast, saturation, lightness, highContrast: true, darkScheme: true,
   });
-  const themeName = composeThemeName({ name, type, contrast, saturation, lightness });
+  themeName = themeName || composeThemeName({ name, type, contrast, saturation, lightness });
   const lightNormalProps = stylesString(themeToProps(themeName, lightNormalTheme));
   const lightContrastProps = stylesString(themeToProps(themeName, lightContrastTheme));
   const darkNormalProps = stylesString(themeToProps(themeName, darkNormalTheme));
@@ -567,6 +615,8 @@ export function applyTheme(element, { name, color, type, contrast, saturation, l
       `
     );
   }
+
+  if (themeName === name) return;
 
   element.nuContext[`theme:${themeName}`] = {
     name,
