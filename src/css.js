@@ -185,8 +185,6 @@ body {
   --nu-padding: 0.5rem;
   --nu-border-width: 1px;
   --nu-animation-time: 0.08s;
-  --nu-text-color: rgba(51, 51, 51, 1);
-  --nu-bg-color: rgba(255, 255, 255, 1);
 
   --nu-font-size: 1rem;
   --nu-line-height: 1.5rem;
@@ -219,15 +217,7 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
   line-height: 1.5rem;
 }
 
-[nu-hidden] {
-  display: none !important;
-}
-
 @media (prefers-color-scheme: dark) {
-  html.nu-prefers-color-scheme body {
-    background-color: rgba(32, 32, 32, 1);
-  }
-
   html.nu-prefers-color-scheme .nu-dark-invert {
     filter: invert(100%) hue-rotate(180deg);
   }
@@ -235,10 +225,6 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
   html.nu-prefers-color-scheme .nu-dark-dim {
     filter: invert(5%);
   }
-}
-
-html.nu-prefers-color-scheme-dark body {
-  background-color: rgba(32, 32, 32, 1);
 }
 
 html.nu-prefers-color-scheme-dark .nu-dark-invert {

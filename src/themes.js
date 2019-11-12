@@ -36,6 +36,15 @@ const contrastMinLightness = 12.25;
 const darkNormanBaseBgColor = [0, 0, normalMinLightness];
 const darkContrastBaseBgColor = [0, 0, contrastMinLightness];
 
+export const BASE_THEME = {
+  color: generateReferenceColor({ hue: 250 }),
+  name: 'main',
+  type: 'main',
+  contrast: 'normal',
+  lightness: 'normal',
+  saturation: 'normal',
+};
+
 /**
  * Get minimal possible contrast ratio between text and foreground.
  * @param type {String}
@@ -205,7 +214,7 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
  * @returns {Number} – 0 to 1
  */
 export function getShadowIntensity(bgLightness, shadowIntensity = .2, darkScheme) {
-  return (1 - Math.pow(bgLightness / 100, 1)) * ((darkScheme ? .9  : .8) - shadowIntensity) + shadowIntensity;
+  return (1 - Math.pow(bgLightness / 100, 1)) * ((darkScheme ? .9 : .8) - shadowIntensity) + shadowIntensity;
 }
 
 export function themeToProps(name, theme) {
@@ -414,12 +423,9 @@ export function declareTheme(el, name, referenceColor, customProps, defaultMods)
   }
 
   applyTheme(el, {
+    ...BASE_THEME,
     name,
     color: referenceColor,
-    type: 'main',
-    contrast: 'normal',
-    lightness: 'normal',
-    saturation: 'normal',
   });
 
   if (Object.keys(customProps).length) {
@@ -520,7 +526,7 @@ export function applyTheme(element, { name, color, type, contrast, saturation, l
 
   log('apply theme', { element, themeName, color });
 
-  const baseQuery = `#${element.nuId}`;
+  const baseQuery = element === document.body ? 'body' : `#${element.nuId}`;
   const styleTagName = `theme:${themeName}:${baseQuery}`;
 
   const prefersContrastSupport = matchMedia('(prefers-contrast)').matches;

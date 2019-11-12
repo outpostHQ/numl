@@ -56,9 +56,18 @@ import {
   extractMods,
 } from './helpers';
 import { enableFocus, disableFocus } from './focus';
+import { applyTheme, BASE_THEME } from './themes';
+import themeAttr from './attributes/theme';
+import { generateCSS, injectCSS } from './css';
 
 window.addEventListener('mousedown', disableFocus);
 window.addEventListener('keydown', enableFocus);
+
+applyTheme(document.body, BASE_THEME, 'main');
+
+const styles = themeAttr('main');
+
+injectCSS('theme:base', 'body', generateCSS('body', styles));
 
 const Nude = {
   tags: {},
