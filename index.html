@@ -5,13 +5,21 @@
 </head>
 <body>
 <nu-block padding="2||1" responsive="1280px|960px|640px">
+  <nu-theme
+    hue="250"
+    saturation="auto"
+    padding=".5"
+    border-radius=".5"
+    border-width="1px"
+    padding=".5"
+    animation-time="0.08s"></nu-theme>
   <!--  #1885d9-->
   <nu-var name="--my-padding" value="2|1.5|1|.5"></nu-var>
 
   <nu-style for="section" flow="column" gap="1" labelledby=":prev"></nu-style>
 
   <nu-flow gap="1">
-    <nu-heading level="1">NUDE Elements playground</nu-heading>
+    <nu-heading level="1">NUDE Elements Design System Playground</nu-heading>
 
     <nu-block>
       See source code and documentation on
@@ -28,6 +36,17 @@
       Nude playground version:
       <nu-el text="w6">v0.8</nu-el>
     </nu-block>
+
+    <nu-heading level="2">Disclaimer</nu-heading>
+
+    <nu-flow text="lg" gap="1">
+      <nu-block>
+        <nu-el text="w5">This page has zero CSS assets.</nu-el> All you see is generated in runtime in your browser. There is almost 1MB of generated CSS for almost 200 theme variants and other styling. If in any moment there is some CSS that can't be re-used in the future then it will be deleted instantly. You can edit markup in DevTools and see changes instantly. You can try change defaults: border radius, border width, animation-time, padding and hues/saturation for various themes.
+      </nu-block>
+      <nu-block>
+        <nu-el text="w5">NUDE Elements Design System uses Feather Icons library to render icons.</nu-el> It can be replaced with any library you like.
+      </nu-block>
+    </nu-flow>
 
     <nu-heading level="2">Complex example</nu-heading>
 

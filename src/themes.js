@@ -240,7 +240,7 @@ export function generateReferenceColor({ hue, saturation, from }) {
   if (hue) {
     let hsl;
 
-    if (saturation) {
+    if (saturation && saturation !== 'auto') {
       hsl = [parseInt(hue, 10), parseInt(saturation), 80];
     } else {
       hsl = setOptimalSaturation([parseInt(hue, 10), 50, 80]);
