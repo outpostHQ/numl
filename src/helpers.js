@@ -2,6 +2,8 @@
  * Required root element attribute.
  * @type {String}
  */
+import { strToHsl } from './color';
+
 export const ROOT_CONTEXT = 'html';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
@@ -42,7 +44,15 @@ export function colorUnit(style, initial) {
 
     if (!color) color = initial;
 
-    return { [style]: `var(--nu-${color}-color)` };
+    if (strToHsl(color)) {
+      return { [style]: color };
+    }
+
+    if (color === 'clear') {
+      color = 'transparent';
+    }
+
+    return { [style]: `var(--nu-${color}-color, ${color})` };
   };
 }
 
