@@ -79,21 +79,6 @@ function getBgLightness(type = 'common', highContrast, darkScheme) {
   }
 }
 
-/**
- * Get lightness of subtle color by params.
- * @param [type] {String}
- * @param [highContrast] {Boolean}
- * @param [darkScheme] {Boolean}
- * @returns {Number}
- */
-function getSubtleLightness(highContrast, darkScheme) {
-  if (darkScheme) {
-    return (highContrast ? contrastMinLightness : normalMinLightness) + 2;
-  } else {
-    return 98;
-  }
-}
-
 function getBaseTextColor(highContrast, darkScheme) {
   if (darkScheme) {
     return highContrast ? darkContrastBaseTextColor : darkNormalBaseTextColor;
@@ -487,8 +472,6 @@ export function applyDefaultMods(theme, defaultMods) {
 
   return theme;
 }
-
-window.applyDefaultMods = applyDefaultMods
 
 /**
  * Remove declaration of theme on element.
