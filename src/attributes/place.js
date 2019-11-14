@@ -47,8 +47,8 @@ const PLACE_ABS = [
 ];
 
 const FILL_STYLES = [{
-  'min-width': '100%',
-  'min-height': '100%',
+  'width': '100%',
+  'height': '100%',
   'align-self': 'stretch',
   'justify-self': 'stretch',
   '--nu-local-focus-inset': 'inset 0 0',
