@@ -7,11 +7,12 @@ import {
   warn,
   log,
   computeStyles,
-  invertQueryById
+  invertQueryById, error
 } from './helpers';
 import transformMixin from './mixins/transform';
 import backgroundMixin from './mixins/background';
 import shadowMixin from './mixins/shadow';
+import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibility';
 
 export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 
@@ -228,6 +229,20 @@ export default class NuBase extends HTMLElement {
 
     const allAttrs = this.nuAllAttrs;
     const allDefaults = this.nuAllDefaults;
+
+    const globalAttrs = Object.keys(allAttrs).filter(attr => GLOBAL_ATTRS.includes(attr) && allAttrs[attr]);
+
+    if (globalAttrs.length) {
+      error('incorrect declaration of nuAttrs, global attributes are used for styling:', globalAttrs.join(','));
+
+      return;
+    }
+
+    Object.keys(allAttrs).forEach(attr => {
+      if (checkPropIsDeclarable(attr)) {
+        declareProp(this, attr);
+      }
+    });
 
     let defaultsCSS = '';
 

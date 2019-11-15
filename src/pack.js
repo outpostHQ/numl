@@ -40,6 +40,7 @@ import Nude, {
   NuGroup,
   NuCheckbox,
   NuLabel,
+  NuNumber,
 } from './index';
 
 Nude.elements = {
@@ -79,6 +80,7 @@ Nude.elements = {
   NuGroup,
   NuCheckbox,
   NuLabel,
+  NuNumber,
   // decorators
   NuDecorator,
   NuTheme,

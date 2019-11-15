@@ -29,7 +29,7 @@ export default class NuTriangle extends NuElement {
 
   static get nuAttrs() {
     return {
-      dir(val) {
+      set(val) {
         val = val || 'up';
 
         const zeroSide = DIR_MAP_ZERO[val];
