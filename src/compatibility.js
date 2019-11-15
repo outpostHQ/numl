@@ -32,6 +32,7 @@ export function checkPropIsDeclarable(name) {
 
 export function declareProp(Element, name) {
   log(`compatibility mode for ${Element.nuTag}[${name}]`);
+
   Object.defineProperty(Element.prototype, name, {
     enumerable: false,
     set: function(val) {
