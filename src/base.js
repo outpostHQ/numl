@@ -13,8 +13,7 @@ import transformMixin from './mixins/transform';
 import backgroundMixin from './mixins/background';
 import shadowMixin from './mixins/shadow';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibility';
-
-export const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
+import displayAttr from './attributes/display';
 
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
@@ -143,26 +142,7 @@ export default class NuBase extends HTMLElement {
        * CSS Display value.
        * @param val
        */
-      display(val) {
-        if (!val) return;
-
-        return (DOUBLE_DISPLAY.includes(val)
-          ? [{
-            $suffix: ':not([inline])',
-            display: val,
-          }, {
-            $suffix: '[inline]',
-            display: `inline-${val}`,
-          }]
-          : [{ display: val }])
-          .concat(val.endsWith('grid')
-            ? [{
-              $suffix: '>*',
-              '--nu-v-gap': '- !important',
-              '--nu-h-gap': '- !important',
-            }]
-            : []);
-      },
+      display: displayAttr,
     };
   }
 
