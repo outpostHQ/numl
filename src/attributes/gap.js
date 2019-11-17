@@ -15,6 +15,7 @@ export default function gapAttr(val) {
   const hGap = values[1] || vGap;
 
   return [{
+    gap: val,
     'grid-gap': val,
   }, {
     $suffix: '>*',

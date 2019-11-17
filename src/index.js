@@ -87,12 +87,7 @@ const Nude = {
 
 Nude.init = (...elements) => {
   elements.forEach(el => {
-    // if tag is already registered then skip
-    if (Nude.tags[el.nuTag]) return;
-
     el.nuInit();
-
-    Nude.tags[el.nuTag] = el;
   });
 };
 
