@@ -41,7 +41,7 @@ import NuNumber from './elements/number';
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
 import NuVar from './decorators/var';
-import NuStyle from './decorators/style';
+import NuAttrs from './decorators/attrs';
 // helpers
 import {
   injectScript,
@@ -143,7 +143,7 @@ export {
   NuCheckbox,
   NuLabel,
   NuNumber,
-  NuStyle,
+  NuAttrs,
   NuTheme,
   NuVar,
   NuDecorator,
