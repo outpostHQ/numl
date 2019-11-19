@@ -284,7 +284,7 @@ export function setOpacity(hsl, opacity) {
   return hslNew;
 }
 
-export function setPastelLuminance(hsl, lum = 100) {
+export function setPastelSaturation(hsl, lum = 100) {
   const hpl = [...hsl];
 
   hpl[1] = lum;
@@ -295,7 +295,7 @@ export function setPastelLuminance(hsl, lum = 100) {
 export function setOptimalSaturation(hsl) {
   hsl = [...hsl];
 
-  const pastelColor = setPastelLuminance(hsl);
+  const pastelColor = setPastelSaturation(hsl);
 
   hsl[1] = (pastelColor[1] + 100) / 2;
 
@@ -320,7 +320,7 @@ export default {
   hpluvToRgb,
   rgbToHpluv,
   hpluvToHsluv,
-  pastel: setPastelLuminance,
+  pastel: setPastelSaturation,
   hslToRgbaStr,
   setOptimalSaturation,
   getTheBrightest,

@@ -254,7 +254,7 @@ export default class NuElement extends NuBase {
     const as = this.getAttribute('as') || this.getAttribute('nu-id');
 
     if (as) {
-      const key = `style:${as}`;
+      const key = `$attrs:${as}`;
       const define = this.nuContext[key];
 
       if (define) {

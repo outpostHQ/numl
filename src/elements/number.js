@@ -5,7 +5,7 @@ export function stripZeros(val) {
 }
 
 function toFixed(num, precision) {
-  return stripZeros(Number(num).toFixed(precision));
+  return stripZeros(numberFromString(num).toFixed(precision));
 }
 
 function numberFromString(num) {
@@ -13,7 +13,7 @@ function numberFromString(num) {
 
   if (typeof num !== 'string') return null;
 
-  let value = Number(num);
+  let value = Number(num.replace(/,/g, ''));
 
   if (value !== value) return null;
 
@@ -168,16 +168,24 @@ export default class SsNumber extends NuInput {
   nuFixValue(value) {
     value = (value != null ? value : this.nuValue) || '0';
 
+    value = this.nuFixValueLimit(value);
+
+    return toFixed(String(value), this.getAttribute('precision') || 2);
+  }
+
+  nuFixValueLimit(value) {
+    value = numberFromString(value);
+
     const max = numberFromString(this.getAttribute('max'));
     const min = numberFromString(this.getAttribute('min'));
 
-    if (max != null && Number(value) > max) {
+    if (max != null && value > max) {
       value = max;
-    } else if (min != null && Number(value) < min) {
+    } else if (min != null && value < min) {
       value = min;
     }
 
-    return toFixed(value, this.getAttribute('precision') || 2);
+    return value;
   }
 
   nuGetFormattedValue(value) {
@@ -228,10 +236,10 @@ export default class SsNumber extends NuInput {
 
   nuValidateRefValuePrivate(value) {
     const precision = this.getAttribute('precision') || 2;
-    const fixed = value
+    const fixed = this.nuFixValueLimit(value
       .replace(new RegExp(`(\\.[0-9]{${precision}})[0-9]+$`), (s, s1) => s1)
       .replace(/\..*\./, s => s.slice(0, -1))
-      .replace(/^0+/, '');
+      .replace(/^0+/, ''));
 
     if (value !== fixed || value.split('.').length > 2) {
       this.nuRef.value = fixed;

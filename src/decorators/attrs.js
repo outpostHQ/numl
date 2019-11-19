@@ -3,7 +3,7 @@ import { getAllAttrs } from '../base';
 
 export default class NuStyle extends NuDecorator {
   static get nuTag() {
-    return 'nu-style';
+    return 'nu-attrs';
   }
 
   static get nuAttrsList() {
@@ -44,7 +44,7 @@ export default class NuStyle extends NuDecorator {
       });
     });
 
-    parent.nuSetContext(`style:${id}`, define);
+    parent.nuSetContext(`$attrs:${id}`, define);
   }
 
   nuDisconnected() {
