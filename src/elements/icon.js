@@ -1,5 +1,5 @@
 import {
-  convertUnit, parseAllValues, svgElement, injectScript,
+  parseAllValues, svgElement, injectScript,
 } from '../helpers';
 import NuBlock from './block';
 
