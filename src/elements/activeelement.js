@@ -200,6 +200,21 @@ export default class NuActiveElement extends NuElement {
     }
   }
 
+  nuPreparePayload(payload) {
+    const type = this.getAttribute('type');
+
+    switch (type) {
+      case 'number':
+        return Number(payload);
+      case 'bool':
+        return Boolean(payload);
+      case 'date':
+        return new Date(payload);
+      default:
+        return payload;
+    }
+  }
+
   nuControl() {
     if (!this.hasAttribute('controls')) return;
 
