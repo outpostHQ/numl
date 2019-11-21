@@ -133,8 +133,6 @@ import 'numl';
 
 Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
 
-Here is our [Trello Board](https://trello.com/b/zEGV1W3L/nude-framework).
-
 And here is our [Telegram Chat](https://t.me/nudeml). (Ask your questions here!)
 
 ### Browser Support
@@ -181,15 +179,29 @@ Run `npm run play` to view test page with few examples.
 
 ## Roadmap
 
-### v0.8
-
-* Rework of theme system.
 * Improve performance of responsive system.
 * Improve widgets' logic.
 * New variable system.
 * New useful elements.
+* Documentation
 
 ## Changelog
+
+### v0.8
+
+#### New features
+
+* Full rework of **Theme System**. Full theme calculation from single hue param. WCAG contrast ratio compliance. Much better **Dark scheme** and **High contrast** support. Tweak every theme with modifiers.
+
+#### Breaking changes
+
+* **theme**, **color**, **fill** attributes now works completely different.
+* **nu-theme** has new awesome API.
+* **nu-triangle**: **[dir]** -> **[set]**.
+
+#### Bug fixes
+* Unable to change border width of **nu-switch**.
+* Flex doubles gap in Firefox.
 
 ### v0.7
 
