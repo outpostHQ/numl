@@ -200,6 +200,7 @@ Run `npm run play` to view test page with few examples.
 * **theme**, **color**, **fill** attributes now works completely different.
 * **nu-theme** has new awesome API.
 * **nu-triangle**: **[dir]** -> **[set]**.
+* **nu-style** renamed to **nu-attrs** for a more accurate understanding.
 
 #### Bug fixes
 * Unable to change border width of **nu-switch**.
