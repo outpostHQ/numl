@@ -174,6 +174,7 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
     case 'main':
       theme.bg = bgColor;
       theme.text = textColor;
+      [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
   }
 
   theme.focus = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));

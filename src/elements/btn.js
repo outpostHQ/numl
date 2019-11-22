@@ -39,13 +39,13 @@ export default class NuBtn extends NuActiveElement {
       }
       
       ${tag}[special]:not([theme]):not([color]) {
-        color: var(--nu-special-bg-color);
+        color: var(--nu-special-text-color);
       }
       
       ${tag}[special]:not([theme]):not([fill]) {
         --nu-intensity: var(--nu-special-intensity);
       
-        background-color: var(--nu-special-text-color);
+        background-color: var(--nu-special-bg-color);
       }
     `;
   }
