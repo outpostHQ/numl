@@ -1,6 +1,6 @@
-# <img src="https://github.com/tenphi/nude/blob/master/logo.png?raw=true" alt="NUDE Elements" width="416">
+# <img src="https://github.com/tenphi/nude/blob/master/logo.svg?raw=true" alt="NUDE Elements" width="446">
 
-**PRE-ALPHA VERSION, UNDER RAPID DEVELOPMENT, API is subject to change**
+**ALPHA VERSION, UNDER RAPID DEVELOPMENT, API is subject to change**
 
 **NUDE Elements** is: 
 
