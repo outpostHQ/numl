@@ -1,4 +1,4 @@
-# Theme system
+# Theme system - [DEPRECATED, will be updated soon with new spec]
 
 It's very difficult to manage colors in a modern web application. There are many nuances of color contrast ratio, shadow intensity and color inversion (for the dark mode). Lucky for you, NUDE can solve the most of such problems by generating colors from your theme definition. It's really simple, check it out!
 

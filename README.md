@@ -193,7 +193,7 @@ Run `npm run play` to view test page with few examples.
 
 #### New features
 
-* Full rework of **Theme System**. Full theme calculation from single hue param. WCAG contrast ratio compliance. Much better **Dark scheme** and **High contrast** support. Tweak every theme with modifiers.
+* Full rework of **Theme System**. Full theme calculation from single hue param. WCAG contrast ratio compliance. Much better **Dark scheme** and **High contrast** support. Ability to tweak every theme with modifiers.
 
 #### Breaking changes
 
