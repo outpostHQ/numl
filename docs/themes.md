@@ -1,75 +1,134 @@
-# Theme system - [DEPRECATED, will be updated soon with new spec]
+# Theme system
 
-It's very difficult to manage colors in a modern web application. There are many nuances of color contrast ratio, shadow intensity and color inversion (for the dark mode). Lucky for you, NUDE can solve the most of such problems by generating colors from your theme definition. It's really simple, check it out!
+It's very difficult to manage colors in a modern web application. There are many nuances of color contrast ratio, shadow intensity and color inversion (for the dark mode). Lucky for you, NUDE can solve the most of such problems by generating colors from a single hue value!. It's really simple, check it out!
 
-At first, let's define default theme for the element.
+## Theme generation
+
+### Generate colors from hue
+
+At first, let's define a theme for the element. This theme will be applied to the element and all inside elements by default.
 
 ```html
 <nu-card>
-  <nu-theme
-    color="#333"
-    background="#fff"
-    border-color="rgba(210, 221, 236, 1)"
-    special-color="rgba(24, 133, 217, 1)"></nu-theme>
+  <nu-theme hue="250"></nu-theme>
 </nu-card>
 ```
 
-These four colors are base colors for theme. They are required to generate a full-featured color theme with all needed shades for your application.
+Well, that's all! NUDE automatically find the best saturation for that hue and generate a bunch of colors for your site:
 
-But there is no need to provide all four required colors. Theme will inherit attribute value if it's not specified. Named themes will inherit values from default theme and default theme will inherit values from parent default theme (or NUDE defaults). 
+* **text** `--nu-text-color` – Base color of text and icons.
+* **bg** `--nu-bg-color` – Base background color.
+* **border** `--nu-border-color` – Border color.
+* **hover** `--nu-hover-color` – Background color for hover effect.
+* **focus** `--nu-focus-color` – Color for focus outline.
+* **subtle** `--nu-subtle-color` – Color that is slightly differs from background to differentiate similar blocks.
+* **intensity** `--nu-intensity` – A number from 0 to 1 that indicates shadow intensity
+* **special** `--nu-special-color` – Text color to highlight special parts of the content.
+* **special-text** `--nu-special-text-color` – Text color for special elements that are also have special background color applied.
+* **special-bg** `--nu-special-bg-color` – Background color for special elements that are also have special text color applied.
+* **special-intensity** `--nu-special-intensity` – Shadow intensity for elements with `special-bg` background color.
 
-You can use any color declaration that browser supports and even Custom Properties (but after theme generation is complete you won't be able to manipulate colors by changing Custom Properties). Usage of HTML color names (like `yellow`, `green` and etc) requires additional file named `numl.colors.js` to be included in your app before NUDE. You can even add your own predefined colors if you need.
+You can use this custom properties names in your elements.
 
-Such declaration will define a set of custom properties that will contain corresponding colors and params:
+As you see in NUDE we **name colors by their role**, not by their visual characteristics or by their specific usage. It keeps the number of colors minimal but helps NUDE understand their purpose and do some automation to generate various modes for your theme!
 
-Full list of generated custom properties for `default` theme:
+### Generate colors from hue and saturation
 
-* **[color]** `--nu-theme-color` (default: `#333`) – Base color of theme. It's primary used for **text** coloring.
-* **[background-color]** `--nu-theme-backgroundcolor` (default: `#fff`) – Base **background** color.
-* **[border-color]** `--nu-theme-border-color` (default: `rgba(210, 221, 236, 1)`) – Base **border** color.
-* **[special-color]** `--nu-theme-special-color` (default: `rgba(24, 133, 217, 1)`) – A **special** color, also known as **active** or **primary** color. It's used for highlighting active elements that need user attention or for decoration purposes.
-* **[shadow-color]** `--nu-theme-hover-color` – Shadow color to color element shadows. Alpha channel can be used to define `shadow-intensity` attribute.
-* **[minor-color]** `--nu-theme-minor-color` – Minor text color. It's used for minor text labels, some headers and non-active elements. If not provided then generated from `color` and `background-color`.
-* **[minor-background-color]** `--nu-theme-minor-color` – Minor background color that identifies non-active zones and highlights headers blocks if needed. If not provided then generated from `background-color` and `color`.
-* **[hover-color]** `--nu-theme-hover-color` – Hover color to identify hover state of active elements. If not specified then generated from `special-color`.
-* **[focus-color]** `--nu-theme-hover-color` – Focus color to identify focus state of active elements. If not specified then generated from `background-color` and `special-color`.
-* **[special-background-color]** `--nu-theme-hover-color` – Contrast color for `special-color`. It's used in elements that are marked as `special`. If not specified then generated from `color`, `background-color` and `special-color`.
-* **[special-hover-color]** `--nu-theme-hover-color` – Hover color for `special` elements. If not specified then generated from `special-background-color`.
-* **[special-minor-color]** `--nu-theme-hover-color` – Minor color for `special` elements. If not specified then generated from `special-background-color` and `special-color`.
-* **[subtle-color]** `--nu-theme-hover-color` – Subtle color to separate identical elements by providing background for one of them. If not specified then generated from `background-color` and `special-color`.
-* **[heading-color]** `--nu-theme-heading-color` – Header color to compensate their font weight over base text. If not specified then generated from `color` and `background-color`.
+If you want you can provide exact `saturation` you need:
+
+```html
+<nu-theme hue="250" saturation="20"></nu-theme>
+```
+
+### Generate colors from color
+
+Also you can use any hex/rgb/rgba/hsl declaration to provide base color:
+
+```html
+<nu-theme from="#3366ee"></nu-theme>
+```
+
+You still need to provide `saturation` otherwise it will be set to `auto`.
+
+### Specify other params for theme
 
 There are some more parameters you can specify with your theme besides colors:
 
-* **[padding]** `--nu-theme-padding` (default: `.5rem`) – Base padding.
-* **[border-width]** `--nu-theme-padding` (default: `1px`) – Base border width.
-* **[border-radius]** `--nu-theme-border-radius` (default: `.5rem`) – Base border radius.
-* **[animation-time]** `--nu-theme-animation-time` (default: `0.08s`) – Base animation time.
-* **[shadow-intensity]** `--nu-theme-shadow-intensity` (default: `.5rem`) – Base shadow intensity. It can be specified by providing alpha channel to the `shadow-color` parameter.
+* **[padding]** `--nu-padding` (default: `.5rem`) – Base padding.
+* **[border-width]** `--nu-border-width` (default: `1px`) – Base border width.
+* **[border-radius]** `--nu-border-radius` (default: `.5rem`) – Base border radius.
+* **[animation-time]** `--nu-animation-time` (default: `0.08s`) – Base animation time.
 
-As you see in NUDE we **name colors by their role**, not by their visual characteristics or by their specific usage. It keeps the number of colors minimal but helps NUDE understand their purpose and do some automation to generate not provided color and even DARK THEME!
+Example of declaration:
+
+```html
+<nu-theme
+  hue="250"
+  saturation="auto"
+  padding=".5"
+  border-radius=".5"
+  border-width="1px"
+  padding=".5"
+  animation-time="0.08s"></nu-theme>
+```
+
+## Named themes
+You can name each theme:
+
+```html
+<nu-theme name="red" hue="8"></nu-theme>
+```
+
+## Apply theme
+To apply theme use `[theme]` attribute:
+
+```html
+<nu-card theme="red"></nu-card>
+```
+
+Or use empty value to apply main theme.
+
+## Theme modifiers
+You can use a lot of modifiers to tweak your theme:
+
+* **Type modifiers**: `main`|`common`|`toned`|`swap`|`special` – Several predefined types of theme.
+* **Contrast modifiers**: `soft`|`contrast` – Change contrast of theme.
+* **Intensity modifiers** `dim`|`bold` – Change intensify of theme.
+* **Saturation modifiers** `saturated`|`desaturated` - Change saturation of theme.
+
+Use modifiers in `[theme]` attribute:
+```html
+<nu-card theme="toned soft"></nu-card>
+```
+
+See all possible variations in our [Playground](https://nude-playground.tenphi.now.sh/)!
+
+## Accessibility
+
+With NUDE it you can automatically get **Dark** and **High-contrast** modes for your site.
+
+Each theme variant generates four sets of colors for each scenario:
+
+* **Light Theme** with **Normal contrast**
+* **Dark Theme** with **Normal contrast**
+* **Light Theme** with **High contrast**
+* **Dark Theme** with **High contrast**
 
 ## Prefers color scheme
 
-With NUDE it can be fully automatic to generate Dark Theme for your site.
-
-There are some requirements to make it work:
-
-**First step**: you need to specify default theme for your top-level NUDE Element. Even empty theme will be enough.
-
-```html
-<nu-block>
-  <nu-theme></nu-theme>
-</nu-block>
-```
-
-It will generate all needed custom properties to make Dark Theme work.
-
-**Second step**: There are some classes that you should add to the `html` tag for the following cases:
+There are some classes that you should add to the `html` tag for the following scenarios:
 
 * Do nothing or add `nu-prefers-color-scheme-light` to activate Light Theme.
 * Add `nu-prefers-color-scheme-dark` to activate Dark Theme.
 * Add `nu-prefers-color-scheme` to activate auto-switching depending on system preference. 
+
+## Prefers contrast
+
+There are also some classes that you should add to the `html` tag for the following scenarios:
+
+* Do nothing to use normal contrast.
+* Add `nu-prefers-contrast-high` to use high contrast.
+* Add `nu-prefers-contrast` to use system contrast preference.
 
 ## Prefers reduced motion
 
@@ -78,11 +137,3 @@ You can add classes to the `html` element to control over `reduced-motion` prefe
 * Do nothing to ignore that media query.
 * Add `nu-prefers-reduced-motion-reduce` to reduce motion in user interface.
 * Add `nu-prefers-reduced-motion` to reduce motion depending on system preference.
-
-## Prefers contrast
-
-NUDE currently supports this feature via CSS filter. It's not perfect and have some issues with fixed positioning but you can use if you really want.
-
-You can add class `nu-prefers-contrast-high` to the `html` element to increase contrast of your site. But currently there is no way to inherit system preference.
-
-NUDE will support generated contrast theme later.
