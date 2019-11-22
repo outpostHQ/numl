@@ -34,7 +34,7 @@ As you see in NUDE we **name colors by their role**, not by their visual charact
 
 ### Generate colors from hue and saturation
 
-If you want you can provide exact `saturation` you need:
+If you want you can provide exact **saturation** you need:
 
 ```html
 <nu-theme hue="250" saturation="20"></nu-theme>
@@ -48,7 +48,9 @@ Also you can use any hex/rgb/rgba/hsl declaration to provide base color:
 <nu-theme from="#3366ee"></nu-theme>
 ```
 
-You still need to provide `saturation` otherwise it will be set to `auto`.
+The **hue** will be extracted from that color.
+
+If you need custom **saturation** you can set `[saturation]` attribute to specific value or set `auto` for optimal saturation.
 
 ### Specify other params for theme
 
