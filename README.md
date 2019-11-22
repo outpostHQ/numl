@@ -27,7 +27,7 @@ With **NUDE Elements** you can:
 * Create your own element or a whole **Design System** with ease
 * Add **responsiveness** with effort so little you've never seen before
 * **Copy-paste** your markup from project to project, regardless of the framework used
-* Add **Dark Theme** to your NUDE-powered site effortlessly
+* Add **Dark** and **High-contrast** modes to your NUDE-powered site effortlessly
 * Be calm for technical debt in markup code
 * **Enjoy** while doing what you love
 
