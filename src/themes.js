@@ -154,21 +154,21 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
     case 'common':
       theme.bg = bgColor;
       theme.text = findContrastColor(color, tonedBgLightness, minContrast);
+      [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
       break;
     case 'toned':
       theme.bg = setPastelSaturation(setLuminance(color, tonedBgLightness));
       theme.text = findContrastColor(color, tonedBgLightness, minContrast);
+      [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
       break;
     case 'swap':
       theme.bg = findContrastColor(color, tonedBgLightness, minContrast);
       theme.text = setPastelSaturation(setLuminance(color, tonedBgLightness));
-      [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
       isInvert = true;
       break;
     case 'special':
       theme.text = getTheBrightest(textColor, bgColor);
       theme.bg = findContrastColor(color, theme.text[2], minContrast);
-      [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
       isInvert = true;
       break;
     case 'main':
