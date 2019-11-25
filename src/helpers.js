@@ -424,7 +424,7 @@ export function bindActiveEvents() {
  * @returns {string}
  */
 export function toCamelCase(str) {
-  return str.replace(/\-[a-z]/g, s => s.slice(1).toUpperCase());
+  return str.replace(/-[a-z]/g, s => s.slice(1).toUpperCase());
 }
 
 /**
@@ -532,7 +532,7 @@ export function splitStates(attrValue) {
        * If false then val applies on parent state.
        * @type {Boolean}
        */
-      const idMatch = val.match(/^#([a-z\-]+)/);
+      const idMatch = val.match(/^#([a-z\d-]+)/);
 
       if (idMatch && idMatch[1] && id && idMatch[1] !== id) {
         return warn('too complex state (skipped):', `"${attrValue}"`);
@@ -615,7 +615,7 @@ export function computeStyles(name, value, attrs, defaults) {
   if (value == null) return;
 
   // Style splitter for states system
-  if (value.match(/[\:\#\^][a-z0-9\-\:]+\[/)) {
+  if (value.match(/[:#^][a-z\d:-]+\[/)) {
     // split values between states
     const states = splitStates(value);
 

@@ -41,6 +41,7 @@ export default class NuIcon extends NuBlock {
       text: 'middle',
       width: 'min(1fs)',
       height: 'min(1fs)',
+      sizing: 'content',
     };
   }
 
@@ -49,7 +50,6 @@ export default class NuIcon extends NuBlock {
       ${css}
       ${tag} {
         position: relative;
-        background-color: transparent !important;
       }
 
       ${tag} > svg {

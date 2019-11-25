@@ -21,8 +21,6 @@ export default class NuColumnHeader extends NuRowHeader {
 
   static get nuDefaults() {
     return {
-      color: 'minor',
-      fill: '!minor',
       border: null,
     };
   }
