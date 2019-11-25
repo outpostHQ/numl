@@ -95,12 +95,18 @@ You can use a lot of modifiers to tweak your theme:
 
 * **Type modifiers**: `main`|`common`|`toned`|`swap`|`special` – Several predefined types of theme.
 * **Contrast modifiers**: `soft`|`contrast` – Change contrast of theme.
-* **Intensity modifiers** `dim`|`bold` – Change intensify of theme.
+* **Intensity modifiers** `dim`|`bold` – Change visual intensity of theme.
 * **Saturation modifiers** `saturated`|`desaturated` - Change saturation of theme.
 
 Use modifiers in `[theme]` attribute:
 ```html
 <nu-card theme="toned soft"></nu-card>
+```
+
+or use named `red` theme:
+
+```html
+<nu-card theme="red contrast dim"></nu-card>
 ```
 
 See all possible variations in our [Playground](https://nude-playground.tenphi.now.sh/)!
