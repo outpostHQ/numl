@@ -137,10 +137,8 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
   const tonedBgLightness = getBgLightness(lightness, highContrast, darkScheme);
   const textColor = getBaseTextColor(highContrast, darkScheme);
   const bgColor = getBaseBgColor(highContrast, darkScheme);
-  const bgLightness = bgColor[2];
-  const isMain = type === 'main';
-  const isCommon = type === 'common';
-  const isToned = type === 'toned';
+  const baseSaturation = color[1];
+  const borderContrastModifier = contrast === 'contrast' ? 1.5 : 0;
 
   let isInvert = false;
 
@@ -164,22 +162,24 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
     case 'swap':
       theme.bg = findContrastColor(color, tonedBgLightness, minContrast);
       theme.text = setPastelSaturation(setLuminance(color, tonedBgLightness));
+      theme.border = setPastelSaturation(findContrastColor(mix(originalSpecial, originalContrast, darkScheme ? 0 : .7), theme.bg[2], (highContrast ? 4.5 : 3) + borderContrastModifier, darkScheme), baseSaturation * (darkScheme ? 1 : .75));
       isInvert = true;
       break;
     case 'special':
       theme.text = getTheBrightest(textColor, bgColor);
       theme.bg = findContrastColor(color, theme.text[2], minContrast);
+      theme.border = setPastelSaturation(findContrastColor(mix(originalSpecial, originalContrast, darkScheme ? 0 : .7), theme.bg[2], (highContrast ? 4.5 : 3) + borderContrastModifier), baseSaturation * .5);
       isInvert = true;
       break;
     case 'main':
       theme.bg = bgColor;
       theme.text = textColor;
       [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
+      theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 2 : 1.2) + borderContrastModifier), baseSaturation / (highContrast ? 2 : 1));
   }
 
   theme.focus = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
-  const borderReferenceColor = mix(setPastelSaturation(originalSpecial), originalContrast, isMain ? .5 : 0);
-  theme.border = setPastelSaturation(findContrastColor(borderReferenceColor, (!isCommon && !isMain) ? theme.text[2] : tonedBgLightness, ((darkScheme && !isMain) || highContrast) ? 1.5 : (isMain ? 1 : 1.25), darkScheme ^ (isCommon || isMain)), isToned ? 100 : 50);
+  theme.border = theme.border || setPastelSaturation(findContrastColor(mix(originalSpecial, originalContrast, .7), theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), baseSaturation * (darkScheme ? 1 : .5));
 
   if (type === 'main') {
     theme.subtle = mix(bgColor, theme.focus, highContrast ? 0.18 : .06);
