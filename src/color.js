@@ -292,12 +292,12 @@ export function setPastelSaturation(hsl, lum = 100) {
   return hpluvToHsluv(hpl);
 }
 
+const optimalSaturation = 75;
+
 export function setOptimalSaturation(hsl) {
   hsl = [...hsl];
 
-  const pastelColor = setPastelSaturation(hsl);
-
-  hsl[1] = (pastelColor[1] + 100) / 2;
+  hsl[1] = optimalSaturation;
 
   return hsl;
 }
