@@ -4,8 +4,6 @@ import { bindActiveEvents, colorUnit } from '../helpers';
 import transformMixin from '../mixins/transform';
 import backgroundMixin from '../mixins/background';
 
-const backgroundUnit = colorUnit('background-color', 'background');
-
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
     return 'nu-activeelement'; // abstract tag
@@ -176,7 +174,7 @@ export default class NuActiveElement extends NuElement {
     }, 0);
   }
 
-  nuTap() {
+  nuTap(evt) {
     if (this.hasAttribute('disabled')
       || this.getAttribute('tabindex') === '-1') return;
 
@@ -186,8 +184,9 @@ export default class NuActiveElement extends NuElement {
 
     if (this.hasAttribute('to')) {
       const href = this.getAttribute('to');
+      const openNewTab = href.startsWith('!') || evt.metaKey || evt.shiftKey;
 
-      this.constructor.nuNavigate(href.replace(/^!/, ''), href.startsWith('!'));
+      this.constructor.nuNavigate(href.replace(/^!/, ''), openNewTab);
     }
 
     this.nuEmit('tap', this.nuValue, { bubbles: false });

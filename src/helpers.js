@@ -376,7 +376,7 @@ export function bindActiveEvents() {
     evt.nuHandled = true;
 
     if (!this.hasAttribute('disabled')) {
-      this.nuTap();
+      this.nuTap(evt);
     }
   });
 
@@ -386,7 +386,7 @@ export function bindActiveEvents() {
     evt.nuHandled = true;
 
     if (evt.key === 'Enter') {
-      this.nuTap();
+      this.nuTap(evt);
     } else if (evt.key === ' ') {
       evt.preventDefault();
       this.nuSetMod('active', true);
@@ -401,7 +401,7 @@ export function bindActiveEvents() {
     if (evt.key === ' ') {
       evt.preventDefault();
       this.nuSetMod('active', false);
-      this.nuTap();
+      this.nuTap(evt);
     }
   });
 
