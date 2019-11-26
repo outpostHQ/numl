@@ -134,6 +134,7 @@ function setSaturation(color, saturation) {
 export function generateTheme({ color, type, contrast, lightness, saturation, darkScheme, highContrast, shadowIntensity }) {
   const theme = {};
   const minContrast = getMinContrast(contrast, highContrast);
+  const moreContrast = getMinContrast(contrast !== 'soft' ? 'contrast' : 'normal', highContrast);
   const tonedBgLightness = getBgLightness(lightness, highContrast, darkScheme);
   const textColor = getBaseTextColor(highContrast, darkScheme);
   const bgColor = getBaseBgColor(highContrast, darkScheme);
@@ -160,7 +161,7 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
       theme.text = setPastelSaturation(setLuminance(color, tonedBgLightness));
       theme.border = setPastelSaturation(findContrastColor(mix(originalSpecial, originalContrast, darkScheme ? 0 : .7), theme.bg[2], (highContrast ? 4.5 : 3) + borderContrastModifier, darkScheme), baseSaturation * (darkScheme ? 1 : .75));
       theme['special-bg'] = [...theme.text];
-      theme['special-text'] = [...theme.bg];
+      theme['special-text'] = findContrastColor([...theme.bg], theme.text[2], moreContrast);
       break;
     case 'special':
       theme.text = getTheBrightest(textColor, bgColor);
