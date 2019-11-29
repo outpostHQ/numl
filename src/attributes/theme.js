@@ -15,12 +15,16 @@ export default function themeAttr(val) {
   const themeName = composeThemeName(theme);
 
   const styles = [THEME_PROPS_LIST.reduce((map, prop) => {
-    if (theme.name !== 'main' && prop === 'subtle-color') return map;
-
-    map[`--nu-${prop}`] = `var(--nu-${themeName}-${prop})`;
+    if (themeName === 'main') {
+      map[`--nu-${prop}`] = `var(--nu-${themeName}-${prop})`;
+    } else {
+      map[`--nu-${prop}`] = `var(--nu-${themeName}-${prop}, var(--nu-main-${prop}))`;
+    }
 
     return map;
   }, {})];
+
+  styles[0]['--nu-text-color-rgb'] = `var(--nu-${themeName}-text-color-rgb, var(--nu-main-text-color-rgb))`;
 
   styles.push({
     $suffix: ':not([color])',

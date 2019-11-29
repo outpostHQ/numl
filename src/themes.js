@@ -8,7 +8,7 @@ import {
   setLuminance,
   setOpacity,
   toRelative, hslToRgbaStr,
-  setOptimalSaturation, strToHsl, getTheBrightest, fromRelative, getContrastRatio,
+  setOptimalSaturation, strToHsl, getTheBrightest, fromRelative, getContrastRatio, hslToRgb,
 } from './color';
 import { cleanCSSByPart, injectCSS, stylesString } from './css';
 
@@ -20,7 +20,9 @@ export const THEME_PROPS_LIST = [
   'hover-color',
   'focus-color',
   'subtle-color',
+  'bold-color',
   'intensity',
+  'special-bold-color',
   'special-color',
   'special-text-color',
   'special-bg-color',
@@ -68,9 +70,9 @@ function getMinContrast(type = 'common', highContrast) {
 }
 
 const BG_OFFSET = {
-  normal: 7,
-  dim: 3,
-  bold: 12,
+  normal: 9,
+  dim: 5,
+  bold: 16,
 };
 
 /**
@@ -82,7 +84,7 @@ const BG_OFFSET = {
  */
 function getBgLightness(type = 'common', highContrast, darkScheme) {
   if (darkScheme) {
-    return (highContrast ? contrastMinLightness : normalMinLightness) + BG_OFFSET[type];
+    return (highContrast ? contrastMinLightness : normalMinLightness) + BG_OFFSET[type] - (darkScheme ? 2 : 0);
   } else {
     return 100 - BG_OFFSET[type];
   }
@@ -120,6 +122,12 @@ function setSaturation(color, saturation) {
   return newColor;
 }
 
+const SPECIAL_CONTRAST_MAP = {
+  3: 2.5,
+  4.5: 3.5,
+  7: 5.5,
+};
+
 /**
  * Generate theme with specific params
  * @param color {Array<Number>} – reference theme color
@@ -135,6 +143,7 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
   const theme = {};
   const minContrast = getMinContrast(contrast, highContrast);
   const moreContrast = getMinContrast(contrast !== 'soft' ? 'contrast' : 'normal', highContrast);
+  const lessContrast = getMinContrast(contrast !== 'contrast' ? 'soft' : 'normal', highContrast);
   const tonedBgLightness = getBgLightness(lightness, highContrast, darkScheme);
   const textColor = getBaseTextColor(highContrast, darkScheme);
   const bgColor = getBaseBgColor(highContrast, darkScheme);
@@ -151,46 +160,53 @@ export function generateTheme({ color, type, contrast, lightness, saturation, da
     case 'common':
       theme.bg = bgColor;
       theme.text = findContrastColor(color, tonedBgLightness, minContrast);
+      theme['special-bg'] = findContrastColor(color, theme['special-text'][2], darkScheme ? minContrast : SPECIAL_CONTRAST_MAP[minContrast]);
       break;
     case 'toned':
-      theme.bg = setPastelSaturation(setLuminance(color, tonedBgLightness));
-      theme.text = findContrastColor(color, tonedBgLightness, minContrast);
+      theme.bg = setPastelSaturation(setLuminance(color, tonedBgLightness), (darkScheme ? 50 : 100) * (color[1] + 100) / 200);
+      theme.text = findContrastColor(color, tonedBgLightness, minContrast + (minContrast === 3 && darkScheme ? .75 : 0));
       break;
     case 'swap':
-      theme.bg = findContrastColor(color, tonedBgLightness, minContrast);
+      theme.bg = findContrastColor(color, tonedBgLightness, minContrast + (minContrast === 3 && darkScheme ? .75 : 0));
       theme.text = setPastelSaturation(setLuminance(color, tonedBgLightness));
       theme.border = setPastelSaturation(findContrastColor(mix(originalSpecial, originalContrast, darkScheme ? 0 : .7), theme.bg[2], (highContrast ? 4.5 : 3) + borderContrastModifier, darkScheme), darkScheme ? 100 : baseSaturation * .75);
-      theme['special-bg'] = [...theme.text];
+      theme['special-bg'] = findContrastColor(theme.text, theme.bg[2], darkScheme ? SPECIAL_CONTRAST_MAP[minContrast] : minContrast);
+      // theme['special-bg'] = [...theme.text];
       theme['special-text'] = findContrastColor([...theme.bg], theme.text[2], moreContrast);
+      theme.special = [...bgColor];
       break;
     case 'special':
       theme.text = getTheBrightest(textColor, bgColor);
       theme.bg = findContrastColor(color, theme.text[2], minContrast);
       theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 4.5 : 2.5) + borderContrastModifier), baseSaturation * .75);
       [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
+      theme.special = [...originalContrast];
       break;
     case 'main':
       theme.bg = bgColor;
       theme.text = textColor;
+      theme['special-bg'] = findContrastColor(color, theme['special-text'][2], darkScheme ? minContrast : SPECIAL_CONTRAST_MAP[minContrast]);
       [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
       theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 2 : 1.2) + borderContrastModifier), baseSaturation / (highContrast ? 2 : 1));
       [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
+      theme.bold = findContrastColor(theme.bg, tonedBgLightness, 7);
   }
 
   theme.focus = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
   theme.border = theme.border || setPastelSaturation(findContrastColor(mix(originalSpecial, originalContrast, .7), theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), baseSaturation * (darkScheme ? 1 : .5));
+  theme.subtle = setPastelSaturation([color[0], color[1], theme.bg[2] + (darkScheme ? 2 : -2)], darkScheme ? 20 : 40);
 
   if (type === 'main') {
-    theme.subtle = mix(bgColor, theme.focus, highContrast ? 0.18 : .06);
     theme.special = findContrastColor(color, theme.subtle[2], minContrast);
+    theme['special-bold'] = findContrastColor(color, theme.subtle[2], lessContrast);
   } else {
-    theme.special = findContrastColor(theme.text, theme.bg[2], minContrast + 1);
+    theme.special = theme.special || findContrastColor(theme.text, theme.bg[2], minContrast + .75);
+    theme['special-bold'] = findContrastColor(theme.text, theme.bg[2], lessContrast + .75);
   }
+
   // in soft variant it's impossible to reduce contrast for headings
-  theme.heading = contrast !== 'soft'
-    ? mix(theme.text, theme.bg, .1)
-    : theme.text;
-  theme.hover = setOpacity(findContrastColor(theme.focus, theme.bg[2], highContrast ? 2.2 : 1.6), .2);
+  theme.bold = theme.bold || findContrastColor(theme.text, theme.bg[2], lessContrast === 3 ? 3 : lessContrast + .75);
+  theme.hover = setOpacity(findContrastColor(theme.focus, theme.bg[2], highContrast ? 2.2 : 1.6), .15);
   theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity, darkScheme);
   theme['special-intensity'] = getShadowIntensity(theme['special-bg'][2], shadowIntensity, darkScheme);
 
@@ -219,9 +235,7 @@ export function getShadowIntensity(bgLightness, shadowIntensity = .2, darkScheme
 }
 
 export function themeToProps(name, theme) {
-  return Object.keys(theme).reduce((map, color) => {
-    if (name !== 'main' && color === 'subtle') return map;
-
+  const map = Object.keys(theme).reduce((map, color) => {
     if (!Array.isArray(theme[color])) {
       const key = `--nu-${name}-${color}`;
 
@@ -235,14 +249,23 @@ export function themeToProps(name, theme) {
 
     return map;
   }, {});
+
+  map[`--nu-${name}-text-color-rgb`] = hslToRgb(theme.text);
+
+  return map;
 }
 
 export function generateReferenceColor({ hue, saturation, from }) {
+  const isPastel = saturation && saturation.endsWith('p');
+  const saturator = isPastel ? (hsl) => {
+    return setPastelSaturation(hsl, parseInt(saturation));
+  } : (v) => v;
+
   if (hue) {
     let hsl;
 
     if (saturation && saturation !== 'auto') {
-      hsl = [parseInt(hue, 10), parseInt(saturation), 80];
+      hsl = saturator([parseInt(hue, 10), parseInt(saturation), 80]);
     } else {
       hsl = setOptimalSaturation([parseInt(hue, 10), 50, 80]);
     }
@@ -256,6 +279,7 @@ export function generateReferenceColor({ hue, saturation, from }) {
         hsl = setOptimalSaturation(hsl);
       } else {
         hsl[1] = parseInt(saturation);
+        hsl = saturator(hsl);
       }
     }
 
@@ -277,17 +301,17 @@ const SATURATION_MODS = [
   'saturated',
   'desaturated',
 ];
-const TYPE_MODS = [
+export const THEME_TYPE_MODS = [
   'common',
   'toned',
   'swap',
   'special',
 ];
-const ALL_MODS = [
+export const ALL_THEME_MODS = [
   ...CONTRAST_MODS,
   ...LIGHTNESS_MODS,
   ...SATURATION_MODS,
-  ...TYPE_MODS,
+  ...THEME_TYPE_MODS,
 ];
 
 function incorrectTheme(prop, value) {
@@ -295,7 +319,7 @@ function incorrectTheme(prop, value) {
 }
 
 export function parseThemeAttr(attr, initial) {
-  let { value, mods } = extractMods(attr, ALL_MODS);
+  let { value, mods } = extractMods(attr, ALL_THEME_MODS);
   let contrast, lightness, saturation, type;
 
   const contrastMods = intersection(mods, CONTRAST_MODS);
@@ -331,7 +355,7 @@ export function parseThemeAttr(attr, initial) {
     saturation = 'normal';
   }
 
-  const typeMods = intersection(mods, TYPE_MODS);
+  const typeMods = intersection(mods, THEME_TYPE_MODS);
 
   if (devMode && typeMods.length > 2) {
     incorrectTheme('type', attr);
@@ -340,18 +364,16 @@ export function parseThemeAttr(attr, initial) {
     type = typeMods[0];
   }
 
-  if (!value) {
-    value = 'main';
-  }
-
   if (!value.match(/^[a-z0-9-]+$/i)) {
     incorrectTheme('name', attr);
   }
 
-  if (value === 'main' && !type) {
+  if (!type) {
     type = 'main';
-  } else if (!type) {
-    type = 'common';
+  }
+
+  if (!value) {
+    value = 'main';
   }
 
   return {
@@ -367,7 +389,7 @@ export function composeThemeName({ name, type, contrast, saturation, lightness }
   let themeName = name;
   let suffix = '';
 
-  type = type || 'common';
+  type = type || 'main';
 
   if (type !== 'main') {
     suffix += type[0] + type[1];
@@ -398,9 +420,10 @@ export function composeThemeName({ name, type, contrast, saturation, lightness }
  * @param name {String} – Name of theme
  * @param referenceColor {Array<Number>} – Reference color of theme
  * @param customProps {Object<String,String>} – All custom properties of theme
+ * @param defaultMods {String} – List of default modifiers
  */
 export function declareTheme(el, name, referenceColor, customProps, defaultMods) {
-  log('declare theme', { element: el, name });
+  log('declare theme', { element: el, name, customProps, defaultMods });
 
   if (devMode && !el.nuContext) {
     log('element context not found');
@@ -410,11 +433,13 @@ export function declareTheme(el, name, referenceColor, customProps, defaultMods)
   generateId(el);
 
   const key = `theme:${name}`;
+  const theme = applyDefaultMods(BASE_THEME, defaultMods);
 
   if (!el.nuContext[key]) {
     el.nuContext[key] = {
-      color: referenceColor,
       mods: defaultMods,
+      ...theme,
+      color: referenceColor,
       $context: el,
     };
   }
@@ -424,10 +449,10 @@ export function declareTheme(el, name, referenceColor, customProps, defaultMods)
   }
 
   applyTheme(el, {
-    ...BASE_THEME,
+    ...theme,
     name,
     color: referenceColor,
-  });
+  }, name);
 
   if (Object.keys(customProps).length) {
     const propsKey = `theme:${name}:${el.nuId}:props`;
@@ -443,11 +468,13 @@ export function declareTheme(el, name, referenceColor, customProps, defaultMods)
  * @param defaultMods {String}
  */
 export function applyDefaultMods(theme, defaultMods) {
-  const { value, mods } = extractMods(defaultMods, ALL_MODS);
+  theme = { ...theme };
+
+  const { value, mods } = extractMods(defaultMods, ALL_THEME_MODS);
   const saturationMod = mods.find(mod => SATURATION_MODS.includes(mod));
   const lightnessMod = mods.find(mod => LIGHTNESS_MODS.includes(mod));
   const contrastMod = mods.find(mod => CONTRAST_MODS.includes(mod));
-  const typeMod = mods.find(mod => TYPE_MODS.includes(mod));
+  const typeMod = mods.find(mod => THEME_TYPE_MODS.includes(mod));
 
   if (saturationMod) {
     if (theme.saturation === 'normal') {
@@ -525,7 +552,7 @@ export function applyTheme(element, { name, color, type, contrast, saturation, l
   const darkNormalProps = stylesString(themeToProps(themeName, darkNormalTheme));
   const darkContrastProps = stylesString(themeToProps(themeName, darkContrastTheme));
 
-  log('apply theme', { element, themeName, color });
+  log('apply theme', { element, themeName, color, type, contrast, saturation, lightness });
 
   const baseQuery = element === document.body ? 'body' : `#${element.nuId}`;
   const styleTagName = `theme:${themeName}:${baseQuery}`;
@@ -550,17 +577,17 @@ export function applyTheme(element, { name, color, type, contrast, saturation, l
         @media @media (prefers-color-scheme: light) and (prefers-contrast: low), @media (prefers-color-scheme: no-reference)  and (prefers-contrast: low), @media @media (prefers-color-scheme: light) and (prefers-contrast: no-reference), @media (prefers-color-scheme: no-reference)  and (prefers-contrast: no-reference) {
           html.nu-prefers-color-scheme.nu-prefers-contrast ${baseQuery}{${lightNormalProps}}
         }
-        
+
         @media (prefers-contrast: high) {
           html.nu-prefers-color-scheme-dark.nu-prefers-contrast ${baseQuery}{${darkContrastProps}}
           html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark).nu-prefers-contrast ${baseQuery}{${lightContrastProps}}
         }
-        
+
         @media (prefers-color-scheme: light), @media (prefers-color-scheme: no-reference) {
           html.nu-prefers-color-scheme-dark.nu-prefers-contrast ${baseQuery}{${darkNormalProps}}
           html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark).nu-prefers-contrast ${baseQuery}{${lightNormalProps}}
         }
-        
+
         @media (prefers-color-scheme: dark) {
           html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${darkContrastProps}}
           html.nu-prefers-color-scheme:(.nu-prefers-contrast):not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
@@ -569,7 +596,7 @@ export function applyTheme(element, { name, color, type, contrast, saturation, l
           html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${lightContrastProps}}
           html.nu-prefers-color-scheme:not(.nu-prefers-contrast):not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
         }
-        
+
         html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark):not(.nu-prefers-contrast):not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
       `
     );
@@ -586,7 +613,7 @@ export function applyTheme(element, { name, color, type, contrast, saturation, l
           html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${lightContrastProps}}
           html.nu-prefers-color-scheme:not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
         }
-        
+
         html.nu-prefers-color-scheme-dark.nu-prefers-contrast-high ${baseQuery}{${darkContrastProps}}
         html.nu-prefers-color-scheme-dark:not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
         html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark).nu-prefers-contrast-high ${baseQuery}{${lightContrastProps}}

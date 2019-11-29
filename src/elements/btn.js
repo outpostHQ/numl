@@ -37,15 +37,22 @@ export default class NuBtn extends NuActiveElement {
       ${tag}[nu-pressed]:not([disabled]):not([nu-active]) {
         --nu-local-toggle-color: rgba(0, 0, 0, var(--nu-intensity));
       }
-      
+
       ${tag}[special]:not([theme]):not([color]) {
         color: var(--nu-special-text-color);
       }
-      
+
       ${tag}[special]:not([theme]):not([fill]) {
         --nu-intensity: var(--nu-special-intensity);
-      
+
         background-color: var(--nu-special-bg-color);
+      }
+
+      ${tag}[special] > :not([theme]) {
+        --nu-border-color: var(--nu-special-text-color);
+        --nu-bold-color: var(--nu-special-bold-color);
+        --nu-special: var(--nu-special-bold-color);
+        --nu-special-color: var(--nu-special-text-color);
       }
     `;
   }

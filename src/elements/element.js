@@ -8,7 +8,7 @@ import {
   colorUnit,
   setImmediate,
   sizeUnit,
-  splitDimensions, log, parseAllValues,
+  splitDimensions, log, parseAllValues, extractMods,
 } from '../helpers';
 import textAttr from '../attributes/text';
 import {
@@ -22,7 +22,7 @@ import {
 import NuBase from '../base';
 import {
   parseThemeAttr,
-  applyTheme, composeThemeName, applyDefaultMods, BASE_THEME
+  applyTheme, composeThemeName, applyDefaultMods, BASE_THEME, ALL_THEME_MODS, THEME_TYPE_MODS
 } from '../themes';
 import placeAttr, { PLACE_VALUES } from '../attributes/place';
 import borderAttr from '../attributes/border';
@@ -225,10 +225,14 @@ export default class NuElement extends NuBase {
    * @private
    */
   connectedCallback() {
-    const parent = this.parentNode;
+    let parent = this.parentNode;
 
     // cache parent to have reference in onDisconnected callback
     this.nuParent = parent;
+
+    while (!parent.nuContext && parent !== document.body) {
+      parent = parent.parentNode;
+    }
 
     if (parent.nuContext) {
       this.nuContext = Object.create(parent.nuContext);
@@ -525,18 +529,27 @@ export default class NuElement extends NuBase {
   }
 
   nuEnsureThemes(force) {
-    const values = parseAllValues(this.getAttribute('theme'));
+    const values = parseAllValues(this.getAttribute('theme') || '');
 
     values.forEach((val) => {
-      const theme = parseThemeAttr(val);
+      let theme = parseThemeAttr(val);
       const themeName = composeThemeName(theme);
       const key = `theme:${themeName}`;
       const baseTheme = this.nuContext[`theme:${theme.name}`];
+      const defaultType = theme.type;
 
       if (!baseTheme) return;
 
       if (baseTheme.mods) {
-        applyDefaultMods(theme, baseTheme.mods);
+        const { mods } = extractMods(baseTheme.mods || '', ALL_THEME_MODS);
+
+        const typeMod = mods.find(mod => THEME_TYPE_MODS.includes(mod));
+
+        theme = applyDefaultMods(theme, baseTheme.mods);
+
+        if (typeMod) {
+          theme.type = defaultType !== 'main' ? defaultType : baseTheme.type;
+        }
       }
 
       if (baseTheme && (!this.nuContext[key] || force)) {

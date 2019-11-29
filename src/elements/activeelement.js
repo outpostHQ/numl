@@ -80,7 +80,7 @@ export default class NuActiveElement extends NuElement {
           var(--nu-local-toggle-shadow),
           var(--nu-local-depth-shadow);
       }
-      
+
       ${tag}[tabindex]:not([tabindex="-1"]):not([disabled])::after {
         content: '';
         position: absolute;
@@ -92,7 +92,7 @@ export default class NuActiveElement extends NuElement {
         border-radius: inherit;
         background-color: var(--nu-local-hover-color);
         transition: background-color var(--nu-animation-time) linear;
-      } 
+      }
 
       ${tag}[tabindex] {
         cursor: pointer;
@@ -102,7 +102,7 @@ export default class NuActiveElement extends NuElement {
         opacity: .5;
         cursor: default;
       }
-      
+
       ${tag}:not([disabled])[tabindex]:hover {
         --nu-local-hover-color: var(--nu-hover-color);
       }

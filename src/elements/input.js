@@ -71,9 +71,9 @@ export default class NuInput extends NuBlock {
       }
 
       ${tag} input[disabled] {
-        color: var(--nu-focus-color);
+        color: rgb(var(--nu-text-color-rgb), .6);
         background: var(--nu-hover-color);
-        -webkit-text-fill-color: var(--nu-focus-color);
+        -webkit-text-fill-color: rgb(var(--nu-text-color-rgb), .6);
         -webkit-opacity: 1;
       }
 

@@ -61,8 +61,14 @@ import { applyTheme, BASE_THEME } from './themes';
 import themeAttr from './attributes/theme';
 import { generateCSS, injectCSS } from './css';
 
+const IGNORE_KEYS = ['Alt', 'Control', 'Meta', 'Shift'];
+
 window.addEventListener('mousedown', disableFocus);
-window.addEventListener('keydown', enableFocus);
+window.addEventListener('keydown', (event) => {
+  if (!IGNORE_KEYS.includes(event.key)) {
+    enableFocus();
+  }
+});
 
 applyTheme(document.body, BASE_THEME, 'main');
 

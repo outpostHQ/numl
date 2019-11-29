@@ -49,7 +49,7 @@ export default function borderAttr(val) {
 
   if (newVal != null) {
     val = newVal;
-    color = 'var(--nu-special-text-color)';
+    color = 'var(--nu-special-color)';
   }
 
   for (let s of BORDER_STYLES) {

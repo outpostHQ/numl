@@ -17,7 +17,7 @@ export default class NuLink extends NuActiveElement {
   static get nuDefaults() {
     return {
       display: 'inline-block',
-      color: 'special',
+      color: 'special-bold',
       text: 'nowrap u',
       cursor: 'pointer',
       radius: '.5x',
@@ -33,11 +33,11 @@ export default class NuLink extends NuActiveElement {
         font-weight: bolder;
         position: relative;
       }
-      
+
       ${tag}:not([disabled])[nu-active] {
         --nu-local-hover-color: var(--nu-hover-color);
       }
-      
+
       ${focusable(tag)}
     `;
   }

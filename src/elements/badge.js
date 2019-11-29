@@ -30,9 +30,17 @@ export default class NuBadge extends NuElement {
 
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
+  }
 
-    if (name === 'special' && value != null && !this.hasAttribute('theme')) {
-      this.setAttribute('theme', 'special');
-    }
+  static nuCSS({ tag, css }) {
+    return `
+      ${css}
+      ${tag}[special]:not([fill]) {
+        background-color: var(--nu-special-bg-color);
+      }
+      ${tag}[special]:not([color]) {
+        color: var(--nu-special-text-color);
+      }
+    `;
   }
 }

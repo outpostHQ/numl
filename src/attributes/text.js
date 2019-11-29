@@ -24,6 +24,9 @@ set('ellipsis', {
   'white-space': 'nowrap',
   'text-overflow': 'ellipsis',
 });
+set('tabular-nums', {
+  'font-variant-numeric': 'tabular-nums',
+});
 
 set('wrap', { 'white-space': 'normal' });
 set('nowrap', { 'white-space': 'nowrap' });
