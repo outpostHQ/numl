@@ -17,6 +17,8 @@ export default function gapAttr(val) {
   return [{
     gap: val,
     'grid-gap': val,
+    '--nu-local-v-gap': vGap,
+    '--nu-local-h-gap': hGap,
   }, {
     $suffix: '>*',
     '--nu-v-gap': vGap,

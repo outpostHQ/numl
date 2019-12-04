@@ -25,7 +25,6 @@ export default class NuTooltip extends NuBlock {
       size: 'sm',
       interactive: 'no',
       text: 'wrap',
-      // width: 'min(15)',
     };
   }
 
@@ -51,5 +50,11 @@ export default class NuTooltip extends NuBlock {
     this.nuSetDisconnectedHook(() => {
       parent.removeEventListener('mouseenter', onMouseEnter);
     });
+
+    if (!this.hasAttribute('width')) {
+      const width = `min(${Math.min(Math.ceil(this.innerText.length / 2), 15)}em)`;
+
+      this.setAttribute('width', width);
+    }
   }
 }

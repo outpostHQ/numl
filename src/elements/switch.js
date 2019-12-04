@@ -97,7 +97,7 @@ export default class NuSwitch extends NuActiveElement {
       ${tag}[nu-active]:not([disabled]):not([nu-pressed]) {
         --nu-local-color: rgba(0, 0, 0, var(--nu-intensity));
       }
-      
+
       ${tag}[nu-active][nu-pressed]:not([disabled]) {
         --nu-local-color: rgba(0, 0, 0, var(--nu-special-intensity));
       }

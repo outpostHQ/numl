@@ -1,5 +1,7 @@
 <html class="nu-prefers-color-scheme" lang="en">
 <head>
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/nude-logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/nude-logo-16.png">
   <title>NUDE Elements Playground</title>
   <script src="src/pack.js"></script>
 </head>
@@ -42,8 +44,8 @@
     <nu-flow text="lg" gap="1" display="flex" flow="column">
       <nu-block>
         <nu-el text="w5">This page has zero CSS assets.</nu-el>
-        All you see is generated in runtime in your browser. There is almost 1MB of generated CSS
-        for almost 200 theme variants and other styling. If in any moment there is some CSS that
+        All you see is generated in runtime in your browser. There are <nu-el id="bytes" color="special" text="w5">???</nu-el> bytes of generated CSS
+        for 32 theme variants and other styling. If in any moment there is some CSS that
         can't be re-used in the future then it will be deleted. You can edit markup in DevTools and
         see changes instantly. You can try change defaults: border radius, border width, animation
         time, padding and hues/saturation for various themes.
@@ -162,14 +164,14 @@
       <nu-card gap=".5">
         <nu-heading level="3" size="h5" inline>Header</nu-heading>
         <nu-block>Paragraph text.</nu-block>
-        <nu-block color="special">Special text.</nu-block>
+        <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
         <nu-btn special>Special Button</nu-btn>
       </nu-card>
 
       <nu-heading level="3">Various themes with different hues</nu-heading>
 
-      <nu-grid columns="repeat(4, 1fr)||repeat(2, 1fr)" gap="1">
+      <nu-grid columns="repeat(5, 1fr)|repeat(3, 1fr)|repeat(2, 1fr)" gap="1">
         <nu-theme name="blue" hue="262"></nu-theme>
         <nu-theme name="cyan" hue="192"></nu-theme>
         <nu-theme name="green" hue="127"></nu-theme>
@@ -181,232 +183,293 @@
 
         <nu-card gap=".5" theme="blue">
           <nu-heading level="3" size="h5" inline>Blue</nu-heading>
+          <nu-block>Main theme.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
+          <nu-btn>Simple Button</nu-btn>
+          <nu-btn special>Special Button</nu-btn>
+        </nu-card>
+        <nu-card gap=".5" theme="blue common">
+          <nu-heading level="3" size="h5" inline>Blue</nu-heading>
           <nu-block>Common theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="blue toned">
           <nu-heading level="3" size="h5" inline>Blue</nu-heading>
           <nu-block>Toned theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="blue swap">
           <nu-heading level="3" size="h5" inline>Blue</nu-heading>
           <nu-block>Swap theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="blue special">
           <nu-heading level="3" size="h5" inline>Blue</nu-heading>
           <nu-block>Special theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
+        <nu-block hide="y|n"></nu-block>
 
         <nu-card gap=".5" theme="cyan">
           <nu-heading level="3" size="h5" inline>Cyan</nu-heading>
+          <nu-block>Main theme.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
+          <nu-btn>Simple Button</nu-btn>
+          <nu-btn special>Special Button</nu-btn>
+        </nu-card>
+        <nu-card gap=".5" theme="cyan common">
+          <nu-heading level="3" size="h5" inline>Cyan</nu-heading>
           <nu-block>Common theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="cyan toned">
           <nu-heading level="3" size="h5" inline>Cyan</nu-heading>
           <nu-block>Toned theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="cyan swap">
           <nu-heading level="3" size="h5" inline>Cyan</nu-heading>
           <nu-block>Swap theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="cyan special">
           <nu-heading level="3" size="h5" inline>Cyan</nu-heading>
           <nu-block>Special theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
+        <nu-block hide="y|n"></nu-block>
 
         <nu-card gap=".5" theme="green">
           <nu-heading level="3" size="h5" inline>Green</nu-heading>
+          <nu-block>Main theme.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
+          <nu-btn>Simple Button</nu-btn>
+          <nu-btn special>Special Button</nu-btn>
+        </nu-card><nu-card gap=".5" theme="green common">
+          <nu-heading level="3" size="h5" inline>Green</nu-heading>
           <nu-block>Common theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="green toned">
           <nu-heading level="3" size="h5" inline>Green</nu-heading>
           <nu-block>Toned theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="green swap">
           <nu-heading level="3" size="h5" inline>Green</nu-heading>
           <nu-block>Swap theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="green special">
           <nu-heading level="3" size="h5" inline>Green</nu-heading>
           <nu-block>Special theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
+        <nu-block hide="y|n"></nu-block>
 
         <nu-card gap=".5" theme="yellow">
           <nu-heading level="3" size="h5" inline>Yellow</nu-heading>
+          <nu-block>Main theme.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
+          <nu-btn>Simple Button</nu-btn>
+          <nu-btn special>Special Button</nu-btn>
+        </nu-card><nu-card gap=".5" theme="yellow common">
+          <nu-heading level="3" size="h5" inline>Yellow</nu-heading>
           <nu-block>Common theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="yellow toned">
           <nu-heading level="3" size="h5" inline>Yellow</nu-heading>
           <nu-block>Toned theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="yellow swap">
           <nu-heading level="3" size="h5" inline>Yellow</nu-heading>
           <nu-block>Swap theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="yellow special">
           <nu-heading level="3" size="h5" inline>Yellow</nu-heading>
           <nu-block>Special theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
+        <nu-block hide="y|n"></nu-block>
 
         <nu-card gap=".5" theme="orange">
           <nu-heading level="3" size="h5" inline>Orange</nu-heading>
+          <nu-block>Main theme.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
+          <nu-btn>Simple Button</nu-btn>
+          <nu-btn special>Special Button</nu-btn>
+        </nu-card>
+        <nu-card gap=".5" theme="orange common">
+          <nu-heading level="3" size="h5" inline>Orange</nu-heading>
           <nu-block>Common theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="orange toned">
           <nu-heading level="3" size="h5" inline>Orange</nu-heading>
           <nu-block>Toned theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="orange swap">
           <nu-heading level="3" size="h5" inline>Orange</nu-heading>
           <nu-block>Swap theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="orange special">
           <nu-heading level="3" size="h5" inline>Orange</nu-heading>
           <nu-block>Special theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
+        <nu-block hide="y|n"></nu-block>
 
         <nu-card gap=".5" theme="red">
           <nu-heading level="3" size="h5" inline>Red</nu-heading>
+          <nu-block>Main theme.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
+          <nu-btn>Simple Button</nu-btn>
+          <nu-btn special>Special Button</nu-btn>
+        </nu-card>
+        <nu-card gap=".5" theme="red common">
+          <nu-heading level="3" size="h5" inline>Red</nu-heading>
           <nu-block>Common theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="red toned">
           <nu-heading level="3" size="h5" inline>Red</nu-heading>
           <nu-block>Toned theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="red swap">
           <nu-heading level="3" size="h5" inline>Red</nu-heading>
           <nu-block>Swap theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="red special">
           <nu-heading level="3" size="h5" inline>Red</nu-heading>
           <nu-block>Special theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
+        <nu-block hide="y|n"></nu-block>
 
         <nu-card gap=".5" theme="purple">
           <nu-heading level="3" size="h5" inline>Purple</nu-heading>
+          <nu-block>Main theme.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
+          <nu-btn>Simple Button</nu-btn>
+          <nu-btn special>Special Button</nu-btn>
+        </nu-card>
+        <nu-card gap=".5" theme="purple common">
+          <nu-heading level="3" size="h5" inline>Purple</nu-heading>
           <nu-block>Common theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="purple toned">
           <nu-heading level="3" size="h5" inline>Purple</nu-heading>
           <nu-block>Toned theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="purple swap">
           <nu-heading level="3" size="h5" inline>Purple</nu-heading>
           <nu-block>Swap theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="purple special">
           <nu-heading level="3" size="h5" inline>Purple</nu-heading>
           <nu-block>Special theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
+        <nu-block hide="y|n"></nu-block>
 
         <nu-card gap=".5" theme="violet">
           <nu-heading level="3" size="h5" inline>Violet</nu-heading>
+          <nu-block>Main theme.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
+          <nu-btn>Simple Button</nu-btn>
+          <nu-btn special>Special Button</nu-btn>
+        </nu-card>
+        <nu-card gap=".5" theme="violet common">
+          <nu-heading level="3" size="h5" inline>Violet</nu-heading>
           <nu-block>Common theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="violet toned">
           <nu-heading level="3" size="h5" inline>Violet</nu-heading>
           <nu-block>Toned theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="violet swap">
           <nu-heading level="3" size="h5" inline>Violet</nu-heading>
           <nu-block>Swap theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
         <nu-card gap=".5" theme="violet special">
           <nu-heading level="3" size="h5" inline>Violet</nu-heading>
           <nu-block>Special theme.</nu-block>
-          <nu-block color="special">Special text.</nu-block>
+          <nu-block color="special" text="w5">Special text.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -421,207 +484,28 @@
       <nu-heading level="4">Common variants</nu-heading>
 
       <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="1">
-        <nu-card gap=".5" theme="demo common bold contrast">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common bold contrast</nu-tooltip>
-        </nu-card>
         <nu-card gap=".5" theme="demo common contrast">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">common contrast</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo common dim contrast">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common dim contrast</nu-tooltip>
-        </nu-card>
 
-        <nu-card gap=".5" theme="demo common bold">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common bold</nu-tooltip>
-        </nu-card>
         <nu-card gap=".5" theme="demo common">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">common</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo common dim">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common dim</nu-tooltip>
-        </nu-card>
 
-        <nu-card gap=".5" theme="demo common bold soft">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common bold soft</nu-tooltip>
-        </nu-card>
         <nu-card gap=".5" theme="demo common soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">common soft</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common dim soft">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common dim soft</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo common bold contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common bold contrast desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common contrast desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common dim contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common dim contrast desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo common bold desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common bold desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common dim desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common dim desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo common bold soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common bold soft desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common soft desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common dim soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common dim soft desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo common bold contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common bold contrast saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common contrast saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common dim contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common dim contrast saturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo common bold saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common bold saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common dim saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common dim saturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo common bold soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common bold soft saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common soft saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo common dim soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">common dim soft saturated</nu-tooltip>
         </nu-card>
       </nu-grid>
 
@@ -630,21 +514,21 @@
       <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="1">
         <nu-card gap=".5" theme="demo toned bold contrast">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned bold contrast</nu-tooltip>
         </nu-card>
         <nu-card gap=".5" theme="demo toned contrast">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned contrast</nu-tooltip>
         </nu-card>
         <nu-card gap=".5" theme="demo toned dim contrast">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned dim contrast</nu-tooltip>
@@ -652,7 +536,7 @@
 
         <nu-card gap=".5" theme="demo toned bold">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
 
           <nu-btn special>Special Button</nu-btn>
@@ -660,14 +544,14 @@
         </nu-card>
         <nu-card gap=".5" theme="demo toned">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned</nu-tooltip>
         </nu-card>
         <nu-card gap=".5" theme="demo toned dim">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned dim</nu-tooltip>
@@ -675,159 +559,26 @@
 
         <nu-card gap=".5" theme="demo toned bold soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned bold soft</nu-tooltip>
         </nu-card>
         <nu-card gap=".5" theme="demo toned soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned soft</nu-tooltip>
         </nu-card>
         <nu-card gap=".5" theme="demo toned dim soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned dim soft</nu-tooltip>
         </nu-card>
 
-        <nu-card gap=".5" theme="demo toned bold contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned bold contrast desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned contrast desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned dim contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned dim contrast desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo toned bold desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned bold desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned dim desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned dim desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo toned bold soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned bold soft desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned soft desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned dim soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned dim soft desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo toned bold contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned bold contrast saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned contrast saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned dim contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned dim contrast saturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo toned bold saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned bold saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned dim saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned dim saturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo toned bold soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned bold soft saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned soft saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo toned dim soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">toned dim soft saturated</nu-tooltip>
-        </nu-card>
       </nu-grid>
 
       <nu-heading level="4">Swap variants</nu-heading>
@@ -835,21 +586,21 @@
       <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="1">
         <nu-card gap=".5" theme="demo swap bold contrast">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap bold contrast</nu-tooltip>
         </nu-card>
         <nu-card gap=".5" theme="demo swap contrast">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap contrast</nu-tooltip>
         </nu-card>
         <nu-card gap=".5" theme="demo swap dim contrast">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap dim contrast</nu-tooltip>
@@ -857,21 +608,21 @@
 
         <nu-card gap=".5" theme="demo swap bold">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap bold</nu-tooltip>
         </nu-card>
         <nu-card gap=".5" theme="demo swap">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap</nu-tooltip>
         </nu-card>
         <nu-card gap=".5" theme="demo swap dim">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap dim</nu-tooltip>
@@ -879,14 +630,14 @@
 
         <nu-card gap=".5" theme="demo swap bold soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap bold soft</nu-tooltip>
         </nu-card>
         <nu-card gap=".5" theme="demo swap soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
 
           <nu-btn special>Special Button</nu-btn>
@@ -894,346 +645,38 @@
         </nu-card>
         <nu-card gap=".5" theme="demo swap dim soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap dim soft</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo swap bold contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap bold contrast desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap contrast desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap dim contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap dim contrast desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo swap bold desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap bold desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap dim desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap dim desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo swap bold soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap bold soft desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap soft desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap dim soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap dim soft desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo swap bold contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap bold contrast saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap contrast saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap dim contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap dim contrast saturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo swap bold saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap bold saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap dim saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap dim saturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo swap bold soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap bold soft saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap soft saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo swap dim soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">swap dim soft saturated</nu-tooltip>
         </nu-card>
       </nu-grid>
 
       <nu-heading level="4">Special variants</nu-heading>
 
       <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="1">
-        <nu-card gap=".5" theme="demo special bold contrast">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special bold contrast</nu-tooltip>
-        </nu-card>
         <nu-card gap=".5" theme="demo special contrast">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">special contrast</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo special dim contrast">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special dim contrast</nu-tooltip>
-        </nu-card>
 
-        <nu-card gap=".5" theme="demo special bold">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special bold</nu-tooltip>
-        </nu-card>
         <nu-card gap=".5" theme="demo special">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">special</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo special dim">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special dim</nu-tooltip>
-        </nu-card>
 
-        <nu-card gap=".5" theme="demo special bold soft">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special bold soft</nu-tooltip>
-        </nu-card>
         <nu-card gap=".5" theme="demo special soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
+          <nu-block>Text paragraph.</nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">special soft</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special dim soft">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Normal saturation.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special dim soft</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo special bold contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special bold contrast desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special contrast desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special dim contrast desaturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special dim contrast desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo special bold desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special bold desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special dim desaturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special dim desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo special bold soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special bold soft desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special soft desaturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special dim soft desaturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Desaturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special dim soft desaturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo special bold contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special bold contrast saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special contrast saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special dim contrast saturated">
-          <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special dim contrast saturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo special bold saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special bold saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special dim saturated">
-          <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special dim saturated</nu-tooltip>
-        </nu-card>
-
-        <nu-card gap=".5" theme="demo special bold soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special bold soft saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special soft saturated</nu-tooltip>
-        </nu-card>
-        <nu-card gap=".5" theme="demo special dim soft saturated">
-          <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
-          <nu-block>Saturated.</nu-block>
-          <nu-btn>Simple Button</nu-btn>
-          <nu-btn special>Special Button</nu-btn>
-          <nu-tooltip text="monospace nowrap">special dim soft saturated</nu-tooltip>
         </nu-card>
       </nu-grid>
 
@@ -1854,6 +1297,11 @@ contrastWidget.addEventListener('input', function (evt) {
   const className = getClassName(contrastClass, value);
 
   htmlEl.classList.add(className);
+});
+
+setTimeout(() => {
+  const bytesEl = Nude.getElementById('bytes');
+  bytesEl.innerText = [...document.querySelectorAll('style')].reduce((sum, el) => sum += el.textContent.length, 0) * 2;
 });
 </script>
 

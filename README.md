@@ -1,4 +1,4 @@
-# <img src="https://github.com/tenphi/nude/blob/master/logo.png?raw=true" alt="NUDE Elements" width="891">
+# <img src="https://github.com/tenphi/nude/blob/master/images/logo.png?raw=true" alt="NUDE Elements" width="891">
 
 **ALPHA VERSION, UNDER RAPID DEVELOPMENT, API is subject to change**
 

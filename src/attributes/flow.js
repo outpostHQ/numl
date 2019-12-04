@@ -15,6 +15,10 @@ const FLEX_MAP_SECOND = {
   'column-reverse': 'margin-left',
 };
 
+function getLocalProp(dir, invert = false) {
+  return (invert ^ dir.includes('row')) ? 'var(--nu-local-h-gap)' : 'var(--nu-local-v-gap)';
+}
+
 function getProp(dir, invert = false) {
   return (invert ^ dir.includes('row')) ? 'var(--nu-h-gap)' : 'var(--nu-v-gap)';
 }
@@ -61,14 +65,16 @@ export default function flowAttr(val, defaults) {
       });
     } else {
       const dirSecondStyle = FLEX_MAP_SECOND[dir];
-      const invertProp = getProp(dir, true);
+      const invertProp = getProp(dir);
+      const dirLocalProp = getLocalProp(dir);
+      const invertLocalProp = getLocalProp(dir);
 
       styles.push({
         'flex-flow': mods.join(' '),
       }, {
         $suffix: ':not(:empty)',
-        [dirStyle]: `calc(${dirProp} * -1)`,
-        [dirSecondStyle]: `calc(${invertProp} * -1)`,
+        [dirStyle]: `calc(${dirLocalProp} * -1)`,
+        [dirSecondStyle]: `calc(${invertLocalProp} * -1)`,
       }, {
         $suffix: `${defaults.gap ? '' : '[gap]'}>*`,
         [dirStyle]: dirProp,

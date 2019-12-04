@@ -109,7 +109,7 @@ export function getLuminanceByRatio(l1, ratio = 4.5, dir) {
 
   let l2 = (l1 + 0.05) * ratio - 0.05;
 
-  if (l2 > 1 || l2 < 0) {
+  if (dir == null && (l2 > 1 || l2 < 0)) {
     l2 = (l1 + 0.05) / ratio - 0.05;
   }
 

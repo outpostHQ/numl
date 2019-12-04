@@ -50,9 +50,16 @@ export default class NuBtn extends NuActiveElement {
 
       ${tag}[special] > :not([theme]) {
         --nu-border-color: var(--nu-special-text-color);
-        --nu-bold-color: var(--nu-special-bold-color);
-        --nu-special: var(--nu-special-bold-color);
+        --nu-text-color: var(--nu-special-color);
+        --nu-text-soft-color: var(--nu-special-text-color);
+        --nu-text-contrast-color: var(--nu-special-text-color);
+        --nu-special: var(--nu-special-text-color);
+        --nu-special: var(--nu-special-color);
         --nu-special-color: var(--nu-special-text-color);
+      }
+
+      ${tag}[special]:not([text]) {
+        font-weight: 500;
       }
     `;
   }

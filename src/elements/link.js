@@ -17,7 +17,7 @@ export default class NuLink extends NuActiveElement {
   static get nuDefaults() {
     return {
       display: 'inline-block',
-      color: 'special-bold',
+      color: 'special',
       text: 'nowrap u',
       cursor: 'pointer',
       radius: '.5x',
