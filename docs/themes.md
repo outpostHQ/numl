@@ -17,8 +17,8 @@ At first, let's define a theme for the element. This theme will be applied to th
 Well, that's all! NUDE automatically find the best saturation for that hue and generate a bunch of colors for your site:
 
 * **text** `--nu-text-color` – Base color of text and icons.
-* **text** `--nu-soft-color` – Color of text and icons with soft contrast.
-* **text** `--nu-strong-color` – Color of text and icons with high contrast.
+* **text-soft** `--nu-soft-color` – Color of text and icons with soft contrast. Usable for text with big weight or size and bold icons.
+* **text-strong** `--nu-strong-color` – Color of text and icons with high contrast. You can use it to highlight some parts of the text.
 * **bg** `--nu-bg-color` – Base background color.
 * **border** `--nu-border-color` – Border color.
 * **hover** `--nu-hover-color` – Background color for hover effect.
@@ -96,7 +96,7 @@ Or use empty value to apply main theme.
 You can use a lot of modifiers to tweak your theme:
 
 * **Type modifiers**: `main`|`common`|`toned`|`swap`|`special` – Several predefined types of theme.
-* **Contrast modifiers**: `soft`|`contrast` – Change contrast of theme.
+* **Contrast modifiers**: `soft`|`strong` – Change contrast of theme.
 * **Intensity modifiers** `dim`|`bold` – Change visual intensity of theme.
 
 Use modifiers in `[theme]` attribute:
@@ -107,7 +107,7 @@ Use modifiers in `[theme]` attribute:
 or use named `red` theme:
 
 ```html
-<nu-card theme="red contrast dim"></nu-card>
+<nu-card theme="red strong dim"></nu-card>
 ```
 
 See all possible variations in our [Playground](https://nude-playground.tenphi.now.sh/)!

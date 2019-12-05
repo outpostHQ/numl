@@ -41,6 +41,9 @@ export default class NuBadge extends NuElement {
       ${tag}[special]:not([color]) {
         color: var(--nu-special-text-color);
       }
+      ${tag}[special]:not([text]) {
+        font-weight: 500;
+      }
     `;
   }
 }

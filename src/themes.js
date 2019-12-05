@@ -57,13 +57,13 @@ export const BASE_THEME = {
  */
 function getMinContrast(type = 'normal', highContrast, darkScheme) {
   if (highContrast) {
-    return type === 'contrast'
+    return type === 'strong'
       ? 7
       : (type === 'soft'
         ? 4.5
         : 7);
   } else {
-    return type === 'contrast'
+    return type === 'strong'
       ? 7
       : (type === 'soft'
         ? (darkScheme ? 3.75 : 3)
@@ -117,8 +117,8 @@ const SPECIAL_CONTRAST_MAP = {
 /**
  * Generate theme with specific params
  * @param color {Array<Number>} – reference theme color
- * @param [type] {String} – [main] | common | toned | swap | special
- * @param [contrast] {String} – [normal] | contrast | soft
+ * @param [type] {String} – [main] | tint | toned | swap | special
+ * @param [contrast] {String} – [normal] | strong | soft
  * @param [lightness] {String} – [normal] | dim | bold
  * @param [darkScheme] {Boolean} - true | false
  * @param [highContrast] {Boolean} - true | false
@@ -133,14 +133,14 @@ export function generateTheme({ color, type, contrast, lightness, darkScheme, hi
   const textColor = getBaseTextColor(highContrast, darkScheme);
   const bgColor = getBaseBgColor(highContrast, darkScheme);
   const baseSaturation = color[1];
-  const borderContrastModifier = contrast === 'contrast' ? 1.5 : 0;
+  const borderContrastModifier = contrast === 'strong' ? 1.5 : 0;
 
   const originalContrast = theme['special-text'] = getTheBrightest(textColor, bgColor);
   const originalSpecial = theme['special-bg'] = findContrastColor(color, theme['special-text'][2], softContrast);
   // themes with same hue should have focus color with consistent setPastelSaturation saturation
 
-  switch (type || 'common') {
-    case 'common':
+  switch (type || 'tint') {
+    case 'tint':
       theme.bg = bgColor;
       theme.text = findContrastColor(color, tonedBgLightness, minContrast);
       break;
@@ -170,16 +170,17 @@ export function generateTheme({ color, type, contrast, lightness, darkScheme, hi
       theme.bg = bgColor;
       theme.text = textColor;
       theme['text-soft'] = findContrastColor(theme.text, tonedBgLightness, 7);
-      theme['text-contrast'] = findContrastColor(theme.bg, tonedBgLightness, 7);
+      theme['text-strong'] = findContrastColor(theme.bg, tonedBgLightness, 7);
   }
 
   theme.focus = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
-  theme.subtle = setPastelSaturation([color[0], color[1], theme.bg[2] + (darkScheme ? 2 : -2)], darkScheme ? 20 : 40);
 
-  if (type === 'main' || type === 'common') {
+  if (type === 'main' || type === 'tint') {
     theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 2 : 1.2) + borderContrastModifier), baseSaturation / (highContrast ? 2 : 1));
+    theme.subtle = setPastelSaturation([color[0], color[1], theme.bg[2] + (darkScheme ? 2 : -2)], darkScheme ? 20 : 40);
   } else {
-    theme.border = theme.border || setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), baseSaturation);
+    theme.border = theme.border || setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : baseSaturation * .75);
+    theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (darkScheme ? -2 : 2)];
   }
 
   if (type === 'main') {
@@ -275,7 +276,7 @@ export function generateReferenceColor({ hue, saturation, from }) {
 }
 
 const CONTRAST_MODS = [
-  'contrast',
+  'strong',
   'soft',
 ];
 const LIGHTNESS_MODS = [
@@ -283,7 +284,7 @@ const LIGHTNESS_MODS = [
   'bold',
 ];
 export const THEME_TYPE_MODS = [
-  'common',
+  'tint',
   'toned',
   'swap',
   'special',
@@ -298,9 +299,9 @@ function incorrectTheme(prop, value) {
   log(`incorrect '${prop}' value in theme attribute`, value);
 }
 
-export function parseThemeAttr(attr, initial) {
+export function parseThemeAttr(attr) {
   let { value, mods } = extractMods(attr, ALL_THEME_MODS);
-  let contrast, lightness, saturation, type;
+  let contrast, lightness, type;
 
   const contrastMods = intersection(mods, CONTRAST_MODS);
 
@@ -333,7 +334,7 @@ export function parseThemeAttr(attr, initial) {
     type = typeMods[0];
   }
 
-  if (!value.match(/^[a-z0-9-]+$/i)) {
+  if (value.length && !value.match(/^[a-z0-9-]+$/i)) {
     incorrectTheme('name', attr);
   }
 
@@ -349,7 +350,6 @@ export function parseThemeAttr(attr, initial) {
     name: value,
     type,
     contrast,
-    saturation,
     lightness,
   };
 }
@@ -365,7 +365,7 @@ export function composeThemeName({ name, type, contrast, lightness }) {
   }
 
   if (suffix || contrast !== 'normal') {
-    suffix += contrast[0];
+    suffix += contrast[0] + contrast[1];
   }
 
   if (suffix || lightness !== 'normal') {
