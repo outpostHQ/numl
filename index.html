@@ -45,7 +45,7 @@
       <nu-block>
         <nu-el text="w5">This page has zero CSS assets.</nu-el>
         All you see is generated in runtime in your browser. There are
-        <nu-el id="bytes" color="special" text="w5">???</nu-el>
+        <nu-el id="bytes" color="special" text="w5">*calculating*</nu-el>
         bytes of generated CSS
         for 32 theme variants and other styling. If in any moment there is some CSS that
         can't be re-used in the future then it will be deleted. You can edit markup in DevTools and
@@ -1395,7 +1395,7 @@ contrastWidget.addEventListener('input', function (evt) {
 setTimeout(() => {
   const bytesEl = Nude.getElementById('bytes');
   bytesEl.innerText = [...document.querySelectorAll('style')].reduce((sum, el) => sum += el.textContent.length, 0) * 2;
-});
+}, 1000);
 </script>
 
 <script src="generate/frontend.js"></script>
