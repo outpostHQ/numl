@@ -65,9 +65,9 @@ export default function flowAttr(val, defaults) {
       });
     } else {
       const dirSecondStyle = FLEX_MAP_SECOND[dir];
-      const invertProp = getProp(dir);
+      const invertProp = getProp(dir, true);
       const dirLocalProp = getLocalProp(dir);
-      const invertLocalProp = getLocalProp(dir);
+      const invertLocalProp = getLocalProp(dir, true);
 
       styles.push({
         'flex-flow': mods.join(' '),
