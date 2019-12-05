@@ -37,6 +37,8 @@ import NuGroup from './elements/group';
 import NuCheckbox from './elements/checkbox';
 import NuLabel from './elements/label';
 import NuNumber from './elements/number';
+import NuStrong from './elements/strong';
+import NuSpecial from './elements/special';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -149,6 +151,8 @@ export {
   NuCheckbox,
   NuLabel,
   NuNumber,
+  NuStrong,
+  NuSpecial,
   NuAttrs,
   NuTheme,
   NuVar,

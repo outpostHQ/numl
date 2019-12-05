@@ -139,14 +139,20 @@ export function generateTheme({ color, type, contrast, lightness, darkScheme, hi
   const originalSpecial = theme['special-bg'] = findContrastColor(color, theme['special-text'][2], softContrast);
   // themes with same hue should have focus color with consistent setPastelSaturation saturation
 
+  if (type === 'main' || type === 'tint') {
+    theme.subtle = setPastelSaturation([color[0], color[1], bgColor[2] + (darkScheme ? 2 : -2)], darkScheme ? 20 : 40);
+  }
+
   switch (type || 'tint') {
     case 'tint':
       theme.bg = bgColor;
-      theme.text = findContrastColor(color, tonedBgLightness, minContrast);
+      theme.text = findContrastColor(color, theme.subtle[2], minContrast);
+      theme['text-strong'] = findContrastColor(color, bgColor[2], 7);
       break;
     case 'toned':
       theme.bg = setPastelSaturation(setLuminance(color, tonedBgLightness), (darkScheme ? 75 : 100) * (color[1] + 100) / 200);
       theme.text = findContrastColor(color, tonedBgLightness, minContrast);
+      theme['text-strong'] = findContrastColor(color, tonedBgLightness, 7);
       break;
     case 'swap':
       theme.bg = findContrastColor(color, tonedBgLightness, minContrast);
@@ -156,6 +162,7 @@ export function generateTheme({ color, type, contrast, lightness, darkScheme, hi
       // theme['special-bg'] = [...theme.text];
       theme['special-text'] = findContrastColor([...theme.bg], theme.text[2], minContrast);
       theme.special = [...bgColor];
+      theme['text-strong'] = [...bgColor];
       break;
     case 'special':
       theme.text = getTheBrightest(textColor, bgColor);
@@ -165,6 +172,7 @@ export function generateTheme({ color, type, contrast, lightness, darkScheme, hi
       theme['special-text'] = findContrastColor(originalSpecial, originalContrast[2], minContrast);
       theme.special = [...originalContrast];
       theme['text-soft'] = [...theme.text];
+      theme['text-strong'] = [...theme.text];
       break;
     case 'main':
       theme.bg = bgColor;
@@ -177,10 +185,9 @@ export function generateTheme({ color, type, contrast, lightness, darkScheme, hi
 
   if (type === 'main' || type === 'tint') {
     theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 2 : 1.2) + borderContrastModifier), baseSaturation / (highContrast ? 2 : 1));
-    theme.subtle = setPastelSaturation([color[0], color[1], theme.bg[2] + (darkScheme ? 2 : -2)], darkScheme ? 20 : 40);
   } else {
     theme.border = theme.border || setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : baseSaturation * .75);
-    theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (darkScheme ? -2 : 2)];
+    theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -2 : 2)];
   }
 
   if (type === 'main') {
@@ -191,7 +198,6 @@ export function generateTheme({ color, type, contrast, lightness, darkScheme, hi
 
   // in soft variant it's impossible to reduce contrast for headings
   theme['text-soft'] = theme['text-soft'] || findContrastColor(theme.text, theme.bg[2], softContrast, darkScheme) || [...theme.text];
-  theme['text-strong'] = theme['text-strong'] || findContrastColor(theme.bg, tonedBgLightness, strongContrast);
   theme.hover = setOpacity(findContrastColor(theme.focus, theme.bg[2], highContrast ? 2.2 : 1.6), .15);
   theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity, darkScheme);
   theme['special-intensity'] = getShadowIntensity(theme['special-bg'][2], shadowIntensity, darkScheme);

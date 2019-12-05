@@ -41,6 +41,8 @@ import Nude, {
   NuCheckbox,
   NuLabel,
   NuNumber,
+  NuSpecial,
+  NuStrong,
 } from './index';
 
 Nude.elements = {
@@ -81,6 +83,8 @@ Nude.elements = {
   NuCheckbox,
   NuLabel,
   NuNumber,
+  NuSpecial,
+  NuStrong,
   // decorators
   NuDecorator,
   NuTheme,
