@@ -24,7 +24,7 @@ const ACCEPTABLE_KEYS = '-0123456789.';
 
 export default class NuNumInput extends NuInput {
   static get nuTag() {
-    return 'ss-numinput';
+    return 'nu-numinput';
   }
 
   static get nuAttrs() {

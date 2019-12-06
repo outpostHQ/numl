@@ -47,7 +47,7 @@
 
     <nu-heading level="2">Disclaimer</nu-heading>
 
-    <nu-flow size="lg" gap="1" display="flex" flow="column">
+    <nu-flow size="lg||md" gap="1" display="flex" flow="column">
       <nu-block>
         <nu-el text="w5">This page has zero CSS assets.</nu-el>
         All you see is generated in runtime in your browser. There are
@@ -1002,14 +1002,14 @@
       <nu-heading level="3">Simple input</nu-heading>
 
       <nu-block>
-        <nu-input>
+        <nu-input width="15">
 
         </nu-input>
       </nu-block>
 
       <nu-heading level="3">Input with icon and button</nu-heading>
 
-      <nu-group border radius>
+      <nu-group border radius width="15">
         <nu-icon name="user" width="2.5"></nu-icon>
         <nu-input border="0" grow="1">
 
@@ -1018,6 +1018,18 @@
           <nu-icon name="x"></nu-icon>
         </nu-btn>
       </nu-group>
+
+      <nu-heading level="3">Number input</nu-heading>
+
+      <nu-block>
+        Currency input:
+        <nu-numinput prefix="$" value="12032" width="8"></nu-numinput>
+      </nu-block>
+
+      <nu-block>
+        Percent input:
+        <nu-numinput suffix="%" value="55" min="0" max="100" width="8"></nu-numinput>
+      </nu-block>
     </nu-card>
 
     <nu-heading level="2">Popups</nu-heading>
