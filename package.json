@@ -25,7 +25,7 @@
     "dev": "rollup -c -w",
     "play": "mkdir -p test && rm -vrf test/* && parcel --out-dir test index.html --open",
     "build-play": "mkdir -p playground && rm -vrf playground/* && parcel build --out-dir playground index.html",
-    "now": "npm run build-play && now --prod playground --name nude-playground",
+    "now": "npm run build-play && now --prod playground --name numl",
     "size": "size-limit",
     "start": "npm run play",
     "generate-docs": "node ./generate/backend.js",
