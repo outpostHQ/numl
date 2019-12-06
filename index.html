@@ -21,12 +21,18 @@
   <nu-attrs for="section" flow="column" gap="1" labelledby=":prev"></nu-attrs>
 
   <nu-flow gap="1">
-    <nu-heading level="1">NUDE Elements Design System Playground</nu-heading>
+    <nu-heading level="1">
+      <nu-svg
+        id="logo"
+        width="clamp(18, 100%, 36)"
+        height="max(9)">
+        NUDE Elements Design System Playground
+      </nu-svg>
+    </nu-heading>
 
     <nu-block>
       See source code and documentation on
-      <nu-link to="!https://github.com/tenphi/nude">Github</nu-link>
-      .
+      <nu-link to="!https://github.com/tenphi/nude">Github</nu-link>.
     </nu-block>
 
     <nu-block>
@@ -41,7 +47,7 @@
 
     <nu-heading level="2">Disclaimer</nu-heading>
 
-    <nu-flow text="lg" gap="1" display="flex" flow="column">
+    <nu-flow size="lg" gap="1" display="flex" flow="column">
       <nu-block>
         <nu-el text="w5">This page has zero CSS assets.</nu-el>
         All you see is generated in runtime in your browser. There are
@@ -1331,72 +1337,7 @@
   </nu-card>
 </nu-block>
 
-<script>
-const schemeWidget = Nude.getElementById("prefers-color-scheme");
-const contrastWidget = Nude.getElementById("prefers-contrast");
-const schemeClass = 'nu-prefers-color-scheme';
-const schemeValues = ['auto', 'dark', 'light'];
-const contrastClass = 'nu-prefers-contrast';
-const contrastValues = ['auto', 'high', 'low'];
-const reduceMotionClass = 'nu-prefers-reduced-motion';
-
-function getClassName(base, value) {
-  if (value === 'auto') {
-    return base;
-  } else {
-    return `${base}-${value}`;
-  }
-}
-
-function reduceMotion() {
-  htmlEl.classList.add(reduceMotionClass);
-}
-
-function restoreMotion() {
-  htmlEl.classList.remove(reduceMotionClass);
-}
-
-const htmlEl = document.querySelector('html');
-
-htmlEl.classList.add(schemeClass, contrastClass);
-
-schemeWidget.addEventListener('input', function (evt) {
-  const value = evt.detail;
-
-  reduceMotion();
-
-  setTimeout(() => {
-    schemeValues.forEach(val => {
-      htmlEl.classList.remove(getClassName(schemeClass, val));
-    });
-
-    const className = getClassName(schemeClass, value);
-
-    htmlEl.classList.add(className);
-
-    setTimeout(() => {
-      restoreMotion();
-    }, 3000);
-  }, 0);
-});
-
-contrastWidget.addEventListener('input', function (evt) {
-  const value = evt.detail;
-
-  contrastValues.forEach(val => {
-    htmlEl.classList.remove(getClassName(contrastClass, val));
-  });
-
-  const className = getClassName(contrastClass, value);
-
-  htmlEl.classList.add(className);
-});
-
-setTimeout(() => {
-  const bytesEl = Nude.getElementById('bytes');
-  bytesEl.innerText = [...document.querySelectorAll('style')].reduce((sum, el) => sum += el.textContent.length, 0) * 2;
-}, 1000);
-</script>
+<script src="playground.js"></script>
 
 <script src="generate/frontend.js"></script>
 </body>

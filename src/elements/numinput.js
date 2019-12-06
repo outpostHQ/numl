@@ -1,11 +1,11 @@
 import NuInput from './input';
 
 export function stripZeros(val) {
-  return val.replace(/\.([0-9]*[^0]|)0+($|%)/, (s, s1, s2) => !`${s1}${s2}`.match(/^(%|)$/) ? `.${s1}${s2}` : '');
+  return val.replace(/\.([0-9]*[^0]|)0+($|%)/, (s, s1, s2) => !`${s1}${s2}`.match(/^(%|)$/) ? `.${s1}${s2}` : s2);
 }
 
-function toFixed(num, precision) {
-  return stripZeros(numberFromString(num).toFixed(precision));
+function toFormat(num, precision = 2) {
+  return stripZeros(Number(num.replace(/,/g, '')).toFixed(precision)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 function numberFromString(num) {
@@ -20,11 +20,11 @@ function numberFromString(num) {
   return value;
 }
 
-const ACCEPTABLE_KEYS = '0123456789.';
+const ACCEPTABLE_KEYS = '-0123456789.';
 
-export default class SsNumber extends NuInput {
+export default class NuNumInput extends NuInput {
   static get nuTag() {
-    return 'nu-number';
+    return 'ss-numinput';
   }
 
   static get nuAttrs() {
@@ -41,7 +41,7 @@ export default class SsNumber extends NuInput {
       ${css}
       ${tag} input {
         text-align: inherit;
-      }    
+      }
     `;
   }
 
@@ -103,7 +103,7 @@ export default class SsNumber extends NuInput {
 
     switch (name) {
       case 'value':
-        this.nuSetValue(value);
+        this.nuSetValue(Number(value));
 
         break;
       case 'placeholder':
@@ -115,10 +115,6 @@ export default class SsNumber extends NuInput {
           this.nuRef.disabled = value != null;
           this.nuSetFocusable(value != null);
         }
-
-        break;
-      case 'type':
-        this.nuSetType(value);
 
         break;
     }
@@ -138,19 +134,23 @@ export default class SsNumber extends NuInput {
     });
   }
 
-  nuSetValue(value, force) {
+  /**
+   *
+   * @param {Number} value
+   * @param {Boolean} force
+   */
+  nuSetValue(value, force = false) {
     this.nuGetRef();
 
-    if (value == null
-      || (value && String(Number(value)) !== value.replace(/\.[0]*$/, '').replace(/^0*/, ''))) {
+    if (value == null) {
       value = this.nuValue;
     } else {
-      value = value ? String(value) : '0';
+      value = value ? value : 0;
     }
 
-    if (value !== value) return; // NaN check
-
     value = this.nuFixValue(value);
+
+    if (value !== value) return; // NaN check
 
     this.nuValue = value;
 
@@ -161,31 +161,23 @@ export default class SsNumber extends NuInput {
     }
 
     if (!force) {
-      this.nuEmit('input', Number(this.nuFixValue()));
+      this.nuEmit('input', numberFromString(this.nuFixValue()));
     }
   }
 
   nuFixValue(value) {
     value = (value != null ? value : this.nuValue) || '0';
 
-    value = this.nuFixValueLimit(value);
-
-    return toFixed(String(value), this.getAttribute('precision') || 2);
-  }
-
-  nuFixValueLimit(value) {
-    value = numberFromString(value);
-
     const max = numberFromString(this.getAttribute('max'));
     const min = numberFromString(this.getAttribute('min'));
 
-    if (max != null && value > max) {
+    if (max != null && numberFromString(value) > max) {
       value = max;
-    } else if (min != null && value < min) {
+    } else if (min != null && numberFromString(value) < min) {
       value = min;
     }
 
-    return value;
+    return toFormat(String(value), this.getAttribute('precision') || 2);
   }
 
   nuGetFormattedValue(value) {
@@ -198,8 +190,10 @@ export default class SsNumber extends NuInput {
 
     if (this.nuRef !== document.activeElement && (prefix || suffix)) {
       return `${prefix}${value}${suffix}`;
+    } else if (value) {
+      return value.replace(/,/g, '');
     } else {
-      return value;
+      return '';
     }
   }
 
@@ -210,9 +204,9 @@ export default class SsNumber extends NuInput {
   }
 
   nuGetValueFromRef() {
-    const value = this.nuRef.value;
+    const value = Number(this.nuRef.value);
 
-    if (value !== this.nuValue) {
+    if (value !== this.nuValue && value === value) { // check for NaN
       this.nuSetValue(value);
     }
   }
@@ -236,10 +230,11 @@ export default class SsNumber extends NuInput {
 
   nuValidateRefValuePrivate(value) {
     const precision = this.getAttribute('precision') || 2;
-    const fixed = this.nuFixValueLimit(value
+    const fixed = value
       .replace(new RegExp(`(\\.[0-9]{${precision}})[0-9]+$`), (s, s1) => s1)
       .replace(/\..*\./, s => s.slice(0, -1))
-      .replace(/^0+/, ''));
+      .replace(/^0+/, '')
+      .replace(/[^^]-/g, s => s.charAt(0));
 
     if (value !== fixed || value.split('.').length > 2) {
       this.nuRef.value = fixed;

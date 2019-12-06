@@ -36,9 +36,10 @@ import NuPopupMenu from './elements/popupmenu';
 import NuGroup from './elements/group';
 import NuCheckbox from './elements/checkbox';
 import NuLabel from './elements/label';
-import NuNumber from './elements/number';
+import NuNumInput from './elements/numinput';
 import NuStrong from './elements/strong';
 import NuSpecial from './elements/special';
+import NuSvg from './elements/svg';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -150,9 +151,10 @@ export {
   NuGroup,
   NuCheckbox,
   NuLabel,
-  NuNumber,
+  NuNumInput,
   NuStrong,
   NuSpecial,
+  NuSvg,
   NuAttrs,
   NuTheme,
   NuVar,

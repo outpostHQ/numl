@@ -181,10 +181,11 @@ Run `npm run play` to view test page with few examples.
 
 ## Roadmap
 
-* Improve performance of responsive system.
-* Improve widgets' logic.
-* New variable system.
-* New useful elements.
+* Improve performance of responsive system
+* Improve widgets' logic: `nu-input` & `nu-numinput` elements.
+* New variable system
+* New useful elements
+* Showcase with examples
 * Documentation
 
 ## Changelog

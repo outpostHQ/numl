@@ -151,6 +151,7 @@ export default class NuElement extends NuBase {
       ...plugins,
       controls: '',
       label: '',
+      level: '',
       labelledby: '',
       describedby: '',
       valuemin: '',
@@ -670,6 +671,7 @@ export default class NuElement extends NuBase {
       //
       //   break;
       case 'label':
+      case 'level':
       case 'valuemin':
       case 'valuemax':
       case 'valuenow':
