@@ -210,6 +210,7 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
   min-height: 100vh;
   text-align: left;
   text-size-adjust: none;
+  -webkit-text-size-adjust: none;
   transition: background-color var(--nu-animation-time) linear;
 }
 
