@@ -25,6 +25,7 @@ export default class NuActiveElement extends NuElement {
       target: '',
       controls: '',
       value: '',
+      to: '',
     };
   }
 
@@ -115,6 +116,15 @@ export default class NuActiveElement extends NuElement {
         z-index: 2;
       }
 
+      ${tag} > a {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
       ${focusable(tag)}
     `;
   }
@@ -172,6 +182,37 @@ export default class NuActiveElement extends NuElement {
 
       this.nuControl();
     }, 0);
+
+    this.nuCreateLink();
+  }
+
+  nuCreateLink() {
+    if (this.nuLink) return;
+
+    const link = document.createElement('a');
+
+    link.href = this.nuHref;
+    link.target = this.nuNewTab ? '_blank' : '_self';
+
+    this.nuLink = link;
+
+    this.addEventListener('mouseenter', () => {
+      if (this.nuHref) {
+        this.appendChild(this.nuLink);
+      }
+    });
+
+    this.addEventListener('mouseleave', () => {
+      if (this.nuLink.parentNode) {
+        this.removeChild(this.nuLink);
+      }
+    });
+
+    this.nuLink.addEventListener('click', (evt) => {
+      if (evt.button) {
+        evt.preventDefault();
+      }
+    });
   }
 
   nuTap(evt) {
@@ -260,6 +301,19 @@ export default class NuActiveElement extends NuElement {
         this.nuSetValue(value);
 
         break;
+      case 'to':
+        if (value && value.length) {
+          this.nuNewTab = value.startsWith('!');
+          this.nuHref = value.replace(/^!/, '');
+        } else {
+          this.nuNewTab = false;
+          this.nuHref = '';
+        }
+
+        if (this.nuLink) {
+          this.nuLink.href = this.nuHref;
+          this.nuLink.target = this.nuNewTab ? '_blank' : '_self';
+        }
     }
   }
 

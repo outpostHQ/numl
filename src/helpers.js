@@ -621,7 +621,7 @@ export function convertCustomUnit(value, unit, multiplier) {
 export function hasMod(str, mod) {
   const regexp = new RegExp(`(^|[^a-z\-])${mod}([^a-z\-]|$)`);
 
-  return str.match(regexp, 'i');
+  return !!str.match(regexp, 'i');
 }
 
 export function excludeMod(str, mod) {

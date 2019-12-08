@@ -98,7 +98,7 @@ export default function placeAttr(val) {
     let transX = 0;
     let transY = 0;
 
-    if (val.trim() === 'cover') {
+    if (hasMod(val, 'cover')) {
       return {
         ...styles,
         ...COVER_STYLES,
