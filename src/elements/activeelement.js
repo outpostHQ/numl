@@ -125,6 +125,10 @@ export default class NuActiveElement extends NuElement {
         left: 0;
       }
 
+      ${tag} > a:focus {
+        outline: none;
+      }
+
       ${focusable(tag)}
     `;
   }
@@ -193,6 +197,7 @@ export default class NuActiveElement extends NuElement {
 
     link.href = this.nuHref;
     link.target = this.nuNewTab ? '_blank' : '_self';
+    link.setAttribute('tabindex', '-1');
 
     this.nuLink = link;
 
