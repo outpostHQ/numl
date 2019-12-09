@@ -68,7 +68,7 @@ With **NUDE Elements** you can:
 ## Playground
 See [Online playground](http://j.mp/numl-play). You can edit markup using DevTools and instantly see changes!
 
-[Playground - JSBin version](http://j.mp/numl-codepen) (without theme variants for faster performance). For those who love REPLing around.
+[Playground - JSBin version](http://j.mp/numl-jsbin) (without theme variants for faster performance). For those who love REPLing around.
 
 ## Usage
 Add `numl.js` to your page and initialize it.
