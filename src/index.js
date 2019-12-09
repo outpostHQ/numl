@@ -58,6 +58,7 @@ import {
   parseAllValues,
   setImmediate,
   extractMods,
+  fixPosition,
 } from './helpers';
 import { enableFocus, disableFocus } from './focus';
 import { applyTheme, BASE_THEME } from './themes';
@@ -90,6 +91,7 @@ const Nude = {
     parseAllValues,
     setImmediate,
     extractMods,
+    fixPosition,
   },
   version: process.env.APP_VERSION,
 };
