@@ -23,16 +23,17 @@
   <nu-flow gap="1">
     <nu-heading level="1">
       <nu-svg
-        id="logo"
+        id="logo-vector"
         width="clamp(18, 100%, 36)"
-        height="max(9)">
-        NUDE Elements Design System Playground
+        height="max(9)"
+        label="NUDE Elements Design System Playground">
       </nu-svg>
     </nu-heading>
 
     <nu-block>
       See source code and documentation on
-      <nu-link to="!https://github.com/tenphi/nude">Github</nu-link>.
+      <nu-link to="!https://github.com/tenphi/nude">Github</nu-link>
+      .
     </nu-block>
 
     <nu-block>
@@ -139,9 +140,36 @@
       </nu-flow>
     </nu-card>
 
+    <nu-heading level="2">Images</nu-heading>
+
+    <nu-card id="section">
+      <nu-grid columns="1fr 1fr" gap>
+        <nu-heading level="4">Raster image</nu-heading>
+        <nu-heading level="4">Vector image</nu-heading>
+        <nu-block>
+          <nu-img
+            class="nu-dark-invert"
+            id="logo-raster"
+            width="100%"
+            height="min(3)"
+            label="NUDE Elements Design System Playground">
+          </nu-img>
+        </nu-block>
+        <nu-block>
+          <nu-svg
+            id="logo-vector"
+            color="text-soft"
+            width="100%"
+            height="min(3)"
+            label="NUDE Elements Design System Playground">
+          </nu-svg>
+        </nu-block>
+      </nu-grid>
+    </nu-card>
+
     <nu-heading level="2">Badges</nu-heading>
 
-    <nu-card id="section" labelledby=":prev">
+    <nu-card id="section">
       <nu-heading level="3">Normal badges</nu-heading>
       <nu-block>
         <nu-badge>Simple badge</nu-badge>
@@ -180,8 +208,12 @@
       <nu-card gap=".5">
         <nu-heading level="3" size="h5" inline>Header</nu-heading>
         <nu-block>Paragraph text.</nu-block>
-        <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-        <nu-block><nu-special>Special text.</nu-special></nu-block>
+        <nu-block>
+          <nu-strong>Strong text.</nu-strong>
+        </nu-block>
+        <nu-block>
+          <nu-special>Special text.</nu-special>
+        </nu-block>
         <nu-btn>Simple Button</nu-btn>
         <nu-btn special>Special Button</nu-btn>
       </nu-card>
@@ -202,8 +234,12 @@
           <nu-heading level="3" size="h5" inline>Blue - Main theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -211,8 +247,12 @@
           <nu-heading level="3" size="h5" inline>Blue - Tint theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -220,8 +260,12 @@
           <nu-heading level="3" size="h5" inline>Blue - Toned theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -229,8 +273,12 @@
           <nu-heading level="3" size="h5" inline>Blue - Swap theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -238,8 +286,12 @@
           <nu-heading level="3" size="h5" inline>Blue - Special theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -249,8 +301,12 @@
           <nu-heading level="3" size="h5" inline>Cyan - Main theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -258,8 +314,12 @@
           <nu-heading level="3" size="h5" inline>Cyan - Tint theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -267,8 +327,12 @@
           <nu-heading level="3" size="h5" inline>Cyan - Toned theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -276,8 +340,12 @@
           <nu-heading level="3" size="h5" inline>Cyan - Swap theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -285,8 +353,12 @@
           <nu-heading level="3" size="h5" inline>Cyan - Special theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -296,8 +368,12 @@
           <nu-heading level="3" size="h5" inline>Green - Main theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -305,8 +381,12 @@
           <nu-heading level="3" size="h5" inline>Green - Tint theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -314,8 +394,12 @@
           <nu-heading level="3" size="h5" inline>Green - Toned theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -323,8 +407,12 @@
           <nu-heading level="3" size="h5" inline>Green - Swap theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -332,8 +420,12 @@
           <nu-heading level="3" size="h5" inline>Green - Special theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -343,8 +435,12 @@
           <nu-heading level="3" size="h5" inline>Yellow - Main theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -352,8 +448,12 @@
           <nu-heading level="3" size="h5" inline>Yellow - Tint theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -361,8 +461,12 @@
           <nu-heading level="3" size="h5" inline>Yellow - Toned theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -370,8 +474,12 @@
           <nu-heading level="3" size="h5" inline>Yellow - Swap theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -379,8 +487,12 @@
           <nu-heading level="3" size="h5" inline>Yellow - Special theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -390,8 +502,12 @@
           <nu-heading level="3" size="h5" inline>Orange - Main theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -399,8 +515,12 @@
           <nu-heading level="3" size="h5" inline>Orange - Tint theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -408,8 +528,12 @@
           <nu-heading level="3" size="h5" inline>Orange - Toned theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -417,8 +541,12 @@
           <nu-heading level="3" size="h5" inline>Orange - Swap theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -426,8 +554,12 @@
           <nu-heading level="3" size="h5" inline>Orange - Special theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -437,8 +569,12 @@
           <nu-heading level="3" size="h5" inline>Red - Main theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -446,8 +582,12 @@
           <nu-heading level="3" size="h5" inline>Red - Tint theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -455,8 +595,12 @@
           <nu-heading level="3" size="h5" inline>Red - Toned theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -464,8 +608,12 @@
           <nu-heading level="3" size="h5" inline>Red - Swap theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -473,8 +621,12 @@
           <nu-heading level="3" size="h5" inline>Red - Special theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -484,8 +636,12 @@
           <nu-heading level="3" size="h5" inline>Purple - Main theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -493,8 +649,12 @@
           <nu-heading level="3" size="h5" inline>Purple - Tint theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -502,8 +662,12 @@
           <nu-heading level="3" size="h5" inline>Purple - Toned theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -511,8 +675,12 @@
           <nu-heading level="3" size="h5" inline>Purple - Swap theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -520,8 +688,12 @@
           <nu-heading level="3" size="h5" inline>Purple - Special theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -531,8 +703,12 @@
           <nu-heading level="3" size="h5" inline>Violet - Main theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -540,8 +716,12 @@
           <nu-heading level="3" size="h5" inline>Violet - Tint theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -549,8 +729,12 @@
           <nu-heading level="3" size="h5" inline>Violet - Toned theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -558,8 +742,12 @@
           <nu-heading level="3" size="h5" inline>Violet - Swap theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
@@ -567,8 +755,12 @@
           <nu-heading level="3" size="h5" inline>Violet - Special theme</nu-heading>
           <nu-block>Paragraph text.</nu-block>
           <nu-card fill="subtle" border="0">Card with subtle bg</nu-card>
-          <nu-block><nu-strong>Strong text.</nu-strong></nu-block>
-          <nu-block><nu-special>Special text.</nu-special></nu-block>
+          <nu-block>
+            <nu-strong>Strong text.</nu-strong>
+          </nu-block>
+          <nu-block>
+            <nu-special>Special text.</nu-special>
+          </nu-block>
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>

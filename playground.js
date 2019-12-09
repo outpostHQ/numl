@@ -1,3 +1,5 @@
+import { svgElement } from './src/helpers';
+
 const schemeWidget = Nude.getElementById("prefers-color-scheme");
 const contrastWidget = Nude.getElementById("prefers-contrast");
 const schemeClass = 'nu-prefers-color-scheme';
@@ -5,7 +7,8 @@ const schemeValues = ['auto', 'dark', 'light'];
 const contrastClass = 'nu-prefers-contrast';
 const contrastValues = ['auto', 'high', 'low'];
 const reduceMotionClass = 'nu-prefers-reduced-motion';
-const images = require('./images/*.svg');
+const svgImages = require('./images/*.svg');
+const pngImages = require('./images/*.png');
 
 function getClassName(base, value) {
   if (value === 'auto') {
@@ -64,13 +67,5 @@ setTimeout(() => {
   bytesEl.innerText = [...document.querySelectorAll('style')].reduce((sum, el) => sum += el.textContent.length, 0) * 2;
 }, 1000);
 
-Nude.elements.NuSvg.nuLoader = (name) => {
-  const url = images[name];
-
-  if (!url) throw 'image not found';
-
-  return fetch(url)
-    .then(response => response.text());
-};
-
-Nude.getElementById('logo').setAttribute('name', 'logo');
+[...Nude.getElementsById('logo-vector')].forEach(el => el.setAttribute('src', svgImages.logo));
+[...Nude.getElementsById('logo-raster')].forEach(el => el.setAttribute('src', pngImages.logo));

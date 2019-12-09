@@ -40,6 +40,7 @@ import NuNumInput from './elements/numinput';
 import NuStrong from './elements/strong';
 import NuSpecial from './elements/special';
 import NuSvg from './elements/svg';
+import NuImg from './elements/img';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -157,6 +158,7 @@ export {
   NuStrong,
   NuSpecial,
   NuSvg,
+  NuImg,
   NuAttrs,
   NuTheme,
   NuVar,

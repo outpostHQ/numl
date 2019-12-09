@@ -10,13 +10,14 @@ export default class NuSvg extends NuBlock {
     return 'img';
   }
 
-  static nuLoader() {
-    return Promise.resolve();
+  static nuLoader(src) {
+    return fetch(src)
+      .then(response => response.text());
   }
 
   static get nuAttrs() {
     return {
-      name: '',
+      src: '',
     };
   }
 
@@ -37,18 +38,28 @@ export default class NuSvg extends NuBlock {
         position: relative;
       }
 
-      ${tag} > svg {
+      ${tag}[width] > svg {
         min-width: 100%;
-        min-height: 100%;
         max-width: 100%;
-        max-height: 100%;
         width: auto;
+      }
+
+      ${tag}[height] > svg {
+        min-height: 100%;
+        max-height: 100%;
         height: auto;
       }
 
-      ${tag} > div {
-        // padding-top: calc(100% / var(--nu-local-ratio));
-        display: none;
+      ${tag} > img {
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
       }
 
       ${tag}[inline] {
@@ -60,12 +71,14 @@ export default class NuSvg extends NuBlock {
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
-    if (name === 'name') {
+    if (name === 'src') {
       if (this.querySelector('svg')) {
         this.innerHTML = '';
       }
 
       this.constructor.nuLoader(value).then(svg => {
+        if (value !== this.getAttribute('src')) return;
+
         if (!svg) {
           warn('svg not found', JSON.stringify(value));
 
@@ -76,20 +89,11 @@ export default class NuSvg extends NuBlock {
         const width = svgNode.getAttribute('width');
         const height = svgNode.getAttribute('height');
         const viewBox = svgNode.getAttribute('viewBox');
-        const hasWidth = this.hasAttribute('width');
-        const hasHeight = this.hasAttribute('height');
 
         if (width && height) {
           if (!viewBox) {
             svgNode.setAttribute('viewBox', `0,0,${width},${height}`);
           }
-
-          if (!hasWidth && !hasHeight) {
-            this.setAttribute('width', `${width}px`);
-            this.setAttribute('height', `${height}px`);
-          }
-
-          this.style.setProperty('--nu-local-ratio', Number(width) / Number(height));
         }
 
         const text = this.innerText.trim();
@@ -100,6 +104,15 @@ export default class NuSvg extends NuBlock {
 
         this.innerHTML = '';
         this.appendChild(svgNode);
+
+        const img = document.createElement('img');
+
+        img.setAttribute('role', 'none');
+
+        img.src = value;
+        img.alt = '';
+
+        this.appendChild(img);
       });
     }
   }
