@@ -136,7 +136,7 @@ export function generateTheme({ color, type, contrast, lightness, darkScheme, hi
   const borderContrastModifier = contrast === 'strong' ? 1.5 : 0;
 
   const originalContrast = theme['special-text'] = getTheBrightest(textColor, bgColor);
-  const originalSpecial = theme['special-bg'] = findContrastColor(color, theme['special-text'][2], softContrast);
+  const originalSpecial = theme['special-bg'] = findContrastColor(color, theme['special-text'][2], type === 'toned' || type === 'swap' ? (softContrast + minContrast) / 2 : softContrast);
   // themes with same hue should have focus color with consistent setPastelSaturation saturation
 
   if (type === 'main' || type === 'tint') {
