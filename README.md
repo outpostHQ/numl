@@ -129,7 +129,7 @@ import 'numl';
 
 ## Sites that use **NUDE Elements** 
 
-* **[Sellerscale](https://sellerscale.com)** – [Project Screenshot Light](https://github.com/tenphi/nude/blob/master/example-application.png?raw=true) | [Project Screenshot Dark](https://github.com/tenphi/nude/blob/master/example-application-dark.png?raw=true)
+* **[Sellerscale](https://sellerscale.com)** – [Project Screenshot Light](https://github.com/tenphi/nude/blob/master/images/example-app-light.png?raw=true) | [Project Screenshot Dark](https://github.com/tenphi/nude/blob/master/images/example-app-dark.png?raw=true)
 
 ## Development status (v1)
 
