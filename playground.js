@@ -69,3 +69,4 @@ setTimeout(() => {
 
 [...Nude.getElementsById('logo-vector')].forEach(el => el.setAttribute('src', svgImages.logo));
 [...Nude.getElementsById('logo-raster')].forEach(el => el.setAttribute('src', pngImages.logo));
+[...Nude.getElementsById('logo-background')].forEach(el => el.setAttribute('image', `no-repeat left center / contain url(${svgImages.logo})`));
