@@ -45,7 +45,6 @@ export const BASE_THEME = {
   type: 'main',
   contrast: 'normal',
   lightness: 'normal',
-  saturation: 'normal',
 };
 
 /**

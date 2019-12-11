@@ -16,7 +16,7 @@ function set(name, styles) {
 
 ['left', 'right', 'center', 'justify'].forEach(name => set(name, { 'text-align': name }));
 
-set('monospace', { 'font-family': 'monospace' });
+set('monospace', { 'font-family': 'monospace', 'word-spacing': 'normal' });
 set('spacing', { 'letter-spacing': 'var(--nu-border-width)' });
 set('ellipsis', {
   'max-width': '100%',

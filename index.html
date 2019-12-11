@@ -1503,6 +1503,35 @@
       </nu-flex>
     </nu-card>
 
+    <nu-heading level="2">Code snippets</nu-heading>
+
+    <nu-card as="section">
+      <nu-heading level="4">Code block</nu-heading>
+
+      <nu-code>
+        <textarea>
+          const obj = {
+            str: 'value',
+            number: 123,
+            method(val) {
+              return val.match(/\![0-9]/);
+            },
+          };
+
+          // comment
+          function funcName() {
+            obj.method('awesome!');
+          }
+        </textarea>
+      </nu-code>
+
+      <nu-heading level="4">Inline code</nu-heading>
+
+      <nu-block>
+        Paragraph text <nu-code inline><textarea>var a = 'value';</textarea></nu-code>.
+      </nu-block>
+    </nu-card>
+
     <nu-heading level="2">States & complex states</nu-heading>
 
     <nu-card as="section">

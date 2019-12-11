@@ -41,6 +41,7 @@ import NuStrong from './elements/strong';
 import NuSpecial from './elements/special';
 import NuSvg from './elements/svg';
 import NuImg from './elements/img';
+import NuCode from './elements/snippet';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -159,6 +160,7 @@ export {
   NuSpecial,
   NuSvg,
   NuImg,
+  NuCode,
   NuAttrs,
   NuTheme,
   NuVar,
