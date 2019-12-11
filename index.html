@@ -1528,8 +1528,19 @@
       <nu-heading level="4">Inline code</nu-heading>
 
       <nu-block>
-        Paragraph text <nu-code inline><textarea>var a = 'value';</textarea></nu-code>.
+        Paragraph text
+        <nu-code inline><textarea>var a = 'value';</textarea></nu-code>
+        .
       </nu-block>
+
+      <nu-heading level="4">Diff commit</nu-heading>
+
+      <nu-code>
+        <textarea>
+          - import { badMemories } from 'memory';
+          + import { goodMemories } from 'memory';
+        </textarea>
+      </nu-code>
     </nu-card>
 
     <nu-heading level="2">States & complex states</nu-heading>

@@ -38,6 +38,12 @@ export default class NuCode extends NuElement {
         hue: 240,
         saturation: 0,
       },
+      [PLS]: {
+        hue: 180,
+      },
+      [MNS]: {
+        hue: 1,
+      },
     };
   }
 
@@ -53,13 +59,13 @@ export default class NuCode extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag} > nu-block {
+      ${tag} nu-block {
         white-space: pre;
       }
-      ${tag} > textarea {
+      ${tag} textarea {
         display: none;
       }
-      ${tag} > nu-block > nu-el {
+      ${tag} nu-el {
         display: inline !important;
       }
       ${tag}[inline]:not([fill]) {
@@ -67,6 +73,14 @@ export default class NuCode extends NuElement {
       }
       ${tag}[inline]:not([padding]) {
         padding: 0 var(--nu-padding);
+      }
+      ${tag} nu-el[plus]::before {
+        content: '+ ';
+        display: inline-block;
+      }
+      ${tag} nu-el[minus]::before {
+        content: '- ';
+        display: inline-block;
       }
     `;
   }
@@ -122,8 +136,12 @@ const REX = 'rex';
 const SPC = 'spc';
 const STR = 'str';
 const UNK = 'unk';
+const PLS = 'pls';
+const MNS = 'mns';
 
 const TOKEN_RES = [
+  [PLS, /(^|\n)\+\s.+($|\n)/],
+  [MNS, /(^|\n)-\s.+($|\n)/],
   [NUM, /#([0-9a-f]{6}|[0-9a-f]{3})\b/],
   [COM, /(\/\/|#).*?(?=\n|$)/],
   [COM, /\/\*[\s\S]*?\*\//],
@@ -177,6 +195,16 @@ function tokenize(text) {
   return tokens;
 }
 
+const SYMBOL_MAP = {
+  pls: '+',
+  mns: '+',
+};
+
+const ATTR_MAP = {
+  pls: 'plus',
+  mns: 'minus',
+};
+
 function textToMarkup(str) {
   const lines = str.split('\n');
 
@@ -200,7 +228,11 @@ function textToMarkup(str) {
   }
 
   return tokenize(str).reduce(function (html, token) {
-    return html + `<nu-el theme="snippet-${token[0]}">${token[1]}</nu-el>`;
+    let id = token[0];
+    let attr = ATTR_MAP[id] ? ` ${ATTR_MAP[id]}` : '';
+    let value = SYMBOL_MAP[id] ? token[1].slice(2) : token[1];
+
+    return html + `<nu-el theme="snippet-${token[0]}"${attr}>${value}</nu-el>`;
   }, '');
 }
 
