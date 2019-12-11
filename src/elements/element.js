@@ -44,6 +44,8 @@ import overflowAttr from '../attributes/overflow';
 import hideAttr from '../attributes/hide';
 import imageAttr from '../attributes/image';
 import paddingAttr from '../attributes/padding';
+import beforeAttr from '../attributes/before';
+import afterAttr from '../attributes/after';
 
 const plugins = {
   responsive: '',
@@ -148,6 +150,8 @@ export default class NuElement extends NuBase {
       hide: hideAttr,
       opacity: 'opacity',
       transition: transitionAttr,
+      before: beforeAttr,
+      after: afterAttr,
       ...plugins,
       controls: '',
       label: '',

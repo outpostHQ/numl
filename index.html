@@ -1510,6 +1510,15 @@
 
       <nu-code>
         <textarea>
+          const str = 'String';
+          const num = 123;
+        </textarea>
+      </nu-code>
+
+      <nu-heading level="4">Numerated code block</nu-heading>
+
+      <nu-code numerate>
+        <textarea>
           const obj = {
             str: 'value',
             number: 123,
@@ -1522,6 +1531,22 @@
           function funcName() {
             obj.method('awesome!');
           }
+        </textarea>
+      </nu-code>
+
+      <nu-heading level="4">Simple marks</nu-heading>
+
+      <nu-code>
+        <textarea>
+          const myVar = &[['Mark variable']]&;
+        </textarea>
+      </nu-code>
+
+      <nu-heading level="4">Important marks</nu-heading>
+
+      <nu-code>
+        <textarea>
+          const myVar = ![['Mark variable']]!;
         </textarea>
       </nu-code>
 

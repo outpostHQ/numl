@@ -4,6 +4,21 @@ import { applyTheme, generateReferenceColor } from '../themes';
 
 let themesDeclared = false;
 
+const KEYWORD_RE = /^(a(bstract|lias|nd|rguments|rray|s(m|sert)?|uto)|b(ase|egin|ool(ean)?|reak|yte)|c(ase|atch|har|hecked|lass|lone|ompl|onst|ontinue)|de(bugger|cimal|clare|f(ault|er)?|init|l(egate|ete)?)|do|double|e(cho|ls?if|lse(if)?|nd|nsure|num|vent|x(cept|ec|p(licit|ort)|te(nds|nsion|rn)))|f(allthrough|alse|inal(ly)?|ixed|loat|or(each)?|riend|rom|unc(tion)?)|global|goto|guard|i(f|mp(lements|licit|ort)|n(it|clude(_once)?|line|out|stanceof|t(erface|ernal)?)?|s)|l(ambda|et|ock|ong)|m(odule|utable)|NaN|n(amespace|ative|ext|ew|il|ot|ull)|o(bject|perator|r|ut|verride)|p(ackage|arams|rivate|rotected|rotocol|ublic)|r(aise|e(adonly|do|f|gister|peat|quire(_once)?|scue|strict|try|turn))|s(byte|ealed|elf|hort|igned|izeof|tatic|tring|truct|ubscript|uper|ynchronized|witch)|t(emplate|hen|his|hrows?|ransient|rue|ry|ype(alias|def|id|name|of))|u(n(checked|def(ined)?|ion|less|signed|til)|se|sing)|v(ar|irtual|oid|olatile)|w(char_t|hen|here|hile|ith)|xor|yield)$/;
+const COM = 'com';
+const KEY = 'key';
+const NAM = 'nam';
+const NUM = 'num';
+const PCT = 'pct';
+const REX = 'rex';
+const SPC = 'spc';
+const STR = 'str';
+const UNK = 'unk';
+const PLS = 'pls';
+const MNS = 'mns';
+const MRK = 'mrk';
+const IMP = 'imp';
+
 export default class NuCode extends NuElement {
   static get nuTag() {
     return 'nu-code';
@@ -15,6 +30,8 @@ export default class NuCode extends NuElement {
         saturation: 0,
         contrast: 'soft',
       },
+      [SPC]: {},
+      [NAM]: {},
       [KEY]: {
         hue: 240,
       },
@@ -44,6 +61,17 @@ export default class NuCode extends NuElement {
       [MNS]: {
         hue: 1,
       },
+      [MRK]: {
+        hue: 240,
+        type: 'toned',
+        lightness: 'bold',
+      },
+      [IMP]: {
+        hue: 1,
+        type: 'special',
+        lightness: 'dim',
+        saturation: '80p',
+      }
     };
   }
 
@@ -72,7 +100,7 @@ export default class NuCode extends NuElement {
         background-color: var(--nu-subtle-color);
       }
       ${tag}[inline]:not([padding]) {
-        padding: 0 var(--nu-padding);
+        padding: .25em;
       }
       ${tag} nu-el[plus]::before {
         content: '+ ';
@@ -81,6 +109,14 @@ export default class NuCode extends NuElement {
       ${tag} nu-el[minus]::before {
         content: '- ';
         display: inline-block;
+      }
+      ${tag} nu-el[number]::before {
+        content: '1. ';
+        display: inline-block;
+      }
+      ${tag} nu-el[fill] {
+        border-radius: var(--nu-border-radius);
+        padding: .25em;
       }
     `;
   }
@@ -105,7 +141,7 @@ export default class NuCode extends NuElement {
       this.appendChild(container);
 
       this.nuObserve = () => {
-        container.innerHTML = textToMarkup(textarea.textContent);
+        container.innerHTML = textToMarkup(textarea.textContent, this.hasAttribute('numerate'));
       };
 
       const observer = new MutationObserver(() => this.nuObserve());
@@ -126,20 +162,9 @@ export default class NuCode extends NuElement {
   }
 }
 
-const KEYWORD_RE = /^(a(bstract|lias|nd|rguments|rray|s(m|sert)?|uto)|b(ase|egin|ool(ean)?|reak|yte)|c(ase|atch|har|hecked|lass|lone|ompl|onst|ontinue)|de(bugger|cimal|clare|f(ault|er)?|init|l(egate|ete)?)|do|double|e(cho|ls?if|lse(if)?|nd|nsure|num|vent|x(cept|ec|p(licit|ort)|te(nds|nsion|rn)))|f(allthrough|alse|inal(ly)?|ixed|loat|or(each)?|riend|rom|unc(tion)?)|global|goto|guard|i(f|mp(lements|licit|ort)|n(it|clude(_once)?|line|out|stanceof|t(erface|ernal)?)?|s)|l(ambda|et|ock|ong)|m(odule|utable)|NaN|n(amespace|ative|ext|ew|il|ot|ull)|o(bject|perator|r|ut|verride)|p(ackage|arams|rivate|rotected|rotocol|ublic)|r(aise|e(adonly|do|f|gister|peat|quire(_once)?|scue|strict|try|turn))|s(byte|ealed|elf|hort|igned|izeof|tatic|tring|truct|ubscript|uper|ynchronized|witch)|t(emplate|hen|his|hrows?|ransient|rue|ry|ype(alias|def|id|name|of))|u(n(checked|def(ined)?|ion|less|signed|til)|se|sing)|v(ar|irtual|oid|olatile)|w(char_t|hen|here|hile|ith)|xor|yield)$/;
-const COM = 'com';
-const KEY = 'key';
-const NAM = 'nam';
-const NUM = 'num';
-const PCT = 'pct';
-const REX = 'rex';
-const SPC = 'spc';
-const STR = 'str';
-const UNK = 'unk';
-const PLS = 'pls';
-const MNS = 'mns';
-
 const TOKEN_RES = [
+  [MRK, /&\[\[.+?]]&/],
+  [IMP, /!\[\[.+?]]!/],
   [PLS, /(^|\n)\+\s.+($|\n)/],
   [MNS, /(^|\n)-\s.+($|\n)/],
   [NUM, /#([0-9a-f]{6}|[0-9a-f]{3})\b/],
@@ -205,7 +230,7 @@ const ATTR_MAP = {
   mns: 'minus',
 };
 
-function textToMarkup(str) {
+function textToMarkup(str, numerate) {
   const lines = str.split('\n');
 
   if (lines[0] && !lines[0].trim()) {
@@ -227,17 +252,53 @@ function textToMarkup(str) {
     str = lines.map(str => str.replace(tab, '')).join('\n');
   }
 
-  return tokenize(str).reduce(function (html, token) {
+  let number = 0;
+
+  let numSize = 2;
+
+  const tokens = tokenize(str);
+
+  if (numerate) {
+    let linesNum = 1;
+
+    tokens.forEach(token => {
+      if (token[0] === 'spc') {
+        const match = token[1].match(/\n/g);
+
+        if (match) {
+          linesNum += match.length;
+        }
+      }
+    });
+
+    numSize = 1 + String(linesNum).length;
+  }
+
+  function getNumber(firstLine) {
+    const numSpaces = ' '.repeat(numSize - String(number + 1).length);
+
+    return `${!firstLine ? '\n' : ''}<nu-el theme="snippet-com" before="${++number}.${numSpaces}"></nu-el>`;
+  }
+
+  return tokens.reduce(function (html, token) {
     let id = token[0];
     let attr = ATTR_MAP[id] ? ` ${ATTR_MAP[id]}` : '';
     let value = SYMBOL_MAP[id] ? token[1].slice(2) : token[1];
 
-    return html + `<nu-el theme="snippet-${token[0]}"${attr}>${value}</nu-el>`;
-  }, '');
+    if (numerate && id === SPC) {
+      value = value.replace(/\n/g, s => getNumber());
+    }
+
+    if (id === MRK || id === IMP) {
+      value = value.replace(/([!&]\[\[|]][!&])/g, '');
+    }
+
+    return html + `<nu-el theme="snippet-${token[0]}"${attr}${NuCode.nuThemes[id].type ? ' fill' : ''}>${value}</nu-el>`;
+  }, numerate ? getNumber(true) : '');
 }
 
 function declareThemes(cls) {
-  Object.entries(cls.nuThemes).forEach(([id, { hue, saturation, contrast }]) => {
+  Object.entries(cls.nuThemes).forEach(([id, { hue, type, saturation, contrast, lightness }]) => {
     const name = `snippet-${id}`;
 
     applyTheme(document.body, {
@@ -246,8 +307,8 @@ function declareThemes(cls) {
         saturation: saturation != null ? String(saturation) : '100p'
       }),
       name,
-      type: 'tint',
-      lightness: 'normal',
+      type: type || 'tint',
+      lightness: lightness || 'normal',
       contrast: contrast || 'normal',
     }, name);
   });
