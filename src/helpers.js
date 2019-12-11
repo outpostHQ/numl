@@ -42,7 +42,7 @@ export function colorUnit(style, initial) {
   return (color) => {
     if (color == null) return;
 
-    if (color.trim() && strToHsl(color)) {
+    if (color.trim() && color.trim() !== 'text' && strToHsl(color)) {
       return { [style]: color };
     }
 
