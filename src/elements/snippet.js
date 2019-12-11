@@ -30,8 +30,8 @@ export default class NuCode extends NuElement {
         saturation: 0,
         contrast: 'soft',
       },
-      [SPC]: {},
-      [NAM]: {},
+      [SPC]: { skip: true },
+      [NAM]: { skip: true },
       [KEY]: {
         hue: 240,
       },
@@ -298,7 +298,9 @@ function textToMarkup(str, numerate) {
 }
 
 function declareThemes(cls) {
-  Object.entries(cls.nuThemes).forEach(([id, { hue, type, saturation, contrast, lightness }]) => {
+  Object.entries(cls.nuThemes).forEach(([id, { hue, type, saturation, contrast, lightness, skip }]) => {
+    if (skip) return;
+
     const name = `snippet-${id}`;
 
     applyTheme(document.body, {
