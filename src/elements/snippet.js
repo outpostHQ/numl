@@ -163,7 +163,7 @@ export default class NuCode extends NuElement {
 }
 
 const TOKEN_RES = [
-  [MRK, /&\[\[.+?]]&/],
+  [MRK, /#\[\[.+?]]#/],
   [IMP, /!\[\[.+?]]!/],
   [PLS, /(^|\n)\+\s.+($|\n)/],
   [MNS, /(^|\n)-\s.+($|\n)/],
@@ -290,7 +290,7 @@ function textToMarkup(str, numerate) {
     }
 
     if (id === MRK || id === IMP) {
-      value = value.replace(/([!&]\[\[|]][!&])/g, '');
+      value = value.replace(/([!#]\[\[|]][!#])/g, '');
     }
 
     return html + `<nu-el theme="snippet-${token[0]}"${attr}${NuCode.nuThemes[id].type ? ' fill' : ''}>${value}</nu-el>`;
