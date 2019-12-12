@@ -61,11 +61,11 @@ export default class NuInput extends NuBlock {
         border-radius: inherit;
         box-sizing: border-box;
       }
-      
+
       ${tag} input:not(:first-child) {
         padding-left: 0;
       }
-      
+
       ${tag} input:not(:last-child) {
         padding-right: 0;
       }
@@ -82,7 +82,7 @@ export default class NuInput extends NuBlock {
         color: currentColor;
         opacity: .5;
       }
-      
+
       ${tag} nu-icon:not([width]) {
         width: calc(var(--nu-local-padding) * 2 + 1em);
       }
@@ -100,6 +100,16 @@ export default class NuInput extends NuBlock {
       this.appendChild(input);
 
       this.nuRef = input;
+
+      if (this.hasAttribute('label')) {
+        this.nuChanged('label', null, this.getAttribute('label'));
+        this.removeAttribute('aria-label');
+      }
+
+      if (this.hasAttribute('labelledby')) {
+        this.nuChanged('label', null, this.getAttribute('labelledby'));
+        this.removeAttribute('aria-labelledby');
+      }
     }
 
     return this.nuRef;

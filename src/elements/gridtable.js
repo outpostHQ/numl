@@ -11,10 +11,6 @@ export default class NuGridTable extends NuGrid {
     return 'nu-gridtable';
   }
 
-  static get nuRole() {
-    return 'grid';
-  }
-
   static get nuAttrs() {
     return {
       padding: unit('padding', {

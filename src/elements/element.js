@@ -472,9 +472,9 @@ export default class NuElement extends NuBase {
     }
 
     if (value == null) {
-      this.removeAttribute(`aria-${name}`);
+      (this.nuRef || this).removeAttribute(`aria-${name}`);
     } else {
-      this.setAttribute(`aria-${name}`, value);
+      (this.nuRef || this).setAttribute(`aria-${name}`, value);
     }
   }
 

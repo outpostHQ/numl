@@ -4,6 +4,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/nude-logo-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/nude-logo-16.png">
   <title>NUDE Elements Playground</title>
+  <meta name="Description" content="Design System Framework for the any scale projects.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="src/pack.js"></script>
 </head>
 <body>
@@ -144,7 +146,7 @@
     <nu-heading level="2">Images</nu-heading>
 
     <nu-card id="section">
-      <nu-grid columns="1fr 1fr" gap>
+      <nu-grid columns="1fr 1fr||1fr" gap>
         <nu-heading level="4">Raster image</nu-heading>
         <nu-heading level="4">Vector image</nu-heading>
         <nu-block>
@@ -1182,7 +1184,7 @@
       <nu-heading level="3">Switches</nu-heading>
 
       <nu-block>
-        <nu-switch></nu-switch>
+        <nu-switch value></nu-switch>
       </nu-block>
     </nu-card>
 
@@ -1201,7 +1203,7 @@
       <nu-heading level="3">Simple input</nu-heading>
 
       <nu-block>
-        <nu-input width="15">
+        <nu-input width="15" label="Simple input">
 
         </nu-input>
       </nu-block>
@@ -1210,11 +1212,11 @@
 
       <nu-group border radius width="15">
         <nu-icon name="user" width="2.5"></nu-icon>
-        <nu-input border="0" grow="1">
+        <nu-input border="0" grow="1" label="Input with icon">
 
         </nu-input>
         <nu-btn border="1x left">
-          <nu-icon name="x"></nu-icon>
+          <nu-icon name="x" label="Circle"></nu-icon>
         </nu-btn>
       </nu-group>
 
@@ -1222,12 +1224,12 @@
 
       <nu-block>
         Currency input:
-        <nu-numinput prefix="$" value="12032" width="8"></nu-numinput>
+        <nu-numinput prefix="$" value="12032" width="8" label="Number input"></nu-numinput>
       </nu-block>
 
       <nu-block>
         Percent input:
-        <nu-numinput suffix="%" value="55" min="0" max="100" width="8"></nu-numinput>
+        <nu-numinput suffix="%" value="55" min="0" max="100" width="8" label="Percents input"></nu-numinput>
       </nu-block>
     </nu-card>
 
@@ -1518,7 +1520,7 @@
 
       <nu-heading level="4">Numerated code block</nu-heading>
 
-      <nu-code numerate>
+      <nu-code enumerate>
         <textarea>
           const obj = {
             str: 'value',

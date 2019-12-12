@@ -141,7 +141,7 @@ export default class NuCode extends NuElement {
       this.appendChild(container);
 
       this.nuObserve = () => {
-        container.innerHTML = textToMarkup(textarea.textContent, this.hasAttribute('numerate'));
+        container.innerHTML = textToMarkup(textarea.textContent, this.hasAttribute('enumerate'));
       };
 
       const observer = new MutationObserver(() => this.nuObserve());
@@ -230,7 +230,7 @@ const ATTR_MAP = {
   mns: 'minus',
 };
 
-function textToMarkup(str, numerate) {
+function textToMarkup(str, enumerate) {
   const lines = str.split('\n');
 
   if (lines[0] && !lines[0].trim()) {
@@ -258,7 +258,7 @@ function textToMarkup(str, numerate) {
 
   const tokens = tokenize(str);
 
-  if (numerate) {
+  if (enumerate) {
     let linesNum = 1;
 
     tokens.forEach(token => {
@@ -285,7 +285,7 @@ function textToMarkup(str, numerate) {
     let attr = ATTR_MAP[id] ? ` ${ATTR_MAP[id]}` : '';
     let value = SYMBOL_MAP[id] ? token[1].slice(2) : token[1];
 
-    if (numerate && id === SPC) {
+    if (enumerate && id === SPC) {
       value = value.replace(/\n/g, s => getNumber());
     }
 
@@ -294,7 +294,7 @@ function textToMarkup(str, numerate) {
     }
 
     return html + `<nu-el theme="snippet-${token[0]}"${attr}${NuCode.nuThemes[id].type ? ' fill' : ''}>${value}</nu-el>`;
-  }, numerate ? getNumber(true) : '');
+  }, enumerate ? getNumber(true) : '');
 }
 
 function declareThemes(cls) {

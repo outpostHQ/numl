@@ -1,6 +1,5 @@
 import NuActiveElement from './activeelement';
 import focusable from '../mixins/focusable';
-import { bindActiveEvents } from '../helpers';
 import NuElement from './element';
 
 export default class NuSwitch extends NuActiveElement {
