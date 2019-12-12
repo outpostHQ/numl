@@ -12,6 +12,10 @@ export function hslToRgbaStr(hsl) {
   return `rgba(${hslToRgb(hsl).join(',')}, ${hsl[3] || 1})`;
 }
 
+function setPrecision(num, fixed = 2) {
+  return Number((num).toFixed(fixed));
+}
+
 const TO_RELATIVE = [];
 const FROM_RELATIVE = [];
 const TO_RELATIVE_MAP = {};
@@ -188,6 +192,8 @@ function findClosest(val, arr) {
 }
 
 export function toRelative(l) {
+  l = setPrecision(l);
+
   if (TO_RELATIVE_CACHE[l]) {
     return TO_RELATIVE_CACHE[l];
   }
@@ -227,6 +233,8 @@ export function toRelative(l) {
 // }
 
 export function fromRelative(l, exp = 4) {
+  l = setPrecision(l);
+
   if (FROM_RELATIVE_CACHE[l]) {
     return FROM_RELATIVE_CACHE[l];
   }
@@ -325,5 +333,3 @@ export default {
   setOptimalSaturation,
   getTheBrightest,
 };
-
-// error calc
