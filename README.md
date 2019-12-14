@@ -195,6 +195,7 @@ Run `npm run play` to view test page with few examples.
 #### New features
 
 * Full rework of **Theme System**. Full theme calculation from single hue param. WCAG contrast ratio compliance. Much better **Dark scheme** and **High contrast** support. Ability to tweak every theme with modifiers.
+* Improved support for Svelte.
 
 #### Breaking changes
 
@@ -203,9 +204,15 @@ Run `npm run play` to view test page with few examples.
 * **nu-triangle**: **[dir]** -> **[set]**.
 * **nu-style** renamed to **nu-attrs** for a more accurate understanding.
 
+#### New elements
+* **nu-numinput** - Input for numeric values.
+* **nu-strong** - Highlight part of the text.
+* **nu-code** - Code snippets!
+
 #### Bug fixes
 * Unable to change border width of **nu-switch**.
 * Flex doubles gap in Firefox.
+* Fix **nu-switch** styles. 
 
 ### v0.7
 
