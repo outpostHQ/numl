@@ -143,7 +143,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
   // themes with same hue should have focus color with consistent setPastelSaturation saturation
 
   if (type === 'main' || type === 'tint') {
-    theme.subtle = setSaturation([hue, saturation, bgColor[2] + (darkScheme ? 2 : -2)], saturation / 2, true);
+    theme.subtle = setSaturation([hue, saturation, bgColor[2] + (darkScheme ? 2 : -2)], saturation * (darkScheme ? .5 : 1), true);
   }
 
   switch (type || 'tint') {
