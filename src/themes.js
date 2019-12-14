@@ -5,10 +5,11 @@ import {
   findContrastColor,
   mix,
   setPastelSaturation,
-  setLuminance,
   setOpacity,
-  toRelative, hslToRgbaStr,
-  setOptimalSaturation, strToHsl, getTheBrightest, fromRelative, getContrastRatio, hslToRgb,
+  hslToRgbaStr,
+  getTheBrightest,
+  hslToRgb,
+  findContrastLightness, setSaturation,
 } from './color';
 import { cleanCSSByPart, injectCSS, stylesString } from './css';
 
@@ -40,7 +41,9 @@ const darkNormanBaseBgColor = [0, 0, normalMinLightness];
 const darkContrastBaseBgColor = [0, 0, contrastMinLightness];
 
 export const BASE_THEME = {
-  color: generateReferenceColor({ hue: 250 }),
+  hue: 250,
+  saturation: 100,
+  pastel: true,
   name: 'main',
   type: 'main',
   contrast: 'normal',
@@ -115,7 +118,9 @@ const SPECIAL_CONTRAST_MAP = {
 
 /**
  * Generate theme with specific params
- * @param color {Array<Number>} – reference theme color
+ * @param hue {Number} – Reference hue
+ * @param saturation {Number} – Reference saturation
+ * @param pastel {Boolean} – Use pastel palette
  * @param [type] {String} – [main] | tint | toned | swap | special
  * @param [contrast] {String} – [normal] | strong | soft
  * @param [lightness] {String} – [normal] | dim | bold
@@ -123,7 +128,7 @@ const SPECIAL_CONTRAST_MAP = {
  * @param [highContrast] {Boolean} - true | false
  * @param [shadowIntensity] {Number} – 0 to 1
  */
-export function generateTheme({ color, type, contrast, lightness, darkScheme, highContrast, shadowIntensity }) {
+export function generateTheme({ hue, saturation, pastel, type, contrast, lightness, darkScheme, highContrast, shadowIntensity }) {
   const theme = {};
   const minContrast = getMinContrast(contrast, highContrast, darkScheme);
   const softContrast = Math.max(minContrast * .8, darkScheme ? 3.75 : 3);
@@ -131,44 +136,44 @@ export function generateTheme({ color, type, contrast, lightness, darkScheme, hi
   const tonedBgLightness = getBgLightness(lightness, highContrast, darkScheme);
   const textColor = getBaseTextColor(highContrast, darkScheme);
   const bgColor = getBaseBgColor(highContrast, darkScheme);
-  const baseSaturation = color[1];
   const borderContrastModifier = contrast === 'strong' ? 1.5 : 0;
 
   const originalContrast = theme['special-text'] = getTheBrightest(textColor, bgColor);
-  const originalSpecial = theme['special-bg'] = findContrastColor(color, theme['special-text'][2], type === 'toned' || type === 'swap' ? (softContrast + minContrast) / 2 : softContrast);
+  const originalSpecial = theme['special-bg'] = setSaturation([hue, saturation, findContrastLightness(theme['special-text'][2], type === 'toned' || type === 'swap' ? (softContrast + minContrast) / 2 : softContrast)], saturation, pastel);
   // themes with same hue should have focus color with consistent setPastelSaturation saturation
 
   if (type === 'main' || type === 'tint') {
-    theme.subtle = setPastelSaturation([color[0], color[1], bgColor[2] + (darkScheme ? 2 : -2)], darkScheme ? 20 : 40);
+    theme.subtle = setSaturation([hue, saturation, bgColor[2] + (darkScheme ? 2 : -2)], saturation / 2, true);
   }
 
   switch (type || 'tint') {
     case 'tint':
       theme.bg = bgColor;
-      theme.text = findContrastColor(color, theme.subtle[2], minContrast);
-      theme['text-strong'] = findContrastColor(color, bgColor[2], 7);
+      theme.text = setSaturation([hue, saturation, findContrastLightness(theme.subtle[2], minContrast)], saturation, pastel);
+      theme['text-strong'] = setSaturation([hue, saturation, findContrastLightness(theme.subtle[2], 7)], saturation, pastel);
       break;
     case 'toned':
-      theme.bg = setPastelSaturation(setLuminance(color, tonedBgLightness), (darkScheme ? 75 : 100) * (color[1] + 100) / 200);
-      theme.text = findContrastColor(color, tonedBgLightness, minContrast);
-      theme['text-strong'] = findContrastColor(color, tonedBgLightness, 7);
+      // @TODO Check bg saturation
+      theme.bg = setSaturation([hue, saturation, tonedBgLightness], saturation, true);
+      theme.text = setSaturation([hue, saturation, findContrastLightness(tonedBgLightness, minContrast)], saturation, pastel);
+      theme['text-strong'] = setSaturation([hue, saturation, findContrastLightness(tonedBgLightness, 7)], saturation, pastel);
       break;
     case 'swap':
-      theme.bg = findContrastColor(color, tonedBgLightness, minContrast);
-      theme.text = setPastelSaturation(setLuminance(color, tonedBgLightness));
-      theme.border = setPastelSaturation(findContrastColor(mix(originalSpecial, originalContrast, darkScheme ? 0 : .7), theme.bg[2], (highContrast ? 4.5 : 3) + borderContrastModifier, darkScheme), darkScheme ? 100 : baseSaturation * .75);
-      theme['special-bg'] = findContrastColor(theme.text, theme.bg[2], darkScheme ? SPECIAL_CONTRAST_MAP[minContrast] : minContrast);
-      // theme['special-bg'] = [...theme.text];
-      theme['special-text'] = findContrastColor([...theme.bg], theme.text[2], minContrast);
+      theme.bg = setSaturation([hue, saturation, findContrastLightness(tonedBgLightness, minContrast)], saturation, pastel);
+      theme.text = setSaturation([hue, saturation, tonedBgLightness], saturation, true);
+      theme.border = setPastelSaturation(findContrastColor(mix(originalSpecial, originalContrast, darkScheme ? 0 : .7), theme.bg[2], (highContrast ? 4.5 : 3) + borderContrastModifier, darkScheme), darkScheme ? 100 : saturation * .75);
+      theme['special-bg'] = setSaturation([theme.text[0], saturation, findContrastLightness(theme.bg[2], darkScheme ? SPECIAL_CONTRAST_MAP[minContrast] : minContrast)], saturation, true);
+      theme['special-text'] = setSaturation([theme.bg[0], theme.bg[1], findContrastLightness(theme.text[2], highContrast)], saturation, pastel);
       theme.special = [...bgColor];
+      theme['text-soft'] = setSaturation([hue, saturation, findContrastLightness(theme.bg[2], minContrast, darkScheme)], saturation, true);
       theme['text-strong'] = [...bgColor];
       break;
     case 'special':
       theme.text = getTheBrightest(textColor, bgColor);
-      theme.bg = findContrastColor(color, theme.text[2], minContrast);
-      theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 4.5 : 2.5) + borderContrastModifier), baseSaturation * .75);
+      theme.bg = setSaturation([hue, saturation, findContrastLightness(theme.text[2], minContrast)], saturation, pastel);
+      theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 4.5 : 2.5) + borderContrastModifier), saturation * .75);
       [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
-      theme['special-text'] = findContrastColor(originalSpecial, originalContrast[2], minContrast);
+      theme['special-text'] = [hue, saturation, findContrastLightness(originalContrast[2], minContrast)];
       theme.special = [...originalContrast];
       theme['text-soft'] = [...theme.text];
       theme['text-strong'] = [...theme.text];
@@ -176,28 +181,32 @@ export function generateTheme({ color, type, contrast, lightness, darkScheme, hi
     case 'main':
       theme.bg = bgColor;
       theme.text = textColor;
-      theme['text-soft'] = findContrastColor(theme.text, tonedBgLightness, 7);
-      theme['text-strong'] = findContrastColor(theme.bg, tonedBgLightness, 7);
+      theme['text-soft'] = [0, 0, findContrastLightness(tonedBgLightness, 7)];
+      theme['text-strong'] = [0, 0, findContrastLightness(tonedBgLightness, 7)];
   }
 
   theme.focus = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
 
   if (type === 'main' || type === 'tint') {
-    theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 2 : 1.2) + borderContrastModifier), baseSaturation / (highContrast ? 2 : 1));
+    theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 2 : 1.2) + borderContrastModifier), saturation / (highContrast ? 2 : 1));
   } else {
-    theme.border = theme.border || setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : baseSaturation * .75);
+    theme.border = theme.border || setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : saturation * .75);
     theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -2 : 2)];
   }
 
   if (type === 'main') {
-    theme.special = findContrastColor(color, theme.subtle[2], softContrast);
-  } else {
-    theme.special = theme.special || findContrastColor(theme.text, theme.bg[2], softContrast, darkScheme) || [...theme.text];
+    theme.special = setSaturation([hue, saturation, findContrastLightness(theme.subtle[2], softContrast)], saturation, pastel);
+  } else if (!theme.special) {
+    const contrastLightness = findContrastLightness(theme.bg[2], softContrast, darkScheme);
+    theme.special = contrastLightness ? setSaturation([hue, saturation, contrastLightness], saturation, pastel) : [...theme.text];
   }
 
   // in soft variant it's impossible to reduce contrast for headings
-  theme['text-soft'] = theme['text-soft'] || findContrastColor(theme.text, theme.bg[2], softContrast, darkScheme) || [...theme.text];
-  theme.hover = setOpacity(findContrastColor(theme.focus, theme.bg[2], highContrast ? 2.2 : 1.6), .15);
+  if (!theme['text-soft']) {
+    const contrastLightness = findContrastLightness(theme.bg[2], softContrast, darkScheme);
+    theme['text-soft'] = contrastLightness ? setSaturation([hue, saturation, contrastLightness], saturation, pastel) : [...theme.text];
+  }
+  theme.hover = setOpacity([hue, saturation, findContrastLightness(theme.bg[2], highContrast ? 2.2 : 1.6)], .15);
   theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity, darkScheme);
   theme['special-intensity'] = getShadowIntensity(theme['special-bg'][2], shadowIntensity, darkScheme);
 
@@ -244,40 +253,6 @@ export function themeToProps(name, theme) {
   map[`--nu-${name}-text-color-rgb`] = hslToRgb(theme.text);
 
   return map;
-}
-
-export function generateReferenceColor({ hue, saturation, from }) {
-  const isPastel = saturation && saturation.endsWith('p');
-  const saturator = isPastel ? (hsl) => {
-    return setPastelSaturation(hsl, parseInt(saturation));
-  } : (v) => v;
-
-  if (hue) {
-    let hsl;
-
-    if (saturation && saturation !== 'auto') {
-      hsl = saturator([parseInt(hue, 10), parseInt(saturation), 80]);
-    } else {
-      hsl = setOptimalSaturation([parseInt(hue, 10), 50, 80]);
-    }
-
-    return hsl;
-  } else if (from) {
-    let hsl = strToHsl(from);
-
-    if (saturation) {
-      if (saturation === 'auto') {
-        hsl = setOptimalSaturation(hsl);
-      } else {
-        hsl[1] = parseInt(saturation);
-        hsl = saturator(hsl);
-      }
-    }
-
-    return hsl;
-  }
-
-  log('incorrect theme declaration');
 }
 
 const CONTRAST_MODS = [
@@ -388,12 +363,14 @@ export function composeThemeName({ name, type, contrast, lightness }) {
  * Declare theme on element.
  * @param el – Element to remove theme
  * @param name {String} – Name of theme
- * @param referenceColor {Array<Number>} – Reference color of theme
+ * @param hue {Number} – Reference hue of theme
+ * @param saturation {Number} – Reference saturation of theme
+ * @param pastel {Boolean} - Use pastel palette
  * @param customProps {Object<String,String>} – All custom properties of theme
  * @param defaultMods {String} – List of default modifiers
  */
-export function declareTheme(el, name, referenceColor, customProps, defaultMods) {
-  log('declare theme', { element: el, name, customProps, defaultMods });
+export function declareTheme(el, name, hue, saturation, pastel, customProps, defaultMods) {
+  log('declare theme', { element: el, name, hue, saturation, pastel, customProps, defaultMods });
 
   if (devMode && !el.nuContext) {
     log('element context not found');
@@ -409,7 +386,9 @@ export function declareTheme(el, name, referenceColor, customProps, defaultMods)
     el.nuContext[key] = {
       mods: defaultMods,
       ...theme,
-      color: referenceColor,
+      hue,
+      saturation,
+      pastel,
       $context: el,
     };
   }
@@ -421,7 +400,9 @@ export function declareTheme(el, name, referenceColor, customProps, defaultMods)
   applyTheme(el, {
     ...theme,
     name,
-    color: referenceColor,
+    hue,
+    saturation,
+    pastel,
   }, name);
 
   if (Object.keys(customProps).length) {
@@ -494,18 +475,18 @@ export function removeTheme(el, name, customProps) {
     });
 }
 
-export function applyTheme(element, { name, color, type, contrast, lightness }, themeName) {
+export function applyTheme(element, { name, hue, saturation, pastel, type, contrast, lightness }, themeName) {
   const lightNormalTheme = generateTheme({
-    color, type, contrast, lightness,
+    hue, saturation, pastel, type, contrast, lightness,
   });
   const lightContrastTheme = generateTheme({
-    color, type, contrast, lightness, highContrast: true,
+    hue, saturation, pastel, type, contrast, lightness, highContrast: true,
   });
   const darkNormalTheme = generateTheme({
-    color, type, contrast, lightness, darkScheme: true,
+    hue, saturation, pastel, type, contrast, lightness, darkScheme: true,
   });
   const darkContrastTheme = generateTheme({
-    color, type, contrast, lightness, highContrast: true, darkScheme: true,
+    hue, saturation, pastel, type, contrast, lightness, highContrast: true, darkScheme: true,
   });
   themeName = themeName || composeThemeName({ name, type, contrast, lightness });
   const lightNormalProps = stylesString(themeToProps(themeName, lightNormalTheme));
@@ -513,7 +494,7 @@ export function applyTheme(element, { name, color, type, contrast, lightness }, 
   const darkNormalProps = stylesString(themeToProps(themeName, darkNormalTheme));
   const darkContrastProps = stylesString(themeToProps(themeName, darkContrastTheme));
 
-  log('apply theme', { element, themeName, color, type, contrast, lightness });
+  log('apply theme', { element, themeName, hue, saturation, pastel, type, contrast, lightness });
 
   const baseQuery = element === document.body ? 'body' : `#${element.nuId}`;
   const styleTagName = `theme:${themeName}:${baseQuery}`;
@@ -598,7 +579,9 @@ export function applyTheme(element, { name, color, type, contrast, lightness }, 
 
   element.nuContext[`theme:${themeName}`] = {
     name,
-    color,
+    hue,
+    saturation,
+    pastel,
     type,
     contrast,
     lightness,

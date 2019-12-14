@@ -219,7 +219,7 @@ export default class NuBase extends HTMLElement {
     }
 
     Object.keys(allAttrs).forEach(attr => {
-      if (checkPropIsDeclarable(attr) && !NuBase.prototype.hasOwnProperty(attr)) {
+      if (!NuBase.prototype.hasOwnProperty(attr) && checkPropIsDeclarable(attr)) {
         declareProp(NuBase, attr);
       }
     });

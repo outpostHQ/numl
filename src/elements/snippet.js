@@ -1,6 +1,6 @@
 import NuElement from './element';
 import { error } from '../helpers';
-import { applyTheme, generateReferenceColor } from '../themes';
+import { applyTheme } from '../themes';
 
 let themesDeclared = false;
 
@@ -37,7 +37,8 @@ export default class NuCode extends NuElement {
       },
       [NUM]: {
         hue: 280,
-        saturation: '80p',
+        saturation: 100,
+        pastel: true,
       },
       [PCT]: {
         hue: 1,
@@ -46,7 +47,6 @@ export default class NuCode extends NuElement {
       },
       [REX]: {
         hue: 340,
-        saturation: '80p',
       },
       [STR]: {
         hue: 180,
@@ -64,13 +64,13 @@ export default class NuCode extends NuElement {
       [MRK]: {
         hue: 240,
         type: 'toned',
-        lightness: 'bold',
       },
       [IMP]: {
         hue: 1,
         type: 'special',
         lightness: 'dim',
-        saturation: '80p',
+        saturation: 75,
+        pastel: false,
       }
     };
   }
@@ -298,16 +298,15 @@ function textToMarkup(str, enumerate) {
 }
 
 function declareThemes(cls) {
-  Object.entries(cls.nuThemes).forEach(([id, { hue, type, saturation, contrast, lightness, skip }]) => {
+  Object.entries(cls.nuThemes).forEach(([id, { hue, type, saturation, pastel, contrast, lightness, skip }]) => {
     if (skip) return;
 
     const name = `snippet-${id}`;
 
     applyTheme(document.body, {
-      color: generateReferenceColor({
-        hue: hue != null ? String(hue) : '240',
-        saturation: saturation != null ? String(saturation) : '100p'
-      }),
+      hue: hue != null ? String(hue) : 240,
+      saturation: saturation != null ? saturation : (pastel ? 100 : 75),
+      pastel: pastel != null ? pastel : false,
       name,
       type: type || 'tint',
       lightness: lightness || 'normal',

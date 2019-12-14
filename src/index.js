@@ -76,7 +76,9 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
-applyTheme(document.body, BASE_THEME, 'main');
+setTimeout(() => {
+  applyTheme(document.body, BASE_THEME, 'main');
+});
 
 const styles = themeAttr('main');
 

@@ -42,6 +42,15 @@ If you want you can provide exact **saturation** you need:
 <nu-theme hue="250" saturation="20"></nu-theme>
 ```
 
+### Use pastel palette
+
+If you want archive consistent saturation over themes you can use pastel palette:
+
+```html
+<nu-theme hue="250" saturation="100" pastel></nu-theme>
+<nu-theme hue="1" saturation="100" pastel></nu-theme>
+```
+
 ### Generate colors from color
 
 Also you can use any hex/rgb/rgba/hsl declaration to provide base color:

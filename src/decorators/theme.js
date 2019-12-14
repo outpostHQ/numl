@@ -1,11 +1,13 @@
 import NuDecorator from './decorator';
-import { declareTheme, generateReferenceColor, removeTheme } from '../themes';
-import { convertUnit } from '../helpers';
+import { declareTheme, removeTheme } from '../themes';
+import { convertUnit, error } from '../helpers';
+import { strToHsl } from '../color';
 
 const ATTRS_LIST = [
   'name',
   'hue',
   'saturation',
+  'pastel',
   'from',
   'mods',
   'border-radius',
@@ -41,7 +43,7 @@ export default class NuTheme extends NuDecorator {
 
     this.nuParent = this.parentNode;
 
-    setTimeout(() => this.nuApply());
+    setTimeout(() => this.nuApply(true));
   }
 
   nuDisconnected() {
@@ -53,16 +55,35 @@ export default class NuTheme extends NuDecorator {
     }
   }
 
-  nuApply() {
+  nuApply(initial = false) {
     const attrs = [...this.attributes].reduce((map, attr) => {
       map[attr.name] = attr.value;
 
       return map;
     }, {});
 
-    const { name = 'main', hue, saturation, from, mods, ...props } = attrs;
+    let { name = 'main', hue, saturation, pastel, from, mods, ...props } = attrs;
 
-    const referenceColor = generateReferenceColor({ hue, saturation, from });
+    pastel = pastel != null;
+
+    const autoSaturation = (pastel ? 100 : 75);
+
+    if (from) {
+      const color = strToHsl(from);
+
+      if (!color) {
+        error('wrong reference color', from);
+        return;
+      }
+
+      hue = color[0];
+
+      saturation = saturation === 'auto' ? autoSaturation : (saturation != null ? saturation : color[1]);
+    } else {
+      hue = hue != null ? Number(hue) : null;
+      saturation = saturation == null || saturation === 'auto' ? autoSaturation : Number(saturation);
+    }
+
     const defaultMods = mods || '';
 
     const customProps = Object.keys(props || {})
@@ -74,14 +95,21 @@ export default class NuTheme extends NuDecorator {
         return map;
       }, {});
 
-    if (!referenceColor) return;
+    this.nuName = name;
+    this.nuProps = customProps;
+    this.nuHue = hue;
+    this.nuFrom = from;
+    this.nuSaturation = saturation;
+    this.nuPastel = pastel;
+    this.nuMods = defaultMods;
 
-    if ((this.nuName && this.nuName !== name)
-      || (this.nuReferenceColor && JSON.stringify(this.nuReferenceColor) !== JSON.stringify(referenceColor))
-      || (this.nuProps && JSON.stringify(this.nuProps) !== JSON.stringify(customProps))
-      || (this.nuMods && this.nuMods !== defaultMods)) {
+    if (!initial) {
       removeTheme(this.nuParent, this.nuName, this.nuProps);
+    }
 
+    declareTheme(this.nuParent, name, hue, saturation, pastel, customProps, defaultMods || '');
+
+    if (!initial) {
       setTimeout(() => {
         [...this.nuParent.querySelectorAll('[nu][theme]')]
           .forEach(el => {
@@ -89,12 +117,5 @@ export default class NuTheme extends NuDecorator {
           });
       }, 0);
     }
-
-    this.nuName = name;
-    this.nuProps = customProps;
-    this.nuReferenceColor = referenceColor;
-    this.nuMods = defaultMods;
-
-    declareTheme(this.nuParent, name, referenceColor, customProps, defaultMods || '');
   }
 }

@@ -92,6 +92,15 @@ export function findContrastColor(hsl, refL = 1, ratio = 4.5, dir) {
   return hsl;
 }
 
+export function findContrastLightness(refL = 1, ratio = 4.5, dir) {
+  const l1 = toRelative(refL);
+  const l2 = getLuminanceByRatio(l1, ratio, dir);
+
+  if (l2 == null) return null; // can't be found
+
+  return fromRelative(l2);
+}
+
 const INVERT_OFFSET = rgbToHsl([32, 32, 32])[2];
 
 export function invertColor(rgb, offset = INVERT_OFFSET) {
@@ -292,12 +301,22 @@ export function setOpacity(hsl, opacity) {
   return hslNew;
 }
 
-export function setPastelSaturation(hsl, lum = 100) {
+export function setPastelSaturation(hsl, saturation = 100) {
   const hpl = [...hsl];
 
-  hpl[1] = lum;
+  hpl[1] = saturation;
 
   return hpluvToHsluv(hpl);
+}
+
+export function setSaturation(hsl, saturation = 100, pastel = false) {
+  const hpl = [...hsl];
+
+  if (saturation != null) {
+    hpl[1] = saturation;
+  }
+
+  return pastel ? hpluvToHsluv(hpl) : hpl;
 }
 
 const optimalSaturation = 75;
@@ -311,7 +330,7 @@ export function setOptimalSaturation(hsl) {
 }
 
 export function getTheBrightest(hslA, hslB) {
-  return hslA[2] > hslB[2] ? hslA : hslB;
+  return hslA[2] > hslB[2] ? [...hslA] : [...hslB];
 }
 
 export default {

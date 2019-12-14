@@ -559,7 +559,9 @@ export default class NuElement extends NuBase {
 
       if (baseTheme && (!this.nuContext[key] || force)) {
         applyTheme(baseTheme.$context, {
-          color: baseTheme.color,
+          hue: baseTheme.hue,
+          saturation: baseTheme.saturation,
+          pastel: baseTheme.pastel,
           ...theme,
         }, themeName);
       }
