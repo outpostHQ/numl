@@ -49,14 +49,17 @@ export default class NuPopup extends NuCard {
       place: 'outside-bottom',
       border: '1x outside',
       width: '100%',
-      text: 'wrap',
-      theme: 'main',
+      text: 'wrap w4',
       cursor: 'default',
     };
   }
 
   nuConnected() {
     super.nuConnected();
+
+    if (!this.hasAttribute('theme')) {
+      this.setAttribute('theme', 'main');
+    }
 
     this.nuSetMod('popup', true);
 
