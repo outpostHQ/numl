@@ -17,11 +17,12 @@ export default class NuImg extends NuBlock {
 
   static get nuDefaults() {
     return {
-      display: 'inline-block',
+      display: 'inline-grid',
       text: 'middle',
       sizing: 'content',
       width: 'min(1fs)',
       height: 'min(1fs)',
+      content: 'center',
     };
   }
 
@@ -30,6 +31,10 @@ export default class NuImg extends NuBlock {
       ${css}
       ${tag} {
         position: relative;
+      }
+
+      ${tag} > img {
+        display: block;
       }
 
       ${tag}[width] > img {

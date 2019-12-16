@@ -319,6 +319,12 @@ export function setSaturation(hsl, saturation = 100, pastel = false) {
   return pastel ? hpluvToHsluv(hpl) : hpl;
 }
 
+export function getOptimalSaturation(hue) {
+  const hsl = hpluvToHsluv([hue, 100, 50]);
+
+  return (100 + hsl[1]) / 2;
+}
+
 const optimalSaturation = 75;
 
 export function setOptimalSaturation(hsl) {

@@ -1,7 +1,7 @@
 import NuDecorator from './decorator';
 import { declareTheme, removeTheme } from '../themes';
 import { convertUnit, error } from '../helpers';
-import { strToHsl } from '../color';
+import { getOptimalSaturation, strToHsl } from '../color';
 
 const ATTRS_LIST = [
   'name',
@@ -9,7 +9,7 @@ const ATTRS_LIST = [
   'saturation',
   'pastel',
   'from',
-  'mods',
+  'mod',
   'border-radius',
   'border-width',
   'padding',
@@ -62,11 +62,9 @@ export default class NuTheme extends NuDecorator {
       return map;
     }, {});
 
-    let { name = 'main', hue, saturation, pastel, from, mods, ...props } = attrs;
+    let { name = 'main', hue, saturation, pastel, from, mod, ...props } = attrs;
 
     pastel = pastel != null;
-
-    const autoSaturation = (pastel ? 100 : 75);
 
     if (from) {
       const color = strToHsl(from);
@@ -78,13 +76,13 @@ export default class NuTheme extends NuDecorator {
 
       hue = color[0];
 
-      saturation = saturation === 'auto' ? autoSaturation : (saturation != null ? saturation : color[1]);
+      saturation = saturation === 'auto' ? (pastel ? 100 : getOptimalSaturation(hue)) : (saturation != null ? saturation : color[1]);
     } else {
       hue = hue != null ? Number(hue) : null;
-      saturation = saturation == null || saturation === 'auto' ? autoSaturation : Number(saturation);
+      saturation = saturation == null || saturation === 'auto' ? (pastel ? 100 : getOptimalSaturation(hue)) : Number(saturation);
     }
 
-    const defaultMods = mods || '';
+    const defaultMods = mod || '';
 
     const customProps = Object.keys(props || {})
       .reduce((map, prop) => {
