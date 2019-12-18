@@ -65,6 +65,17 @@ contrastWidget.addEventListener('input', function (evt) {
 setTimeout(() => {
   const bytesEl = Nude.getElementById('bytes');
   bytesEl.innerText = [...document.querySelectorAll('style')].reduce((sum, el) => sum += el.textContent.length, 0) * 2;
+
+  const themesEl = Nude.getElementById('themes');
+  themesEl.innerText = [...document.querySelectorAll('[nu]')].reduce((sum, el) => {
+    Object.entries(el.nuContext).forEach(([name, value]) => {
+      if (name && name.startsWith('theme')) {
+        sum++;
+      }
+    });
+
+    return sum;
+  }, 0);
 }, 1000);
 
 [...Nude.getElementsById('logo-vector')].forEach(el => el.setAttribute('src', svgImages.logo));
