@@ -5,7 +5,15 @@ export function stripZeros(val) {
 }
 
 function toFormat(num, precision = 2) {
-  return stripZeros(Number(num.replace(/,/g, '')).toFixed(precision)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  num = num.replace(/,/g, '');
+
+  if (precision) {
+    num = (Number(num).toFixed(precision));
+  } else {
+    num = String(parseInt(num, 10));
+  }
+
+  return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 function numberFromString(num) {
@@ -20,7 +28,7 @@ function numberFromString(num) {
   return value;
 }
 
-const ACCEPTABLE_KEYS = '-0123456789.';
+const ACCEPTABLE_KEYS = '-0123456789.,';
 
 export default class NuNumInput extends NuInput {
   static get nuTag() {
@@ -42,6 +50,10 @@ export default class NuNumInput extends NuInput {
       ${tag} input {
         text-align: inherit;
       }
+      ${tag} input::-webkit-inner-spin-button, ${tag} input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
     `;
   }
 
@@ -53,7 +65,8 @@ export default class NuNumInput extends NuInput {
     if (!this.nuRef) {
       const input = document.createElement('input');
 
-      input.type = 'tel';
+      input.type = 'text';
+      input.inputMode = 'decimal';
 
       this.appendChild(input);
 
@@ -84,8 +97,16 @@ export default class NuNumInput extends NuInput {
         }
       });
 
-      this.nuRef.addEventListener('focus', () => {
+      this.nuRef.addEventListener('focus', (evt) => {
+        this.nuRef.type = 'number';
         this.nuReset();
+
+        evt.preventDefault();
+
+        setTimeout(() => {
+          this.nuRef.focus();
+          this.nuReset();
+        }, 50);
       });
 
       this.nuRef.addEventListener('blur', () => {
@@ -177,7 +198,11 @@ export default class NuNumInput extends NuInput {
       value = min;
     }
 
-    return toFormat(String(value), this.getAttribute('precision') || 2);
+    return toFormat(String(value), this.nuGetPrecision());
+  }
+
+  nuGetPrecision() {
+    return Number(this.getAttribute('precision')) || 0;
   }
 
   nuGetFormattedValue(value) {
@@ -204,9 +229,10 @@ export default class NuNumInput extends NuInput {
   }
 
   nuGetValueFromRef() {
-    const value = Number(this.nuRef.value);
+    const value = Number(this.nuRef.value.replace(',', '.'));
 
     if (value !== this.nuValue && value === value) { // check for NaN
+      this.nuRef.type = 'text';
       this.nuSetValue(value);
     }
   }
@@ -229,7 +255,7 @@ export default class NuNumInput extends NuInput {
   }
 
   nuValidateRefValuePrivate(value) {
-    const precision = this.getAttribute('precision') || 2;
+    const precision = this.nuGetPrecision();
     const fixed = value
       .replace(new RegExp(`(\\.[0-9]{${precision}})[0-9]+$`), (s, s1) => s1)
       .replace(/\..*\./, s => s.slice(0, -1))
