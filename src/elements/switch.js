@@ -49,7 +49,7 @@ export default class NuSwitch extends NuActiveElement {
         --nu-circle-offset: 0;
         --nu-circle-opacity: 1;
         --nu-circle-border-radius: calc(var(--nu-circle-size) / 2);
-        --nu-circle-bg-color: var(--nu-special-color);
+        --nu-circle-bg-color: var(--nu-special-bg-color);
 
         position: relative;
         width: calc(var(--nu-size) * 2 - var(--nu-padding));
@@ -87,17 +87,17 @@ export default class NuSwitch extends NuActiveElement {
       }
 
       ${tag}[nu-pressed] {
-        --nu-local-bg-color: var(--nu-special-text-color);
+        --nu-local-bg-color: var(--nu-special-bg-color);
         --nu-circle-offset: calc(var(--nu-size) * 2 - var(--nu-circle-size) - var(--nu-padding));
         --nu-circle-opacity: 1;
-        --nu-circle-bg-color: var(--nu-special-bg-color);
+        --nu-circle-bg-color: var(--nu-special-text-color);
       }
 
-      ${tag}[nu-active]:not([disabled]):not([nu-pressed]) {
+      ${tag}:not([disabled]):not([nu-pressed]) {
         --nu-local-color: rgba(0, 0, 0, var(--nu-intensity));
       }
 
-      ${tag}[nu-active][nu-pressed]:not([disabled]) {
+      ${tag}[nu-pressed]:not([disabled]) {
         --nu-local-color: rgba(0, 0, 0, var(--nu-special-intensity));
       }
 

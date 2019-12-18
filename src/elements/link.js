@@ -22,7 +22,6 @@ export default class NuLink extends NuActiveElement {
       cursor: 'pointer',
       radius: '.5x',
       transition: 'box-shadow',
-      fill: null,
     };
   }
 
