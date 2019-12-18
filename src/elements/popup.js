@@ -147,4 +147,5 @@ function handleOutside(event) {
 }
 
 window.addEventListener('mousedown', handleOutside);
+window.addEventListener('touchstart', handleOutside);
 window.addEventListener('focusin', handleOutside);
