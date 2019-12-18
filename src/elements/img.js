@@ -75,8 +75,6 @@ export default class NuImg extends NuBlock {
 
       this.appendChild(img);
 
-      console.log(img);
-
       img.onerror = () => {
         this.removeChild(img);
 
