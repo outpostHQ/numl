@@ -293,7 +293,6 @@ export default class NuActiveElement extends NuElement {
         this.nuSetFocusable(value == null);
         break;
       case 'pressed':
-      case 'checked':
         value = value != null;
 
         this.nuSetPressed(value);

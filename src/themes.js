@@ -173,7 +173,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
       theme.bg = setSaturation([hue, saturation, findContrastLightness(theme.text[2], minContrast)], saturation, pastel);
       theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 4.5 : 2.5) + borderContrastModifier), saturation * .75);
       [theme['special-text'], theme['special-bg']] = [theme['special-bg'], theme['special-text']];
-      theme['special-text'] = [hue, saturation, findContrastLightness(originalContrast[2], minContrast)];
+      theme['special-text'] = setSaturation([hue, saturation, findContrastLightness(originalContrast[2], minContrast)], saturation, pastel);
       theme.special = [...originalContrast];
       theme['text-soft'] = [...theme.text];
       theme['text-strong'] = [...theme.text];

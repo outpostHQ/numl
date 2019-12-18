@@ -49,6 +49,10 @@ export default class NuImg extends NuBlock {
         height: auto;
       }
 
+      ${tag}[width][height] > img {
+        position: absolute;
+      }
+
       ${tag}[inline] {
         bottom: 0.0675em;
       }
@@ -70,6 +74,24 @@ export default class NuImg extends NuBlock {
       img.alt = this.getAttribute('label');
 
       this.appendChild(img);
+
+      console.log(img);
+
+      img.onerror = () => {
+        this.removeChild(img);
+
+        const icon = document.createElement('nu-icon');
+
+        icon.setAttribute('name', 'image');
+
+        if (this.hasAttribute('label')) {
+          icon.setAttribute('label', this.getAttribute('label'));
+        }
+
+        this.appendChild(icon);
+
+        warn('image not found', value);
+      };
     }
   }
 

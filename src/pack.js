@@ -46,6 +46,7 @@ import Nude, {
   NuSvg,
   NuImg,
   NuCode,
+  NuClamp,
 } from './index';
 
 Nude.elements = {
@@ -91,6 +92,7 @@ Nude.elements = {
   NuSvg,
   NuImg,
   NuCode,
+  NuClamp,
   // decorators
   NuDecorator,
   NuTheme,
