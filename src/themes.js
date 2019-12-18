@@ -29,6 +29,7 @@ export const THEME_PROPS_LIST = [
   'special-text-color',
   'special-bg-color',
   'special-intensity',
+  'input-bg-color',
 ];
 const normalBaseTextColor = [0, 0, 19.87];
 const contrastBaseTextColor = [0, 0, 12.25];
@@ -144,6 +145,12 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 
   if (type === 'main' || type === 'tint') {
     theme.subtle = setSaturation([hue, saturation, bgColor[2] + (darkScheme ? 2 : -2)], saturation * (darkScheme ? .5 : 1), true);
+
+    if (darkScheme) {
+      theme['input-bg'] = [0, 0, bgColor[2] - 2];
+    } else {
+      theme['input-bg'] = [...bgColor];
+    }
   }
 
   switch (type || 'tint') {
@@ -157,6 +164,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
       theme.bg = setSaturation([hue, saturation, tonedBgLightness], saturation, true);
       theme.text = setSaturation([hue, saturation, findContrastLightness(tonedBgLightness, minContrast)], saturation, pastel);
       theme['text-strong'] = setSaturation([hue, saturation, findContrastLightness(tonedBgLightness, 7)], saturation, pastel);
+      theme['input-bg'] = [...bgColor];
       break;
     case 'swap':
       theme.bg = setSaturation([hue, saturation, findContrastLightness(tonedBgLightness, minContrast)], saturation, pastel);
@@ -192,6 +200,8 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
   } else {
     theme.border = theme.border || setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : saturation * .75);
     theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -2 : 2)];
+
+    theme['input-bg'] = theme['input-bg'] || [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -4 : 4)];
   }
 
   if (type === 'main') {
