@@ -71,6 +71,7 @@ import { generateCSS, injectCSS } from './css';
 const IGNORE_KEYS = ['Alt', 'Control', 'Meta', 'Shift'];
 
 window.addEventListener('mousedown', disableFocus);
+window.addEventListener('touchstart', disableFocus);
 window.addEventListener('keydown', (event) => {
   if (!IGNORE_KEYS.includes(event.key)) {
     enableFocus();

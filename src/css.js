@@ -204,7 +204,7 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
   font-family: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
   font-size: var(--nu-base);
   color: var(--nu-text-color);
-  background-color: var(--nu-bg-color);
+  background-color: var(--nu-subtle-color);
   font-weight: 400;
   word-spacing: calc(1rem / 8);
   min-height: 100vh;
