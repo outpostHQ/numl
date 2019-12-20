@@ -1,4 +1,5 @@
 import NuBlock from './block';
+import { warn } from '../helpers';
 
 export default class NuImg extends NuBlock {
   static get nuTag() {
