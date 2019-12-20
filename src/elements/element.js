@@ -2,13 +2,10 @@ import {
   convertUnit,
   unit,
   generateId,
-  toCamelCase,
-  toKebabCase,
   computeStyles,
-  colorUnit,
   setImmediate,
   sizeUnit,
-  splitDimensions, log, parseAllValues, extractMods,
+  log, parseAllValues, extractMods,
 } from '../helpers';
 import textAttr from '../attributes/text';
 import {
@@ -46,6 +43,7 @@ import imageAttr from '../attributes/image';
 import paddingAttr from '../attributes/padding';
 import beforeAttr from '../attributes/before';
 import afterAttr from '../attributes/after';
+import scrollbarAttr from '../attributes/scrollbar';
 
 const plugins = {
   responsive: '',
@@ -150,6 +148,7 @@ export default class NuElement extends NuBase {
       hide: hideAttr,
       opacity: 'opacity',
       transition: transitionAttr,
+      scrollbar: scrollbarAttr,
       before: beforeAttr,
       after: afterAttr,
       ...plugins,
