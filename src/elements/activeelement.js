@@ -30,19 +30,20 @@ export default class NuActiveElement extends NuElement {
   }
 
   static nuNavigate(href, openNewTab) {
-    const link = document.createElement('a');
-
-    link.href = href;
-
-    if (openNewTab) {
-      link.target = '_blank';
-    }
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    document.body.removeChild(link);
+    // const link = document.createElement('a');
+    //
+    // link.href = href;
+    //
+    // if (openNewTab) {
+    //   link.target = '_blank';
+    // }
+    //
+    // document.body.appendChild(link);
+    //
+    // link.click();
+    //
+    // document.body.removeChild(link);
+    return true;
   }
 
   static get nuDefaults() {
@@ -180,16 +181,23 @@ export default class NuActiveElement extends NuElement {
       }
 
       if (this.nuIsToggle()) {
-        this.nuSetPressed(this.nuPressed);
+        this.nuSetPressed(this.hasAttribute('pressed'));
       }
 
       this.nuControl();
+      this.nuCreateLink();
     }, 0);
-
-    this.nuCreateLink();
   }
 
   nuCreateLink() {
+    if (!this.hasAttribute('to')) {
+      if (this.nuLink) {
+        this.removeChild(this.nuLink);
+      }
+
+      return;
+    }
+
     if (this.nuLink) return;
 
     const link = document.createElement('a');
@@ -200,22 +208,9 @@ export default class NuActiveElement extends NuElement {
 
     this.nuLink = link;
 
-    this.addEventListener('mouseenter', () => {
-      if (this.nuHref) {
-        this.appendChild(this.nuLink);
-      }
-    });
-
-    this.addEventListener('mouseleave', () => {
-      if (this.nuLink.parentNode) {
-        this.removeChild(this.nuLink);
-      }
-    });
+    this.appendChild(this.nuLink);
 
     this.nuLink.addEventListener('click', (evt) => {
-      evt.preventDefault();
-      evt.stopPropagation();
-
       if (evt.button === 0) {
         this.nuTap(evt);
       }
@@ -223,6 +218,12 @@ export default class NuActiveElement extends NuElement {
   }
 
   nuTap(evt) {
+    if (this.hasAttribute('to') && evt.target !== this.nuLink) {
+      this.nuLink.click();
+
+      return;
+    }
+
     if (this.hasAttribute('disabled')
       || this.getAttribute('tabindex') === '-1') return;
 
@@ -231,10 +232,16 @@ export default class NuActiveElement extends NuElement {
     }
 
     if (this.hasAttribute('to')) {
-      const href = this.getAttribute('to');
-      const openNewTab = href.startsWith('!') || evt.metaKey || evt.shiftKey;
+      const to = this.getAttribute('to');
+      const href = to.replace(/^!/, '');
+      const openNewTab = to.startsWith('!') || evt.metaKey || evt.shiftKey;
 
-      this.constructor.nuNavigate(href.replace(/^!/, ''), openNewTab);
+      const useLink = this.constructor.nuNavigate(href, openNewTab);
+
+      if (!useLink) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
     }
 
     this.nuEmit('tap', this.nuValue, { bubbles: false });
@@ -314,6 +321,10 @@ export default class NuActiveElement extends NuElement {
         } else {
           this.nuNewTab = false;
           this.nuHref = '';
+        }
+
+        if (this.nuIsConnected) {
+          this.nuCreateLink();
         }
 
         if (this.nuLink) {

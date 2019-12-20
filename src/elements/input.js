@@ -31,7 +31,7 @@ export default class NuInput extends NuBlock {
       radius: '',
       padding: '1x',
       text: 'center',
-      fill: 'input-bg',
+      fill: 'input',
       border: '1x',
     };
   }
