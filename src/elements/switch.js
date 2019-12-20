@@ -39,9 +39,9 @@ export default class NuSwitch extends NuActiveElement {
         --nu-local-border-radius: calc(var(--nu-size) / 2);
         --nu-local-color: rgba(0, 0, 0, 0);
 
-        --nu-local-depth-shadow: 0 .25rem 1.5rem var(--nu-depth-color);
+        --nu-local-depth-shadow: 0 .25rem 1.5rem var(--nu-local-depth-color);
         --nu-local-bg-color: var(--nu-bg-color);
-        --nu-local-active-shadow: 0 0 1rem 0 var(--nu-local-color) inset;
+        --nu-local-active-shadow: 0 0 calc(var(--nu-size) / 2) 0 var(--nu-local-color) inset;
 
         --nu-size: 2em;
         --nu-circle-padding: calc(var(--nu-padding) / 2);
@@ -93,11 +93,11 @@ export default class NuSwitch extends NuActiveElement {
         --nu-circle-bg-color: var(--nu-special-text-color);
       }
 
-      ${tag}:not([disabled]):not([nu-pressed]) {
+      ${tag}[nu-active]:not([disabled]):not([nu-pressed]) {
         --nu-local-color: rgba(0, 0, 0, var(--nu-intensity));
       }
 
-      ${tag}[nu-pressed]:not([disabled]) {
+      ${tag}[nu-active][nu-pressed]:not([disabled]) {
         --nu-local-color: rgba(0, 0, 0, var(--nu-special-intensity));
       }
 
