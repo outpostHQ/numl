@@ -28,7 +28,7 @@ function numberFromString(num) {
   return value;
 }
 
-const ACCEPTABLE_KEYS = '-0123456789.,';
+const ACCEPTABLE_KEYS = '-0123456789,';
 
 export default class NuNumInput extends NuInput {
   static get nuTag() {
@@ -76,12 +76,16 @@ export default class NuNumInput extends NuInput {
     if (isNewRef) {
       this.nuRef.addEventListener('input', (event) => {
         event.stopPropagation();
+
+        this.nuEmit('input', numberFromString(this.nuFixValue(parseFloat(this.nuRef.value))));
       });
 
       this.nuRef.addEventListener('change', (event) => {
         this.nuGetValueFromRef();
 
         event.stopPropagation();
+
+        this.nuEmit('change', numberFromString(this.nuFixValue()));
       });
 
       this.nuRef.addEventListener('keydown', (event) => {
@@ -182,7 +186,7 @@ export default class NuNumInput extends NuInput {
     }
 
     if (!force) {
-      this.nuEmit('input', numberFromString(this.nuFixValue()));
+      // this.nuEmit('input', numberFromString(this.nuFixValue()));
     }
   }
 
@@ -229,7 +233,7 @@ export default class NuNumInput extends NuInput {
   }
 
   nuGetValueFromRef() {
-    const value = Number(this.nuRef.value.replace(',', '.'));
+    const value = parseFloat(this.nuRef.value.replace(',', '.'), 10);
 
     if (value !== this.nuValue && value === value) { // check for NaN
       this.nuRef.type = 'text';

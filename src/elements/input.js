@@ -13,6 +13,7 @@ export default class NuInput extends NuBlock {
     return {
       autofocus: '',
       disabled: '',
+      placeholder: '',
       value: '',
       maxlength: '',
       name: '',
@@ -101,15 +102,27 @@ export default class NuInput extends NuBlock {
 
       this.nuRef = input;
 
-      if (this.hasAttribute('label')) {
-        this.nuChanged('label', null, this.getAttribute('label'));
-        this.removeAttribute('aria-label');
-      }
+      this.nuRef.addEventListener('input', (event) => {
+        event.stopPropagation();
 
-      if (this.hasAttribute('labelledby')) {
-        this.nuChanged('label', null, this.getAttribute('labelledby'));
-        this.removeAttribute('aria-labelledby');
-      }
+        this.nuEmit('input', this.nuRef.value);
+      });
+
+      this.nuRef.addEventListener('change', (event) => {
+        event.stopPropagation();
+
+        this.nuEmit('change', this.nuRef.value);
+      });
+    }
+
+    if (this.hasAttribute('label')) {
+      this.nuChanged('label', null, this.getAttribute('label'));
+      this.removeAttribute('aria-label');
+    }
+
+    if (this.hasAttribute('labelledby')) {
+      this.nuChanged('label', null, this.getAttribute('labelledby'));
+      this.removeAttribute('aria-labelledby');
     }
 
     return this.nuRef;
@@ -118,15 +131,17 @@ export default class NuInput extends NuBlock {
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
+    if (!this.nuRef) return;
+
     switch (name) {
       case 'disabled':
-        this.nuGetRef();
+        this.nuRef.disabled = value != null;
+        this.nuSetFocusable(value != null);
 
-        if (this.nuRef) {
-          this.nuRef.disabled = value != null;
-          this.nuSetFocusable(value != null);
-        }
-
+        break;
+      case 'placeholder':
+        console.log(value);
+        this.nuRef.setAttribute('placeholder', value || '...');
         break;
     }
   }
@@ -135,11 +150,9 @@ export default class NuInput extends NuBlock {
     super.nuConnected();
 
     setTimeout(() => {
+      this.nuGetRef();
       this.nuChanged('disabled', '', this.getAttribute('disabled'));
-
-      if (this.nuRef && !this.nuRef.hasAttribute('placeholder')) {
-        this.nuRef.setAttribute('placeholder', '...');
-      }
+      this.nuChanged('placeholder', '', this.getAttribute('placeholder'));
     });
   }
 }

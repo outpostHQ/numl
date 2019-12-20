@@ -366,6 +366,8 @@ export default class NuBase extends HTMLElement {
    * @param {*} detail
    */
   nuEmit(name, detail = null, options = {}) {
+    log('emit', { element: this, name, detail, options });
+
     this.dispatchEvent(
       new CustomEvent(name, {
         detail,
