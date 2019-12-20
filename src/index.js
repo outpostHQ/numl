@@ -16,7 +16,6 @@ import NuGridTable from './elements/gridtable';
 import NuBadge from './elements/badge';
 import NuLink from './elements/link';
 import NuInput from './elements/input';
-import NuScroll from './elements/scroll';
 import NuFlex from './elements/flex';
 import NuBtnGroup from './elements/btngroup';
 import NuMenu from './elements/menu';
@@ -137,7 +136,6 @@ export {
   NuGridTable,
   NuBadge,
   NuInput,
-  NuScroll,
   NuSwitch,
   NuFlex,
   NuBtnGroup,
