@@ -57,7 +57,9 @@
         All you see is generated in runtime in your browser. There are
         <nu-special id="bytes">*calculating*</nu-special>
         bytes of generated CSS
-        for <nu-special id="themes">*calculating*</nu-special> theme variants and other styling. If in any moment there is some CSS that
+        for
+        <nu-special id="themes">*calculating*</nu-special>
+        theme variants and other styling. If in any moment there is some CSS that
         can't be re-used in the future then it will be deleted. You can edit markup in DevTools and
         see changes instantly. You can try change defaults: border radius, border width, animation
         time, padding and hues/saturation for various themes.
@@ -1771,12 +1773,14 @@
 
       <nu-block>
         Currency input:
-        <nu-numinput prefix="$" value="12032" width="8" precision="2" label="Number input"></nu-numinput>
+        <nu-numinput prefix="$" value="12032" width="8" precision="2"
+                     label="Number input"></nu-numinput>
       </nu-block>
 
       <nu-block>
         Percent input:
-        <nu-numinput suffix="%" value="55" min="0" max="100" precision="0" width="8" label="Percents input"></nu-numinput>
+        <nu-numinput suffix="%" value="55" min="0" max="100" precision="0" width="8"
+                     label="Percents input"></nu-numinput>
       </nu-block>
     </nu-card>
 
@@ -2053,7 +2057,9 @@
       </nu-flex>
     </nu-card>
 
-    <nu-heading level="2">Code snippets <nu-badge special size="md">experimental</nu-badge></nu-heading>
+    <nu-heading level="2">Code snippets
+      <nu-badge special size="md">experimental</nu-badge>
+    </nu-heading>
 
     <nu-card as="section">
       <nu-heading level="4">Code block</nu-heading>
@@ -2121,19 +2127,58 @@
     <nu-heading level="2">Scroll bar</nu-heading>
 
     <nu-card>
-      <nu-block width="15" height="5" overflow="scroll-y" fill="subtle" scrollbar="auto">
-        Text<br/>
-        Text<br/>
-        Text<br/>
-        Text<br/>
-        Text<br/>
-        Text<br/>
-        Text<br/>
-        Text<br/>
-        Text<br/>
-        Text<br/>
-        Text<br/>
-      </nu-block>
+      <nu-grid columns="1fr 1fr 1fr" gap="2x">
+        <nu-block>
+          <nu-heading level="4">With</nu-heading>
+          <nu-block height="5" overflow="scroll-y" fill="subtle" scrollbar>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+          </nu-block>
+        </nu-block>
+
+        <nu-block>
+          <nu-heading level="4">Without</nu-heading>
+          <nu-block height="5" overflow="scroll-y" fill="subtle" scrollbar="no">
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+          </nu-block>
+        </nu-block>
+
+        <nu-block>
+          <nu-heading level="4">Native</nu-heading>
+          <nu-block height="5" overflow="scroll-y" fill="subtle">
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+            Text<br/>
+          </nu-block>
+        </nu-block>
+      </nu-grid>
     </nu-card>
 
     <nu-heading level="2">States & complex states</nu-heading>

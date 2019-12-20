@@ -1,6 +1,15 @@
 export default function scrollbarAttr(val) {
   if (val == null) return null;
 
+  if (val === 'none' || val === 'no') {
+    return [{
+      $suffix: '::-webkit-scrollbar',
+      display: 'none',
+    }, {
+      'scrollbar-width': 'none',
+    }];
+  }
+
   return [
     {
       $suffix: '::-webkit-scrollbar',
@@ -12,13 +21,13 @@ export default function scrollbarAttr(val) {
     },
     {
       $suffix: '::-webkit-scrollbar-thumb',
-      'background-color': 'var(--nu-border-color)',
+      'background-color': 'rgba(var(--nu-text-color-rgb), .5)',
       'border-radius': 'var(--nu-border-radius)',
-      border: 'calc(var(--nu-border-width) * 2) solid var(--nu-subtle-color)',
+      border: 'var(--nu-border-width) solid var(--nu-subtle-color)',
     },
     {
-      'scrollbar-width': val || 'thin',
-      'scrollbar-color': 'var(--nu-subtle-color) var(--nu-border-color)',
+      'scrollbar-width': 'thin',
+      'scrollbar-color': 'var(--nu-subtle-color) rgba(var(--nu-text-color-rgb), .5)',
     },
   ];
 }
