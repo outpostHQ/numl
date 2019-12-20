@@ -36,7 +36,7 @@ import NuGroup from './elements/group';
 import NuCheckbox from './elements/checkbox';
 import NuLabel from './elements/label';
 import NuNumInput from './elements/numinput';
-import NuStrong from './elements/strong';
+import NuMark from './elements/mark';
 import NuSpecial from './elements/special';
 import NuSvg from './elements/svg';
 import NuImg from './elements/img';
@@ -83,7 +83,10 @@ setTimeout(() => {
 
 const styles = themeAttr('main');
 
-injectCSS('theme:base', 'body', generateCSS('body', styles));
+injectCSS('theme:base', 'body', generateCSS('body', {
+  ...styles,
+  '--nu-diff-color': 'var(--nu-bg-color)',
+}));
 
 const Nude = {
   tags: {},
@@ -158,7 +161,7 @@ export {
   NuCheckbox,
   NuLabel,
   NuNumInput,
-  NuStrong,
+  NuMark,
   NuSpecial,
   NuSvg,
   NuImg,

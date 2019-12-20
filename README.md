@@ -196,6 +196,8 @@ Run `npm run play` to view test page with few examples.
 
 * Full rework of **Theme System**. Full theme calculation from single hue param. WCAG contrast ratio compliance. Much better **Dark scheme** and **High contrast** support. Ability to tweak every theme with modifiers.
 * Improved support for Svelte.
+* Links native behavior.
+* Magic **diff** color.
 
 #### Breaking changes
 
@@ -203,11 +205,15 @@ Run `npm run play` to view test page with few examples.
 * **nu-theme** has new awesome API.
 * **nu-triangle**: **[dir]** -> **[set]**.
 * **nu-style** renamed to **nu-attrs** for a more accurate understanding.
+* **nu-scroll** removed. (legacy element)
 
 #### New elements
 * **nu-numinput** - Input for numeric values.
-* **nu-strong** - Highlight part of the text.
+* **nu-mark** - Highlight part of the text.
 * **nu-code** - Code snippets!
+
+#### New attributes
+* **scrollbar** - To control over scroll bar styling.
 
 #### Bug fixes
 * Unable to change border width of **nu-switch**.

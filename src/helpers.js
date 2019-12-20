@@ -39,10 +39,12 @@ export const CUSTOM_UNITS = {
 };
 
 export function colorUnit(style, initial) {
-  return (color) => {
+  return (color, raw = false) => {
     if (color == null) return;
 
     if (color.trim() && color.trim() !== 'text' && strToHsl(color)) {
+      if (raw) return color;
+
       return { [style]: color };
     }
 
@@ -51,6 +53,8 @@ export function colorUnit(style, initial) {
     if (color === 'clear') {
       color = 'transparent';
     }
+
+    if (raw) return `var(--nu-${color}-color, ${color})`;
 
     return { [style]: `var(--nu-${color}-color, ${color})` };
   };

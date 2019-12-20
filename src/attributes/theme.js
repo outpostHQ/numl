@@ -25,6 +25,7 @@ export default function themeAttr(val) {
   }, {})];
 
   styles[0]['--nu-text-color-rgb'] = `var(--nu-${themeName}-text-color-rgb, var(--nu-main-text-color-rgb))`;
+  styles[0]['--nu-diff-color'] = `var(--nu-${themeName}-subtle-color, var(--nu-main-subtle-color))`;
 
   styles.push({
     $suffix: ':not([color])',
