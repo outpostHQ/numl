@@ -83,10 +83,9 @@ setTimeout(() => {
 
 const styles = themeAttr('main');
 
-injectCSS('theme:base', 'body', generateCSS('body', {
-  ...styles,
+injectCSS('theme:base', 'body', generateCSS('body', [...styles, {
   '--nu-diff-color': 'var(--nu-bg-color)',
-}));
+}]));
 
 const Nude = {
   tags: {},

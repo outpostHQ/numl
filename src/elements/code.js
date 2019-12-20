@@ -100,7 +100,7 @@ export default class NuCode extends NuElement {
         background-color: var(--nu-subtle-color);
       }
       ${tag}[inline]:not([padding]) {
-        padding: .25em;
+        padding: .125rem .25em;
       }
       ${tag} nu-el[plus]::before {
         content: '+ ';

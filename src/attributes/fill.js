@@ -3,15 +3,13 @@ import { colorUnit } from '../helpers';
 const backgroundUnit = colorUnit('--nu-local-bg-color', 'bg');
 
 export default function fillAttr(val) {
-  if (val === 'diff' || val === 'bg' || val === 'subtle') {
-    let color = val === 'diff'
-      ? 'var(--nu-diff-color, var(--nu-subtle-color))'
-      : backgroundUnit(val, true);
-    let otherColor = 'var(--nu-other-diff-color)';
+  if (val === 'bg' || val === 'subtle') {
+    let color = backgroundUnit(val, true);
+    let otherColor;
 
     if (val === 'bg') {
       otherColor = 'var(--nu-subtle-color)';
-    } else if (val === 'subtle') {
+    } else {
       otherColor = 'var(--nu-bg-color)';
     }
 
