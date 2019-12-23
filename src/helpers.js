@@ -54,6 +54,21 @@ export function colorUnit(style, initial) {
       color = 'transparent';
     }
 
+    const match = color.match(/\s(\d+)%/);
+
+    let percent;
+
+    if (match) {
+      color = color.replace((/\s\d+%/), '');
+      percent = match[1];
+    }
+
+    if (percent != null) {
+      if (raw) return `rgba(var(--nu-${color}-color-rgb, ${color}) ${percent / 100})`;
+
+      return { [style]: `rgba(var(--nu-${color}-color-rgb, ${color}), ${percent / 100})` };
+    }
+
     if (raw) return `var(--nu-${color}-color, ${color})`;
 
     return { [style]: `var(--nu-${color}-color, ${color})` };

@@ -44,6 +44,7 @@ import paddingAttr from '../attributes/padding';
 import beforeAttr from '../attributes/before';
 import afterAttr from '../attributes/after';
 import scrollbarAttr from '../attributes/scrollbar';
+import filterAttr from '../attributes/filter';
 
 const plugins = {
   responsive: '',
@@ -140,6 +141,7 @@ export default class NuElement extends NuBase {
       theme: themeAttr,
       color: colorAttr,
       fill: fillAttr,
+      filter: filterAttr,
       image: imageAttr,
       transform: transformAttr,
       text: textAttr,
