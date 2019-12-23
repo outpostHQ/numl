@@ -8,8 +8,6 @@ export default function filterAttr(val) {
   (parts || []).forEach(part => {
     part = part.replace(/\((.+)\)/, (s, s2) => `(${convertUnit(s2)})`);
 
-    console.log('!', part);
-
     if (part.startsWith('backdrop-')) {
       part = part.replace('backdrop-', '');
       backdropFilter.push(part);
