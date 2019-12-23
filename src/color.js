@@ -276,7 +276,7 @@ function calcError() {
     sum += Math.abs(i - fromRelative(toRelative(i, exp), exp)) || 0;
   }
 
-  console.log(sum);
+  // console.log(sum);
 }
 
 /**

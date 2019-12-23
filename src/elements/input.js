@@ -140,7 +140,6 @@ export default class NuInput extends NuBlock {
 
         break;
       case 'placeholder':
-        console.log(value);
         this.nuRef.setAttribute('placeholder', value || '...');
         break;
     }

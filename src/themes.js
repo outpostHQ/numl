@@ -261,6 +261,7 @@ export function themeToProps(name, theme) {
   }, {});
 
   map[`--nu-${name}-text-color-rgb`] = hslToRgb(theme.text);
+  map[`--nu-${name}-bg-color-rgb`] = hslToRgb(theme.bg);
 
   return map;
 }
