@@ -21,9 +21,13 @@ export default function filterAttr(val) {
     }
   });
 
+  const filterValue = filter.join(' ') || undefined;
+  const backdropFilterValue = backdropFilter.join(' ') || undefined;
+
   return [{
-    filter: filter.join(' ') || undefined,
-    'backdrop-filter': backdropFilter.join(' ') || undefined,
+    filter: filterValue,
+    '-webkit-backdrop-filter': backdropFilterValue,
+    'backdrop-filter': backdropFilterValue,
   }];
 }
 
