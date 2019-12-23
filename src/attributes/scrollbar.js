@@ -14,6 +14,7 @@ export default function scrollbarAttr(val) {
     {
       $suffix: '::-webkit-scrollbar',
       width: 'var(--nu-padding)',
+      height: 'var(--nu-padding)',
     },
     {
       $suffix: '::-webkit-scrollbar-track',
