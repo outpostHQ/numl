@@ -377,48 +377,51 @@ export default class NuElement extends NuBase {
       }
 
       if (!respEl) {
+        const respValue = value;
+
         setTimeout(() => {
           const newValue = this.getAttribute(name);
 
-          if (value !== newValue) return;
+          if (respValue !== newValue) return;
 
-          this.nuApplyCSS(name, value);
+          this.nuApplyCSS(name, respValue);
         }, 100);
 
-        return;
-      }
+        // use first value as temporarily fallback
+        value = value.split('|')[0];
+      } else {
+        const zones = ['max'].concat(respEl.getAttribute(RESPONSIVE_ATTR).split('|'));
+        const values = value.split('|');
+        const styles = zones.map((zone, i) => {
+          let val = values[i] || '';
+          // if default value
+          if (val && !val.trim()) return;
 
-      const zones = ['max'].concat(respEl.getAttribute(RESPONSIVE_ATTR).split('|'));
-      const values = value.split('|');
-      const styles = zones.map((zone, i) => {
-        let val = values[i] || '';
-        // if default value
-        if (val && !val.trim()) return;
+          // if repeat value
+          if (!val) {
+            // if first element - nothing to repeat
+            if (!i) return;
 
-        // if repeat value
-        if (!val) {
-          // if first element - nothing to repeat
-          if (!i) return;
+            for (let j = i - 1; j >= 0; j--) {
+              if (values[j]) {
+                val = values[j];
+                break;
+              }
+            }
 
-          for (let j = i - 1; j >= 0; j--) {
-            if (values[j]) {
-              val = values[j];
-              break;
+            if (!val) {
+              // nothing to repeat;
+              return;
             }
           }
 
-          if (!val) {
-            // nothing to repeat;
-            return;
-          }
-        }
+          const stls = computeStyles(name, val, this.constructor.nuAllAttrs, this.constructor.nuAllDefaults);
 
-        const stls = computeStyles(name, val, this.constructor.nuAllAttrs, this.constructor.nuAllDefaults);
+          return generateCSS(query, stls);
+        });
 
-        return generateCSS(query, stls);
-      });
-
-      return respEl.nuResponsive()(styles);
+        return respEl.nuResponsive()(styles);
+      }
     }
 
     let styles = computeStyles(name, value, this.constructor.nuAllAttrs, this.constructor.nuAllDefaults);
