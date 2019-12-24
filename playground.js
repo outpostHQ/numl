@@ -62,9 +62,15 @@ contrastWidget.addEventListener('input', function (evt) {
   htmlEl.classList.add(className);
 });
 
+const gzipModifier = 0.0617;
+
 setTimeout(() => {
   const bytesEl = Nude.getElementById('bytes');
-  bytesEl.innerText = [...document.querySelectorAll('style')].reduce((sum, el) => sum += el.textContent.length, 0) * 2;
+  const gzipEl = Nude.getElementById('gzip');
+  const size = Math.ceil([...document.querySelectorAll('style')].reduce((sum, el) => sum += el.textContent.length, 0) / 1000);
+  const gzipSize = Math.ceil(size * gzipModifier);
+  bytesEl.innerText = size;
+  gzipEl.innerText = gzipSize;
 
   const themesEl = Nude.getElementById('themes');
   themesEl.innerText = [...document.querySelectorAll('[nu]')].reduce((sum, el) => {

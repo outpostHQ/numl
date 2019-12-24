@@ -439,8 +439,8 @@ export function bindActiveEvents() {
 
 /**
  * Kebab to camel case conversion.
- * @param {String str
- * @returns {string}
+ * @param {String} str
+ * @returns {String}
  */
 export function toCamelCase(str) {
   return str.replace(/-[a-z]/g, s => s.slice(1).toUpperCase());
