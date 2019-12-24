@@ -385,6 +385,8 @@ export default class NuElement extends NuBase {
           if (respValue !== newValue) return;
 
           this.nuApplyCSS(name, respValue);
+
+          removeCSS(query);
         }, 100);
 
         // use first value as temporarily fallback
@@ -649,6 +651,8 @@ export default class NuElement extends NuBase {
     switch (name) {
       case RESPONSIVE_ATTR:
         generateId(this);
+
+        if (!this.nuIsConnected) return;
 
         setTimeout(() => {
           if (this.getAttribute(RESPONSIVE_ATTR) !== value) return;
