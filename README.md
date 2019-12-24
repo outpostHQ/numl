@@ -218,7 +218,8 @@ Run `npm run play` to view test page with few examples.
 #### Bug fixes
 * Unable to change border width of **nu-switch**.
 * Flex doubles gap in Firefox.
-* Fix **nu-switch** styles. 
+* Fix **nu-switch** styles.
+* Fix flash of non-styled content for responsive elements.
 
 ### v0.7
 
