@@ -162,9 +162,8 @@ export default class NuNumInput extends NuInput {
   /**
    *
    * @param {Number} value
-   * @param {Boolean} force
    */
-  nuSetValue(value, force = false) {
+  nuSetValue(value) {
     this.nuGetRef();
 
     if (value == null) {
@@ -184,21 +183,45 @@ export default class NuNumInput extends NuInput {
     if (formattedValue !== this.nuRef.value) {
       this.nuRef.value = formattedValue;
     }
+  }
 
-    if (!force) {
-      // this.nuEmit('input', numberFromString(this.nuFixValue()));
+  nuGetMax() {
+    let max = Number.MAX_SAFE_INTEGER;
+
+    if (this.hasAttribute('max')) {
+      const parsedMax = numberFromString(this.getAttribute('max'));
+
+      if (parsedMax != null && parsedMax === parsedMax) {
+        max = parsedMax;
+      }
     }
+
+    return max;
+  }
+
+  nuGetMin() {
+    let min = Number.MIN_SAFE_INTEGER;
+
+    if (this.hasAttribute('min')) {
+      const parsedMin = numberFromString(this.getAttribute('min'));
+
+      if (parsedMin != null && parsedMin === parsedMin) {
+        min = parsedMin;
+      }
+    }
+
+    return min;
   }
 
   nuFixValue(value) {
     value = (value != null ? value : this.nuValue) || '0';
 
-    const max = numberFromString(this.getAttribute('max'));
-    const min = numberFromString(this.getAttribute('min'));
+    const max = this.nuGetMax();
+    const min = this.nuGetMin();
 
-    if (max != null && numberFromString(value) > max) {
+    if (numberFromString(value) > max) {
       value = max;
-    } else if (min != null && numberFromString(value) < min) {
+    } else if (numberFromString(value) < min) {
       value = min;
     }
 
@@ -217,8 +240,15 @@ export default class NuNumInput extends NuInput {
     const prefix = this.getAttribute('prefix') || '';
     const suffix = this.getAttribute('suffix') || '';
 
-    if (this.nuRef !== document.activeElement && (prefix || suffix)) {
-      return `${prefix}${value}${suffix}`;
+    if (!this.nuIsFocus()) {
+      if (prefix || suffix) {
+        return `${prefix}${value}${suffix}`;
+      } else {
+        const fixedValue = value
+          .replace(/,/g, '');
+
+        return fixedValue === '0' ? '' : fixedValue;
+      }
     } else if (value) {
       return value.replace(/,/g, '');
     } else {
@@ -233,12 +263,27 @@ export default class NuNumInput extends NuInput {
   }
 
   nuGetValueFromRef() {
-    const value = parseFloat(this.nuRef.value.replace(',', '.'), 10);
+    if (this.nuRef.type !== 'number') return;
+
+    let value = parseFloat(this.nuRef.value.replace(',', '.'));
+
+    if (!this.nuIsFocus()) {
+      this.nuRef.type = 'text';
+    }
+
+    value = value != null
+      ? value
+      : (this.hasAttribute('min')
+        ? this.nuGetMin()
+        : 0);
 
     if (value !== this.nuValue && value === value) { // check for NaN
-      this.nuRef.type = 'text';
       this.nuSetValue(value);
     }
+  }
+
+  nuIsFocus() {
+    return this.nuRef === document.activeElement;
   }
 
   nuValidateRefValue(event) {
@@ -246,7 +291,9 @@ export default class NuNumInput extends NuInput {
 
     if (selection.type === 'Range') return;
 
-    if (ACCEPTABLE_KEYS.includes(event.key)
+    if (event.key === ',' && !this.nuRef.value) {
+      event.preventDefault();
+    } else if (ACCEPTABLE_KEYS.includes(event.key)
       && this.nuRef.selectionStart === this.nuRef.value.length) {
       if (!this.nuValidateRefValuePrivate(this.nuRef.value + event.key)) {
         event.preventDefault();
@@ -260,11 +307,19 @@ export default class NuNumInput extends NuInput {
 
   nuValidateRefValuePrivate(value) {
     const precision = this.nuGetPrecision();
-    const fixed = value
-      .replace(new RegExp(`(\\.[0-9]{${precision}})[0-9]+$`), (s, s1) => s1)
+    let fixed = value;
+
+    if (precision) {
+      fixed = fixed.replace(new RegExp(`(\\.[0-9]{${precision}})[0-9]+$`), (s, s1) => s1);
+    }
+
+    fixed = fixed
       .replace(/\..*\./, s => s.slice(0, -1))
-      .replace(/^0+/, '')
+      .replace(/^0+/, '0')
+      .replace(/^0[1-9]/, s => s.slice(1))
       .replace(/[^^]-/g, s => s.charAt(0));
+
+    fixed = fixed.split(',').slice(0, 2).join(',');
 
     if (value !== fixed || value.split('.').length > 2) {
       this.nuRef.value = fixed;

@@ -36,6 +36,12 @@ export function stylesString(styles) {
   if (devMode) {
     Object.keys(styles)
       .forEach(style => {
+        if (!styles[style]) {
+          delete styles[style];
+
+          return;
+        }
+
         const value = String(styles[style]);
 
         if (value

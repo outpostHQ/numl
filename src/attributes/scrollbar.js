@@ -1,3 +1,5 @@
+const SCROLLBAR_SUPPORT = CSS.supports('scrollbar-width', 'thin');
+
 export default function scrollbarAttr(val) {
   if (val == null) return null;
 
@@ -5,9 +7,9 @@ export default function scrollbarAttr(val) {
     return [{
       $suffix: '::-webkit-scrollbar',
       display: 'none',
-    }, {
+    }].concat(SCROLLBAR_SUPPORT ? [{
       'scrollbar-width': 'none',
-    }];
+    }] : []);
   }
 
   return [
@@ -26,9 +28,8 @@ export default function scrollbarAttr(val) {
       'border-radius': 'var(--nu-border-radius)',
       border: 'var(--nu-border-width) solid var(--nu-subtle-color)',
     },
-    {
-      'scrollbar-width': 'thin',
-      'scrollbar-color': 'var(--nu-subtle-color) rgba(var(--nu-text-color-rgb), .5)',
-    },
-  ];
+  ].concat(SCROLLBAR_SUPPORT ? [{
+    'scrollbar-width': 'thin',
+    'scrollbar-color': 'var(--nu-subtle-color) rgba(var(--nu-text-color-rgb), .5)',
+  }] : []);
 }

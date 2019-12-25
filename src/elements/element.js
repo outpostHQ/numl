@@ -255,6 +255,11 @@ export default class NuElement extends NuBase {
       }
     }
 
+    if (this.hasAttribute('responsive')) {
+      this.nuContext['cssContext'] = this;
+      this.nuContext['cssContext'] = this;
+    }
+
     const nuRole = this.constructor.nuRole;
 
     if (nuRole && !this.hasAttribute('role')) {
@@ -384,9 +389,9 @@ export default class NuElement extends NuBase {
 
           if (respValue !== newValue) return;
 
-          this.nuApplyCSS(name, respValue);
-
           removeCSS(query);
+
+          this.nuApplyCSS(name, respValue, true);
         }, 100);
 
         // use first value as temporarily fallback

@@ -2054,7 +2054,7 @@
     <nu-heading level="2">Links</nu-heading>
 
     <nu-card as="section">
-      <nu-flex gap=".5" items="center">
+      <nu-flex gap flow="row wrap">
         <nu-link>Simple link</nu-link>
         <nu-link to="https://github.com/tenphi/nude">Open link in the current tab</nu-link>
         <nu-link to="!https://github.com/tenphi/nude">Open link in a new tab</nu-link>
@@ -2175,7 +2175,7 @@
 
       <nu-block>
         Percent input:
-        <nu-numinput suffix="%" value="55" min="0" max="100" precision="0" width="8"
+        <nu-numinput suffix="%" value="0" min="0" max="100" precision="0" width="8"
                      label="Percents input"></nu-numinput>
       </nu-block>
     </nu-card>
@@ -2183,7 +2183,7 @@
     <nu-heading level="2">Popups</nu-heading>
 
     <nu-card as="section">
-      <nu-flex gap=".5">
+      <nu-flex gap=".5" flow="row wrap">
         <nu-btn special>
           <nu-block text="w6">Dropdown menu</nu-block>
           <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
