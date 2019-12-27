@@ -566,7 +566,7 @@ export function splitStates(attrValue) {
 /**
  * Calculate the style that needs to be applied based on corresponding attribute.
  * @param {String} name - Attribute name.
- * @param {String} value - Original attribute name.
+ * @param {String} value - Original attribute value.
  * @param {Object} attrs - Map of attribute handlers.
  * @returns {String|Object|Array}
  */
@@ -754,4 +754,10 @@ export function fixPosition(element) {
 
 export function intersection(arr1, arr2) {
   return arr1.filter(i => arr2.includes(i));
+}
+
+export function isVariableAttr(value) {
+  if (!value) return false;
+
+  return value.includes('@') || value.includes('|');
 }

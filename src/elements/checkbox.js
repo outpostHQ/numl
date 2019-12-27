@@ -34,6 +34,7 @@ export default class NuCheckbox extends NuActiveElement {
     return `
       ${css}
       ${tag} {
+        --nu-border-color: var(--nu-focus-color);
         --nu-local-toggle-color: transparent;
         --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
       }

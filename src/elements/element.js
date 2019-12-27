@@ -5,7 +5,7 @@ import {
   computeStyles,
   setImmediate,
   sizeUnit,
-  log, parseAllValues, extractMods,
+  log, parseAllValues, extractMods, isVariableAttr, devMode,
 } from '../helpers';
 import textAttr from '../attributes/text';
 import {
@@ -45,6 +45,8 @@ import beforeAttr from '../attributes/before';
 import afterAttr from '../attributes/after';
 import scrollbarAttr from '../attributes/scrollbar';
 import filterAttr from '../attributes/filter';
+import { generateCSSByZones } from '../responsive';
+import { composeVarsValue, extractVars, getVarsList } from '../variables';
 
 const plugins = {
   responsive: '',
@@ -53,6 +55,9 @@ const plugins = {
 };
 
 const RESPONSIVE_ATTR = 'responsive';
+const RESPONSIVE_MOD = 'nu-responsive';
+const VAR_ATTR = 'var';
+const VAR_MOD = 'nu-var';
 
 /**
  * @class
@@ -77,19 +82,7 @@ export default class NuElement extends NuBase {
    */
   static get nuAttrs() {
     return {
-      /**
-       * Handler to declare custom properties.
-       * @private
-       * @param {String} val - String that contains name and value of the property.
-       * @returns {null|Object}
-       */
-      var(val) {
-        if (!val) return null;
-
-        const tmp = val.split(':');
-
-        return { [tmp[0]]: convertUnit(tmp[1]) };
-      },
+      [VAR_ATTR]: '',
       width: sizeUnit('width'),
       height: sizeUnit('height'),
       sizing: sizingAttr,
@@ -243,7 +236,7 @@ export default class NuElement extends NuBase {
     if (parent.nuContext) {
       this.nuContext = Object.create(parent.nuContext);
     } else {
-      this.nuContext = { $root: this, $responsiveRoot: this };
+      this.nuContext = { $root: this };
       applyTheme(this, BASE_THEME, 'main');
     }
 
@@ -253,11 +246,6 @@ export default class NuElement extends NuBase {
       if (nuId) {
         this.id = nuId;
       }
-    }
-
-    if (this.hasAttribute('responsive')) {
-      this.nuContext['cssContext'] = this;
-      this.nuContext['cssContext'] = this;
     }
 
     const nuRole = this.constructor.nuRole;
@@ -322,9 +310,25 @@ export default class NuElement extends NuBase {
       }
     }
 
-    this.nuConnected();
-
     this.nuIsConnected = true;
+
+    if (this.nuApplyAttrs) {
+      this.nuApplyAttrs.forEach(attr => {
+        this.nuApplyCSS(attr);
+      });
+
+      this.nuApplyAttrs = [];
+    }
+
+    if (this.hasAttribute(RESPONSIVE_ATTR)) {
+      this.nuChanged(RESPONSIVE_ATTR, null, this.getAttribute(RESPONSIVE_ATTR));
+    }
+
+    if (this.hasAttribute(VAR_ATTR)) {
+      this.nuChanged(VAR_ATTR, null, this.getAttribute(VAR_ATTR));
+    }
+
+    this.nuConnected();
   }
 
   /**
@@ -354,11 +358,32 @@ export default class NuElement extends NuBase {
    * @param {*} value
    */
   attributeChangedCallback(name, oldValue, value) {
-    super.attributeChangedCallback(name, oldValue, value);
+    let varAttr;
+
+    if (!this.nuAttrValues) {
+      this.nuAttrValues = {};
+    }
+
+    if (this.nuAttrValues[name]) {
+      oldValue = this.nuAttrValues[name];
+    }
+
+    if (isVariableAttr(value)) {
+      varAttr = this.nuGetVariableAttr(name, value);
+
+      value = varAttr.value;
+    }
+
+    this.nuAttrValues[name] = value;
+
+    // use "!=" cause null and undefined should return true in comparison.
+    if (oldValue != value) {
+      super.attributeChangedCallback(name, oldValue, value);
+    }
 
     if (value == null || !this.constructor.nuAllAttrs[name]) return;
 
-    this.nuApplyCSS(name, value);
+    this.nuApplyCSS(name, varAttr);
   }
 
   /**
@@ -366,68 +391,20 @@ export default class NuElement extends NuBase {
    * Is used as separate method to provide API for decorators.
    * @param {String} query - CSS query to apply styles.
    * @param {String} name - attribute (handler) name.
-   * @param {String} value - attribute value (handler argument).
+   * @param {String} value - attribute exact value (handler argument).
    * @returns {undefined|String} - output css
    */
   nuGetCSS(query, name, value) {
     const isResponsive = value.includes('|');
 
     if (isResponsive) {
-      this.nuSetMod(RESPONSIVE_ATTR, true);
+      const respContext = this.nuContext && this.nuContext.responsive && this.nuContext.responsive.context;
 
-      let respEl = this;
+      if (respContext) {
+        const zones = ['max'].concat(respContext.getAttribute(RESPONSIVE_ATTR).split('|'));
+        const styles = generateCSSByZones(this.constructor, query, name, value, zones);
 
-      while (respEl && (!respEl.getAttribute || !respEl.getAttribute(RESPONSIVE_ATTR) || !respEl.nuResponsive)) {
-        respEl = respEl.parentNode;
-      }
-
-      if (!respEl) {
-        const respValue = value;
-
-        setTimeout(() => {
-          const newValue = this.getAttribute(name);
-
-          if (respValue !== newValue) return;
-
-          removeCSS(query);
-
-          this.nuApplyCSS(name, respValue, true);
-        }, 100);
-
-        // use first value as temporarily fallback
-        value = value.split('|')[0];
-      } else {
-        const zones = ['max'].concat(respEl.getAttribute(RESPONSIVE_ATTR).split('|'));
-        const values = value.split('|');
-        const styles = zones.map((zone, i) => {
-          let val = values[i] || '';
-          // if default value
-          if (val && !val.trim()) return;
-
-          // if repeat value
-          if (!val) {
-            // if first element - nothing to repeat
-            if (!i) return;
-
-            for (let j = i - 1; j >= 0; j--) {
-              if (values[j]) {
-                val = values[j];
-                break;
-              }
-            }
-
-            if (!val) {
-              // nothing to repeat;
-              return;
-            }
-          }
-
-          const stls = computeStyles(name, val, this.constructor.nuAllAttrs, this.constructor.nuAllDefaults);
-
-          return generateCSS(query, stls);
-        });
-
-        return respEl.nuResponsive()(styles);
+        return respContext.nuResponsive()(styles);
       }
     }
 
@@ -442,22 +419,29 @@ export default class NuElement extends NuBase {
    * @param {*} value
    * @param {*} force - replace current CSS rule
    */
-  nuApplyCSS(name, value, force = false) {
-    // do not handle [var] attribute, it's for nu-var purposes.
-    if (name === 'var') return;
+  nuApplyCSS(name, varAttr, force = false) {
+    let attrValue = this.getAttribute(name);
 
-    const isResponsive = value.includes('|');
+    if (attrValue == null) return;
 
-    let query;
+    const attrs = { [name]: attrValue };
 
-    if (isResponsive) {
-      query = `${this.nuGetContext(RESPONSIVE_ATTR)}${this.nuGetQuery(
-        { [name]: value },
-        this.getAttribute(RESPONSIVE_ATTR)
-      )}`;
+    let value;
+
+    if (isVariableAttr(attrValue)) {
+      if (!varAttr) {
+        varAttr = this.nuGetVariableAttr(name, attrValue);
+      }
+
+      value = varAttr.value;
+      Object.assign(attrs, varAttr.context);
     } else {
-      query = this.nuGetQuery({ [name]: value });
+      value = attrValue;
     }
+
+    const query = this.nuGetQuery(attrs);
+
+    this.nuDebug('nuApplyCSS', name, value, query);
 
     if (hasCSS(query)) {
       if (!force) return;
@@ -467,9 +451,94 @@ export default class NuElement extends NuBase {
 
     const css = this.nuGetCSS(query, name, value);
 
+    this.nuDebug('nuApplyCSS', query, css);
+
     if (css) {
       injectCSS(query, query, css);
     }
+  }
+
+  nuGetAttr(attr) {
+    let value = this.getAttribute(attr);
+
+    if (value == null) return value;
+
+    if (!value) return value;
+
+    const isVariable = isVariableAttr(value);
+
+    if (isVariable) {
+      return this.nuGetVariableAttr(attr, value).value;
+    }
+
+    return value;
+  }
+
+  nuGetVariableAttr(attr, value) {
+    const context = {};
+
+    if (!this.nuContext) {
+      if (!this.nuApplyAttrs) {
+        this.nuApplyAttrs = [];
+      }
+
+      if (!this.nuApplyAttrs.includes(attr)) {
+        this.nuApplyAttrs.push(attr);
+      }
+
+      if (value.includes('|')) {
+        context[RESPONSIVE_MOD] = null;
+        value = value.split('|')[0];
+      }
+
+      if (value.includes('@')) {
+        context[VAR_MOD] = null;
+        value = '';
+      }
+
+      return {
+        oldValue: this.nuAttrValues[attr],
+        value,
+        context,
+      };
+    }
+
+    value = value == null ? this.getAttribute('value') : value;
+
+    const responsive = this.nuContext && this.nuContext.responsive && this.nuContext.responsive;
+    const varsList = getVarsList(value);
+    const contextIds = new Set;
+    const contextMod = `nu-${attr}-ctx`;
+    const oldValue = this.nuAttrValues[attr];
+
+    varsList.forEach(varName => {
+      const varData = this.nuContext[`var:${varName}`];
+
+      if (!varData) return;
+
+      const nuId = varData.context.nuId;
+
+      contextIds.add(nuId);
+    });
+
+    value = composeVarsValue(value, this.nuContext, responsive ? responsive.zones.length + 1 : 1);
+
+    if (responsive && value.includes('|')) {
+      context[RESPONSIVE_MOD] = responsive.context.nuId;
+
+      this.setAttribute(RESPONSIVE_MOD, responsive.context.nuId);
+    }
+
+    if (contextIds.size) {
+      context[contextMod] = Array.from(contextIds).join(' ');
+
+      this.setAttribute(contextMod, context[contextMod]);
+      this.setAttribute(VAR_MOD, '');
+    }
+
+    return {
+      oldValue, value: value || '', context,
+    };
   }
 
   /**
@@ -495,7 +564,7 @@ export default class NuElement extends NuBase {
    * @param {Boolean} useId - add ID to the query.
    * @returns {string}
    */
-  nuGetQuery(attrs = {}, useId) {
+  nuGetQuery(attrs = {}, useId= false) {
     return `${useId ? '' : this.constructor.nuTag}${useId ? `#${this.nuId}` : ''}${attrsQuery(
       attrs
     )}`;
@@ -644,6 +713,21 @@ export default class NuElement extends NuBase {
     return this.nuContextHooks && this.nuContextHooks[name];
   }
 
+  nuVerifyChild() {
+    const elements = this.querySelectorAll(`[${RESPONSIVE_MOD}], [${VAR_MOD}]`);
+
+    [this, ...elements].forEach(el => {
+      if (el.nuApplyCSS) {
+        [...el.attributes].forEach(({ name, value }) => {
+          if (!el.constructor.nuAttrsList.includes(name)
+            || !(value.includes('|') || value.includes('@'))) return;
+
+          el.nuApplyCSS(name, null, true);
+        });
+      }
+    });
+  }
+
   /**
    * Attribute change reaction.
    * @param {String} name
@@ -654,28 +738,41 @@ export default class NuElement extends NuBase {
     super.nuChanged(name, oldValue, value);
 
     switch (name) {
+      case VAR_ATTR:
+        // if (!this.nuIsConnected) return;
+        //
+        // if (oldValue) {
+        //   const oldVars = extractVars(value);
+        //
+        //   Object.keys(oldVars).forEach((varName) => {
+        //     delete this.nuContext[`var:${varName}`];
+        //   });
+        // }
+        //
+        // const vars = extractVars(value);
+        //
+        // Object.entries(vars).forEach(([varName, varValue]) => {
+        //   this.nuContext[`var:${varName}`] = {
+        //     context: this,
+        //     value: varValue,
+        //   };
+        // });
+        //
+        // this.nuVerifyChild();
+
+        break;
       case RESPONSIVE_ATTR:
         generateId(this);
 
         if (!this.nuIsConnected) return;
 
-        setTimeout(() => {
-          if (this.getAttribute(RESPONSIVE_ATTR) !== value) return;
-          /**
-           * @type {NuElement[]}
-           */
-          const elements = this.querySelectorAll('[nu-responsive]');
+        this.nuContext.responsive = {
+          context: this,
+          zones: value.split('|'),
+        };
 
-          [...elements].forEach(el => {
-            if (el.nuApplyCSS) {
-              [...el.attributes].forEach(({ name, value }) => {
-                if (!el.constructor.nuAttrsList.includes(name) || !value.includes('|')) return;
+        this.nuVerifyChild();
 
-                el.nuApplyCSS(name, value, true);
-              });
-            }
-          });
-        }, 0);
         break;
       case 'theme':
         if (!this.nuIsConnected) break;
