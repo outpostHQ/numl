@@ -441,8 +441,6 @@ export default class NuElement extends NuBase {
 
     const query = this.nuGetQuery(attrs);
 
-    this.nuDebug('nuApplyCSS', name, value, query);
-
     if (hasCSS(query)) {
       if (!force) return;
 
@@ -450,8 +448,6 @@ export default class NuElement extends NuBase {
     }
 
     const css = this.nuGetCSS(query, name, value);
-
-    this.nuDebug('nuApplyCSS', query, css);
 
     if (css) {
       injectCSS(query, query, css);
@@ -739,27 +735,6 @@ export default class NuElement extends NuBase {
 
     switch (name) {
       case VAR_ATTR:
-        // if (!this.nuIsConnected) return;
-        //
-        // if (oldValue) {
-        //   const oldVars = extractVars(value);
-        //
-        //   Object.keys(oldVars).forEach((varName) => {
-        //     delete this.nuContext[`var:${varName}`];
-        //   });
-        // }
-        //
-        // const vars = extractVars(value);
-        //
-        // Object.entries(vars).forEach(([varName, varValue]) => {
-        //   this.nuContext[`var:${varName}`] = {
-        //     context: this,
-        //     value: varValue,
-        //   };
-        // });
-        //
-        // this.nuVerifyChild();
-
         break;
       case RESPONSIVE_ATTR:
         generateId(this);
@@ -780,12 +755,7 @@ export default class NuElement extends NuBase {
         this.nuEnsureThemes();
 
         break;
-      // case 'special':
-      //   if (this.hasAttribute('theme')) break;
-      //
-      //   this.setAttribute('theme', 'special');
-      //
-      //   break;
+      // ARIA
       case 'label':
       case 'level':
       case 'valuemin':

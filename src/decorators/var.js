@@ -27,7 +27,6 @@ export default class NuVar extends NuDecorator {
   }
 
   nuApply() {
-    console.log('var apply!');
     const parent = this.parentNode;
 
     const vars = {};
