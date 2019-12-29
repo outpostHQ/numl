@@ -75,6 +75,8 @@ export default class NuIcon extends NuBlock {
     super.nuChanged(name, oldValue, value);
 
     if (name === 'name') {
+      value = this.nuGetAttr(name);
+
       const names = parseAllValues(value);
 
       // empty tag
