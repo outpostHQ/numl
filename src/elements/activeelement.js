@@ -21,6 +21,8 @@ export default class NuActiveElement extends NuElement {
     return {
       disabled: '',
       pressed: '',
+      checked: '',
+      selected: '',
       href: '',
       target: '',
       controls: '',
@@ -30,19 +32,6 @@ export default class NuActiveElement extends NuElement {
   }
 
   static nuNavigate(href, openNewTab) {
-    // const link = document.createElement('a');
-    //
-    // link.href = href;
-    //
-    // if (openNewTab) {
-    //   link.target = '_blank';
-    // }
-    //
-    // document.body.appendChild(link);
-    //
-    // link.click();
-    //
-    // document.body.removeChild(link);
     return true;
   }
 
@@ -298,6 +287,15 @@ export default class NuActiveElement extends NuElement {
         this.nuSetMod('disabled', value != null);
         this.nuSetFocusable(value == null);
         break;
+      case 'selected':
+      case 'checked':
+        if (value != null) {
+          this.setAttribute('pressed', '');
+        } else {
+          this.removeAttribute('pressed');
+        }
+
+        break;
       case 'pressed':
         value = value != null;
 
@@ -367,6 +365,7 @@ export default class NuActiveElement extends NuElement {
 
     this.nuSetMod('pressed', pressed);
     this.nuEmit('pressed', pressed);
+    this.nuEmit('input', this.nuValue || pressed, { bubbles: false });
     this.nuControl();
 
     const innerPopup = this.querySelector('[nu-popup]');
