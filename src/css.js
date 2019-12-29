@@ -248,7 +248,8 @@ html.nu-prefers-color-scheme-dark .nu-dark-dim {
   }
 }
 
-html.nu-prefers-reduced-motion-reduce [theme], html.nu-prefers-reduced-motion-reduce body {
+html.nu-prefers-reduced-motion-reduce [theme], html.nu-prefers-reduced-motion-reduce body,
+html.nu-prefers-reduced-motion-reduce-force [theme], html.nu-prefers-reduced-motion-reduce-force body {
   --nu-animation-time: 0.001s !important;
 }
 `;

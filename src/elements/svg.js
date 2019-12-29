@@ -76,6 +76,10 @@ export default class NuSvg extends NuBlock {
         this.innerHTML = '';
       }
 
+      value = this.nuGetAttr('src', true);
+
+      if (!value || !value.trim()) return;
+
       this.constructor.nuLoader(value).then(svg => {
         if (value !== this.getAttribute('src')) return;
 

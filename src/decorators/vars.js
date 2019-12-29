@@ -1,12 +1,12 @@
 import NuDecorator from './decorator';
-import { error } from '../helpers';
+import { error, log } from '../helpers';
 import { injectCSS } from '../css';
 
-const IGNORE_ATTRS = ['id', 'class'];
+const IGNORE_ATTRS = ['id', 'class', 'nu'];
 
-export default class NuVar extends NuDecorator {
+export default class NuVars extends NuDecorator {
   static get nuTag() {
-    return 'nu-var';
+    return 'nu-vars';
   }
 
   nuConnected() {
@@ -37,6 +37,8 @@ export default class NuVar extends NuDecorator {
       vars[name] = value;
     });
 
+    if (JSON.stringify(this.nuVars) === JSON.stringify(vars)) return;
+
     if (this.nuVars) {
       Object.keys(this.nuVars).forEach((varName) => {
         delete parent.nuContext[`var:${varName}`];
@@ -50,8 +52,10 @@ export default class NuVar extends NuDecorator {
         context: parent,
         value: varValue,
       };
+
+      log('apply variable', { context: parent, name: varName, value: varValue });
     });
 
-    parent.nuVerifyChild();
+    parent.nuVerifyChildren(true);
   }
 }

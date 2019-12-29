@@ -22,7 +22,7 @@ import Nude, {
   NuMenuItem,
   NuLink,
   NuTheme,
-  NuVar,
+  NuVars,
   NuAttrs,
   NuDecorator,
   NuActiveElement,
@@ -94,7 +94,7 @@ Nude.elements = {
   // decorators
   NuDecorator,
   NuTheme,
-  NuVar,
+  NuVars,
   NuAttrs,
 };
 

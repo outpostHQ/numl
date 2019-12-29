@@ -10,6 +10,12 @@ export default class NuStyle extends NuDecorator {
     return ['for'].concat(getAllAttrs());
   }
 
+  static get nuDefaults() {
+    return {
+      display: 'none',
+    };
+  }
+
   nuConnected() {
     super.nuConnected();
 
@@ -28,23 +34,28 @@ export default class NuStyle extends NuDecorator {
 
   nuApply() {
     const parent = this.parentNode;
-    const id = this.getAttribute('for');
-    const attrs = [...this.attributes];
+    const id = this.nuGetAttr('for', true);
 
     if (!parent.nuContext || !id) return;
 
+    const attrs = [...this.attributes];
     const define = [];
 
     attrs.forEach(attr => {
-      if (attr.name === 'for') return;
+      const attrName = attr.name;
+
+      if (attrName === 'for'
+        || attrName === 'nu'
+        || attrName.startsWith('nu-')
+        || attrName.startsWith('aria-')) return;
 
       define.push({
-        name: attr.name,
-        value: attr.value,
+        name: attrName,
+        value: this.nuGetAttr(attrName, true),
       });
     });
 
-    parent.nuSetContext(`$attrs:${id}`, define);
+    parent.nuSetContext(`attrs:${id}`, define);
   }
 
   nuDisconnected() {

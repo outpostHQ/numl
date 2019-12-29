@@ -45,7 +45,7 @@ import NuClamp from './elements/clamp';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
-import NuVar from './decorators/var';
+import NuVars from './decorators/vars';
 import NuAttrs from './decorators/attrs';
 // helpers
 import {
@@ -86,6 +86,19 @@ const styles = themeAttr('main');
 injectCSS('theme:base', 'body', generateCSS('body', [...styles, {
   '--nu-diff-color': 'var(--nu-bg-color)',
 }]));
+
+const REDUCED_MOTION_CLASS = 'nu-prefers-reduced-motion-reduce-force';
+const ROOT = document.querySelector('html');
+
+if (!ROOT.classList.contains(REDUCED_MOTION_CLASS)) {
+  ROOT.classList.add(REDUCED_MOTION_CLASS);
+
+  setTimeout(() => {
+    setTimeout(() => {
+      ROOT.classList.remove(REDUCED_MOTION_CLASS);
+    }, 2000); // wait for 2s before re-enable animations
+  }, 0); // wait for current flow complete
+}
 
 const Nude = {
   tags: {},
@@ -168,6 +181,6 @@ export {
   NuClamp,
   NuAttrs,
   NuTheme,
-  NuVar,
+  NuVars,
   NuDecorator,
 };

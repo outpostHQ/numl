@@ -13,6 +13,8 @@ import {
 } from './color';
 import { cleanCSSByPart, injectCSS, stylesString } from './css';
 
+export const THEME_ATTR = 'theme';
+
 export const THEME_PROPS_LIST = [
   // theme props
   'text-color',
@@ -42,8 +44,8 @@ const darkNormanBaseBgColor = [0, 0, normalMinLightness];
 const darkContrastBaseBgColor = [0, 0, contrastMinLightness];
 
 export const BASE_THEME = {
-  hue: 250,
-  saturation: 100,
+  hue: 252,
+  saturation: 80,
   pastel: true,
   name: 'main',
   type: 'main',

@@ -1,3 +1,5 @@
+export const VAR_MOD = 'var';
+
 export function extractVars(value) {
   return value.split(';').reduce((varsMap, str) => {
     const tmp = str.split(':');

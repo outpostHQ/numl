@@ -1,6 +1,6 @@
 import NuDecorator from './decorator';
 import { declareTheme, removeTheme } from '../themes';
-import { convertUnit, error } from '../helpers';
+import { convertUnit, error, warn } from '../helpers';
 import { getOptimalSaturation, strToHsl } from '../color';
 
 const ATTRS_LIST = [
@@ -38,9 +38,6 @@ export default class NuTheme extends NuDecorator {
   nuConnected() {
     super.nuConnected();
 
-    // run only once
-    if (this.nuIsConnected) return;
-
     this.nuParent = this.parentNode;
 
     setTimeout(() => this.nuApply(true));
@@ -53,18 +50,24 @@ export default class NuTheme extends NuDecorator {
     if (this.nuParent && this.nuName) {
       removeTheme(this.nuParent, this.nuName, this.nuProps || {});
     }
+
+    delete this.nuParent;
   }
 
   nuApply(initial = false) {
     const attrs = [...this.attributes].reduce((map, attr) => {
-      map[attr.name] = attr.value;
+      if (attr.name === 'pastel') {
+        map[attr.name] = this.hasAttribute('pastel');
+      } else {
+        map[attr.name] = this.nuGetAttr(attr.name, true);
+      }
 
       return map;
     }, {});
 
     let { name = 'main', hue, saturation, pastel, from, mod, ...props } = attrs;
 
-    pastel = pastel != null;
+    pastel = !!pastel;
 
     if (from) {
       const color = strToHsl(from);
@@ -105,11 +108,26 @@ export default class NuTheme extends NuDecorator {
       removeTheme(this.nuParent, this.nuName, this.nuProps);
     }
 
+    if (!hue || hue !== hue || !saturation || saturation !== saturation) {
+      warn('incorrect theme', {
+        decorator: this,
+        name,
+        hue,
+        from,
+        saturation,
+        pastel,
+      });
+
+      return;
+    }
+
     declareTheme(this.nuParent, name, hue, saturation, pastel, customProps, defaultMods || '');
 
     if (!initial) {
       setTimeout(() => {
-        [...this.nuParent.querySelectorAll('[nu][theme]')]
+        const selector = name === 'main' ? '[nu][theme]' : `[nu][theme*="${name}"]`;
+
+        [...this.nuParent.querySelectorAll(selector)]
           .forEach(el => {
             el.nuEnsureThemes(true);
           });

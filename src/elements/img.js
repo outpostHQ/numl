@@ -68,6 +68,10 @@ export default class NuImg extends NuBlock {
         this.innerHTML = '';
       }
 
+      value = this.nuGetAttr('src', true);
+
+      if (!value || !value.trim()) return;
+
       const img = document.createElement('img');
 
       img.role = 'none';

@@ -73,15 +73,8 @@ setTimeout(() => {
   gzipEl.innerText = gzipSize;
 
   const themesEl = Nude.getElementById('themes');
-  themesEl.innerText = [...document.querySelectorAll('[nu]')].reduce((sum, el) => {
-    Object.entries(el.nuContext).forEach(([name, value]) => {
-      if (name && name.startsWith('theme')) {
-        sum++;
-      }
-    });
 
-    return sum;
-  }, 0);
+  themesEl.innerText = document.querySelectorAll('style[data-nu-name^="theme:"]').length;
 }, 1000);
 
 [...Nude.getElementsById('logo-vector')].forEach(el => el.setAttribute('src', svgImages.logo));

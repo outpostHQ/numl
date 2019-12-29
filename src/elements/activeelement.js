@@ -232,7 +232,7 @@ export default class NuActiveElement extends NuElement {
     }
 
     if (this.hasAttribute('to')) {
-      const to = this.getAttribute('to');
+      const to = this.nuGetAttr('to', true);
       const href = to.replace(/^!/, '');
       const openNewTab = to.startsWith('!') || evt.metaKey || evt.shiftKey;
 
@@ -315,6 +315,8 @@ export default class NuActiveElement extends NuElement {
 
         break;
       case 'to':
+        value = this.nuGetAttr('to', true);
+
         if (value && value.length) {
           this.nuNewTab = value.startsWith('!');
           this.nuHref = value.replace(/^!/, '');

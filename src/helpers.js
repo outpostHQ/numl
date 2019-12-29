@@ -759,5 +759,11 @@ export function intersection(arr1, arr2) {
 export function isVariableAttr(value) {
   if (!value) return false;
 
-  return value.includes('@') || value.includes('|');
+  return value.includes('@');
+}
+
+export function isResponsiveAttr(value) {
+  if (!value) return false;
+
+  return value.includes('|');
 }
