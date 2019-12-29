@@ -181,14 +181,22 @@ Run `npm run play` to view test page with few examples.
 
 ## Roadmap
 
-* Improve performance of responsive system
-* Improve widgets' logic: `nu-input` & `nu-numinput` elements.
-* New variable system
 * New useful elements
 * Showcase with examples
 * Documentation
 
 ## Changelog
+
+### v0.9
+
+#### New features
+
+* New **Variable system**.
+* Rework of **Responsive system** to fix all known issues and add support for **Variable system**. Performance is improved.
+
+#### Bug fixes
+
+* **Responsive system**: nested responsive contexts works incorrect.
 
 ### v0.8
 
