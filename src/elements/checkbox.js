@@ -1,5 +1,4 @@
 import NuActiveElement from './activeelement';
-import { enableFocus } from '../focus';
 
 export default class NuCheckbox extends NuActiveElement {
   static get nuTag() {
@@ -37,10 +36,6 @@ export default class NuCheckbox extends NuActiveElement {
         --nu-border-color: var(--nu-focus-color);
         --nu-local-toggle-color: transparent;
         --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
-      }
-
-      ${tag}:not([disabled])[tabindex]:hover {
-        --nu-local-hover-color: var(--nu-hover-color);
       }
 
       ${tag}[disabled] {
