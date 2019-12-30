@@ -347,6 +347,9 @@ export default class NuActiveElement extends NuElement {
 
     pressed = pressed || false;
 
+    const isChanged = !!['pressed', 'checked', 'selected']
+      .find(attr => this.hasAttribute(attr)) !== pressed;
+
     this.nuPressed = pressed;
 
     if (this.nuIsRadio()) {
@@ -364,8 +367,12 @@ export default class NuActiveElement extends NuElement {
     }
 
     this.nuSetMod('pressed', pressed);
-    this.nuEmit('pressed', pressed);
-    this.nuEmit('input', this.nuValue || pressed, { bubbles: false });
+
+    if (isChanged) {
+      this.nuEmit('pressed', pressed);
+      this.nuEmit('input', (pressed && this.nuValue) || pressed, { bubbles: false });
+    }
+
     this.nuControl();
 
     const innerPopup = this.querySelector('[nu-popup]');
