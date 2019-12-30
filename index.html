@@ -2151,7 +2151,11 @@
       <nu-heading level="3">Switches</nu-heading>
 
       <nu-block>
-        <nu-switch value></nu-switch>
+        <nu-switch></nu-switch> <nu-switch checked></nu-switch>
+      </nu-block>
+
+      <nu-block>
+        <nu-switch checked disabled></nu-switch> <nu-switch disabled></nu-switch> - Disabled.
       </nu-block>
     </nu-card>
 
@@ -2161,6 +2165,11 @@
       <nu-flex gap=".5" items="center">
         <nu-checkbox labelledby="label"></nu-checkbox>
         <nu-label>Checkbox label</nu-label>
+      </nu-flex>
+
+      <nu-flex gap=".5" items="center">
+        <nu-checkbox labelledby="label" disabled></nu-checkbox>
+        <nu-label>Disabled checkbox</nu-label>
       </nu-flex>
     </nu-card>
 

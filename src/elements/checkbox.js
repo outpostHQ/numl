@@ -42,6 +42,10 @@ export default class NuCheckbox extends NuActiveElement {
       ${tag}:not([disabled])[tabindex]:hover {
         --nu-local-hover-color: var(--nu-hover-color);
       }
+
+      ${tag}[disabled] {
+        --nu-border-color: rgba(var(--nu-text-color-rgb), .33);
+      }
     `;
   }
 
@@ -58,7 +62,6 @@ export default class NuCheckbox extends NuActiveElement {
           const cb = () => {
             this.nuTap();
             this.focus();
-            enableFocus();
           };
 
           el.addEventListener('click', cb);

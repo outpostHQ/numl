@@ -49,7 +49,6 @@ export default class NuSwitch extends NuActiveElement {
         --nu-circle-offset: 0;
         --nu-circle-opacity: 1;
         --nu-circle-border-radius: calc(var(--nu-circle-size) / 2);
-        --nu-circle-bg-color: var(--nu-special-bg-color);
 
         position: relative;
         width: calc(var(--nu-size) * 2 - var(--nu-padding));
@@ -64,6 +63,15 @@ export default class NuSwitch extends NuActiveElement {
         user-select: none;
         vertical-align: middle;
         padding: var(--nu-circle-padding);
+      }
+
+      ${tag}:not([disabled]) {
+        --nu-circle-bg-color: var(--nu-special-bg-color);
+      }
+
+      ${tag}[disabled] {
+        --border-color: rgba(var(--nu-text-color-rgb), .66);
+        --nu-circle-bg-color: rgba(var(--nu-text-color-rgb), 1);
       }
 
       ${tag}::after {
@@ -87,10 +95,17 @@ export default class NuSwitch extends NuActiveElement {
       }
 
       ${tag}[nu-pressed] {
-        --nu-local-bg-color: var(--nu-special-bg-color);
         --nu-circle-offset: calc(var(--nu-size) * 2 - var(--nu-circle-size) - var(--nu-padding));
         --nu-circle-opacity: 1;
         --nu-circle-bg-color: var(--nu-special-text-color);
+      }
+
+      ${tag}[nu-pressed]:not([disabled]) {
+        --nu-local-bg-color: var(--nu-special-bg-color);
+      }
+
+      ${tag}[nu-pressed][disabled] {
+        --nu-local-bg-color: rgba(var(--nu-text-color-rgb), .5);
       }
 
       ${tag}[nu-active]:not([disabled]):not([nu-pressed]) {
