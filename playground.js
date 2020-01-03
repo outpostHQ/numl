@@ -80,3 +80,29 @@ setTimeout(() => {
 [...Nude.getElementsById('logo-vector')].forEach(el => el.setAttribute('src', svgImages.logo));
 [...Nude.getElementsById('logo-raster')].forEach(el => el.setAttribute('src', pngImages.logo));
 [...Nude.getElementsById('logo-background')].forEach(el => el.setAttribute('image', `no-repeat left center / contain url(${svgImages.logo})`));
+
+// fix favicon adaptation
+
+const link = document.createElement('link');
+
+link.setAttribute('rel', 'favicon icon');
+
+// Listen media change
+const match = window.matchMedia('(prefers-color-scheme:light)');
+
+function iconChangeHandler(e) {
+  const source = document.querySelector(`link[rel*="icon"][media="(prefers-color-scheme:${e.matches ? 'light' : 'dark'})"]`);
+
+  if (!source) return;
+
+  if (!link.parentNode) {
+    document.head.appendChild(link);
+  }
+
+  link.setAttribute('type', source.type);
+  link.setAttribute('href', source.href);
+}
+
+match.addListener(iconChangeHandler);
+
+iconChangeHandler(match);
