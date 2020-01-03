@@ -25,7 +25,6 @@ export const THEME_PROPS_LIST = [
   'subtle-color',
   'text-soft-color',
   'text-strong-color',
-  'strong-color',
   'intensity',
   'special-color',
   'special-text-color',
@@ -215,7 +214,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 
   // in soft variant it's impossible to reduce contrast for headings
   if (!theme['text-soft']) {
-    const contrastLightness = findContrastLightness(theme.bg[2], softContrast, darkScheme);
+    const contrastLightness = findContrastLightness(theme.bg[2], softContrast, !darkScheme);
     theme['text-soft'] = contrastLightness ? setSaturation([hue, saturation, contrastLightness], saturation, pastel) : [...theme.text];
   }
   theme.hover = setOpacity([hue, saturation, findContrastLightness(theme.bg[2], highContrast ? 2.2 : 1.6)], .15);

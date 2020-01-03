@@ -2151,11 +2151,14 @@
       <nu-heading level="3">Switches</nu-heading>
 
       <nu-block>
-        <nu-switch></nu-switch> <nu-switch checked></nu-switch>
+        <nu-switch></nu-switch>
+        <nu-switch checked></nu-switch>
       </nu-block>
 
       <nu-block>
-        <nu-switch checked disabled></nu-switch> <nu-switch disabled></nu-switch> - Disabled.
+        <nu-switch checked disabled></nu-switch>
+        <nu-switch disabled></nu-switch>
+        - Disabled.
       </nu-block>
     </nu-card>
 
@@ -2632,23 +2635,25 @@
 
   <nu-card
     place="fixed right bottom" transform="translate(-1rem, -1rem)"
-    padding="1x" size="xs" shadow=".5" filter="backdrop-blur(2)"
-    z="front" fill="bg 70%">
-    <nu-theme hue="248"></nu-theme>
-    <nu-flex gap=".5" items="stretch" flow="column">
-      <nu-block>Prefers color scheme:</nu-block>
-      <nu-btngroup id="prefers-color-scheme" value="auto">
-        <nu-btn value="auto">Auto</nu-btn>
-        <nu-btn value="dark">Dark</nu-btn>
-        <nu-btn value="light">Light</nu-btn>
-      </nu-btngroup>
-      <nu-block>Prefers contrast:</nu-block>
-      <nu-btngroup id="prefers-contrast" value="auto">
-        <nu-btn value="auto">Auto</nu-btn>
-        <nu-btn value="high">High</nu-btn>
-        <nu-btn value="low">Low</nu-btn>
-      </nu-btngroup>
-    </nu-flex>
+    padding="0" size="xs" shadow=".5"
+    z="front" fill="clear">
+    <nu-block radius padding filter="backdrop-blur(2)" fill="bg 70%">
+      <nu-theme hue="248"></nu-theme>
+      <nu-flex gap=".5" items="stretch" flow="column">
+        <nu-block>Prefers color scheme:</nu-block>
+        <nu-btngroup id="prefers-color-scheme" value="auto">
+          <nu-btn value="auto">Auto</nu-btn>
+          <nu-btn value="dark">Dark</nu-btn>
+          <nu-btn value="light">Light</nu-btn>
+        </nu-btngroup>
+        <nu-block>Prefers contrast:</nu-block>
+        <nu-btngroup id="prefers-contrast" value="auto">
+          <nu-btn value="auto">Auto</nu-btn>
+          <nu-btn value="high">High</nu-btn>
+          <nu-btn value="low">Low</nu-btn>
+        </nu-btngroup>
+      </nu-flex>
+    </nu-block>
   </nu-card>
 </nu-block>
 
