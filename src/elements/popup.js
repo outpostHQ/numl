@@ -31,7 +31,7 @@ export default class NuPopup extends NuCard {
         if (sideStyle) {
           return [{
             $suffix: ':not([space])',
-            [sideStyle]: 'calc(var(--nu-padding) * -1)',
+            [sideStyle]: 'calc(var(--nu-indent) * -1)',
           }, placeAttr(val)];
         }
 
@@ -47,7 +47,7 @@ export default class NuPopup extends NuCard {
       opacity: '0 ^:pressed[1]',
       transition: 'opacity',
       place: 'outside-bottom',
-      border: '1x outside',
+      border: '1b outside',
       width: 'min(100%)',
       text: 'wrap w4',
       cursor: 'default',

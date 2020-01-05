@@ -18,8 +18,8 @@ export default class NuInput extends NuBlock {
       maxlength: '',
       name: '',
       padding: unit('--nu-local-padding', {
-        multiplier: 'var(--nu-padding)',
-        empty: 'var(--nu-padding)',
+        multiplier: 'var(--nu-indent)',
+        empty: 'var(--nu-indent)',
         convert: true,
       }),
     };
@@ -33,7 +33,7 @@ export default class NuInput extends NuBlock {
       padding: '1x',
       text: 'center',
       fill: 'input',
-      border: '1x',
+      border: '1b',
     };
   }
 

@@ -32,9 +32,13 @@ const MOD_LIST = Object.keys(FLEX_MAP).concat(['wrap', 'nowrap']);
  * @returns {*[]}
  */
 export default function flowAttr(val, defaults) {
-  val = val.trim();
-
-  if (!val) return;
+  if (!val) {
+    if (defaults.flow) {
+      val = defaults.flow;
+    } else {
+      return;
+    }
+  }
 
   const { mods } = extractMods(val, MOD_LIST);
   const dir = mods.find(mod => FLEX_MAP[mod]);

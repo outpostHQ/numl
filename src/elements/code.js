@@ -78,7 +78,7 @@ export default class NuCode extends NuElement {
   static get nuDefaults() {
     return {
       display: 'block',
-      radius: '1x',
+      radius: '1r',
       fill: '',
       text: 'monospace',
     };

@@ -20,7 +20,7 @@ export default class NuBtnGroup extends NuRadioGroup {
         if (val == null) return val;
 
         const width = val
-          ? convertUnit(val, 'var(--nu-border-width)')
+          ? convertUnit(val)
           : 'var(--nu-border-width)';
 
         return {
@@ -35,15 +35,15 @@ export default class NuBtnGroup extends NuRadioGroup {
 
   static get nuDefaults() {
     return {
-      gap: 'calc(var(--nu-border-width) * -1)',
-      radius: '1x',
+      gap: '--nu-border-width * -1',
+      radius: '1r',
     };
   }
 
   static nuCSS({ tag }) {
     return `
       ${NuGroup.nuExtractCSS(this)}
-      
+
       ${tag} > *:not([grow]) {
         flex-grow:1;
       }

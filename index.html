@@ -11,24 +11,23 @@
   <script src="src/pack.js"></script>
 </head>
 <body>
-<nu-block padding="2||1" responsive="1280px|960px|640px">
+<nu-block padding="2x||1x" responsive="1280px|960px|640px" fill="subtle">
   <!-- This theme has default values -->
   <nu-theme
     hue="250"
     saturation="auto"
-    padding=".5"
     border-radius=".5"
     border-width="1px"
-    padding=".5"
+    indent=".5"
     animation-time="0.08s"></nu-theme>
   <nu-vars
-    padding-v="2|1.5|1|.5"
-    padding-h=".5|1|1.5|2"
-    gap="1"></nu-vars>
+    padding-v="4x|3x|2x|1x"
+    padding-h="1x|2x|3x|4x"
+    gap="2x"></nu-vars>
 
   <nu-attrs for="section" flow="column" gap="@gap" labelledby=":prev" debug></nu-attrs>
 
-  <nu-flow gap="1">
+  <nu-flow gap="2x">
     <nu-heading level="1">
       <nu-svg
         id="logo-vector"
@@ -59,7 +58,7 @@
       <nu-badge special size="md">please read!</nu-badge>
     </nu-heading>
 
-    <nu-flow size="lg||md" gap="1" display="flex" flow="column">
+    <nu-flow size="lg||md" gap="2x" display="flex" flow="column">
       <nu-block>
         <nu-el text="w5">This page has zero CSS assets.</nu-el>
         All you see is generated in runtime in your browser. There are
@@ -92,13 +91,13 @@
       labelledby="heading"
       describedby="description price"
       shadow
-      gap="1" flow="row|column" items="start|initial">
+      gap="2x" flow="row|column" items="start|initial">
       <nu-icon name="package" size="4" place="start"></nu-icon>
-      <nu-flow gap=".5" grow="1">
+      <nu-flow gap="1x" grow="1">
         <nu-heading level="3" id="heading">Product name</nu-heading>
         <nu-line></nu-line>
         <nu-block id="description">Very very long product description</nu-block>
-        <nu-flex gap="1" items="center|start" flow="row|column-reverse">
+        <nu-flex gap="2x" items="center|start" flow="row|column-reverse">
           <nu-btn special>
             <nu-icon name="dollar-sign" inline></nu-icon>
             Order now
@@ -116,8 +115,8 @@
       <nu-code enumerate>
         <textarea>
           <nu-vars
-            padding-v="2|1.5|1|.5"
-            padding-h=".5|1|1.5|2"></nu-vars>
+            padding-v="4x|3x|2x|1x"
+            padding-h="1x|2x|3x|4x"></nu-vars>
           <nu-card as="section" padding="@padding-v @padding-h">
             Variables test.
           </nu-card>
@@ -241,7 +240,7 @@
 
       <nu-heading level="3">Default theme variation</nu-heading>
 
-      <nu-card gap=".5">
+      <nu-card gap="1x">
         <nu-heading level="3" size="h5" inline>Header</nu-heading>
         <nu-block>Text and
           <nu-mark>mark</nu-mark>
@@ -258,7 +257,7 @@
 
       <nu-heading level="3">Various themes with different hues</nu-heading>
 
-      <nu-grid columns="repeat(5, 1fr)|repeat(3, 1fr)|repeat(2, 1fr)" gap="1">
+      <nu-grid columns="repeat(5, 1fr)|repeat(3, 1fr)|repeat(2, 1fr)" gap="2x">
         <nu-theme name="blue" hue="@hue"></nu-theme>
         <nu-theme name="cyan" hue="192"></nu-theme>
         <nu-theme name="green" hue="127"></nu-theme>
@@ -268,7 +267,7 @@
         <nu-theme name="purple" hue="308"></nu-theme>
         <nu-theme name="violet" hue="277"></nu-theme>
 
-        <nu-card gap=".5" theme="blue">
+        <nu-card gap="1x" theme="blue">
           <nu-heading level="3" size="h5" inline>Blue - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -285,7 +284,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="blue tint">
+        <nu-card gap="1x" theme="blue tint">
           <nu-heading level="3" size="h5" inline>Blue - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -302,7 +301,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="blue toned">
+        <nu-card gap="1x" theme="blue toned">
           <nu-heading level="3" size="h5" inline>Blue - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -319,7 +318,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="blue swap">
+        <nu-card gap="1x" theme="blue swap">
           <nu-heading level="3" size="h5" inline>Blue - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -336,7 +335,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="blue special">
+        <nu-card gap="1x" theme="blue special">
           <nu-heading level="3" size="h5" inline>Blue - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -355,7 +354,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="cyan">
+        <nu-card gap="1x" theme="cyan">
           <nu-heading level="3" size="h5" inline>Cyan - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -372,7 +371,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="cyan tint">
+        <nu-card gap="1x" theme="cyan tint">
           <nu-heading level="3" size="h5" inline>Cyan - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -389,7 +388,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="cyan toned">
+        <nu-card gap="1x" theme="cyan toned">
           <nu-heading level="3" size="h5" inline>Cyan - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -406,7 +405,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="cyan swap">
+        <nu-card gap="1x" theme="cyan swap">
           <nu-heading level="3" size="h5" inline>Cyan - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -423,7 +422,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="cyan special">
+        <nu-card gap="1x" theme="cyan special">
           <nu-heading level="3" size="h5" inline>Cyan - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -442,7 +441,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="green">
+        <nu-card gap="1x" theme="green">
           <nu-heading level="3" size="h5" inline>Green - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -459,7 +458,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="green tint">
+        <nu-card gap="1x" theme="green tint">
           <nu-heading level="3" size="h5" inline>Green - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -476,7 +475,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="green toned">
+        <nu-card gap="1x" theme="green toned">
           <nu-heading level="3" size="h5" inline>Green - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -493,7 +492,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="green swap">
+        <nu-card gap="1x" theme="green swap">
           <nu-heading level="3" size="h5" inline>Green - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -510,7 +509,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="green special">
+        <nu-card gap="1x" theme="green special">
           <nu-heading level="3" size="h5" inline>Green - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -529,7 +528,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="yellow">
+        <nu-card gap="1x" theme="yellow">
           <nu-heading level="3" size="h5" inline>Yellow - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -546,7 +545,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="yellow tint">
+        <nu-card gap="1x" theme="yellow tint">
           <nu-heading level="3" size="h5" inline>Yellow - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -563,7 +562,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="yellow toned">
+        <nu-card gap="1x" theme="yellow toned">
           <nu-heading level="3" size="h5" inline>Yellow - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -580,7 +579,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="yellow swap">
+        <nu-card gap="1x" theme="yellow swap">
           <nu-heading level="3" size="h5" inline>Yellow - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -597,7 +596,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="yellow special">
+        <nu-card gap="1x" theme="yellow special">
           <nu-heading level="3" size="h5" inline>Yellow - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -616,7 +615,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="orange">
+        <nu-card gap="1x" theme="orange">
           <nu-heading level="3" size="h5" inline>Orange - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -633,7 +632,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="orange tint">
+        <nu-card gap="1x" theme="orange tint">
           <nu-heading level="3" size="h5" inline>Orange - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -650,7 +649,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="orange toned">
+        <nu-card gap="1x" theme="orange toned">
           <nu-heading level="3" size="h5" inline>Orange - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -667,7 +666,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="orange swap">
+        <nu-card gap="1x" theme="orange swap">
           <nu-heading level="3" size="h5" inline>Orange - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -684,7 +683,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="orange special">
+        <nu-card gap="1x" theme="orange special">
           <nu-heading level="3" size="h5" inline>Orange - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -703,7 +702,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="red">
+        <nu-card gap="1x" theme="red">
           <nu-heading level="3" size="h5" inline>Red - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -720,7 +719,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="red tint">
+        <nu-card gap="1x" theme="red tint">
           <nu-heading level="3" size="h5" inline>Red - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -737,7 +736,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="red toned">
+        <nu-card gap="1x" theme="red toned">
           <nu-heading level="3" size="h5" inline>Red - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -754,7 +753,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="red swap">
+        <nu-card gap="1x" theme="red swap">
           <nu-heading level="3" size="h5" inline>Red - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -771,7 +770,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="red special">
+        <nu-card gap="1x" theme="red special">
           <nu-heading level="3" size="h5" inline>Red - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -790,7 +789,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="purple">
+        <nu-card gap="1x" theme="purple">
           <nu-heading level="3" size="h5" inline>Purple - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -807,7 +806,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="purple tint">
+        <nu-card gap="1x" theme="purple tint">
           <nu-heading level="3" size="h5" inline>Purple - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -824,7 +823,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="purple toned">
+        <nu-card gap="1x" theme="purple toned">
           <nu-heading level="3" size="h5" inline>Purple - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -841,7 +840,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="purple swap">
+        <nu-card gap="1x" theme="purple swap">
           <nu-heading level="3" size="h5" inline>Purple - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -858,7 +857,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="purple special">
+        <nu-card gap="1x" theme="purple special">
           <nu-heading level="3" size="h5" inline>Purple - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -877,7 +876,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="violet">
+        <nu-card gap="1x" theme="violet">
           <nu-heading level="3" size="h5" inline>Violet - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -894,7 +893,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="violet tint">
+        <nu-card gap="1x" theme="violet tint">
           <nu-heading level="3" size="h5" inline>Violet - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -911,7 +910,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="violet toned">
+        <nu-card gap="1x" theme="violet toned">
           <nu-heading level="3" size="h5" inline>Violet - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -928,7 +927,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="violet swap">
+        <nu-card gap="1x" theme="violet swap">
           <nu-heading level="3" size="h5" inline>Violet - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -945,7 +944,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="violet special">
+        <nu-card gap="1x" theme="violet special">
           <nu-heading level="3" size="h5" inline>Violet - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -966,7 +965,7 @@
 
       <nu-heading level="3">Various themes with different hues in pastel palette</nu-heading>
 
-      <nu-grid columns="repeat(5, 1fr)|repeat(3, 1fr)|repeat(2, 1fr)" gap="1">
+      <nu-grid columns="repeat(5, 1fr)|repeat(3, 1fr)|repeat(2, 1fr)" gap="2x">
         <nu-theme name="blue" hue="262" pastel></nu-theme>
         <nu-theme name="cyan" hue="192" pastel></nu-theme>
         <nu-theme name="green" hue="127" pastel></nu-theme>
@@ -976,7 +975,7 @@
         <nu-theme name="purple" hue="308" pastel></nu-theme>
         <nu-theme name="violet" hue="277" pastel></nu-theme>
 
-        <nu-card gap=".5" theme="blue">
+        <nu-card gap="1x" theme="blue">
           <nu-heading level="3" size="h5" inline>Blue - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -993,7 +992,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="blue tint">
+        <nu-card gap="1x" theme="blue tint">
           <nu-heading level="3" size="h5" inline>Blue - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1010,7 +1009,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="blue toned">
+        <nu-card gap="1x" theme="blue toned">
           <nu-heading level="3" size="h5" inline>Blue - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1027,7 +1026,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="blue swap">
+        <nu-card gap="1x" theme="blue swap">
           <nu-heading level="3" size="h5" inline>Blue - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1044,7 +1043,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="blue special">
+        <nu-card gap="1x" theme="blue special">
           <nu-heading level="3" size="h5" inline>Blue - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1063,7 +1062,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="cyan">
+        <nu-card gap="1x" theme="cyan">
           <nu-heading level="3" size="h5" inline>Cyan - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1080,7 +1079,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="cyan tint">
+        <nu-card gap="1x" theme="cyan tint">
           <nu-heading level="3" size="h5" inline>Cyan - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1097,7 +1096,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="cyan toned">
+        <nu-card gap="1x" theme="cyan toned">
           <nu-heading level="3" size="h5" inline>Cyan - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1114,7 +1113,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="cyan swap">
+        <nu-card gap="1x" theme="cyan swap">
           <nu-heading level="3" size="h5" inline>Cyan - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1131,7 +1130,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="cyan special">
+        <nu-card gap="1x" theme="cyan special">
           <nu-heading level="3" size="h5" inline>Cyan - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1150,7 +1149,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="green">
+        <nu-card gap="1x" theme="green">
           <nu-heading level="3" size="h5" inline>Green - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1167,7 +1166,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="green tint">
+        <nu-card gap="1x" theme="green tint">
           <nu-heading level="3" size="h5" inline>Green - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1184,7 +1183,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="green toned">
+        <nu-card gap="1x" theme="green toned">
           <nu-heading level="3" size="h5" inline>Green - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1201,7 +1200,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="green swap">
+        <nu-card gap="1x" theme="green swap">
           <nu-heading level="3" size="h5" inline>Green - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1218,7 +1217,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="green special">
+        <nu-card gap="1x" theme="green special">
           <nu-heading level="3" size="h5" inline>Green - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1237,7 +1236,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="yellow">
+        <nu-card gap="1x" theme="yellow">
           <nu-heading level="3" size="h5" inline>Yellow - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1254,7 +1253,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="yellow tint">
+        <nu-card gap="1x" theme="yellow tint">
           <nu-heading level="3" size="h5" inline>Yellow - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1271,7 +1270,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="yellow toned">
+        <nu-card gap="1x" theme="yellow toned">
           <nu-heading level="3" size="h5" inline>Yellow - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1288,7 +1287,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="yellow swap">
+        <nu-card gap="1x" theme="yellow swap">
           <nu-heading level="3" size="h5" inline>Yellow - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1305,7 +1304,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="yellow special">
+        <nu-card gap="1x" theme="yellow special">
           <nu-heading level="3" size="h5" inline>Yellow - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1324,7 +1323,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="orange">
+        <nu-card gap="1x" theme="orange">
           <nu-heading level="3" size="h5" inline>Orange - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1341,7 +1340,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="orange tint">
+        <nu-card gap="1x" theme="orange tint">
           <nu-heading level="3" size="h5" inline>Orange - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1358,7 +1357,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="orange toned">
+        <nu-card gap="1x" theme="orange toned">
           <nu-heading level="3" size="h5" inline>Orange - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1375,7 +1374,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="orange swap">
+        <nu-card gap="1x" theme="orange swap">
           <nu-heading level="3" size="h5" inline>Orange - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1392,7 +1391,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="orange special">
+        <nu-card gap="1x" theme="orange special">
           <nu-heading level="3" size="h5" inline>Orange - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1411,7 +1410,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="red">
+        <nu-card gap="1x" theme="red">
           <nu-heading level="3" size="h5" inline>Red - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1428,7 +1427,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="red tint">
+        <nu-card gap="1x" theme="red tint">
           <nu-heading level="3" size="h5" inline>Red - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1445,7 +1444,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="red toned">
+        <nu-card gap="1x" theme="red toned">
           <nu-heading level="3" size="h5" inline>Red - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1462,7 +1461,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="red swap">
+        <nu-card gap="1x" theme="red swap">
           <nu-heading level="3" size="h5" inline>Red - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1479,7 +1478,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="red special">
+        <nu-card gap="1x" theme="red special">
           <nu-heading level="3" size="h5" inline>Red - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1498,7 +1497,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="purple">
+        <nu-card gap="1x" theme="purple">
           <nu-heading level="3" size="h5" inline>Purple - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1515,7 +1514,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="purple tint">
+        <nu-card gap="1x" theme="purple tint">
           <nu-heading level="3" size="h5" inline>Purple - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1532,7 +1531,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="purple toned">
+        <nu-card gap="1x" theme="purple toned">
           <nu-heading level="3" size="h5" inline>Purple - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1549,7 +1548,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="purple swap">
+        <nu-card gap="1x" theme="purple swap">
           <nu-heading level="3" size="h5" inline>Purple - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1566,7 +1565,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="purple special">
+        <nu-card gap="1x" theme="purple special">
           <nu-heading level="3" size="h5" inline>Purple - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1585,7 +1584,7 @@
         </nu-card>
         <nu-block hide="y|n"></nu-block>
 
-        <nu-card gap=".5" theme="violet">
+        <nu-card gap="1x" theme="violet">
           <nu-heading level="3" size="h5" inline>Violet - Main theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1602,7 +1601,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="violet tint">
+        <nu-card gap="1x" theme="violet tint">
           <nu-heading level="3" size="h5" inline>Violet - Tint theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1619,7 +1618,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="violet toned">
+        <nu-card gap="1x" theme="violet toned">
           <nu-heading level="3" size="h5" inline>Violet - Toned theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1636,7 +1635,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="violet swap">
+        <nu-card gap="1x" theme="violet swap">
           <nu-heading level="3" size="h5" inline>Violet - Swap theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1653,7 +1652,7 @@
           <nu-btn>Simple Button</nu-btn>
           <nu-btn special>Special Button</nu-btn>
         </nu-card>
-        <nu-card gap=".5" theme="violet special">
+        <nu-card gap="1x" theme="violet special">
           <nu-heading level="3" size="h5" inline>Violet - Special theme</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1680,8 +1679,8 @@
 
       <nu-heading level="4">Tint variants</nu-heading>
 
-      <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="1">
-        <nu-card gap=".5" theme="demo tint strong">
+      <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="2x">
+        <nu-card gap="1x" theme="demo tint strong">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1691,7 +1690,7 @@
           <nu-tooltip text="monospace nowrap">tint strong</nu-tooltip>
         </nu-card>
 
-        <nu-card gap=".5" theme="demo tint">
+        <nu-card gap="1x" theme="demo tint">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1701,7 +1700,7 @@
           <nu-tooltip text="monospace nowrap">tint</nu-tooltip>
         </nu-card>
 
-        <nu-card gap=".5" theme="demo tint soft">
+        <nu-card gap="1x" theme="demo tint soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1714,8 +1713,8 @@
 
       <nu-heading level="4">Toned variants</nu-heading>
 
-      <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="1">
-        <nu-card gap=".5" theme="demo toned bold strong">
+      <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="2x">
+        <nu-card gap="1x" theme="demo toned bold strong">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1724,7 +1723,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned bold strong</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo toned strong">
+        <nu-card gap="1x" theme="demo toned strong">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1733,7 +1732,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned strong</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo toned dim strong">
+        <nu-card gap="1x" theme="demo toned dim strong">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1743,7 +1742,7 @@
           <nu-tooltip text="monospace nowrap">toned dim strong</nu-tooltip>
         </nu-card>
 
-        <nu-card gap=".5" theme="demo toned bold">
+        <nu-card gap="1x" theme="demo toned bold">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1753,7 +1752,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned bold</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo toned">
+        <nu-card gap="1x" theme="demo toned">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1762,7 +1761,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo toned dim">
+        <nu-card gap="1x" theme="demo toned dim">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1772,7 +1771,7 @@
           <nu-tooltip text="monospace nowrap">toned dim</nu-tooltip>
         </nu-card>
 
-        <nu-card gap=".5" theme="demo toned bold soft">
+        <nu-card gap="1x" theme="demo toned bold soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1781,7 +1780,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned bold soft</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo toned soft">
+        <nu-card gap="1x" theme="demo toned soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1790,7 +1789,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">toned soft</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo toned dim soft">
+        <nu-card gap="1x" theme="demo toned dim soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1804,8 +1803,8 @@
 
       <nu-heading level="4">Swap variants</nu-heading>
 
-      <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="1">
-        <nu-card gap=".5" theme="demo swap bold strong">
+      <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="2x">
+        <nu-card gap="1x" theme="demo swap bold strong">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1814,7 +1813,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap bold strong</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo swap strong">
+        <nu-card gap="1x" theme="demo swap strong">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1823,7 +1822,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap strong</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo swap dim strong">
+        <nu-card gap="1x" theme="demo swap dim strong">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1833,7 +1832,7 @@
           <nu-tooltip text="monospace nowrap">swap dim strong</nu-tooltip>
         </nu-card>
 
-        <nu-card gap=".5" theme="demo swap bold">
+        <nu-card gap="1x" theme="demo swap bold">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1842,7 +1841,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap bold</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo swap">
+        <nu-card gap="1x" theme="demo swap">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1851,7 +1850,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo swap dim">
+        <nu-card gap="1x" theme="demo swap dim">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1861,7 +1860,7 @@
           <nu-tooltip text="monospace nowrap">swap dim</nu-tooltip>
         </nu-card>
 
-        <nu-card gap=".5" theme="demo swap bold soft">
+        <nu-card gap="1x" theme="demo swap bold soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1870,7 +1869,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap bold strong</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo swap soft">
+        <nu-card gap="1x" theme="demo swap soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1880,7 +1879,7 @@
           <nu-btn special>Special Button</nu-btn>
           <nu-tooltip text="monospace nowrap">swap soft</nu-tooltip>
         </nu-card>
-        <nu-card gap=".5" theme="demo swap dim soft">
+        <nu-card gap="1x" theme="demo swap dim soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1893,8 +1892,8 @@
 
       <nu-heading level="4">Special variants</nu-heading>
 
-      <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="1">
-        <nu-card gap=".5" theme="demo special strong">
+      <nu-grid columns="repeat(6, 1fr)|repeat(3, 1fr)|1fr" gap="2x">
+        <nu-card gap="1x" theme="demo special strong">
           <nu-heading level="3" size="h5" inline>High contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1904,7 +1903,7 @@
           <nu-tooltip text="monospace nowrap">special strong</nu-tooltip>
         </nu-card>
 
-        <nu-card gap=".5" theme="demo special">
+        <nu-card gap="1x" theme="demo special">
           <nu-heading level="3" size="h5" inline>Normal contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1914,7 +1913,7 @@
           <nu-tooltip text="monospace nowrap">special</nu-tooltip>
         </nu-card>
 
-        <nu-card gap=".5" theme="demo special soft">
+        <nu-card gap="1x" theme="demo special soft">
           <nu-heading level="3" size="h5" inline>Low contrast</nu-heading>
           <nu-block>Text and
             <nu-mark>mark</nu-mark>
@@ -1951,7 +1950,7 @@
 
       <nu-block>A color for border and line elements.</nu-block>
 
-      <nu-card display="flex" flow="row" gap="1">
+      <nu-card display="flex" flow="row" gap="2x">
         <nu-block>Side</nu-block>
         <nu-line orient="y"></nu-line>
         <nu-block>Side</nu-block>
@@ -2006,7 +2005,7 @@
 
       <nu-heading level="4">Simple layout with Flexbox using gap polyfill</nu-heading>
 
-      <nu-flex gap=".5">
+      <nu-flex gap="1x">
         <nu-card>Card 1</nu-card>
         <nu-card>Card 2</nu-card>
         <nu-card>Card 3</nu-card>
@@ -2014,7 +2013,7 @@
 
       <nu-heading level="4">Control flexbox content position</nu-heading>
 
-      <nu-flex gap=".5" content="space-between">
+      <nu-flex gap="1x" content="space-between">
         <nu-card>Card 1</nu-card>
         <nu-card>Card 2</nu-card>
         <nu-card>Card 3</nu-card>
@@ -2022,7 +2021,7 @@
 
       <nu-heading level="4">Control placement of individual items</nu-heading>
 
-      <nu-flex gap=".5" height="10" content="space-between">
+      <nu-flex gap="1x" height="10" content="space-between">
         <nu-card place="flex-end">Card 1</nu-card>
         <nu-card place="center">Card 2</nu-card>
         <nu-card place="flex-start">Card 3</nu-card>
@@ -2050,7 +2049,7 @@
 
       <nu-heading level="4">Simple layout with Grid</nu-heading>
 
-      <nu-grid gap=".5" columns="repeat(3, 1fr)">
+      <nu-grid gap="1x" columns="repeat(3, 1fr)">
         <nu-card>Card 1</nu-card>
         <nu-card>Card 2</nu-card>
         <nu-card>Card 3</nu-card>
@@ -2058,7 +2057,7 @@
 
       <nu-heading level="4">Control grid content position</nu-heading>
 
-      <nu-grid gap=".5" flow="column" content="space-between">
+      <nu-grid gap="1x" flow="column" content="space-between">
         <nu-card>Card 1</nu-card>
         <nu-card>Card 2</nu-card>
         <nu-card>Card 3</nu-card>
@@ -2066,7 +2065,7 @@
 
       <nu-heading level="4">Control grid items position</nu-heading>
 
-      <nu-grid gap=".5" columns="repeat(3, 1fr)" items="center">
+      <nu-grid gap="1x" columns="repeat(3, 1fr)" items="center">
         <nu-card>Card 1</nu-card>
         <nu-card>Card 2</nu-card>
         <nu-card>Card 3</nu-card>
@@ -2104,7 +2103,7 @@
     <nu-heading level="2">Buttons</nu-heading>
 
     <nu-card as="section">
-      <nu-flex gap=".5" flow="row wrap">
+      <nu-flex gap="1x" flow="row wrap">
         <nu-btn>Simple button</nu-btn>
         <nu-btn special>Special button</nu-btn>
         <nu-btn role="checkbox">Toggle button</nu-btn>
@@ -2130,7 +2129,7 @@
 
       <nu-heading level="3">Tabs</nu-heading>
 
-      <nu-tablist value="third" gap="1" border="1x inside bottom">
+      <nu-tablist value="third" gap="2x" border="inside bottom">
         <nu-tab controls="first">First</nu-tab>
         <nu-tab controls="second">Second</nu-tab>
         <nu-tab controls="third">Third</nu-tab>
@@ -2144,7 +2143,7 @@
 
       <nu-heading level="3">Menu items</nu-heading>
 
-      <nu-menu width="20" radius border padding=".5 0">
+      <nu-menu width="20" radius border padding="1x 0">
         <nu-menuitem>Menu item 1</nu-menuitem>
         <nu-menuitem>Menu item 2</nu-menuitem>
         <nu-menuitem>...</nu-menuitem>
@@ -2167,12 +2166,12 @@
     <nu-heading level="2">Checkboxes</nu-heading>
 
     <nu-card as="section">
-      <nu-flex gap=".5" items="center">
+      <nu-flex gap="1x" items="center">
         <nu-checkbox labelledby="label"></nu-checkbox>
         <nu-label>Checkbox label</nu-label>
       </nu-flex>
 
-      <nu-flex gap=".5" items="center">
+      <nu-flex gap="1x" items="center">
         <nu-checkbox labelledby="label" disabled></nu-checkbox>
         <nu-label>Disabled checkbox</nu-label>
       </nu-flex>
@@ -2196,7 +2195,7 @@
         <nu-input border="0" grow="1" label="Input with icon">
 
         </nu-input>
-        <nu-btn border="1x left">
+        <nu-btn border="left">
           <nu-icon name="x" label="Circle"></nu-icon>
         </nu-btn>
       </nu-group>
@@ -2219,7 +2218,7 @@
     <nu-heading level="2">Popups</nu-heading>
 
     <nu-card as="section">
-      <nu-flex gap=".5" flow="row wrap">
+      <nu-flex gap="1x" flow="row wrap">
         <nu-btn special>
           <nu-block text="w6">Dropdown menu</nu-block>
           <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
@@ -2243,7 +2242,7 @@
         <nu-btn special>
           <nu-block text="w6">Dropdown card</nu-block>
           <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
-          <nu-popup gap=".5" width="24">
+          <nu-popup gap="1x" width="24">
             <nu-block>
               Simple buttons don't trigger
               <nu-el color="special">close</nu-el>
@@ -2266,7 +2265,7 @@
     <nu-card as="section" overflow="no">
       <nu-block text="w6">Order of place modifiers is not strict!</nu-block>
 
-      <nu-grid items="center" columns="1fr 1fr 1fr" gap="2" padding="2">
+      <nu-grid items="center" columns="1fr 1fr 1fr" gap="2" padding="2x">
         <nu-card
           width="10"
           height="10">
@@ -2410,11 +2409,11 @@
 
     <nu-heading level="2">Tables</nu-heading>
 
-    <nu-card as="section" gap="1">
+    <nu-card as="section" gap="2x">
       <nu-heading level="3">Table with column headers</nu-heading>
 
       <nu-card padding="0">
-        <nu-table width="100%" border="1x bottom">
+        <nu-table width="100%" border="bottom">
           <nu-rowgroup>
             <nu-row>
               <nu-columnheader>Header 1</nu-columnheader>
@@ -2445,7 +2444,7 @@
       <nu-heading level="3">Table with row headers</nu-heading>
 
       <nu-card padding="0" overflow="no">
-        <nu-table width="100%" border="1x bottom">
+        <nu-table width="100%" border="bottom">
           <nu-rowgroup>
             <nu-row fill=":even[subtle]">
               <nu-rowheader width="15">Row header 1</nu-rowheader>
@@ -2481,7 +2480,7 @@
     <nu-heading level="2">Triangles *CRAZY*</nu-heading>
 
     <nu-card as="section">
-      <nu-flex gap=".5">
+      <nu-flex gap="1x">
         <nu-triangle set="up"></nu-triangle>
         <nu-triangle set="right"></nu-triangle>
         <nu-triangle set="down"></nu-triangle>
@@ -2641,7 +2640,7 @@
     z="front" fill="clear">
     <nu-block radius padding filter="backdrop-blur(2)" fill="bg 70%">
       <nu-theme hue="248"></nu-theme>
-      <nu-flex gap=".5" items="stretch" flow="column">
+      <nu-flex gap="1x" items="stretch" flow="column">
         <nu-block>Prefers color scheme:</nu-block>
         <nu-btngroup id="prefers-color-scheme" value="auto">
           <nu-btn value="auto">Auto</nu-btn>

@@ -1,24 +1,20 @@
-import { unit, extractMods, DIRECTIONS } from '../helpers';
-
-const paddingUnit = unit('padding', {
-  multiplier: 'var(--nu-padding)',
-  empty: 'var(--nu-padding)',
-  convert: true,
-});
+import { DIRECTIONS, parseAttr, filterMods } from '../helpers';
 
 export default function paddingAttr(val) {
   if (val == null) return;
 
-  let { value, mods } = extractMods(val, DIRECTIONS);
+  const { values, mods: allMods } = parseAttr(val);
+
+  const mods = filterMods(allMods, DIRECTIONS);
 
   if (!mods.length) {
-    return paddingUnit(value);
+    return { padding: values.join(' ') || 'var(--nu-indent)' };
   }
 
-  const padding = paddingUnit(value).padding;
-
   return mods.reduce((styles, mod) => {
-    styles[`padding-${mod}`] = padding;
+    const index = DIRECTIONS.indexOf(mod);
+
+    styles[`padding-${mod}`] = values[index] || values[index % 2] || values[0];
 
     return styles;
   }, {});

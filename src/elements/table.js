@@ -52,8 +52,8 @@ export default class NuTable extends NuElement {
         ];
       },
       padding: unit('--nu-cell-padding', {
-        multiplier: 'var(--nu-padding)',
-        empty: 'var(--nu-padding)',
+        multiplier: 'var(--nu-indent)',
+        empty: 'var(--nu-indent)',
         convert: true,
       }),
       radius: unit('--nu-local-border-radius', {
@@ -68,7 +68,7 @@ export default class NuTable extends NuElement {
     return {
       display: 'table',
       gap: '',
-      border: '1x',
+      border: '1b',
       padding: '',
     };
   }
@@ -76,39 +76,39 @@ export default class NuTable extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      
+
       ${tag} {
-        --nu-cell-padding: var(--nu-padding);
+        --nu-cell-padding: var(--nu-indent);
       }
-      
+
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > * {
         border-top: 0 !important;
       }
-      
+
       ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > * {
         border-bottom: 0 !important;
       }
-      
+
       ${tag} >  nu-rowgroup >  nu-row > *:first-child {
         border-left: 0 !important;
       }
-      
+
       ${tag} > nu-rowgroup > nu-row > *:last-child {
         border-right: 0 !important;
       }
-      
+
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > *:first-child {
         border-top-left-radius: var(--nu-local-border-radius, var(--nu-border-radius));
       }
-      
+
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > *:last-child {
         border-top-right-radius: var(--nu-local-border-radius, var(--nu-border-radius));
       }
-      
+
       ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > *:first-child {
         border-bottom-left-radius: var(--nu-local-border-radius, var(--nu-border-radius));
       }
-      
+
       ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > *:last-child {
         border-bottom-right-radius: var(--nu-local-border-radius, var(--nu-border-radius));
       }

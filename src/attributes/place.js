@@ -9,7 +9,7 @@ export const PLACE_VALUES = [
         [`place-${name}`]: val,
       };
     } : function (val) {
-      const values = val && val.trim().split(/\s+/);
+      const values = val && val.split(/\s+/);
 
       return val ? {
         [`align-${name}`]: values[0],
@@ -79,7 +79,7 @@ export default function placeAttr(val) {
     pos = 'relative';
   }
 
-  if (val.trim() === 'fill') {
+  if (val === 'fill') {
     // copy FILL_STYLES
     return [
       FILL_STYLES[0],

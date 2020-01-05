@@ -13,15 +13,15 @@ export default class NuTooltip extends NuBlock {
   static get nuDefaults() {
     return {
       shadow: '',
-      padding: '.25 .5',
+      padding: '.5x 1x',
       z: 'front',
       opacity: '0 ^:hover[1]',
       transition: 'opacity',
       place: 'outside-top',
       fill: 'bg',
       color: 'text',
-      radius: '1x',
-      border: '1x outside',
+      radius: '1r',
+      border: '1b outside',
       size: 'sm',
       interactive: 'no',
       text: 'wrap',

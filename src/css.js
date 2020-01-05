@@ -188,7 +188,7 @@ body {
   --nu-pixel: 1px;
 
   --nu-border-radius: 0.5rem;
-  --nu-padding: 0.5rem;
+  --nu-indent: 0.5rem;
   --nu-border-width: 1px;
   --nu-animation-time: 0.08s;
 

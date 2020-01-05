@@ -3,10 +3,18 @@ const SIZINGS = {
   border: 'border-box',
 };
 
-export default function sizingAttr(val) {
+export default function sizingAttr(val, defaults) {
   val = SIZINGS[val];
 
-  if (!val) return null;
+  if (!val) {
+    if (defaults.sizing) {
+      return {
+        'box-sizing': defaults.sizing,
+      }
+    } else {
+      return;
+    }
+  }
 
   return { 'box-sizing': val };
 }

@@ -18,8 +18,8 @@ export default class NuCard extends NuBlock {
       padding: '2x',
       fill: 'bg',
       color: 'text',
-      border: '1x',
-      radius: '1x',
+      border: '1b',
+      radius: '1r',
       flow: 'column',
       transition: 'background, color, box-shadow, transform, border, border-radius',
     };

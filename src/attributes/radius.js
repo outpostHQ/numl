@@ -8,8 +8,6 @@ const radiusUnit = unit('border-radius', {
 });
 
 export default function radiusAttr(val) {
-  val = val.trim();
-
   if (val === 'round') {
     val = '9999rem';
   } else if (val === 'ellipse') {

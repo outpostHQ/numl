@@ -9,8 +9,8 @@ export default class NuBtn extends NuActiveElement {
     return {
       display: 'inline-grid',
       padding: '1x 2x',
-      border: '1x',
-      radius: '1x',
+      border: '1b',
+      radius: '1r',
       flow: 'column',
       gap: '1x',
       content: 'center',

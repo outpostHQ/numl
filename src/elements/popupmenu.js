@@ -13,7 +13,7 @@ export default class NuPopupMenu extends NuPopup {
   static get nuDefaults() {
     return {
       flow: 'column',
-      padding: '.5 0',
+      padding: '1x 0',
     };
   }
 

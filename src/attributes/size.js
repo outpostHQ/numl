@@ -19,7 +19,7 @@ export const SIZES = {
 export default function sizeAttr(val) {
   if (!val) return null;
 
-  const tmp = val.trim().split(/\s+/);
+  const tmp = val.split(/\s+/);
   const values = [];
 
   values[0] = SIZES[tmp[0]] ? String(SIZES[tmp[0]][0]) : tmp[0];

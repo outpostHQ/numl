@@ -28,6 +28,7 @@ Well, that's all! NUDE automatically find the best saturation for that hue and g
 * **special** `--nu-special-color` – Text color to highlight special parts of the content.
 * **special-text** `--nu-special-text-color` – Text color for special elements that are also have special background color applied.
 * **special-bg** `--nu-special-bg-color` – Background color for special elements that are also have special text color applied.
+* **input** `--nu-input-color` – Background color of inputs and some active elements like Dropdown.
 * **special-intensity** `--nu-special-intensity` – Shadow intensity for elements with `special-bg` background color.
 
 You can use this custom properties names in your elements.
@@ -67,7 +68,7 @@ If you need custom **saturation** you can set `[saturation]` attribute to specif
 
 There are some more parameters you can specify with your theme besides colors:
 
-* **[padding]** `--nu-padding` (default: `.5rem`) – Base padding.
+* **[indent]** `--nu-indent` (default: `.5rem`) – Base indent (padding|gap).
 * **[border-width]** `--nu-border-width` (default: `1px`) – Base border width.
 * **[border-radius]** `--nu-border-radius` (default: `.5rem`) – Base border radius.
 * **[animation-time]** `--nu-animation-time` (default: `0.08s`) – Base animation time.
@@ -78,10 +79,9 @@ Example of declaration:
 <nu-theme
   hue="250"
   saturation="auto"
-  padding=".5"
+  indent=".5"
   border-radius=".5"
   border-width="1px"
-  padding=".5"
   animation-time="0.08s"></nu-theme>
 ```
 

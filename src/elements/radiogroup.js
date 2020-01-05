@@ -51,7 +51,7 @@ export default class NuRadioGroup extends NuFlex {
       [...this.childNodes].forEach(el => {
         if (!el.nuSetPressed) return;
 
-        el.nuSetPressed(el.nuValue === value);
+        el.nuSetPressed(el.nuValue === value, true);
       });
 
       if (announce) {

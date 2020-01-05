@@ -71,7 +71,7 @@ export default function borderAttr(val) {
   }
 
   val = val
-    ? convertUnit(val, 'var(--nu-border-width)')
+    ? convertUnit(val)
     : 'var(--nu-border-width)';
 
   if (style === 'center') {

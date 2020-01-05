@@ -6,12 +6,9 @@ import { composeThemeName, parseThemeAttr, THEME_PROPS_LIST } from '../themes';
  * @returns {*}
  */
 export default function themeAttr(val) {
-  if (val == null) return;
+  if (val == null) val = '';
 
   const theme = parseThemeAttr(val);
-
-  if (!theme) return;
-
   const themeName = composeThemeName(theme);
 
   const styles = [THEME_PROPS_LIST.reduce((map, prop) => {

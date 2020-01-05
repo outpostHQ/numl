@@ -30,5 +30,3 @@ export default function filterAttr(val) {
     'backdrop-filter': backdropFilterValue,
   }];
 }
-
-window.filterAttr = filterAttr;

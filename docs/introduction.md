@@ -18,7 +18,7 @@ If you are experienced developer then your code will be much more stuffed:
 
 ```css
 .block {
-  border: var(--default-border-width) solid var(--default-border-color);
+  border: var(--nu-border-width) solid var(--nu-border-color);
 }
 ```
 
@@ -72,7 +72,7 @@ NUDE transforms unique attributes to CSS right in Runtime! So when you write:
 You will get the following CSS injected:
 ```css
 nu-block[border=""] {
-  border: var(--nu-theme-border-width) solid var(--nu-theme-border-color);
+  border: var(--nu-border-width) solid var(--nu-border-color);
 }
 ```
 
@@ -86,10 +86,9 @@ Here is a list of all custom units.
 
 | Unit        | Description                           |
 | ----------- | ------------------------------------- |
-| `x`         | Default value multiplier              |
-| `p`         | Default padding unit                  |
-| `bw`        | Default border width unit             |
-| `br`        | Default border radius unit            |
+| `x`         | Default indent unit                  |
+| `b`        | Default border width unit             |
+| `r`        | Default border radius unit            |
 
 Example:
 ```html

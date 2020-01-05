@@ -29,7 +29,9 @@ import beforeAttr from '../attributes/before';
 import afterAttr from '../attributes/after';
 import scrollbarAttr from '../attributes/scrollbar';
 import filterAttr from '../attributes/filter';
-import themeAttr from '../attributes/theme';
+import scaleAttr from '../attributes/scale';
+import rotateAttr from '../attributes/rotate';
+import moveAttr from '../attributes/move';
 
 /**
  * @class
@@ -60,8 +62,8 @@ export default class NuElement extends NuBase {
       padding: paddingAttr,
       'items-padding': unit('padding', {
         suffix: '>:not([padding])',
-        multiplier: 'var(--nu-padding)',
-        empty: 'var(--nu-padding)',
+        multiplier: 'var(--nu-indent)',
+        empty: 'var(--nu-indent)',
         convert: true,
       }),
       overflow: overflowAttr,
@@ -99,6 +101,9 @@ export default class NuElement extends NuBase {
       filter: filterAttr,
       image: imageAttr,
       transform: transformAttr,
+      scale: scaleAttr,
+      rotate: rotateAttr,
+      move: moveAttr,
       text: textAttr,
       cursor: 'cursor',
       size: sizeAttr,

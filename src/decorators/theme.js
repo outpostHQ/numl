@@ -12,7 +12,7 @@ const ATTRS_LIST = [
   'mod',
   'border-radius',
   'border-width',
-  'padding',
+  'indent',
   'animation-time',
 ];
 
@@ -108,7 +108,7 @@ export default class NuTheme extends NuDecorator {
       removeTheme(this.nuParent, this.nuName, this.nuProps);
     }
 
-    if (!hue || hue !== hue || !saturation || saturation !== saturation) {
+    if (!hue || hue !== hue || saturation !== saturation) {
       warn('incorrect theme', {
         decorator: this,
         name,

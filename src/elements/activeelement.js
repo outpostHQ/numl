@@ -340,7 +340,7 @@ export default class NuActiveElement extends NuElement {
     this.nuSetPressed(!this.nuPressed);
   }
 
-  nuSetPressed(pressed) {
+  nuSetPressed(pressed, force) {
     if (pressed === this.nuPressed && !(pressed == null && this.nuPressed == null)) return;
 
     if (!this.nuIsToggle()) return;
@@ -368,7 +368,7 @@ export default class NuActiveElement extends NuElement {
 
     this.nuSetMod('pressed', pressed);
 
-    if (isChanged) {
+    if (isChanged && !force) {
       this.nuEmit('pressed', pressed);
       this.nuEmit('input', (pressed && this.nuValue) || pressed, { bubbles: false });
     }

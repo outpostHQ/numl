@@ -31,9 +31,9 @@ export function injectScript(src) {
  * @type {Object}
  */
 export const CUSTOM_UNITS = {
-  'br': 'var(--nu-border-radius)',
-  'bw': 'var(--nu-border-width)',
-  'p': 'var(--nu-padding)',
+  'r': 'var(--nu-border-radius)',
+  'b': 'var(--nu-border-width)',
+  'x': 'var(--nu-indent)',
   'fs': 'var(--nu-font-size)',
   'lh': 'var(--nu-line-height)',
 };
@@ -78,30 +78,12 @@ export function colorUnit(style, initial) {
 /**
  * Unit conversion for attribute values.
  * @param {String} unit - String for conversion.
- * @param {String} [multiplier] - If presented then use multiply custom unit (for example `2x`).
  * @returns {string|*}
  */
-export function convertUnit(unit, multiplier) {
+export function convertUnit(unit) {
   if (!unit) return unit;
 
-  if (!unit.includes('(')) {
-    unit = unit
-      .replace(/\d+\/\d+/g, val => {
-        const tmp = val.split('/');
-        return ((Number(tmp[0]) / Number(tmp[1])) * 100).toFixed(4) + '%';
-      })
-      .replace(/([\d.]+)([^a-z\d%.]|$)/gi, (s, s2, s3) => `${s2}rem${s3}`);
-  }
-
-  if (multiplier) {
-    unit = convertCustomUnit(unit, 'x', multiplier);
-  }
-
-  for (let customUnit of Object.keys(CUSTOM_UNITS)) {
-    unit = convertCustomUnit(unit, customUnit, CUSTOM_UNITS[customUnit]);
-  }
-
-  return unit;
+  return parseAttr(unit).values.join(' ');
 }
 
 /**
@@ -114,7 +96,7 @@ export function convertUnit(unit, multiplier) {
  * @param {Boolean} [convert] - Do unit conversion for value or not.
  * @returns {null|Object}
  */
-export function unit(name, { suffix, multiplier, empty, property, convert } = {}) {
+export function unit(name, { suffix, empty, property, convert } = {}) {
   const propertyName = !property
     ? null
     : typeof property === 'boolean'
@@ -128,7 +110,7 @@ export function unit(name, { suffix, multiplier, empty, property, convert } = {}
 
       if (!val && !empty) return null;
 
-      val = convert ? convertUnit(val || empty, multiplier) : val || empty;
+      val = convert ? convertUnit(val || empty) : val || empty;
 
       return {
         $suffix: suffix,
@@ -142,7 +124,7 @@ export function unit(name, { suffix, multiplier, empty, property, convert } = {}
 
       if (!val && !empty) return null;
 
-      val = convert ? convertUnit(val || empty, multiplier) : val || empty;
+      val = convert ? convertUnit(val || empty) : val || empty;
 
       return {
         $suffix: suffix,
@@ -155,7 +137,7 @@ export function unit(name, { suffix, multiplier, empty, property, convert } = {}
 
       if (!val && !empty) return null;
 
-      val = convert ? convertUnit(val || empty, multiplier) : val || empty;
+      val = convert ? convertUnit(val || empty) : val || empty;
 
       return {
         [name]: propertyUsage,
@@ -169,7 +151,7 @@ export function unit(name, { suffix, multiplier, empty, property, convert } = {}
 
     if (!val && !empty) return null;
 
-    val = convert ? convertUnit(val || empty, multiplier) : val || empty;
+    val = convert ? convertUnit(val || empty) : val || empty;
 
     return { [name]: val };
   };
@@ -568,17 +550,22 @@ export function splitStates(attrValue) {
  * @param {String} name - Attribute name.
  * @param {String} value - Original attribute value.
  * @param {Object} attrs - Map of attribute handlers.
+ * @param {Object} defaults - Default values of attributes. (see static getter nuDefaults)
  * @returns {String|Object|Array}
  */
 export function computeStyles(name, value, attrs, defaults) {
   if (value == null) return;
+
+  if (name !== 'before' && name !== 'after') {
+    value = value.trim();
+  }
 
   // Style splitter for states system
   if (value.match(/[:#^][a-z\d:-]+\[/)) {
     // split values between states
     const states = splitStates(value);
 
-    const arr = states.reduce((arr, state) => {
+    return states.reduce((arr, state) => {
       const styles = (computeStyles(name, state.value, attrs, defaults) || []).map(stls => {
         /**
          * @TODO: review that function
@@ -600,8 +587,6 @@ export function computeStyles(name, value, attrs, defaults) {
 
       return arr;
     }, []);
-
-    return arr;
   }
 
   const attrValue = attrs[name];
@@ -766,4 +751,149 @@ export function isResponsiveAttr(value) {
   if (!value) return false;
 
   return value.includes('|');
+}
+
+const ATTR_REGEXP = /([a-z]+\()|(--[a-z-]+)|([a-z-]{2,})|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
+
+const ATTR_CACHE = new Map;
+const MAX_CACHE = 10000;
+
+function prepareNuVar(name) {
+  const isNu = name.startsWith('--nu-');
+
+  if (!isNu) {
+    const nuName = name.replace('--', '--nu-');
+
+    return `var(${name}, var(${nuName}))`;
+  } else {
+    return `var(${name})`;
+  }
+}
+
+/**
+ *
+ * @param {String} value
+ * @param {Array<String>} allowedMods
+ * @returns {Object<String,String|Array>}
+ */
+export function parseAttr(value, allowedMods = []) {
+  if (!ATTR_CACHE.has(value)) {
+    if (ATTR_CACHE.size > MAX_CACHE) {
+      ATTR_CACHE.clear();
+    }
+
+    const mods = [];
+
+    let currentValue = '';
+    let calc = -1;
+    let values = [];
+    let counter = 0;
+
+    value.replace(
+      ATTR_REGEXP,
+      (s, func, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma) => {
+        if (func) {
+          currentValue += func;
+          counter++;
+        } else if (mod) {
+          // ignore mods inside brackets
+          if (counter) {
+            currentValue += `${mod} `;
+          } else {
+            mods.push(mod);
+          }
+        } else if (bracket) {
+          if (bracket === '(' && !~calc) {
+            calc = counter;
+            counter++;
+
+            currentValue += 'calc';
+          }
+
+          if (bracket === ')' && counter) {
+            currentValue = currentValue.trim();
+
+            if (counter > 0) {
+              counter--;
+            }
+
+            if (counter === calc) {
+              calc = -1;
+            }
+          }
+
+          currentValue += `${bracket}${bracket === ')' ? ' ' : ''}`;
+        } else if (operator) {
+          if (!~calc) {
+            if (currentValue) {
+               if (currentValue.includes('(')) {
+                 const index = currentValue.lastIndexOf('(');
+
+                 currentValue = `${currentValue.slice(0, index)}(calc(${currentValue.slice(index + 1)}`;
+                 calc = counter;
+                 counter++;
+               }
+            } else {
+              let tmp = values.splice(values.length - 1, 1)[0];
+
+              if (tmp) {
+                if (tmp.startsWith('calc(')) {
+                  tmp = tmp.slice(4);
+                }
+
+                calc = 1;
+                counter = 1;
+                currentValue = `calc(${tmp} `;
+              }
+            }
+          }
+
+          currentValue += `${operator} `;
+        } else if (unit) {
+          if (unitMetric && CUSTOM_UNITS[unitMetric]) {
+            if (unitVal === '1') {
+              currentValue += `${CUSTOM_UNITS[unitMetric]} `;
+            } else {
+              if (!~calc) {
+                currentValue += 'calc';
+              }
+
+              currentValue += `(${unitVal} * ${CUSTOM_UNITS[unitMetric]}) `;
+            }
+          } else if (!unitMetric && !counter) {
+            currentValue += `${unit}rem `;
+          } else {
+            currentValue += `${unit} `;
+          }
+        } else if (prop) {
+          currentValue += `${prepareNuVar(prop)} `;
+        } else if (comma) {
+          if (~calc) {
+            calc = -1;
+            counter--;
+            currentValue = `${currentValue.trim()}), `;
+          } else {
+            currentValue = `${currentValue.trim()}, `;
+          }
+        }
+
+        if (currentValue && !counter) {
+          values.push(currentValue.trim());
+          currentValue = '';
+        }
+      },
+    );
+
+    if (counter) {
+      values.push(`${currentValue.trim()}${')'.repeat(counter)}`);
+    }
+
+    ATTR_CACHE.set(value, { values, mods });
+  }
+
+  return ATTR_CACHE.get(value);
+}
+
+export function filterMods(mods, allowedMods) {
+  return mods.filter(mod => allowedMods.includes(mod));
 }

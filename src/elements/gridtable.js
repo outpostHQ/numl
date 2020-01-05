@@ -38,7 +38,7 @@ export default class NuGridTable extends NuGrid {
 
   static get nuDefaults() {
     return {
-      gap: '1bw',
+      gap: '1b',
       color: '',
       overflow: 'auto',
     };
@@ -54,7 +54,7 @@ export default class NuGridTable extends NuGrid {
         background-color: var(--nu-main-bg-color);
       }
       ${tag}:not([padding]) > *:not([padding]):not(nu-line) {
-        padding: .5rem;
+        padding: var(--nu-indent);
       }
       ${tag} > *:not([place]) {
         position: relative;

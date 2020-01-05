@@ -11,7 +11,7 @@ export default class NuMark extends NuElement {
       fill: 'diff',
       padding: '0 .25em',
       space: '0 .25em',
-      radius: '1x',
+      radius: '1r',
     };
   }
 }

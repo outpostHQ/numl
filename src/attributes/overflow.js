@@ -20,8 +20,6 @@ const MAP = {
 };
 
 export default function overflowAttr(val) {
-  val = val.trim();
-
   if (!val || !MAP[val]) return;
 
   return MAP[val];

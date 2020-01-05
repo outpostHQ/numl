@@ -18,7 +18,7 @@ export default class NuCheckbox extends NuActiveElement {
       display: 'inline-grid',
       width: '1em',
       height: '1em',
-      border: '1x',
+      border: '1b',
       radius: '.5x',
       content: 'stretch',
       items: 'center',

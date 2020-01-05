@@ -9,8 +9,6 @@ const Z_MAP = {
 export default function zAttr(val) {
   if (val == null) return;
 
-  val = val.trim();
-
   return {
     'z-index': Z_MAP[val] || val,
   };
