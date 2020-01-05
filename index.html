@@ -20,10 +20,10 @@
     indent=".5"
     animation-time="0.08s"></nu-theme>
   <nu-props
-    border-radius="2x|1.5x|1x|.5x"></nu-props>
+    border-radius="1x"></nu-props>
   <nu-vars
-    padding-v="4x|3x|2x|1x"
-    padding-h="1x|2x|3x|4x"
+    padding-v="2|1.5|1|.5"
+    padding-h=".5|1|1.5|2"
     gap="2x"></nu-vars>
 
   <nu-attrs for="section" flow="column" gap="@gap" labelledby=":prev" debug></nu-attrs>
@@ -111,8 +111,8 @@
       <nu-code enumerate>
         <textarea>
           <nu-vars
-            padding-v="4x|3x|2x|1x"
-            padding-h="1x|2x|3x|4x"></nu-vars>
+            padding-v="2|1.5|1|.5"
+            padding-h=".5|1|1.5|2"></nu-vars>
           <nu-card as="section" padding="@padding-v @padding-h">
             Variables test.
           </nu-card>
@@ -211,6 +211,13 @@
         <nu-badge theme="toned">Toned theme</nu-badge>
         <nu-badge theme="swap">Swap theme</nu-badge>
         <nu-badge theme="special">Special theme</nu-badge>
+      </nu-block>
+
+      <nu-heading level="3">Marks</nu-heading>
+      <nu-block>
+        Mark some <nu-mark>parts</nu-mark> of the text
+        or emphasize attention to <nu-mark special>the important part</nu-mark> of the text.
+        Use themes to make marks more <nu-mark theme="toned">pretty</nu-mark> or <nu-mark theme="swap" fill>visually strong</nu-mark> .
       </nu-block>
     </nu-card>
 

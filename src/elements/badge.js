@@ -35,13 +35,13 @@ export default class NuBadge extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag}[special]:not([fill]) {
+      ${tag}[special]:not([fill]), ${tag}[special][special]:not([fill]) {
         background-color: var(--nu-special-bg-color);
       }
-      ${tag}[special]:not([color]) {
+      ${tag}[special]:not([color]), ${tag}[special][special]:not([color]) {
         color: var(--nu-special-text-color);
       }
-      ${tag}[special]:not([text]) {
+      ${tag}[special]:not([text]), ${tag}[special][special]:not([text]) {
         font-weight: 500;
       }
     `;
