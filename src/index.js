@@ -47,6 +47,7 @@ import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
 import NuVars from './decorators/vars';
 import NuAttrs from './decorators/attrs';
+import NuProps from './decorators/props';
 // helpers
 import {
   injectScript,
@@ -56,7 +57,6 @@ import {
   ROOT_CONTEXT,
   CUSTOM_UNITS,
   STATES_MAP,
-  splitDimensions,
   parseAllValues,
   setImmediate,
   extractMods,
@@ -106,7 +106,6 @@ const Nude = {
     injectScript,
     splitStates,
     convertCustomUnit,
-    splitDimensions,
     excludeMod,
     parseAllValues,
     setImmediate,
@@ -182,5 +181,6 @@ export {
   NuAttrs,
   NuTheme,
   NuVars,
+  NuProps,
   NuDecorator,
 };

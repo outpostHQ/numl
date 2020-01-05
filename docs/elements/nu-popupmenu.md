@@ -9,23 +9,22 @@
 
 ## Own default values
 * **`[flow]`: `"column"`**
-* **`[padding]`: `".5 0"`**
+* **`[padding]`: `"1x 0"`**
 
 ## Inherited default values
-* **`[border]`: `"1x outside"`**
-* **`[color]`: `""`**
+* **`[border]`: `"1b outside"`**
+* **`[color]`: `"text"`**
 * **`[cursor]`: `"default"`**
 * **`[display]`: `"block"`**
-* **`[fill]`: `""`**
+* **`[fill]`: `"bg"`**
 * **`[opacity]`: `"0 ^:pressed[1]"`**
 * **`[place]`: `"outside-bottom"`**
-* **`[radius]`: `"1x"`**
+* **`[radius]`: `"1r"`**
 * **`[shadow]`: `""`**
 * **`[sizing]`: `"border"`**
-* **`[text]`: `"wrap"`**
-* **`[theme]`: `"default"`**
+* **`[text]`: `"wrap w4"`**
 * **`[transition]`: `"opacity"`**
-* **`[width]`: `"100%"`**
+* **`[width]`: `"min(100%)"`**
 * **`[z]`: `"front"`**
 
 
@@ -35,10 +34,12 @@
 
 ## Inherited attributes
 * **[`[activedescendant]`](../attributes/activedescendant.md)** `aria`
+* **[`[after]`](../attributes/after.md)** `style`
 * **[`[area]`](../attributes/area.md)** `style`
 * **[`[areas]`](../attributes/areas.md)** `style`
 * **[`[as]`](../attributes/as.md)** `helper`
 * **[`[basis]`](../attributes/basis.md)** `style`
+* **[`[before]`](../attributes/before.md)** `style`
 * **[`[border]`](../attributes/border.md)** `style`
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
@@ -50,6 +51,7 @@
 * **[`[display]`](../attributes/display.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
+* **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
 * **[`[gap]`](../attributes/gap.md)** `style`
@@ -68,6 +70,8 @@
 * **[`[items-shrink]`](../attributes/items-shrink.md)** `style`
 * **[`[label]`](../attributes/label.md)** `aria`
 * **[`[labelledby]`](../attributes/labelledby.md)** `aria`
+* **[`[level]`](../attributes/level.md)** `aria`
+* **[`[move]`](../attributes/move.md)** `style`
 * **[`[opacity]`](../attributes/opacity.md)** `style`
 * **[`[order]`](../attributes/order.md)** `style`
 * **[`[overflow]`](../attributes/overflow.md)** `style`
@@ -75,16 +79,21 @@
 * **[`[padding]`](../attributes/padding.md)** `style`
 * **[`[place]`](../attributes/place.md)** `style`
 * **[`[posinset]`](../attributes/posinset.md)** `aria`
+* **[`[prop]`](../attributes/prop.md)** `style`
 * **[`[radius]`](../attributes/radius.md)** `style`
 * **[`[responsive]`](../attributes/responsive.md)** `helper`
+* **[`[rotate]`](../attributes/rotate.md)** `style`
 * **[`[row]`](../attributes/row.md)** `style`
 * **[`[rows]`](../attributes/rows.md)** `style`
+* **[`[scale]`](../attributes/scale.md)** `style`
+* **[`[scrollbar]`](../attributes/scrollbar.md)** `style`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
 * **[`[shadow]`](../attributes/shadow.md)** `style`
 * **[`[shrink]`](../attributes/shrink.md)** `style`
 * **[`[size]`](../attributes/size.md)** `style`
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
+* **[`[special]`](../attributes/special.md)** `style`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 * **[`[transform]`](../attributes/transform.md)** `style`

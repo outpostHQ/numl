@@ -6,14 +6,17 @@
 
 
 ## Own default values
-* **`[color]`: `"swap"`**
-* **`[fill]`: `"text"`**
+* **`[border]`: `"1b"`**
+* **`[display]`: `"inline-grid"`**
+* **`[fill]`: `"bg"`**
+* **`[flow]`: `"column"`**
+* **`[gap]`: `"1x"`**
+* **`[items]`: `"center"`**
 * **`[padding]`: `"0 .5em"`**
-* **`[radius]`: `"1x"`**
-* **`[text]`: `"nowrap"`**
+* **`[radius]`: `"round"`**
+* **`[text]`: `"middle nowrap"`**
 
 ## Inherited default values
-* **`[display]`: `"inline-block"`**
 * **`[sizing]`: `"border"`**
 
 
@@ -25,10 +28,12 @@
 
 ## Inherited attributes
 * **[`[activedescendant]`](../attributes/activedescendant.md)** `aria`
+* **[`[after]`](../attributes/after.md)** `style`
 * **[`[area]`](../attributes/area.md)** `style`
 * **[`[areas]`](../attributes/areas.md)** `style`
 * **[`[as]`](../attributes/as.md)** `helper`
 * **[`[basis]`](../attributes/basis.md)** `style`
+* **[`[before]`](../attributes/before.md)** `style`
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
@@ -39,6 +44,7 @@
 * **[`[display]`](../attributes/display.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
+* **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
 * **[`[gap]`](../attributes/gap.md)** `style`
@@ -57,6 +63,8 @@
 * **[`[items-shrink]`](../attributes/items-shrink.md)** `style`
 * **[`[label]`](../attributes/label.md)** `aria`
 * **[`[labelledby]`](../attributes/labelledby.md)** `aria`
+* **[`[level]`](../attributes/level.md)** `aria`
+* **[`[move]`](../attributes/move.md)** `style`
 * **[`[opacity]`](../attributes/opacity.md)** `style`
 * **[`[order]`](../attributes/order.md)** `style`
 * **[`[overflow]`](../attributes/overflow.md)** `style`
@@ -64,14 +72,19 @@
 * **[`[padding]`](../attributes/padding.md)** `style`
 * **[`[place]`](../attributes/place.md)** `style`
 * **[`[posinset]`](../attributes/posinset.md)** `aria`
+* **[`[prop]`](../attributes/prop.md)** `style`
 * **[`[responsive]`](../attributes/responsive.md)** `helper`
+* **[`[rotate]`](../attributes/rotate.md)** `style`
 * **[`[row]`](../attributes/row.md)** `style`
 * **[`[rows]`](../attributes/rows.md)** `style`
+* **[`[scale]`](../attributes/scale.md)** `style`
+* **[`[scrollbar]`](../attributes/scrollbar.md)** `style`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
 * **[`[shrink]`](../attributes/shrink.md)** `style`
 * **[`[size]`](../attributes/size.md)** `style`
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
+* **[`[special]`](../attributes/special.md)** `style`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 * **[`[transform]`](../attributes/transform.md)** `style`
@@ -87,16 +100,13 @@
 nu-badge[hidden] {
   display: none !important;
 }
-nu-badge[theme]:not([color]) {
-  color: var(--nu-theme-background-color) !important;
-}
-nu-badge[theme]:not([fill]) {
-  background-color: var(--nu-theme-color) !important;
-}
 nu-badge[special]:not([fill]) {
-  background-color: var(--nu-theme-special-color) !important;
+  background-color: var(--nu-special-bg-color);
 }
 nu-badge[special]:not([color]) {
-  color: var(--nu-theme-special-contrast-color) !important;
+  color: var(--nu-special-text-color);
+}
+nu-badge[special]:not([text]) {
+  font-weight: 500;
 }
 ```

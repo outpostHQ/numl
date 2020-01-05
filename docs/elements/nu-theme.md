@@ -17,8 +17,13 @@
 
 
 ## Inherited attributes
+* **[`[as]`](../attributes/as.md)** `helper`
 * **[`[display]`](../attributes/display.md)** `style`
 * **[`[id]`](../attributes/id.md)** `style`
+* **[`[prop]`](../attributes/prop.md)** `style`
+* **[`[responsive]`](../attributes/responsive.md)** `helper`
+* **[`[special]`](../attributes/special.md)** `style`
+* **[`[theme]`](../attributes/theme.md)** `helper`
 
 ## Generated CSS
 ```css

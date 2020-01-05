@@ -54,16 +54,14 @@ export default class NuElement extends NuBase {
       radius: radiusAttr,
       'items-radius': unit('border-radius', {
         suffix: '>:not([radius])',
-        multiplier: 'var(--nu-border-radius)',
-        empty: 'var(--nu-border-radius)',
+        empty: '--nu-border-radius',
         property: true,
         convert: true,
       }),
       padding: paddingAttr,
       'items-padding': unit('padding', {
         suffix: '>:not([padding])',
-        multiplier: 'var(--nu-indent)',
-        empty: 'var(--nu-indent)',
+        empty: '--nu-indent',
         convert: true,
       }),
       overflow: overflowAttr,

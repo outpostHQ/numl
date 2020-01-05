@@ -4,8 +4,7 @@ import borderAttr from '../attributes/border';
 
 const gapAttr = unit('border-spacing', {
   convert: true,
-  multiplier: 'var(--nu-cell-padding)',
-  empty: 'var(--nu-cell-padding)',
+  empty: '--nu-cell-padding',
 });
 
 export default class NuTable extends NuElement {
@@ -52,13 +51,11 @@ export default class NuTable extends NuElement {
         ];
       },
       padding: unit('--nu-cell-padding', {
-        multiplier: 'var(--nu-indent)',
-        empty: 'var(--nu-indent)',
+        empty: '--nu-indent',
         convert: true,
       }),
       radius: unit('--nu-local-border-radius', {
-        multiplier: 'var(--nu-border-radius)',
-        empty: 'var(--nu-border-radius)',
+        empty: '--nu-border-radius',
         convert: true,
       }),
     };

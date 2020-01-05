@@ -34,6 +34,7 @@ import shadowMixin from './mixins/shadow';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibility';
 import displayAttr from './attributes/display';
 import themeAttr from './attributes/theme';
+import propAttr from './attributes/prop';
 
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
@@ -175,6 +176,7 @@ export default class NuBase extends HTMLElement {
       as: '',
       special: '',
       theme: themeAttr,
+      prop: propAttr,
     };
   }
 
@@ -328,6 +330,13 @@ export default class NuBase extends HTMLElement {
    * @param {Boolean} force - Reapply CSS.
    */
   attributeChangedCallback(name, oldValue, value, force) {
+    // ignore attribute to declare custom properties
+    if (devMode && name === 'prop' && this.hasAttribute('prop')) {
+      warn('unable to use private "prop" attribute.');
+
+      return;
+    }
+
     let varAttr;
 
     if (name === 'nu' || name.startsWith('nu-')) return;

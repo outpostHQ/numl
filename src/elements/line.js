@@ -30,8 +30,7 @@ export default class NuLine extends NuBlock {
       },
       size: unit('--nu-line-size', {
         convert: true,
-        multiplier: 'var(--nu-border-width)',
-        empty: 'var(--nu-border-radius)',
+        empty: '--nu-border-radius',
       }),
       fill: null,
     };

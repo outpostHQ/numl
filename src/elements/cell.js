@@ -19,8 +19,7 @@ export default class NuCell extends NuElement {
   static get nuAttrs() {
     return {
       radius: unit('border-radius', {
-        multiplier: 'var(--nu-border-radius)',
-        empty: 'var(--nu-border-radius)',
+        empty: '--nu-border-radius',
         convert: true,
       }),
       border(val) {

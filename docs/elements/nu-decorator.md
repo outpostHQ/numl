@@ -13,12 +13,16 @@
 
 
 ## Own attributes
-*none*
+* **as** `helper`
+* **responsive** `helper`
+* **theme** `helper`
 
 
 ## Inherited attributes
 * **[`[display]`](../attributes/display.md)** `style`
 * **[`[id]`](../attributes/id.md)** `style`
+* **[`[prop]`](../attributes/prop.md)** `style`
+* **[`[special]`](../attributes/special.md)** `style`
 
 ## Generated CSS
 ```css

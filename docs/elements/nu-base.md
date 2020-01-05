@@ -12,8 +12,13 @@
 
 
 ## Own attributes
+* **as** `helper`
 * **display** `style`
 * **id** `style`
+* **prop** `style`
+* **responsive** `helper`
+* **special** `style`
+* **theme** `helper`
 
 
 ## Inherited attributes

@@ -15,10 +15,11 @@
 
 ## Own attributes
 * **activedescendant** `aria`
+* **after** `style`
 * **area** `style`
 * **areas** `style`
-* **as** `helper`
 * **basis** `style`
+* **before** `style`
 * **border** `style`
 * **color** `style`
 * **column** `style`
@@ -29,6 +30,7 @@
 * **describedby** `aria`
 * **expanded** `aria`
 * **fill** `style`
+* **filter** `style`
 * **flow** `style`
 * **flowto** `aria`
 * **gap** `style`
@@ -46,6 +48,8 @@
 * **items-shrink** `style`
 * **label** `aria`
 * **labelledby** `aria`
+* **level** `aria`
+* **move** `style`
 * **opacity** `style`
 * **order** `style`
 * **overflow** `style`
@@ -54,9 +58,11 @@
 * **place** `style`
 * **posinset** `aria`
 * **radius** `style`
-* **responsive** `helper`
+* **rotate** `style`
 * **row** `style`
 * **rows** `style`
+* **scale** `style`
+* **scrollbar** `style`
 * **setsize** `aria`
 * **shadow** `style`
 * **shrink** `style`
@@ -64,7 +70,6 @@
 * **sizing** `style`
 * **space** `style`
 * **text** `style`
-* **theme** `helper`
 * **transform** `style`
 * **transition** `style`
 * **valuemax** `aria`
@@ -75,8 +80,13 @@
 
 
 ## Inherited attributes
+* **[`[as]`](../attributes/as.md)** `helper`
 * **[`[display]`](../attributes/display.md)** `style`
 * **[`[id]`](../attributes/id.md)** `style`
+* **[`[prop]`](../attributes/prop.md)** `style`
+* **[`[responsive]`](../attributes/responsive.md)** `helper`
+* **[`[special]`](../attributes/special.md)** `style`
+* **[`[theme]`](../attributes/theme.md)** `helper`
 
 ## Generated CSS
 ```css

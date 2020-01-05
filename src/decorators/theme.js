@@ -10,10 +10,6 @@ const ATTRS_LIST = [
   'pastel',
   'from',
   'mod',
-  'border-radius',
-  'border-width',
-  'indent',
-  'animation-time',
 ];
 
 /**
@@ -87,17 +83,7 @@ export default class NuTheme extends NuDecorator {
 
     const defaultMods = mod || '';
 
-    const customProps = Object.keys(props || {})
-      .reduce((map, prop) => {
-        if (!ATTRS_LIST.includes(prop)) return map;
-
-          map[`--nu-${prop}`] = convertUnit(props[prop]);
-
-        return map;
-      }, {});
-
     this.nuName = name;
-    this.nuProps = customProps;
     this.nuHue = hue;
     this.nuFrom = from;
     this.nuSaturation = saturation;
@@ -121,7 +107,7 @@ export default class NuTheme extends NuDecorator {
       return;
     }
 
-    declareTheme(this.nuParent, name, hue, saturation, pastel, customProps, defaultMods || '');
+    declareTheme(this.nuParent, name, hue, saturation, pastel, defaultMods || '');
 
     if (!initial) {
       setTimeout(() => {

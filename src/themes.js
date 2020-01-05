@@ -378,11 +378,10 @@ export function composeThemeName({ name, type, contrast, lightness }) {
  * @param hue {Number} – Reference hue of theme
  * @param saturation {Number} – Reference saturation of theme
  * @param pastel {Boolean} - Use pastel palette
- * @param customProps {Object<String,String>} – All custom properties of theme
  * @param defaultMods {String} – List of default modifiers
  */
-export function declareTheme(el, name, hue, saturation, pastel, customProps, defaultMods) {
-  log('declare theme', { element: el, name, hue, saturation, pastel, customProps, defaultMods });
+export function declareTheme(el, name, hue, saturation, pastel, defaultMods) {
+  log('declare theme', { element: el, name, hue, saturation, pastel, defaultMods });
 
   if (devMode && !el.nuContext) {
     log('element context not found');
@@ -416,13 +415,6 @@ export function declareTheme(el, name, hue, saturation, pastel, customProps, def
     saturation,
     pastel,
   }, name);
-
-  if (Object.keys(customProps).length) {
-    const propsKey = `theme:${name}:${el.nuId}:props`;
-    const query = `#${el.nuId}`;
-
-    injectCSS(propsKey, query, `${query}{${stylesString(customProps)}}`);
-  }
 }
 
 /**
@@ -474,9 +466,6 @@ export function removeTheme(el, name, customProps) {
   }
 
   const key = `theme:${name}`;
-  const propsKey = `theme:${name}:${el.nuId}:props`;
-
-  cleanCSSByPart(propsKey);
 
   Object.keys(el.nuContext)
     .forEach(prop => {

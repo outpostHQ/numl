@@ -23,6 +23,7 @@ import Nude, {
   NuLink,
   NuTheme,
   NuVars,
+  NuProps,
   NuAttrs,
   NuDecorator,
   NuActiveElement,
@@ -95,6 +96,7 @@ Nude.elements = {
   NuDecorator,
   NuTheme,
   NuVars,
+  NuProps,
   NuAttrs,
 };
 

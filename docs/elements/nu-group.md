@@ -22,10 +22,12 @@
 
 ## Inherited attributes
 * **[`[activedescendant]`](../attributes/activedescendant.md)** `aria`
+* **[`[after]`](../attributes/after.md)** `style`
 * **[`[area]`](../attributes/area.md)** `style`
 * **[`[areas]`](../attributes/areas.md)** `style`
 * **[`[as]`](../attributes/as.md)** `helper`
 * **[`[basis]`](../attributes/basis.md)** `style`
+* **[`[before]`](../attributes/before.md)** `style`
 * **[`[border]`](../attributes/border.md)** `style`
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
@@ -37,6 +39,7 @@
 * **[`[display]`](../attributes/display.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
+* **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
@@ -54,6 +57,8 @@
 * **[`[items-shrink]`](../attributes/items-shrink.md)** `style`
 * **[`[label]`](../attributes/label.md)** `aria`
 * **[`[labelledby]`](../attributes/labelledby.md)** `aria`
+* **[`[level]`](../attributes/level.md)** `aria`
+* **[`[move]`](../attributes/move.md)** `style`
 * **[`[opacity]`](../attributes/opacity.md)** `style`
 * **[`[order]`](../attributes/order.md)** `style`
 * **[`[overflow]`](../attributes/overflow.md)** `style`
@@ -61,16 +66,21 @@
 * **[`[padding]`](../attributes/padding.md)** `style`
 * **[`[place]`](../attributes/place.md)** `style`
 * **[`[posinset]`](../attributes/posinset.md)** `aria`
+* **[`[prop]`](../attributes/prop.md)** `style`
 * **[`[radius]`](../attributes/radius.md)** `style`
 * **[`[responsive]`](../attributes/responsive.md)** `helper`
+* **[`[rotate]`](../attributes/rotate.md)** `style`
 * **[`[row]`](../attributes/row.md)** `style`
 * **[`[rows]`](../attributes/rows.md)** `style`
+* **[`[scale]`](../attributes/scale.md)** `style`
+* **[`[scrollbar]`](../attributes/scrollbar.md)** `style`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
 * **[`[shadow]`](../attributes/shadow.md)** `style`
 * **[`[shrink]`](../attributes/shrink.md)** `style`
 * **[`[size]`](../attributes/size.md)** `style`
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
+* **[`[special]`](../attributes/special.md)** `style`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 * **[`[transform]`](../attributes/transform.md)** `style`
@@ -87,13 +97,13 @@ nu-group[hidden] {
   display: none !important;
 }
 nu-group {
-  --nu-item-border-radius: var(--nu-border-radius);
-  border-radius: calc(var(--nu-border-radius, 0) + 1px) !important;
+  --nu-item-border-radius: var(--nu-local-border-radius);
+  border-radius: calc(var(--nu-local-border-radius, 0) + 1px) !important;
 }
 nu-group:not([gap]) > :not(:last-child):not(:first-child) {
-  --nu-border-radius: 0 !important;
+  --nu-local-border-radius: 0 !important;
 }
 nu-group:not([gap]) > :last-child:first-child {
-  --nu-border-radius: inherit !important;
+  --nu-local-border-radius: inherit !important;
 }
 ```

@@ -7,7 +7,7 @@
 
 
 ## Own default values
-* **`[border]`: `"1x"`**
+* **`[border]`: `"1b"`**
 * **`[display]`: `"table"`**
 * **`[gap]`: `""`**
 * **`[padding]`: `""`**
@@ -25,10 +25,12 @@
 
 ## Inherited attributes
 * **[`[activedescendant]`](../attributes/activedescendant.md)** `aria`
+* **[`[after]`](../attributes/after.md)** `style`
 * **[`[area]`](../attributes/area.md)** `style`
 * **[`[areas]`](../attributes/areas.md)** `style`
 * **[`[as]`](../attributes/as.md)** `helper`
 * **[`[basis]`](../attributes/basis.md)** `style`
+* **[`[before]`](../attributes/before.md)** `style`
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
@@ -39,6 +41,7 @@
 * **[`[display]`](../attributes/display.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
+* **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
 * **[`[grow]`](../attributes/grow.md)** `style`
@@ -56,21 +59,28 @@
 * **[`[items-shrink]`](../attributes/items-shrink.md)** `style`
 * **[`[label]`](../attributes/label.md)** `aria`
 * **[`[labelledby]`](../attributes/labelledby.md)** `aria`
+* **[`[level]`](../attributes/level.md)** `aria`
+* **[`[move]`](../attributes/move.md)** `style`
 * **[`[opacity]`](../attributes/opacity.md)** `style`
 * **[`[order]`](../attributes/order.md)** `style`
 * **[`[overflow]`](../attributes/overflow.md)** `style`
 * **[`[owns]`](../attributes/owns.md)** `aria`
 * **[`[place]`](../attributes/place.md)** `style`
 * **[`[posinset]`](../attributes/posinset.md)** `aria`
+* **[`[prop]`](../attributes/prop.md)** `style`
 * **[`[responsive]`](../attributes/responsive.md)** `helper`
+* **[`[rotate]`](../attributes/rotate.md)** `style`
 * **[`[row]`](../attributes/row.md)** `style`
 * **[`[rows]`](../attributes/rows.md)** `style`
+* **[`[scale]`](../attributes/scale.md)** `style`
+* **[`[scrollbar]`](../attributes/scrollbar.md)** `style`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
 * **[`[shadow]`](../attributes/shadow.md)** `style`
 * **[`[shrink]`](../attributes/shrink.md)** `style`
 * **[`[size]`](../attributes/size.md)** `style`
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
+* **[`[special]`](../attributes/special.md)** `style`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 * **[`[transform]`](../attributes/transform.md)** `style`
@@ -86,6 +96,9 @@
 nu-table[hidden] {
   display: none !important;
 }
+nu-table {
+  --nu-cell-padding: var(--nu-indent);
+}
 nu-table >  nu-rowgroup:first-child >  nu-row:first-child > * {
   border-top: 0 !important;
 }
@@ -99,15 +112,15 @@ nu-table > nu-rowgroup > nu-row > *:last-child {
   border-right: 0 !important;
 }
 nu-table >  nu-rowgroup:first-child >  nu-row:first-child > *:first-child {
-  border-top-left-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
+  border-top-left-radius: var(--nu-local-border-radius, var(--nu-border-radius));
 }
 nu-table >  nu-rowgroup:first-child >  nu-row:first-child > *:last-child {
-  border-top-right-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
+  border-top-right-radius: var(--nu-local-border-radius, var(--nu-border-radius));
 }
 nu-table >  nu-rowgroup:last-child >  nu-row:last-child > *:first-child {
-  border-bottom-left-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
+  border-bottom-left-radius: var(--nu-local-border-radius, var(--nu-border-radius));
 }
 nu-table >  nu-rowgroup:last-child >  nu-row:last-child > *:last-child {
-  border-bottom-right-radius: var(--nu-border-radius, var(--nu-theme-border-radius));
+  border-bottom-right-radius: var(--nu-local-border-radius, var(--nu-border-radius));
 }
 ```

@@ -295,8 +295,6 @@ export function error(...args) {
   }
 }
 
-let globalId = 0;
-
 const ID_MAP = {};
 
 /**
@@ -327,22 +325,6 @@ export function generateId(element) {
 }
 
 const dim = document.createElement('div');
-
-/**
- * Split style into 4 directions. For example padding.
- * @param {String} style
- * @returns {String[]}
- */
-export function splitDimensions(style) {
-  const split = splitStyleValue(style);
-
-  return [
-    split[0],
-    split[1] || split[0],
-    split[2] || split[0],
-    split[3] || split[1] || split[0],
-  ];
-}
 
 /**
  * Helper to open link.
@@ -764,19 +746,20 @@ function prepareNuVar(name) {
   if (!isNu) {
     const nuName = name.replace('--', '--nu-');
 
-    return `var(${name}, var(${nuName}))`;
+    return `var(${nuName}, var(${name}))`;
   } else {
     return `var(${name})`;
   }
 }
 
+const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid'];
+
 /**
  *
  * @param {String} value
- * @param {Array<String>} allowedMods
  * @returns {Object<String,String|Array>}
  */
-export function parseAttr(value, allowedMods = []) {
+export function parseAttr(value) {
   if (!ATTR_CACHE.has(value)) {
     if (ATTR_CACHE.size > MAX_CACHE) {
       ATTR_CACHE.clear();
@@ -797,7 +780,7 @@ export function parseAttr(value, allowedMods = []) {
           counter++;
         } else if (mod) {
           // ignore mods inside brackets
-          if (counter) {
+          if (counter || IGNORE_MODS.includes(mod)) {
             currentValue += `${mod} `;
           } else {
             mods.push(mod);

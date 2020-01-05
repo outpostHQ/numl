@@ -64,27 +64,6 @@ The **hue** will be extracted from that color.
 
 If you need custom **saturation** you can set `[saturation]` attribute to specific value or set `auto` for optimal saturation.
 
-### Specify other params for theme
-
-There are some more parameters you can specify with your theme besides colors:
-
-* **[indent]** `--nu-indent` (default: `.5rem`) – Base indent (padding|gap).
-* **[border-width]** `--nu-border-width` (default: `1px`) – Base border width.
-* **[border-radius]** `--nu-border-radius` (default: `.5rem`) – Base border radius.
-* **[animation-time]** `--nu-animation-time` (default: `0.08s`) – Base animation time.
-
-Example of declaration:
-
-```html
-<nu-theme
-  hue="250"
-  saturation="auto"
-  indent=".5"
-  border-radius=".5"
-  border-width="1px"
-  animation-time="0.08s"></nu-theme>
-```
-
 ## Named themes
 You can name each theme:
 

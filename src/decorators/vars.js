@@ -29,13 +29,7 @@ export default class NuVars extends NuDecorator {
   nuApply() {
     const parent = this.parentNode;
 
-    const vars = {};
-
-    [...this.attributes].map(({ name, value }) => {
-      if (IGNORE_ATTRS.includes(name)) return;
-
-      vars[name] = value;
-    });
+    const vars = this.nuOwnAttrs;
 
     if (JSON.stringify(this.nuVars) === JSON.stringify(vars)) return;
 
