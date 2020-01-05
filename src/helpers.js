@@ -787,11 +787,13 @@ export function parseAttr(value) {
             mods.push(mod);
           }
         } else if (bracket) {
-          if (bracket === '(' && !~calc) {
-            calc = counter;
-            counter++;
+          if (bracket === '(') {
+            if (!~calc) {
+              calc = counter;
+              currentValue += 'calc';
+            }
 
-            currentValue += 'calc';
+            counter++;
           }
 
           if (bracket === ')' && counter) {
@@ -825,8 +827,8 @@ export function parseAttr(value) {
                   tmp = tmp.slice(4);
                 }
 
-                calc = 1;
-                counter = 1;
+                calc = counter;
+                counter++;
                 currentValue = `calc(${tmp} `;
               }
             }
@@ -881,3 +883,5 @@ export function parseAttr(value) {
 export function filterMods(mods, allowedMods) {
   return mods.filter(mod => allowedMods.includes(mod));
 }
+
+window.parseAttr = parseAttr;

@@ -187,6 +187,30 @@ Run `npm run play` to view test page with few examples.
 
 ## Changelog
 
+### v0.10
+
+### New features
+* Full rework of attribute parsing. More features, more stable and much faster.
+* Automatic **calc** insertion.
+
+### Breaking changes
+* Built-in custom units changes: 
+	* **br** -> **r**
+	* **bw** -> **b**
+	* **x** is equal **var(--nu-indent)**
+* Remove custom properties declarations from **[nu-theme](./docs/elements/nu-theme.md)** decorator! Use brand new **[nu-props](./docs/elements/nu-props.md)** decorator.
+
+### New elements
+* **[nu-props](./docs/elements/nu-props.md)** - new decorator to declare custom properties.
+
+### New attributes & modifiers
+* **scale** with **flip**, **flip-x** and **flip-y** modifiers.
+* **rotate**.
+* **move**.
+
+### Minor and internal changes
+* **nu-mark** – minor style fixes and **[theme]** support. 
+
 ### v0.9
 
 #### New features
@@ -210,9 +234,9 @@ Run `npm run play` to view test page with few examples.
 #### Breaking changes
 
 * **theme**, **color**, **fill** attributes now works completely different.
-* **nu-theme** has new awesome API.
-* **nu-triangle**: **[dir]** -> **[set]**.
-* **nu-style** renamed to **nu-attrs** for a more accurate understanding.
+* **[nu-theme](./docs/elements/nu-theme.md)** has new awesome API.
+* **[nu-triangle](./docs/elements/nu-triangle.md)**: **[dir]** -> **[set]**.
+* **[nu-style](./docs/elements/nu-style.md)** renamed to **nu-attrs** for a more accurate understanding.
 * **nu-scroll** removed. (legacy element)
 
 #### New elements
@@ -221,12 +245,12 @@ Run `npm run play` to view test page with few examples.
 * **nu-code** - Code snippets!
 
 #### New attributes
-* **scrollbar** - To control over scroll bar styling.
+* **[scrollbar](./docs/attributes/scrollbar.md)** - To control over scroll bar styling.
 
 #### Bug fixes
 * Unable to change border width of **nu-switch**.
 * Flex doubles gap in Firefox.
-* Fix **nu-switch** styles.
+* Fix **[nu-switch](./docs/elements/nu-switch.md)** styles.
 * Fix flash of non-styled content for responsive elements.
 
 ### v0.7
