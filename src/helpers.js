@@ -443,6 +443,8 @@ export const STATES_MAP = {
  * @returns {Object[]}
  */
 export function splitStates(attrValue) {
+  attrValue = attrValue; // @TODO move normalize before responsive split
+
   const tmp = attrValue.replace(/\^:/g, '#--parent--:').split(/[\s^]+(?=[\:#])/g);
 
   let id;
@@ -548,7 +550,7 @@ export function computeStyles(name, value, attrs, defaults) {
     // split values between states
     const states = splitStates(value);
 
-    return states.reduce((arr, state) => {
+    const allStyles = states.reduce((arr, state) => {
       const styles = (computeStyles(name, state.value, attrs, defaults) || []).map(stls => {
         /**
          * @TODO: review that function
@@ -570,6 +572,8 @@ export function computeStyles(name, value, attrs, defaults) {
 
       return arr;
     }, []);
+
+    return allStyles;
   }
 
   const attrValue = attrs[name];
@@ -622,13 +626,18 @@ export function excludeMod(str, mod) {
 }
 
 export function parseAllValues(value) {
-  return value
-    ? value.split('|').reduce((arr, value) => {
-      splitStates(value).forEach(state => arr.push(state.value));
+  const { states } = parseAttrStates(value);
 
-      return arr;
-    }, [])
-    : [];
+  return Object.values(states)
+    .reduce((values, list) => {
+      list.forEach(val => {
+        if (!values.includes(val)) {
+          values.push(val);
+        }
+      });
+
+      return values;
+    }, []);
 }
 
 export function svgElement(svgText) {
@@ -812,13 +821,13 @@ export function parseAttr(value) {
         } else if (operator) {
           if (!~calc) {
             if (currentValue) {
-               if (currentValue.includes('(')) {
-                 const index = currentValue.lastIndexOf('(');
+              if (currentValue.includes('(')) {
+                const index = currentValue.lastIndexOf('(');
 
-                 currentValue = `${currentValue.slice(0, index)}(calc(${currentValue.slice(index + 1)}`;
-                 calc = counter;
-                 counter++;
-               }
+                currentValue = `${currentValue.slice(0, index)}(calc(${currentValue.slice(index + 1)}`;
+                calc = counter;
+                counter++;
+              }
             } else {
               let tmp = values.splice(values.length - 1, 1)[0];
 
@@ -884,4 +893,74 @@ export function filterMods(mods, allowedMods) {
   return mods.filter(mod => allowedMods.includes(mod));
 }
 
-window.parseAttr = parseAttr;
+const STATE_REGEXP = /(\|)|((\s|^)([:^#][a-z0-9:-]+)\[)|(])|([#\s\w0-9()%+*/.,-]+(?=\s|$|]|\|))/gi;
+
+export function parseAttrStates(val) {
+  let currentState = '';
+  let states = {};
+  let outsideIndex = 0;
+  let stateIndex = 0;
+  let maxState = 0;
+
+  val.replace(STATE_REGEXP, (s, delimiter, s2, s3, state, close, value) => {
+    if (state) {
+      currentState = state;
+
+      if (maxState < stateIndex) {
+        maxState = stateIndex;
+      }
+
+      stateIndex = 0;
+    } else if (close) {
+      currentState = '';
+    } else if (value) {
+      if (!states[currentState]) {
+        states[currentState] = [];
+      }
+
+      states[currentState][currentState ? stateIndex : outsideIndex] = value;
+
+      if (currentState) {
+        stateIndex++;
+      } else {
+        outsideIndex++;
+      }
+    }
+  });
+
+  if (maxState < outsideIndex) {
+    maxState = outsideIndex;
+  }
+
+  return {
+    zones: maxState,
+    states,
+  };
+}
+
+export function normalizeAttrStates(val) {
+  const { states, zones } = parseAttrStates(val);
+  const list = Object.keys(states);
+
+  let out = '';
+
+  for (let i = 0; i < zones; i++) {
+    for (let state of list) {
+      let value = states[state][i] || states[state][states[state].length - 1];
+
+      if (state) {
+        out += `${state}[${value}]`;
+      } else {
+        out += value;
+      }
+
+      out += ' ';
+    }
+
+    if (i !== zones - 1) {
+      out = out.trim() + '|';
+    }
+  }
+
+  return out.trim();
+}

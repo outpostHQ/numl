@@ -26,7 +26,13 @@ import {
   warn,
   log,
   computeStyles,
-  invertQueryById, error, parseAllValues, extractMods, isVariableAttr, isResponsiveAttr,
+  invertQueryById,
+  error,
+  parseAllValues,
+  extractMods,
+  isVariableAttr,
+  isResponsiveAttr,
+  normalizeAttrStates, parseAttrStates,
 } from './helpers';
 import transformMixin from './mixins/transform';
 import backgroundMixin from './mixins/background';
@@ -571,6 +577,8 @@ export default class NuBase extends HTMLElement {
     const isResponsive = value.includes('|');
 
     if (isResponsive) {
+      value = normalizeAttrStates(value);
+
       const respContext = this.nuContext && this.nuContext.responsive && this.nuContext.responsive.context;
 
       if (respContext) {
@@ -589,7 +597,7 @@ export default class NuBase extends HTMLElement {
   /**
    * Create and apply CSS based on element's attributes.
    * @param {String} name
-   * @param {*} value
+   * @param {*} varAttr
    * @param {*} force - replace current CSS rule
    */
   nuApplyCSS(name, varAttr, force = false) {
