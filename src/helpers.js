@@ -961,6 +961,10 @@ export function parseAttrStates(val) {
   let maxState = 0;
 
   val.replace(STATE_REGEXP, (s, delimiter, s2, s3, state, close, value) => {
+    if (!states[currentState]) {
+      states[currentState] = [];
+    }
+
     if (state) {
       currentState = state;
 
@@ -972,15 +976,21 @@ export function parseAttrStates(val) {
     } else if (close) {
       currentState = '';
     } else if (value) {
-      if (!states[currentState]) {
-        states[currentState] = [];
-      }
-
       states[currentState][currentState ? stateIndex : outsideIndex] = value;
-
+    } else if (delimiter) {
       if (currentState) {
+        // fill empty values
+        if (!states[currentState][stateIndex]) {
+          states[currentState][stateIndex] = '';
+        }
+
         stateIndex++;
       } else {
+        // fill empty values
+        if (!states[currentState][outsideIndex]) {
+          states[currentState][outsideIndex] = '';
+        }
+
         outsideIndex++;
       }
     }

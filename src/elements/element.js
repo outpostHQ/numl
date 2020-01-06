@@ -32,6 +32,7 @@ import filterAttr from '../attributes/filter';
 import scaleAttr from '../attributes/scale';
 import rotateAttr from '../attributes/rotate';
 import moveAttr from '../attributes/move';
+import showAttr from '../attributes/show';
 
 /**
  * @class
@@ -106,6 +107,7 @@ export default class NuElement extends NuBase {
       cursor: 'cursor',
       size: sizeAttr,
       hide: hideAttr,
+      show: showAttr,
       opacity: 'opacity',
       transition: transitionAttr,
       scrollbar: scrollbarAttr,
