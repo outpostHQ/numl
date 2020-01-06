@@ -435,16 +435,28 @@ export const STATES_MAP = {
   odd: ':nth-child(odd)',
 };
 
+function getCombinations(array) {
+  let result = [];
+  let f = function (prefix = [], array) {
+    for (let i = 0; i < array.length; i++) {
+      result.push([...prefix, array[i]]);
+      f([...prefix, array[i]], array.slice(i + 1));
+    }
+  }
+
+  f('', array);
+
+  return result;
+}
+
 /**
  * Extract state values from single value.
- * Example: "blue :active[red]"
- * Example output: [{ '': 'blue' }, { 'active': 'red' }}]
+ * Example: color="blue :active[red]"
+ * Example output: [{ value: 'blue' }, { $suffix: '[nu-active]', value: 'red' }}]
  * @param {String} attrValue
  * @returns {Object[]}
  */
 export function splitStates(attrValue) {
-  attrValue = attrValue; // @TODO move normalize before responsive split
-
   const tmp = attrValue.replace(/\^:/g, '#--parent--:').split(/[\s^]+(?=[\:#])/g);
 
   let id;
@@ -471,9 +483,7 @@ export function splitStates(attrValue) {
       if (tmp2.length === 1) {
         return {
           states: [],
-          parentStates: [],
           notStates: [],
-          parentNotStates: [],
           value: val
         };
       }
@@ -489,38 +499,84 @@ export function splitStates(attrValue) {
       }
 
       return {
-        states: !id ? states : [],
-        parentStates: id ? states : [],
+        states: states,
         notStates: [],
-        parentNotStates: [],
         value: tmp2[1].trim(),
       };
     })
     .filter(val => val);
 
+  // add base state if missing
+  let baseMap = stateMaps.find(map => !map.states.length);
+
+  if (!baseMap) {
+    baseMap = {
+      states: [],
+      notStates: [],
+      value: ''
+    };
+
+    stateMaps.push(baseMap);
+  }
+
+  let baseValue = baseMap.value;
+
+  const otherValues = stateMaps.filter(map => map !== baseMap).map(map => map.value);
+
+  if (otherValues.every(val => val === otherValues[0])) {
+    baseValue = otherValues[0];
+  }
+
+  // create mutually exclusive selectors
   for (let i = 0; i < stateMaps.length; i++) {
     for (let j = i + 1; j < stateMaps.length; j++) {
+      if (i === j) continue;
+
       const map1 = stateMaps[i];
       const map2 = stateMaps[j];
 
-      [['states', 'notStates'], ['parentStates', 'parentNotStates']].forEach(([sKey, nKey]) => {
-        const diffStates1 = map2[sKey].filter(s => !map1[sKey].includes(s));
-        const diffStates2 = map1[sKey].filter(s => !map2[sKey].includes(s));
+      const diffStates1 = map2.states.filter(s => !map1.states.includes(s));
+      const diffStates2 = map1.states.filter(s => !map2.states.includes(s));
 
-        map1[nKey].push(...diffStates1);
-        map2[nKey].push(...diffStates2);
-      });
+      map1.notStates.push(...diffStates1);
+      map2.notStates.push(...diffStates2);
     }
   }
 
+  // add missing states to fulfill their values
+  const allStatesSet = new Set;
+
+  stateMaps.forEach(map => map.states.forEach(state => allStatesSet.add(state)));
+
+  const allStates = Array.from(allStatesSet);
+
+  const allCombinations = getCombinations(allStates);
+
+  allCombinations.forEach(states => {
+    const notStates = allStates.filter(state => !states.includes(state));
+
+    const similarMap = stateMaps.find((otherMap, j) => {
+      return JSON.stringify(otherMap.states.sort()) === JSON.stringify(states.sort())
+        && JSON.stringify(otherMap.notStates.sort()) === JSON.stringify(notStates.sort());
+    });
+
+    if (similarMap) return;
+
+    stateMaps.push({
+      states: [...states],
+      notStates: [...notStates],
+      value: baseValue,
+    });
+  });
+
   const isParent = (id === '--parent--');
 
-  return stateMaps.map(stateMap => {
+  stateMaps = stateMaps.map(stateMap => {
     return {
-      $prefix: id && (stateMap.parentStates.length || stateMap.parentNotStates.length)
+      $prefix: id && (stateMap.states.length || stateMap.notStates.length)
         ? (isParent ? '[nu]' : `[nu-id="${id}"]`)
-        + stateMap.parentStates.map(s => STATES_MAP[s]).join('')
-        + stateMap.parentNotStates.map(s => `:not(${STATES_MAP[s]})`).join('')
+        + stateMap.states.map(s => STATES_MAP[s]).join('')
+        + stateMap.notStates.map(s => `:not(${STATES_MAP[s]})`).join('')
         + (isParent ? '>' : '')
         : null,
       $suffix: stateMap.states.map(s => STATES_MAP[s]).join('')
@@ -528,6 +584,8 @@ export function splitStates(attrValue) {
       value: stateMap.value,
     };
   });
+
+  return stateMaps;
 }
 
 /**

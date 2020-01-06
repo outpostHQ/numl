@@ -1,5 +1,7 @@
 import { DIRECTIONS, parseAttr, filterMods } from '../helpers';
 
+const BASE = 'var(--nu-indent)';
+
 export default function paddingAttr(val) {
   if (val == null) return;
 
@@ -8,13 +10,13 @@ export default function paddingAttr(val) {
   const mods = filterMods(allMods, DIRECTIONS);
 
   if (!mods.length) {
-    return { padding: values.join(' ') || 'var(--nu-indent)' };
+    return { padding: values.join(' ') || BASE };
   }
 
   return mods.reduce((styles, mod) => {
     const index = DIRECTIONS.indexOf(mod);
 
-    styles[`padding-${mod}`] = values[index] || values[index % 2] || values[0];
+    styles[`padding-${mod}`] = values[index] || values[index % 2] || values[0] || BASE;
 
     return styles;
   }, {});
