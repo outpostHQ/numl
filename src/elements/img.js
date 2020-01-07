@@ -53,10 +53,6 @@ export default class NuImg extends NuBlock {
       ${tag}[width][height] > img {
         position: absolute;
       }
-
-      ${tag}[inline] {
-        bottom: 0.0675em;
-      }
     `;
   }
 

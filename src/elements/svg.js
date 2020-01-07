@@ -61,10 +61,6 @@ export default class NuSvg extends NuBlock {
         width: 100%;
         height: 100%;
       }
-
-      ${tag}[inline] {
-        bottom: 0.0675em;
-      }
     `;
   }
 

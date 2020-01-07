@@ -74,8 +74,8 @@ export default class NuTriangle extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag}[inline] {
-        bottom: 0.0675em;
+      ${tag} {
+        vertical-align: var(--nu-inline-offset);
       }
     `;
   }
