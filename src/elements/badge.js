@@ -22,7 +22,7 @@ export default class NuBadge extends NuElement {
       items: 'center',
       padding: '0 .5em',
       radius: 'round',
-      text: 'middle nowrap',
+      text: 'baseline nowrap',
       border: '1b',
       fill: 'bg',
     };
