@@ -579,7 +579,7 @@ export function splitStates(attrValue) {
         + stateMap.notStates.map(s => `:not(${STATES_MAP[s]})`).join('')
         + (isParent ? '>' : '')
         : null,
-      $suffix: stateMap.states.map(s => STATES_MAP[s]).join('')
+      $suffix: !id && stateMap.states.map(s => STATES_MAP[s]).join('')
         + stateMap.notStates.map(s => `:not(${STATES_MAP[s]})`).join(''),
       value: stateMap.value,
     };
@@ -1001,7 +1001,7 @@ export function parseAttrStates(val) {
   }
 
   return {
-    zones: maxState,
+    zones: maxState + 1,
     states,
   };
 }
@@ -1014,7 +1014,9 @@ export function normalizeAttrStates(val) {
 
   for (let i = 0; i < zones; i++) {
     for (let state of list) {
-      let value = states[state][i] || states[state][states[state].length - 1];
+      let value = states[state][i] == null
+        ? states[state][states[state].length - 1]
+        : states[state][i];
 
       if (state) {
         out += `${state}[${value}]`;
