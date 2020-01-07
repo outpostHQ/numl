@@ -61,7 +61,7 @@ export default class NuSwitch extends NuActiveElement {
         transition: box-shadow var(--nu-animation-time) linear,
           filter var(--nu-animation-time) linear;
         user-select: none;
-        vertical-align: middle;
+        vertical-align: var(--nu-inline-offset);
         padding: var(--nu-circle-padding);
       }
 

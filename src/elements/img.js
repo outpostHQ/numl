@@ -19,7 +19,6 @@ export default class NuImg extends NuBlock {
   static get nuDefaults() {
     return {
       display: 'inline-grid',
-      text: 'middle',
       sizing: 'content',
       width: 'min(1fs)',
       height: 'min(1fs)',
@@ -32,6 +31,7 @@ export default class NuImg extends NuBlock {
       ${css}
       ${tag} {
         position: relative;
+        vertical-align: var(--nu-inline-offset);
       }
 
       ${tag} > img {

@@ -24,7 +24,6 @@ export default class NuSvg extends NuBlock {
   static get nuDefaults() {
     return {
       display: 'inline-block',
-      text: 'middle',
       sizing: 'content',
       width: 'min(1fs)',
       height: 'min(1fs)',
@@ -36,6 +35,7 @@ export default class NuSvg extends NuBlock {
       ${css}
       ${tag} {
         position: relative;
+        vertical-align: var(--nu-inline-offset);
       }
 
       ${tag}[width] > svg {

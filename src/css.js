@@ -191,6 +191,7 @@ body {
   --nu-indent: 0.5rem;
   --nu-border-width: 1px;
   --nu-animation-time: 0.08s;
+  --nu-inline-offset: -.15em;
 
   --nu-font-size: 1rem;
   --nu-line-height: 1.5rem;

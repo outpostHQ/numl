@@ -38,7 +38,6 @@ export default class NuIcon extends NuBlock {
   static get nuDefaults() {
     return {
       display: 'inline-block',
-      text: 'middle',
       width: 'min(1fs)',
       height: 'min(1fs)',
       sizing: 'content',
@@ -50,6 +49,7 @@ export default class NuIcon extends NuBlock {
       ${css}
       ${tag} {
         position: relative;
+        vertical-align: var(--nu-inline-offset);
       }
 
       ${tag} > svg {
@@ -63,10 +63,6 @@ export default class NuIcon extends NuBlock {
 
       ${tag} > :not(svg) {
         display: none;
-      }
-
-      ${tag}[inline] {
-        bottom: 0.0675em;
       }
     `;
   }

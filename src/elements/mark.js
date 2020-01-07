@@ -8,7 +8,7 @@ export default class NuMark extends NuElement {
 
   static get nuDefaults() {
     return {
-      text: 'w6 baseline',
+      text: 'w6',
       fill: 'diff :themed[bg]',
       padding: '0 .25em',
       space: '0 .25em',

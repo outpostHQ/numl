@@ -99,10 +99,13 @@
       <nu-flow gap="1x" grow="1">
         <nu-heading level="3" id="heading">Product name</nu-heading>
         <nu-line></nu-line>
-        <nu-block id="description">Very very long product description</nu-block>
+        <nu-block id="description">
+          <nu-icon name="chevrons-right"></nu-icon>
+          Very very long product description
+        </nu-block>
         <nu-flex gap="2x" items="center|start" flow="row|column-reverse">
           <nu-btn special>
-            <nu-icon name="dollar-sign" inline></nu-icon>
+            <nu-icon name="dollar-sign"></nu-icon>
             Order now
           </nu-btn>
           <nu-block text="w6" color="special" size="lg|md" id="price" padding=".5x 1x">
@@ -243,10 +246,10 @@
 
       <nu-block size="xl">
         <nu-icon name="user"></nu-icon>
-        <nu-icon name="package"></nu-icon>
         <nu-icon name="dollar-sign"></nu-icon>
         <nu-icon name="message-square"></nu-icon>
-        ...
+        <nu-icon name="package"></nu-icon>
+        Text to align
       </nu-block>
     </nu-card>
 
