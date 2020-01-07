@@ -33,6 +33,7 @@
 * [`<nu-pane/>`](./nu-pane.md) 
 * [`<nu-popup/>`](./nu-popup.md) 
 * [`<nu-popupmenu/>`](./nu-popupmenu.md) 
+* [`<nu-progressbar/>`](./nu-progressbar.md) 
 * [`<nu-props/>`](./nu-props.md) `[decorator]`
 * [`<nu-radio/>`](./nu-radio.md) 
 * [`<nu-radiogroup/>`](./nu-radiogroup.md) 

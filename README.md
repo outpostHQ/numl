@@ -189,7 +189,7 @@ Run `npm run play` to view test page with few examples.
 
 ### v0.10
 
-### New features
+#### New features
 * Full rework of attribute parsing. More features, more stable and much faster.
 * Rework of RadioGroup mechanics (migration to Context system). Elements involved: 
     * **[nu-radiogroup](./docs/elements/nu-radiogroup.md)**
@@ -200,25 +200,26 @@ Run `npm run play` to view test page with few examples.
     * **[nu-btngroup](./docs/elements/nu-btngroup.md)**
 * Automatic **calc** insertion.
 
-### Breaking changes
+#### Breaking changes
 * Built-in custom units changes: 
 	* **br** -> **r**
 	* **bw** -> **b**
-	* **x** is equal **var(--nu-indent)**
-* Remove custom properties declarations from **[nu-theme](./docs/elements/nu-theme.md)** decorator! Use brand new **[nu-props](./docs/elements/nu-props.md)** decorator.
+	* **x** is equal **var(--nu-indent)** now
+* Remove custom properties declarations from **[nu-theme](./docs/elements/nu-theme.md)** decorator! Use brand new **[nu-props](./docs/elements/nu-props.md)** decorator
 
-### New elements
+#### New elements
 * **[nu-props](./docs/elements/nu-props.md)** - new decorator to declare custom properties.
-* **[nu-radiogroup](./docs/elements/nu-radiogroup.md)**
-* **[nu-radio](./docs/elements/nu-radio.md)**
+* **[nu-radiogroup](./docs/elements/nu-radiogroup.md)** - radio group.
+* **[nu-radio](./docs/elements/nu-radio.md)** - radio button.
+* **[nu-progressbar](./docs/elements/nu-progressbar.md)**- To show progress of a process.
 
-### New attributes & modifiers
+#### New attributes & modifiers
 * **[scale](./docs/attributes/scale.md)** with **flip**, **flip-x** and **flip-y** modifiers.
-* **[rotate](./docs/attributes/rotate.md)**.
-* **[move](./docs/attributes/move.md)**.
+* **[rotate](./docs/attributes/rotate.md)** - to rotate element.
+* **[move](./docs/attributes/move.md)** - to move element (via `transform:translate(...)`).
 * **[show](./docs/attributes/show.md)** - to conditionally show elements. Hide them by default.
 
-### Minor and internal changes
+#### Minor and internal changes
 * **[hide](./docs/attributes/hide.md)** attribute is no longer hide element if no value provided.
 * **[nu-checkbox](./docs/elements/nu-checkbox.md)** - style fixes.
 * **[nu-mark](./docs/elements/nu-mark.md)** – minor style fixes and **[theme]** support. 

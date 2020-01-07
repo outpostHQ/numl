@@ -151,8 +151,6 @@ export default class NuActiveElement extends NuElement {
       this.nuSetContextHook('radiogroup', () => {
         const radioGroup = this.nuContext.radiogroup;
 
-        console.log(radioGroup.value, this.nuValue);
-
         if (radioGroup.value === this.nuValue) {
           this.setAttribute('pressed', '');
         } else {
