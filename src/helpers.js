@@ -972,7 +972,7 @@ export function parseAttrStates(val) {
         maxState = stateIndex;
       }
 
-      stateIndex = 0;
+      stateIndex = outsideIndex;
     } else if (close) {
       currentState = '';
     } else if (value) {
@@ -992,6 +992,10 @@ export function parseAttrStates(val) {
         }
 
         outsideIndex++;
+
+        if (stateIndex < outsideIndex) {
+          stateIndex = outsideIndex;
+        }
       }
     }
   });
@@ -1011,12 +1015,15 @@ export function normalizeAttrStates(val) {
   const list = Object.keys(states);
 
   let out = '';
+  let currents = {};
 
   for (let i = 0; i < zones; i++) {
     for (let state of list) {
-      let value = states[state][i] == null
-        ? states[state][states[state].length - 1]
-        : states[state][i];
+      let value = states[state][i] == null ? currents[state] : states[state][i];
+
+      currents[state] = value;
+
+      if (value == null) continue;
 
       if (state) {
         out += `${state}[${value}]`;
@@ -1034,3 +1041,6 @@ export function normalizeAttrStates(val) {
 
   return out.trim();
 }
+
+window.normalizeAttrStates = normalizeAttrStates;
+window.parseAttrStates = parseAttrStates;
