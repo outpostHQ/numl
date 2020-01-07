@@ -1,16 +1,26 @@
 import NuActiveElement from './activeelement';
 
-export default class NuCheckbox extends NuActiveElement {
+const CIRCLE_ATTRS = {
+
+};
+
+export default class NuRadio extends NuActiveElement {
   static get nuTag() {
-    return 'nu-checkbox';
+    return 'nu-radio';
   }
 
   static get nuRole() {
-    return 'checkbox';
+    return 'radio';
   }
 
   static get nuId() {
-    return 'checkbox';
+    return 'radio';
+  }
+
+  static get nuAttrs() {
+    return {
+      fill: null,
+    };
   }
 
   static get nuDefaults() {
@@ -19,12 +29,11 @@ export default class NuCheckbox extends NuActiveElement {
       width: '1em',
       height: '1em',
       border: '1b',
-      radius: '.5x',
+      radius: 'round',
       content: 'stretch',
       items: 'center',
       padding: '0',
       sizing: 'content',
-      fill: '',
       cursor: 'default',
     };
   }
@@ -36,10 +45,18 @@ export default class NuCheckbox extends NuActiveElement {
         --nu-border-color: var(--nu-text-color);
         --nu-local-toggle-color: transparent;
         --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-local-toggle-color) inset;
+        --nu-local-pressed-shadow: 0 0 0 2px var(--nu-bg-color) inset;
+
+        position: relative;
+        background-color: var(--nu-bg-color);
+        box-shadow: var(--nu-local-pressed-shadow),
+          var(--nu-local-stroke-shadow),
+          var(--nu-local-toggle-shadow),
+          var(--nu-local-depth-shadow);
       }
 
       ${tag}[disabled] {
-        --nu-border-color: rgba(var(--nu-text-color-rgb), .33);
+        opacity: .5;
       }
 
       ${tag}[nu-active]:not([disabled]):not([nu-pressed]),
@@ -52,7 +69,19 @@ export default class NuCheckbox extends NuActiveElement {
         right: calc(-1 * var(--nu-indent));
         bottom: calc(-1 * var(--nu-indent));
         left: calc(-1 * var(--nu-indent));
-        border-radius: var(--nu-border-radius);
+        border-radius: 9999rem;
+      }
+
+      ${tag}[nu-pressed]:not([disabled]) {
+        --nu-border-color: var(--nu-text-color);
+        background-color: var(--nu-special-bg-color);
+      }
+      ${tag}[nu-pressed][disabled] {
+        --nu-border-color: rgba(0, 0, 0, 0);
+        background-color: rgba(var(--nu-text-color-rgb), .5);
+      }
+      ${tag}:not([nu-pressed])[disabled] {
+        --nu-border-color: rgba(var(--nu-text-color-rgb), .5);
       }
     `;
   }
@@ -80,15 +109,5 @@ export default class NuCheckbox extends NuActiveElement {
         }
       }, 0);
     }
-
-    if (this.querySelector('nu-icon')) return;
-
-    const icon = document.createElement('nu-icon');
-
-    icon.setAttribute('name', 'check');
-    icon.setAttribute('opacity', '0 ^:pressed[1]');
-    icon.setAttribute('transition', 'opacity');
-
-    this.appendChild(icon);
   }
 }

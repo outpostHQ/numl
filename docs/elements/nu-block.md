@@ -73,6 +73,7 @@
 * **[`[scrollbar]`](../attributes/scrollbar.md)** `style`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
 * **[`[shadow]`](../attributes/shadow.md)** `style`
+* **[`[show]`](../attributes/show.md)** `style`
 * **[`[shrink]`](../attributes/shrink.md)** `style`
 * **[`[size]`](../attributes/size.md)** `style`
 * **[`[sizing]`](../attributes/sizing.md)** `style`

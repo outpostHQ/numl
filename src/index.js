@@ -34,6 +34,8 @@ import NuPopup from './elements/popup';
 import NuPopupMenu from './elements/popupmenu';
 import NuGroup from './elements/group';
 import NuCheckbox from './elements/checkbox';
+import NuRadioGroup from './elements/radiogroup';
+import NuRadio from './elements/radio';
 import NuLabel from './elements/label';
 import NuNumInput from './elements/numinput';
 import NuMark from './elements/mark';
@@ -170,6 +172,8 @@ export {
   NuPopupMenu,
   NuGroup,
   NuCheckbox,
+  NuRadioGroup,
+  NuRadio,
   NuLabel,
   NuNumInput,
   NuMark,

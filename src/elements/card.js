@@ -31,4 +31,10 @@ export default class NuCard extends NuBlock {
       ${tag} { position: relative; }
     `;
   }
+
+  nuConnected() {
+    super.nuConnected();
+
+    this.nuSetContext('radiogroup', null); // remove radiogroup context
+  }
 }

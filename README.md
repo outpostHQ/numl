@@ -191,6 +191,13 @@ Run `npm run play` to view test page with few examples.
 
 ### New features
 * Full rework of attribute parsing. More features, more stable and much faster.
+* Rework of RadioGroup mechanics (migration to Context system). Elements involved: 
+    * **[nu-radiogroup](./docs/elements/nu-radiogroup.md)**
+    * **[nu-activeelement](./docs/elements/nu-activeelement.md)**
+    * **[nu-radio](./docs/elements/nu-radio.md)**
+    * **[nu-tablist](./docs/elements/nu-tablist.md)**
+    * **[nu-tab](./docs/elements/nu-tab.md)**
+    * **[nu-btngroup](./docs/elements/nu-btngroup.md)**
 * Automatic **calc** insertion.
 
 ### Breaking changes
@@ -202,14 +209,21 @@ Run `npm run play` to view test page with few examples.
 
 ### New elements
 * **[nu-props](./docs/elements/nu-props.md)** - new decorator to declare custom properties.
+* **[nu-radiogroup](./docs/elements/nu-radiogroup.md)**
+* **[nu-radio](./docs/elements/nu-radio.md)**
 
 ### New attributes & modifiers
-* **scale** with **flip**, **flip-x** and **flip-y** modifiers.
-* **rotate**.
-* **move**.
+* **[scale](./docs/attributes/scale.md)** with **flip**, **flip-x** and **flip-y** modifiers.
+* **[rotate](./docs/attributes/rotate.md)**.
+* **[move](./docs/attributes/move.md)**.
+* **[show](./docs/attributes/show.md)** - to conditionally show elements. Hide them by default.
 
 ### Minor and internal changes
-* **nu-mark** – minor style fixes and **[theme]** support. 
+* **[hide](./docs/attributes/hide.md)** attribute is no longer hide element if no value provided.
+* **[nu-checkbox](./docs/elements/nu-checkbox.md)** - style fixes.
+* **[nu-mark](./docs/elements/nu-mark.md)** – minor style fixes and **[theme]** support. 
+
+[Full issues list](https://github.com/tenphi/nude/milestone/3?closed=1)
 
 ### v0.9
 

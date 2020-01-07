@@ -10,7 +10,7 @@ export default function gapAttr(val) {
 
   const { values } = parseAttr(val);
 
-  const vGap = values[0];
+  const vGap = values[0] || 'var(--nu-indent)';
   const hGap = values[1] || vGap;
 
   const fullVal = values.join(' ');

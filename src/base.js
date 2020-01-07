@@ -1116,5 +1116,51 @@ export default class NuBase extends HTMLElement {
       this.nuApplyAttrs.push(attrName);
     }
   }
-}
 
+  nuEmitInput(value) {
+    if (!this.nuIsConnected) return;
+
+    const notNull = value != null;
+
+    switch (this.getAttribute('type')) {
+      case 'int':
+        value = notNull ? parseInt(value, 10) : null;
+
+        break;
+      case 'float':
+        value = notNull ? parseFloat(value) : null;
+
+        break;
+      case 'bool':
+        value = notNull;
+
+        break;
+      case 'date':
+        value = notNull ? new Date(value) : null;
+
+        break;
+      case 'array':
+        try {
+          value = JSON.parse(value);
+        } catch (e) {}
+
+        if (!Array.isArray(value)) {
+          value = null;
+        }
+
+        break;
+      case 'object':
+        try {
+          value = JSON.parse(value);
+        } catch (e) {}
+
+        if (typeof value !== 'object' && !Array.isArray(value)) {
+          value = null;
+        }
+
+        break;
+    }
+
+    this.nuEmit('input', value, { bubbles: false });
+  }
+}

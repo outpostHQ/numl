@@ -17,7 +17,7 @@
 
 
 ## Own attributes
-* **value** `widget`
+*none*
 
 
 ## Inherited attributes
@@ -77,6 +77,7 @@
 * **[`[scrollbar]`](../attributes/scrollbar.md)** `style`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
 * **[`[shadow]`](../attributes/shadow.md)** `style`
+* **[`[show]`](../attributes/show.md)** `style`
 * **[`[shrink]`](../attributes/shrink.md)** `style`
 * **[`[size]`](../attributes/size.md)** `style`
 * **[`[sizing]`](../attributes/sizing.md)** `style`
@@ -86,6 +87,7 @@
 * **[`[theme]`](../attributes/theme.md)** `helper`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
+* `value`
 * **[`[valuemax]`](../attributes/valuemax.md)** `aria`
 * **[`[valuemin]`](../attributes/valuemin.md)** `aria`
 * **[`[valuenow]`](../attributes/valuenow.md)** `aria`

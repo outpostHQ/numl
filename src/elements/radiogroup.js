@@ -9,6 +9,16 @@ export default class NuRadioGroup extends NuFlex {
     return 'radiogroup';
   }
 
+  static get nuItemRole() {
+    return 'radio';
+  }
+
+  static get nuAttrs() {
+    return {
+      value: '',
+    };
+  }
+
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
@@ -23,40 +33,36 @@ export default class NuRadioGroup extends NuFlex {
   nuConnected() {
     super.nuConnected();
 
-    this.addEventListener('value', (event) => {
-      const value = event.detail;
+    if (this.nuValue === undefined) {
+      this.nuValue = null;
+    }
 
-      if (value === this.nuValue) {
-        this.nuSetValue(value);
-      }
-    });
+    this.nuSetRadioGroupContext();
+  }
 
-    this.addEventListener('pressed', (event) => {
-      const pressed = event.detail;
-
-      if (pressed) {
-        this.nuSetValue(event.target.nuValue);
-      }
+  nuSetRadioGroupContext() {
+    this.nuSetContext('radiogroup', {
+      value: this.nuValue,
+      context: this,
+      itemRole: this.constructor.nuItemRole,
     });
   }
 
-  nuSetValue(value, announce = true) {
-    if (this.nuValue === value) announce = false;
+  nuSetValue(value) {
+    let announce;
+
+    if (this.nuValue === undefined) {
+      announce = value !== this.getAttribute('value');
+    } else {
+      announce = this.nuValue !== value;
+    }
 
     this.nuValue = value;
 
-    setTimeout(() => {
-      if (this.nuValue !== value) return;
+    if (announce) {
+      this.nuEmitInput(value);
 
-      [...this.childNodes].forEach(el => {
-        if (!el.nuSetPressed) return;
-
-        el.nuSetPressed(el.nuValue === value, true);
-      });
-
-      if (announce) {
-        this.nuEmit('input', value);
-      }
-    }, 0);
+      this.nuSetRadioGroupContext();
+    }
   }
 }

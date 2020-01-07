@@ -91,6 +91,7 @@
 * `selected`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
 * **[`[shadow]`](../attributes/shadow.md)** `style`
+* **[`[show]`](../attributes/show.md)** `style`
 * **[`[shrink]`](../attributes/shrink.md)** `style`
 * **[`[size]`](../attributes/size.md)** `style`
 * **[`[sizing]`](../attributes/sizing.md)** `style`
@@ -195,11 +196,22 @@ html.nu-focus-enabled nu-checkbox:not([disabled])[nu-focus] {
   --nu-local-focus-color: var(--nu-focus-color);
 }
 nu-checkbox {
-  --nu-border-color: var(--nu-focus-color);
+  --nu-border-color: var(--nu-text-color);
   --nu-local-toggle-color: transparent;
-  --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-toggle-color) inset;
+  --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-local-toggle-color) inset;
 }
 nu-checkbox[disabled] {
   --nu-border-color: rgba(var(--nu-text-color-rgb), .33);
+}
+nu-checkbox[nu-active]:not([disabled]):not([nu-pressed]),
+nu-checkbox[nu-active][nu-pressed]:not([disabled]) {
+  --nu-local-toggle-color: rgba(0, 0, 0, var(--nu-intensity));
+}
+nu-checkbox[tabindex]:not([tabindex="-1"]):not([disabled])::after {
+  top: calc(-1 * var(--nu-indent));
+  right: calc(-1 * var(--nu-indent));
+  bottom: calc(-1 * var(--nu-indent));
+  left: calc(-1 * var(--nu-indent));
+  border-radius: var(--nu-border-radius);
 }
 ```

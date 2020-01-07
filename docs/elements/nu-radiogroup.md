@@ -1,24 +1,23 @@
-# `<nu-cell/>` element
+# `<nu-radiogroup/>` element
 
 ## Base info
-* Parent: [`<nu-el/>`](./nu-el.md)
+* Parent: [`<nu-flex/>`](./nu-flex.md)
 * Type: `element`
-* Role: `cell`
-* Auto ID: `cell`
+* Role: `radiogroup`
 
 
 ## Own default values
-* **`[display]`: `"table-cell"`**
-* **`[padding]`: `"--nu-cell-padding"`**
-* **`[text]`: `"middle"`**
+*none*
 
 ## Inherited default values
+* **`[display]`: `"flex"`**
+* **`[flow]`: `"row"`**
+* **`[gap]`: `"0"`**
 * **`[sizing]`: `"border"`**
 
 
 ## Own attributes
-* **border** `style`
-* **radius** `style`
+* **value** `widget`
 
 
 ## Inherited attributes
@@ -29,6 +28,7 @@
 * **[`[as]`](../attributes/as.md)** `helper`
 * **[`[basis]`](../attributes/basis.md)** `style`
 * **[`[before]`](../attributes/before.md)** `style`
+* **[`[border]`](../attributes/border.md)** `style`
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
@@ -68,6 +68,7 @@
 * **[`[place]`](../attributes/place.md)** `style`
 * **[`[posinset]`](../attributes/posinset.md)** `aria`
 * **[`[prop]`](../attributes/prop.md)** `style`
+* **[`[radius]`](../attributes/radius.md)** `style`
 * **[`[responsive]`](../attributes/responsive.md)** `helper`
 * **[`[rotate]`](../attributes/rotate.md)** `style`
 * **[`[row]`](../attributes/row.md)** `style`
@@ -94,7 +95,7 @@
 
 ## Generated CSS
 ```css
-nu-cell[hidden] {
+nu-radiogroup[hidden] {
   display: none !important;
 }
 ```

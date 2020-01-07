@@ -1,32 +1,31 @@
-# `<nu-activeelement/>` element
+# `<nu-radio/>` element
 
 ## Base info
-* Parent: [`<nu-el/>`](./nu-el.md)
+* Parent: [`<nu-activeelement/>`](./nu-activeelement.md)
 * Type: `element`
-* Role: `button`
-* Auto ID: `btn`
+* Role: `radio`
+* Auto ID: `radio`
 
 
 ## Own default values
-* **`[radius]`: `""`**
+* **`[border]`: `"1b"`**
+* **`[content]`: `"stretch"`**
+* **`[cursor]`: `"default"`**
+* **`[display]`: `"inline-grid"`**
+* **`[height]`: `"1em"`**
+* **`[items]`: `"center"`**
+* **`[padding]`: `"0"`**
+* **`[radius]`: `"round"`**
+* **`[sizing]`: `"content"`**
+* **`[width]`: `"1em"`**
+
+## Inherited default values
 * **`[text]`: `"nowrap"`**
 * **`[transition]`: `"box-shadow, color, background-color, border, border-radius"`**
 
-## Inherited default values
-* **`[display]`: `"inline-block"`**
-* **`[sizing]`: `"border"`**
-
 
 ## Own attributes
-* **checked** `widget`
-* **controls** `aria`
-* **disabled** `style`
-* **href** `style`
-* **pressed** `widget`
-* **selected** `style`
-* **target** `style`
-* **to** `style`
-* **value** `widget`
+* **fill** `style`
 
 
 ## Inherited attributes
@@ -38,15 +37,17 @@
 * **[`[basis]`](../attributes/basis.md)** `style`
 * **[`[before]`](../attributes/before.md)** `style`
 * **[`[border]`](../attributes/border.md)** `style`
+* `checked`
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
+* **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* `disabled`
 * **[`[display]`](../attributes/display.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
-* **[`[fill]`](../attributes/fill.md)** `style`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
@@ -55,6 +56,7 @@
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* `href`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
 * **[`[interactive]`](../attributes/interactive.md)** `style`
@@ -75,6 +77,7 @@
 * **[`[padding]`](../attributes/padding.md)** `style`
 * **[`[place]`](../attributes/place.md)** `style`
 * **[`[posinset]`](../attributes/posinset.md)** `aria`
+* `pressed`
 * **[`[prop]`](../attributes/prop.md)** `style`
 * **[`[radius]`](../attributes/radius.md)** `style`
 * **[`[responsive]`](../attributes/responsive.md)** `helper`
@@ -83,6 +86,7 @@
 * **[`[rows]`](../attributes/rows.md)** `style`
 * **[`[scale]`](../attributes/scale.md)** `style`
 * **[`[scrollbar]`](../attributes/scrollbar.md)** `style`
+* `selected`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
 * **[`[shadow]`](../attributes/shadow.md)** `style`
 * **[`[show]`](../attributes/show.md)** `style`
@@ -91,10 +95,13 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* `target`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
+* `to`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
+* `value`
 * **[`[valuemax]`](../attributes/valuemax.md)** `aria`
 * **[`[valuemin]`](../attributes/valuemin.md)** `aria`
 * **[`[valuenow]`](../attributes/valuenow.md)** `aria`
@@ -103,10 +110,10 @@
 
 ## Generated CSS
 ```css
-nu-activeelement[hidden] {
+nu-radio[hidden] {
   display: none !important;
 }
-nu-activeelement {
+nu-radio {
   --nu-local-toggle-color: transparent;
   --nu-local-depth-color: transparent;
   --nu-local-hover-color: transparent;
@@ -122,7 +129,7 @@ nu-activeelement {
     var(--nu-local-toggle-shadow),
     var(--nu-local-depth-shadow);
 }
-nu-activeelement[tabindex]:not([tabindex="-1"]):not([disabled])::after {
+nu-radio[tabindex]:not([tabindex="-1"]):not([disabled])::after {
   content: '';
   position: absolute;
   top: 0;
@@ -134,23 +141,23 @@ nu-activeelement[tabindex]:not([tabindex="-1"]):not([disabled])::after {
   background-color: var(--nu-local-hover-color);
   transition: background-color var(--nu-animation-time) linear;
 }
-nu-activeelement[tabindex] {
+nu-radio[tabindex] {
   cursor: pointer;
 }
-nu-activeelement[disabled] {
+nu-radio[disabled] {
   opacity: .5;
   cursor: default;
 }
-nu-activeelement:not([disabled])[tabindex]:hover {
+nu-radio:not([disabled])[tabindex]:hover {
   --nu-local-hover-color: var(--nu-hover-color);
 }
-nu-activeelement[nu-active] {
+nu-radio[nu-active] {
   z-index: 3;
 }
-nu-activeelement[nu-pressed] {
+nu-radio[nu-pressed] {
   z-index: 2;
 }
-nu-activeelement > a {
+nu-radio > a {
   display: block;
   position: absolute;
   top: 0;
@@ -158,16 +165,16 @@ nu-activeelement > a {
   bottom: 0;
   left: 0;
 }
-nu-activeelement > a:focus {
+nu-radio > a:focus {
   outline: none;
 }
-nu-activeelement {
+nu-radio {
   --nu-local-focus-color: transparent;
   --nu-local-focus-inset: 0 0;
   --nu-local-focus-shadow: var(--nu-local-focus-inset) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color);
   outline: none;
 }
-html.nu-focus-enabled nu-activeelement:not([disabled])::before {
+html.nu-focus-enabled nu-radio:not([disabled])::before {
   content: '';
   display: block;
   position: absolute;
@@ -180,10 +187,47 @@ html.nu-focus-enabled nu-activeelement:not([disabled])::before {
   box-shadow: var(--nu-local-focus-shadow);
   transition: box-shadow var(--nu-animation-time) linear;
 }
-html.nu-focus-enabled nu-activeelement:not([disabled])[nu-focus] {
+html.nu-focus-enabled nu-radio:not([disabled])[nu-focus] {
   z-index: 10;
 }
-html.nu-focus-enabled nu-activeelement:not([disabled])[nu-focus] {
+html.nu-focus-enabled nu-radio:not([disabled])[nu-focus] {
   --nu-local-focus-color: var(--nu-focus-color);
+}
+nu-radio {
+  --nu-border-color: var(--nu-text-color);
+  --nu-local-toggle-color: transparent;
+  --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-local-toggle-color) inset;
+  --nu-local-pressed-shadow: 0 0 0 2px var(--nu-bg-color) inset;
+  position: relative;
+  background-color: var(--nu-bg-color);
+  box-shadow: var(--nu-local-pressed-shadow),
+    var(--nu-local-stroke-shadow),
+    var(--nu-local-toggle-shadow),
+    var(--nu-local-depth-shadow);
+}
+nu-radio[disabled] {
+  opacity: .5;
+}
+nu-radio[nu-active]:not([disabled]):not([nu-pressed]),
+nu-radio[nu-active][nu-pressed]:not([disabled]) {
+  --nu-local-toggle-color: rgba(0, 0, 0, var(--nu-intensity));
+}
+nu-radio[tabindex]:not([tabindex="-1"]):not([disabled])::after {
+  top: calc(-1 * var(--nu-indent));
+  right: calc(-1 * var(--nu-indent));
+  bottom: calc(-1 * var(--nu-indent));
+  left: calc(-1 * var(--nu-indent));
+  border-radius: 9999rem;
+}
+nu-radio[nu-pressed]:not([disabled]) {
+  --nu-border-color: var(--nu-text-color);
+  background-color: var(--nu-special-bg-color);
+}
+nu-radio[nu-pressed][disabled] {
+  --nu-border-color: rgba(0, 0, 0, 0);
+  background-color: rgba(var(--nu-text-color-rgb), .5);
+}
+nu-radio:not([nu-pressed])[disabled] {
+  --nu-border-color: rgba(var(--nu-text-color-rgb), .5);
 }
 ```

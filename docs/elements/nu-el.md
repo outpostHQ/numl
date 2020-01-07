@@ -65,6 +65,7 @@
 * **scrollbar** `style`
 * **setsize** `aria`
 * **shadow** `style`
+* **show** `style`
 * **shrink** `style`
 * **size** `style`
 * **sizing** `style`

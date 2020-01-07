@@ -59,6 +59,7 @@ There are many base attributes in NUDE. But don't worry, it's very easy to remem
 * [`scrollbar`](./scrollbar.md)
 * [`setsize`](./setsize.md)
 * [`shadow`](./shadow.md)
+* [`show`](./show.md)
 * [`shrink`](./shrink.md)
 * [`size`](./size.md)
 * [`sizing`](./sizing.md)

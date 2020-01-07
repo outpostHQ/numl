@@ -13,15 +13,13 @@ export default class NuTablist extends NuRadioGroup {
     return 'tablist';
   }
 
-  static get nuAttrs() {
-    return {
-      value: '',
-    };
-  }
-
   static get nuDefaults() {
     return {
       gap: 1,
     };
+  }
+
+  static get nuItemRole() {
+    return 'tab';
   }
 }

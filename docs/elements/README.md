@@ -34,6 +34,8 @@
 * [`<nu-popup/>`](./nu-popup.md) 
 * [`<nu-popupmenu/>`](./nu-popupmenu.md) 
 * [`<nu-props/>`](./nu-props.md) `[decorator]`
+* [`<nu-radio/>`](./nu-radio.md) 
+* [`<nu-radiogroup/>`](./nu-radiogroup.md) 
 * [`<nu-row/>`](./nu-row.md) 
 * [`<nu-rowgroup/>`](./nu-rowgroup.md) 
 * [`<nu-rowheader/>`](./nu-rowheader.md) 

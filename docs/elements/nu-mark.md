@@ -6,7 +6,7 @@
 
 
 ## Own default values
-* **`[fill]`: `"diff"`**
+* **`[fill]`: `"diff :themed[bg]"`**
 * **`[padding]`: `"0 .25em"`**
 * **`[radius]`: `"1r"`**
 * **`[space]`: `"0 .25em"`**
@@ -78,6 +78,7 @@
 * **[`[scrollbar]`](../attributes/scrollbar.md)** `style`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
 * **[`[shadow]`](../attributes/shadow.md)** `style`
+* **[`[show]`](../attributes/show.md)** `style`
 * **[`[shrink]`](../attributes/shrink.md)** `style`
 * **[`[size]`](../attributes/size.md)** `style`
 * **[`[sizing]`](../attributes/sizing.md)** `style`
@@ -97,5 +98,14 @@
 ```css
 nu-mark[hidden] {
   display: none !important;
+}
+nu-mark[special]:not([fill]), nu-mark[special][special]:not([fill]) {
+  background-color: var(--nu-special-bg-color);
+}
+nu-mark[special]:not([color]), nu-mark[special][special]:not([color]) {
+  color: var(--nu-special-text-color);
+}
+nu-mark[special]:not([text]), nu-mark[special][special]:not([text]) {
+  font-weight: 500;
 }
 ```

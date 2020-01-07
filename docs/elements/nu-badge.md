@@ -80,6 +80,7 @@
 * **[`[scale]`](../attributes/scale.md)** `style`
 * **[`[scrollbar]`](../attributes/scrollbar.md)** `style`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
+* **[`[show]`](../attributes/show.md)** `style`
 * **[`[shrink]`](../attributes/shrink.md)** `style`
 * **[`[size]`](../attributes/size.md)** `style`
 * **[`[sizing]`](../attributes/sizing.md)** `style`
@@ -100,13 +101,13 @@
 nu-badge[hidden] {
   display: none !important;
 }
-nu-badge[special]:not([fill]) {
+nu-badge[special]:not([fill]), nu-badge[special][special]:not([fill]) {
   background-color: var(--nu-special-bg-color);
 }
-nu-badge[special]:not([color]) {
+nu-badge[special]:not([color]), nu-badge[special][special]:not([color]) {
   color: var(--nu-special-text-color);
 }
-nu-badge[special]:not([text]) {
+nu-badge[special]:not([text]), nu-badge[special][special]:not([text]) {
   font-weight: 500;
 }
 ```

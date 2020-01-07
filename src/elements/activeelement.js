@@ -135,6 +135,32 @@ export default class NuActiveElement extends NuElement {
       }
     });
 
+    const radioGroup = this.nuContext.radiogroup;
+
+    if (radioGroup) {
+      this.setAttribute('role', radioGroup.itemRole);
+
+      if (this.nuPressed) {
+        radioGroup.context.nuSetValue(this.nuValue);
+      } else if (radioGroup.value === this.nuValue) {
+        this.setAttribute('pressed', '');
+      } else {
+        this.removeAttribute('pressed');
+      }
+
+      this.nuSetContextHook('radiogroup', () => {
+        const radioGroup = this.nuContext.radiogroup;
+
+        console.log(radioGroup.value, this.nuValue);
+
+        if (radioGroup.value === this.nuValue) {
+          this.setAttribute('pressed', '');
+        } else {
+          this.removeAttribute('pressed');
+        }
+      });
+    }
+
     setTimeout(() => {
       const innerPopup = this.querySelector('[nu-popup]');
 
@@ -238,23 +264,8 @@ export default class NuActiveElement extends NuElement {
     this.nuToggle();
     this.nuControl();
 
-    if (this.getAttribute('type') === 'submit') {
+    if (this.getAttribute('action') === 'submit') {
       this.nuEmit('submit', this.nuValue);
-    }
-  }
-
-  nuPreparePayload(payload) {
-    const type = this.getAttribute('type');
-
-    switch (type) {
-      case 'number':
-        return Number(payload);
-      case 'bool':
-        return Boolean(payload);
-      case 'date':
-        return new Date(payload);
-      default:
-        return payload;
     }
   }
 
@@ -374,6 +385,14 @@ export default class NuActiveElement extends NuElement {
     }
 
     this.nuControl();
+
+    if (pressed) {
+      const radioGroup = this.nuContext.radiogroup;
+
+      if (radioGroup) {
+        radioGroup.context.nuSetValue(this.nuValue);
+      }
+    }
 
     const innerPopup = this.querySelector('[nu-popup]');
 
