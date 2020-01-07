@@ -37,6 +37,14 @@ export default class NuLink extends NuActiveElement {
         --nu-local-hover-color: var(--nu-hover-color);
       }
 
+      ${tag}[tabindex]:not([tabindex="-1"]):not([disabled])::after {
+        top: calc(-.5 * var(--nu-indent));
+        right: calc(-.5 * var(--nu-indent));
+        bottom: calc(-.5 * var(--nu-indent));
+        left: calc(-.5 * var(--nu-indent));
+        border-radius: var(--nu-border-radius);
+      }
+
       ${focusable(tag)}
     `;
   }

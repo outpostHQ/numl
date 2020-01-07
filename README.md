@@ -222,7 +222,8 @@ Run `npm run play` to view test page with few examples.
 #### Minor and internal changes
 * **[hide](./docs/attributes/hide.md)** attribute is no longer hide element if no value provided.
 * **[nu-checkbox](./docs/elements/nu-checkbox.md)** - style fixes.
-* **[nu-mark](./docs/elements/nu-mark.md)** – minor style fixes and **[theme]** support. 
+* **[nu-mark](./docs/elements/nu-mark.md)** – minor style fixes and **[theme]** support.
+* **inline** attribute is no longer required for accurate positioning of inline elements like **[nu-icon](./docs/elements/nu-icon.md)**.  
 
 [Full issues list](https://github.com/tenphi/nude/milestone/3?closed=1)
 
