@@ -28,7 +28,7 @@ function numberFromString(num) {
   return value;
 }
 
-const ACCEPTABLE_KEYS = '-0123456789,';
+const ACCEPTABLE_KEYS = '-0123456789,.';
 
 export default class NuNumInput extends NuInput {
   static get nuTag() {

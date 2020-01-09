@@ -55,11 +55,12 @@ export default class NuInput extends NuBlock {
         line-height: inherit;
         -webkit-appearance: none;
         background: transparent;
-        color: inherit;
         border: none;
         outline: none;
         border-radius: inherit;
         box-sizing: border-box;
+        color: inherit;
+        -webkit-text-fill-color: currentColor;
       }
 
       ${tag} input:not(:first-child) {
@@ -73,7 +74,6 @@ export default class NuInput extends NuBlock {
       ${tag} input[disabled] {
         color: rgb(var(--nu-text-color-rgb), .6);
         background: var(--nu-hover-color);
-        -webkit-text-fill-color: rgb(var(--nu-text-color-rgb), .6);
         -webkit-opacity: 1;
       }
 
