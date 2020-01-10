@@ -19,6 +19,13 @@ const MNS = 'mns';
 const MRK = 'mrk';
 const IMP = 'imp';
 
+function prepareCode(str) {
+  return str
+    .replace(/^\n\s*\n/, '\n')
+    .replace(/\n\s*\n$/, '\n')
+    .replace(/\n$/, '');
+}
+
 export default class NuCode extends NuElement {
   static get nuTag() {
     return 'nu-code';
@@ -41,9 +48,8 @@ export default class NuCode extends NuElement {
         pastel: true,
       },
       [PCT]: {
-        hue: 1,
-        saturation: 0,
-        contrast: 'strong',
+        hue: 60,
+        pastel: true,
       },
       [REX]: {
         hue: 340,
@@ -141,7 +147,10 @@ export default class NuCode extends NuElement {
       this.appendChild(container);
 
       this.nuObserve = () => {
-        container.innerHTML = textToMarkup(textarea.textContent, this.hasAttribute('enumerate'));
+        container.innerHTML = textToMarkup(
+          prepareCode(textarea.textContent),
+          this.hasAttribute('enumerate'),
+        );
       };
 
       const observer = new MutationObserver(() => this.nuObserve());
@@ -174,9 +183,9 @@ const TOKEN_RES = [
   [REX, /\/(\\\/|[^\n])*?\//],
   [STR, /(['"`])(\\\1|[\s\S])*?\1/],
   [NUM, /[+-]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?/],
-  [PCT, /[\\.,:;+\-*\/=<>()[\]{}|?!&@~]/],
   [SPC, /\s+/],
-  [NAM, /[\w$]+/],
+  [NAM, /[\w-$]+/],
+  [PCT, /[\\.,:;+\-*\/=<>()[\]{}|?!&@~]/],
   [UNK, /./]
 ];
 

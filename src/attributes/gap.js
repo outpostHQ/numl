@@ -1,5 +1,7 @@
 import { parseAttr } from '../helpers';
 
+const BASE = 'var(--nu-indent)';
+
 /**
  * CSS Gap value. Used for flex and grid layouts.
  * @param val
@@ -10,10 +12,10 @@ export default function gapAttr(val) {
 
   const { values } = parseAttr(val);
 
-  const vGap = values[0] || 'var(--nu-indent)';
+  const vGap = values[0] || BASE;
   const hGap = values[1] || vGap;
 
-  const fullVal = values.join(' ');
+  const fullVal = values.join(' ') || BASE;
 
   return [{
     gap: fullVal,
