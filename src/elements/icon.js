@@ -25,11 +25,11 @@ export default class NuIcon extends NuBlock {
 
   static get nuAttrs() {
     return {
-      name(val, defaults) {
+      name(val) {
         return val
           ? {
             $suffix: ` > [name="${val}"]`,
-            display: `${defaults.display} !important`,
+            display: `block !important`,
           } : null;
       },
     };

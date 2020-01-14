@@ -2,7 +2,7 @@ import {
   unit,
   generateId,
   setImmediate,
-  sizeUnit,
+  sizeUnit, parseAllValues,
 } from '../helpers';
 import textAttr from '../attributes/text';
 import NuBase from '../base';
@@ -127,7 +127,14 @@ export default class NuElement extends NuBase {
       owns: '',
       flowto: '',
       haspopup: '',
-      activedescendant: ''
+      activedescendant: '',
+      t(val) {
+        return val
+          ? {
+            $suffix: ` > [name="${val}"]`,
+            display: `block !important`,
+          } : null;
+      },
     };
   }
 
@@ -200,6 +207,36 @@ export default class NuElement extends NuBase {
           }
         });
         break;
+      case 't':
+        if (!this.nuIsConnected) return;
+
+        value = this.nuGetAttr(name);
+
+        const labels = parseAllValues(value);
+
+        // empty tag
+        this.innerHTML = '';
+
+        labels.forEach(label => {
+          if (this.querySelector(`nu-el[name="${label}"]`)) return;
+
+          const el = document.createElement('nu-el');
+
+          el.setAttribute('name', label);
+          el.style.display = 'none';
+          el.innerHTML = label.replace(/(^'|'$)/g, '');
+
+          this.appendChild(el);
+        });
+        break;
+    }
+  }
+
+  nuConnected() {
+    super.nuConnected();
+
+    if (this.hasAttribute('t')) {
+      this.nuChanged('t', null, this.getAttribute('t'));
     }
   }
 }

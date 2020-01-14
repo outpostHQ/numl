@@ -180,6 +180,7 @@ export default class NuBase extends HTMLElement {
       display: displayAttr,
       responsive: '',
       as: '',
+      t: '',
       special: '',
       theme: themeAttr,
       prop: propAttr,
@@ -835,7 +836,7 @@ export default class NuBase extends HTMLElement {
    * @param {*} value
    */
   nuChanged(name, oldValue, value) {
-
+    
   }
 
   /**
@@ -1142,7 +1143,8 @@ export default class NuBase extends HTMLElement {
       case 'array':
         try {
           value = JSON.parse(value);
-        } catch (e) {}
+        } catch (e) {
+        }
 
         if (!Array.isArray(value)) {
           value = null;
@@ -1152,7 +1154,8 @@ export default class NuBase extends HTMLElement {
       case 'object':
         try {
           value = JSON.parse(value);
-        } catch (e) {}
+        } catch (e) {
+        }
 
         if (typeof value !== 'object' && !Array.isArray(value)) {
           value = null;
