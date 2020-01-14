@@ -24,7 +24,7 @@ export default class NuDecorator extends NuBase {
   }
 
   get nuParentContext() {
-    return `#${this.parentNode.nuId}`;
+    return `#${this.parentNode.nuUniqId}`;
   }
 
   nuSetMod(name, value) {

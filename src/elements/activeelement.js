@@ -176,20 +176,6 @@ export default class NuActiveElement extends NuElement {
       if (this.getAttribute('role') === 'button') {
         if (this.hasAttribute('to')) {
           this.setAttribute('role', 'link');
-        } else {
-          switch (this.parentNode.nuRole) {
-            case 'radiogroup':
-              this.setAttribute('role', 'radio');
-              break;
-            case 'menu':
-              this.setAttribute('role', 'menuitem');
-              break;
-            case 'tablist':
-              this.setAttribute('role', 'tab');
-              break;
-            default:
-              return;
-          }
         }
       }
 
@@ -282,7 +268,7 @@ export default class NuActiveElement extends NuElement {
           el.hidden = this.nuPressed !== true;
 
           if (role === 'tab' && !el.hasAttribute('aria-labelledby')) {
-            el.setAttribute('aria-labelledby', this.nuId);
+            el.setAttribute('aria-labelledby', this.nuUniqId);
           }
         });
     }, 0);
@@ -345,6 +331,10 @@ export default class NuActiveElement extends NuElement {
 
   nuToggle() {
     if (!this.nuIsToggle()) return;
+
+    if (this.nuPressed && !this.nuIsUnpressable()) {
+      return;
+    }
 
     this.nuSetPressed(!this.nuPressed);
   }
@@ -416,6 +406,10 @@ export default class NuActiveElement extends NuElement {
       || this.hasAttribute('aria-checked')
       || this.hasAttribute('aria-selected')
       || ['checkbox', 'radio', 'tab', 'switch'].includes(this.getAttribute('role'));
+  }
+
+  nuIsUnpressable() {
+    return !['radio', 'tab'].includes(this.getAttribute('role'));
   }
 
   nuIsRadio() {

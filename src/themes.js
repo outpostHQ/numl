@@ -471,7 +471,7 @@ export function removeTheme(el, name, customProps) {
     .forEach(prop => {
       if (prop.startsWith(key)) {
         delete el.nuContext[prop];
-        cleanCSSByPart(`${prop}:#${el.nuId}`);
+        cleanCSSByPart(`${prop}:#${el.nuUniqId}`);
       }
     });
 }
@@ -497,7 +497,7 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
 
   log('apply theme', { element, themeName, hue, saturation, pastel, type, contrast, lightness });
 
-  const baseQuery = element === document.body ? 'body' : `#${element.nuId}`;
+  const baseQuery = element === document.body ? 'body' : `#${element.nuUniqId}`;
   const styleTagName = `theme:${themeName}:${baseQuery}`;
 
   const prefersContrastSupport = matchMedia('(prefers-contrast)').matches;

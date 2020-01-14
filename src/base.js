@@ -551,6 +551,18 @@ export default class NuBase extends HTMLElement {
    * @returns {String}
    */
   get nuId() {
+    if (!this.id || !this.id.includes('--')) {
+      generateId(this)
+    }
+
+    return this.getAttribute('nu-id');
+  }
+
+  /**
+   * Get ID of the element. Generate it if it's not presented.
+   * @returns {String}
+   */
+  get nuUniqId() {
     if (this.id && this.id.includes('--')) {
       return this.id;
     }
@@ -704,7 +716,7 @@ export default class NuBase extends HTMLElement {
 
       if (!varData) return;
 
-      const nuId = varData.context.nuId;
+      const nuId = varData.context.nuUniqId;
 
       contextIds.add(nuId);
     });
@@ -712,9 +724,9 @@ export default class NuBase extends HTMLElement {
     value = composeVarsValue(value, this.nuContext, responsive ? responsive.zones.length + 1 : 1);
 
     if (responsive && value.includes('|')) {
-      context[`nu-${RESPONSIVE_MOD}`] = responsive.context.nuId;
+      context[`nu-${RESPONSIVE_MOD}`] = responsive.context.nuUniqId;
 
-      this.nuSetMod(RESPONSIVE_MOD, responsive.context.nuId);
+      this.nuSetMod(RESPONSIVE_MOD, responsive.context.nuUniqId);
     }
 
     if (contextIds.size) {
@@ -779,7 +791,7 @@ export default class NuBase extends HTMLElement {
    * @returns {string}
    */
   nuGetQuery(attrs = {}, useId = false) {
-    return `${useId ? '' : this.constructor.nuTag}${useId ? `#${this.nuId}` : ''}${attrsQuery(
+    return `${useId ? '' : this.constructor.nuTag}${useId ? `#${this.nuUniqId}` : ''}${attrsQuery(
       attrs
     )}`;
   }
@@ -836,7 +848,7 @@ export default class NuBase extends HTMLElement {
    * @param {*} value
    */
   nuChanged(name, oldValue, value) {
-    
+
   }
 
   /**
@@ -999,7 +1011,7 @@ export default class NuBase extends HTMLElement {
     }
 
     if (responsive) {
-      selectors.push(`[nu-${RESPONSIVE_MOD}="${this.nuId}"]`);
+      selectors.push(`[nu-${RESPONSIVE_MOD}="${this.nuUniqId}"]`);
     }
 
     const selector = selectors.join(', ');
@@ -1073,25 +1085,6 @@ export default class NuBase extends HTMLElement {
         })
         .join('');
     });
-  }
-
-  /**
-   * Get query context of the current element.
-   * It find all parent elements with provided attribute and built sequence with their ids.
-   * @param {String} attrName
-   * @returns {String} - CSS query
-   */
-  nuGetContext(attrName) {
-    let context = '',
-      el = this;
-
-    while ((el = el.parentNode)) {
-      if (el.getAttribute && el.getAttribute(attrName) && el.nuId) {
-        context = `#${el.nuId} ${context}`;
-      }
-    }
-
-    return context;
   }
 
   /**
