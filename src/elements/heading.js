@@ -22,10 +22,15 @@ export default class NuHeading extends NuBlock {
       level(val) {
         if (!val || !LEVELS.includes(Number(val))) val = 1;
 
+        const fontSize = `${SIZES[`h${val}`][0]}rem`;
+        const lineHeight = `${SIZES[`h${val}`][1]}rem`;
+
         return [{
           $suffix: ':not([size])',
-          'font-size': `${SIZES[`h${val}`][0]}rem`,
-          'line-height': `${SIZES[`h${val}`][1]}rem`,
+          'font-size': fontSize,
+          'line-height': lineHeight,
+          '--nu-font-size': fontSize,
+          '--nu-line-height': lineHeight,
         }, {
           $suffix: ':not([text])',
           'font-weight': 700,

@@ -20,7 +20,7 @@ export default function scrollbarAttr(val) {
     },
     {
       $suffix: '::-webkit-scrollbar-track',
-      'background-color': 'var(--nu-subtle-color)',
+      'background-color': 'var(--nu-local-bg-color, var(--nu-subtle-color))',
     },
     {
       $suffix: '::-webkit-scrollbar-thumb',

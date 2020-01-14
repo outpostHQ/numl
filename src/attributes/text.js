@@ -14,6 +14,8 @@ function set(name, styles) {
 
 ['baseline', 'sub', 'super', 'text-top', 'text-bottom', 'middle', 'top', 'bottom'].forEach(name => set(name, { 'vertical-align': name }));
 
+set('v-middle', { 'vertical-align': 'var(--nu-inline-offset)' });
+
 ['left', 'right', 'center', 'justify'].forEach(name => set(name, { 'text-align': name }));
 
 set('monospace', { 'font-family': 'monospace', 'word-spacing': 'normal' });

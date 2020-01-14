@@ -803,7 +803,7 @@ export function isResponsiveAttr(value) {
   return value.includes('|');
 }
 
-const ATTR_REGEXP = /([a-z]+\()|(--[a-z-]+)|([a-z-]{2,})|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
+const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(--[a-z-]+)|([a-z-]{2,})|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
 
 const ATTR_CACHE = new Map;
 const MAX_CACHE = 10000;
@@ -842,8 +842,10 @@ export function parseAttr(value) {
 
     value.replace(
       ATTR_REGEXP,
-      (s, func, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma) => {
-        if (func) {
+      (s, quoted, func, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma) => {
+        if (quoted) {
+          currentValue += `${quoted} `;
+        } else if (func) {
           currentValue += func;
           counter++;
         } else if (mod) {
@@ -951,7 +953,7 @@ export function filterMods(mods, allowedMods) {
   return mods.filter(mod => allowedMods.includes(mod));
 }
 
-const STATE_REGEXP = /(\|)|((\s|^)([:^#][a-z0-9:-]+)\[)|(])|([#\s\w0-9()%+*/.,-]+(?=\s|$|]|\|))/gi;
+const STATE_REGEXP = /(\|)|((\s|^)([:^#][a-z0-9:-]+)\[)|(])|(.+?(?=\s[:#^]|$|]|\|))/gi;
 
 export function parseAttrStates(val) {
   let currentState = '';
@@ -1041,6 +1043,3 @@ export function normalizeAttrStates(val) {
 
   return out.trim();
 }
-
-window.normalizeAttrStates = normalizeAttrStates;
-window.parseAttrStates = parseAttrStates;

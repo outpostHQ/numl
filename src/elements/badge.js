@@ -35,6 +35,9 @@ export default class NuBadge extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
+      ${tag} {
+        line-height: calc(var(--nu-line-height) - 1px);
+      }
       ${tag}[special]:not([fill]), ${tag}[special][special]:not([fill]) {
         background-color: var(--nu-special-bg-color);
       }
