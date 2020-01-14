@@ -19,8 +19,12 @@ const MNS = 'mns';
 const MRK = 'mrk';
 const IMP = 'imp';
 
-function prepareCode(str) {
+function extractContent(textarea) {
+  const str = textarea.childNodes.length === 0 ? "" : textarea.childNodes[0].nodeValue;
+
   return str
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
     .replace(/^\n\s*\n/, '\n')
     .replace(/\n\s*\n$/, '\n')
     .replace(/\n$/, '');
@@ -148,7 +152,7 @@ export default class NuCode extends NuElement {
 
       this.nuObserve = () => {
         container.innerHTML = textToMarkup(
-          prepareCode(textarea.textContent),
+          extractContent(textarea),
           this.hasAttribute('enumerate'),
         );
       };
