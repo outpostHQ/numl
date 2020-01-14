@@ -25,8 +25,9 @@ function extractContent(textarea) {
   return str
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
-    .replace(/^\n\s*\n/, '\n')
-    .replace(/\n\s*\n$/, '\n')
+    .replace(/(^|\n)\s*(?=\n)/g, '')
+    .replace(/\n\s*(?=(\n|$))/g, '')
+    .replace(/^\n/, '')
     .replace(/\n$/, '');
 }
 

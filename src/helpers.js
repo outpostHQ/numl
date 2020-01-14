@@ -435,6 +435,10 @@ export const STATES_MAP = {
   odd: ':nth-child(odd)',
 };
 
+function getStateSelector(name) {
+  return STATES_MAP[name] || `[nu-${name}]`;
+}
+
 function getCombinations(array) {
   let result = [];
   let f = function (prefix = [], array) {
@@ -490,13 +494,13 @@ export function splitStates(attrValue) {
 
       const states = tmp2[0].split(':');
 
-      if (devMode) {
-        const notFound = states.find(s => !STATES_MAP[s]);
-
-        if (notFound) {
-          warn('state not found:', notFound);
-        }
-      }
+      // if (devMode) {
+      //   const notFound = states.find(s => !STATES_MAP[s]);
+      //
+      //   if (notFound) {
+      //     warn('state not found:', notFound);
+      //   }
+      // }
 
       return {
         states: states,
@@ -575,12 +579,12 @@ export function splitStates(attrValue) {
     return {
       $prefix: id && (stateMap.states.length || stateMap.notStates.length)
         ? (isParent ? '[nu]' : `[nu-id="${id}"]`)
-        + stateMap.states.map(s => STATES_MAP[s]).join('')
-        + stateMap.notStates.map(s => `:not(${STATES_MAP[s]})`).join('')
+        + stateMap.states.map(s => getStateSelector(s)).join('')
+        + stateMap.notStates.map(s => `:not(${getStateSelector(s)})`).join('')
         + (isParent ? '>' : '')
         : null,
-      $suffix: !id && stateMap.states.map(s => STATES_MAP[s]).join('')
-        + stateMap.notStates.map(s => `:not(${STATES_MAP[s]})`).join(''),
+      $suffix: !id && stateMap.states.map(s => getStateSelector(s)).join('')
+        + stateMap.notStates.map(s => `:not(${getStateSelector(s)})`).join(''),
       value: stateMap.value,
     };
   });
