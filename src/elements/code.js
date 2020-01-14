@@ -20,7 +20,7 @@ const MRK = 'mrk';
 const IMP = 'imp';
 
 function extractContent(textarea) {
-  const str = textarea.childNodes.length === 0 ? "" : textarea.childNodes[0].nodeValue;
+  const str = textarea.textContent;
 
   return str
     .replace(/&lt;/g, '<')
