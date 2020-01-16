@@ -18,6 +18,5 @@ export default function scaleAttr(val) {
   return {
     $suffix: ':not([transform]):not([rotate]):not([move])',
     '--nu-transform': `scale(${val})`,
-    transform: 'var(--nu-transform-place, translate(0, 0)) var(--nu-transform)',
   };
 }

@@ -211,7 +211,8 @@ Run `npm run play` to view test page with few examples.
 * **[nu-props](./docs/elements/nu-props.md)** - new decorator to declare custom properties.
 * **[nu-radiogroup](./docs/elements/nu-radiogroup.md)** - radio group.
 * **[nu-radio](./docs/elements/nu-radio.md)** - radio button.
-* **[nu-progressbar](./docs/elements/nu-progressbar.md)**- To show progress of a process.
+* **[nu-progressbar](./docs/elements/nu-progressbar.md)** - To show progress of a process.
+* **[nu-slider](./docs/elements/nu-slider.md)** and **[nu-rail](./docs/elements/nu-rail.md)** – To create sliders.
 
 #### New attributes & modifiers
 * **[scale](./docs/attributes/scale.md)** with **flip**, **flip-x** and **flip-y** modifiers.

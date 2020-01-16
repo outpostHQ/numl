@@ -1,6 +1,6 @@
 {
   "name": "numl",
-  "version": "0.10.0-beta.8",
+  "version": "0.10.0-beta.9",
   "module": "dist/numl.js",
   "homepage": "https://github.com/tenphi/nude#readme",
   "repository": {

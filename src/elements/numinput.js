@@ -1,4 +1,5 @@
 import NuInput from './input';
+import { numberFromString } from '../helpers';
 
 export function stripZeros(val) {
   return val.replace(/\.([0-9]*[^0]|)0+($|%)/, (s, s1, s2) => !`${s1}${s2}`.match(/^(%|)$/) ? `.${s1}${s2}` : s2);
@@ -14,18 +15,6 @@ function toFormat(num, precision = 2) {
   }
 
   return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-function numberFromString(num) {
-  if (typeof num === 'number') return num;
-
-  if (typeof num !== 'string') return null;
-
-  let value = Number(num.replace(/,/g, ''));
-
-  if (value !== value) return null;
-
-  return value;
 }
 
 const ACCEPTABLE_KEYS = '-0123456789,.';

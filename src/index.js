@@ -45,6 +45,8 @@ import NuImg from './elements/img';
 import NuCode from './elements/code';
 import NuClamp from './elements/clamp';
 import NuProgressBar from './elements/progress';
+import NuRail from './elements/rail';
+import NuSlider from './elements/slider';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -184,6 +186,8 @@ export {
   NuCode,
   NuClamp,
   NuProgressBar,
+  NuRail,
+  NuSlider,
   NuAttrs,
   NuTheme,
   NuVars,

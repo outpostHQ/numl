@@ -1047,3 +1047,23 @@ export function normalizeAttrStates(val) {
 
   return out.trim();
 }
+
+export function numberFromString(num) {
+  if (typeof num === 'number') return num;
+
+  if (typeof num !== 'string') return null;
+
+  let value = Number(num.replace(/,/g, ''));
+
+  if (value !== value) return null;
+
+  return value;
+}
+
+export function getIntFromAttr(value, defaultValue = 0) {
+  let num = parseInt(value);
+
+  if (num == null || num !== num) num = defaultValue;
+
+  return num;
+}

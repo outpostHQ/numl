@@ -41,6 +41,9 @@ import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibilit
 import displayAttr from './attributes/display';
 import themeAttr from './attributes/theme';
 import propAttr from './attributes/prop';
+import moveMixin from './mixins/move';
+import scaleMixin from './mixins/scale';
+import rotateMixin from './mixins/rotate';
 
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
@@ -226,6 +229,9 @@ export default class NuBase extends HTMLElement {
       background: backgroundMixin,
       shadow: shadowMixin,
       transform: transformMixin,
+      move: moveMixin,
+      scale: scaleMixin,
+      rotate: rotateMixin,
     };
   }
 

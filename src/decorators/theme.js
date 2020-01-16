@@ -94,7 +94,7 @@ export default class NuTheme extends NuDecorator {
       removeTheme(this.nuParent, this.nuName, this.nuProps);
     }
 
-    if (!hue || hue !== hue || saturation !== saturation) {
+    if (hue == null || hue !== hue || saturation !== saturation) {
       warn('incorrect theme', {
         decorator: this,
         name,

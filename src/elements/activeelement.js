@@ -3,6 +3,9 @@ import focusable from '../mixins/focusable';
 import { bindActiveEvents, colorUnit } from '../helpers';
 import transformMixin from '../mixins/transform';
 import backgroundMixin from '../mixins/background';
+import moveMixin from '../mixins/move';
+import scaleMixin from '../mixins/scale';
+import rotateMixin from '../mixins/rotate';
 
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
@@ -47,6 +50,9 @@ export default class NuActiveElement extends NuElement {
     return {
       transform: transformMixin,
       background: backgroundMixin,
+      move: moveMixin,
+      scale: scaleMixin,
+      rotate: rotateMixin,
     };
   }
 
@@ -395,14 +401,17 @@ export default class NuActiveElement extends NuElement {
     }
   }
 
-  nuSetValue(value) {
+  nuSetValue(value, notify) {
     if (value === this.nuValue) return;
 
     this.nuValue = value;
 
     setTimeout(() => {
-      this.nuEmit('value', value);
       this.nuControl();
+
+      if (notify) {
+        this.nuEmit('input', value);
+      }
     }, 0);
   }
 
