@@ -186,6 +186,12 @@ export default class NuActiveElement extends NuElement {
       this.nuControl();
       this.nuCreateLink();
     }, 0);
+
+    this.addEventListener('tap', (event) => {
+      if (!event.nuRole && this.hasAttribute('role')) {
+        event.nuRole = this.getAttribute('role');
+      }
+    });
   }
 
   nuCreateLink() {
@@ -243,7 +249,7 @@ export default class NuActiveElement extends NuElement {
       }
     }
 
-    this.nuEmit('tap', this.nuValue, { bubbles: false });
+    this.nuEmit('tap', this.nuValue);
 
     this.nuToggle();
     this.nuControl();
@@ -367,7 +373,7 @@ export default class NuActiveElement extends NuElement {
 
     this.nuSetMod('pressed', pressed);
 
-    if (isChanged && !force) {
+    if ((isChanged || this.nuIsCheckbox()) && !force) {
       this.nuEmit('pressed', pressed);
       this.nuEmit('input', (pressed && this.nuValue) || pressed, { bubbles: false });
     }

@@ -26,6 +26,7 @@ export default class NuCheckbox extends NuActiveElement {
       sizing: 'content',
       fill: '',
       cursor: 'default',
+      text: 'v-middle',
     };
   }
 

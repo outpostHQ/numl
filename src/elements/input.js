@@ -26,7 +26,7 @@ export default class NuInput extends NuBlock {
 
   static get nuDefaults() {
     return {
-      display: 'grid',
+      display: 'inline-grid',
       flow: 'column',
       radius: '',
       padding: '1x',
@@ -78,9 +78,8 @@ export default class NuInput extends NuBlock {
       }
 
       ${tag} input::placeholder {
+        color: rgb(var(--nu-text-color-rgb), .6);
         -webkit-text-fill-color: currentColor;
-        color: currentColor;
-        opacity: .5;
       }
 
       ${tag} nu-icon:not([width]) {

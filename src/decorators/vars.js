@@ -44,6 +44,7 @@ export default class NuVars extends NuDecorator {
     Object.entries(vars).forEach(([varName, varValue]) => {
       parent.nuContext[`var:${varName}`] = {
         context: parent,
+        decorator: this,
         value: varValue,
       };
 

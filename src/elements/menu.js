@@ -16,7 +16,13 @@ export default class NuMenu extends NuFlow {
   nuConnected() {
     super.nuConnected();
 
-    this.addEventListener('submit', (event) => {
+    this.addEventListener('tap', (event) => {
+      if (event.nuRole !== 'menuitem') return;
+
+      if (this.getAttribute('action') === 'submit') {
+        this.nuEmit('submit', event.detail);
+      }
+
       this.nuEmit('input', event.detail, { bubbles: false });
     });
   }

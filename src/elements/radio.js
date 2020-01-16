@@ -35,6 +35,7 @@ export default class NuRadio extends NuActiveElement {
       padding: '0',
       sizing: 'content',
       cursor: 'default',
+      text: 'v-middle',
     };
   }
 
