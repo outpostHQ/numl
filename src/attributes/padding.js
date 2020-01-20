@@ -5,7 +5,7 @@ const BASE = 'var(--nu-indent)';
 export default function paddingAttr(val) {
   if (val == null) return;
 
-  const { values, mods: allMods } = parseAttr(val);
+  const { values, mods: allMods } = parseAttr(val, true);
 
   const mods = filterMods(allMods, DIRECTIONS);
 

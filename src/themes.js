@@ -123,7 +123,7 @@ const SPECIAL_CONTRAST_MAP = {
  * @param hue {Number} – Reference hue
  * @param saturation {Number} – Reference saturation
  * @param pastel {Boolean} – Use pastel palette
- * @param [type] {String} – [main] | tint | toned | swap | special
+ * @param [type] {String} – [main] | tint | tone | swap | special
  * @param [contrast] {String} – [normal] | strong | soft
  * @param [lightness] {String} – [normal] | dim | bold
  * @param [darkScheme] {Boolean} - true | false
@@ -141,7 +141,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
   const borderContrastModifier = contrast === 'strong' ? 1.5 : 0;
 
   const originalContrast = theme['special-text'] = getTheBrightest(textColor, bgColor);
-  const originalSpecial = theme['special-bg'] = setSaturation([hue, saturation, findContrastLightness(theme['special-text'][2], type === 'toned' || type === 'swap' ? (softContrast + minContrast) / 2 : softContrast)], saturation, pastel);
+  const originalSpecial = theme['special-bg'] = setSaturation([hue, saturation, findContrastLightness(theme['special-text'][2], type === 'tone' || type === 'swap' ? (softContrast + minContrast) / 2 : softContrast)], saturation, pastel);
   // themes with same hue should have focus color with consistent setPastelSaturation saturation
 
   if (type === 'main' || type === 'tint') {
@@ -160,7 +160,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
       theme.text = setSaturation([hue, saturation, findContrastLightness(theme.subtle[2], minContrast)], saturation, pastel);
       theme['text-strong'] = setSaturation([hue, saturation, findContrastLightness(theme.subtle[2], 7)], saturation, pastel);
       break;
-    case 'toned':
+    case 'tone':
       // @TODO Check bg saturation
       theme.bg = setSaturation([hue, saturation, tonedBgLightness], saturation, true);
       theme.text = setSaturation([hue, saturation, findContrastLightness(tonedBgLightness, minContrast)], saturation, pastel);
@@ -277,7 +277,7 @@ const LIGHTNESS_MODS = [
 ];
 export const THEME_TYPE_MODS = [
   'tint',
-  'toned',
+  'tone',
   'swap',
   'special',
 ];

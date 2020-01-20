@@ -1,7 +1,12 @@
 import NuActiveElement from './activeelement';
+import { setAttrs } from '../helpers';
 
 const CIRCLE_ATTRS = {
-
+  radius: 'round',
+  fill: 'bg ^:pressed[special-bg] ^:disabled:pressed[text 50%]',
+  width: '1em',
+  height: '1em',
+  transition: 'background-color',
 };
 
 export default class NuRadio extends NuActiveElement {
@@ -28,14 +33,17 @@ export default class NuRadio extends NuActiveElement {
       display: 'inline-grid',
       width: '1em',
       height: '1em',
-      border: '1b',
+      border: '1b color(text)',
       radius: 'round',
       content: 'stretch',
       items: 'center',
-      padding: '0',
+      padding: '1b',
       sizing: 'content',
       cursor: 'default',
       text: 'v-middle',
+      hoverable: '.5em',
+      toggle: '0 :active[.5em] :pressed[.5em]',
+      fill: 'bg',
     };
   }
 
@@ -43,46 +51,7 @@ export default class NuRadio extends NuActiveElement {
     return `
       ${css}
       ${tag} {
-        --nu-border-color: var(--nu-text-color);
-        --nu-local-toggle-color: transparent;
-        --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-local-toggle-color) inset;
-        --nu-local-pressed-shadow: 0 0 0 2px var(--nu-bg-color) inset;
-
         position: relative;
-        background-color: var(--nu-bg-color);
-        box-shadow: var(--nu-local-pressed-shadow),
-          var(--nu-local-stroke-shadow),
-          var(--nu-local-toggle-shadow),
-          var(--nu-local-depth-shadow);
-      }
-
-      ${tag}[disabled] {
-        opacity: .5;
-      }
-
-      ${tag}[nu-active]:not([disabled]):not([nu-pressed]),
-      ${tag}[nu-active][nu-pressed]:not([disabled]) {
-        --nu-local-toggle-color: rgba(0, 0, 0, var(--nu-intensity));
-      }
-
-      ${tag}[tabindex]:not([tabindex="-1"]):not([disabled])::after {
-        top: calc(-1 * var(--nu-indent));
-        right: calc(-1 * var(--nu-indent));
-        bottom: calc(-1 * var(--nu-indent));
-        left: calc(-1 * var(--nu-indent));
-        border-radius: 9999rem;
-      }
-
-      ${tag}[nu-pressed]:not([disabled]) {
-        --nu-border-color: var(--nu-text-color);
-        background-color: var(--nu-special-bg-color);
-      }
-      ${tag}[nu-pressed][disabled] {
-        --nu-border-color: rgba(0, 0, 0, 0);
-        background-color: rgba(var(--nu-text-color-rgb), .5);
-      }
-      ${tag}:not([nu-pressed])[disabled] {
-        --nu-border-color: rgba(var(--nu-text-color-rgb), .5);
       }
     `;
   }
@@ -110,5 +79,13 @@ export default class NuRadio extends NuActiveElement {
         }
       }, 0);
     }
+
+    if (this.querySelector('nu-el')) return;
+
+    const circle = document.createElement('nu-el');
+
+    setAttrs(circle, CIRCLE_ATTRS);
+
+    this.appendChild(circle);
   }
 }

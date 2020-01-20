@@ -1,4 +1,12 @@
 import NuActiveElement from './activeelement';
+import { setAttrs } from '../helpers';
+
+const ICON_ATTRS = {
+  name: 'check',
+  opacity: '0 ^:pressed[1]',
+  transition: 'opacity',
+  color: 'special ^:disabled[text]',
+};
 
 export default class NuCheckbox extends NuActiveElement {
   static get nuTag() {
@@ -24,9 +32,11 @@ export default class NuCheckbox extends NuActiveElement {
       items: 'center',
       padding: '0',
       sizing: 'content',
-      fill: '',
+      fill: 'bg',
       cursor: 'default',
       text: 'v-middle',
+      toggle: 'n :active[y] :pressed[y]',
+      hoverable: '.5em 1x',
     };
   }
 
@@ -35,25 +45,10 @@ export default class NuCheckbox extends NuActiveElement {
       ${css}
       ${tag} {
         --nu-border-color: var(--nu-text-color);
-        --nu-local-toggle-color: transparent;
-        --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-local-toggle-color) inset;
       }
 
       ${tag}[disabled] {
         --nu-border-color: rgba(var(--nu-text-color-rgb), .33);
-      }
-
-      ${tag}[nu-active]:not([disabled]):not([nu-pressed]),
-      ${tag}[nu-active][nu-pressed]:not([disabled]) {
-        --nu-local-toggle-color: rgba(0, 0, 0, var(--nu-intensity));
-      }
-
-      ${tag}[tabindex]:not([tabindex="-1"]):not([disabled])::after {
-        top: calc(-1 * var(--nu-indent));
-        right: calc(-1 * var(--nu-indent));
-        bottom: calc(-1 * var(--nu-indent));
-        left: calc(-1 * var(--nu-indent));
-        border-radius: var(--nu-border-radius);
       }
     `;
   }
@@ -86,9 +81,7 @@ export default class NuCheckbox extends NuActiveElement {
 
     const icon = document.createElement('nu-icon');
 
-    icon.setAttribute('name', 'check');
-    icon.setAttribute('opacity', '0 ^:pressed[1]');
-    icon.setAttribute('transition', 'opacity');
+    setAttrs(icon, ICON_ATTRS);
 
     this.appendChild(icon);
   }

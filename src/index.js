@@ -58,7 +58,6 @@ import {
   injectScript,
   splitStates,
   convertCustomUnit,
-  excludeMod,
   ROOT_CONTEXT,
   CUSTOM_UNITS,
   STATES_MAP,
@@ -66,6 +65,8 @@ import {
   setImmediate,
   extractMods,
   fixPosition,
+  parseAttr,
+  parseColor,
 } from './helpers';
 import { enableFocus, disableFocus } from './focus';
 import { applyTheme, BASE_THEME } from './themes';
@@ -111,11 +112,12 @@ const Nude = {
     injectScript,
     splitStates,
     convertCustomUnit,
-    excludeMod,
     parseAllValues,
     setImmediate,
     extractMods,
     fixPosition,
+    parseAttr,
+    parseColor,
   },
   version: process.env.APP_VERSION,
 };

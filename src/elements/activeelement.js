@@ -1,11 +1,5 @@
 import NuElement from './element';
-import focusable from '../mixins/focusable';
-import { bindActiveEvents, colorUnit } from '../helpers';
-import transformMixin from '../mixins/transform';
-import backgroundMixin from '../mixins/background';
-import moveMixin from '../mixins/move';
-import scaleMixin from '../mixins/scale';
-import rotateMixin from '../mixins/rotate';
+import { bindActiveEvents } from '../helpers';
 
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
@@ -43,16 +37,11 @@ export default class NuActiveElement extends NuElement {
       radius: '',
       text: 'nowrap',
       transition: 'box-shadow, color, background-color, border, border-radius',
-    };
-  }
-
-  static get nuMixins() {
-    return {
-      transform: transformMixin,
-      background: backgroundMixin,
-      move: moveMixin,
-      scale: scaleMixin,
-      rotate: rotateMixin,
+      focusable: 'y',
+      hoverable: 'y',
+      z: '0 :active[3] :pressed[2] :active:pressed[3]',
+      opacity: '1 :disabled[.5]',
+      cursor: 'pointer :disabled[default]',
     };
   }
 
@@ -60,55 +49,8 @@ export default class NuActiveElement extends NuElement {
     return `
       ${css}
       ${tag} {
-        --nu-local-toggle-color: transparent;
-        --nu-local-depth-color: transparent;
-        --nu-local-hover-color: transparent;
-        --nu-local-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-        --nu-local-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
-        --nu-local-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
-
-        opacity: 1;
         position: relative;
-        z-index: 0; /* to make :hover::after z-index work as expected */
         user-select: none;
-
-        box-shadow: var(--nu-local-stroke-shadow),
-          var(--nu-local-toggle-shadow),
-          var(--nu-local-depth-shadow);
-      }
-
-      ${tag}[tabindex]:not([tabindex="-1"]):not([disabled])::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: -1;
-        border-radius: inherit;
-        background-color: var(--nu-local-hover-color);
-        transition: background-color var(--nu-animation-time) linear;
-      }
-
-      ${tag}[tabindex] {
-        cursor: pointer;
-      }
-
-      ${tag}[disabled] {
-        opacity: .5;
-        cursor: default;
-      }
-
-      ${tag}:not([disabled])[tabindex]:hover {
-        --nu-local-hover-color: var(--nu-hover-color);
-      }
-
-      ${tag}[nu-active] {
-        z-index: 3;
-      }
-
-      ${tag}[nu-pressed] {
-        z-index: 2;
       }
 
       ${tag} > a {
@@ -123,8 +65,6 @@ export default class NuActiveElement extends NuElement {
       ${tag} > a:focus {
         outline: none;
       }
-
-      ${focusable(tag)}
     `;
   }
 

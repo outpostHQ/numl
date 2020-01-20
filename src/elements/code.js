@@ -74,7 +74,7 @@ export default class NuCode extends NuElement {
       },
       [MRK]: {
         hue: 240,
-        type: 'toned',
+        type: 'tone',
       },
       [IMP]: {
         hue: 1,
@@ -90,7 +90,7 @@ export default class NuCode extends NuElement {
     return {
       display: 'block',
       radius: '1r',
-      fill: '',
+      fill: 'bg',
       text: 'monospace',
     };
   }
@@ -185,7 +185,7 @@ const TOKEN_RES = [
   [COM, /(\/\/|#).*?(?=\n|$)/],
   [COM, /\/\*[\s\S]*?\*\//],
   [COM, /<!--[\s\S]*?-->/],
-  [REX, /\/(\\\/|[^\n])*?\//],
+  [REX, /\/(\\\/|[^\n])*?\/(?=[^\w])/],
   [STR, /(['"`])(\\\1|[\s\S])*?\1/],
   [NUM, /[+-]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?/],
   [SPC, /\s+/],

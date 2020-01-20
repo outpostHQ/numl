@@ -1,6 +1,15 @@
 import NuActiveElement from './activeelement';
-import focusable from '../mixins/focusable';
-import NuElement from './element';
+import { setAttrs } from '../helpers';
+
+const CIRCLE_ATTRS = {
+  width: '--circle-size',
+  height: '--circle-size',
+  interactive: 'n',
+  transition: 'transform, background-color',
+  move: '--circle-offset 0',
+  fill: '--circle-bg-color',
+  radius: 'round',
+};
 
 export default class NuSwitch extends NuActiveElement {
   static get nuTag() {
@@ -27,96 +36,50 @@ export default class NuSwitch extends NuActiveElement {
       display: 'inline-block',
       border: '1b',
       sizing: 'content',
-      radius: 'round',
+      radius: '--size / 2',
+      focusable: 'y',
+      toggle: `0
+        :active[.75em]
+        :active:pressed[.75em]`,
+      transition: 'box-shadow, filter',
+      width: '(--size * 2) - 1x',
+      height: 'max(--size)',
+      fill: `bg
+        :pressed[special-bg]
+        :pressed:disabled[text 50%]`,
+      text: 'v-middle',
+      padding: '.5x',
+      hoverable: 'y',
+      opacity: '1',
+
+      '--size': '2em',
+      '--circle-size': '--size - 1x',
+      '--circle-offset': `0
+        :pressed[--size]`,
+      '--circle-bg-color': `--special-bg-color
+        :disabled[rgba(--nu-text-color-rgb, .66)]
+        :pressed[--special-text-color]
+        :pressed:disabled[--special-text-color]`,
     };
   }
 
-  static nuCSS({ tag }) {
-    return `
-      ${NuElement.nuExtractCSS(this)}
-      ${tag} {
-        --nu-local-depth-color: transparent;
-        --nu-local-border-radius: calc(var(--nu-size) / 2);
-        --nu-local-color: rgba(0, 0, 0, 0);
+  nuConnected() {
+    super.nuConnected();
 
-        --nu-local-depth-shadow: 0 .25rem 1.5rem var(--nu-local-depth-color);
-        --nu-local-bg-color: var(--nu-bg-color);
-        --nu-local-active-shadow: 0 0 calc(var(--nu-size) / 2) 0 var(--nu-local-color) inset;
+    this.nuCreateCircle();
+  }
 
-        --nu-size: 2em;
-        --nu-circle-padding: calc(var(--nu-indent) / 2);
-        --nu-circle-size: calc(var(--nu-size) - var(--nu-circle-padding) * 2);
-        --nu-circle-offset: 0;
-        --nu-circle-opacity: 1;
-        --nu-circle-border-radius: calc(var(--nu-circle-size) / 2);
+  nuCreateCircle() {
+    let circle = this.querySelector('nu-block');
 
-        position: relative;
-        width: calc(var(--nu-size) * 2 - var(--nu-indent));
-        max-height: var(--nu-size);
-        background-color: var(--nu-local-bg-color) !important;
-        cursor: pointer;
-        box-shadow: var(--nu-local-depth-shadow),
-          var(--nu-local-active-shadow),
-          var(--nu-local-stroke-shadow);
-        transition: box-shadow var(--nu-animation-time) linear,
-          filter var(--nu-animation-time) linear;
-        user-select: none;
-        vertical-align: var(--nu-inline-offset);
-        padding: var(--nu-circle-padding);
-      }
+    if (circle) {
+      return;
+    }
 
-      ${tag}:not([disabled]) {
-        --nu-circle-bg-color: var(--nu-special-bg-color);
-      }
+    circle = document.createElement('nu-block');
 
-      ${tag}[disabled] {
-        --border-color: rgba(var(--nu-text-color-rgb), .66);
-        --nu-circle-bg-color: rgba(var(--nu-text-color-rgb), .66);
-      }
+    setAttrs(circle, CIRCLE_ATTRS);
 
-      ${tag}::after {
-        content: "";
-        display: block;
-        width: var(--nu-circle-size);
-        height: var(--nu-circle-size);
-        pointer-events: none;
-        transform: translate(var(--nu-circle-offset), 0);
-        transition: transform var(--nu-animation-time) linear,
-          opacity var(--nu-animation-time) linear,
-          background-color var(--nu-animation-time) linear;
-        background-color: var(--nu-circle-bg-color);
-        border-radius: var(--nu-circle-border-radius);
-        opacity: var(--nu-circle-opacity);
-      }
-
-      ${tag}[disabled] {
-        opacity: .5;
-        cursor: default;
-      }
-
-      ${tag}[nu-pressed] {
-        --nu-circle-offset: calc(var(--nu-size) * 2 - var(--nu-circle-size) - var(--nu-indent));
-        --nu-circle-opacity: 1;
-        --nu-circle-bg-color: var(--nu-special-text-color);
-      }
-
-      ${tag}[nu-pressed]:not([disabled]) {
-        --nu-local-bg-color: var(--nu-special-bg-color);
-      }
-
-      ${tag}[nu-pressed][disabled] {
-        --nu-local-bg-color: rgba(var(--nu-text-color-rgb), .5);
-      }
-
-      ${tag}[nu-active]:not([disabled]):not([nu-pressed]) {
-        --nu-local-color: rgba(0, 0, 0, var(--nu-intensity));
-      }
-
-      ${tag}[nu-active][nu-pressed]:not([disabled]) {
-        --nu-local-color: rgba(0, 0, 0, var(--nu-special-intensity));
-      }
-
-      ${focusable(tag)}
-    `;
+    this.appendChild(circle);
   }
 }

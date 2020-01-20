@@ -1,4 +1,4 @@
-import { excludeMod, hasMod } from '../helpers';
+import { devMode } from '../helpers';
 
 export const PLACE_VALUES = [
   'content', 'items', 'self'
@@ -71,15 +71,19 @@ const COVER_STYLES = {
 export default function placeAttr(val) {
   if (!val) return;
 
+  let { mods } = parseAttr(val);
+
   let pos = '';
 
-  if (hasMod(val, 'relative')) {
-    val = excludeMod(val, 'relative');
-
+  if (mods.includes('relative')) {
     pos = 'relative';
   }
 
-  if (val === 'fill') {
+  if (mods.includes('fill')) {
+    if (devMode && mods.length > 1) {
+      warn('[place]: fill modifier can\'t be combined with others', val);
+    }
+
     // copy FILL_STYLES
     return [
       FILL_STYLES[0],
@@ -89,16 +93,16 @@ export default function placeAttr(val) {
     ];
   }
 
-  const abs = PLACE_ABS.find(place => hasMod(val, place));
+  const abs = PLACE_ABS.find(place => mods.includes(place));
 
   if (abs) {
     const styles = {
-      position: hasMod(val, 'fixed') ? 'fixed' : 'absolute',
+      position: mods.includes('fixed') ? 'fixed' : 'absolute',
     };
     let transX = 0;
     let transY = 0;
 
-    if (hasMod(val, 'cover')) {
+    if (mods.includes('cover')) {
       return {
         ...styles,
         ...COVER_STYLES,
@@ -106,7 +110,7 @@ export default function placeAttr(val) {
     }
 
     PLACE_ABS_INSIDE.forEach((place, i) => {
-      if (!hasMod(val, place)) return;
+      if (!mods.includes(place)) return;
 
       styles[place] = '0';
       delete styles[PLACE_ABS_INSIDE[(PLACE_ABS_INSIDE.indexOf(place) + 2) % 4]];
@@ -121,7 +125,7 @@ export default function placeAttr(val) {
     });
 
     PLACE_ABS_OUTSIDE.forEach((place, i) => {
-      if (!hasMod(val, place)) return;
+      if (!mods.includes(place)) return;
 
       styles[PLACE_ABS_INSIDE[(PLACE_ABS_OUTSIDE.indexOf(place) + 2) % 4]] = '100%';
       delete styles[PLACE_ABS_INSIDE[PLACE_ABS_OUTSIDE.indexOf(place)]];
@@ -136,7 +140,7 @@ export default function placeAttr(val) {
     });
 
     PLACE_ABS_CENTER.forEach((place, i) => {
-      if (!hasMod(val, place)) return;
+      if (!mods.includes(place)) return;
 
       styles[PLACE_ABS_INSIDE[PLACE_ABS_CENTER.indexOf(place)]] = '0';
       delete styles[PLACE_ABS_INSIDE[(PLACE_ABS_CENTER.indexOf(place) + 2) % 4]];
@@ -158,7 +162,7 @@ export default function placeAttr(val) {
       }
     });
 
-    if (hasMod(val, 'inside')) {
+    if (mods.includes('inside')) {
       if (!styles.left) {
         styles.left = '50%';
       }

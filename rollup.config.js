@@ -2,10 +2,10 @@ import minify from 'rollup-plugin-babel-minify';
 import replace from 'rollup-plugin-replace';
 import pkg from './package.json';
 
-// const ENV = process.env.ROLLUP_WATCH ? 'development' : 'production';
+const DEV = !!process.env.ROLLUP_WATCH;
 const VERSION = `"${pkg.version}"`;
 
-export default [
+export default (true ? [
   {
     input: 'src/pack.js',
     external: ['ms'],
@@ -22,6 +22,23 @@ export default [
       }),
     ]
   },
+  {
+    input: 'src/index.js',
+    external: ['ms'],
+    output: [
+      { name: 'Nude', file: pkg.module.replace('.js', '.module.js'), format: 'es' }
+    ],
+    plugins: [
+      replace({
+        'process.env.NODE_ENV': '"production"',
+        'process.env.APP_VERSION': VERSION,
+      }),
+      minify({
+        comments: false,
+      }),
+    ]
+  }
+]: []).concat([
   {
     input: 'src/pack.js',
     external: ['ms'],
@@ -44,22 +61,6 @@ export default [
     input: 'src/index.js',
     external: ['ms'],
     output: [
-      { name: 'Nude', file: pkg.module.replace('.js', '.module.js'), format: 'es' }
-    ],
-    plugins: [
-      replace({
-        'process.env.NODE_ENV': '"production"',
-        'process.env.APP_VERSION': VERSION,
-      }),
-      minify({
-        comments: false,
-      }),
-    ]
-  },
-  {
-    input: 'src/index.js',
-    external: ['ms'],
-    output: [
       {
         name: 'Nude',
         file: pkg.module.replace('.js', '.module.dev.js'),
@@ -73,4 +74,4 @@ export default [
       }),
     ]
   },
-];
+]);

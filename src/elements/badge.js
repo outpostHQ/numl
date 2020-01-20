@@ -36,6 +36,7 @@ export default class NuBadge extends NuElement {
     return `
       ${css}
       ${tag} {
+        position: relative;
         line-height: calc(var(--nu-line-height) - 1px);
       }
       ${tag}[special]:not([fill]), ${tag}[special][special]:not([fill]) {

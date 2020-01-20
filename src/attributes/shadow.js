@@ -6,7 +6,7 @@ export default function shadowAttr(val) {
   const depth = val === '' ? '1rem' : convertUnit(val);
 
   return {
-    '--nu-local-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-intensity) / ${(Number(val) ||
+    '--nu-local-depth-shadow': `0 0 ${depth} rgba(0, 0, 0, calc(var(--nu-local-intensity, var(--nu-intensity)) / ${(Number(val) ||
       1) * 2}))`,
   };
 }

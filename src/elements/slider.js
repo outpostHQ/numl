@@ -22,8 +22,8 @@ export default class NuSlider extends NuActiveElement {
       width: '1em',
       height: '1em',
       radius: 'round',
-      fill: 'bg',
-      border: '1b',
+      fill: 'special-text',
+      border: '1b color(text)',
       space: '.25em + 1b',
       text: 'v-middle',
       move: ':orient-x[-.25em 0] :orient-y[0 .25em]'
@@ -35,7 +35,6 @@ export default class NuSlider extends NuActiveElement {
       ${css}
       ${tag} {
         position: absolute;
-        --nu-border-color: var(--nu-text-color);
       }
 
       ${tag}[nu-orient-x] {

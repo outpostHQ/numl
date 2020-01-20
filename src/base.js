@@ -32,19 +32,16 @@ import {
   extractMods,
   isVariableAttr,
   isResponsiveAttr,
-  normalizeAttrStates, parseAttrStates,
+  normalizeAttrStates,
+  parseAttr,
 } from './helpers';
-import transformMixin from './mixins/transform';
-import backgroundMixin from './mixins/background';
-import shadowMixin from './mixins/shadow';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibility';
 import displayAttr from './attributes/display';
 import themeAttr from './attributes/theme';
 import propAttr from './attributes/prop';
-import moveMixin from './mixins/move';
-import scaleMixin from './mixins/scale';
-import rotateMixin from './mixins/rotate';
+import combine from './combinators/index';
 
+export const COMBINATORS = ['transform', 'shadow'];
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
 
@@ -221,18 +218,8 @@ export default class NuBase extends HTMLElement {
     );
   }
 
-  /**
-   * Element's mixins to share styles between attributes
-   */
-  static get nuMixins() {
-    return {
-      background: backgroundMixin,
-      shadow: shadowMixin,
-      transform: transformMixin,
-      move: moveMixin,
-      scale: scaleMixin,
-      rotate: rotateMixin,
-    };
+  static get nuCombinators() {
+    return COMBINATORS;
   }
 
   /**
@@ -256,6 +243,7 @@ export default class NuBase extends HTMLElement {
 
     const allAttrs = this.nuAllAttrs;
     const allDefaults = this.nuAllDefaults;
+    const combinators = this.nuCombinators;
 
     const globalAttrs = Object.keys(allAttrs).filter(attr => GLOBAL_ATTRS.includes(attr) && allAttrs[attr]);
 
@@ -273,47 +261,41 @@ export default class NuBase extends HTMLElement {
 
     let defaultsCSS = '';
 
-    const mixins = this.nuMixins;
-    const mixinList = Object.keys(mixins);
+    combinators.forEach(combinatorName => {
+      const styles = combine(combinatorName, allDefaults);
 
-    mixinList.forEach(mixinName => {
-      const mixin = mixins[mixinName]();
-      const attrs = Object.keys(mixin.fallbacks);
-      const optionalAttrs = attrs.filter(attr => allDefaults[attr] == null);
-      const styles = [];
-
-      styles.push({
-        $suffix: optionalAttrs.map(attr => `[${attr}]`).join(''),
-        ...mixin.shared,
-      });
-
-      styles.push(...optionalAttrs.map(attr => {
-        const conditionSelector = optionalAttrs
-          .filter(attr2 => attr2 !== attr)
-          .map(attr2 => `[${attr2}]`).join('');
-
-        return {
-          $suffix: `${conditionSelector}:not([${attr}])`,
-          ...mixin.fallbacks[attr],
-        };
-      }));
-
-      styles.forEach((stls) => {
-        defaultsCSS += generateCSS(tag, [stls]);
-      });
+      if (styles.length) {
+        defaultsCSS += generateCSS(tag, styles);
+      }
     });
 
     Object.keys(allDefaults)
       .forEach(name => {
-        const value = allDefaults[name];
+        let value = allDefaults[name];
 
         if (value == null) return;
 
-        const styles = computeStyles(name, String(value), allAttrs, allDefaults);
+        value = String(value).replace(/\n\s+/g, ' ');
+
+        let styles;
+
+        const isProp = name.startsWith('--');
+
+        if (isProp) {
+          styles = computeStyles(name, value, {
+            [name]: (val) => {
+              return [{
+                [name.replace('--', '--nu-')]: parseAttr(val).value,
+              }]
+            },
+          }, {});
+        } else {
+          styles = computeStyles(name, value, allAttrs, allDefaults);
+        }
 
         if (!styles) return;
 
-        const query = `${tag}${name !== 'text' ? `:not([${name}])` : ''}`;
+        const query = `${tag}${name !== 'text' && !isProp ? `:not([${name}])` : ''}`;
 
         defaultsCSS += generateCSS(query, styles);
       });

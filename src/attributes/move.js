@@ -3,10 +3,9 @@ import { parseAttr } from '../helpers';
 export default function moveAttr(val) {
   if (!val) return;
 
-  const { values } = parseAttr(val);
+  const { values } = parseAttr(val, true);
 
   return {
-    $suffix: ':not([transform]):not([rotate]):not([scale])',
-    '--nu-transform': `translate(${values.join(', ')})`,
+    '--nu-transform-move': `translate(${values.join(', ')})`,
   };
 }

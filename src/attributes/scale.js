@@ -1,22 +1,27 @@
-export default function scaleAttr(val) {
-  if (!val) return;
+import { parseAttr } from '../helpers';
 
-  switch (val) {
+export default function scaleAttr(val) {
+  if (!val) return {
+    '--nu-transform-scale': `scale(1, 1)`,
+  };
+
+  let { value } = parseAttr(val);
+
+  switch (value) {
     case 'flip':
-      val = '-1 -1';
+      value = '-1 -1';
       break;
     case 'flip-x':
-      val = '-1 1';
+      value = '-1 1';
       break;
     case 'flip-y':
-      val = '1 -1';
+      value = '1 -1';
       break;
   }
 
-  val = val.split(/\s+/g).join(', ');
+  value = value.split(/\s+/g).join(', ');
 
   return {
-    $suffix: ':not([transform]):not([rotate]):not([move])',
-    '--nu-transform': `scale(${val})`,
+    '--nu-transform-scale': `scale(${val})`,
   };
 }

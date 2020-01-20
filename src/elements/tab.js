@@ -1,5 +1,4 @@
 import NuActiveElement from './activeelement';
-import focusable from '../mixins/focusable';
 
 export default class NuTab extends NuActiveElement {
   static get nuTag() {
@@ -19,41 +18,13 @@ export default class NuTab extends NuActiveElement {
       flow: 'column',
       gap: '1x',
       items: 'center',
+      border: `0
+        :hover[1b bottom inside color(special)]
+        :pressed[3b bottom inside color(special)]
+        :hover:pressed[3b bottom inside color(special)]
+        :active:pressed[3b bottom inside color(special)]
+        :active:hover[2b bottom inside color(special)]`,
+      hoverable: null,
     };
-  }
-
-  static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
-        --nu-local-toggle-color: transparent;
-        --nu-local-depth-color: transparent;
-        --nu-local-stroke-color: transparent;
-        --nu-local-hover-color: transparent !important;
-
-        --nu-local-toggle-shadow: 0 calc(-1 * var(--nu-border-width)) 0 0 var(--nu-local-toggle-color) inset;
-        --nu-local-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
-      }
-
-      ${tag}[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
-      ${tag}[nu-toggled]:not([disabled]):not([tabindex]) {
-        --nu-local-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-local-toggle-color) inset;
-        --nu-local-toggle-color: var(--nu-special-color);
-      }
-
-      ${tag}[special] {
-        color: var(--nu-special-color) !important;
-      }
-
-      ${tag}:not([disabled])[tabindex]:hover {
-        --nu-local-toggle-color: var(--nu-special-color);
-      }
-
-      ${tag}[nu-active][tabindex]:not([disabled]):not([aria-selected="true"]),
-      ${tag}[aria-selected="true"]:not([disabled]):not([nu-active]) {
-        --nu-local-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-local-toggle-color) inset;
-        --nu-local-toggle-color: var(--nu-special-color);
-      }
-    `;
   }
 }

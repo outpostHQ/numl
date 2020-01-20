@@ -83,7 +83,7 @@ export function colorUnit(style, initial) {
 export function convertUnit(unit) {
   if (!unit) return unit;
 
-  return parseAttr(unit).values.join(' ');
+  return parseAttr(unit, true).value;
 }
 
 /**
@@ -372,7 +372,10 @@ export function bindActiveEvents() {
       this.nuTap(evt);
     } else if (evt.key === ' ') {
       evt.preventDefault();
-      this.nuSetMod('active', true);
+
+      if (!this.hasAttribute('disabled')) {
+        this.nuSetMod('active', true);
+      }
     }
   });
 
@@ -391,7 +394,9 @@ export function bindActiveEvents() {
   this.addEventListener('blur', evt => this.nuSetMod('active', false));
 
   this.addEventListener('mousedown', () => {
-    this.nuSetMod('active', true);
+    if (!this.hasAttribute('disabled')) {
+      this.nuSetMod('active', true);
+    }
   });
 
   ['mouseleave', 'mouseup'].forEach(eventName => {
@@ -424,22 +429,24 @@ export function toKebabCase(str) {
  * @type {Object}
  */
 export const STATES_MAP = {
-  focus: '[nu-focus]',
   hover: ':hover',
   themed: '[theme]',
-  pressed: '[nu-pressed]',
+  special: '[special]',
+  focusable: '[tabindex]:not([tabindex="-1"])',
   disabled: '[disabled]',
-  active: '[nu-active]',
-  sticky: '[nu-sticky]',
   even: ':nth-child(even)',
   odd: ':nth-child(odd)',
 };
 
 function getStateSelector(name) {
+  if (name.startsWith('role-')) {
+    return `[role="${name.slice(5)}"]`;
+  }
+
   return STATES_MAP[name] || `[nu-${name}]`;
 }
 
-function getCombinations(array) {
+export function getCombinations(array) {
   let result = [];
   let f = function (prefix = [], array) {
     for (let i = 0; i < array.length; i++) {
@@ -527,9 +534,10 @@ export function splitStates(attrValue) {
 
   const otherValues = stateMaps.filter(map => map !== baseMap).map(map => map.value);
 
-  if (otherValues.every(val => val === otherValues[0])) {
-    baseValue = otherValues[0];
-  }
+  // Guess another base value | Probably the bad idea
+  // if (otherValues.every(val => val === otherValues[0])) {
+  //   baseValue = otherValues[0];
+  // }
 
   // create mutually exclusive selectors
   for (let i = 0; i < stateMaps.length; i++) {
@@ -677,16 +685,6 @@ export function hasMod(str, mod) {
   return !!str.match(regexp, 'i');
 }
 
-export function excludeMod(str, mod) {
-  const regexp = new RegExp(`(^|[^a-z\-])${mod}([^a-z\-]|$)`);
-
-  if (str.match(regexp, 'i')) {
-    return str.replace(regexp, s => s.replace(mod, '')).trim();
-  }
-
-  return;
-}
-
 export function parseAllValues(value) {
   const { states } = parseAttrStates(value);
 
@@ -807,9 +805,10 @@ export function isResponsiveAttr(value) {
   return value.includes('|');
 }
 
-const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(--[a-z-]+)|([a-z-]{2,})|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
+const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-f0-9]{3,8}(?![a-f0-9\[-]))|(--[a-z-]+)|([a-z][a-z-]*)|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
 
 const ATTR_CACHE = new Map;
+const ATTR_CACHE_REM = new Map;
 const MAX_CACHE = 10000;
 
 function prepareNuVar(name) {
@@ -824,17 +823,24 @@ function prepareNuVar(name) {
   }
 }
 
-const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid'];
+const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid', 'initial'];
+const PREPARE_REGEXP = /calc\((\d*)\)/g;
+
+function prepareParsedValue(val) {
+  return val.trim().replace(PREPARE_REGEXP, (s, inner) => inner);
+}
 
 /**
  *
  * @param {String} value
  * @returns {Object<String,String|Array>}
  */
-export function parseAttr(value) {
-  if (!ATTR_CACHE.has(value)) {
-    if (ATTR_CACHE.size > MAX_CACHE) {
-      ATTR_CACHE.clear();
+export function parseAttr(value, insertRem = false) {
+  const CACHE = insertRem ? ATTR_CACHE_REM : ATTR_CACHE;
+
+  if (!CACHE.has(value)) {
+    if (CACHE.size > MAX_CACHE) {
+      CACHE.clear();
     }
 
     const mods = [];
@@ -843,21 +849,27 @@ export function parseAttr(value) {
     let calc = -1;
     let values = [];
     let counter = 0;
+    let parsedValue = '';
+    let color = '';
 
     value.replace(
       ATTR_REGEXP,
-      (s, quoted, func, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma) => {
+      (s, quoted, func, hashColor, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma) => {
         if (quoted) {
           currentValue += `${quoted} `;
         } else if (func) {
           currentValue += func;
           counter++;
+        } else if (hashColor) {
+          currentValue += `${hashColor} `;
+          color = hashColor;
         } else if (mod) {
           // ignore mods inside brackets
           if (counter || IGNORE_MODS.includes(mod)) {
             currentValue += `${mod} `;
           } else {
             mods.push(mod);
+            parsedValue += `${mod} `;
           }
         } else if (bracket) {
           if (bracket === '(') {
@@ -889,10 +901,13 @@ export function parseAttr(value) {
                 const index = currentValue.lastIndexOf('(');
 
                 currentValue = `${currentValue.slice(0, index)}(calc(${currentValue.slice(index + 1)}`;
+
                 calc = counter;
                 counter++;
               }
             } else {
+              parsedValue = parsedValue.slice(0, parsedValue.length - values[values.length - 1].length - 1);
+
               let tmp = values.splice(values.length - 1, 1)[0];
 
               if (tmp) {
@@ -902,7 +917,7 @@ export function parseAttr(value) {
 
                 calc = counter;
                 counter++;
-                currentValue = `calc(${tmp} `;
+                currentValue = `calc((${tmp}) `;
               }
             }
           }
@@ -919,7 +934,7 @@ export function parseAttr(value) {
 
               currentValue += `(${unitVal} * ${CUSTOM_UNITS[unitMetric]}) `;
             }
-          } else if (!unitMetric && !counter) {
+          } else if (insertRem && !unitMetric && !counter) {
             currentValue += `${unit}rem `;
           } else {
             currentValue += `${unit} `;
@@ -937,20 +952,44 @@ export function parseAttr(value) {
         }
 
         if (currentValue && !counter) {
-          values.push(currentValue.trim());
+          let prepared = prepareParsedValue(currentValue);
+
+          if (prepared.startsWith('color(')) {
+            prepared = prepared.slice(6, -1);
+
+            color = parseColor(prepared).color;
+          } else {
+            values.push(prepared);
+            parsedValue += `${prepared} `;
+          }
+
           currentValue = '';
         }
       },
     );
 
     if (counter) {
-      values.push(`${currentValue.trim()}${')'.repeat(counter)}`);
+      let prepared = prepareParsedValue(`${currentValue.trim()}${')'.repeat(counter)}`);
+
+      if (prepared.startsWith('color(')) {
+        prepared = prepared.slice(6, -1);
+
+        color = parseColor(prepared).color;
+      } else {
+        values.push(prepared);
+        parsedValue += prepared;
+      }
     }
 
-    ATTR_CACHE.set(value, { values, mods });
+    CACHE.set(value, {
+      values,
+      mods,
+      value: parsedValue.trim(),
+      color,
+    });
   }
 
-  return ATTR_CACHE.get(value);
+  return CACHE.get(value);
 }
 
 export function filterMods(mods, allowedMods) {
@@ -1067,3 +1106,86 @@ export function getIntFromAttr(value, defaultValue = 0) {
 
   return num;
 }
+
+export function setAttrs(el, attrs) {
+  Object.entries(attrs).forEach(([name, value]) => {
+    if (value != null) {
+      el.setAttribute(name, value);
+    } else {
+      el.removeAttribute(name);
+    }
+  });
+}
+
+const COLOR_NAME_LIST = [
+  'text',
+  'bg',
+  'border',
+  'hover',
+  'focus',
+  'subtle',
+  'text-soft',
+  'text-strong',
+  'special',
+  'special-text',
+  'special-bg',
+  'input',
+  'diff', // additional
+  'local', // additional
+];
+
+export function parseColor(val) {
+  val = val.trim();
+
+  if (!val) return {};
+
+  const { values, mods } = parseAttr(val);
+
+  let name, opacity, color;
+
+  values.forEach(token => {
+    if (token.match(/^((var|rgb|rgba|hsl|hsla)\(|#[0-9a-f]{3,6})/)) {
+      color = token;
+    } else if (token.endsWith('%')) {
+      opacity = parseInt(token);
+    }
+  });
+
+  mods.forEach(mod => {
+    if (COLOR_NAME_LIST.includes(mod)) {
+      name = mod;
+    } else if (mod === 'transparent' || mod === 'clear') {
+      color = 'transparent';
+    }
+  });
+
+  if (color) {
+    return { color };
+  }
+
+  if (!name) {
+    if (devMode) {
+      warn('incorrect color value:', val);
+    }
+
+    return {};
+  }
+
+  if (!opacity) {
+    return {
+      color: `var(--nu-${name}-color)`,
+      name,
+    };
+  }
+
+  return {
+    color: `rgba(var(--nu-${name}-color-rgb), ${opacity / 100})`,
+    name,
+    opacity,
+  };
+}
+
+window.parseAttr = parseAttr;
+window.normalizeStates = normalizeAttrStates;
+window.parseColor = parseColor;
+window.splitStates = splitStates;

@@ -1,4 +1,3 @@
-import focusable from '../mixins/focusable';
 import NuActiveElement from './activeelement';
 
 export default class NuLink extends NuActiveElement {
@@ -22,6 +21,7 @@ export default class NuLink extends NuActiveElement {
       cursor: 'pointer',
       radius: '.5x',
       transition: 'box-shadow',
+      focusable: 'y',
     };
   }
 
@@ -44,8 +44,6 @@ export default class NuLink extends NuActiveElement {
         left: calc(-.5 * var(--nu-indent));
         border-radius: var(--nu-border-radius);
       }
-
-      ${focusable(tag)}
     `;
   }
 }

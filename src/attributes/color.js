@@ -1,9 +1,7 @@
-import { colorUnit } from '../helpers';
+import { parseColor } from '../helpers';
 
-const baseColorUnit = colorUnit('color', 'text');
+const BASE_COLOR = 'var(--nu-text-color)';
 
 export default function colorAttr(val) {
-  if (val == null) return;
-
-  return baseColorUnit(val);
+  return { color: val ? parseColor(val).color : BASE_COLOR };
 }

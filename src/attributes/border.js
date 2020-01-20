@@ -1,4 +1,8 @@
-import { excludeMod, convertUnit } from '../helpers';
+/**
+ * @TODO Add flexible color support | Use parseAttr() method to parse value.
+ */
+
+import { stripCalc, parseAttr } from '../helpers';
 
 export const DEFAULT_STROKE_SHADOW = '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)';
 
@@ -43,39 +47,27 @@ export default function borderAttr(val) {
 
   let style = 'solid';
   let dirs = [];
-  let color = 'var(--nu-border-color)';
 
-  const newVal = excludeMod(val, 'special');
+  let { values, mods, color } = parseAttr(val);
 
-  if (newVal != null) {
-    val = newVal;
-    color = 'var(--nu-special-color)';
-  }
+  color = color || 'var(--nu-local-border-color, var(--nu-border-color))';
 
   for (let s of BORDER_STYLES) {
-    const newVal = excludeMod(val, s);
-
-    if (newVal != null) {
-      val = newVal;
+    if (mods.includes(s)) {
       style = s;
     }
   }
 
   for (let s of DIRECTIONS) {
-    const newVal = excludeMod(val, s);
-
-    if (newVal != null) {
-      val = newVal;
+    if (mods.includes(s)) {
       dirs.push(s);
     }
   }
 
-  val = val
-    ? convertUnit(val)
-    : 'var(--nu-border-width)';
+  let size = values[0] || 'var(--nu-border-width)';
 
   if (style === 'center') {
-    val = `calc(${val} / 2)`;
+    size = `calc((${stripCalc(size)}) / 2)`;
   }
 
   if (style === 'hidden') {
@@ -89,19 +81,19 @@ export default function borderAttr(val) {
         '--nu-local-stroke-shadow': dirs.map(dir => {
           let pos = DIRECTIONS_HANDLERS[dir];
 
-          return `${style !== 'inside' ? pos(val, true) : '0 0'} 0 ${dirs.length ? 0 : val} ${color},
-                  inset ${style !== 'outside' ? pos(val) : '0 0'} 0 ${dirs.length ? 0 : val} ${color}`;
+          return `${style !== 'inside' ? pos(size, true) : '0 0'} 0 ${dirs.length ? 0 : size} ${color},
+                  inset ${style !== 'outside' ? pos(size) : '0 0'} 0 ${dirs.length ? 0 : size} ${color}`;
         }).join(','),
       };
     }
 
     return {
-      '--nu-local-stroke-shadow': `0 0 0 ${style !== 'inside' ? val : 0} ${color},
-            inset 0 0 0 ${style !== 'outside' ? val : 0} ${color}`,
+      '--nu-local-stroke-shadow': `0 0 0 ${style !== 'inside' ? size : 0} ${color},
+            inset 0 0 0 ${style !== 'outside' ? size : 0} ${color}`,
     };
   }
 
-  const border = `${val} ${style} ${color}`;
+  const border = `${size} ${style} ${color}`;
 
   if (dirs.length) {
     return dirs.reduce((styles, dir) => {
@@ -115,3 +107,5 @@ export default function borderAttr(val) {
 
   return { border, '--nu-local-stroke-shadow': DEFAULT_STROKE_SHADOW };
 }
+
+window.borderAttr = borderAttr;

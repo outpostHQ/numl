@@ -1,30 +1,59 @@
-import { colorUnit } from '../helpers';
+import { parseColor } from '../helpers';
 
-const backgroundUnit = colorUnit('--nu-local-bg-color', 'bg');
+const BG_STYLE = 'background-color';
+const LOCAL_PROP = '--nu-local-bg-color';
+const LOCAL_VALUE = `var(${LOCAL_PROP}, var(--nu-bg-color))`;
+const DIFF_PROP = '--nu-diff-color';
+const INTENSITY_PROP = '--nu-local-intensity';
+const BORDER_PROP = '--nu-local-border-color';
+const INTENSITY_VALUE = 'var(--nu-intensity)';
+const SPECIAL_INTENSITY_VALUE = 'var(--nu-special-intensity)';
+const BORDER_VALUE = 'var(--nu-border-color)';
+const SPECIAL_BORDER_VALUE = 'var(--nu-special-text-color)';
+const BG_VALUE = 'var(--nu-bg-color)';
+const SUBTLE_VALUE = 'var(--nu-subtle-color)';
 
 export default function fillAttr(val) {
-  if (val === 'bg' || val === 'subtle') {
-    let color = backgroundUnit(val, true);
-    let otherColor;
+  let { color, name } = parseColor(val);
 
-    if (val === 'bg') {
-      otherColor = 'var(--nu-subtle-color)';
-    } else {
-      otherColor = 'var(--nu-bg-color)';
-    }
-
+  if (!val || !color || name === 'local') {
     return [{
-      $suffix: '>*',
-      '--nu-diff-color': otherColor,
-      '--nu-other-diff-color': color,
-    }, {
-      '--nu-local-bg-color': color,
-      'background-color': 'var(--nu-local-bg-color)',
+      [BG_STYLE]: LOCAL_VALUE,
     }];
   }
 
-  return [{
-    ...backgroundUnit(val),
-    'background-color': 'var(--nu-local-bg-color)',
+  if (name === 'bg' || name === 'subtle') {
+    let otherColor;
+
+    if (name === 'bg') {
+      otherColor = SUBTLE_VALUE;
+    } else {
+      otherColor = BG_VALUE;
+    }
+
+    return [{
+      $suffix: '>:not([fill]):not([nu-popup])',
+      [DIFF_PROP]: otherColor,
+      [BORDER_PROP]: BORDER_VALUE,
+    }, {
+      [INTENSITY_PROP]: INTENSITY_VALUE,
+      [LOCAL_PROP]: color,
+      [BG_STYLE]: LOCAL_VALUE,
+    }];
+  }
+
+  const styles = [{
+    [LOCAL_PROP]: color,
+    [BG_STYLE]: LOCAL_VALUE,
   }];
+
+  if (name === 'special-bg') {
+    styles[0][INTENSITY_PROP] = SPECIAL_INTENSITY_VALUE;
+    styles.push({
+      $suffix: '>:not([fill]):not([nu-popup])',
+      [BORDER_PROP]: SPECIAL_BORDER_VALUE,
+    });
+  }
+
+  return styles;
 }

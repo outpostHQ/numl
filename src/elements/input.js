@@ -2,7 +2,6 @@ import {
   unit,
 } from '../helpers';
 import NuBlock from './block';
-import focusable from '../mixins/focusable';
 
 export default class NuInput extends NuBlock {
   static get nuTag() {
@@ -33,6 +32,7 @@ export default class NuInput extends NuBlock {
       text: 'center',
       fill: 'input',
       border: '1b',
+      focusable: 'force',
     };
   }
 
@@ -85,8 +85,6 @@ export default class NuInput extends NuBlock {
       ${tag} nu-icon:not([width]) {
         width: calc(var(--nu-local-padding) * 2 + 1em);
       }
-
-      ${focusable(tag, { force: true })}
     `;
   }
 

@@ -11,28 +11,15 @@ export default class NuGridTable extends NuGrid {
     return 'nu-gridtable';
   }
 
+  static get nuRole() {
+    return 'table';
+  }
+
   static get nuAttrs() {
     return {
-      padding: unit('padding', {
-        suffix: '>*:not([padding]):not(nu-line)',
+      padding: unit('--nu-cell-padding', {
         convert: true,
       }),
-      theme(val) {
-        const styles = themeAttr(val);
-
-        return styles.map(map => {
-          map.$suffix = `${STYLE_THEME_SUFFIX}${map.$suffix || ''}`;
-
-          return map;
-        });
-      },
-      fill(val) {
-        const map = fillAttr(val);
-
-        map.$suffix = STYLE_FILL_SUFFIX;
-
-        return map;
-      },
     };
   }
 
@@ -41,29 +28,12 @@ export default class NuGridTable extends NuGrid {
       gap: '1b',
       color: '',
       overflow: 'auto',
+      fill: 'border',
+      padding: '1x',
     };
-  }
-
-  static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
-        background-color: var(--nu-border-color);
-      }
-      ${tag} > :not([fill]) {
-        background-color: var(--nu-main-bg-color);
-      }
-      ${tag}:not([padding]) > *:not([padding]):not(nu-line) {
-        padding: var(--nu-indent);
-      }
-      ${tag} > *:not([place]) {
-        position: relative;
-      }
-    `;
   }
 
   nuConnected() {
     super.nuConnected();
   }
 }
-

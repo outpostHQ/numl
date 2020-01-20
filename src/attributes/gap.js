@@ -10,7 +10,7 @@ const BASE = 'var(--nu-indent)';
 export default function gapAttr(val) {
   if (val == null) return;
 
-  const { values } = parseAttr(val);
+  const { values } = parseAttr(val, true);
 
   const vGap = values[0] || BASE;
   const hGap = values[1] || vGap;

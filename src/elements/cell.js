@@ -1,7 +1,4 @@
 import NuElement from './element';
-import { unit } from '../helpers';
-
-const borderAttr = NuElement.nuAttrs.border;
 
 export default class NuCell extends NuElement {
   static get nuTag() {
@@ -16,29 +13,21 @@ export default class NuCell extends NuElement {
     return 'cell';
   }
 
-  static get nuAttrs() {
+  static get nuDefaults() {
     return {
-      radius: unit('border-radius', {
-        empty: '--nu-border-radius',
-        convert: true,
-      }),
-      border(val) {
-        if (val == null) return;
-
-        if (!val) {
-          return { border: 'var(--nu-border-width)'};
-        }
-
-        return borderAttr(val);
-      },
+      display: 'block ^:role-row[table-cell]',
+      padding: '--nu-cell-padding',
+      text: 'middle',
+      fill: 'bg ^:role-row[]',
     };
   }
 
-  static get nuDefaults() {
-    return {
-      display: 'table-cell',
-      padding: '--nu-cell-padding',
-      text: 'middle',
-    };
+  static nuCSS({ tag, css}) {
+    return `
+      ${css}
+      ${tag} {
+        position: relative;
+      }
+    `;
   }
 }

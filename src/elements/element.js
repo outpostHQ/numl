@@ -33,6 +33,10 @@ import scaleAttr from '../attributes/scale';
 import rotateAttr from '../attributes/rotate';
 import moveAttr from '../attributes/move';
 import showAttr from '../attributes/show';
+import fadeAttr from '../attributes/fade';
+import toggleAttr from '../attributes/toggle';
+import focusableAttr from '../attributes/focusable';
+import hoverableAttr from '../attributes/hoverable';
 
 /**
  * @class
@@ -113,6 +117,10 @@ export default class NuElement extends NuBase {
       scrollbar: scrollbarAttr,
       before: beforeAttr,
       after: afterAttr,
+      toggle: toggleAttr,
+      focusable: focusableAttr,
+      hoverable: hoverableAttr,
+      // fade: fadeAttr,
       controls: '',
       label: '',
       level: '',

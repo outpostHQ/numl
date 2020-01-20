@@ -6,7 +6,6 @@ export default function rotateAttr(val) {
   const { values } = parseAttr(val);
 
   return {
-    $suffix: ':not([transform]):not([scale]):not([move])',
-    '--nu-transform': `rotate(${values.join(', ')})`,
+    '--nu-transform-rotate': `rotate(${values.join(', ')})`,
   };
 }

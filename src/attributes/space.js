@@ -15,7 +15,7 @@ function prepareValue(value) {
 export default function spaceAttr(val) {
   if (!val) return;
 
-  let { values, mods } = parseAttr(val);
+  let { values, mods } = parseAttr(val, true);
 
   mods = filterMods(mods, DIRECTIONS);
 

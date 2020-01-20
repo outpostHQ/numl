@@ -52,7 +52,7 @@ export default class NuLine extends NuBlock {
         position: relative;
         line-height: 0;
         background-color: currentColor !important;
-        color: var(--nu-border-color);
+        color: var(--nu-local-border-color, var(--nu-border-color));
       }
 
       ${tag}[special]:not([color]) {

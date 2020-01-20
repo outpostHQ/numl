@@ -199,6 +199,8 @@ Run `npm run play` to view test page with few examples.
     * **[nu-tab](./docs/elements/nu-tab.md)**
     * **[nu-btngroup](./docs/elements/nu-btngroup.md)**
 * Automatic **calc** insertion.
+* New **color()** function for some style attributes.
+* Custom states for **nu-** modifiers and **role** attribute.
 
 #### Breaking changes
 * Built-in custom units changes: 
@@ -219,12 +221,23 @@ Run `npm run play` to view test page with few examples.
 * **[rotate](./docs/attributes/rotate.md)** - to rotate element.
 * **[move](./docs/attributes/move.md)** - to move element (via `transform:translate(...)`).
 * **[show](./docs/attributes/show.md)** - to conditionally show elements. Hide them by default.
+* **[hoverable](./docs/attributes/hoverable.md)** - to activate hover effect on background for active elements.
+* **[focusable](./docs/attributes/focusable.md)** - to activate focus effect on active elements. 
+* **[toggle](./docs/attributes/toggle.md)** - to activate toggle effect on active elements.
 
 #### Minor and internal changes
 * **[hide](./docs/attributes/hide.md)** attribute is no longer hide element if no value provided.
 * **[nu-checkbox](./docs/elements/nu-checkbox.md)** - style fixes.
 * **[nu-mark](./docs/elements/nu-mark.md)** – minor style fixes and **[theme]** support.
-* **inline** attribute is no longer required for accurate positioning of inline elements like **[nu-icon](./docs/elements/nu-icon.md)**.  
+* **inline** attribute is no longer required for accurate positioning of inline elements like **[nu-icon](./docs/elements/nu-icon.md)**.
+* Tables style rework.
+* Active elements style rework.
+* Migrate element styles to NUDE attribute definitions.
+* Migrate attribute implementations to parseAttr() method.
+* New color parsing implementation.
+  
+#### Bug fixes
+* Fix **special-text-color** for swap theme variant in high contrast mode.
 
 [Full issues list](https://github.com/tenphi/nude/milestone/3?closed=1)
 
