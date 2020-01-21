@@ -22,6 +22,6 @@ export default function scaleAttr(val) {
   value = value.split(/\s+/g).join(', ');
 
   return {
-    '--nu-transform-scale': `scale(${val})`,
+    '--nu-transform-scale': `scale(${value})`,
   };
 }

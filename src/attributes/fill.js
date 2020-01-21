@@ -18,7 +18,11 @@ export default function fillAttr(val) {
 
   if (!val || !color || name === 'local') {
     return [{
+      $suffix: ':not([theme])',
       [BG_STYLE]: LOCAL_VALUE,
+    }, {
+      $suffix: '[theme]',
+      [BG_STYLE]: BG_VALUE,
     }];
   }
 

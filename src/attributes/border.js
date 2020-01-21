@@ -107,5 +107,3 @@ export default function borderAttr(val) {
 
   return { border, '--nu-local-stroke-shadow': DEFAULT_STROKE_SHADOW };
 }
-
-window.borderAttr = borderAttr;

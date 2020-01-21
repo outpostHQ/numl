@@ -2,13 +2,14 @@ import NuActiveElement from './activeelement';
 import { setAttrs } from '../helpers';
 
 const CIRCLE_ATTRS = {
-  width: '--circle-size',
-  height: '--circle-size',
+  width: 'clamp(initial, --circle-size, --circle-size)',
+  height: 'clamp(initial, --circle-size, --circle-size)',
   interactive: 'n',
   transition: 'transform, background-color',
-  move: '--circle-offset 0',
+  move: '--circle-offset',
   fill: '--circle-bg-color',
   radius: 'round',
+  overflow: 'no',
 };
 
 export default class NuSwitch extends NuActiveElement {
@@ -36,24 +37,24 @@ export default class NuSwitch extends NuActiveElement {
       display: 'inline-block',
       border: '1b',
       sizing: 'content',
-      radius: '--size / 2',
+      radius: 'round',
       focusable: 'y',
       toggle: `0
-        :active[.75em]
-        :active:pressed[.75em]`,
+        :active[.5em]
+        :active:pressed[.5em]`,
       transition: 'box-shadow, filter',
-      width: '(--size * 2) - 1x',
-      height: 'max(--size)',
+      width: '(--size * 2)',
       fill: `bg
         :pressed[special-bg]
         :pressed:disabled[text 50%]`,
       text: 'v-middle',
-      padding: '.5x',
       hoverable: 'y',
       opacity: '1',
+      padding: '--circle-indent',
 
-      '--size': '2em',
-      '--circle-size': '--size - 1x',
+      '--size': '1em + --circle-indent',
+      '--circle-indent': '.125em + 1b',
+      '--circle-size': '--size',
       '--circle-offset': `0
         :pressed[--size]`,
       '--circle-bg-color': `--special-bg-color

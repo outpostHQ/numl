@@ -207,7 +207,8 @@ Run `npm run play` to view test page with few examples.
 	* **br** -> **r**
 	* **bw** -> **b**
 	* **x** is equal **var(--nu-indent)** now
-* Remove custom properties declarations from **[nu-theme](./docs/elements/nu-theme.md)** decorator! Use brand new **[nu-props](./docs/elements/nu-props.md)** decorator
+* Remove custom properties declarations from **[nu-theme](./docs/elements/nu-theme.md)** decorator! Use brand new **[nu-props](./docs/elements/nu-props.md)** decorator.
+* Theme type **toned** renamed to **tone**.
 
 #### New elements
 * **[nu-props](./docs/elements/nu-props.md)** - new decorator to declare custom properties.
@@ -235,7 +236,7 @@ Run `npm run play` to view test page with few examples.
 * Migrate element styles to NUDE attribute definitions.
 * Migrate attribute implementations to parseAttr() method.
 * New color parsing implementation.
-  
+
 #### Bug fixes
 * Fix **special-text-color** for swap theme variant in high contrast mode.
 

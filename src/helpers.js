@@ -1005,6 +1005,8 @@ export function parseAttrStates(val) {
   let stateIndex = 0;
   let maxState = 0;
 
+  val = val.replace(/\|/g, '| '); // space to make regexp work correctly for values: "1|:pressed[3]"
+
   val.replace(STATE_REGEXP, (s, delimiter, s2, s3, state, close, value) => {
     if (!states[currentState]) {
       states[currentState] = [];
@@ -1019,9 +1021,13 @@ export function parseAttrStates(val) {
 
       stateIndex = outsideIndex;
     } else if (close) {
+      if (!states[currentState][currentState ? stateIndex : outsideIndex]) {
+        states[currentState][currentState ? stateIndex : outsideIndex] = '';
+      }
+
       currentState = '';
     } else if (value) {
-      states[currentState][currentState ? stateIndex : outsideIndex] = value;
+      states[currentState][currentState ? stateIndex : outsideIndex] = value.trim();
     } else if (delimiter) {
       if (currentState) {
         // fill empty values
@@ -1133,6 +1139,7 @@ const COLOR_NAME_LIST = [
   'diff', // additional
   'local', // additional
 ];
+const COLOR_NAME_REGEXP = COLOR_NAME_LIST.map(name => new RegExp(`(^|-)${name}$`));
 
 export function parseColor(val) {
   val = val.trim();
@@ -1152,7 +1159,7 @@ export function parseColor(val) {
   });
 
   mods.forEach(mod => {
-    if (COLOR_NAME_LIST.includes(mod)) {
+    if (COLOR_NAME_REGEXP.find(regexp => mod.match(regexp))) {
       name = mod;
     } else if (mod === 'transparent' || mod === 'clear') {
       color = 'transparent';
@@ -1184,8 +1191,3 @@ export function parseColor(val) {
     opacity,
   };
 }
-
-window.parseAttr = parseAttr;
-window.normalizeStates = normalizeAttrStates;
-window.parseColor = parseColor;
-window.splitStates = splitStates;

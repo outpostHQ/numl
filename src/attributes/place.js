@@ -1,4 +1,4 @@
-import { devMode } from '../helpers';
+import { devMode, parseAttr } from '../helpers';
 
 export const PLACE_VALUES = [
   'content', 'items', 'self'
@@ -81,7 +81,7 @@ export default function placeAttr(val) {
 
   if (mods.includes('fill')) {
     if (devMode && mods.length > 1) {
-      warn('[place]: fill modifier can\'t be combined with others', val);
+      warn('[place] fill modifier can\'t be combined with others', val);
     }
 
     // copy FILL_STYLES

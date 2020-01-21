@@ -1,6 +1,6 @@
 import NuDecorator from './decorator';
-import { declareTheme, removeTheme } from '../themes';
-import { convertUnit, error, warn } from '../helpers';
+import { declareTheme, removeTheme, ALL_THEME_MODS } from '../themes';
+import { convertUnit, devMode, error, warn } from '../helpers';
 import { getOptimalSaturation, strToHsl } from '../color';
 
 const ATTRS_LIST = [
@@ -10,6 +10,23 @@ const ATTRS_LIST = [
   'pastel',
   'from',
   'mod',
+];
+
+const NAME_STOP_LIST = [
+  'text',
+  'bg',
+  'border',
+  'hover',
+  'focus',
+  'subtle',
+  'text',
+  'special',
+  'input',
+  'diff',
+  'local',
+  'tint',
+  'tone',
+  'swap',
 ];
 
 /**
@@ -61,9 +78,16 @@ export default class NuTheme extends NuDecorator {
       return map;
     }, {});
 
-    let { name = 'main', hue, saturation, pastel, from, mod, ...props } = attrs;
+    let { name = 'main', hue, saturation, pastel, from, mod } = attrs;
 
     pastel = !!pastel;
+    name = name.trim();
+
+    if (NAME_STOP_LIST.includes(name)) {
+      warn('[nu-theme] reserved name used:', JSON.stringify(name));
+
+      return;
+    }
 
     if (from) {
       const color = strToHsl(from);
@@ -81,7 +105,30 @@ export default class NuTheme extends NuDecorator {
       saturation = saturation == null || saturation === 'auto' ? (pastel ? 100 : getOptimalSaturation(hue)) : Number(saturation);
     }
 
+    if (hue > 359 || hue < 0) {
+      warn('[nu-theme] hue is out of range [0..359]:', JSON.stringify(hue));
+
+      return;
+    }
+
+    if (saturation > 100 || saturation < 0) {
+      warn('[nu-theme] saturation is out of range [0..100]:', JSON.stringify(saturation));
+
+      return;
+    }
+
     const defaultMods = mod || '';
+
+    // check modifiers
+    if (devMode) {
+      const mods = defaultMods.split(/\s+/g);
+
+      mods.forEach(md => {
+        if (md && !ALL_THEME_MODS.includes(md)) {
+          warn('[nu-theme] unsupported modifier:', JSON.stringify(md));
+        }
+      });
+    }
 
     this.nuName = name;
     this.nuHue = hue;
