@@ -201,6 +201,8 @@ Run `npm run play` to view test page with few examples.
 * Automatic **calc** insertion.
 * New **color()** function for some style attributes.
 * Custom states for **nu-** modifiers and **role** attribute.
+* Add **Mixin System**.
+* **nu-tablist** now supports direction change.
 
 #### Breaking changes
 * Built-in custom units changes: 
@@ -209,6 +211,7 @@ Run `npm run play` to view test page with few examples.
 	* **x** is equal **var(--nu-indent)** now
 * Remove custom properties declarations from **[nu-theme](./docs/elements/nu-theme.md)** decorator! Use brand new **[nu-props](./docs/elements/nu-props.md)** decorator.
 * Theme type **toned** renamed to **tone**.
+* **nu-triangle**: **[set]** renamed to **[direction]**.
 
 #### New elements
 * **[nu-props](./docs/elements/nu-props.md)** - new decorator to declare custom properties.
@@ -227,6 +230,7 @@ Run `npm run play` to view test page with few examples.
 * **[toggle](./docs/attributes/toggle.md)** - to activate toggle effect on active elements.
 
 #### Minor and internal changes
+* Refactoring for table elements.
 * **[hide](./docs/attributes/hide.md)** attribute is no longer hide element if no value provided.
 * **[nu-checkbox](./docs/elements/nu-checkbox.md)** - style fixes.
 * **[nu-mark](./docs/elements/nu-mark.md)** – minor style fixes and **[theme]** support.
@@ -236,6 +240,7 @@ Run `npm run play` to view test page with few examples.
 * Migrate element styles to NUDE attribute definitions.
 * Migrate attribute implementations to parseAttr() method.
 * New color parsing implementation.
+* Add ability to set context values before element is connected.
 
 #### Bug fixes
 * Fix **special-text-color** for swap theme variant in high contrast mode.
