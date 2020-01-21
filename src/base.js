@@ -440,6 +440,12 @@ export default class NuBase extends HTMLElement {
       applyTheme(this, BASE_THEME, 'main');
     }
 
+    if (this.nuContextTemp) {
+      Object.assign(this.nuContext, this.nuContextTemp);
+
+      delete this.nuContextTemp;
+    }
+
     if (!this.id) {
       const nuId = this.constructor.nuId;
 
@@ -980,31 +986,31 @@ export default class NuBase extends HTMLElement {
 
   nuSetContext(name, value) {
     if (!this.nuContext) {
-      setTimeout(() => {
-        if (!this.parentNode) return;
+      if (!this.nuContextTemp) {
+        this.nuContextTemp = {};
+      }
 
-        this.nuSetContext(name, value);
-      });
+      this.nuContextTemp[name] = value;
 
       return;
-    }
-
-    if (value == null) {
-      delete this.nuContext[name];
-    } else if (this.nuContext[name] !== value) {
-      this.nuContext[name] = value;
     } else {
-      return;
+      if (value == null) {
+        delete this.nuContext[name];
+      } else if (this.nuContext[name] !== value) {
+        this.nuContext[name] = value;
+      } else {
+        return;
+      }
+
+      const elements = this.querySelectorAll('[nu]');
+
+      elements.forEach(el => el.nuContextChanged(name));
     }
 
     log('context changed', {
       el: this,
       name, value,
     });
-
-    const elements = this.querySelectorAll('[nu]');
-
-    elements.forEach(el => el.nuContextChanged(name));
   }
 
   nuSetContextHook(name, hook) {
