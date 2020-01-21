@@ -19,11 +19,11 @@ export default class NuTab extends NuActiveElement {
       gap: '1x',
       items: 'center',
       border: `0
-        :hover[1b bottom inside color(special)]
+        :focusable:hover[1b bottom inside color(special)]
         :pressed[3b bottom inside color(special)]
         :hover:pressed[3b bottom inside color(special)]
-        :active:pressed[3b bottom inside color(special)]
-        :active:hover[2b bottom inside color(special)]`,
+        :focusable:active[2b bottom inside color(special)]
+        :focusable:active:hover[2b bottom inside color(special)]`,
       hoverable: null,
     };
   }

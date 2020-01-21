@@ -49,7 +49,6 @@ export default class NuSwitch extends NuActiveElement {
         :pressed:disabled[text 50%]`,
       text: 'v-middle',
       hoverable: 'y',
-      opacity: '1',
       padding: '--circle-indent',
 
       '--size': '1em + --circle-indent',
@@ -58,7 +57,7 @@ export default class NuSwitch extends NuActiveElement {
       '--circle-offset': `0
         :pressed[--size]`,
       '--circle-bg-color': `--special-bg-color
-        :disabled[rgba(--nu-text-color-rgb, .66)]
+        :disabled[rgba(--text-color-rgb, .66)]
         :pressed[--special-text-color]
         :pressed:disabled[--special-text-color]`,
     };

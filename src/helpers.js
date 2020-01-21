@@ -348,65 +348,6 @@ export function openLink(href, target) {
 }
 
 /**
- * Event bindings for active elements.
- * Enable focus and active states.
- * Should be bind to the element before call.
- */
-export function bindActiveEvents() {
-  this.addEventListener('click', evt => {
-    if (evt.nuHandled) return;
-
-    evt.nuHandled = true;
-
-    if (!this.hasAttribute('disabled')) {
-      this.nuTap(evt);
-    }
-  });
-
-  this.addEventListener('keydown', evt => {
-    if (this.hasAttribute('disabled') || evt.nuHandled) return;
-
-    evt.nuHandled = true;
-
-    if (evt.key === 'Enter') {
-      this.nuTap(evt);
-    } else if (evt.key === ' ') {
-      evt.preventDefault();
-
-      if (!this.hasAttribute('disabled')) {
-        this.nuSetMod('active', true);
-      }
-    }
-  });
-
-  this.addEventListener('keyup', evt => {
-    if (this.hasAttribute('disabled') || evt.nuHandled) return;
-
-    evt.nuHandled = true;
-
-    if (evt.key === ' ') {
-      evt.preventDefault();
-      this.nuSetMod('active', false);
-      this.nuTap(evt);
-    }
-  });
-
-  this.addEventListener('blur', evt => this.nuSetMod('active', false));
-
-  this.addEventListener('mousedown', () => {
-    if (!this.hasAttribute('disabled')) {
-      this.nuSetMod('active', true);
-    }
-  });
-
-  ['mouseleave', 'mouseup'].forEach(eventName => {
-    this.addEventListener(eventName, () => {
-      this.nuSetMod('active', false);
-    });
-  });
-}
-
-/**
  * Kebab to camel case conversion.
  * @param {String} str
  * @returns {String}
@@ -432,7 +373,6 @@ export const STATES_MAP = {
   hover: ':hover',
   themed: '[theme]',
   special: '[special]',
-  focusable: '[tabindex]:not([tabindex="-1"])',
   disabled: '[disabled]',
   even: ':nth-child(even)',
   odd: ':nth-child(odd)',
@@ -532,7 +472,7 @@ export function splitStates(attrValue) {
 
   let baseValue = baseMap.value;
 
-  const otherValues = stateMaps.filter(map => map !== baseMap).map(map => map.value);
+  // const otherValues = stateMaps.filter(map => map !== baseMap).map(map => map.value);
 
   // Guess another base value | Probably the bad idea
   // if (otherValues.every(val => val === otherValues[0])) {
@@ -552,6 +492,9 @@ export function splitStates(attrValue) {
 
       map1.notStates.push(...diffStates1);
       map2.notStates.push(...diffStates2);
+
+      map1.notStates = Array.from(new Set(map1.notStates));
+      map2.notStates = Array.from(new Set(map2.notStates));
     }
   }
 
@@ -562,7 +505,7 @@ export function splitStates(attrValue) {
 
   const allStates = Array.from(allStatesSet);
 
-  const allCombinations = getCombinations(allStates);
+  const allCombinations = getCombinations(allStates).concat([]);
 
   allCombinations.forEach(states => {
     const notStates = allStates.filter(state => !states.includes(state));

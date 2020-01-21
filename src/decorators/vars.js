@@ -35,20 +35,14 @@ export default class NuVars extends NuDecorator {
 
     if (this.nuVars) {
       Object.keys(this.nuVars).forEach((varName) => {
-        delete parent.nuContext[`var:${varName}`];
+        parent.nuRemoveVar(varName);
       });
     }
 
     this.nuVars = vars;
 
     Object.entries(vars).forEach(([varName, varValue]) => {
-      parent.nuContext[`var:${varName}`] = {
-        context: parent,
-        decorator: this,
-        value: varValue,
-      };
-
-      log('apply variable', { context: parent, name: varName, value: varValue });
+      parent.nuSetVar(varName, varValue, this);
     });
 
     parent.nuVerifyChildren(true);

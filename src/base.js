@@ -44,6 +44,7 @@ import combine from './combinators/index';
 export const COMBINATORS = ['transform', 'shadow'];
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
+export const MIXINS_MAP = {};
 
 export function getAllAttrs() {
   return Object.keys(ATTRS_MAP).reduce((arr, tag) => {
@@ -218,6 +219,20 @@ export default class NuBase extends HTMLElement {
     );
   }
 
+  static get nuMixins() {
+    return [];
+  }
+
+  static get nuAllMixins() {
+    return (
+      MIXINS_MAP[this.nuTag] ||
+      (MIXINS_MAP[this.nuTag] = Array.from(new Set([
+        ...(this.nuParent && this.nuParent.nuAllMixins || []),
+        ...(this.nuMixins || []),
+      ])))
+    );
+  }
+
   static get nuCombinators() {
     return COMBINATORS;
   }
@@ -325,6 +340,8 @@ export default class NuBase extends HTMLElement {
    * @param {Boolean} force - Reapply CSS.
    */
   attributeChangedCallback(name, oldValue, value, force) {
+    const origValue = value;
+
     // ignore attribute to declare custom properties
     if (devMode && name === 'prop' && this.hasAttribute('prop')) {
       warn('unable to use private "prop" attribute.');
@@ -384,6 +401,10 @@ export default class NuBase extends HTMLElement {
     this.nuAttrValues[name] = value;
 
     if (devMode) {
+      if (value !== origValue || isVariableAttr(value) || isResponsiveAttr(value)) {
+        this.setAttribute(`nu-mirror-${name}`, normalizeAttrStates(value));
+      }
+
       if (this.hasAttribute('debug')) {
         this.nuDebug('attribute changed', {
           name,
@@ -795,6 +816,8 @@ export default class NuBase extends HTMLElement {
       (this.nuRef || this).removeAttribute('tabindex');
     }
 
+    this.nuSetMod('focusable', bool);
+
     if (this.nuFocusable) return;
 
     (this.nuRef || this).addEventListener('focus', () => {
@@ -836,7 +859,7 @@ export default class NuBase extends HTMLElement {
    * @param {*} value
    */
   nuChanged(name, oldValue, value) {
-
+    this.nuMixinCall('changed', [name, oldValue, value]);
   }
 
   /**
@@ -852,6 +875,8 @@ export default class NuBase extends HTMLElement {
         this.nuEnsureThemes();
       }, 0);
     }
+
+    this.nuMixinCall('connected');
   }
 
   /**
@@ -859,6 +884,17 @@ export default class NuBase extends HTMLElement {
    * Can be called more than once.
    */
   nuDisconnected() {
+    this.nuMixinCall('disconnected');
+  }
+
+  nuMixinCall(method, args = []) {
+    const mixins = this.constructor.nuAllMixins;
+
+    mixins.forEach(mixin => {
+      if (mixin[method]) {
+        mixin[method].apply(this, args);
+      }
+    });
   }
 
   nuEnsureThemes(force) {
@@ -1146,5 +1182,21 @@ export default class NuBase extends HTMLElement {
     }
 
     this.nuEmit('input', value, { bubbles: false });
+  }
+
+  nuSetVar(name, value, decorator) {
+    this.nuContext[`var:${name}`] = {
+      context: this,
+      decorator: this,
+      value: value,
+    };
+
+    log('set variable', { context: this, name, value });
+  }
+
+  nuRemoveVar(name) {
+    delete parent.nuContext[`var:${name}`];
+
+    log('remove variable', { context: this, name });
   }
 }

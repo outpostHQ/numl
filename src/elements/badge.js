@@ -22,9 +22,9 @@ export default class NuBadge extends NuElement {
       items: 'center',
       padding: '0 .5em',
       radius: 'round',
-      text: 'nowrap',
+      text: 'nowrap :special[w5 nowrap]',
       border: '1b',
-      fill: 'bg',
+      fill: 'bg :special[special-bg]',
     };
   }
 
@@ -38,15 +38,6 @@ export default class NuBadge extends NuElement {
       ${tag} {
         position: relative;
         line-height: calc(var(--nu-line-height) - 1px);
-      }
-      ${tag}[special]:not([fill]), ${tag}[special][special]:not([fill]) {
-        background-color: var(--nu-special-bg-color);
-      }
-      ${tag}[special]:not([color]), ${tag}[special][special]:not([color]) {
-        color: var(--nu-special-text-color);
-      }
-      ${tag}[special]:not([text]), ${tag}[special][special]:not([text]) {
-        font-weight: 500;
       }
     `;
   }

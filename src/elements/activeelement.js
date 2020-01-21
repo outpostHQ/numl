@@ -1,5 +1,5 @@
 import NuElement from './element';
-import { bindActiveEvents } from '../helpers';
+import ActiveMixin from '../mixins/active';
 
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
@@ -45,6 +45,10 @@ export default class NuActiveElement extends NuElement {
     };
   }
 
+  static get nuMixins() {
+    return [ActiveMixin()];
+  }
+
   static nuCSS({ tag, css }) {
     return `
       ${css}
@@ -72,8 +76,6 @@ export default class NuActiveElement extends NuElement {
     super.nuConnected();
 
     this.nuSetFocusable(!this.hasAttribute('disabled'));
-
-    bindActiveEvents.call(this);
 
     this.addEventListener('keydown', (event) => {
       if (this.getAttribute('aria-expanded') && event.key === 'Escape') {
@@ -304,7 +306,7 @@ export default class NuActiveElement extends NuElement {
     this.nuPressed = pressed;
 
     if (this.nuIsRadio()) {
-      this.setAttribute('tabindex', pressed ? '-1' : '0');
+      this.nuSetFocusable(!pressed);
     }
 
     if (this.hasAttribute('aria-expanded')) {
@@ -327,7 +329,7 @@ export default class NuActiveElement extends NuElement {
     this.nuControl();
 
     if (pressed) {
-      const radioGroup = this.nuContext.radiogroup;
+      const radioGroup = this.nuContext && this.nuContext.radiogroup;
 
       if (radioGroup) {
         radioGroup.context.nuSetValue(this.nuValue);
@@ -368,7 +370,7 @@ export default class NuActiveElement extends NuElement {
   }
 
   nuIsRadio() {
-    return ['radio'].includes(this.getAttribute('role'));
+    return ['radio', 'tab'].includes(this.getAttribute('role'));
   }
 
   nuIsSelectable() {

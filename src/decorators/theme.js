@@ -24,6 +24,7 @@ const NAME_STOP_LIST = [
   'input',
   'diff',
   'local',
+  'main',
   'tint',
   'tone',
   'swap',
@@ -78,7 +79,7 @@ export default class NuTheme extends NuDecorator {
       return map;
     }, {});
 
-    let { name = 'main', hue, saturation, pastel, from, mod } = attrs;
+    let { name = '', hue, saturation, pastel, from, mod } = attrs;
 
     pastel = !!pastel;
     name = name.trim();
@@ -88,6 +89,8 @@ export default class NuTheme extends NuDecorator {
 
       return;
     }
+
+    name = name || 'main';
 
     if (from) {
       const color = strToHsl(from);

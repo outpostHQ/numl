@@ -1,5 +1,6 @@
 import NuActiveElement from './activeelement';
 import { getIntFromAttr, numberFromString } from '../helpers';
+import OrientMixin from '../mixins/orient';
 
 const ORIENT_X_MOD = 'orient-x';
 const ORIENT_Y_MOD = 'orient-y';
@@ -30,6 +31,17 @@ export default class NuSlider extends NuActiveElement {
     };
   }
 
+  static get nuMixins() {
+    return [OrientMixin({
+      aria: true,
+      initial() {
+        return !this.hasAttribute('orient') && this.nuContext.orientation
+          ? this.nuContext.orientation
+          : this.getAttribute('orient') || 'x';
+      },
+    })]
+  }
+
   static nuCSS({ css, tag}) {
     return `
       ${css}
@@ -51,8 +63,6 @@ export default class NuSlider extends NuActiveElement {
 
   nuConnected() {
     super.nuConnected();
-
-    this.nuSetOrient();
 
     this.nuSetContextHook('orientation', this.nuSetOrient.bind(this));
     this.nuSetContextHook('sliderValue', () => {
@@ -99,20 +109,6 @@ export default class NuSlider extends NuActiveElement {
     super.nuChanged(name, oldValue, value);
 
     switch (name) {
-      case 'orient':
-        [ORIENT_X_MOD, ORIENT_Y_MOD]
-          .forEach(attr => this.nuSetMod(attr, false));
-
-        if (value === 'y') {
-          this.nuSetMod(ORIENT_Y_MOD, true);
-          this.nuSetAria('orientation', 'vertical');
-        } else {
-          this.nuSetMod(ORIENT_X_MOD, true);
-          this.nuSetAria('orientation', 'horizontal');
-        }
-
-        this.nuOrient = value === 'y' ? 'y' : '';
-        break;
       case 'min':
       case 'max':
         this.nuSetValue(this.getAttribute('value'));
@@ -156,11 +152,5 @@ export default class NuSlider extends NuActiveElement {
     const offset = (value - minValue) / (maxValue - minValue) * 100;
 
     return `${offset.toFixed(2)}%`;
-  }
-
-  nuSetOrient() {
-    this.nuChanged('orient', null, !this.hasAttribute('orient') && this.nuContext.orientation
-      ? this.nuContext.orientation
-      : this.getAttribute('orient') || 'x');
   }
 }

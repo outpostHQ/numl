@@ -1,4 +1,5 @@
 import NuElement from './element';
+import OrientMixin from '../mixins/orient';
 
 const ORIENT_X_MOD = 'orient-x';
 const ORIENT_Y_MOD = 'orient-y';
@@ -32,6 +33,10 @@ export default class NuRail extends NuElement {
     };
   }
 
+  static get nuMixins() {
+    return [OrientMixin()];
+  }
+
   static nuCSS({ css, tag }) {
     return `
       ${css}
@@ -56,8 +61,6 @@ export default class NuRail extends NuElement {
 
   nuConnected() {
     super.nuConnected();
-
-    this.nuChanged('orient', null, this.getAttribute('orient') || 'x');
 
     this.nuOnDragStart = this.nuOnDragStart.bind(this);
     this.nuOnDragging = this.nuOnDragging.bind(this);
@@ -122,26 +125,5 @@ export default class NuRail extends NuElement {
 
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
-
-    switch (name) {
-      case 'orient':
-        value = value === 'y' ? 'y' : 'x';
-
-        [ORIENT_X_MOD, ORIENT_Y_MOD]
-          .forEach(attr => this.nuSetMod(attr, false));
-
-        if (value === 'y') {
-          this.nuSetMod(ORIENT_Y_MOD, true);
-        } else {
-          this.nuSetMod(ORIENT_X_MOD, true);
-        }
-
-        this.nuSetContext('orientation', value);
-        this.nuOrient = value;
-
-        break;
-      case 'valuemin':
-      // this.nuMinValue = ;
-    }
   }
 }
