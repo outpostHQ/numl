@@ -1,5 +1,7 @@
 const ORIENT_X_MOD = 'orient-x';
 const ORIENT_Y_MOD = 'orient-y';
+export const VERTICAL = 'vertical';
+export const HORIZONTAL = 'horizontal';
 
 export default function OrientMixin({ aria, initial } = {}) {
   return {
@@ -21,12 +23,14 @@ export default function OrientMixin({ aria, initial } = {}) {
 
         this.nuSetMod(value === 'y' ? ORIENT_Y_MOD : ORIENT_X_MOD, true);
 
+        const orientation = value === 'y' ? VERTICAL : HORIZONTAL;
+
         if (aria) {
-          this.nuSetAria('orientation', value === 'y' ? 'vertical' : 'horizontal');
+          this.nuSetAria('orientation', orientation);
         }
 
-        this.nuSetContext('orientation', value);
-        this.nuOrient = value;
+        this.nuSetContext('orientation', orientation);
+        this.nuOrient = orientation;
       }
     },
   };

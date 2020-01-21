@@ -56,7 +56,7 @@ export default class NuLine extends NuBlock {
       }
 
       ${tag}[special]:not([color]) {
-        color: var(--nu-special-text-color);
+        color: var(--nu-special-color);
       }
     `;
   }

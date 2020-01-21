@@ -31,12 +31,12 @@ export default function sizeAttr(val) {
   }
 
   const fontSize = convertUnit(values[0]);
-  const lineHeight = convertUnit(values[1] || '1.5');
+  const lineHeight = values[1] ? convertUnit(values[1]) : 'inherit';
 
   return {
     'font-size': fontSize,
     'line-height': lineHeight,
     '--nu-font-size': fontSize,
-    '--nu-line-height': lineHeight,
+    '--nu-line-height': lineHeight === 'inherit' ? null : lineHeight,
   };
 }

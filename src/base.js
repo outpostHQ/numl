@@ -979,6 +979,16 @@ export default class NuBase extends HTMLElement {
   }
 
   nuSetContext(name, value) {
+    if (!this.nuContext) {
+      setTimeout(() => {
+        if (!this.parentNode) return;
+
+        this.nuSetContext(name, value);
+      });
+
+      return;
+    }
+
     if (value == null) {
       delete this.nuContext[name];
     } else if (this.nuContext[name] !== value) {

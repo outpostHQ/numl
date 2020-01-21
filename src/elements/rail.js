@@ -1,8 +1,6 @@
 import NuElement from './element';
-import OrientMixin from '../mixins/orient';
+import OrientMixin, { HORIZONTAL } from '../mixins/orient';
 
-const ORIENT_X_MOD = 'orient-x';
-const ORIENT_Y_MOD = 'orient-y';
 const EVENT_MAP = {
   'mousemove': 'nuOnDragging',
   'touchmove': 'nuOnDragging',
@@ -110,7 +108,7 @@ export default class NuRail extends NuElement {
 
     let value;
 
-    if (this.nuOrient === 'x') {
+    if (this.nuOrient === HORIZONTAL) {
       const pageX = (evt.pageX || (evt.touches && evt.touches.length && evt.touches[0].pageX)) - window.scrollX;
       value = Math.max(0, Math.min(1,
         (pageX - rect.x) / (rect.width)));

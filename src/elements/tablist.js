@@ -1,4 +1,5 @@
 import NuRadioGroup from './radiogroup';
+import DirectionMixin from '../mixins/direction';
 
 export default class NuTablist extends NuRadioGroup {
   static get nuTag() {
@@ -15,11 +16,17 @@ export default class NuTablist extends NuRadioGroup {
 
   static get nuDefaults() {
     return {
-      gap: 1,
+      gap: '2x :orient-y[1x]',
+      flow: `row
+        :orient-y[column]`,
     };
   }
 
   static get nuItemRole() {
     return 'tab';
+  }
+
+  static get nuMixins() {
+    return [DirectionMixin({ aria: true })];
   }
 }

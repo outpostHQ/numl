@@ -1,5 +1,6 @@
 import NuElement from './element';
 import { convertUnit } from '../helpers';
+import DirectionMixin from '../mixins/direction';
 
 const UP = 'up';
 const DOWN = 'down';
@@ -27,55 +28,42 @@ export default class NuTriangle extends NuElement {
     return 'nu-triangle';
   }
 
-  static get nuAttrs() {
-    return {
-      set(val) {
-        val = val || 'up';
-
-        const zeroSide = DIR_MAP_ZERO[val];
-
-        if (!zeroSide) return;
-
-        const mainSide = DIR_MAP[val];
-
-        return {
-          border: 'calc(var(--nu-triangle-basis) / 2) solid transparent',
-          [`border-${zeroSide}`]: '0',
-          [`border-${mainSide}-color`]: 'currentColor',
-          [`border-${mainSide}-width`]: 'var(--nu-triangle-height)',
-        };
-      },
-      size(val) {
-        if (!val) return;
-
-        const tmp = val.split(/\s+/);
-
-        return {
-          '--nu-triangle-basis': convertUnit(tmp[1] || String(tmp[0] * 2)),
-          '--nu-triangle-height': convertUnit(tmp[0]),
-        };
-      },
-    };
-  }
-
   static get nuDefaults() {
     return {
       display: 'block',
       dir: 'up',
-      size: '.5em 1em',
       color: 'border',
       overflow: 'no',
-      text: 'middle',
+      text: 'v-middle',
       height: '0',
       width: '0',
+      border: '(1fs / 2) color(clear)',
+      rotate: `0
+        :dir-right[90deg]
+        :dir-bottom[180deg]
+        :dir-left[270deg]`,
     };
+  }
+
+  static get nuMixins() {
+    return [DirectionMixin()];
   }
 
   static nuCSS({ tag, css }) {
     return `
       ${css}
       ${tag} {
-        vertical-align: var(--nu-inline-offset);
+        font-size: inherit;
+        line-height: inherit;
+      }
+      ${tag}:not([border]):not([border]) {
+        border-top: 0;
+        border-bottom-color: currentColor;
+        border-bottom-width: calc(var(--nu-line-height) / 2);
+      }
+      ${tag}:not([size]):not([size]) {
+        font-size: inherit;
+        line-height: inherit;
       }
     `;
   }
