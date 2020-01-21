@@ -7,7 +7,7 @@ export default function DirectionMixin({ aria, initial } = {}) {
       this.nuSetDirection = () => {
         const initialValue = initial ? initial.call(this) : (this.getAttribute('direction') || 'x');
 
-        this.nuChanged('direction', null, initialValue);
+        this.nuChanged('direction', this.nuDirection, initialValue);
       };
 
       this.nuSetDirection();
