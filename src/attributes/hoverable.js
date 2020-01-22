@@ -28,7 +28,7 @@ export default function hoverableAttr(val, defaults) {
     'z-index': '-1',
     'border-radius': radius,
     'background-color': 'transparent',
-    transition: 'background-color .5s linear',
+    transition: 'background-color var(--nu-animation-time) linear',
   }, {
     $suffix: ':not([disabled]):hover::after',
     'background-color': 'var(--nu-hover-color)',

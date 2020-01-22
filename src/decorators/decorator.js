@@ -23,6 +23,10 @@ export default class NuDecorator extends NuBase {
     };
   }
 
+  static get nuCombinators() {
+    return [];
+  }
+
   get nuParentContext() {
     return `#${this.parentNode.nuUniqId}`;
   }
