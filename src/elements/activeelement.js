@@ -38,7 +38,7 @@ export default class NuActiveElement extends NuElement {
       text: 'nowrap',
       transition: 'box-shadow, color, background-color, border, border-radius',
       focusable: 'y',
-      hoverable: 'y',
+      hoverable: 'n :focusable[y]',
       z: '0 :active[3] :pressed[2] :active:pressed[3]',
       opacity: '1 :disabled[.5]',
       cursor: 'pointer :disabled[default]',

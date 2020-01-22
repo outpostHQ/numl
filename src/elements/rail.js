@@ -28,6 +28,7 @@ export default class NuRail extends NuElement {
       border: '1b',
       text: 'v-middle',
       cursor: 'pointer',
+      hoverable: '.5em',
     };
   }
 
@@ -40,19 +41,6 @@ export default class NuRail extends NuElement {
       ${css}
       ${tag} {
         position: relative;
-      }
-      ${tag}::before {
-        position: absolute;
-        content: '';
-        top: -.5em;
-        right: -.5em;
-        bottom: -.5em;
-        left: -.5em;
-        border-radius: 9999rem;
-        transition: background-color var(--nu-animation-time) linear;
-      }
-      ${tag}:hover::before {
-        background-color: var(--nu-hover-color);
       }
     `;
   }

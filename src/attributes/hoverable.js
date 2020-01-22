@@ -17,7 +17,7 @@ export default function hoverableAttr(val, defaults) {
     'z-index': '0',
   }] : [])
   .concat([{
-    $suffix: '[tabindex]:not([tabindex="-1"]):not([disabled])::after',
+    $suffix: ':not([disabled])::after',
     content: '""',
     display: 'block',
     position: 'absolute',
@@ -28,10 +28,9 @@ export default function hoverableAttr(val, defaults) {
     'z-index': '-1',
     'border-radius': radius,
     'background-color': 'transparent',
-    transition: 'background-color var(--nu-animation-time) linear',
+    transition: 'background-color .5s linear',
   }, {
-    $suffix: '[tabindex]:not([tabindex="-1"]):not([disabled]):hover::after',
+    $suffix: ':not([disabled]):hover::after',
     'background-color': 'var(--nu-hover-color)',
   }]);
 };
-

@@ -48,7 +48,7 @@ export default class NuSwitch extends NuActiveElement {
         :pressed[special-bg]
         :pressed:disabled[text 50%]`,
       text: 'v-middle',
-      hoverable: 'y',
+      hoverable: 'n :focusable[y]',
       padding: '--circle-indent',
 
       '--size': '1em + --circle-indent',

@@ -5,7 +5,7 @@ const ICON_ATTRS = {
   name: 'check',
   opacity: '0 ^:pressed[1]',
   transition: 'opacity',
-  color: 'special ^:disabled[text]',
+  color: 'special ^:disabled[text 66%]',
 };
 
 export default class NuCheckbox extends NuActiveElement {
@@ -26,7 +26,7 @@ export default class NuCheckbox extends NuActiveElement {
       display: 'inline-grid',
       width: '1em',
       height: '1em',
-      border: '1b',
+      border: '1b color(text) :disabled[1b color(text 50%)]',
       radius: '.5x',
       content: 'stretch',
       items: 'center',
@@ -36,21 +36,8 @@ export default class NuCheckbox extends NuActiveElement {
       cursor: 'default',
       text: 'v-middle',
       toggle: 'n :active[y] :pressed[y]',
-      hoverable: '.5em 1x',
+      hoverable: 'n :focusable[.5em 1x]',
     };
-  }
-
-  static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
-        --nu-border-color: var(--nu-text-color);
-      }
-
-      ${tag}[disabled] {
-        --nu-border-color: rgba(var(--nu-text-color-rgb), .33);
-      }
-    `;
   }
 
   nuConnected() {
