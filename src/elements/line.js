@@ -25,7 +25,7 @@ export default class NuLine extends NuBlock {
         :orient-x[minmax(1fs, 1fs)]`,
       column: ':orient-x[1 / -1]',
       row: ':orient-y[1 / -1]',
-      fill: 'border :special[special]',
+      fill: 'var(--nu-local-border-color, var(--nu-border-color)) :special[special]',
       text: 'v-middle',
     };
   }

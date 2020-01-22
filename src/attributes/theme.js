@@ -1,4 +1,5 @@
 import { composeThemeName, parseThemeAttr, THEME_PROPS_LIST } from '../themes';
+import { BASE_COLOR } from './color';
 
 /**
  * Apply theme to the element by providing specific custom properties.
@@ -26,7 +27,8 @@ export default function themeAttr(val) {
 
   styles.push({
     $suffix: ':not([color])',
-    color: 'var(--nu-text-color)',
+    color: BASE_COLOR,
+    '--nu-local-text-color': 'var(--nu-text-color)',
   });
 
   return styles;

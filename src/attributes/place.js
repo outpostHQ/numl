@@ -69,7 +69,7 @@ const COVER_STYLES = {
 };
 
 export default function placeAttr(val) {
-  if (!val) return;
+  if (!val) return [{ '--nu-transform-place': 'translate(0, 0)' }];
 
   let { mods } = parseAttr(val);
 

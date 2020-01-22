@@ -2340,9 +2340,9 @@
     <nu-card as="section">
       <nu-flex gap="1x" flow="row wrap">
         <nu-btn special>
-          <nu-block text="w6">Dropdown menu</nu-block>
+          <nu-block text="w6">Dropdown menu 123</nu-block>
           <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
-          <nu-popupmenu>
+          <nu-popupmenu fixate="bottom">
             <nu-menuitem value="first-item">Menu button level 1</nu-menuitem>
             <nu-menuitem>
               Submenu level 1
@@ -2362,19 +2362,21 @@
         <nu-btn special>
           <nu-block text="w6">Dropdown card</nu-block>
           <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
-          <nu-popup gap="1x" width="24">
+          <nu-popup gap="1x" fixate="top" width="24">
             <nu-block>
-              Simple buttons don't trigger
-              <nu-el color="special">close</nu-el>
-              event.
+              <nu-block>
+                Simple buttons don't trigger
+                <nu-el color="special">close</nu-el>
+                event.
+              </nu-block>
+              <nu-btn>Simple button</nu-btn>
+              <nu-block>
+                Submit buttons trigger
+                <nu-el color="special">close</nu-el>
+                event.
+              </nu-block>
+              <nu-btn action="submit">Submit button</nu-btn>
             </nu-block>
-            <nu-btn>Simple button</nu-btn>
-            <nu-block>
-              Submit buttons trigger
-              <nu-el color="special">close</nu-el>
-              event.
-            </nu-block>
-            <nu-btn action="submit">Submit button</nu-btn>
           </nu-popup>
         </nu-btn>
       </nu-flex>

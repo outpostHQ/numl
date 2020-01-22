@@ -794,6 +794,7 @@ export function parseAttr(value, insertRem = false) {
     let counter = 0;
     let parsedValue = '';
     let color = '';
+    let currentFunc = '';
 
     value.replace(
       ATTR_REGEXP,
@@ -801,6 +802,7 @@ export function parseAttr(value, insertRem = false) {
         if (quoted) {
           currentValue += `${quoted} `;
         } else if (func) {
+          currentFunc = func.slice(0, -1);
           currentValue += func;
           counter++;
         } else if (hashColor) {
@@ -834,6 +836,10 @@ export function parseAttr(value, insertRem = false) {
             if (counter === calc) {
               calc = -1;
             }
+          }
+
+          if (bracket === ')' && !counter) {
+            currentFunc = '';
           }
 
           currentValue += `${bracket}${bracket === ')' ? ' ' : ''}`;
@@ -883,7 +889,11 @@ export function parseAttr(value, insertRem = false) {
             currentValue += `${unit} `;
           }
         } else if (prop) {
-          currentValue += `${prepareNuVar(prop)} `;
+          if (currentFunc !== 'var') {
+            currentValue += `${prepareNuVar(prop)} `;
+          } else {
+            currentValue += `${prop} `;
+          }
         } else if (comma) {
           if (~calc) {
             calc = -1;
@@ -1134,3 +1144,5 @@ export function parseColor(val) {
     opacity,
   };
 }
+
+window.parseAttr = parseAttr;

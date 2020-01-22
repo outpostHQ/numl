@@ -37,6 +37,7 @@ import fadeAttr from '../attributes/fade';
 import toggleAttr from '../attributes/toggle';
 import focusableAttr from '../attributes/focusable';
 import hoverableAttr from '../attributes/hoverable';
+import fixateAttr from '../attributes/fixate';
 
 /**
  * @class
@@ -122,6 +123,7 @@ export default class NuElement extends NuBase {
       focusable: focusableAttr,
       hoverable: hoverableAttr,
       // fade: fadeAttr,
+      fixate: fixateAttr,
       direction: '',
       controls: '',
       label: '',
