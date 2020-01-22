@@ -20,7 +20,7 @@ const MRK = 'mrk';
 const IMP = 'imp';
 
 function extractContent(textarea) {
-  const str = textarea.textContent;
+  const str = textarea.textContent || '';
 
   return str
     .replace(/&lt;/g, '<')
@@ -258,7 +258,7 @@ function textToMarkup(str, enumerate) {
   const firstLine = lines
     .find(line => line.trim().length);
 
-  if (!firstLine) return;
+  if (!firstLine) return '';
 
   const tab = firstLine.match(/^\s*/)[0];
 

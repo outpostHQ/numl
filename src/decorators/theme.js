@@ -44,6 +44,8 @@ export default class NuTheme extends NuDecorator {
   }
 
   nuChanged(name, oldValue, value) {
+    super.nuChanged(name, oldValue, value);
+
     if (!this.nuIsConnected) return;
 
     this.nuApply();

@@ -354,7 +354,9 @@ export default class NuBase extends HTMLElement {
     if (name === 'nu' || name.startsWith('nu-')) return;
 
     if (name === 'id') {
-      return this.nuId; // trigger id generation
+      generateId(this); // trigger id generation
+
+      return;
     }
 
     switch (name) {
@@ -562,19 +564,19 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
-   * Get ID of the element. Generate it if it's not presented.
+   * Get the NUDE ID of the element. Also generate unique id if it's not presented.
    * @returns {String}
    */
   get nuId() {
     if (!this.id || !this.id.includes('--')) {
-      generateId(this)
+      generateId(this);
     }
 
     return this.getAttribute('nu-id');
   }
 
   /**
-   * Get ID of the element. Generate it if it's not presented.
+   * Get the unique ID of the element. Generate it if it's not presented.
    * @returns {String}
    */
   get nuUniqId() {

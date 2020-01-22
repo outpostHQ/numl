@@ -86,7 +86,7 @@ export default class NuActiveElement extends NuElement {
     const radioGroup = this.nuContext.radiogroup;
 
     if (radioGroup) {
-      this.setAttribute('role', radioGroup.itemRole);
+      this.nuRole = radioGroup.itemRole;
 
       if (this.nuPressed) {
         radioGroup.context.nuSetValue(this.nuValue);
@@ -113,7 +113,7 @@ export default class NuActiveElement extends NuElement {
       if (innerPopup) {
         this.nuSetAria('haspopup', true);
         this.nuSetAria('expanded', this.nuPressed || false);
-        this.setAttribute('role', 'button');
+        this.nuRole = 'button';
         this.setAttribute('type', 'dropdown');
 
         return;

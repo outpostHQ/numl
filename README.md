@@ -234,6 +234,7 @@ Run `npm run play` to view test page with few examples.
 * **[hide](./docs/attributes/hide.md)** attribute is no longer hide element if no value provided.
 * **[nu-checkbox](./docs/elements/nu-checkbox.md)** - style fixes.
 * **[nu-mark](./docs/elements/nu-mark.md)** – minor style fixes and **[theme]** support.
+* **[nu-line](./docs/elements/nu-line.md)** - refactoring. Migrate to **Orient Mixin** and NUDE attribute declarations.
 * **inline** attribute is no longer required for accurate positioning of inline elements like **[nu-icon](./docs/elements/nu-icon.md)**.
 * Tables style rework.
 * Active elements style rework.

@@ -10,12 +10,6 @@ export default class NuStyle extends NuDecorator {
     return ['for'].concat(getAllAttrs());
   }
 
-  static get nuDefaults() {
-    return {
-      display: 'none',
-    };
-  }
-
   nuConnected() {
     super.nuConnected();
 

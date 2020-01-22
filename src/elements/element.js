@@ -96,6 +96,7 @@ export default class NuElement extends NuBase {
       column: 'grid-column',
       row: 'grid-row',
       area: 'grid-area',
+      contain: 'contain',
       place: placeAttr,
       z: zAttr,
       interactive: interactiveAttr,
