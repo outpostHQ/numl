@@ -1,5 +1,6 @@
 import NuBlock from './block';
 import { fixPosition } from '../helpers';
+import FixateMixin from '../mixins/fixate';
 
 export default class NuTooltip extends NuBlock {
   static get nuTag() {
@@ -10,6 +11,10 @@ export default class NuTooltip extends NuBlock {
     return 'tooltip';
   }
 
+  static get nuMixins() {
+    return [FixateMixin()];
+  }
+
   static get nuDefaults() {
     return {
       shadow: '',
@@ -17,7 +22,8 @@ export default class NuTooltip extends NuBlock {
       z: 'front',
       opacity: '0 ^:hover[1]',
       transition: 'opacity',
-      place: 'outside-top',
+      place: '',
+      drop: 'up',
       fill: 'bg',
       color: 'text',
       radius: '1r',
@@ -43,12 +49,19 @@ export default class NuTooltip extends NuBlock {
 
     const onMouseEnter = () => {
       fixPosition(this);
+      this.nuFixateStart();
+    };
+
+    const onMouseLeave = () => {
+      this.nuFixateEnd();
     };
 
     parent.addEventListener('mouseenter', onMouseEnter);
+    parent.addEventListener('mouseleave', onMouseLeave);
 
     this.nuSetDisconnectedHook(() => {
       parent.removeEventListener('mouseenter', onMouseEnter);
+      parent.removeEventListener('mouseleave', onMouseLeave);
     });
 
     if (!this.hasAttribute('width')) {

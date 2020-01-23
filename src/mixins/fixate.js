@@ -13,6 +13,10 @@ function onFixateChange() {
 export default function FixateMixin() {
   return {
     connected() {
+      if (!this.hasAttribute('place') && !this.hasAttribute(FIXATE_ATTR)) {
+        this.setAttribute(FIXATE_ATTR, this.constructor.nuAllDefaults.drop || 'down');
+      }
+
       if (!this.nuFixatePosition) {
         this.nuFixatePosition = 'bottom';
       }

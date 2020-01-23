@@ -57,16 +57,11 @@ export default class NuPopup extends NuCard {
       cursor: 'default',
       place: '',
       drop: 'down',
-      // place: 'outside-bottom',
     };
   }
 
   nuConnected() {
     super.nuConnected();
-
-    if (!this.hasAttribute('place') && !this.hasAttribute(FIXATE_ATTR)) {
-      this.setAttribute(FIXATE_ATTR, 'down');
-    }
 
     if (!this.hasAttribute('theme')) {
       this.setAttribute('theme', 'main');
