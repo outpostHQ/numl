@@ -13,7 +13,7 @@ const BORDER_VALUE = 'var(--nu-border-color)';
 const SPECIAL_BORDER_VALUE = 'var(--nu-special-text-color)';
 const BG_VALUE = 'var(--nu-bg-color)';
 const SUBTLE_VALUE = 'var(--nu-subtle-color)';
-const TEXT_VALUE = '-'; // make it invalid
+const TEXT_VALUE = ''; // make it invalid
 const SPECIAL_TEXT_VALUE = 'var(--nu-special-text-color)';
 
 export default function fillAttr(val) {

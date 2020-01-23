@@ -14,7 +14,15 @@ export default function FixateMixin() {
   return {
     connected() {
       if (!this.hasAttribute('place') && !this.hasAttribute(FIXATE_ATTR)) {
-        this.setAttribute(FIXATE_ATTR, this.constructor.nuAllDefaults.drop || 'down');
+        if (this.nuContext.popup) {
+          this.setAttribute('place', 'outside-right top');
+        } else {
+          this.setAttribute(FIXATE_ATTR, this.constructor.nuAllDefaults.drop || 'down');
+        }
+      }
+
+      if (this.hasAttribute(FIXATE_ATTR)) {
+        this.nuSetContext('fixate', this);
       }
 
       if (!this.nuFixatePosition) {

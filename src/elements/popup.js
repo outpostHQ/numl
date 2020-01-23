@@ -63,6 +63,8 @@ export default class NuPopup extends NuCard {
   nuConnected() {
     super.nuConnected();
 
+    this.nuSetContext('popup', this);
+
     if (!this.hasAttribute('theme')) {
       this.setAttribute('theme', 'main');
     }

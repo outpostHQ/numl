@@ -238,7 +238,7 @@
         Use themes to make marks more
         <nu-mark theme="tone">pretty</nu-mark>
         or
-        <nu-mark theme="swap" fill>visually strong</nu-mark>
+        <nu-mark theme="swap">visually strong</nu-mark>
         .
       </nu-block>
     </nu-card>
@@ -2342,15 +2342,15 @@
         <nu-btn special>
           <nu-block text="w6">Dropdown menu 123</nu-block>
           <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
-          <nu-popupmenu place="outside-bottom left">
+          <nu-popupmenu place="outside-bottom">
             <nu-menuitem value="first-item">Menu button level 1</nu-menuitem>
             <nu-menuitem>
               Submenu level 1
-              <nu-popupmenu place="outside-right top">
+              <nu-popupmenu>
                 <nu-menuitem>Menu button level 2</nu-menuitem>
                 <nu-menuitem>
                   Submenu level 2
-                  <nu-popupmenu place="outside-right top">
+                  <nu-popupmenu>
                     <nu-menuitem>Menu button level 3</nu-menuitem>
                     <nu-menuitem>etc...</nu-menuitem>
                   </nu-popupmenu>
