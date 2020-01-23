@@ -2,14 +2,12 @@ import { devMode, DIRECTIONS, warn } from '../helpers';
 
 const LISTENERS = new Set;
 
+export const FIXATE_ATTR = 'drop';
+
 function onFixateChange() {
   LISTENERS.forEach(listener => {
     listener();
   });
-}
-
-function getOffset(el, rect) {
-
 }
 
 export default function FixateMixin() {
@@ -39,7 +37,7 @@ export default function FixateMixin() {
         let move;
 
         switch (pos) {
-          case 'top':
+          case 'up':
             props.top = '';
             props.right = '';
             props.bottom = winHeight - offsetY;
@@ -53,7 +51,7 @@ export default function FixateMixin() {
             props.left = offsetX + width;
             move = '0, -50%';
             break;
-          case 'bottom':
+          case 'down':
             props.top = offsetY + height;
             props.right = '';
             props.bottom = '';
@@ -70,7 +68,7 @@ export default function FixateMixin() {
         }
 
         if (spos) {
-          if (pos === 'top' || pos === 'bottom') {
+          if (pos === 'up' || pos === 'down') {
             if (spos === 'right') {
               props.left = '';
               props.right = winWidth - offsetX - width;
@@ -101,7 +99,7 @@ export default function FixateMixin() {
       };
 
       this.nuFixateStart = () => {
-        if (this.hasAttribute('place') || !this.hasAttribute('fixate')) return;
+        if (this.hasAttribute('place') || !this.hasAttribute(FIXATE_ATTR)) return;
 
         this.nuFixateParent = this.parentNode;
 
@@ -111,7 +109,7 @@ export default function FixateMixin() {
       };
 
       this.nuFixateEnd = () => {
-        if (this.hasAttribute('place') || !this.hasAttribute('fixate')) return;
+        if (this.hasAttribute('place') || !this.hasAttribute(FIXATE_ATTR)) return;
 
         LISTENERS.delete(this.nuFixateChange);
       };
@@ -122,16 +120,16 @@ export default function FixateMixin() {
       this.nuFixateEnd();
     },
     changed(name, oldValue, value) {
-      if (name !== 'fixate') return;
+      if (name !== FIXATE_ATTR) return;
 
       if (value == null) {
-        this.nuSetMod('fixate', false);
+        this.nuSetMod(FIXATE_ATTR, false);
         this.nuSetContext('fixate', null);
 
         return;
       }
 
-      this.nuSetMod('fixate', true);
+      this.nuSetMod(FIXATE_ATTR, true);
 
       value = value.trim();
 

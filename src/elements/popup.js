@@ -1,7 +1,7 @@
 import NuCard from './card';
 import placeAttr from '../attributes/place';
 import { extractMods, fixPosition } from '../helpers';
-import FixateMixin from '../mixins/fixate';
+import FixateMixin, { FIXATE_ATTR } from '../mixins/fixate';
 
 export default class NuPopup extends NuCard {
   static get nuTag() {
@@ -52,16 +52,21 @@ export default class NuPopup extends NuCard {
       opacity: '0 ^:pressed[1]',
       transition: 'opacity',
       border: '1b outside',
-      width: 'minmax(100%, 100vw) :fixate[clamp(initial, inherit, 100vw)]',
+      width: 'minmax(100%, 100vw) :drop[clamp(initial, inherit, 100vw)]',
       text: 'wrap w4',
       cursor: 'default',
       place: '',
+      drop: 'down',
       // place: 'outside-bottom',
     };
   }
 
   nuConnected() {
     super.nuConnected();
+
+    if (!this.hasAttribute('place') && !this.hasAttribute(FIXATE_ATTR)) {
+      this.setAttribute(FIXATE_ATTR, 'down');
+    }
 
     if (!this.hasAttribute('theme')) {
       this.setAttribute('theme', 'main');

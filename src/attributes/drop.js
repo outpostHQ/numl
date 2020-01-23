@@ -1,4 +1,6 @@
-export default function fixateAttr() {
+// Don't work without Fixate Mixin!
+
+export default function dropAttr() {
   return [{
     $suffix: ':not([place])',
     position: 'fixed',

@@ -39,7 +39,7 @@ export default class NuActiveElement extends NuElement {
       transition: 'box-shadow, color, background-color, border, border-radius',
       focusable: 'y',
       hoverable: 'n :focusable[y]',
-      z: '0 :active[3] :pressed[2] :active:pressed[3]',
+      z: '0 :active[9] :pressed[8] :active:pressed[9]',
       opacity: '1 :disabled[.5]',
       cursor: 'pointer :disabled[default]',
     };
