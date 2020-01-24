@@ -1,4 +1,4 @@
-import { devMode, DIRECTIONS, warn } from '../helpers';
+import { devMode, DIRECTIONS, fixPosition, warn } from '../helpers';
 
 const LISTENERS = new Set;
 
@@ -87,7 +87,7 @@ export default function FixateMixin() {
             } else {
               props.left = offsetX;
             }
-            move = '0 0';
+            move = '0, 0';
           } else {
             if (spos === 'top') {
               props.top = offsetY;
@@ -95,7 +95,7 @@ export default function FixateMixin() {
               props.top = '';
               props.bottom = winHeight - offsetY - height;
             }
-            move = '0 0';
+            move = '0, 0';
           }
         }
 
@@ -108,6 +108,10 @@ export default function FixateMixin() {
 
         this.style.setProperty(`--nu-fixate-width`, `${width}px`);
         this.style.setProperty(`--nu-transform-place`, `translate(${move})`);
+
+        setTimeout(() => {
+          fixPosition(this);
+        });
       };
 
       this.nuFixateStart = () => {
@@ -161,5 +165,6 @@ export default function FixateMixin() {
   };
 }
 
-window.addEventListener('scroll', onFixateChange);
-window.addEventListener('resize', onFixateChange);
+['scroll', 'resize', 'wheel', 'touchmove', 'tap'].forEach(eventName => {
+  window.addEventListener(eventName, onFixateChange);
+});

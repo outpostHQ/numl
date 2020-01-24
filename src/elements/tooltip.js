@@ -28,9 +28,10 @@ export default class NuTooltip extends NuBlock {
       color: 'text',
       radius: '1r',
       border: '1b outside',
-      size: 'sm',
+      size: 'inherit',
       interactive: 'no',
       text: 'wrap',
+      width: 'minmax(min-content, 100vw) :drop[clamp(min-content, initial, 100vw)]',
     };
   }
 
@@ -48,8 +49,11 @@ export default class NuTooltip extends NuBlock {
     this.nuSetAria('hidden', true);
 
     const onMouseEnter = () => {
-      fixPosition(this);
       this.nuFixateStart();
+
+      setTimeout(() => {
+        fixPosition(this);
+      });
     };
 
     const onMouseLeave = () => {

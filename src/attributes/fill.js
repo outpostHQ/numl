@@ -26,6 +26,8 @@ export default function fillAttr(val) {
     }, {
       $suffix: '[theme]',
       [BG_STYLE]: BG_VALUE,
+      [LOCAL_PROP]: BG_VALUE,
+      [DIFF_PROP]: SUBTLE_VALUE,
     }];
   }
 
@@ -40,10 +42,10 @@ export default function fillAttr(val) {
 
     return [{
       $suffix: '>:not([fill]):not([nu-popup])',
-      [DIFF_PROP]: otherColor,
       [BORDER_PROP]: BORDER_VALUE,
     }, {
       [INTENSITY_PROP]: INTENSITY_VALUE,
+      [DIFF_PROP]: otherColor,
       [LOCAL_PROP]: color,
       [TEXT_PROP]: TEXT_VALUE,
       [BG_STYLE]: LOCAL_VALUE,

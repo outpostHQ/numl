@@ -22,7 +22,7 @@ export default class NuPopup extends NuCard {
 
   static get nuAttrs() {
     return {
-      place(val) {
+      place(val, defaults) {
         const { mods } = extractMods(val, ['top', 'bottom']);
 
         let sideStyle;
@@ -37,10 +37,10 @@ export default class NuPopup extends NuCard {
           return [{
             $suffix: ':not([space])',
             [sideStyle]: 'calc(var(--nu-indent) * -1)',
-          }, placeAttr(val)];
+          }, ...placeAttr(val, defaults)];
         }
 
-        return placeAttr(val);
+        return placeAttr(val, defaults);
       },
     };
   }
@@ -52,7 +52,7 @@ export default class NuPopup extends NuCard {
       opacity: '0 ^:pressed[1]',
       transition: 'opacity',
       border: '1b outside',
-      width: 'minmax(100%, 100vw) :drop[clamp(initial, inherit, 100vw)]',
+      width: 'minmax(100%, 100vw) :drop[clamp(--fixate-width, min-content, 100vw)]',
       text: 'wrap w4',
       cursor: 'default',
       place: '',

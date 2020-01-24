@@ -139,7 +139,9 @@ export function removeCSS(name) {
 
   const el = map[name].element;
 
-  el.parentNode.removeChild(el);
+  if (el.parentNode) {
+    el.parentNode.removeChild(el);
+  }
 
   delete map[name];
 }

@@ -703,12 +703,12 @@ export default class NuBase extends HTMLElement {
       this.nuApplyAttr(attr);
 
       if (value.includes('|')) {
-        context[`nu-${RESPONSIVE_MOD}`] = null;
+        context[`nu-${RESPONSIVE_MOD}`] = true;
         value = value.split('|')[0];
       }
 
       if (value.includes('@')) {
-        context[`nu-${VAR_MOD}`] = null;
+        context[`nu-${VAR_MOD}`] = true;
         value = '';
       }
 
@@ -1205,15 +1205,23 @@ export default class NuBase extends HTMLElement {
   nuSetVar(name, value, decorator) {
     this.nuContext[`var:${name}`] = {
       context: this,
-      decorator: this,
+      decorator,
       value: value,
     };
+
+    this.nuVerifyChildren(true);
 
     log('set variable', { context: this, name, value });
   }
 
   nuRemoveVar(name) {
-    delete parent.nuContext[`var:${name}`];
+    delete this.nuContext[`var:${name}`];
+
+    setTimeout(() => {
+      if (!this.nuContext.hasOwnProperty(`var:${name}`)) {
+        this.nuVerifyChildren(true);
+      }
+    });
 
     log('remove variable', { context: this, name });
   }

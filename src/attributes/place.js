@@ -1,4 +1,5 @@
 import { devMode, parseAttr } from '../helpers';
+import Transform from '../combinators/transform';
 
 export const PLACE_VALUES = [
   'content', 'items', 'self'
@@ -68,8 +69,31 @@ const COVER_STYLES = {
   left: '0',
 };
 
-export default function placeAttr(val) {
-  if (!val) return [{ '--nu-transform-place': 'translate(0, 0)' }];
+const OTHER_ATTRS = Transform.attrs.filter(attr => attr !== 'place');
+const DEFAULT_STYLES = { '--nu-transform-place': 'translate(0, 0)' };
+const NOT_OTHER_SELECTOR = OTHER_ATTRS.map(attr => `:not([${attr}])`).join('');
+const SECONDARY_DEFAULT_STYLES = [{
+  $suffix: NOT_OTHER_SELECTOR,
+  '--nu-transform-place': 'none',
+}, ...OTHER_ATTRS.map(attr => {
+  return {
+    $suffix: `[${attr}]`,
+    ...DEFAULT_STYLES,
+  };
+})];
+
+function getEmptyTransform(defaults) {
+  const defaultAttr = OTHER_ATTRS.find(attr => defaults[attr] != null);
+
+  if (defaultAttr) {
+    return [DEFAULT_STYLES];
+  }
+
+  return SECONDARY_DEFAULT_STYLES.map(styles => ({ ...styles }));
+}
+
+export default function placeAttr(val, defaults) {
+  if (!val) return getEmptyTransform(defaults);
 
   let { mods } = parseAttr(val);
 
@@ -89,7 +113,7 @@ export default function placeAttr(val) {
       FILL_STYLES[0],
       { ...FILL_STYLES[1] },
       { ...FILL_STYLES[2] },
-      { '--nu-transform-place': 'translate(0, 0)' },
+      ...getEmptyTransform(defaults),
     ];
   }
 
@@ -182,20 +206,20 @@ export default function placeAttr(val) {
 
     styles['--nu-transform-place'] = `translate(${transX}, ${transY})`;
 
-    return styles;
+    return [styles];
   }
 
   let styles;
 
   if (pos) {
-    styles = PLACE_VALUES[2](val);
+    styles = [PLACE_VALUES[2](val)];
 
     styles.position = pos;
   } else {
-    styles = PLACE_VALUES[2](val);
+    styles = [PLACE_VALUES[2](val)];
   }
 
-  styles['--nu-transform-place'] = 'translate(0, 0)';
+  styles.push(...getEmptyTransform(defaults));
 
   return styles;
 };

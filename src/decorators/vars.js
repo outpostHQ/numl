@@ -1,8 +1,4 @@
 import NuDecorator from './decorator';
-import { error, log } from '../helpers';
-import { injectCSS } from '../css';
-
-const IGNORE_ATTRS = ['id', 'class', 'nu'];
 
 export default class NuVars extends NuDecorator {
   static get nuTag() {

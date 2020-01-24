@@ -25,6 +25,7 @@ export default class NuBadge extends NuElement {
       text: 'nowrap :special[w5 nowrap]',
       border: '1b',
       fill: 'bg :special[special-bg]',
+      color: '',
     };
   }
 

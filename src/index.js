@@ -67,6 +67,7 @@ import {
   fixPosition,
   parseAttr,
   parseColor,
+  setAttrs,
 } from './helpers';
 import { enableFocus, disableFocus } from './focus';
 import { applyTheme, BASE_THEME } from './themes';
@@ -118,6 +119,7 @@ const Nude = {
     fixPosition,
     parseAttr,
     parseColor,
+    setAttrs,
   },
   version: process.env.APP_VERSION,
 };

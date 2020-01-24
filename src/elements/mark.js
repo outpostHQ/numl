@@ -13,6 +13,7 @@ export default class NuMark extends NuElement {
       space: '0 .25em',
       radius: '1r',
       fill: 'diff :special[special-bg] :themed[bg] :special:themed[special-bg]',
+      color: '',
     };
   }
 

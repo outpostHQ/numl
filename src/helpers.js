@@ -1144,5 +1144,3 @@ export function parseColor(val) {
     opacity,
   };
 }
-
-window.parseAttr = parseAttr;

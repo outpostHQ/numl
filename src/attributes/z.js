@@ -1,5 +1,7 @@
 const Z_MAP = {
   '': '0',
+  '-': 'initial',
+  'no': 'initial',
   'below': '-1',
   'above': '1',
   'front': '9999',

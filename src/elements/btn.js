@@ -17,15 +17,13 @@ export default class NuBtn extends NuActiveElement {
       fill: 'bg :special[special-bg] :themed[bg] :special:themed[special-bg]',
       text: 'nowrap :special[w5 nowrap]',
       toggle: '0 :active:focusable[.75em] :pressed:focusable[.75em] :pressed[.75em] :pressed:active[.75em]',
+      color: '',
     };
   }
 
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag}:not([color]) {
-        color: var(--nu-local-text-color, var(--nu-text-color));
-      }
       ${tag}[special] > :not([theme]) {
         --nu-text-soft-color: var(--nu-special-text-color);
         --nu-text-contrast-color: var(--nu-special-text-color);
