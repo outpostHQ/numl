@@ -29,6 +29,8 @@ export default class NuRail extends NuElement {
       text: 'v-middle',
       cursor: 'pointer',
       hoverable: '.5em',
+      transition: 'shadow',
+      expand: '.5em',
     };
   }
 

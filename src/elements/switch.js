@@ -5,7 +5,7 @@ const CIRCLE_ATTRS = {
   width: 'clamp(initial, --circle-size, --circle-size)',
   height: 'clamp(initial, --circle-size, --circle-size)',
   interactive: 'n',
-  transition: 'transform, background-color',
+  transition: 'transform, fill',
   move: '--circle-offset',
   fill: '--circle-bg-color',
   radius: 'round',
@@ -42,7 +42,7 @@ export default class NuSwitch extends NuActiveElement {
       toggle: `0
         :active[.5em]
         :active:pressed[.5em]`,
-      transition: 'box-shadow, filter',
+      transition: 'shadow',
       width: '(--size * 2)',
       fill: `bg
         :pressed[special-bg]

@@ -6,7 +6,7 @@ const CIRCLE_ATTRS = {
   fill: 'bg ^:pressed[special-bg] ^:disabled:pressed[text 50%]',
   width: '1em',
   height: '1em',
-  transition: 'background-color',
+  transition: 'fill',
 };
 
 export default class NuRadio extends NuActiveElement {

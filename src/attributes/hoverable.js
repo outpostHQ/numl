@@ -11,7 +11,7 @@ export default function hoverableAttr(val) {
   }];
 
   if (!mods.includes('n') && !mods.includes('no')) {
-    styles[0].$suffix = 'not(:hover)';
+    styles[0].$suffix = ':not(:hover)';
     styles.push({
       $suffix: ':hover',
       '--nu-local-hover-shadow': `0 0 0 ${size} var(--nu-hover-color), 0 0 0 9999rem var(--nu-hover-color) inset`,

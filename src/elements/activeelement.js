@@ -36,7 +36,7 @@ export default class NuActiveElement extends NuElement {
     return {
       radius: '',
       text: 'nowrap',
-      transition: 'box-shadow, color, background-color, border, border-radius',
+      transition: 'theme, radius',
       focusable: 'y',
       hoverable: 'n :focusable[y]',
       opacity: '1 :disabled[.5]',

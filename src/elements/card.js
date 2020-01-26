@@ -21,7 +21,7 @@ export default class NuCard extends NuBlock {
       border: '1b',
       radius: '1r',
       flow: 'column',
-      transition: 'background, color, box-shadow, transform, border, border-radius',
+      transition: 'theme, radius',
     };
   }
 
