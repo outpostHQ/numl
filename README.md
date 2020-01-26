@@ -203,6 +203,10 @@ Run `npm run play` to view test page with few examples.
 * Custom states for **nu-** modifiers and **role** attribute.
 * Add **Mixin System**.
 * **nu-tablist** now supports direction change.
+* Add **Active** mixin for active elements.
+* Add **Direction** mixin for elements that have direction.
+* Add **Orient** mixin for elements that have orientation.
+* Add **Fixate** mixin for elements that can be fixed via **[drop]** attribute.
 
 #### Breaking changes
 * Built-in custom units changes: 
@@ -229,6 +233,7 @@ Run `npm run play` to view test page with few examples.
 * **[focusable](./docs/attributes/focusable.md)** - to activate focus effect on active elements. 
 * **[toggle](./docs/attributes/toggle.md)** - to activate toggle effect on active elements.
 * **[expand](./docs/attributes/expand.md)** - to increase active region.
+* **[drop](./docs/attributes/drop.md)** - to statically fix element position based on parent element (using `position: fixed`).
 
 #### Minor and internal changes
 * Refactoring for table elements.
