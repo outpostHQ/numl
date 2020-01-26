@@ -150,7 +150,9 @@ export default function FixateMixin() {
       delete this.nuFixatePosition;
 
       const fixate = this.nuIsFixate;
-      const fixateValue = this.getAttribute(FIXATE_ATTR) || 'down';
+      const fixateValue = this.getAttribute(FIXATE_ATTR)
+        || this.constructor.nuAllDefaults[FIXATE_ATTR]
+        || 'down';
 
       if (!fixate) return;
 
