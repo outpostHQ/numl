@@ -1,4 +1,4 @@
-import { devMode, parseAttr } from '../helpers';
+import { devMode, DIRECTIONS, parseAttr } from '../helpers';
 import TransformCombinator from '../combinators/transform';
 
 export const PLACE_VALUES = [
@@ -95,9 +95,23 @@ function getEmptyTransform(defaults) {
 export default function placeAttr(val, defaults) {
   if (!val) return getEmptyTransform(defaults);
 
-  let { mods } = parseAttr(val);
+  let { mods, values } = parseAttr(val, true);
 
   let pos = '';
+
+  if (mods.includes('sticky')) {
+    const directions = mods.filter(mod => DIRECTIONS.includes(mod));
+    const size = values[0] || '0';
+
+    return [{
+      position: 'sticky',
+      ...directions.reduce((map, dir) => {
+        map[dir] = size;
+
+        return map;
+      }, {}),
+    }];
+  }
 
   if (mods.includes('relative')) {
     pos = 'relative';
@@ -223,3 +237,5 @@ export default function placeAttr(val, defaults) {
 
   return styles;
 };
+
+window.placeAttr = placeAttr;
