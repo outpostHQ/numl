@@ -2,7 +2,7 @@ import { unit } from '../helpers';
 
 const radiusUnit = unit('border-radius', {
   empty: '--nu-radius',
-  property: true,
+  property: '--nu-local-radius',
   convert: true,
 });
 
