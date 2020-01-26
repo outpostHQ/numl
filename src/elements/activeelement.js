@@ -39,7 +39,6 @@ export default class NuActiveElement extends NuElement {
       transition: 'box-shadow, color, background-color, border, border-radius',
       focusable: 'y',
       hoverable: 'n :focusable[y]',
-      z: '0 :active[9] :pressed[8] :active:pressed[9]',
       opacity: '1 :disabled[.5]',
       cursor: 'pointer :disabled[default]',
     };
@@ -75,7 +74,7 @@ export default class NuActiveElement extends NuElement {
   nuConnected() {
     super.nuConnected();
 
-    this.nuSetFocusable(!this.hasAttribute('disabled'));
+    this.nuSetFocusable(!this.nuDisabled);
 
     this.addEventListener('keydown', (event) => {
       if (this.getAttribute('aria-expanded') && event.key === 'Escape') {
@@ -177,7 +176,7 @@ export default class NuActiveElement extends NuElement {
       return;
     }
 
-    if (this.hasAttribute('disabled')
+    if (this.nuDisabled
       || this.getAttribute('tabindex') === '-1') return;
 
     if (this.hasAttribute('scrollto')) {
@@ -306,7 +305,7 @@ export default class NuActiveElement extends NuElement {
     this.nuPressed = pressed;
 
     if (this.nuIsRadio()) {
-      this.nuSetFocusable(!pressed);
+      this.nuSetFocusable(!pressed && !this.nuDisabled);
     }
 
     if (this.hasAttribute('aria-expanded')) {
@@ -379,5 +378,9 @@ export default class NuActiveElement extends NuElement {
 
   nuIsCheckbox() {
     return ['radio', 'checkbox', 'switch'].includes(this.getAttribute('role'));
+  }
+
+  get nuDisabled() {
+    return this.hasAttribute('disabled');
   }
 }

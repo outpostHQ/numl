@@ -217,7 +217,8 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
     const contrastLightness = findContrastLightness(theme.bg[2], softContrast, !darkScheme);
     theme['text-soft'] = contrastLightness ? setSaturation([hue, saturation, contrastLightness], saturation, pastel) : [...theme.text];
   }
-  theme.hover = setOpacity([hue, saturation, findContrastLightness(theme.bg[2], highContrast ? 2.2 : 1.6)], .15);
+  // theme.hover = setOpacity([hue, saturation, findContrastLightness(theme.bg[2], highContrast ? 2.2 : 1.6)], .2);
+  theme.hover = setOpacity([...theme.focus], highContrast ? 0.16 : .08);
   theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity, darkScheme);
   theme['special-intensity'] = getShadowIntensity(theme['special-bg'][2], shadowIntensity, darkScheme);
 

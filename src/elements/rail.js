@@ -54,7 +54,7 @@ export default class NuRail extends NuElement {
 
     ['mousedown', 'touchstart']
       .forEach(eventName => {
-        this.addEventListener(eventName, this.nuOnDragStart);
+        this.addEventListener(eventName, this.nuOnDragStart, { passive: true });
       });
   }
 
@@ -64,7 +64,7 @@ export default class NuRail extends NuElement {
 
     Object.entries(EVENT_MAP)
       .forEach(([event, handler]) => {
-        window.addEventListener(event, this[handler]);
+        window.addEventListener(event, this[handler], { passive: true });
       });
   }
 

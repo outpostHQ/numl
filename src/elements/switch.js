@@ -49,10 +49,10 @@ export default class NuSwitch extends NuActiveElement {
         :pressed:disabled[text 50%]`,
       text: 'v-middle',
       hoverable: 'n :focusable[y]',
-      padding: '--circle-indent',
+      padding: '--circle-gap',
 
-      '--size': '1em + --circle-indent',
-      '--circle-indent': '.125em + 1b',
+      '--size': '1em + --circle-gap',
+      '--circle-gap': '.125em + 1b',
       '--circle-size': '--size',
       '--circle-offset': `0
         :pressed[--size]`,

@@ -11,7 +11,7 @@ export default function fadeAttr(val) {
 
   // if (!values.length) return;
 
-  const size = values[0] || 'calc(var(--nu-indent) * 2)';
+  const size = values[0] || 'calc(var(--nu-gap) * 2)';
   const color = values[1] || 'var(--nu-local-bg-color, var(--nu-bg-color))';
 
   const mods = filterMods(allMods, ALLOWED_MODS);

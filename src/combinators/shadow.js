@@ -2,12 +2,12 @@ const STYLE_MAP = {
   shadow: 'depth',
   border: 'stroke',
   toggle: 'toggle',
-  hover: 'hover',
+  hoverable: 'hover',
 };
 
 export default function ShadowCombinator() {
   return {
-    attrs: ['shadow', 'border', 'toggle'],
+    attrs: ['toggle', 'hoverable', 'shadow', 'border'],
     generator(attrs, allAttrs) {
       if (!attrs.length) return;
 

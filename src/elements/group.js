@@ -20,15 +20,15 @@ export default class NuGroup extends NuElement {
           ...FLOW_ATTR(val, defaults),
           {
             $suffix: `:not([gap]) > :first-child:not(:last-child)`,
-            '--nu-local-border-radius': val.startsWith('row')
-              ? 'var(--nu-item-border-radius) 0 0 var(--nu-item-border-radius) !important'
-              : 'var(--nu-item-border-radius) var(--nu-item-border-radius) 0 0 !important'
+            '--nu-local-radius': val.startsWith('row')
+              ? 'var(--nu-item-radius) 0 0 var(--nu-item-radius) !important'
+              : 'var(--nu-item-radius) var(--nu-item-radius) 0 0 !important'
           },
           {
             $suffix: `:not([gap]) > :last-child:not(:first-child)`,
-            '--nu-local-border-radius': val.startsWith('row')
-              ? '0 var(--nu-item-border-radius) var(--nu-item-border-radius) 0 !important'
-              : '0 0 var(--nu-item-border-radius) var(--nu-item-border-radius) !important'
+            '--nu-local-radius': val.startsWith('row')
+              ? '0 var(--nu-item-radius) var(--nu-item-radius) 0 !important'
+              : '0 0 var(--nu-item-radius) var(--nu-item-radius) !important'
           }
         ];
       },
@@ -48,15 +48,15 @@ export default class NuGroup extends NuElement {
     return `
       ${css}
       ${tag} {
-        --nu-item-border-radius: var(--nu-local-border-radius);
-        
-        border-radius: calc(var(--nu-local-border-radius, 0) + 1px) !important;
+        --nu-item-radius: var(--nu-local-radius);
+
+        border-radius: calc(var(--nu-local-radius, 0) + 1px) !important;
       }
       ${tag}:not([gap]) > :not(:last-child):not(:first-child) {
-        --nu-local-border-radius: 0 !important;
+        --nu-local-radius: 0 !important;
       }
       ${tag}:not([gap]) > :last-child:first-child {
-        --nu-local-border-radius: inherit !important;
+        --nu-local-radius: inherit !important;
       }
     `;
   }

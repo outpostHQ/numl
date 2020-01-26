@@ -166,5 +166,5 @@ export default function FixateMixin() {
 }
 
 ['scroll', 'resize', 'wheel', 'touchmove', 'tap'].forEach(eventName => {
-  window.addEventListener(eventName, onFixateChange);
+  window.addEventListener(eventName, onFixateChange, { passive: true });
 });

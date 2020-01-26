@@ -31,9 +31,9 @@ export function injectScript(src) {
  * @type {Object}
  */
 export const CUSTOM_UNITS = {
-  'r': 'var(--nu-border-radius)',
+  'r': 'var(--nu-radius)',
   'b': 'var(--nu-border-width)',
-  'x': 'var(--nu-indent)',
+  'x': 'var(--nu-gap)',
   'fs': 'var(--nu-font-size)',
   'lh': 'var(--nu-line-height)',
 };

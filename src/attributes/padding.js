@@ -1,6 +1,6 @@
 import { DIRECTIONS, parseAttr, filterMods } from '../helpers';
 
-const BASE = 'var(--nu-indent)';
+const BASE = 'var(--nu-gap)';
 
 export default function paddingAttr(val) {
   if (val == null) return;

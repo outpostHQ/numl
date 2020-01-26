@@ -55,7 +55,7 @@ const FILL_STYLES = [{
   '--nu-local-focus-inset': 'inset 0 0',
 }, {
   $suffix: ':not([radius])',
-  '--nu-local-border-radius': '0',
+  '--nu-local-radius': '0',
 }, {
   $suffix: ':not([border])',
   'border': 'none',

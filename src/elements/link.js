@@ -22,7 +22,7 @@ export default class NuLink extends NuActiveElement {
       radius: '.5x',
       transition: 'box-shadow',
       focusable: 'y',
-      hoverable: '.25em .5em',
+      hoverable: '.25em',
     };
   }
 

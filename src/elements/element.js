@@ -38,6 +38,7 @@ import toggleAttr from '../attributes/toggle';
 import focusableAttr from '../attributes/focusable';
 import hoverableAttr from '../attributes/hoverable';
 import dropAttr from '../attributes/drop';
+import { expandAttr } from '../attributes/expand';
 
 /**
  * @class
@@ -60,14 +61,14 @@ export default class NuElement extends NuBase {
       radius: radiusAttr,
       'items-radius': unit('border-radius', {
         suffix: '>:not([radius])',
-        empty: '--nu-border-radius',
+        empty: '--nu-radius',
         property: true,
         convert: true,
       }),
       padding: paddingAttr,
       'items-padding': unit('padding', {
         suffix: '>:not([padding])',
-        empty: '--nu-indent',
+        empty: '--nu-gap',
         convert: true,
       }),
       overflow: overflowAttr,
@@ -122,6 +123,7 @@ export default class NuElement extends NuBase {
       toggle: toggleAttr,
       focusable: focusableAttr,
       hoverable: hoverableAttr,
+      expand: expandAttr,
       // fade: fadeAttr,
       drop: dropAttr,
       direction: '',

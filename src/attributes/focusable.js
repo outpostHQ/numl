@@ -22,7 +22,7 @@ export default function focusableAttr(val) {
       bottom: '0',
       left: '0',
       'pointer-events': 'none',
-      'border-radius': 'var(--nu-local-border-radius, var(--nu-border-radius))',
+      'border-radius': 'var(--nu-local-radius, var(--nu-radius))',
       'box-shadow': 'var(--nu-local-focus-shadow)',
       transition: 'box-shadow var(--nu-animation-time) linear',
     },

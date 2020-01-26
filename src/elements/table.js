@@ -51,11 +51,11 @@ export default class NuTable extends NuElement {
         ];
       },
       padding: unit('--nu-cell-padding', {
-        empty: '--nu-indent',
+        empty: '--nu-gap',
         convert: true,
       }),
-      radius: unit('--nu-local-border-radius', {
-        empty: '--nu-border-radius',
+      radius: unit('--nu-local-radius', {
+        empty: '--nu-radius',
         convert: true,
       }),
     };
@@ -75,7 +75,7 @@ export default class NuTable extends NuElement {
       ${css}
 
       ${tag} {
-        --nu-cell-padding: var(--nu-indent);
+        --nu-cell-padding: var(--nu-gap);
       }
 
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > * {
@@ -95,19 +95,19 @@ export default class NuTable extends NuElement {
       }
 
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > *:first-child {
-        border-top-left-radius: var(--nu-local-border-radius, var(--nu-border-radius));
+        border-top-left-radius: var(--nu-local-radius, var(--nu-radius));
       }
 
       ${tag} >  nu-rowgroup:first-child >  nu-row:first-child > *:last-child {
-        border-top-right-radius: var(--nu-local-border-radius, var(--nu-border-radius));
+        border-top-right-radius: var(--nu-local-radius, var(--nu-radius));
       }
 
       ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > *:first-child {
-        border-bottom-left-radius: var(--nu-local-border-radius, var(--nu-border-radius));
+        border-bottom-left-radius: var(--nu-local-radius, var(--nu-radius));
       }
 
       ${tag} >  nu-rowgroup:last-child >  nu-row:last-child > *:last-child {
-        border-bottom-right-radius: var(--nu-local-border-radius, var(--nu-border-radius));
+        border-bottom-right-radius: var(--nu-local-radius, var(--nu-radius));
       }
     `;
   }

@@ -126,7 +126,7 @@ export default class NuCode extends NuElement {
         display: inline-block;
       }
       ${tag} nu-el[fill] {
-        border-radius: var(--nu-border-radius);
+        border-radius: var(--nu-radius);
         padding: .25em;
       }
     `;

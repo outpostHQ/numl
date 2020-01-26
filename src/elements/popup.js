@@ -36,7 +36,7 @@ export default class NuPopup extends NuCard {
         if (sideStyle) {
           return [{
             $suffix: ':not([space])',
-            [sideStyle]: 'calc(var(--nu-indent) * -1)',
+            [sideStyle]: 'calc(var(--nu-gap) * -1)',
           }, ...placeAttr(val, defaults)];
         }
 
@@ -57,6 +57,8 @@ export default class NuPopup extends NuCard {
       cursor: 'default',
       place: '',
       drop: 'down',
+
+      '--local-hover-shadow': '0 0 0 0 transparent',
     };
   }
 
@@ -158,6 +160,6 @@ function handleOutside(event) {
     });
 }
 
-window.addEventListener('mousedown', handleOutside);
-window.addEventListener('touchstart', handleOutside);
-window.addEventListener('focusin', handleOutside);
+['mousedown', 'touchstart', 'focusin'].forEach(eventName => {
+  window.addEventListener(eventName, handleOutside, { passive: true });
+});

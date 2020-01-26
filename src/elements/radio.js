@@ -44,6 +44,7 @@ export default class NuRadio extends NuActiveElement {
       hoverable: 'n :focusable[.5em]',
       toggle: '0 :active[.5em] :pressed[.5em]',
       fill: 'bg',
+      expand: '.5em',
     };
   }
 

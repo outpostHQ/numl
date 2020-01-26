@@ -1,36 +1,22 @@
-import { parseAttr, stripCalc } from '../helpers';
+import { parseAttr } from '../helpers';
 
-export default function hoverableAttr(val, defaults) {
+export default function hoverableAttr(val) {
   const { values, mods } = parseAttr(val, true);
 
-  if (!mods.includes('y') && !mods.includes('yes') && !values.length) return;
+  const size = values[0] || '0';
+  const inactiveSize = values[1] || size;
 
-  let size = values[0] || '0';
-  let radius = values[1] || 'var(--nu-local-border-radius)';
+  const styles = [{
+    '--nu-local-hover-shadow': `0 0 0 ${inactiveSize} transparent, 0 0 0 9999rem transparent inset`,
+  }];
 
-  if (size !== '0') {
-    size = `calc(-1 * ${stripCalc(size)})`;
+  if (!mods.includes('n') && !mods.includes('no')) {
+    styles[0].$suffix = 'not(:hover)';
+    styles.push({
+      $suffix: ':hover',
+      '--nu-local-hover-shadow': `0 0 0 ${size} var(--nu-hover-color), 0 0 0 9999rem var(--nu-hover-color) inset`,
+    });
   }
 
-  return (defaults.z == null ? [{
-    $suffix: ':not([z])',
-    'z-index': '0',
-  }] : [])
-  .concat([{
-    $suffix: ':not([disabled])::after',
-    content: '""',
-    display: 'block',
-    position: 'absolute',
-    top: size,
-    right: size,
-    bottom: size,
-    left: size,
-    'z-index': '-1',
-    'border-radius': radius,
-    'background-color': 'transparent',
-    transition: 'background-color var(--nu-animation-time) linear',
-  }, {
-    $suffix: ':not([disabled]):hover::after',
-    'background-color': 'var(--nu-hover-color)',
-  }]);
+  return styles;
 };

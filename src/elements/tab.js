@@ -22,6 +22,7 @@ export default class NuTab extends NuActiveElement {
       items: `center
          :dir-right[center end]
          :dir-left[center start]`,
+      expand: `0 1x :orient-y[1x 0]`,
       border: `0
         ${DIRECTIONS.map(dir => `
           :dir-${dir}:focusable:hover[1b ${dir} inside color(special)]

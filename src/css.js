@@ -189,8 +189,8 @@ body {
   --nu-base: 16px;
   --nu-pixel: 1px;
 
-  --nu-border-radius: 0.5rem;
-  --nu-indent: 0.5rem;
+  --nu-radius: 0.5rem;
+  --nu-gap: 0.5rem;
   --nu-border-width: 1px;
   --nu-animation-time: 0.08s;
   --nu-inline-offset: -.15em;

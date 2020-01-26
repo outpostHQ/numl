@@ -17,7 +17,7 @@ export default class NuInput extends NuBlock {
       maxlength: '',
       name: '',
       padding: unit('--nu-local-padding', {
-        empty: '--nu-indent',
+        empty: '--nu-gap',
         convert: true,
       }),
     };

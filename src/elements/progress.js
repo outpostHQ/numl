@@ -72,8 +72,8 @@ export default class NuProgressBar extends NuElement {
       }
 
       ${tag}:not([radius]) {
-        --nu-local-border-radius: calc(var(--nu-border-radius) / 2);
-        border-radius: var(--nu-local-border-radius);
+        --nu-local-radius: calc(var(--nu-radius) / 2);
+        border-radius: var(--nu-local-radius);
       }
 
       ${tag}:not([border]) {

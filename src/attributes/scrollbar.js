@@ -15,8 +15,8 @@ export default function scrollbarAttr(val) {
   return [
     {
       $suffix: '::-webkit-scrollbar',
-      width: 'var(--nu-indent)',
-      height: 'var(--nu-indent)',
+      width: 'var(--nu-gap)',
+      height: 'var(--nu-gap)',
     },
     {
       $suffix: '::-webkit-scrollbar-track',
@@ -25,7 +25,7 @@ export default function scrollbarAttr(val) {
     {
       $suffix: '::-webkit-scrollbar-thumb',
       'background-color': 'rgba(var(--nu-text-color-rgb), .5)',
-      'border-radius': 'var(--nu-border-radius)',
+      'border-radius': 'var(--nu-radius)',
       border: 'var(--nu-border-width) solid var(--nu-subtle-color)',
     },
   ].concat(SCROLLBAR_SUPPORT ? [{
