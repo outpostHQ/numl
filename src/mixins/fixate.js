@@ -1,6 +1,9 @@
-import { devMode, DIRECTIONS, fixPosition, warn } from '../helpers';
+import { devMode, DIRECTIONS, fixPosition, parseAttr, warn } from '../helpers';
+import { PLACE_ATTR } from '../attributes/place';
 
 const LISTENERS = new Set;
+
+const FIXATE_DIRECTIONS = ['up', 'right', 'down', 'left'];
 
 export const FIXATE_ATTR = 'drop';
 
@@ -13,24 +16,30 @@ function onFixateChange() {
 export default function FixateMixin() {
   return {
     connected() {
-      if (!this.hasAttribute('place') && !this.hasAttribute(FIXATE_ATTR)) {
-        if (this.nuContext.popup) {
-          this.setAttribute('place', 'outside-right top');
-        } else {
-          this.setAttribute(FIXATE_ATTR, this.constructor.nuAllDefaults.drop || 'down');
+      const defaults = this.constructor.nuAllDefaults;
+      const _this = this;
+
+      Object.assign(this, {
+        get nuIsFixate() {
+          const place = _this.getAttribute(PLACE_ATTR);
+          const fixate = _this.getAttribute(FIXATE_ATTR);
+
+          if (place) {
+            return false;
+          }
+
+          if (fixate == null) {
+            return defaults[FIXATE_ATTR] && !defaults[PLACE_ATTR];
+          }
+
+          return true;
         }
-      }
+      });
 
-      if (this.hasAttribute(FIXATE_ATTR)) {
-        this.nuSetContext('fixate', this);
-      }
-
-      if (!this.nuFixatePosition) {
-        this.nuFixatePosition = 'bottom';
-      }
+      this.nuChanged(FIXATE_ATTR, null, this.getAttribute(FIXATE_ATTR) || 'down');
 
       this.nuFixateChange = () => {
-        if (!this.nuIsConnected) return;
+        if (!this.nuIsConnected || !this.nuIsFixate) return;
 
         const [pos, spos] = this.nuFixatePosition.split(/\s+/);
         const parent = this.nuFixateParent;
@@ -115,7 +124,7 @@ export default function FixateMixin() {
       };
 
       this.nuFixateStart = () => {
-        if (this.hasAttribute('place') || !this.hasAttribute(FIXATE_ATTR)) return;
+        if (!this.nuFixatePosition) return;
 
         this.nuFixateParent = this.parentNode;
 
@@ -125,40 +134,43 @@ export default function FixateMixin() {
       };
 
       this.nuFixateEnd = () => {
-        if (this.hasAttribute('place') || !this.hasAttribute(FIXATE_ATTR)) return;
+        if (!this.nuFixatePosition) return;
 
         LISTENERS.delete(this.nuFixateChange);
       };
-
-      this.nuFixateChange();
     },
     disconnected() {
       this.nuFixateEnd();
     },
     changed(name, oldValue, value) {
-      if (name !== FIXATE_ATTR) return;
+      if (name !== PLACE_ATTR && name !== FIXATE_ATTR) return;
 
-      if (value == null) {
-        this.nuSetMod(FIXATE_ATTR, false);
-        this.nuSetContext('fixate', null);
+      this.nuSetMod(FIXATE_ATTR, false);
+      this.nuSetContext('fixate', null);
+      delete this.nuFixatePosition;
 
-        return;
+      const fixate = this.nuIsFixate;
+      const fixateValue = this.getAttribute(FIXATE_ATTR) || 'down';
+
+      if (!fixate) return;
+
+      if (devMode) {
+        const { mods } = parseAttr(fixateValue);
+
+        if ((mods[0] && !FIXATE_DIRECTIONS.includes(mods[0]))
+          || (mods[1] && !DIRECTIONS.includes(mods[1]))) {
+          warn('[fixate.mixin] incorrect [drop] value:', JSON.stringify(fixateValue));
+
+          return;
+        }
       }
 
+      this.nuFixatePosition = fixateValue;
       this.nuSetMod(FIXATE_ATTR, true);
-
-      value = value.trim();
-
-      // if (!DIRECTIONS.includes(value)) {
-      //   if (devMode) {
-      //     warn('fixate.mixin: wrong fixate value:', JSON.stringify(value));
-      //   }
-      //
-      //   return;
-      // }
-
-      this.nuFixatePosition = value;
-      this.nuSetContext('fixate', this);
+      this.nuSetContext('fixate', {
+        context: this,
+        position: this.nuFixatePosition,
+      });
 
       setTimeout(() => this.nuFixateChange(), 0);
     }

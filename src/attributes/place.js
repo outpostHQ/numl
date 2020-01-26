@@ -1,6 +1,8 @@
 import { devMode, DIRECTIONS, parseAttr } from '../helpers';
 import TransformCombinator from '../combinators/transform';
 
+export const PLACE_ATTR = 'place';
+
 export const PLACE_VALUES = [
   'content', 'items', 'self'
 ].map((name) => {
@@ -69,7 +71,7 @@ const COVER_STYLES = {
   left: '0',
 };
 
-const OTHER_ATTRS = TransformCombinator().attrs.filter(attr => attr !== 'place');
+const OTHER_ATTRS = TransformCombinator().attrs.filter(attr => attr !== PLACE_ATTR);
 const DEFAULT_STYLES = { '--nu-transform-place': 'translate(0, 0)' };
 const NOT_OTHER_SELECTOR = OTHER_ATTRS.map(attr => `:not([${attr}])`).join('');
 const SECONDARY_DEFAULT_STYLES = [{

@@ -1,5 +1,5 @@
 import NuCard from './card';
-import placeAttr from '../attributes/place';
+import placeAttr, { PLACE_ATTR } from '../attributes/place';
 import { extractMods, fixPosition } from '../helpers';
 import FixateMixin, { FIXATE_ATTR } from '../mixins/fixate';
 
@@ -64,6 +64,12 @@ export default class NuPopup extends NuCard {
 
   nuConnected() {
     super.nuConnected();
+
+    if (!this.hasAttribute(PLACE_ATTR)
+      && !this.hasAttribute(FIXATE_ATTR)
+      && this.nuParent.nuContext.popup) {
+      this.setAttribute(PLACE_ATTR, 'outside-right top');
+    }
 
     this.nuSetContext('popup', this);
 
