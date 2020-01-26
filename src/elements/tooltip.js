@@ -20,7 +20,7 @@ export default class NuTooltip extends NuBlock {
       shadow: '',
       padding: '.5x 1x',
       z: 'front',
-      opacity: '0 ^:hover[1]',
+      opacity: '0 :show[1]',
       transition: 'opacity',
       place: '',
       drop: 'up',
@@ -50,14 +50,16 @@ export default class NuTooltip extends NuBlock {
 
     const onMouseEnter = () => {
       this.nuFixateStart();
+      this.nuSetMod('show', true);
 
       setTimeout(() => {
         fixPosition(this);
       });
     };
 
-    const onMouseLeave = () => {
+    const onMouseLeave = (force) => {
       this.nuFixateEnd();
+      this.nuSetMod('show', false);
     };
 
     parent.addEventListener('mouseenter', onMouseEnter);
@@ -66,6 +68,14 @@ export default class NuTooltip extends NuBlock {
     this.nuSetDisconnectedHook(() => {
       parent.removeEventListener('mouseenter', onMouseEnter);
       parent.removeEventListener('mouseleave', onMouseLeave);
+    });
+
+    this.nuSetContextHook('focus', (val) => {
+      if (val) {
+        onMouseEnter();
+      } else {
+        onMouseLeave();
+      }
     });
 
     if (!this.hasAttribute('width')) {

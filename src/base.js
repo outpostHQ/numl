@@ -859,14 +859,17 @@ export default class NuBase extends HTMLElement {
 
     (this.nuRef || this).addEventListener('focus', () => {
       this.nuSetMod('focus', true);
+      this.nuSetContext('focus', true);
     });
 
     (this.nuRef || this).addEventListener('blur', () => {
       this.nuSetMod('focus', false);
+      this.nuSetContext('focus', null);
     });
 
     if (document.activeElement === this.nuRef) {
       this.nuSetMod('focus', true);
+      this.nuSetContext('focus', true);
     }
 
     this.nuFocusable = true;
@@ -1007,7 +1010,7 @@ export default class NuBase extends HTMLElement {
 
     if (!hooks || !hooks[name]) return;
 
-    hooks[name]();
+    hooks[name](this.nuContext[name]);
 
     log('hook fired', {
       el: this,

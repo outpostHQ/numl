@@ -110,7 +110,7 @@ export default function FixateMixin() {
 
         Object.entries(props)
           .forEach(([name, value]) => {
-            value = value ? `${value}px` : '-';
+            value = value ? `${value}px` : 'initial';
 
             this.style.setProperty(`--nu-fixate-${name}`, value);
           });

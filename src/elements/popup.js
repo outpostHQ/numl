@@ -57,8 +57,6 @@ export default class NuPopup extends NuCard {
       cursor: 'default',
       place: '',
       drop: 'down',
-
-      '--local-hover-shadow': '0 0 0 0 transparent',
     };
   }
 
