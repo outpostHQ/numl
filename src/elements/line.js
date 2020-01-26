@@ -17,14 +17,14 @@ export default class NuLine extends NuBlock {
   static get nuDefaults() {
     return {
       place: 'stretch',
-      orient: 'x',
+      orient: 'h',
       size: '1b',
       width: `min(1em)
-        :orient-y[minmax(1fs, 1fs)]`,
+        :orient-v[minmax(1fs, 1fs)]`,
       height: `min(1em)
-        :orient-x[minmax(1fs, 1fs)]`,
-      column: ':orient-x[1 / -1]',
-      row: ':orient-y[1 / -1]',
+        :orient-h[minmax(1fs, 1fs)]`,
+      column: ':orient-h[1 / -1]',
+      row: ':orient-v[1 / -1]',
       fill: 'var(--nu-local-border-color, var(--nu-border-color)) :special[special]',
       text: 'v-middle',
     };

@@ -5,7 +5,7 @@ export default function DirectionMixin({ aria, initial } = {}) {
   return {
     connected() {
       this.nuSetDirection = () => {
-        const initialValue = initial ? initial.call(this) : (this.getAttribute('direction') || 'x');
+        const initialValue = initial ? initial.call(this) : (this.getAttribute('direction') || 'h');
 
         this.nuChanged('direction', this.nuDirection, initialValue);
       };
@@ -22,8 +22,8 @@ export default function DirectionMixin({ aria, initial } = {}) {
 
         const orientation = value === 'top' || value === 'bottom' ? HORIZONTAL : VERTICAL;
 
-        this.nuSetMod(`orient-${orientation === HORIZONTAL ? 'y' : 'x'}`, false);
-        this.nuSetMod(`orient-${orientation === HORIZONTAL ? 'x' : 'y'}`, true);
+        this.nuSetMod(`orient-${orientation === HORIZONTAL ? 'v' : 'h'}`, false);
+        this.nuSetMod(`orient-${orientation === HORIZONTAL ? 'h' : 'v'}`, true);
 
         if (aria) {
           this.nuSetAria('orientation', orientation);

@@ -14,7 +14,7 @@ export default class NuTab extends NuActiveElement {
   static get nuDefaults() {
     return {
       display: 'inline-grid',
-      padding: '1x 0 :orient-y[0 2x]',
+      padding: '1x 0 :orient-v[0 2x]',
       fill: 'transparent',
       radius: '0',
       flow: `column`,
@@ -22,7 +22,7 @@ export default class NuTab extends NuActiveElement {
       items: `center
          :dir-right[center end]
          :dir-left[center start]`,
-      expand: `0 1x :orient-y[1x 0]`,
+      expand: `0 1x :orient-v[1x 0]`,
       border: `0
         ${DIRECTIONS.map(dir => `
           :dir-${dir}:focusable:hover[1b ${dir} inside color(special)]

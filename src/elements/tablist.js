@@ -16,9 +16,9 @@ export default class NuTablist extends NuRadioGroup {
 
   static get nuDefaults() {
     return {
-      gap: '2x :orient-y[1x]',
+      gap: '2x :orient-v[1x]',
       flow: `row
-        :orient-y[column]`,
+        :orient-v[column]`,
     };
   }
 

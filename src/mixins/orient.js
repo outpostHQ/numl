@@ -1,5 +1,5 @@
-const ORIENT_X_MOD = 'orient-x';
-const ORIENT_Y_MOD = 'orient-y';
+const ORIENT_X_MOD = 'orient-h';
+const ORIENT_Y_MOD = 'orient-v';
 export const VERTICAL = 'vertical';
 export const HORIZONTAL = 'horizontal';
 
@@ -7,7 +7,7 @@ export default function OrientMixin({ aria, initial } = {}) {
   return {
     connected() {
       this.nuSetOrient = () => {
-        const initialValue = initial ? initial.call(this) : (this.getAttribute('orient') || 'x');
+        const initialValue = initial ? initial.call(this) : (this.getAttribute('orient') || 'h');
 
         this.nuChanged('orient', null, initialValue);
       };
@@ -16,14 +16,14 @@ export default function OrientMixin({ aria, initial } = {}) {
     },
     changed(name, oldValue, value) {
       if (name === 'orient') {
-        value = value === 'y' ? 'y' : 'x';
+        value = value === 'v' ? 'v' : 'h';
 
         [ORIENT_X_MOD, ORIENT_Y_MOD]
           .forEach(attr => this.nuSetMod(attr, false));
 
-        this.nuSetMod(value === 'y' ? ORIENT_Y_MOD : ORIENT_X_MOD, true);
+        this.nuSetMod(value === 'v' ? ORIENT_Y_MOD : ORIENT_X_MOD, true);
 
-        const orientation = value === 'y' ? VERTICAL : HORIZONTAL;
+        const orientation = value === 'v' ? VERTICAL : HORIZONTAL;
 
         if (aria) {
           this.nuSetAria('orientation', orientation);

@@ -21,8 +21,8 @@ export default class NuRail extends NuElement {
   static get nuDefaults() {
     return {
       display: 'inline-block',
-      width: ':orient-x[100%] :orient-y[.5em]',
-      height: ':orient-x[.5em] :orient-y[100%]',
+      width: ':orient-h[100%] :orient-v[.5em]',
+      height: ':orient-h[.5em] :orient-v[100%]',
       radius: 'round',
       fill: 'special-bg',
       border: '1b',

@@ -24,7 +24,7 @@ export default class NuSlider extends NuActiveElement {
       border: '1b color(text)',
       space: '.25em + 1b',
       text: 'v-middle',
-      move: ':orient-x[-.25em 0] :orient-y[0 .25em]'
+      move: ':orient-h[-.25em 0] :orient-v[0 .25em]'
     };
   }
 
@@ -33,8 +33,8 @@ export default class NuSlider extends NuActiveElement {
       aria: true,
       initial() {
         return !this.hasAttribute('orient') && this.nuContext.orientation
-          ? (this.nuContext.orientation === VERTICAL ? 'y' : 'x')
-          : (this.getAttribute('orient') || 'x');
+          ? (this.nuContext.orientation === VERTICAL ? 'v' : 'h')
+          : (this.getAttribute('orient') || 'v');
       },
     })]
   }
@@ -46,7 +46,7 @@ export default class NuSlider extends NuActiveElement {
         position: absolute;
       }
 
-      ${tag}[nu-orient-x] {
+      ${tag}[nu-orient-h] {
         top: 0;
         left: var(--nu-local-offset);
       }
