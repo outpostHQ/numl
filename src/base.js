@@ -40,11 +40,13 @@ import displayAttr from './attributes/display';
 import themeAttr from './attributes/theme';
 import propAttr from './attributes/prop';
 import combine from './combinators/index';
+import TransformCombinator from './combinators/transform';
+import ShadowCombinator from './combinators/shadow';
 
-export const COMBINATORS = ['transform', 'shadow'];
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
 export const MIXINS_MAP = {};
+export const COMBINATORS_MAP = {};
 
 export function getAllAttrs() {
   return Object.keys(ATTRS_MAP).reduce((arr, tag) => {
@@ -219,10 +221,17 @@ export default class NuBase extends HTMLElement {
     );
   }
 
+  /**
+   * Element mixins.
+   * They are used to inject reusable logic into elements.
+   */
   static get nuMixins() {
     return [];
   }
 
+  /**
+   * @private
+   */
   static get nuAllMixins() {
     return (
       MIXINS_MAP[this.nuTag] ||
@@ -233,8 +242,28 @@ export default class NuBase extends HTMLElement {
     );
   }
 
+  /**
+   * Element combinators.
+   * They are used to generate initial CSS for elements.
+   */
   static get nuCombinators() {
-    return COMBINATORS;
+    return {
+      transform: TransformCombinator(),
+      shadow: ShadowCombinator(),
+    };
+  }
+
+  /**
+   * @private
+   */
+  static get nuAllCombinators() {
+    return (
+      COMBINATORS_MAP[this.nuTag] ||
+      (COMBINATORS_MAP[this.nuTag] = {
+        ...(this.nuParent && this.nuParent.nuAllCombinators || {}),
+        ...(this.nuCombinators || {}),
+      })
+    );
   }
 
   /**
@@ -258,7 +287,7 @@ export default class NuBase extends HTMLElement {
 
     const allAttrs = this.nuAllAttrs;
     const allDefaults = this.nuAllDefaults;
-    const combinators = this.nuCombinators;
+    const combinators = Object.values(this.nuAllCombinators);
 
     const globalAttrs = Object.keys(allAttrs).filter(attr => GLOBAL_ATTRS.includes(attr) && allAttrs[attr]);
 
@@ -276,8 +305,8 @@ export default class NuBase extends HTMLElement {
 
     let defaultsCSS = '';
 
-    combinators.forEach(combinatorName => {
-      const styles = combine(combinatorName, allDefaults);
+    combinators.forEach(combinator => {
+      const styles = combine(combinator, allDefaults);
 
       if (styles.length) {
         defaultsCSS += generateCSS(tag, styles);

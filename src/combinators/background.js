@@ -1,18 +1,20 @@
-export default {
-  attrs: ['fill', 'image'],
-  generator(attrs) {
-    if (!attrs.length) return;
+export default function BackgroundCombinator() {
+  return {
+    attrs: ['fill', 'image'],
+    generator(attrs) {
+      if (!attrs.length) return;
 
-    const styles = {
-      'background-color': 'var(--nu-local-bg-color)'
-    };
+      const styles = {
+        'background-color': 'var(--nu-local-bg-color)'
+      };
 
-    if (!attrs.includes('fill')) {
-      styles['background-color'] = 'transparent';
-    } else if (attrs.includes('image')) {
-      styles['background-color'] = 'var(--nu-local-bg-color, var(--nu-bg-color))';
-    }
+      if (!attrs.includes('fill')) {
+        styles['background-color'] = 'transparent';
+      } else if (attrs.includes('image')) {
+        styles['background-color'] = 'var(--nu-local-bg-color, var(--nu-bg-color))';
+      }
 
-    return styles;
-  },
-};
+      return styles;
+    },
+  };
+}

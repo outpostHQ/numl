@@ -24,7 +24,7 @@ export default class NuDecorator extends NuBase {
   }
 
   static get nuCombinators() {
-    return [];
+    return {};
   }
 
   get nuParentContext() {

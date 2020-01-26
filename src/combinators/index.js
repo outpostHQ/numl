@@ -9,11 +9,9 @@ export const combinators = {
   shadow,
 };
 
-export default function combine(combinatorName, defaults) {
-  const combinator = combinators[combinatorName];
-
+export default function combine(combinator, defaults) {
   if (!combinator) {
-    warn('wrong combinator name', JSON.stringify(combinatorName));
+    warn('wrong combinator', JSON.stringify(combinator));
 
     return;
   }

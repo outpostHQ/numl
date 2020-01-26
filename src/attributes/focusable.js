@@ -29,7 +29,7 @@ export default function focusableAttr(val) {
     {
       $prefix,
       $suffix: ':not([disabled])[nu-focus]',
-      'z-index': '10',
+      'z-index': '9',
       '--nu-local-focus-color': 'var(--nu-focus-color)',
     },
   ] : []);
