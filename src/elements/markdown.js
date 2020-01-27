@@ -8,6 +8,7 @@ export default class NuMarkdown extends NuElement {
   static get nuDefaults() {
     return {
       display: 'block',
+      gap: '1x',
     };
   }
 
@@ -32,12 +33,14 @@ export default class NuMarkdown extends NuElement {
 
       const container = document.createElement('nu-flow');
 
-      container.setAttribute('gap', '1x');
+      container.setAttribute('gap', this.getAttribute('gap') || '1x');
 
       this.appendChild(container);
 
       this.nuObserve = () => {
-        container.innerHTML = parse(prepareContent(textarea.innerHTML));
+        container.innerHTML = parse(prepareContent(textarea.innerHTML), this.nuInline);
+
+        console.log(parse(prepareContent(textarea.innerHTML), this.nuInline));
       };
 
       const observer = new MutationObserver(() => this.nuObserve());
@@ -56,6 +59,14 @@ export default class NuMarkdown extends NuElement {
       this.nuObserve();
     });
   }
+
+  nuChanged(name, oldValue, value) {
+    super.nuChanged(name, oldValue, value);
+
+    if (name === 'gap') {
+      this.nuObserve();
+    }
+  }
 }
 
 function prepareContent(str) {
@@ -72,7 +83,7 @@ const TAGS = {
   '': ['<nu-el text="i">', '</nu-el>'],
   _: ['<nu-el text="w6">', '</nu-el>'],
   '~': ['<nu-el text="s">', '</nu-el>'],
-  '\n': ['<br />'],
+  '\n': ['</nu-block><nu-block>'],
   ' ': ['<br />'],
   '-': ['<nu-line></nu-line>']
 };
@@ -98,7 +109,9 @@ function parse(md, inline, prevLinks) {
     out = '',
     links = prevLinks || {},
     last = 0,
-    chunk, prev, token, inner, t;
+    chunk, prev, token, inner, t, heading;
+
+  TAGS['\n'] = inline ? '\n' : '</nu-block><nu-block>';
 
   function tag(token) {
     var desc = TAGS[token.replace(/\*/g, '_')[1] || ''],
@@ -129,7 +142,7 @@ function parse(md, inline, prevLinks) {
     }
     // Code/Indent blocks:
     else if (!inline && (token[3] || token[4])) {
-      chunk = '<nu-code ' + (!token[4] && token[2].toLowerCase() === 'enumerate' ? 'enumerate' : '') + '><textarea>' + outdent(encodeAttr(token[3] || token[4]).replace(/^\n+|\n+$/g, '')) + '</textarea></nu-code>';
+      chunk = '</nu-block><nu-code ' + (!token[4] && token[2].toLowerCase() === 'enumerate' ? 'enumerate' : '') + '><textarea>' + outdent(encodeAttr(token[3] || token[4]).replace(/^\n+|\n+$/g, '')) + '</textarea></nu-code><nu-block>';
     }
     // > Quotes, -* lists:
     else if (!inline && token[6]) {
@@ -158,8 +171,9 @@ function parse(md, inline, prevLinks) {
     }
     // Headings:
     else if (!inline && (token[12] || token[14])) {
+      heading = true;
       t = (token[14] ? token[14].length : (token[13][0] === '=' ? 1 : 2));
-      chunk = '<nu-heading level="' + t + '">' + parse(token[12] || token[15], links) + '</nu-heading>';
+      chunk = '</nu-block><nu-heading level="' + t + '">' + parse(token[12] || token[15], links) + '</nu-heading><nu-block>';
     }
     // `code`:
     else if (token[16]) {
@@ -169,9 +183,18 @@ function parse(md, inline, prevLinks) {
     else if (token[17] || token[1]) {
       chunk = tag(token[17] || '--');
     }
+
+
+
     out += prev;
     out += chunk;
   }
 
-  return (out + md.substring(last) + flush()).trim();
+  const result = (out + md.substring(last) + flush()).trim();
+
+  if (!inline) {
+    return ('<nu-block>' + result + '</nu-block>').replace(/<nu-block><\/nu-block>/g, '');
+  }
+
+  return result;
 }

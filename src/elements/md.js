@@ -11,4 +11,10 @@ export default class NuMd extends NuMarkdown {
       text: 'baseline',
     };
   }
+
+  nuConnected() {
+    this.nuInline = true;
+
+    super.nuConnected();
+  }
 }

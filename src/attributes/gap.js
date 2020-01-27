@@ -22,7 +22,7 @@ export default function gapAttr(val) {
     'grid-gap': fullVal,
     '--nu-local-v-gap': vGap,
     '--nu-local-h-gap': hGap,
-    '--nu-local-gap': vGap === hGap ? 'vGap' : null,
+    '--nu-local-gap': vGap === hGap ? vGap : null,
   }, {
     $suffix: '>*',
     '--nu-v-gap': vGap,
