@@ -52,6 +52,8 @@ import Nude, {
   NuProgressBar,
   NuRail,
   NuSlider,
+  NuMarkdown,
+  NuMd,
 } from './index';
 
 Nude.elements = {
@@ -102,6 +104,8 @@ Nude.elements = {
   NuProgressBar,
   NuRail,
   NuSlider,
+  NuMarkdown,
+  NuMd,
   // decorators
   NuDecorator,
   NuTheme,

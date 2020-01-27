@@ -2344,7 +2344,7 @@
         <nu-btn special>
           <nu-block text="w6">Dropdown menu 123</nu-block>
           <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
-          <nu-popupmenu>
+          <nu-popupmenu drop="right">
             <nu-menuitem value="first-item">Menu button level 1</nu-menuitem>
             <nu-menuitem>
               Submenu level 1
@@ -2752,6 +2752,29 @@
           </nu-block>
         </nu-block>
       </nu-grid>
+    </nu-card>
+
+    <nu-heading level="2">Markdown</nu-heading>
+
+    <nu-card>
+      <nu-markdown>
+        <pre>
+          #### Some header
+
+          Maybe **tomorrow**. What do you _think_? `var a = '123'`.
+
+          ```enumerate
+          var a = '123';
+          var b = /wow?/;
+          ```
+        </pre>
+      </nu-markdown>
+
+      <nu-heading level="4">Inline markdown</nu-heading>
+
+      <nu-block>
+        It's a fragment of "<nu-md><pre>**inlined** markdown _content_</pre></nu-md>".
+      </nu-block>
     </nu-card>
 
     <nu-heading level="2">States & complex states</nu-heading>
