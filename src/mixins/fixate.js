@@ -126,7 +126,14 @@ export default function FixateMixin() {
       this.nuFixateStart = () => {
         if (!this.nuFixatePosition) return;
 
-        this.nuFixateParent = this.parentNode;
+        this.style.display = '';
+        this.style.opacity = '1';
+
+        if (!this.nuFixateParent) {
+          this.nuFixateParent = this.parentNode;
+        }
+
+        this.nuFixated = true;
 
         this.nuFixateChange();
 
@@ -134,19 +141,36 @@ export default function FixateMixin() {
       };
 
       this.nuFixateEnd = () => {
-        if (!this.nuFixatePosition) return;
+        if (!this.nuFixated) return;
+
+        this.nuFixated = false;
 
         LISTENERS.delete(this.nuFixateChange);
+
+        this.style.opacity = '0';
+
+        setTimeout(() => {
+          if (!this.nuFixated) {
+            this.style.display = 'none';
+            this.style.removeProperty(`--nu-transform-place`);
+            [...DIRECTIONS, 'width']
+              .forEach(prop => this.style.removeProperty(`--nu-fixate-${prop}`));
+          }
+        }, 500);
       };
     },
     disconnected() {
       this.nuFixateEnd();
+
+      delete this.nuFixateParent;
     },
     changed(name, oldValue, value) {
       if (name !== PLACE_ATTR && name !== FIXATE_ATTR) return;
 
       this.nuSetMod(FIXATE_ATTR, false);
       this.nuSetContext('fixate', null);
+      this.style.display = '';
+      this.style.opacity = '';
       delete this.nuFixatePosition;
 
       const fixate = this.nuIsFixate;
@@ -173,8 +197,10 @@ export default function FixateMixin() {
         context: this,
         position: this.nuFixatePosition,
       });
+      this.style.display = 'none';
+      this.style.opacity = '0';
 
-      setTimeout(() => this.nuFixateChange(), 0);
+      // setTimeout(() => this.nuFixateChange(), 0);
     }
   };
 }

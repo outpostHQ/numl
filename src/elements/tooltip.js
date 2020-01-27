@@ -22,16 +22,16 @@ export default class NuTooltip extends NuBlock {
       z: 'front',
       opacity: '0 :show[1]',
       transition: 'opacity',
-      place: '',
-      drop: 'up',
+      place: 'outside-top',
+      drop: '',
       fill: 'bg',
       color: 'text',
       radius: '1r',
       border: '1b outside',
-      size: 'inherit',
+      size: 'xs',
       interactive: 'no',
-      text: 'wrap',
-      width: 'minmax(min-content, 100vw) :drop[clamp(min-content, initial, 100vw)]',
+      text: 'wrap w6',
+      width: 'clamp(min-content, initial, 100vw)',
     };
   }
 

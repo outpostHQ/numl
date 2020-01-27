@@ -55,8 +55,8 @@ export default class NuPopup extends NuCard {
       width: 'minmax(100%, 100vw) :drop[clamp(--fixate-width, min-content, 100vw)]',
       text: 'wrap w4',
       cursor: 'default',
-      place: '',
-      drop: 'down',
+      place: 'outside-bottom',
+      drop: '',
     };
   }
 

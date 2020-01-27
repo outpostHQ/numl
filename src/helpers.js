@@ -374,6 +374,7 @@ export const STATES_MAP = {
   themed: '[theme]',
   special: '[special]',
   disabled: '[disabled]',
+  inline: '[inline]',
   even: ':nth-child(even)',
   odd: ':nth-child(odd)',
 };
@@ -425,8 +426,6 @@ export function splitStates(attrValue) {
         value,
       };
     });
-
-  console.log('!', stateMaps);
 
   // create mutually exclusive selectors
   for (let i = 0; i < stateMaps.length; i++) {
@@ -974,9 +973,6 @@ export function parseAttrStates(val) {
 
   return zones;
 }
-
-window.parseAttrStates = parseAttrStates;
-window.splitStates = splitStates;
 
 export function normalizeAttrStates(val) {
   const zones = parseAttrStates(val);
