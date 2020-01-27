@@ -3,9 +3,9 @@ import { setAttrs } from '../helpers';
 
 const ICON_ATTRS = {
   name: 'check',
-  opacity: '0 ^:pressed[1]',
+  opacity: '^ 0 :pressed[1]',
   transition: 'opacity',
-  color: 'special ^:disabled[text 66%]',
+  color: '^ special :disabled[text 66%]',
 };
 
 export default class NuCheckbox extends NuActiveElement {

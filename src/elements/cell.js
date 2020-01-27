@@ -15,10 +15,10 @@ export default class NuCell extends NuElement {
 
   static get nuDefaults() {
     return {
-      display: 'block ^:role-row[table-cell]',
+      display: '^ block :role-row[table-cell]',
       padding: '--nu-cell-padding',
       text: 'middle',
-      fill: 'bg ^:role-row[]',
+      fill: '^ bg :role-row[]',
     };
   }
 

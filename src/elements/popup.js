@@ -49,7 +49,7 @@ export default class NuPopup extends NuCard {
     return {
       shadow: '',
       z: 'front',
-      opacity: '0 ^:pressed[1]',
+      opacity: '^ 0 :pressed[1]',
       transition: 'opacity',
       border: '1b outside',
       width: 'minmax(100%, 100vw) :drop[clamp(--fixate-width, min-content, 100vw)]',

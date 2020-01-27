@@ -408,76 +408,25 @@ export function getCombinations(array) {
  * @returns {Object[]}
  */
 export function splitStates(attrValue) {
-  const tmp = attrValue.replace(/\^:/g, '#--parent--:').split(/[\s^]+(?=[\:#])/g);
+  const zone = parseAttrStates(attrValue)[0];
+  const id = (zone.parent === '^' ? '#--parent--' : zone.parent).replace('#', '');
 
-  let id;
+  let baseValue;
 
-  let stateMaps = tmp
-    .map(val => {
-      if (!val) return;
-
-      /**
-       * If true then val applies on element state.
-       * If false then val applies on parent state.
-       * @type {Boolean}
-       */
-      const idMatch = val.match(/^#([a-z\d-]+)/);
-
-      if (idMatch && idMatch[1] && id && idMatch[1] !== id) {
-        return warn('too complex state (skipped):', `"${attrValue}"`);
+  let stateMaps = Object.entries(zone.states)
+    .map(([state, value]) => {
+      if (!state) {
+        baseValue = value;
       }
-
-      id = idMatch ? idMatch[1] : null;
-
-      const tmp2 = val.replace(/.*?\:/, '').split(/\[|\]/g);
-
-      if (tmp2.length === 1) {
-        return {
-          states: [],
-          notStates: [],
-          value: val
-        };
-      }
-
-      const states = tmp2[0].split(':');
-
-      // if (devMode) {
-      //   const notFound = states.find(s => !STATES_MAP[s]);
-      //
-      //   if (notFound) {
-      //     warn('state not found:', notFound);
-      //   }
-      // }
 
       return {
-        states: states,
+        states: !state ? [] : state.split(':'),
         notStates: [],
-        value: tmp2[1].trim(),
+        value,
       };
-    })
-    .filter(val => val);
+    });
 
-  // add base state if missing
-  let baseMap = stateMaps.find(map => !map.states.length);
-
-  if (!baseMap) {
-    baseMap = {
-      states: [],
-      notStates: [],
-      value: ''
-    };
-
-    stateMaps.push(baseMap);
-  }
-
-  let baseValue = baseMap.value;
-
-  // const otherValues = stateMaps.filter(map => map !== baseMap).map(map => map.value);
-
-  // Guess another base value | Probably the bad idea
-  // if (otherValues.every(val => val === otherValues[0])) {
-  //   baseValue = otherValues[0];
-  // }
+  console.log('!', stateMaps);
 
   // create mutually exclusive selectors
   for (let i = 0; i < stateMaps.length; i++) {
@@ -559,7 +508,7 @@ export function computeStyles(name, value, attrs, defaults) {
   }
 
   // Style splitter for states system
-  if (value.match(/[:#^][a-z\d:-]+\[/)) {
+  if (value.match(/^(\^|#)/) || value.includes(':')) {
     // split values between states
     const states = splitStates(value);
 
@@ -629,17 +578,17 @@ export function hasMod(str, mod) {
 }
 
 export function parseAllValues(value) {
-  const { states } = parseAttrStates(value);
+  const zones = parseAttrStates(value);
 
-  return Object.values(states)
-    .reduce((values, list) => {
-      list.forEach(val => {
-        if (!values.includes(val)) {
-          values.push(val);
+  return zones
+    .reduce((list, zone) => {
+      Object.values(zone.states).forEach(val => {
+        if (!list.includes(val)) {
+          list.push(val);
         }
       });
 
-      return values;
+      return list;
     }, []);
 }
 
@@ -949,101 +898,100 @@ export function filterMods(mods, allowedMods) {
   return mods.filter(mod => allowedMods.includes(mod));
 }
 
-const STATE_REGEXP = /(\|)|((\s|^)([:^#][a-z0-9:-]+)\[)|(])|(.+?(?=\s[:#^]|$|]|\|))/gi;
+// const STATE_TYPE_REGEXP = /\[[^\]]*\|/;
+const STATE_REGEXP = /(\|)|(\[)|(])|(\^|#[a-z0-9-]+)|:([a-z0-9:-]+)(?=\[)|('[^']*'|[a-z0-9\.-][^'\]\[\|:]*(?!:))/gi;
 
+function requireZone(zones, index, parent = '') {
+  while (zones[index] == null) {
+    zones.push({
+      parent,
+      states: {
+        '': '', // base state is always presented
+      },
+    });
+  }
+
+  return zones[index];
+}
+
+/**
+ * Parse state information from raw attribute value.
+ * @param val
+ * @returns {[]}
+ */
 export function parseAttrStates(val) {
   let currentState = '';
-  let states = {};
-  let outsideIndex = 0;
-  let stateIndex = 0;
-  let maxState = 0;
+  let zones = [];
+  let zoneIndex = 0;
+  let stateZoneIndex = 0;
+  let opened = false;
+  let responsiveState = false;
+  let zone;
+  let parent;
 
-  val = val.replace(/\|/g, '| '); // space to make regexp work correctly for values: "1|:pressed[3]"
+  val.replace(STATE_REGEXP, (s, delimiter, open, close, id, state, value) => {
+    zone = requireZone(zones, zoneIndex);
+    parent = zone.parent;
 
-  val.replace(STATE_REGEXP, (s, delimiter, s2, s3, state, close, value) => {
-    if (!states[currentState]) {
-      states[currentState] = [];
+    if (opened) {
+      if (responsiveState) {
+        zone = requireZone(zones, stateZoneIndex, parent);
+      } else {
+        zone = requireZone(zones, zoneIndex, parent);
+      }
     }
 
-    if (state) {
-      currentState = state;
+    if (id) {
+      zone.parent = id;
+    } else if (delimiter) {
+      if (opened) {
+        if (zoneIndex) {
+          warn('incorrect state', JSON.stringify(val));
+        }
 
-      if (maxState < stateIndex) {
-        maxState = stateIndex;
+        responsiveState = true;
+        stateZoneIndex++;
+      } else {
+        zoneIndex++;
       }
-
-      stateIndex = outsideIndex;
+    } else if (open) {
+      opened = true;
     } else if (close) {
-      if (!states[currentState][currentState ? stateIndex : outsideIndex]) {
-        states[currentState][currentState ? stateIndex : outsideIndex] = '';
-      }
+      opened = false;
 
       currentState = '';
+      stateZoneIndex = 0;
+    } else if (state) {
+      currentState = state;
     } else if (value) {
-      states[currentState][currentState ? stateIndex : outsideIndex] = value.trim();
-    } else if (delimiter) {
-      if (currentState) {
-        // fill empty values
-        if (!states[currentState][stateIndex]) {
-          states[currentState][stateIndex] = '';
-        }
-
-        stateIndex++;
+      if (zone.states[currentState]) {
+        zone.states[currentState] = `${zone.states[currentState]}${value}`.trim();
       } else {
-        // fill empty values
-        if (!states[currentState][outsideIndex]) {
-          states[currentState][outsideIndex] = '';
-        }
-
-        outsideIndex++;
-
-        if (stateIndex < outsideIndex) {
-          stateIndex = outsideIndex;
-        }
+        zone.states[currentState] = value.trim();
       }
     }
   });
 
-  if (maxState < outsideIndex) {
-    maxState = outsideIndex;
-  }
-
-  return {
-    zones: maxState + 1,
-    states,
-  };
+  return zones;
 }
 
+window.parseAttrStates = parseAttrStates;
+window.splitStates = splitStates;
+
 export function normalizeAttrStates(val) {
-  const { states, zones } = parseAttrStates(val);
-  const list = Object.keys(states);
+  const zones = parseAttrStates(val);
 
-  let out = '';
-  let currents = {};
+  return zones.map(zone => {
+    return `${zone.parent || ''} ${
+      Object.entries(zone.states).map(([state, value]) => {
+        if (!state) {
+          return value;
+        }
 
-  for (let i = 0; i < zones; i++) {
-    for (let state of list) {
-      let value = states[state][i] == null ? currents[state] : states[state][i];
-
-      currents[state] = value;
-
-      if (value == null) continue;
-
-      if (state) {
-        out += `${state}[${value}]`;
-      } else {
-        out += value;
-      }
-
-      out += ' ';
-    }
-
-    if (i !== zones - 1) {
-      out = out.trim() + '|';
-    }
-  }
-
-  return out.trim();
+        return `:${state}[${value}]`;
+      }).join(' ')
+    }`.trim();
+  }).join('|');
 }
 
 export function numberFromString(num) {

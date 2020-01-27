@@ -3,7 +3,7 @@ import { setAttrs } from '../helpers';
 
 const CIRCLE_ATTRS = {
   radius: 'round',
-  fill: 'bg ^:pressed[special-bg] ^:disabled:pressed[text 50%]',
+  fill: '^ bg :pressed[special-bg] :disabled:pressed[text 50%]',
   width: '1em',
   height: '1em',
   transition: 'fill',
