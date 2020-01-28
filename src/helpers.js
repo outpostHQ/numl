@@ -885,7 +885,7 @@ export function parseAttr(value, insertRem = false) {
     CACHE.set(value, {
       values,
       mods,
-      value: parsedValue.trim(),
+      value: `${parsedValue} ${color}`.trim(),
       color,
     });
   }

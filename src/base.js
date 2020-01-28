@@ -351,7 +351,7 @@ export default class NuBase extends HTMLElement {
           styles = computeStyles(name, value, {
             [name]: (val) => {
               return [{
-                [name.replace('--', '--nu-')]: parseAttr(val).value,
+                [name.replace('--', '--nu-')]: parseAttr(value).value,
               }]
             },
           }, {});
@@ -1123,6 +1123,12 @@ export default class NuBase extends HTMLElement {
           el.attributeChangedCallback(name, null, value, true);
         });
       }
+
+      // if (el.nuShadow) {
+      //   [...el.nuShadow.querySelector(selector)].forEach(shadowEl => {
+      //     shadowEl.nuVerifyChildren(vars, responsive);
+      //   });
+      // }
     });
   }
 
