@@ -164,7 +164,7 @@ function parse(md, inline, prevLinks) {
     }
     // Links:
     else if (token[10]) {
-      out = out.replace('<nu-link>', `<nu-link to="${encodeAttr((token[11] && token[11].includes('//') ? `!${token[11]}` : token[11]) || links[prev.toLowerCase()])}">`);
+      out = out.replace('<nu-link>', `<nu-link to="${encodeAttr(token[11] || links[prev.toLowerCase()])}">`);
       chunk = flush() + '</nu-link>';
     } else if (token[9]) {
       chunk = '<nu-link>';
