@@ -1,4 +1,4 @@
-import { devMode, DIRECTIONS, parseAttr } from '../helpers';
+import { devMode, DIRECTIONS, parseAttr, stripCalc } from '../helpers';
 import TransformCombinator from '../combinators/transform';
 
 export const PLACE_ATTR = 'place';
@@ -115,8 +115,12 @@ export default function placeAttr(val, defaults) {
     }];
   }
 
+  const abs = PLACE_ABS.find(place => mods.includes(place));
+
   if (mods.includes('relative')) {
     pos = 'relative';
+
+    mods.splice(mods.indexOf('relative'), 1);
   }
 
   if (mods.includes('fill')) {
@@ -132,8 +136,6 @@ export default function placeAttr(val, defaults) {
       ...getEmptyTransform(defaults),
     ];
   }
-
-  const abs = PLACE_ABS.find(place => mods.includes(place));
 
   if (abs) {
     const styles = {
@@ -152,7 +154,7 @@ export default function placeAttr(val, defaults) {
     PLACE_ABS_INSIDE.forEach((place, i) => {
       if (!mods.includes(place)) return;
 
-      styles[place] = '0';
+      styles[place] = values[0] || '0';
       delete styles[PLACE_ABS_INSIDE[(PLACE_ABS_INSIDE.indexOf(place) + 2) % 4]];
 
       if (i % 2 && !styles.top && !styles.bottom) {
@@ -167,7 +169,7 @@ export default function placeAttr(val, defaults) {
     PLACE_ABS_OUTSIDE.forEach((place, i) => {
       if (!mods.includes(place)) return;
 
-      styles[PLACE_ABS_INSIDE[(PLACE_ABS_OUTSIDE.indexOf(place) + 2) % 4]] = '100%';
+      styles[PLACE_ABS_INSIDE[(PLACE_ABS_OUTSIDE.indexOf(place) + 2) % 4]] = values[0] ? `calc(100% + ${stripCalc(values[0])})` : '100%';
       delete styles[PLACE_ABS_INSIDE[PLACE_ABS_OUTSIDE.indexOf(place)]];
 
       if (i % 2 && !styles.top && !styles.bottom) {
@@ -225,19 +227,24 @@ export default function placeAttr(val, defaults) {
     return [styles];
   }
 
-  let styles;
+  let styles = [];
+  let placeVal = mods.join(' ');
+
+  if (placeVal) {
+    styles = [PLACE_VALUES[2](placeVal)];
+  }
 
   if (pos) {
-    styles = [PLACE_VALUES[2](val)];
-
-    styles.position = pos;
-  } else {
-    styles = [PLACE_VALUES[2](val)];
+    if (styles.length) {
+      styles[0].position = pos;
+    } else {
+      styles.push({
+        position: pos,
+      });
+    }
   }
 
   styles.push(...getEmptyTransform(defaults));
 
   return styles;
 };
-
-window.placeAttr = placeAttr;
