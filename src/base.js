@@ -455,6 +455,10 @@ export default class NuBase extends HTMLElement {
    * @private
    */
   connectedCallback() {
+    if (this.nuFirstConnect == null) {
+      this.nuFirstConnect = true;
+    }
+
     let parent = this.parentNode;
 
     // cache parent to have reference in onDisconnected callback
@@ -477,18 +481,12 @@ export default class NuBase extends HTMLElement {
       delete this.nuContextTemp;
     }
 
-    if (!this.id) {
-      const nuId = this.constructor.nuId;
-
-      if (nuId) {
-        this.id = nuId;
-      }
+    if (!this.id && this.constructor.nuId) {
+      this.id = this.constructor.nuId;
     }
 
-    const nuRole = this.constructor.nuRole;
-
-    if (nuRole && !this.hasAttribute('role')) {
-      this.setAttribute('role', nuRole);
+    if (this.constructor.nuRole && !this.hasAttribute('role')) {
+      this.setAttribute('role', this.constructor.nuRole);
     }
 
     const as = this.getAttribute('as') || this.getAttribute('nu-id');
@@ -562,6 +560,8 @@ export default class NuBase extends HTMLElement {
     }
 
     this.nuConnected();
+
+    this.nuFirstConnect = false;
   }
 
   /**

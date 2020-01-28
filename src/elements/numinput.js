@@ -99,6 +99,12 @@ export default class NuNumInput extends NuInput {
         setTimeout(() => {
           this.nuRef.focus();
           this.nuReset();
+
+          // can trigger error sometimes, ignore
+          try {
+            this.nuRef.select();
+          } catch (e) {
+          }
         }, 50);
       });
 
