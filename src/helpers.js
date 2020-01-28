@@ -1088,3 +1088,7 @@ export function parseColor(val) {
     opacity,
   };
 }
+
+export function isDefined(tag) {
+  return document.createElement(tag).constructor !== HTMLElement;
+}

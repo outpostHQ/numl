@@ -33,7 +33,7 @@ import {
   isVariableAttr,
   isResponsiveAttr,
   normalizeAttrStates,
-  parseAttr,
+  parseAttr, isDefined,
 } from './helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibility';
 import displayAttr from './attributes/display';
@@ -277,9 +277,31 @@ export default class NuBase extends HTMLElement {
   static nuInit() {
     const tag = this.nuTag;
 
+    if (isDefined(tag)) {
+      if (devMode) {
+        warn('already defined: ', JSON.stringify(tag));
+      }
+
+      return;
+    }
+
     if (!tag || TAG_LIST.includes(tag)) return;
 
     TAG_LIST.push(tag);
+
+    this.nuGenerateDefaultStyle();
+
+    customElements.define(tag, this);
+
+    log('custom element registered', tag);
+
+    return tag;
+  }
+
+  static nuGenerateDefaultStyle(root) {
+    const tag = this.nuTag;
+
+    log('default style generated', tag);
 
     let el = this;
 
@@ -344,13 +366,7 @@ export default class NuBase extends HTMLElement {
         defaultsCSS += generateCSS(query, styles);
       });
 
-    injectStyleTag(`${css}${defaultsCSS}`, tag);
-
-    customElements.define(tag, this);
-
-    log('custom element registered', tag);
-
-    return tag;
+    injectStyleTag(`${css}${defaultsCSS}`, tag, root);
   }
 
   constructor() {
@@ -547,6 +563,11 @@ export default class NuBase extends HTMLElement {
 
     this.nuIsConnected = true;
 
+    if (this.nuContext.$shadowRoot) {
+      this.constructor.nuGenerateDefaultStyle(this.nuContext.$shadowRoot);
+      this.nuReapplyCSS();
+    }
+
     if (this.nuApplyAttrs) {
       this.nuApplyAttrs.forEach(attr => {
         this.attributeChangedCallback(attr, null, this.getAttribute(attr), true);
@@ -655,9 +676,9 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Create and apply CSS based on element's attributes.
-   * @param {String} name
-   * @param {*} varAttr
-   * @param {*} force - replace current CSS rule
+   * @param {String} name - attribute name.
+   * @param {*} [varAttr] - prepared value.
+   * @param {*} force - replace current CSS rule.
    */
   nuApplyCSS(name, varAttr, force = false) {
     let attrValue = this.getAttribute(name);
@@ -680,17 +701,18 @@ export default class NuBase extends HTMLElement {
     }
 
     const query = this.nuGetQuery(attrs);
+    const cssRoot = this.nuContext && this.nuContext.$shadowRoot; // or null
 
-    if (hasCSS(query)) {
+    if (hasCSS(query, cssRoot)) {
       if (!force) return;
 
-      removeCSS(query);
+      removeCSS(query, cssRoot);
     }
 
     const css = this.nuGetCSS(query, name, value);
 
     if (css) {
-      injectCSS(query, query, css);
+      injectCSS(query, query, css, cssRoot);
     }
   }
 
@@ -1256,5 +1278,26 @@ export default class NuBase extends HTMLElement {
     });
 
     log('remove variable', { context: this, name });
+  }
+
+  nuReapplyCSS() {
+    if (!this.nuIsConnected) return;
+
+    [...this.attributes].forEach(({ name, value }) => {
+      if (value == null || !this.constructor.nuAllAttrs[name]) return;
+
+      this.nuApplyCSS(name);
+    });
+  }
+
+  nuAttachShadow() {
+    const shadow = this.attachShadow({ mode: 'open' });
+
+    this.nuShadow = shadow;
+
+    shadow.nuContext = Object.create(this.nuContext);
+    shadow.nuContext = { $shadowRoot: this.nuShadow };
+
+    return shadow;
   }
 }

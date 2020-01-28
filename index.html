@@ -2344,7 +2344,7 @@
         <nu-btn special>
           <nu-block text="w6">Dropdown menu 123</nu-block>
           <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
-          <nu-popupmenu drop="right">
+          <nu-popupmenu drop="down">
             <nu-menuitem value="first-item">Menu button level 1</nu-menuitem>
             <nu-menuitem>
               Submenu level 1
@@ -2629,6 +2629,15 @@
         </textarea>
       </nu-code>
 
+      <nu-heading level="4">Code block in Shadow DOM</nu-heading>
+
+      <nu-code shadow-root>
+        <textarea>
+          const str = 'String';
+          const num = 123;
+        </textarea>
+      </nu-code>
+
       <nu-heading level="4">Numerated code block</nu-heading>
 
       <nu-code enumerate>
@@ -2760,6 +2769,19 @@
       <nu-markdown>
         <pre>
           #### My awesome markdown header
+
+          And markdown **TEXT**. What do you _think_? `var a = '123'`. Also here is a [link](https://github.com/tenphi/nude).
+
+          ```enumerate
+          var a = '123';
+          var b = /wow?/;
+          ```
+        </pre>
+      </nu-markdown>
+
+      <nu-markdown shadow-root>
+        <pre>
+          #### Markdown in Shadow DOM
 
           And markdown **TEXT**. What do you _think_? `var a = '123'`. Also here is a [link](https://github.com/tenphi/nude).
 

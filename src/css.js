@@ -1,9 +1,9 @@
 import { devMode, log, warn } from "./helpers";
 
-export const map = {};
+export const STYLE_MAP = {};
 const testEl = document.createElement('div');
 
-export function injectStyleTag(css, name) {
+export function injectStyleTag(css, name, root) {
   css = css || '';
 
   if (devMode) {
@@ -18,7 +18,7 @@ export function injectStyleTag(css, name) {
 
   style.appendChild(document.createTextNode(css));
 
-  document.head.appendChild(style);
+  (root || document.head).appendChild(style);
 
   return style;
 }
@@ -96,8 +96,10 @@ export function parseStyles(str) {
     }, {});
 }
 
-export function injectCSS(name, selector, css) {
-  const element = injectStyleTag(css, name);
+export function injectCSS(name, selector, css, root) {
+  const element = injectStyleTag(css, name, root);
+
+  const styleMap = getRootStyleMap(root);
 
   if (devMode) {
     try {
@@ -107,26 +109,26 @@ export function injectCSS(name, selector, css) {
     }
   }
 
-  if (map[name]) {
-    const el = map[name].element;
+  if (styleMap[name]) {
+    const el = styleMap[name].element;
 
     if (el.parentNode) {
       el.parentNode.removeChild(el);
     }
   }
 
-  map[name] = {
+  styleMap[name] = {
     selector,
     css,
     element,
   };
 
-  return map[name];
+  return styleMap[name];
 }
 
 export function cleanCSSByPart(selectorPart) {
   log('clean css by part', selectorPart);
-  const keys = Object.keys(map).filter(selector => selector.includes(selectorPart));
+  const keys = Object.keys(STYLE_MAP).filter(selector => selector.includes(selectorPart));
 
   keys.forEach(key => {
     removeCSS(key);
@@ -134,20 +136,38 @@ export function cleanCSSByPart(selectorPart) {
   });
 }
 
-export function removeCSS(name) {
-  if (!map[name]) return;
+export function removeCSS(name, root) {
+  let styleMap = getRootStyleMap(root);
 
-  const el = map[name].element;
+  if (!styleMap[name]) return;
+
+  const el = styleMap[name].element;
 
   if (el.parentNode) {
     el.parentNode.removeChild(el);
   }
 
-  delete map[name];
+  delete styleMap[name];
 }
 
-export function hasCSS(name) {
-  return !!map[name];
+function getRootStyleMap(root) {
+  let styleMap = STYLE_MAP;
+
+  if (root) {
+    if (!root.nuStyleMap) {
+      root.nuStyleMap = {};
+    }
+
+    styleMap = root.nuStyleMap;
+  }
+
+  return styleMap;
+}
+
+export function hasCSS(name, root) {
+  let styleMap = getRootStyleMap(root);
+
+  return !!styleMap[name];
 }
 
 /**

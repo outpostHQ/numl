@@ -1,6 +1,7 @@
 import NuElement from './element';
 import { error } from '../helpers';
 import { applyTheme } from '../themes';
+import { injectStyleTag } from '../css';
 
 let themesDeclared = false;
 
@@ -140,6 +141,10 @@ export default class NuCode extends NuElement {
       declareThemes(this.constructor);
     }
 
+    if (this.hasAttribute('shadow-root')) {
+      this.nuAttachShadow();
+    }
+
     setTimeout(() => {
       const nuRef = this.querySelector('textarea, pre');
 
@@ -149,7 +154,17 @@ export default class NuCode extends NuElement {
 
       const container = document.createElement('nu-block');
 
-      this.appendChild(container);
+      if (this.nuShadow) {
+        this.nuShadow.appendChild(container);
+
+        injectStyleTag(
+          this.constructor.nuCSS({ tag: '', css: '' }),
+          'nu-code',
+          this.nuShadow,
+        );
+      } else {
+        this.appendChild(container);
+      }
 
       this.nuObserve = () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;

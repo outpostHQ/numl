@@ -24,6 +24,10 @@ export default class NuMarkdown extends NuElement {
   nuConnected() {
     super.nuConnected();
 
+    if (this.hasAttribute('shadow-root')) {
+      this.nuAttachShadow();
+    }
+
     setTimeout(() => {
       const nuRef = this.querySelector('textarea, pre');
 
@@ -31,11 +35,11 @@ export default class NuMarkdown extends NuElement {
         error('nu-snippet: textarea tag required');
       }
 
-      const container = document.createElement('nu-flow');
+      const container = document.createElement(this.nuInline ? 'nu-el' : 'nu-flow');
 
       container.setAttribute('gap', this.getAttribute('gap') || '1x');
 
-      this.appendChild(container);
+      (this.nuShadow || this).appendChild(container);
 
       this.nuObserve = () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
