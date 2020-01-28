@@ -7,14 +7,15 @@
 
 ## Own default values
 * **`[border]`: `"1b"`**
+* **`[color]`: `""`**
 * **`[display]`: `"inline-grid"`**
-* **`[fill]`: `"bg"`**
+* **`[fill]`: `"bg :special[special-bg]"`**
 * **`[flow]`: `"column"`**
 * **`[gap]`: `"1x"`**
 * **`[items]`: `"center"`**
 * **`[padding]`: `"0 .5em"`**
 * **`[radius]`: `"round"`**
-* **`[text]`: `"middle nowrap"`**
+* **`[text]`: `"nowrap :special[w5 nowrap]"`**
 
 ## Inherited default values
 * **`[sizing]`: `"border"`**
@@ -37,21 +38,27 @@
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
+* **[`[contain]`](../attributes/contain.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
 * **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* **[`[direction]`](../attributes/direction.md)** `style`
 * **[`[display]`](../attributes/display.md)** `style`
+* **[`[drop]`](../attributes/drop.md)** `style`
+* **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
+* **[`[focusable]`](../attributes/focusable.md)** `style`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* **[`[hoverable]`](../attributes/hoverable.md)** `style`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
 * **[`[interactive]`](../attributes/interactive.md)** `style`
@@ -86,8 +93,10 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
+* **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
 * **[`[valuemax]`](../attributes/valuemax.md)** `aria`
@@ -101,13 +110,8 @@
 nu-badge[hidden] {
   display: none !important;
 }
-nu-badge[special]:not([fill]), nu-badge[special][special]:not([fill]) {
-  background-color: var(--nu-special-bg-color);
-}
-nu-badge[special]:not([color]), nu-badge[special][special]:not([color]) {
-  color: var(--nu-special-text-color);
-}
-nu-badge[special]:not([text]), nu-badge[special][special]:not([text]) {
-  font-weight: 500;
+nu-badge {
+  position: relative;
+  line-height: calc(var(--nu-line-height) - 1px);
 }
 ```

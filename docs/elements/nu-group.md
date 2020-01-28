@@ -32,20 +32,26 @@
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
+* **[`[contain]`](../attributes/contain.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
 * **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* **[`[direction]`](../attributes/direction.md)** `style`
 * **[`[display]`](../attributes/display.md)** `style`
+* **[`[drop]`](../attributes/drop.md)** `style`
+* **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
+* **[`[focusable]`](../attributes/focusable.md)** `style`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* **[`[hoverable]`](../attributes/hoverable.md)** `style`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
 * **[`[interactive]`](../attributes/interactive.md)** `style`
@@ -82,8 +88,10 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
+* **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
 * **[`[valuemax]`](../attributes/valuemax.md)** `aria`
@@ -98,13 +106,13 @@ nu-group[hidden] {
   display: none !important;
 }
 nu-group {
-  --nu-item-border-radius: var(--nu-local-border-radius);
-  border-radius: calc(var(--nu-local-border-radius, 0) + 1px) !important;
+  --nu-item-radius: var(--nu-local-radius);
+  border-radius: calc(var(--nu-local-radius, 0) + 1px) !important;
 }
 nu-group:not([gap]) > :not(:last-child):not(:first-child) {
-  --nu-local-border-radius: 0 !important;
+  --nu-local-radius: 0 !important;
 }
 nu-group:not([gap]) > :last-child:first-child {
-  --nu-local-border-radius: inherit !important;
+  --nu-local-radius: inherit !important;
 }
 ```

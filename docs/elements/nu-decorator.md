@@ -23,6 +23,7 @@
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[prop]`](../attributes/prop.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 
 ## Generated CSS
 ```css

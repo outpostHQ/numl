@@ -1,24 +1,16 @@
-# `<nu-line/>` element
+# `<nu-md/>` element
 
 ## Base info
-* Parent: [`<nu-block/>`](./nu-block.md)
+* Parent: [`<nu-markdown/>`](./nu-markdown.md)
 * Type: `element`
-* Role: `separator`
 
 
 ## Own default values
-* **`[column]`: `":orient-h[1 / -1]"`**
-* **`[fill]`: `"var(--nu-local-border-color, var(--nu-border-color)) :special[special]"`**
-* **`[height]`: `"min(1em)\n        :orient-h[minmax(1fs, 1fs)]"`**
-* **`[orient]`: `"h"`**
-* **`[place]`: `"stretch"`**
-* **`[row]`: `":orient-v[1 / -1]"`**
-* **`[size]`: `"1b"`**
-* **`[text]`: `"v-middle"`**
-* **`[width]`: `"min(1em)\n        :orient-v[minmax(1fs, 1fs)]"`**
+* **`[display]`: `"inline-block"`**
+* **`[text]`: `"baseline"`**
 
 ## Inherited default values
-* **`[display]`: `"block"`**
+* **`[gap]`: `"1x"`**
 * **`[sizing]`: `"border"`**
 
 
@@ -109,11 +101,10 @@
 
 ## Generated CSS
 ```css
-nu-line[hidden] {
+nu-md[hidden] {
   display: none !important;
 }
-nu-line {
-  position: relative;
-  line-height: 0 !important;
+nu-md > pre, nu-md > textarea {
+  display: none;
 }
 ```

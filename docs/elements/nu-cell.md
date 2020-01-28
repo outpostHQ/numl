@@ -8,7 +8,8 @@
 
 
 ## Own default values
-* **`[display]`: `"table-cell"`**
+* **`[display]`: `"^ block :role-row[table-cell]"`**
+* **`[fill]`: `"^ bg :role-row[]"`**
 * **`[padding]`: `"--nu-cell-padding"`**
 * **`[text]`: `"middle"`**
 
@@ -17,8 +18,7 @@
 
 
 ## Own attributes
-* **border** `style`
-* **radius** `style`
+*none*
 
 
 ## Inherited attributes
@@ -29,24 +29,31 @@
 * **[`[as]`](../attributes/as.md)** `helper`
 * **[`[basis]`](../attributes/basis.md)** `style`
 * **[`[before]`](../attributes/before.md)** `style`
+* **[`[border]`](../attributes/border.md)** `style`
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
+* **[`[contain]`](../attributes/contain.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
 * **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* **[`[direction]`](../attributes/direction.md)** `style`
 * **[`[display]`](../attributes/display.md)** `style`
+* **[`[drop]`](../attributes/drop.md)** `style`
+* **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
+* **[`[focusable]`](../attributes/focusable.md)** `style`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* **[`[hoverable]`](../attributes/hoverable.md)** `style`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
 * **[`[interactive]`](../attributes/interactive.md)** `style`
@@ -68,6 +75,7 @@
 * **[`[place]`](../attributes/place.md)** `style`
 * **[`[posinset]`](../attributes/posinset.md)** `aria`
 * **[`[prop]`](../attributes/prop.md)** `style`
+* **[`[radius]`](../attributes/radius.md)** `style`
 * **[`[responsive]`](../attributes/responsive.md)** `helper`
 * **[`[rotate]`](../attributes/rotate.md)** `style`
 * **[`[row]`](../attributes/row.md)** `style`
@@ -82,8 +90,10 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
+* **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
 * **[`[valuemax]`](../attributes/valuemax.md)** `aria`
@@ -96,5 +106,8 @@
 ```css
 nu-cell[hidden] {
   display: none !important;
+}
+nu-cell {
+  position: relative;
 }
 ```

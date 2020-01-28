@@ -11,11 +11,14 @@
 * **`[color]`: `"special"`**
 * **`[cursor]`: `"pointer"`**
 * **`[display]`: `"inline-block"`**
+* **`[focusable]`: `"y"`**
+* **`[hoverable]`: `".25em"`**
 * **`[radius]`: `".5x"`**
 * **`[text]`: `"nowrap u"`**
-* **`[transition]`: `"box-shadow"`**
+* **`[transition]`: `"shadow"`**
 
 ## Inherited default values
+* **`[opacity]`: `"1 :disabled[.5]"`**
 * **`[sizing]`: `"border"`**
 
 
@@ -36,22 +39,28 @@
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
+* **[`[contain]`](../attributes/contain.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
 * **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* **[`[direction]`](../attributes/direction.md)** `style`
 * `disabled`
 * **[`[display]`](../attributes/display.md)** `style`
+* **[`[drop]`](../attributes/drop.md)** `style`
+* **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
+* **[`[focusable]`](../attributes/focusable.md)** `style`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* **[`[hoverable]`](../attributes/hoverable.md)** `style`
 * `href`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
@@ -91,10 +100,12 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * `target`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 * `to`
+* **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
 * `value`
@@ -110,48 +121,9 @@ nu-link[hidden] {
   display: none !important;
 }
 nu-link {
-  --nu-local-toggle-color: transparent;
-  --nu-local-depth-color: transparent;
-  --nu-local-hover-color: transparent;
-  --nu-local-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  --nu-local-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
-  --nu-local-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
-  opacity: 1;
   position: relative;
-  z-index: 0;
-  /* to make : hover::after z-index work as expected */
   user-select: none;
-  box-shadow: var(--nu-local-stroke-shadow),
-    var(--nu-local-toggle-shadow),
-    var(--nu-local-depth-shadow);
-}
-nu-link[tabindex]:not([tabindex="-1"]):not([disabled])::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background-color: var(--nu-local-hover-color);
-  transition: background-color var(--nu-animation-time) linear;
-}
-nu-link[tabindex] {
-  cursor: pointer;
-}
-nu-link[disabled] {
-  opacity: .5;
-  cursor: default;
-}
-nu-link:not([disabled])[tabindex]:hover {
-  --nu-local-hover-color: var(--nu-hover-color);
-}
-nu-link[nu-active] {
-  z-index: 3;
-}
-nu-link[nu-pressed] {
-  z-index: 2;
+  touch-action: manipulation;
 }
 nu-link > a {
   display: block;
@@ -165,60 +137,7 @@ nu-link > a:focus {
   outline: none;
 }
 nu-link {
-  --nu-local-focus-color: transparent;
-  --nu-local-focus-inset: 0 0;
-  --nu-local-focus-shadow: var(--nu-local-focus-inset) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color);
-  outline: none;
-}
-html.nu-focus-enabled nu-link:not([disabled])::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  border-radius: var(--nu-local-border-radius, var(--nu-border-radius));
-  box-shadow: var(--nu-local-focus-shadow);
-  transition: box-shadow var(--nu-animation-time) linear;
-}
-html.nu-focus-enabled nu-link:not([disabled])[nu-focus] {
-  z-index: 10;
-}
-html.nu-focus-enabled nu-link:not([disabled])[nu-focus] {
-  --nu-local-focus-color: var(--nu-focus-color);
-}
-nu-link {
   font-weight: bolder;
   position: relative;
-}
-nu-link:not([disabled])[nu-active] {
-  --nu-local-hover-color: var(--nu-hover-color);
-}
-nu-link {
-  --nu-local-focus-color: transparent;
-  --nu-local-focus-inset: 0 0;
-  --nu-local-focus-shadow: var(--nu-local-focus-inset) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color);
-  outline: none;
-}
-html.nu-focus-enabled nu-link:not([disabled])::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  border-radius: var(--nu-local-border-radius, var(--nu-border-radius));
-  box-shadow: var(--nu-local-focus-shadow);
-  transition: box-shadow var(--nu-animation-time) linear;
-}
-html.nu-focus-enabled nu-link:not([disabled])[nu-focus] {
-  z-index: 10;
-}
-html.nu-focus-enabled nu-link:not([disabled])[nu-focus] {
-  --nu-local-focus-color: var(--nu-focus-color);
 }
 ```

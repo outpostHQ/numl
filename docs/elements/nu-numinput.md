@@ -10,9 +10,10 @@
 
 ## Inherited default values
 * **`[border]`: `"1b"`**
-* **`[display]`: `"grid"`**
+* **`[display]`: `"inline-grid"`**
 * **`[fill]`: `"input"`**
 * **`[flow]`: `"column"`**
+* **`[focusable]`: `"force"`**
 * **`[padding]`: `"1x"`**
 * **`[radius]`: `""`**
 * **`[sizing]`: `"border"`**
@@ -39,22 +40,28 @@
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
+* **[`[contain]`](../attributes/contain.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
 * **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* **[`[direction]`](../attributes/direction.md)** `style`
 * `disabled`
 * **[`[display]`](../attributes/display.md)** `style`
+* **[`[drop]`](../attributes/drop.md)** `style`
+* **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
+* **[`[focusable]`](../attributes/focusable.md)** `style`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* **[`[hoverable]`](../attributes/hoverable.md)** `style`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
 * **[`[interactive]`](../attributes/interactive.md)** `style`
@@ -94,8 +101,10 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
+* **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
 * `value`
@@ -125,11 +134,12 @@ nu-numinput input {
   line-height: inherit;
   -webkit-appearance: none;
   background: transparent;
-  color: inherit;
   border: none;
   outline: none;
   border-radius: inherit;
   box-sizing: border-box;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
 }
 nu-numinput input:not(:first-child) {
   padding-left: 0;
@@ -140,41 +150,14 @@ nu-numinput input:not(:last-child) {
 nu-numinput input[disabled] {
   color: rgb(var(--nu-text-color-rgb), .6);
   background: var(--nu-hover-color);
-  -webkit-text-fill-color: rgb(var(--nu-text-color-rgb), .6);
   -webkit-opacity: 1;
 }
 nu-numinput input::placeholder {
+  color: rgb(var(--nu-text-color-rgb), .6);
   -webkit-text-fill-color: currentColor;
-  color: currentColor;
-  opacity: .5;
 }
 nu-numinput nu-icon:not([width]) {
   width: calc(var(--nu-local-padding) * 2 + 1em);
-}
-nu-numinput {
-  --nu-local-focus-color: transparent;
-  --nu-local-focus-inset: 0 0;
-  --nu-local-focus-shadow: var(--nu-local-focus-inset) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color);
-  outline: none;
-}
-nu-numinput:not([disabled])::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  border-radius: var(--nu-local-border-radius, var(--nu-border-radius));
-  box-shadow: var(--nu-local-focus-shadow);
-  transition: box-shadow var(--nu-animation-time) linear;
-}
-nu-numinput:not([disabled])[nu-focus] {
-  z-index: 10;
-}
-nu-numinput:not([disabled])[nu-focus] {
-  --nu-local-focus-color: var(--nu-focus-color);
 }
 nu-numinput input {
   text-align: inherit;

@@ -237,6 +237,7 @@ Run `npm run play` to view test page with few examples.
 * **[expand](./docs/attributes/expand.md)** - to increase active region.
 * **[drop](./docs/attributes/drop.md)** - to statically fix element position based on parent element (using `position: fixed`).
 * **[place](./docs/attributes/place.md)** now support sticky positioning with distance: `[place="sticky top 3"]`.
+* **[t](./docs/attributes/t.md)** - for responsive labels.
 
 #### Minor and internal changes
 * Refactoring for table elements.

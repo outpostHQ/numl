@@ -50,6 +50,7 @@ You can also use state and responsive operators to declare dynamic property:
 * **[`[prop]`](../attributes/prop.md)** `style`
 * **[`[responsive]`](../attributes/responsive.md)** `helper`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 
 ## Generated CSS

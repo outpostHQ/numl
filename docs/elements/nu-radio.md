@@ -8,20 +8,26 @@
 
 
 ## Own default values
-* **`[border]`: `"1b"`**
+* **`[border]`: `"1b color(text) :disabled[1b color(text 50%)]"`**
 * **`[content]`: `"stretch"`**
 * **`[cursor]`: `"default"`**
 * **`[display]`: `"inline-grid"`**
+* **`[expand]`: `".5em"`**
+* **`[fill]`: `"bg"`**
 * **`[height]`: `"1em"`**
+* **`[hoverable]`: `"n :focusable[.5em]"`**
 * **`[items]`: `"center"`**
-* **`[padding]`: `"0"`**
+* **`[padding]`: `"1em / 8"`**
 * **`[radius]`: `"round"`**
 * **`[sizing]`: `"content"`**
+* **`[text]`: `"v-middle"`**
+* **`[toggle]`: `"0 :active[.5em] :pressed[.5em]"`**
 * **`[width]`: `"1em"`**
 
 ## Inherited default values
-* **`[text]`: `"nowrap"`**
-* **`[transition]`: `"box-shadow, color, background-color, border, border-radius"`**
+* **`[focusable]`: `"y"`**
+* **`[opacity]`: `"1 :disabled[.5]"`**
+* **`[transition]`: `"theme, radius"`**
 
 
 ## Own attributes
@@ -41,21 +47,27 @@
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
+* **[`[contain]`](../attributes/contain.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
 * **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* **[`[direction]`](../attributes/direction.md)** `style`
 * `disabled`
 * **[`[display]`](../attributes/display.md)** `style`
+* **[`[drop]`](../attributes/drop.md)** `style`
+* **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
+* **[`[focusable]`](../attributes/focusable.md)** `style`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* **[`[hoverable]`](../attributes/hoverable.md)** `style`
 * `href`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
@@ -95,10 +107,12 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * `target`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 * `to`
+* **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
 * `value`
@@ -114,48 +128,9 @@ nu-radio[hidden] {
   display: none !important;
 }
 nu-radio {
-  --nu-local-toggle-color: transparent;
-  --nu-local-depth-color: transparent;
-  --nu-local-hover-color: transparent;
-  --nu-local-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  --nu-local-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
-  --nu-local-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
-  opacity: 1;
   position: relative;
-  z-index: 0;
-  /* to make : hover::after z-index work as expected */
   user-select: none;
-  box-shadow: var(--nu-local-stroke-shadow),
-    var(--nu-local-toggle-shadow),
-    var(--nu-local-depth-shadow);
-}
-nu-radio[tabindex]:not([tabindex="-1"]):not([disabled])::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background-color: var(--nu-local-hover-color);
-  transition: background-color var(--nu-animation-time) linear;
-}
-nu-radio[tabindex] {
-  cursor: pointer;
-}
-nu-radio[disabled] {
-  opacity: .5;
-  cursor: default;
-}
-nu-radio:not([disabled])[tabindex]:hover {
-  --nu-local-hover-color: var(--nu-hover-color);
-}
-nu-radio[nu-active] {
-  z-index: 3;
-}
-nu-radio[nu-pressed] {
-  z-index: 2;
+  touch-action: manipulation;
 }
 nu-radio > a {
   display: block;
@@ -169,65 +144,6 @@ nu-radio > a:focus {
   outline: none;
 }
 nu-radio {
-  --nu-local-focus-color: transparent;
-  --nu-local-focus-inset: 0 0;
-  --nu-local-focus-shadow: var(--nu-local-focus-inset) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color);
-  outline: none;
-}
-html.nu-focus-enabled nu-radio:not([disabled])::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  border-radius: var(--nu-local-border-radius, var(--nu-border-radius));
-  box-shadow: var(--nu-local-focus-shadow);
-  transition: box-shadow var(--nu-animation-time) linear;
-}
-html.nu-focus-enabled nu-radio:not([disabled])[nu-focus] {
-  z-index: 10;
-}
-html.nu-focus-enabled nu-radio:not([disabled])[nu-focus] {
-  --nu-local-focus-color: var(--nu-focus-color);
-}
-nu-radio {
-  --nu-border-color: var(--nu-text-color);
-  --nu-local-toggle-color: transparent;
-  --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-local-toggle-color) inset;
-  --nu-local-pressed-shadow: 0 0 0 2px var(--nu-bg-color) inset;
   position: relative;
-  background-color: var(--nu-bg-color);
-  box-shadow: var(--nu-local-pressed-shadow),
-    var(--nu-local-stroke-shadow),
-    var(--nu-local-toggle-shadow),
-    var(--nu-local-depth-shadow);
-}
-nu-radio[disabled] {
-  opacity: .5;
-}
-nu-radio[nu-active]:not([disabled]):not([nu-pressed]),
-nu-radio[nu-active][nu-pressed]:not([disabled]) {
-  --nu-local-toggle-color: rgba(0, 0, 0, var(--nu-intensity));
-}
-nu-radio[tabindex]:not([tabindex="-1"]):not([disabled])::after {
-  top: calc(-1 * var(--nu-indent));
-  right: calc(-1 * var(--nu-indent));
-  bottom: calc(-1 * var(--nu-indent));
-  left: calc(-1 * var(--nu-indent));
-  border-radius: 9999rem;
-}
-nu-radio[nu-pressed]:not([disabled]) {
-  --nu-border-color: var(--nu-text-color);
-  background-color: var(--nu-special-bg-color);
-}
-nu-radio[nu-pressed][disabled] {
-  --nu-border-color: rgba(0, 0, 0, 0);
-  background-color: rgba(var(--nu-text-color-rgb), .5);
-}
-nu-radio:not([nu-pressed])[disabled] {
-  --nu-border-color: rgba(var(--nu-text-color-rgb), .5);
 }
 ```

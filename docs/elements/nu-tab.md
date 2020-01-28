@@ -8,18 +8,24 @@
 
 
 ## Own default values
+* **`[border]`: `"0\n        \n          :dir-top:focusable:hover[1b top inside color(special)]\n          :dir-top:pressed[3b top inside color(special)]\n          :dir-top:hover:pressed[3b top inside color(special)]\n          :dir-top:focusable:active[2b top inside color(special)]\n          :dir-top:focusable:active:hover[2b top inside color(special)],\n          :dir-right:focusable:hover[1b right inside color(special)]\n          :dir-right:pressed[3b right inside color(special)]\n          :dir-right:hover:pressed[3b right inside color(special)]\n          :dir-right:focusable:active[2b right inside color(special)]\n          :dir-right:focusable:active:hover[2b right inside color(special)],\n          :dir-bottom:focusable:hover[1b bottom inside color(special)]\n          :dir-bottom:pressed[3b bottom inside color(special)]\n          :dir-bottom:hover:pressed[3b bottom inside color(special)]\n          :dir-bottom:focusable:active[2b bottom inside color(special)]\n          :dir-bottom:focusable:active:hover[2b bottom inside color(special)],\n          :dir-left:focusable:hover[1b left inside color(special)]\n          :dir-left:pressed[3b left inside color(special)]\n          :dir-left:hover:pressed[3b left inside color(special)]\n          :dir-left:focusable:active[2b left inside color(special)]\n          :dir-left:focusable:active:hover[2b left inside color(special)]"`**
 * **`[display]`: `"inline-grid"`**
+* **`[expand]`: `"0 --local-h-gap :orient-v[--local-v-gap 0]"`**
 * **`[fill]`: `"transparent"`**
 * **`[flow]`: `"column"`**
 * **`[gap]`: `"1x"`**
-* **`[items]`: `"center"`**
-* **`[padding]`: `"1x 0"`**
+* **`[hoverable]`: `null`**
+* **`[items]`: `"center\n         :dir-right[center end]\n         :dir-left[center start]"`**
+* **`[padding]`: `"1x 0 :orient-v[0 2x]"`**
 * **`[radius]`: `"0"`**
 
 ## Inherited default values
+* **`[cursor]`: `"pointer :disabled[default]"`**
+* **`[focusable]`: `"y"`**
+* **`[opacity]`: `"1 :disabled[.5]"`**
 * **`[sizing]`: `"border"`**
 * **`[text]`: `"nowrap"`**
-* **`[transition]`: `"box-shadow, color, background-color, border, border-radius"`**
+* **`[transition]`: `"theme, radius"`**
 
 
 ## Own attributes
@@ -39,22 +45,28 @@
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
+* **[`[contain]`](../attributes/contain.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
 * **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* **[`[direction]`](../attributes/direction.md)** `style`
 * `disabled`
 * **[`[display]`](../attributes/display.md)** `style`
+* **[`[drop]`](../attributes/drop.md)** `style`
+* **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
+* **[`[focusable]`](../attributes/focusable.md)** `style`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* **[`[hoverable]`](../attributes/hoverable.md)** `style`
 * `href`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
@@ -94,10 +106,12 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * `target`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 * `to`
+* **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
 * `value`
@@ -113,48 +127,9 @@ nu-tab[hidden] {
   display: none !important;
 }
 nu-tab {
-  --nu-local-toggle-color: transparent;
-  --nu-local-depth-color: transparent;
-  --nu-local-hover-color: transparent;
-  --nu-local-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  --nu-local-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
-  --nu-local-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
-  opacity: 1;
   position: relative;
-  z-index: 0;
-  /* to make : hover::after z-index work as expected */
   user-select: none;
-  box-shadow: var(--nu-local-stroke-shadow),
-    var(--nu-local-toggle-shadow),
-    var(--nu-local-depth-shadow);
-}
-nu-tab[tabindex]:not([tabindex="-1"]):not([disabled])::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background-color: var(--nu-local-hover-color);
-  transition: background-color var(--nu-animation-time) linear;
-}
-nu-tab[tabindex] {
-  cursor: pointer;
-}
-nu-tab[disabled] {
-  opacity: .5;
-  cursor: default;
-}
-nu-tab:not([disabled])[tabindex]:hover {
-  --nu-local-hover-color: var(--nu-hover-color);
-}
-nu-tab[nu-active] {
-  z-index: 3;
-}
-nu-tab[nu-pressed] {
-  z-index: 2;
+  touch-action: manipulation;
 }
 nu-tab > a {
   display: block;
@@ -166,54 +141,5 @@ nu-tab > a {
 }
 nu-tab > a:focus {
   outline: none;
-}
-nu-tab {
-  --nu-local-focus-color: transparent;
-  --nu-local-focus-inset: 0 0;
-  --nu-local-focus-shadow: var(--nu-local-focus-inset) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color);
-  outline: none;
-}
-html.nu-focus-enabled nu-tab:not([disabled])::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  border-radius: var(--nu-local-border-radius, var(--nu-border-radius));
-  box-shadow: var(--nu-local-focus-shadow);
-  transition: box-shadow var(--nu-animation-time) linear;
-}
-html.nu-focus-enabled nu-tab:not([disabled])[nu-focus] {
-  z-index: 10;
-}
-html.nu-focus-enabled nu-tab:not([disabled])[nu-focus] {
-  --nu-local-focus-color: var(--nu-focus-color);
-}
-nu-tab {
-  --nu-local-toggle-color: transparent;
-  --nu-local-depth-color: transparent;
-  --nu-local-stroke-color: transparent;
-  --nu-local-hover-color: transparent !important;
-  --nu-local-toggle-shadow: 0 calc(-1 * var(--nu-border-width)) 0 0 var(--nu-local-toggle-color) inset;
-  --nu-local-depth-shadow: 0 0 0 rgba(0, 0, 0, 0);
-}
-nu-tab[nu-active][tabindex]:not([disabled]):not([nu-toggled]),
-nu-tab[nu-toggled]:not([disabled]):not([tabindex]) {
-  --nu-local-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-local-toggle-color) inset;
-  --nu-local-toggle-color: var(--nu-special-color);
-}
-nu-tab[special] {
-  color: var(--nu-special-color) !important;
-}
-nu-tab:not([disabled])[tabindex]:hover {
-  --nu-local-toggle-color: var(--nu-special-color);
-}
-nu-tab[nu-active][tabindex]:not([disabled]):not([aria-selected="true"]),
-nu-tab[aria-selected="true"]:not([disabled]):not([nu-active]) {
-  --nu-local-toggle-shadow: 0 calc(1em / 16 * -3) 0 0 var(--nu-local-toggle-color) inset;
-  --nu-local-toggle-color: var(--nu-special-color);
 }
 ```

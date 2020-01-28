@@ -1,24 +1,24 @@
-# `<nu-line/>` element
+# `<nu-rail/>` element
 
 ## Base info
-* Parent: [`<nu-block/>`](./nu-block.md)
+* Parent: [`<nu-el/>`](./nu-el.md)
 * Type: `element`
-* Role: `separator`
 
 
 ## Own default values
-* **`[column]`: `":orient-h[1 / -1]"`**
-* **`[fill]`: `"var(--nu-local-border-color, var(--nu-border-color)) :special[special]"`**
-* **`[height]`: `"min(1em)\n        :orient-h[minmax(1fs, 1fs)]"`**
-* **`[orient]`: `"h"`**
-* **`[place]`: `"stretch"`**
-* **`[row]`: `":orient-v[1 / -1]"`**
-* **`[size]`: `"1b"`**
+* **`[border]`: `"1b"`**
+* **`[cursor]`: `"pointer"`**
+* **`[display]`: `"inline-block"`**
+* **`[expand]`: `".5em"`**
+* **`[fill]`: `"special-bg"`**
+* **`[height]`: `":orient-h[.5em] :orient-v[100%]"`**
+* **`[hoverable]`: `".5em"`**
+* **`[radius]`: `"round"`**
 * **`[text]`: `"v-middle"`**
-* **`[width]`: `"min(1em)\n        :orient-v[minmax(1fs, 1fs)]"`**
+* **`[transition]`: `"shadow"`**
+* **`[width]`: `":orient-h[100%] :orient-v[.5em]"`**
 
 ## Inherited default values
-* **`[display]`: `"block"`**
 * **`[sizing]`: `"border"`**
 
 
@@ -109,11 +109,10 @@
 
 ## Generated CSS
 ```css
-nu-line[hidden] {
+nu-rail[hidden] {
   display: none !important;
 }
-nu-line {
+nu-rail {
   position: relative;
-  line-height: 0 !important;
 }
 ```

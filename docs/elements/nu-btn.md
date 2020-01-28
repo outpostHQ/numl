@@ -9,18 +9,24 @@
 
 ## Own default values
 * **`[border]`: `"1b"`**
+* **`[color]`: `""`**
 * **`[content]`: `"center"`**
 * **`[display]`: `"inline-grid"`**
-* **`[fill]`: `"bg"`**
+* **`[fill]`: `"bg :special[special-bg] :themed[bg] :special:themed[special-bg]"`**
 * **`[flow]`: `"column"`**
 * **`[gap]`: `"1x"`**
 * **`[padding]`: `"1x 2x"`**
 * **`[radius]`: `"1r"`**
-* **`[text]`: `"nowrap"`**
+* **`[text]`: `"nowrap :special[w5 nowrap]"`**
+* **`[toggle]`: `"0 :active:focusable[.75em] :pressed:focusable[.75em] :pressed[.75em] :pressed:active[.75em]"`**
 
 ## Inherited default values
+* **`[cursor]`: `"pointer :disabled[default]"`**
+* **`[focusable]`: `"y"`**
+* **`[hoverable]`: `"n :focusable[y]"`**
+* **`[opacity]`: `"1 :disabled[.5]"`**
 * **`[sizing]`: `"border"`**
-* **`[transition]`: `"box-shadow, color, background-color, border, border-radius"`**
+* **`[transition]`: `"theme, radius"`**
 
 
 ## Own attributes
@@ -40,22 +46,28 @@
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
+* **[`[contain]`](../attributes/contain.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
 * **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* **[`[direction]`](../attributes/direction.md)** `style`
 * `disabled`
 * **[`[display]`](../attributes/display.md)** `style`
+* **[`[drop]`](../attributes/drop.md)** `style`
+* **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
+* **[`[focusable]`](../attributes/focusable.md)** `style`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* **[`[hoverable]`](../attributes/hoverable.md)** `style`
 * `href`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
@@ -95,10 +107,12 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * `target`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 * `to`
+* **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
 * `value`
@@ -114,48 +128,9 @@ nu-btn[hidden] {
   display: none !important;
 }
 nu-btn {
-  --nu-local-toggle-color: transparent;
-  --nu-local-depth-color: transparent;
-  --nu-local-hover-color: transparent;
-  --nu-local-depth-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  --nu-local-stroke-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0);
-  --nu-local-toggle-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
-  opacity: 1;
   position: relative;
-  z-index: 0;
-  /* to make : hover::after z-index work as expected */
   user-select: none;
-  box-shadow: var(--nu-local-stroke-shadow),
-    var(--nu-local-toggle-shadow),
-    var(--nu-local-depth-shadow);
-}
-nu-btn[tabindex]:not([tabindex="-1"]):not([disabled])::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background-color: var(--nu-local-hover-color);
-  transition: background-color var(--nu-animation-time) linear;
-}
-nu-btn[tabindex] {
-  cursor: pointer;
-}
-nu-btn[disabled] {
-  opacity: .5;
-  cursor: default;
-}
-nu-btn:not([disabled])[tabindex]:hover {
-  --nu-local-hover-color: var(--nu-hover-color);
-}
-nu-btn[nu-active] {
-  z-index: 3;
-}
-nu-btn[nu-pressed] {
-  z-index: 2;
+  touch-action: manipulation;
 }
 nu-btn > a {
   display: block;
@@ -168,61 +143,11 @@ nu-btn > a {
 nu-btn > a:focus {
   outline: none;
 }
-nu-btn {
-  --nu-local-focus-color: transparent;
-  --nu-local-focus-inset: 0 0;
-  --nu-local-focus-shadow: var(--nu-local-focus-inset) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color);
-  outline: none;
-}
-html.nu-focus-enabled nu-btn:not([disabled])::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  border-radius: var(--nu-local-border-radius, var(--nu-border-radius));
-  box-shadow: var(--nu-local-focus-shadow);
-  transition: box-shadow var(--nu-animation-time) linear;
-}
-html.nu-focus-enabled nu-btn:not([disabled])[nu-focus] {
-  z-index: 10;
-}
-html.nu-focus-enabled nu-btn:not([disabled])[nu-focus] {
-  --nu-local-focus-color: var(--nu-focus-color);
-}
-nu-btn {
-  --nu-local-toggle-color: transparent;
-  --nu-local-toggle-shadow: 0 0 .75em 0 var(--nu-local-toggle-color) inset;
-}
-nu-btn:not([disabled])[tabindex]:hover {
-  --nu-local-hover-color: var(--nu-hover-color);
-}
-nu-btn[disabled][nu-pressed],
-nu-btn[nu-active]:not([disabled]):not([nu-pressed]),
-nu-btn[nu-active][nu-pressed]:not([disabled]),
-nu-btn[nu-pressed]:not([disabled]):not([nu-active]) {
-  --nu-local-toggle-color: rgba(0, 0, 0, var(--nu-intensity));
-}
-nu-btn[special]:not([theme]):not([color]) {
-  color: var(--nu-special-text-color);
-}
-nu-btn[special]:not([theme]):not([fill]) {
-  --nu-intensity: var(--nu-special-intensity);
-  background-color: var(--nu-special-bg-color);
-}
 nu-btn[special] > :not([theme]) {
-  --nu-border-color: var(--nu-special-text-color);
-  --nu-text-color: var(--nu-special-color);
   --nu-text-soft-color: var(--nu-special-text-color);
   --nu-text-contrast-color: var(--nu-special-text-color);
   --nu-special: var(--nu-special-text-color);
   --nu-special: var(--nu-special-color);
   --nu-special-color: var(--nu-special-text-color);
-}
-nu-btn[special]:not([text]) {
-  font-weight: 500;
 }
 ```

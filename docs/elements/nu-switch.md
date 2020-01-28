@@ -8,14 +8,27 @@
 
 
 ## Own default values
+* **`[--circle-bg-color]`: `"--special-bg-color\n        :disabled[rgba(--text-color-rgb, .66)]\n        :pressed[--special-text-color]\n        :pressed:disabled[--special-text-color]"`**
+* **`[--circle-gap]`: `".125em + 1b"`**
+* **`[--circle-offset]`: `"0\n        :pressed[--size]"`**
+* **`[--circle-size]`: `"--size"`**
+* **`[--size]`: `"1em + --circle-gap"`**
 * **`[border]`: `"1b"`**
 * **`[display]`: `"inline-block"`**
+* **`[fill]`: `"bg\n        :pressed[special-bg]\n        :pressed:disabled[text 50%]"`**
+* **`[focusable]`: `"y"`**
+* **`[hoverable]`: `"n :focusable[y]"`**
+* **`[padding]`: `"--circle-gap"`**
 * **`[radius]`: `"round"`**
 * **`[sizing]`: `"content"`**
+* **`[text]`: `"v-middle"`**
+* **`[toggle]`: `"0\n        :active[.5em]\n        :active:pressed[.5em]"`**
+* **`[transition]`: `"shadow"`**
+* **`[width]`: `"(--size * 2)"`**
 
 ## Inherited default values
-* **`[text]`: `"nowrap"`**
-* **`[transition]`: `"box-shadow, color, background-color, border, border-radius"`**
+* **`[cursor]`: `"pointer :disabled[default]"`**
+* **`[opacity]`: `"1 :disabled[.5]"`**
 
 
 ## Own attributes
@@ -35,21 +48,27 @@
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
+* **[`[contain]`](../attributes/contain.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
 * **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* **[`[direction]`](../attributes/direction.md)** `style`
 * **[`[display]`](../attributes/display.md)** `style`
+* **[`[drop]`](../attributes/drop.md)** `style`
+* **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
 * **[`[fill]`](../attributes/fill.md)** `style`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
+* **[`[focusable]`](../attributes/focusable.md)** `style`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* **[`[hoverable]`](../attributes/hoverable.md)** `style`
 * `href`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
@@ -89,10 +108,12 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * `target`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 * `to`
+* **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
 * `value`
@@ -108,97 +129,19 @@ nu-switch[hidden] {
   display: none !important;
 }
 nu-switch {
-  --nu-local-depth-color: transparent;
-  --nu-local-border-radius: calc(var(--nu-size) / 2);
-  --nu-local-color: rgba(0, 0, 0, 0);
-  --nu-local-depth-shadow: 0 .25rem 1.5rem var(--nu-local-depth-color);
-  --nu-local-bg-color: var(--nu-bg-color);
-  --nu-local-active-shadow: 0 0 calc(var(--nu-size) / 2) 0 var(--nu-local-color) inset;
-  --nu-size: 2em;
-  --nu-circle-padding: calc(var(--nu-indent) / 2);
-  --nu-circle-size: calc(var(--nu-size) - var(--nu-circle-padding) * 2);
-  --nu-circle-offset: 0;
-  --nu-circle-opacity: 1;
-  --nu-circle-border-radius: calc(var(--nu-circle-size) / 2);
   position: relative;
-  width: calc(var(--nu-size) * 2 - var(--nu-indent));
-  max-height: var(--nu-size);
-  background-color: var(--nu-local-bg-color) !important;
-  cursor: pointer;
-  box-shadow: var(--nu-local-depth-shadow),
-    var(--nu-local-active-shadow),
-    var(--nu-local-stroke-shadow);
-  transition: box-shadow var(--nu-animation-time) linear,
-    filter var(--nu-animation-time) linear;
   user-select: none;
-  vertical-align: middle;
-  padding: var(--nu-circle-padding);
+  touch-action: manipulation;
 }
-nu-switch:not([disabled]) {
-  --nu-circle-bg-color: var(--nu-special-bg-color);
-}
-nu-switch[disabled] {
-  --border-color: rgba(var(--nu-text-color-rgb), .66);
-  --nu-circle-bg-color: rgba(var(--nu-text-color-rgb), .66);
-}
-nu-switch::after {
-  content: "";
-  display: block;
-  width: var(--nu-circle-size);
-  height: var(--nu-circle-size);
-  pointer-events: none;
-  transform: translate(var(--nu-circle-offset), 0);
-  transition: transform var(--nu-animation-time) linear,
-    opacity var(--nu-animation-time) linear,
-    background-color var(--nu-animation-time) linear;
-  background-color: var(--nu-circle-bg-color);
-  border-radius: var(--nu-circle-border-radius);
-  opacity: var(--nu-circle-opacity);
-}
-nu-switch[disabled] {
-  opacity: .5;
-  cursor: default;
-}
-nu-switch[nu-pressed] {
-  --nu-circle-offset: calc(var(--nu-size) * 2 - var(--nu-circle-size) - var(--nu-indent));
-  --nu-circle-opacity: 1;
-  --nu-circle-bg-color: var(--nu-special-text-color);
-}
-nu-switch[nu-pressed]:not([disabled]) {
-  --nu-local-bg-color: var(--nu-special-bg-color);
-}
-nu-switch[nu-pressed][disabled] {
-  --nu-local-bg-color: rgba(var(--nu-text-color-rgb), .5);
-}
-nu-switch[nu-active]:not([disabled]):not([nu-pressed]) {
-  --nu-local-color: rgba(0, 0, 0, var(--nu-intensity));
-}
-nu-switch[nu-active][nu-pressed]:not([disabled]) {
-  --nu-local-color: rgba(0, 0, 0, var(--nu-special-intensity));
-}
-nu-switch {
-  --nu-local-focus-color: transparent;
-  --nu-local-focus-inset: 0 0;
-  --nu-local-focus-shadow: var(--nu-local-focus-inset) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color);
-  outline: none;
-}
-html.nu-focus-enabled nu-switch:not([disabled])::before {
-  content: '';
+nu-switch > a {
   display: block;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  pointer-events: none;
-  border-radius: var(--nu-local-border-radius, var(--nu-border-radius));
-  box-shadow: var(--nu-local-focus-shadow);
-  transition: box-shadow var(--nu-animation-time) linear;
 }
-html.nu-focus-enabled nu-switch:not([disabled])[nu-focus] {
-  z-index: 10;
-}
-html.nu-focus-enabled nu-switch:not([disabled])[nu-focus] {
-  --nu-local-focus-color: var(--nu-focus-color);
+nu-switch > a:focus {
+  outline: none;
 }
 ```

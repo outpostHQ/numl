@@ -6,10 +6,10 @@
 
 
 ## Own default values
-* **`[display]`: `"none"`**
+*none*
 
 ## Inherited default values
-*none*
+* **`[display]`: `"none"`**
 
 
 ## Own attributes
@@ -23,6 +23,7 @@
 * **[`[prop]`](../attributes/prop.md)** `style`
 * **[`[responsive]`](../attributes/responsive.md)** `helper`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
 
 ## Generated CSS

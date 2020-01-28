@@ -18,6 +18,7 @@
 * **prop** `style`
 * **responsive** `helper`
 * **special** `style`
+* **t** `style`
 * **theme** `helper`
 
 

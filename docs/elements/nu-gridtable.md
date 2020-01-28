@@ -3,12 +3,15 @@
 ## Base info
 * Parent: [`<nu-grid/>`](./nu-grid.md)
 * Type: `element`
+* Role: `table`
 
 
 ## Own default values
 * **`[color]`: `""`**
+* **`[fill]`: `"border"`**
 * **`[gap]`: `"1b"`**
 * **`[overflow]`: `"auto"`**
+* **`[padding]`: `"1x"`**
 
 ## Inherited default values
 * **`[display]`: `"grid"`**
@@ -17,9 +20,7 @@
 
 
 ## Own attributes
-* **fill** `style`
 * **padding** `style`
-* **theme** `helper`
 
 
 ## Inherited attributes
@@ -34,20 +35,27 @@
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
+* **[`[contain]`](../attributes/contain.md)** `style`
 * **[`[content]`](../attributes/content.md)** `style`
 * **[`[controls]`](../attributes/controls.md)** `aria`
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
+* **[`[direction]`](../attributes/direction.md)** `style`
 * **[`[display]`](../attributes/display.md)** `style`
+* **[`[drop]`](../attributes/drop.md)** `style`
+* **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
+* **[`[fill]`](../attributes/fill.md)** `style`
 * **[`[filter]`](../attributes/filter.md)** `style`
 * **[`[flow]`](../attributes/flow.md)** `style`
 * **[`[flowto]`](../attributes/flowto.md)** `aria`
+* **[`[focusable]`](../attributes/focusable.md)** `style`
 * **[`[gap]`](../attributes/gap.md)** `style`
 * **[`[grow]`](../attributes/grow.md)** `style`
 * **[`[haspopup]`](../attributes/haspopup.md)** `aria`
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
+* **[`[hoverable]`](../attributes/hoverable.md)** `style`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
 * **[`[interactive]`](../attributes/interactive.md)** `style`
@@ -83,7 +91,10 @@
 * **[`[sizing]`](../attributes/sizing.md)** `style`
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
+* **[`[t]`](../attributes/t.md)** `style`
 * **[`[text]`](../attributes/text.md)** `style`
+* **[`[theme]`](../attributes/theme.md)** `helper`
+* **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
 * **[`[valuemax]`](../attributes/valuemax.md)** `aria`
@@ -96,17 +107,5 @@
 ```css
 nu-gridtable[hidden] {
   display: none !important;
-}
-nu-gridtable {
-  background-color: var(--nu-border-color);
-}
-nu-gridtable > :not([fill]) {
-  background-color: var(--nu-main-bg-color);
-}
-nu-gridtable:not([padding]) > *:not([padding]):not(nu-line) {
-  padding: var(--nu-indent);
-}
-nu-gridtable > *:not([place]) {
-  position: relative;
 }
 ```
