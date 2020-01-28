@@ -209,6 +209,7 @@ Run `npm run play` to view test page with few examples.
 * Add **Fixate** mixin for elements that can be fixed via **[drop]** attribute.
 
 #### Breaking changes
+* New simplified syntax for state declaration: `0 #btn:pressed[1] #btn:hover[1]` -> `#btn:pressed[1] :hover[1] 0`.
 * Built-in custom units changes: 
 	* **br** -> **r**
 	* **bw** -> **b**
@@ -223,6 +224,7 @@ Run `npm run play` to view test page with few examples.
 * **[nu-radio](./docs/elements/nu-radio.md)** - radio button.
 * **[nu-progressbar](./docs/elements/nu-progressbar.md)** - To show progress of a process.
 * **[nu-slider](./docs/elements/nu-slider.md)** and **[nu-rail](./docs/elements/nu-rail.md)** – To create sliders.
+* **[nu-markdown](./docs/elements/nu-markdown.md)** and **[nu-md](./docs/elements/nu-md.md)** - To convert markdown markup.
 
 #### New attributes & modifiers
 * **[scale](./docs/attributes/scale.md)** with **flip**, **flip-x** and **flip-y** modifiers.
@@ -234,6 +236,7 @@ Run `npm run play` to view test page with few examples.
 * **[toggle](./docs/attributes/toggle.md)** - to activate toggle effect on active elements.
 * **[expand](./docs/attributes/expand.md)** - to increase active region.
 * **[drop](./docs/attributes/drop.md)** - to statically fix element position based on parent element (using `position: fixed`).
+* **[place](./docs/attributes/place.md)** now support sticky positioning with distance: `[place="sticky top 3"]`.
 
 #### Minor and internal changes
 * Refactoring for table elements.
@@ -249,8 +252,10 @@ Run `npm run play` to view test page with few examples.
 * Migrate attribute implementations to parseAttr() method.
 * New color parsing implementation.
 * Add ability to set context values before element is connected.
+* New styling for hoverable effect based on `box-shadow`.
 
 #### Bug fixes
+* Fix conflict between transform attributes.
 * Fix **special-text-color** for swap theme variant in high contrast mode.
 
 [Full issues list](https://github.com/tenphi/nude/milestone/3?closed=1)
