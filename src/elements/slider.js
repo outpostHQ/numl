@@ -17,12 +17,12 @@ export default class NuSlider extends NuActiveElement {
 
   static get nuDefaults() {
     return {
-      width: '1em',
-      height: '1em',
+      width: '1.25em',
+      height: '1.25em',
       radius: 'round',
       fill: 'special-text',
       border: '1b color(text)',
-      space: '.25em + 1b',
+      space: '.375em + 1b',
       text: 'v-middle',
       move: ':orient-h[-.25em 0] :orient-v[0 .25em]'
     };
@@ -51,7 +51,7 @@ export default class NuSlider extends NuActiveElement {
         left: var(--nu-local-offset);
       }
 
-      ${tag}[nu-orient-y] {
+      ${tag}[nu-orient-v] {
         left: 0;
         bottom: var(--nu-local-offset);
       }

@@ -54,6 +54,7 @@ export default class NuActiveElement extends NuElement {
       ${tag} {
         position: relative;
         user-select: none;
+        touch-action: manipulation;
       }
 
       ${tag} > a {
