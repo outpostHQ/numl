@@ -351,7 +351,7 @@ export default class NuBase extends HTMLElement {
           styles = computeStyles(name, value, {
             [name]: (val) => {
               return [{
-                [name.replace('--', '--nu-')]: parseAttr(value).value,
+                [name.replace('--', '--nu-')]: parseAttr(val).value,
               }]
             },
           }, {});

@@ -754,7 +754,7 @@ export function parseAttr(value, insertRem = false) {
           currentValue += func;
           counter++;
         } else if (hashColor) {
-          currentValue += `${hashColor} `;
+          // currentValue += `${hashColor} `;
           color = hashColor;
         } else if (mod) {
           // ignore mods inside brackets
