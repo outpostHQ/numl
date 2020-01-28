@@ -19,8 +19,8 @@ const MNS = 'mns';
 const MRK = 'mrk';
 const IMP = 'imp';
 
-function extractContent(textarea) {
-  const str = textarea.textContent || '';
+function extractContent(content) {
+  const str = content || '';
 
   return str
     .replace(/&lt;/g, '<')
@@ -101,7 +101,7 @@ export default class NuCode extends NuElement {
       ${tag} nu-block {
         white-space: pre;
       }
-      ${tag} textarea {
+      ${tag} > pre, ${tag} > textarea {
         display: none;
       }
       ${tag} nu-el {
@@ -141,9 +141,9 @@ export default class NuCode extends NuElement {
     }
 
     setTimeout(() => {
-      const textarea = this.querySelector('textarea');
+      const nuRef = this.querySelector('textarea, pre');
 
-      if (!textarea) {
+      if (!nuRef) {
         error('nu-snippet: textarea tag required');
       }
 
@@ -152,15 +152,17 @@ export default class NuCode extends NuElement {
       this.appendChild(container);
 
       this.nuObserve = () => {
+        const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
+
         container.innerHTML = textToMarkup(
-          extractContent(textarea),
+          extractContent(content),
           this.hasAttribute('enumerate'),
         );
       };
 
       const observer = new MutationObserver(() => this.nuObserve());
 
-      observer.observe(textarea, {
+      observer.observe(nuRef, {
         characterData: false,
         attributes: false,
         childList: true,

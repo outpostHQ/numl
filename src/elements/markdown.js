@@ -15,7 +15,7 @@ export default class NuMarkdown extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag} > pre {
+      ${tag} > pre, ${tag} > textarea {
         display: none;
       }
     `;
@@ -25,9 +25,9 @@ export default class NuMarkdown extends NuElement {
     super.nuConnected();
 
     setTimeout(() => {
-      const textarea = this.querySelector('pre');
+      const nuRef = this.querySelector('textarea, pre');
 
-      if (!textarea) {
+      if (!nuRef) {
         error('nu-snippet: textarea tag required');
       }
 
@@ -38,14 +38,14 @@ export default class NuMarkdown extends NuElement {
       this.appendChild(container);
 
       this.nuObserve = () => {
-        container.innerHTML = parse(prepareContent(textarea.innerHTML), this.nuInline);
+        const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
 
-        console.log(parse(prepareContent(textarea.innerHTML), this.nuInline));
+        container.innerHTML = parse(prepareContent(content), this.nuInline);
       };
 
       const observer = new MutationObserver(() => this.nuObserve());
 
-      observer.observe(textarea, {
+      observer.observe(nuRef, {
         characterData: false,
         attributes: false,
         childList: true,
@@ -164,7 +164,7 @@ function parse(md, inline, prevLinks) {
     }
     // Links:
     else if (token[10]) {
-      out = out.replace('<nu-link>', `<nu-link to="${encodeAttr(token[11] || links[prev.toLowerCase()])}">`);
+      out = out.replace('<nu-link>', `<nu-link to="${encodeAttr((token[11] && token[11].includes('//') ? `!${token[11]}` : token[11]) || links[prev.toLowerCase()])}">`);
       chunk = flush() + '</nu-link>';
     } else if (token[9]) {
       chunk = '<nu-link>';
