@@ -1,5 +1,5 @@
 import NuDecorator from './decorator';
-import { convertUnit, log } from '../helpers';
+import { convertUnit, log, parseAttr, parseColor } from '../helpers';
 import { injectCSS } from '../css';
 
 export default class NuProps extends NuDecorator {
@@ -34,7 +34,14 @@ export default class NuProps extends NuDecorator {
     this.nuProps = props;
 
     Object.entries(props).forEach(([varName, varValue]) => {
-      const value = varValue.split('|').map(val => `${varName}#${convertUnit(val)}`).join('|');
+      const isColor = varName.endsWith('-color');
+      const value = varValue.split('|').map(val => {
+        if (isColor) {
+          return `${varName}#${parseColor(val).color || ''}`;
+        } else {
+          return `${varName}#${parseAttr(val).value || ''}`;
+        }
+      }).join('|');
 
       const css = parent.nuGetCSS(context, 'prop', value);
 

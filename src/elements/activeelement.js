@@ -167,6 +167,8 @@ export default class NuActiveElement extends NuElement {
       if (evt.button === 0) {
         this.nuTap(evt);
       }
+
+      evt.stopPropagation();
     });
   }
 

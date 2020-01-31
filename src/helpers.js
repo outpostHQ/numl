@@ -716,6 +716,7 @@ function prepareNuVar(name) {
 
 const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid', 'initial'];
 const PREPARE_REGEXP = /calc\((\d*)\)/g;
+const COLOR_FUNCS = ['rgb', 'rgba', 'hsl', 'hsla'];
 
 function prepareParsedValue(val) {
   return val.trim().replace(PREPARE_REGEXP, (s, inner) => inner);
@@ -743,6 +744,7 @@ export function parseAttr(value, insertRem = false) {
     let parsedValue = '';
     let color = '';
     let currentFunc = '';
+    let usedFunc = '';
 
     value.replace(
       ATTR_REGEXP,
@@ -787,6 +789,7 @@ export function parseAttr(value, insertRem = false) {
           }
 
           if (bracket === ')' && !counter) {
+            usedFunc = currentFunc;
             currentFunc = '';
           }
 
@@ -855,7 +858,9 @@ export function parseAttr(value, insertRem = false) {
         if (currentValue && !counter) {
           let prepared = prepareParsedValue(currentValue);
 
-          if (prepared.startsWith('color(')) {
+          if (COLOR_FUNCS.includes(usedFunc)) {
+            color = prepared;
+          } else if (prepared.startsWith('color(')) {
             prepared = prepared.slice(6, -1);
 
             color = parseColor(prepared).color;
