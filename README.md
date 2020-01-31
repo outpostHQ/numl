@@ -238,6 +238,7 @@ Run `npm run play` to view test page with few examples.
 * **[drop](./docs/attributes/drop.md)** - to statically fix element position based on parent element (using `position: fixed`).
 * **[place](./docs/attributes/place.md)** now support sticky positioning with distance: `[place="sticky top 3"]`.
 * **[t](./docs/attributes/t.md)** - for responsive labels.
+* **[shadow](./docs/attributes/shadow.md)** - support for native CSS shadows with NUDE shortcuts.
 
 #### Minor and internal changes
 * Refactoring for table elements.
