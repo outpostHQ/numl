@@ -33,6 +33,12 @@ export default class NuNumInput extends NuInput {
     };
   }
 
+  static get nuDefaults() {
+    return {
+      text: 'center',
+    };
+  }
+
   static nuCSS({ tag, css }) {
     return `
       ${css}
