@@ -201,6 +201,11 @@ export default class NuActiveElement extends NuElement {
 
     this.nuEmit('tap', this.nuValue);
 
+    if (this.nuIsCheckbox()) {
+      this.nuEmit('pressed', this.nuPressed);
+      this.nuEmit('input', (this.nuPressed && this.nuValue) || this.nuPressed, { bubbles: false });
+    }
+
     this.nuToggle();
     this.nuControl();
 
@@ -295,15 +300,12 @@ export default class NuActiveElement extends NuElement {
     this.nuSetPressed(!this.nuPressed);
   }
 
-  nuSetPressed(pressed, force) {
+  nuSetPressed(pressed) {
     if (pressed === this.nuPressed && !(pressed == null && this.nuPressed == null)) return;
 
     if (!this.nuIsToggle()) return;
 
     pressed = pressed || false;
-
-    const isChanged = !!['pressed', 'checked', 'selected']
-      .find(attr => this.hasAttribute(attr)) !== pressed;
 
     this.nuPressed = pressed;
 
@@ -322,11 +324,6 @@ export default class NuActiveElement extends NuElement {
     }
 
     this.nuSetMod('pressed', pressed);
-
-    if ((isChanged || this.nuIsCheckbox()) && !force) {
-      this.nuEmit('pressed', pressed);
-      this.nuEmit('input', (pressed && this.nuValue) || pressed, { bubbles: false });
-    }
 
     this.nuControl();
 

@@ -583,6 +583,7 @@ export default class NuBase extends HTMLElement {
     this.nuConnected();
 
     this.nuFirstConnect = false;
+    this.nuIsConnectionComplete = true;
   }
 
   /**
@@ -1101,6 +1102,8 @@ export default class NuBase extends HTMLElement {
 
   nuVerifyChildren(vars, responsive) {
     const selectors = [];
+
+    if (!this.nuIsConnectionComplete) return;
 
     if (vars) {
       selectors.push(`[nu-${VAR_MOD}]`);
