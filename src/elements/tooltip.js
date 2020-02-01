@@ -58,6 +58,7 @@ export default class NuTooltip extends NuBlock {
 
       this.nuFixateStart();
       this.nuSetMod('show', true);
+      parent.nuSetMod('tooltip', true);
 
       setTimeout(() => {
         fixPosition(this);
@@ -71,6 +72,7 @@ export default class NuTooltip extends NuBlock {
 
       this.nuFixateEnd();
       this.nuSetMod('show', false);
+      parent.nuSetMod('tooltip', false);
     };
 
     const onFocus = () => {
@@ -80,6 +82,7 @@ export default class NuTooltip extends NuBlock {
 
       this.nuFixateStart();
       this.nuSetMod('show', true);
+      parent.nuSetMod('tooltip', true);
     };
 
     const onBlur = () => {
@@ -89,6 +92,7 @@ export default class NuTooltip extends NuBlock {
 
       this.nuFixateEnd();
       this.nuSetMod('show', false);
+      parent.nuSetMod('tooltip', false);
     };
 
     parent.addEventListener('mouseenter', onMouseEnter);

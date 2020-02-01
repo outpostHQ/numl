@@ -92,7 +92,11 @@ export default class NuInput extends NuBlock {
       this.nuRef.addEventListener('input', (event) => {
         event.stopPropagation();
 
-        this.nuEmit('input', this.nuRef.value);
+        const value = this.nuRef.value;
+
+        this.nuSetMod('empty', !value);
+
+        this.nuEmit('input', value);
       });
 
       this.nuRef.addEventListener('change', (event) => {
@@ -139,6 +143,8 @@ export default class NuInput extends NuBlock {
       this.nuGetRef();
       this.nuChanged('disabled', '', this.getAttribute('disabled'));
       this.nuChanged('placeholder', '', this.getAttribute('placeholder'));
+
+      this.nuSetMod('empty', !this.nuRef.value);
     });
   }
 }

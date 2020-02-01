@@ -39,6 +39,3 @@ export default function shadowAttr(val) {
     '--nu-local-depth-shadow': `${x} ${y} ${size} ${spread} rgba(0, 0, 0, calc(var(--nu-local-intensity, var(--nu-intensity)) / ${intensityModifier}))`,
   };
 }
-
-window.shadowAttr = shadowAttr;
-window.parseAttr = parseAttr;

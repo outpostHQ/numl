@@ -39,6 +39,7 @@ import focusableAttr from '../attributes/focusable';
 import hoverableAttr from '../attributes/hoverable';
 import dropAttr from '../attributes/drop';
 import { expandAttr } from '../attributes/expand';
+import opacityAttr from '../attributes/opacity';
 
 /**
  * @class
@@ -115,7 +116,7 @@ export default class NuElement extends NuBase {
       size: sizeAttr,
       hide: hideAttr,
       show: showAttr,
-      opacity: 'opacity',
+      opacity: opacityAttr,
       transition: transitionAttr,
       scrollbar: scrollbarAttr,
       before: beforeAttr,

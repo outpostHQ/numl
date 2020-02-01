@@ -1,5 +1,12 @@
 import NuDecorator from './decorator';
-import { convertUnit, log, parseAttr, parseColor } from '../helpers';
+import {
+  convertUnit,
+  log,
+  normalizeAttrStates,
+  parseAttr,
+  parseAttrStates,
+  parseColor
+} from '../helpers';
 import { injectCSS } from '../css';
 
 export default class NuProps extends NuDecorator {
@@ -35,13 +42,22 @@ export default class NuProps extends NuDecorator {
 
     Object.entries(props).forEach(([varName, varValue]) => {
       const isColor = varName.endsWith('-color');
-      const value = varValue.split('|').map(val => {
-        if (isColor) {
-          return `${varName}#${parseColor(val).color || ''}`;
-        } else {
-          return `${varName}#${parseAttr(val).value || ''}`;
-        }
-      }).join('|');
+      const zones = parseAttrStates(varValue);
+
+      zones.map(zone => {
+        const states = zone.states;
+
+        Object.keys(states)
+          .forEach(stateName => {
+            states[stateName] = `${varName};${(
+              isColor
+                ? parseColor(states[stateName]).color
+                : parseAttr(states[stateName]).value
+            ) || ''}`;
+          });
+      });
+
+      const value = normalizeAttrStates(zones);
 
       const css = parent.nuGetCSS(context, 'prop', value);
 

@@ -33,7 +33,7 @@ import {
   isVariableAttr,
   isResponsiveAttr,
   normalizeAttrStates,
-  parseAttr, isDefined,
+  parseAttr, isDefined, parseAttrStates,
 } from './helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibility';
 import displayAttr from './attributes/display';
@@ -740,7 +740,7 @@ export default class NuBase extends HTMLElement {
 
     if (firstValueOnly && !isVariable) {
       if (isResponsive) {
-        return value.split('|')[0];
+        return parseAttrStates(value)[0].states[''];
       }
 
       return value;

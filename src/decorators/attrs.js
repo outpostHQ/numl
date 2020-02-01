@@ -45,7 +45,7 @@ export default class NuStyle extends NuDecorator {
 
       define.push({
         name: attrName,
-        value: this.nuGetAttr(attrName, true),
+        value: this.nuGetAttr(attrName),
       });
     });
 

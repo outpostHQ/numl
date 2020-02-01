@@ -1003,7 +1003,7 @@ export function parseAttrStates(val) {
 }
 
 export function normalizeAttrStates(val) {
-  const zones = parseAttrStates(val);
+  let zones = Array.isArray(val) ? val : parseAttrStates(val);
 
   return zones.map(zone => {
     return `${zone.rawContext || ''} ${
