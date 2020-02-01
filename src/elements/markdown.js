@@ -85,7 +85,7 @@ function prepareContent(str) {
 
 const TAGS = {
   '': ['<nu-el text="i">', '</nu-el>'],
-  _: ['<nu-el text="w6">', '</nu-el>'],
+  _: ['<nu-el text="w7">', '</nu-el>'],
   '~': ['<nu-el text="s">', '</nu-el>'],
   '\n': ['</nu-block><nu-block>'],
   ' ': ['<br />'],

@@ -170,6 +170,16 @@ export function hasCSS(name, root) {
   return !!styleMap[name];
 }
 
+export function transferCSS(name, root) {
+  const cssMap = STYLE_MAP[name];
+
+  const content = cssMap.element.textContent;
+
+  log('transfer styles to the shadow root:', JSON.stringify(name), root);
+
+  return injectCSS(name, cssMap.selector, content, root);
+}
+
 /**
  * Very fast css beautification without parsing.
  * Do not support media queries

@@ -5,7 +5,7 @@ import {
   attrsQuery,
   generateCSS,
   cleanCSSByPart,
-  injectStyleTag,
+  transferCSS,
 } from './css';
 import {
   parseThemeAttr,
@@ -366,7 +366,7 @@ export default class NuBase extends HTMLElement {
         defaultsCSS += generateCSS(query, styles);
       });
 
-    injectStyleTag(`${css}${defaultsCSS}`, tag, root);
+    injectCSS(tag, tag, `${css}${defaultsCSS}`, root);
   }
 
   constructor() {
@@ -564,7 +564,10 @@ export default class NuBase extends HTMLElement {
     this.nuIsConnected = true;
 
     if (this.nuContext.$shadowRoot) {
-      this.constructor.nuGenerateDefaultStyle(this.nuContext.$shadowRoot);
+      if (!hasCSS(this.constructor.nuTag, this.nuContext.$shadowRoot)) {
+        transferCSS(this.constructor.nuTag, this.nuContext.$shadowRoot);
+      }
+
       this.nuReapplyCSS();
     }
 
@@ -708,6 +711,10 @@ export default class NuBase extends HTMLElement {
       if (!force) return;
 
       removeCSS(query, cssRoot);
+    } else if (hasCSS(query)) {
+      transferCSS(query, cssRoot);
+
+      return;
     }
 
     const css = this.nuGetCSS(query, name, value);
