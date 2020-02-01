@@ -507,7 +507,7 @@ export function computeStyles(name, value, attrs, defaults) {
   }
 
   // Style splitter for states system
-  if (value.match(/^(\^|#)/) || value.includes(':')) {
+  if (value.match(/^\^/) || value.includes(':')) {
     // split values between states
     const states = splitStates(value);
 
@@ -903,7 +903,7 @@ export function filterMods(mods, allowedMods) {
 }
 
 // const STATE_TYPE_REGEXP = /\[[^\]]*\|/;
-const STATE_REGEXP = /(\|)|(\[)|(])|(\^|#[a-z][a-z0-9-]*)|:([a-z0-9:-]+)(?=\[)|('[^']*'|[a-z0-9\.-][^'\]\[\|:]*(?!:))/gi;
+const STATE_REGEXP = /(\|)|(\[)|(])|(\^(#[a-z][a-z0-9-]*|))|:([a-z0-9:-]+)(?=\[)|('[^']*'|[#a-z0-9\.-][^'\]\[\|:]*(?!:))/gi;
 
 function requireZone(zones, index, parent = '') {
   while (zones[index] == null) {
@@ -931,22 +931,22 @@ export function parseAttrStates(val) {
   let opened = false;
   let responsiveState = false;
   let zone;
-  let parent;
+  let currentParent;
 
-  val.replace(STATE_REGEXP, (s, delimiter, open, close, id, state, value) => {
+  val.replace(STATE_REGEXP, (s, delimiter, open, close, parent, id, state, value) => {
     zone = requireZone(zones, zoneIndex);
-    parent = zone.parent;
+    currentParent = zone.parent;
 
     if (opened) {
       if (responsiveState) {
-        zone = requireZone(zones, stateZoneIndex, parent);
+        zone = requireZone(zones, stateZoneIndex, currentParent);
       } else {
-        zone = requireZone(zones, zoneIndex, parent);
+        zone = requireZone(zones, zoneIndex, currentParent);
       }
     }
 
-    if (id) {
-      zone.parent = id;
+    if (parent) {
+      zone.parent = id || parent;
     } else if (delimiter) {
       if (opened) {
         if (zoneIndex) {

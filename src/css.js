@@ -276,14 +276,14 @@ html.nu-prefers-color-scheme-dark .nu-dark-dim {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nu-prefers-reduced-motion [theme], body {
-    --nu-animation-time: 0.001s !important;
+  .nu-prefers-reduced-motion [nu], body {
+    transition: initial !important;
   }
 }
 
-html.nu-prefers-reduced-motion-reduce [theme], html.nu-prefers-reduced-motion-reduce body,
-html.nu-prefers-reduced-motion-reduce-force [theme], html.nu-prefers-reduced-motion-reduce-force body {
-  --nu-animation-time: 0.001s !important;
+html.nu-prefers-reduced-motion-reduce [nu], html.nu-prefers-reduced-motion-reduce body,
+html.nu-prefers-reduced-motion-reduce-force [nu], html.nu-prefers-reduced-motion-reduce-force body {
+  transition: initial !important;
 }
 `;
 

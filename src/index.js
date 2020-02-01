@@ -68,6 +68,7 @@ import {
   extractMods,
   fixPosition,
   parseAttr,
+  parseAttrStates,
   parseColor,
   setAttrs,
 } from './helpers';
@@ -120,6 +121,7 @@ const Nude = {
     extractMods,
     fixPosition,
     parseAttr,
+    parseAttrStates,
     parseColor,
     setAttrs,
   },
