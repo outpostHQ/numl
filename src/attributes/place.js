@@ -117,10 +117,11 @@ export default function placeAttr(val, defaults) {
 
   const abs = PLACE_ABS.find(place => mods.includes(place));
 
+
   if (mods.includes('relative')) {
     pos = 'relative';
 
-    mods.splice(mods.indexOf('relative'), 1);
+    mods = mods.filter(mod => mod !== 'relative');
   }
 
   if (mods.includes('fill')) {
@@ -235,13 +236,9 @@ export default function placeAttr(val, defaults) {
   }
 
   if (pos) {
-    if (styles.length) {
-      styles[0].position = pos;
-    } else {
-      styles.push({
-        position: pos,
-      });
-    }
+    styles.push({
+      position: pos,
+    });
   }
 
   styles.push(...getEmptyTransform(defaults));
