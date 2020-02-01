@@ -201,6 +201,7 @@ Run `npm run play` to view test page with few examples.
 * Automatic **calc** insertion.
 * New **color()** function for some style attributes.
 * Custom states for **nu-** modifiers and **role** attribute.
+* New parent selectors: `root`, `any`, `host`. Usage: `opacity="^host :hover[1] 0"`.
 * Add **Mixin System**.
 * **nu-tablist** now supports direction change.
 * Add **Active** mixin for active elements.
@@ -209,7 +210,7 @@ Run `npm run play` to view test page with few examples.
 * Add **Fixate** mixin for elements that can be fixed via **[drop]** attribute.
 
 #### Breaking changes
-* New simplified syntax for state declaration: `0 #btn:pressed[1] #btn:hover[1]` -> `#btn:pressed[1] :hover[1] 0`.
+* New simplified syntax for state declaration: `0 #btn:pressed[1] #btn:hover[1]` -> `^#btn :pressed[1] :hover[1] 0`.
 * Built-in custom units changes: 
 	* **br** -> **r**
 	* **bw** -> **b**
