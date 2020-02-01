@@ -29,7 +29,6 @@ export default class NuInput extends NuBlock {
       flow: 'column',
       radius: '',
       padding: '1x',
-      text: 'center',
       fill: 'input',
       border: '1b',
       focusable: 'force',
@@ -61,14 +60,6 @@ export default class NuInput extends NuBlock {
         box-sizing: border-box;
         color: inherit;
         -webkit-text-fill-color: currentColor;
-      }
-
-      ${tag} input:not(:first-child) {
-        padding-left: 0;
-      }
-
-      ${tag} input:not(:last-child) {
-        padding-right: 0;
       }
 
       ${tag} input[disabled] {
@@ -136,7 +127,7 @@ export default class NuInput extends NuBlock {
 
         break;
       case 'placeholder':
-        this.nuRef.setAttribute('placeholder', value || '...');
+        this.nuRef.setAttribute('placeholder', value != null ? value : '...');
         break;
     }
   }

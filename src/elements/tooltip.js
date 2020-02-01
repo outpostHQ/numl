@@ -48,7 +48,14 @@ export default class NuTooltip extends NuBlock {
 
     this.nuSetAria('hidden', true);
 
+    let hover = false;
+    let focus = false;
+
     const onMouseEnter = () => {
+      hover = true;
+
+      if (focus) return;
+
       this.nuFixateStart();
       this.nuSetMod('show', true);
 
@@ -58,6 +65,28 @@ export default class NuTooltip extends NuBlock {
     };
 
     const onMouseLeave = (force) => {
+      hover = false;
+
+      if (focus) return;
+
+      this.nuFixateEnd();
+      this.nuSetMod('show', false);
+    };
+
+    const onFocus = () => {
+      focus = true;
+
+      if (hover) return;
+
+      this.nuFixateStart();
+      this.nuSetMod('show', true);
+    };
+
+    const onBlur = () => {
+      focus = false;
+
+      if (hover) return;
+
       this.nuFixateEnd();
       this.nuSetMod('show', false);
     };
@@ -72,9 +101,9 @@ export default class NuTooltip extends NuBlock {
 
     this.nuSetContextHook('focus', (val) => {
       if (val) {
-        onMouseEnter();
+        onFocus();
       } else {
-        onMouseLeave();
+        onBlur();
       }
     });
 

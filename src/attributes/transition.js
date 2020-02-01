@@ -4,7 +4,7 @@ const MAP = {
   move: ['transform'],
   rotate: ['transform'],
   scale: ['transform'],
-  place: ['transform'],
+  place: ['transform', 'top', 'right', 'bottom', 'left'],
   transform: ['transform'],
   fill: ['background-color'],
   border: ['border', 'box-shadow'],
