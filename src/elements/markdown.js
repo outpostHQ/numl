@@ -24,7 +24,7 @@ export default class NuMarkdown extends NuElement {
   nuConnected() {
     super.nuConnected();
 
-    if (this.hasAttribute('shadow-root')) {
+    if (this.hasAttribute('shady')) {
       this.nuAttachShadow();
     }
 
