@@ -720,7 +720,11 @@ export default class NuBase extends HTMLElement {
     const css = this.nuGetCSS(query, name, value);
 
     if (css) {
-      injectCSS(query, query, css, cssRoot);
+      injectCSS(query, query, css);
+    }
+
+    if (cssRoot) {
+      transferCSS(query, cssRoot);
     }
   }
 
