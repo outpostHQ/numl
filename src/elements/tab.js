@@ -25,12 +25,15 @@ export default class NuTab extends NuActiveElement {
       expand: `0 --local-h-gap :orient-v[--local-v-gap 0]`,
       border: `0
         ${DIRECTIONS.map(dir => `
-          :dir-${dir}:focusable:hover[1b ${dir} inside color(special)]
-          :dir-${dir}:pressed[3b ${dir} inside color(special)]
-          :dir-${dir}:hover:pressed[3b ${dir} inside color(special)]
-          :dir-${dir}:focusable:active[2b ${dir} inside color(special)]
-          :dir-${dir}:focusable:active:hover[2b ${dir} inside color(special)]`)}`,
+          :dir-${dir}[--local-line-width ${dir} inside color(special)]`)}`,
       hoverable: null,
+
+      '--local-line-width': `0
+        :focusable:hover[1b]
+        :pressed[3b]
+        :hover:pressed[3b]
+        :focusable:active[2b]
+        :focusable:active:hover[2b]`,
     };
   }
 

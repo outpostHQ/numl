@@ -5,7 +5,7 @@ import pkg from './package.json';
 const DEV = !!process.env.ROLLUP_WATCH;
 const VERSION = `"${pkg.version}"`;
 
-export default (true ? [
+export default (!DEV ? [
   {
     input: 'src/pack.js',
     external: ['ms'],
@@ -37,25 +37,6 @@ export default (true ? [
         comments: false,
       }),
     ]
-  }
-]: []).concat([
-  {
-    input: 'src/pack.js',
-    external: ['ms'],
-    output: [
-      {
-        name: 'Nude',
-        file: pkg.module.replace('.js', '.dev.js'),
-        format: 'iife',
-        exports: 'default'
-      }
-    ],
-    plugins: [
-      replace({
-        'process.env.NODE_ENV': '"development"',
-        'process.env.APP_VERSION': VERSION,
-      }),
-    ]
   },
   {
     input: 'src/index.js',
@@ -74,4 +55,23 @@ export default (true ? [
       }),
     ]
   },
+]: []).concat([
+  {
+    input: 'src/pack.js',
+    external: ['ms'],
+    output: [
+      {
+        name: 'Nude',
+        file: pkg.module.replace('.js', '.dev.js'),
+        format: 'iife',
+        exports: 'default'
+      }
+    ],
+    plugins: [
+      replace({
+        'process.env.NODE_ENV': '"development"',
+        'process.env.APP_VERSION': VERSION,
+      }),
+    ]
+  }
 ]);
