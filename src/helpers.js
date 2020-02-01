@@ -1071,9 +1071,13 @@ export function parseColor(val) {
 
   if (!val) return {};
 
-  const { values, mods } = parseAttr(val);
+  let { values, mods, color } = parseAttr(val);
 
-  let name, opacity, color;
+  let name, opacity;
+
+  if (color) {
+    return { color };
+  }
 
   values.forEach(token => {
     if (token.match(/^((var|rgb|rgba|hsl|hsla)\(|#[0-9a-f]{3,6})/)) {
