@@ -401,6 +401,19 @@ export function getCombinations(array) {
   return result;
 }
 
+const CONTEXT_START_MAP = {
+  'parent': '[nu]',
+  'any': '[nu]',
+  'root': ':root',
+  'host': ':host(',
+};
+const CONTEXT_END_MAP = {
+  'parent': '>',
+  'any': '',
+  'root': '',
+  'host': ')',
+};
+
 /**
  * Extract state values from single value.
  * Example: color="blue :active[red]"
@@ -410,7 +423,13 @@ export function getCombinations(array) {
  */
 export function splitStates(attrValue) {
   const zone = parseAttrStates(attrValue)[0];
-  const id = (zone.parent === '^' ? '#--parent--' : zone.parent).replace('#', '');
+  let context = zone.context;
+  let contextStart, contextEnd;
+
+  if (context) {
+    contextStart = CONTEXT_START_MAP[context] || `[nu-id="${context.replace('#', '')}"]`;
+    contextEnd = CONTEXT_END_MAP[context] || '';
+  }
 
   let baseValue;
 
@@ -472,19 +491,22 @@ export function splitStates(attrValue) {
     });
   });
 
-  const isParent = (id === '--parent--');
-
   stateMaps = stateMaps.map(stateMap => {
+    let $prefix, $suffix, $states, value = stateMap.value;
+
+    $states = stateMap.states.map(s => getStateSelector(s)).join('')
+      + stateMap.notStates.map(s => `:not(${getStateSelector(s)})`).join('');
+
+    if (context && (stateMap.states.length || stateMap.notStates.length)) {
+      $prefix = `${contextStart}${$states}${contextEnd}`;
+    } else {
+      $suffix = $states;
+    }
+
     return {
-      $prefix: id && (stateMap.states.length || stateMap.notStates.length)
-        ? (isParent ? '[nu]' : `[nu-id="${id}"]`)
-        + stateMap.states.map(s => getStateSelector(s)).join('')
-        + stateMap.notStates.map(s => `:not(${getStateSelector(s)})`).join('')
-        + (isParent ? '>' : '')
-        : null,
-      $suffix: !id && stateMap.states.map(s => getStateSelector(s)).join('')
-        + stateMap.notStates.map(s => `:not(${getStateSelector(s)})`).join(''),
-      value: stateMap.value,
+      $prefix,
+      $suffix,
+      value,
     };
   });
 
@@ -903,7 +925,7 @@ export function filterMods(mods, allowedMods) {
 }
 
 // const STATE_TYPE_REGEXP = /\[[^\]]*\|/;
-const STATE_REGEXP = /(\|)|(\[)|(])|(\^(#[a-z][a-z0-9-]*|))|:([a-z0-9:-]+)(?=\[)|('[^']*'|[#a-z0-9\.-][^'\]\[\|:]*(?!:))/gi;
+const STATE_REGEXP = /(\|)|(\[)|(])|(\^(#[a-z][a-z0-9-]*|root|host|any|))|:([a-z0-9:-]+)(?=\[)|('[^']*'|[#a-z0-9\.-][^'\]\[\|:]*(?!:))/gi;
 
 function requireZone(zones, index, parent = '') {
   while (zones[index] == null) {
@@ -931,22 +953,23 @@ export function parseAttrStates(val) {
   let opened = false;
   let responsiveState = false;
   let zone;
-  let currentParent;
+  let currentContext;
 
-  val.replace(STATE_REGEXP, (s, delimiter, open, close, parent, id, state, value) => {
+  val.replace(STATE_REGEXP, (s, delimiter, open, close, rawContext, context, state, value) => {
     zone = requireZone(zones, zoneIndex);
-    currentParent = zone.parent;
+    currentContext = zone.context;
 
     if (opened) {
       if (responsiveState) {
-        zone = requireZone(zones, stateZoneIndex, currentParent);
+        zone = requireZone(zones, stateZoneIndex, currentContext);
       } else {
-        zone = requireZone(zones, zoneIndex, currentParent);
+        zone = requireZone(zones, zoneIndex, currentContext);
       }
     }
 
-    if (parent) {
-      zone.parent = id || parent;
+    if (rawContext) {
+      zone.context = context || 'parent';
+      zone.rawContext = rawContext;
     } else if (delimiter) {
       if (opened) {
         if (zoneIndex) {
@@ -983,7 +1006,7 @@ export function normalizeAttrStates(val) {
   const zones = parseAttrStates(val);
 
   return zones.map(zone => {
-    return `${zone.parent || ''} ${
+    return `${zone.rawContext || ''} ${
       Object.entries(zone.states).map(([state, value]) => {
         if (!state) {
           return value;
