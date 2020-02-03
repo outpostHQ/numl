@@ -29,9 +29,10 @@ export default class NuInput extends NuBlock {
       flow: 'column',
       radius: '',
       padding: '1x',
-      fill: 'input',
+      fill: 'input :disabled[special-bg 20%]',
       border: '1b',
       focusable: 'force',
+      opacity: '1 :disabled[.5]',
     };
   }
 
@@ -63,8 +64,8 @@ export default class NuInput extends NuBlock {
       }
 
       ${tag} input[disabled] {
-        color: rgb(var(--nu-text-color-rgb), .6);
-        background: var(--nu-hover-color);
+        color: inherit;
+        background: transparent;
         -webkit-opacity: 1;
       }
 

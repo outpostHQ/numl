@@ -1,4 +1,4 @@
-import { composeThemeName, parseThemeAttr, THEME_PROPS_LIST } from '../themes';
+import { composeThemeName, parseThemeAttr, RGB_COLORS, THEME_PROPS_LIST } from '../themes';
 import { BASE_COLOR } from './color';
 
 /**
@@ -22,8 +22,10 @@ export default function themeAttr(val) {
     return map;
   }, {})];
 
-  styles[0]['--nu-text-color-rgb'] = `var(--nu-${themeName}-text-color-rgb, var(--nu-main-text-color-rgb))`;
-  styles[0]['--nu-bg-color-rgb'] = `var(--nu-${themeName}-bg-color-rgb, var(--nu-main-bg-color-rgb))`;
+  // rgb colors
+  RGB_COLORS.forEach(clr => {
+    styles[0][`--nu-${clr}-color-rgb`] = `var(--nu-${themeName}-${clr}-color-rgb, var(--nu-main-${clr}-color-rgb))`;
+  });
 
   styles.push({
     $suffix: ':not([color])',

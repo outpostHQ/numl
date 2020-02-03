@@ -52,6 +52,8 @@ export const BASE_THEME = {
   lightness: 'normal',
 };
 
+export const RGB_COLORS = ['text', 'bg', 'special-text', 'special-bg'];
+
 /**
  * Get minimal possible contrast ratio between text and foreground.
  * @param type {String}
@@ -261,8 +263,9 @@ export function themeToProps(name, theme) {
     return map;
   }, {});
 
-  map[`--nu-${name}-text-color-rgb`] = hslToRgb(theme.text);
-  map[`--nu-${name}-bg-color-rgb`] = hslToRgb(theme.bg);
+  RGB_COLORS.forEach(clr => {
+    map[`--nu-${name}-${clr}-color-rgb`] = hslToRgb(theme[clr]);
+  });
 
   return map;
 }

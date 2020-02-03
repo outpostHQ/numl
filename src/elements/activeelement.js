@@ -201,13 +201,13 @@ export default class NuActiveElement extends NuElement {
 
     this.nuEmit('tap', this.nuValue);
 
+    this.nuToggle();
+    this.nuControl();
+
     if (this.nuIsCheckbox()) {
       this.nuEmit('pressed', this.nuPressed);
       this.nuEmit('input', (this.nuPressed && this.nuValue) || this.nuPressed, { bubbles: false });
     }
-
-    this.nuToggle();
-    this.nuControl();
 
     if (this.getAttribute('action') === 'submit') {
       this.nuEmit('submit', this.nuValue);
