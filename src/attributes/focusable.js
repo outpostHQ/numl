@@ -6,8 +6,7 @@ export default function focusableAttr(val) {
   return [
     {
       '--nu-local-focus-color': 'transparent',
-      '--nu-local-focus-inset': '0 0',
-      '--nu-local-focus-shadow': 'var(--nu-local-focus-inset) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color)',
+      '--nu-local-focus-shadow': 'var(--nu-local-focus-inset, 0 0) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color)',
       outline: 'none',
     }
   ].concat(focusable ? [

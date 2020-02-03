@@ -19,15 +19,8 @@ export default class NuMenuitem extends NuBtn {
       content: 'center start',
       radius: '0',
       border: '0',
-    };
-  }
 
-  static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
-        --nu-local-focus-inset: inset 0 0;
-      }
-    `;
+      '--local-focus-inset': 'inset 0 0',
+    };
   }
 }
