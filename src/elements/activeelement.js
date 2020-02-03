@@ -351,7 +351,7 @@ export default class NuActiveElement extends NuElement {
       this.nuControl();
 
       if (notify) {
-        this.nuEmit('input', value);
+        this.nuEmit('input', value, { bubble: false });
       }
     }, 0);
   }
