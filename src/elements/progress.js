@@ -17,6 +17,9 @@ export default class NuProgressBar extends NuElement {
     return {
       display: 'block',
       transition: 'opacity',
+      radius: '.5r',
+      border: '',
+      fill: 'bg',
     };
   }
 
@@ -65,19 +68,6 @@ export default class NuProgressBar extends NuElement {
         position: relative;
         min-height: .5em;
         overflow: hidden;
-      }
-
-      ${tag}:not([fill]) {
-        background-color: var(--nu-bg-color);
-      }
-
-      ${tag}:not([radius]) {
-        --nu-local-radius: calc(var(--nu-radius) / 2);
-        border-radius: var(--nu-local-radius);
-      }
-
-      ${tag}:not([border]) {
-        border: var(--nu-border-width) solid var(--nu-border-color);
       }
 
       ${tag}::before {

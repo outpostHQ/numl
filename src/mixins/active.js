@@ -7,7 +7,7 @@ export default function ActiveMixin() {
   return {
     connected() {
       this.addEventListener('click', evt => {
-        if (evt.nuHandled) return;
+        if (this.nuDisabled || evt.nuHandled) return;
 
         evt.nuHandled = true;
 
@@ -17,7 +17,7 @@ export default function ActiveMixin() {
       });
 
       this.addEventListener('keydown', evt => {
-        if (this.hasAttribute('disabled') || evt.nuHandled) return;
+        if (this.nuDisabled || evt.nuHandled) return;
 
         evt.nuHandled = true;
 
@@ -33,7 +33,7 @@ export default function ActiveMixin() {
       });
 
       this.addEventListener('keyup', evt => {
-        if (this.hasAttribute('disabled') || evt.nuHandled) return;
+        if (this.nuDisabled || evt.nuHandled) return;
 
         evt.nuHandled = true;
 
@@ -44,10 +44,10 @@ export default function ActiveMixin() {
         }
       });
 
-      this.addEventListener('blur', evt => this.nuSetMod('active', false));
+      this.addEventListener('blur', () => this.nuSetMod('active', false));
 
       this.addEventListener('mousedown', () => {
-        if (!this.hasAttribute('disabled') && this.nuHasMod('focusable')) {
+        if (!this.nuDisabled && this.nuHasMod('focusable')) {
           this.nuSetMod('active', true);
         }
       });

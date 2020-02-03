@@ -1,10 +1,5 @@
 import { unit } from '../helpers';
 import NuGrid from './grid';
-import themeAttr from '../attributes/theme';
-import fillAttr from '../attributes/fill';
-
-const STYLE_THEME_SUFFIX = '>:not([theme])';
-const STYLE_FILL_SUFFIX = '>:not([fill])';
 
 export default class NuGridTable extends NuGrid {
   static get nuTag() {

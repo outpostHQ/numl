@@ -158,13 +158,14 @@ export default class NuActiveElement extends NuElement {
     link.href = this.nuHref;
     link.target = this.nuNewTab ? '_blank' : '_self';
     link.setAttribute('tabindex', '-1');
+    link.setAttribute('aria-label', this.innerText);
 
     this.nuLink = link;
 
     this.appendChild(this.nuLink);
 
     this.nuLink.addEventListener('click', (evt) => {
-      if (evt.button === 0) {
+      if (evt.button === 0 && !this.nuDisabled) {
         this.nuTap(evt);
       }
 

@@ -41,6 +41,7 @@ export default class NuIcon extends NuBlock {
       width: 'min(1fs)',
       height: 'min(1fs)',
       sizing: 'content',
+      transition: 'transform',
     };
   }
 

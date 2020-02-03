@@ -6,6 +6,10 @@ export default class NuBadge extends NuElement {
     return 'nu-badge';
   }
 
+  static get nuId() {
+    return 'badge';
+  }
+
   static get nuAttrs() {
     return {
       border: NuBlock.nuAttrs.border,
