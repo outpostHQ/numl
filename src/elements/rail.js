@@ -24,11 +24,12 @@ export default class NuRail extends NuElement {
       width: ':orient-h[100%] :orient-v[.5em]',
       height: ':orient-h[.5em] :orient-v[100%]',
       radius: 'round',
-      fill: 'special-bg',
+      fill: 'special-bg :disabled[text 50%]',
+      opacity: '1 :disabled[.5]',
       border: '1b',
       text: 'v-middle',
-      cursor: 'pointer',
-      hoverable: '.5em',
+      cursor: 'pointer :disabled[default]',
+      hoverable: '.5em :disabled[n]',
       transition: 'shadow',
       expand: '.5em',
     };
@@ -63,6 +64,8 @@ export default class NuRail extends NuElement {
   }
 
   nuOnDragStart(evt) {
+    if (this.hasAttribute('disabled')) return;
+
     this.nuSetValueByEvent(evt);
     this.nuDragging = true;
 
@@ -115,5 +118,9 @@ export default class NuRail extends NuElement {
 
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
+
+    if (name === 'disabled') {
+      this.nuSetContext(name, value);
+    }
   }
 }

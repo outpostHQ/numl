@@ -381,6 +381,6 @@ export default class NuActiveElement extends NuElement {
   }
 
   get nuDisabled() {
-    return this.hasAttribute('disabled');
+    return this.hasAttribute('disabled') || (this.nuContext && this.nuContext.disabled);
   }
 }
