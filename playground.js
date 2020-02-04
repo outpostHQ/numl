@@ -64,9 +64,16 @@ contrastWidget.addEventListener('input', function (evt) {
 
 const gzipModifier = 0.0617;
 
-setTimeout(() => {
+setTimeout(function initLabels() {
   const bytesEl = Nude.getElementById('bytes');
   const gzipEl = Nude.getElementById('gzip');
+
+  if (!bytesEl || !gzipEl) {
+    setTimeout(initLabels, 500);
+
+    return;
+  }
+
   const size = Math.ceil([...document.querySelectorAll('style')].reduce((sum, el) => sum += el.textContent.length, 0) / 1000);
   const gzipSize = Math.ceil(size * gzipModifier);
   bytesEl.innerText = size;

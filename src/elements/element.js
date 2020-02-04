@@ -40,6 +40,8 @@ import hoverableAttr from '../attributes/hoverable';
 import dropAttr from '../attributes/drop';
 import { expandAttr } from '../attributes/expand';
 import opacityAttr from '../attributes/opacity';
+import TransformCombinator from '../combinators/transform';
+import ShadowCombinator from '../combinators/shadow';
 
 /**
  * @class
@@ -161,6 +163,13 @@ export default class NuElement extends NuBase {
     return {
       display: 'inline-block',
       sizing: 'border',
+    };
+  }
+
+  static get nuCombinators() {
+    return {
+      transform: TransformCombinator(),
+      shadow: ShadowCombinator(),
     };
   }
 

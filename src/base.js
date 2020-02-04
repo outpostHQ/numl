@@ -6,6 +6,7 @@ import {
   generateCSS,
   cleanCSSByPart,
   transferCSS,
+  STYLE_MAP,
 } from './css';
 import {
   parseThemeAttr,
@@ -40,8 +41,6 @@ import displayAttr from './attributes/display';
 import themeAttr from './attributes/theme';
 import propAttr from './attributes/prop';
 import combine from './combinators/index';
-import TransformCombinator from './combinators/transform';
-import ShadowCombinator from './combinators/shadow';
 
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
@@ -247,10 +246,7 @@ export default class NuBase extends HTMLElement {
    * They are used to generate initial CSS for elements.
    */
   static get nuCombinators() {
-    return {
-      transform: TransformCombinator(),
-      shadow: ShadowCombinator(),
-    };
+    return {};
   }
 
   /**
@@ -289,7 +285,11 @@ export default class NuBase extends HTMLElement {
 
     TAG_LIST.push(tag);
 
-    this.nuGenerateDefaultStyle();
+    // Generate default styles on first attributeChangeCallback() instead.
+    // But make exception for initially hidden tags!
+    if (this.nuAllDefaults.display === 'none') {
+      this.nuGenerateDefaultStyle();
+    }
 
     customElements.define(tag, this);
 
@@ -300,6 +300,9 @@ export default class NuBase extends HTMLElement {
 
   static nuGenerateDefaultStyle(root) {
     const tag = this.nuTag;
+
+    // already declared
+    if (!root && STYLE_MAP[tag]) return;
 
     log('default style generated', tag);
 
@@ -385,6 +388,10 @@ export default class NuBase extends HTMLElement {
    * @param {Boolean} force - Reapply CSS.
    */
   attributeChangedCallback(name, oldValue, value, force) {
+    if (!STYLE_MAP[this.constructor.nuTag]) {
+      this.constructor.nuGenerateDefaultStyle();
+    }
+
     const origValue = value;
 
     // ignore attribute to declare custom properties
@@ -565,6 +572,10 @@ export default class NuBase extends HTMLElement {
 
     if (this.nuContext.$shadowRoot) {
       if (!hasCSS(this.constructor.nuTag, this.nuContext.$shadowRoot)) {
+        if (!hasCSS(this.constructor.nuTag)) {
+          this.constructor.nuGenerateDefaultStyle();
+        }
+
         transferCSS(this.constructor.nuTag, this.nuContext.$shadowRoot);
       }
 
