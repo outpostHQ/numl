@@ -478,6 +478,10 @@ export default class NuBase extends HTMLElement {
    * @private
    */
   connectedCallback() {
+    if (!STYLE_MAP[this.constructor.nuTag]) {
+      this.constructor.nuGenerateDefaultStyle();
+    }
+
     if (this.nuFirstConnect == null) {
       this.nuFirstConnect = true;
     }
