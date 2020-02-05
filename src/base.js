@@ -508,8 +508,12 @@ export default class NuBase extends HTMLElement {
       delete this.nuContextTemp;
     }
 
-    if (!this.id && this.constructor.nuId) {
-      this.id = this.constructor.nuId;
+    if (!this.id) {
+      if (this.constructor.nuId) {
+        this.id = this.constructor.nuId;
+      }
+    } else {
+      generateId(this);
     }
 
     if (this.constructor.nuRole && !this.hasAttribute('role')) {

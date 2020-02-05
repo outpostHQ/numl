@@ -30,6 +30,7 @@ export const THEME_PROPS_LIST = [
   'special-text-color',
   'special-bg-color',
   'special-intensity',
+  'special-hover-color',
   'input-color',
 ];
 const normalBaseTextColor = [0, 0, 19.87];
@@ -202,6 +203,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
     theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 2 : 1.2) + borderContrastModifier), saturation / (highContrast ? 2 : 1));
   } else {
     theme.border = theme.border || setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : saturation * .75);
+
     theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -2 : 2)];
 
     theme.input = theme.input || [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -4 : 4)];
@@ -219,7 +221,9 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
     const contrastLightness = findContrastLightness(theme.bg[2], softContrast, !darkScheme);
     theme['text-soft'] = contrastLightness ? setSaturation([hue, saturation, contrastLightness], saturation, pastel) : [...theme.text];
   }
-  theme.hover = setOpacity([...theme.focus], highContrast ? 0.16 : .08);
+
+  theme.hover = setOpacity([...theme.special], highContrast ? 0.16 : .08);
+  theme['special-hover'] = setOpacity([...theme['special-text']], highContrast ? 0.16 : .08);
   theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity, darkScheme);
   theme['special-intensity'] = getShadowIntensity(theme['special-bg'][2], shadowIntensity, darkScheme);
 
@@ -396,16 +400,14 @@ export function declareTheme(el, name, hue, saturation, pastel, defaultMods) {
   const key = `theme:${name}`;
   const theme = applyDefaultMods(BASE_THEME, defaultMods);
 
-  if (!el.nuContext[key]) {
-    el.nuContext[key] = {
-      mods: defaultMods,
-      ...theme,
-      hue,
-      saturation,
-      pastel,
-      $context: el,
-    };
-  }
+  el.nuContext[key] = {
+    mods: defaultMods,
+    ...theme,
+    hue,
+    saturation,
+    pastel,
+    $context: el,
+  };
 
   if (!el.hasAttribute('theme') && name === 'main') {
     el.setAttribute('theme', 'main');

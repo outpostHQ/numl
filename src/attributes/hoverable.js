@@ -1,7 +1,7 @@
 import { parseAttr } from '../helpers';
 
 export default function hoverableAttr(val) {
-  const { values, mods } = parseAttr(val, true);
+  const { values, mods, color } = parseAttr(val, true);
 
   const size = values[0] || '0';
   const inactiveSize = values[1] || size;
@@ -10,11 +10,13 @@ export default function hoverableAttr(val) {
     '--nu-local-hover-shadow': `0 0 0 ${inactiveSize} transparent, 0 0 0 9999rem transparent inset`,
   }];
 
+  const hoverColor = color || 'var(--nu-local-hover-color, var(--nu-hover-color))';
+
   if (!mods.includes('n') && !mods.includes('no')) {
     styles[0].$suffix = ':not(:hover)';
     styles.push({
       $suffix: ':hover',
-      '--nu-local-hover-shadow': `0 0 0 ${size} var(--nu-hover-color), 0 0 0 9999rem var(--nu-hover-color) inset`,
+      '--nu-local-hover-shadow': `0 0 0 ${size} ${hoverColor}, 0 0 0 9999rem ${hoverColor} inset`,
     });
   }
 
