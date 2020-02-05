@@ -44,7 +44,7 @@ export default class NuMarkdown extends NuElement {
       this.nuObserve = () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
 
-        container.innerHTML = parse(prepareContent(content), this.nuInline);
+        container.innerHTML = markdownToNuml(prepareContent(content), this.nuInline);
       };
 
       const observer = new MutationObserver(() => this.nuObserve());
@@ -106,8 +106,8 @@ function encodeAttr(str) {
   return (str + '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-/** Parse Markdown into an HTML String. */
-function parse(md, inline, prevLinks) {
+/** Parse Markdown into an NuML String. */
+export function markdownToNuml(md, inline, prevLinks) {
   let tokenizer = /((?:^|\n+)(?:\n---+|\* \*(?: \*)+)\n)|(?:^``` *(\w*)\n([\s\S]*?)\n```$)|((?:(?:^|\n+)(?:\t|  {2,}).+)+\n*)|((?:(?:^|\n)([>*+-]|\d+\.)\s+.*)+)|(?:\!\[([^\]]*?)\]\(([^\)]+?)\))|(\[)|(\](?:\(([^\)]+?)\))?)|(?:(?:^|\n+)([^\s].*)\n(\-{3,}|={3,})(?:\n+|$))|(?:(?:^|\n+)(#{1,6})\s*(.+)(?:\n+|$))|(?:`([^`].*?)`)|(  \n\n*|\n{2,}|__|\*\*|[_*]|~~)/gm,
     context = [],
     out = '',
@@ -154,7 +154,7 @@ function parse(md, inline, prevLinks) {
       if (t.match(/\./)) {
         token[5] = token[5].replace(/^\d+/gm, '');
       }
-      inner = parse(outdent(token[5].replace(/^\s*[>*+.-]/gm, '')));
+      inner = markdownToNuml(outdent(token[5].replace(/^\s*[>*+.-]/gm, '')));
       if (t === '>') t = 'blockquote';
       else {
         t = t.match(/\./) ? 'ol' : 'ul';
@@ -177,7 +177,7 @@ function parse(md, inline, prevLinks) {
     else if (!inline && (token[12] || token[14])) {
       heading = true;
       t = (token[14] ? token[14].length : (token[13][0] === '=' ? 1 : 2));
-      chunk = '</nu-block><nu-heading level="' + t + '">' + parse(token[12] || token[15], links) + '</nu-heading><nu-block>';
+      chunk = '</nu-block><nu-heading level="' + t + '">' + markdownToNuml(token[12] || token[15], links) + '</nu-heading><nu-block>';
     }
     // `code`:
     else if (token[16]) {

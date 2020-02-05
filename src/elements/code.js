@@ -169,7 +169,7 @@ export default class NuCode extends NuElement {
       this.nuObserve = () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
 
-        container.innerHTML = textToMarkup(
+        container.innerHTML = codeToMarkup(
           extractContent(content),
           this.hasAttribute('enumerate'),
         );
@@ -261,7 +261,7 @@ const ATTR_MAP = {
   mns: 'minus',
 };
 
-function textToMarkup(str, enumerate) {
+export function codeToMarkup(str, enumerate) {
   const lines = str.split('\n');
 
   if (lines[0] && !lines[0].trim()) {

@@ -616,11 +616,13 @@ export function parseAllValues(value) {
 export function svgElement(svgText) {
   dim.innerHTML = svgText;
 
-  const svgNode = dim.childNodes[0];
+  const svgNode = dim.querySelector('svg');
 
-  dim.removeChild(svgNode);
+  if (svgNode) {
+    dim.removeChild(svgNode);
 
-  return svgNode;
+    return svgNode;
+  }
 }
 
 export function arrayDiff(arrA, arrB) {
@@ -827,7 +829,7 @@ export function parseAttr(value, insertRem = false) {
                 calc = counter;
                 counter++;
               }
-            } else {
+            } else if (values.length) {
               parsedValue = parsedValue.slice(0, parsedValue.length - values[values.length - 1].length - 1);
 
               let tmp = values.splice(values.length - 1, 1)[0];
