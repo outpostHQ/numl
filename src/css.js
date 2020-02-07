@@ -3,6 +3,19 @@ import { devMode, log, warn } from "./helpers";
 export const STYLE_MAP = {};
 const testEl = document.createElement('div');
 
+[...document.querySelectorAll('style[data-nu-name]')]
+  .forEach(element => {
+    const name = element.dataset.nuName.replace(/&quot;/g, '"');
+
+    if (!name.includes('#')) {
+      STYLE_MAP[name] = {
+        element: element,
+        css: element.textContent,
+        selector: name,
+      };
+    }
+  });
+
 export function injectStyleTag(css, name, root) {
   css = css || '';
 

@@ -41,6 +41,6 @@ export default class NuVars extends NuDecorator {
       parent.nuSetVar(varName, varValue, this);
     });
 
-    parent.nuVerifyChildren(true);
+    parent.nuVerifyChildren({ vars: true });
   }
 }

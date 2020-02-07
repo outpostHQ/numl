@@ -307,6 +307,20 @@ export function generateId(element) {
 
   if (name && name.includes('--')) return name;
 
+  const uniqId = element.getAttribute('nu-uniq-id');
+
+  if (uniqId) {
+    if (!element.hasAttribute('nu-id')) {
+      element.setAttribute('nu-id', uniqId);
+    }
+
+    if (!element.id) {
+      element.id = uniqId;
+    }
+
+    return uniqId;
+  }
+
   name = name || 'nu';
 
   if (name !== 'nu') {
@@ -1001,20 +1015,33 @@ export function parseAttrStates(val) {
     }
   });
 
+  // restore responsive values
+  // zones.forEach((zone, zoneIndex) => {
+  //   if (!zoneIndex) return;
+  //
+  //   Object.entries(zone.states).forEach(([state, value]) => {
+  //     const prevZone = zones[zoneIndex - 1];
+  //
+  //     if (!value && prevZone && prevZone.states[state] != null) {
+  //       zone.states[state] = prevZone.states[state];
+  //     }
+  //   });
+  // });
+
   return zones;
 }
 
 export function normalizeAttrStates(val) {
   let zones = Array.isArray(val) ? val : parseAttrStates(val);
 
-  return zones.map(zone => {
+  return zones.map((zone, zoneIndex) => {
     return `${zone.rawContext || ''} ${
       Object.entries(zone.states).map(([state, value]) => {
-        if (!state) {
-          return value;
+        if (state) {
+          value = `:${state}[${value}]`;
         }
 
-        return `:${state}[${value}]`;
+        return value;
       }).join(' ')
     }`.trim();
   }).join('|');

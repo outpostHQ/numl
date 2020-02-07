@@ -105,14 +105,14 @@ export default class NuSvg extends NuBlock {
         this.innerHTML = '';
         this.appendChild(svgNode);
 
-        const img = document.createElement('img');
-
-        img.setAttribute('role', 'none');
-
-        img.src = value;
-        img.alt = '';
-
-        this.appendChild(img);
+        // const img = document.createElement('img');
+        //
+        // img.setAttribute('role', 'none');
+        //
+        // img.src = value;
+        // img.alt = '';
+        //
+        // this.appendChild(img);
       });
     }
   }

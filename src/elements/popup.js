@@ -103,10 +103,12 @@ export default class NuPopup extends NuCard {
 
     this.addEventListener('mouseenter', () => {
       this.parentNode.style.setProperty('--nu-local-hover-color', 'transparent');
+      // this.style.setProperty('--nu-local-hover-color', 'var(--nu-hover-color)');
     });
 
     this.addEventListener('mouseleave', () => {
       this.parentNode.style.removeProperty('--nu-local-hover-color');
+      // this.style.removeProperty('--nu-local-hover-color');
     });
 
     this.addEventListener('submit', (event) => {
@@ -124,7 +126,7 @@ export default class NuPopup extends NuCard {
     this.hidden = false;
     this.parentNode.nuSetAria('expanded', true);
 
-    const activeElement = this.querySelector('[tabindex]:not([tabindex="-1"]');
+    const activeElement = this.querySelector('input, [tabindex]:not([tabindex="-1"]');
 
     fixPosition(this);
 

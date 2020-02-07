@@ -1,5 +1,6 @@
 import NuDecorator from './decorator';
 import { getAllAttrs } from '../base';
+import { devMode, log } from '../helpers';
 
 export default class NuStyle extends NuDecorator {
   static get nuTag() {
@@ -50,6 +51,13 @@ export default class NuStyle extends NuDecorator {
     });
 
     parent.nuSetContext(`attrs:${id}`, define);
+
+    [...parent.querySelectorAll(`[nu-id^="${id}"], [as="${id}"][nu]`)]
+      .forEach(el => {
+        log('reapply context attrs', { el });
+
+        el.nuSetContextAttrs();
+      });
   }
 
   nuDisconnected() {

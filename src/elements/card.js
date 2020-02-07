@@ -5,10 +5,6 @@ export default class NuCard extends NuBlock {
     return 'nu-card';
   }
 
-  static get nuRole() {
-    return 'article';
-  }
-
   static get nuId() {
     return 'card';
   }

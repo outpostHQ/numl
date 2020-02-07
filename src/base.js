@@ -422,7 +422,10 @@ export default class NuBase extends HTMLElement {
           zones: value.split('|'),
         });
 
-        this.nuVerifyChildren(true, true);
+        this.nuVerifyChildren({
+          vars: true,
+          responsive: true,
+        });
 
         return;
       case THEME_ATTR:
@@ -491,22 +494,7 @@ export default class NuBase extends HTMLElement {
     // cache parent to have reference in onDisconnected callback
     this.nuParent = parent;
 
-    while (!parent.nuContext && parent !== document.body) {
-      parent = parent.parentNode;
-    }
-
-    if (parent.nuContext) {
-      this.nuContext = Object.create(parent.nuContext);
-    } else {
-      this.nuContext = { $root: this };
-      applyTheme(this, BASE_THEME, 'main');
-    }
-
-    if (this.nuContextTemp) {
-      Object.assign(this.nuContext, this.nuContextTemp);
-
-      delete this.nuContextTemp;
-    }
+    this.nuCreateContext();
 
     if (!this.id) {
       if (this.constructor.nuId) {
@@ -520,61 +508,7 @@ export default class NuBase extends HTMLElement {
       this.setAttribute('role', this.constructor.nuRole);
     }
 
-    const as = this.getAttribute('as') || this.getAttribute('nu-id');
-
-    if (as) {
-      const key = `attrs:${as}`;
-      const define = this.nuContext[key];
-
-      if (define) {
-        const ignoreAttrs = [];
-        const changeAttrs = [];
-
-        define.forEach(attr => {
-          const attrName = attr.name;
-
-          if (!this.hasAttribute(attrName)) {
-            this.setAttribute(attrName, attr.value);
-
-            changeAttrs.push(attrName);
-          } else {
-            ignoreAttrs.push(attrName);
-          }
-        });
-
-        if (!this.nuHasContextHook(key)) {
-          this.nuSetContextHook(key, () => {
-            const define = this.nuContext[key];
-            const attrs = define.map(attr => attr.name);
-
-            changeAttrs.forEach(attr => {
-              if (!attrs.includes(attr)) {
-                define.push({
-                  name: attr,
-                  value: null,
-                });
-              }
-            });
-
-            define.forEach(attr => {
-              const attrName = attr.name;
-
-              if (ignoreAttrs.includes(attrName)) return;
-
-              if (attr.value != null) {
-                this.setAttribute(attrName, attr.value);
-              } else {
-                this.removeAttribute(attrName);
-              }
-
-              if (!changeAttrs.includes(attrName)) {
-                changeAttrs.push(attrName);
-              }
-            });
-          });
-        }
-      }
-    }
+    this.nuSetContextAttrs();
 
     this.nuIsConnected = true;
 
@@ -772,7 +706,7 @@ export default class NuBase extends HTMLElement {
     }
 
     if (firstValueOnly && isResponsiveAttr(value)) {
-      return value.split('|')[0];
+      return parseAttrStates(value)[0].states[''];
     }
 
     return value;
@@ -785,12 +719,12 @@ export default class NuBase extends HTMLElement {
       this.nuApplyAttr(attr);
 
       if (value.includes('|')) {
-        context[`nu-${RESPONSIVE_MOD}`] = true;
+        context[`nu-${RESPONSIVE_MOD}`] = '';
         value = value.split('|')[0];
       }
 
       if (value.includes('@')) {
-        context[`nu-${VAR_MOD}`] = true;
+        context[`nu-${VAR_MOD}`] = '';
         value = '';
       }
 
@@ -1130,17 +1064,24 @@ export default class NuBase extends HTMLElement {
     return this.nuContextHooks && this.nuContextHooks[name];
   }
 
-  nuVerifyChildren(vars, responsive) {
+  nuVerifyChildren(options) {
     const selectors = [];
+
+    const force = options === true;
+    const { vars, responsive } = options;
 
     if (!this.nuIsConnectionComplete) return;
 
-    if (vars) {
-      selectors.push(`[nu-${VAR_MOD}]`);
-    }
+    if (force) {
+      selectors.push('[nu]');
+    } else {
+      if (vars) {
+        selectors.push(`[nu-${VAR_MOD}]`);
+      }
 
-    if (responsive) {
-      selectors.push(`[nu-${RESPONSIVE_MOD}="${this.nuUniqId}"]`);
+      if (responsive) {
+        selectors.push(`[nu-${RESPONSIVE_MOD}="${this.nuUniqId}"]`);
+      }
     }
 
     const selector = selectors.join(', ');
@@ -1185,7 +1126,7 @@ export default class NuBase extends HTMLElement {
    * @returns {*}
    */
   nuResponsive() {
-    const points = this.getAttribute('responsive');
+    const points = this.getAttribute(RESPONSIVE_ATTR);
 
     if (this.nuReponsiveFor === points) return this.nuResponsiveDecorator;
 
@@ -1296,13 +1237,13 @@ export default class NuBase extends HTMLElement {
   }
 
   nuSetVar(name, value, decorator) {
-    this.nuContext[`var:${name}`] = {
+    this.nuSetContext(`var:${name}`, {
       context: this,
       decorator,
       value: value,
-    };
+    });
 
-    this.nuVerifyChildren(true);
+    this.nuVerifyChildren({ vars: true });
 
     log('set variable', { context: this, name, value });
   }
@@ -1312,7 +1253,7 @@ export default class NuBase extends HTMLElement {
 
     setTimeout(() => {
       if (!this.nuContext.hasOwnProperty(`var:${name}`)) {
-        this.nuVerifyChildren(true);
+        this.nuVerifyChildren({ vars: true });
       }
     });
 
@@ -1338,5 +1279,88 @@ export default class NuBase extends HTMLElement {
     shadow.nuContext = { $shadowRoot: this.nuShadow };
 
     return shadow;
+  }
+
+  nuSetContextAttrs() {
+    if (!this.nuContextAttrs) {
+      this.nuContextAttrs = new Set;
+    }
+
+    const as = this.getAttribute('as') || this.getAttribute('nu-id');
+
+    /**
+     * @type {Set<String>}
+     */
+    const contextAttrs = this.nuContextAttrs;
+
+    if (!as && !contextAttrs.size) {
+      return;
+    }
+
+    const key = `attrs:${as}`;
+    const attrs = this.nuContext[key];
+
+    if (!attrs && !contextAttrs.size) {
+      return;
+    }
+
+    const clearAttrs = new Set(contextAttrs);
+
+    attrs.forEach(({ name, value }) => {
+      if (!this.hasAttribute(name)) {
+        if (!contextAttrs.has(name)) {
+          contextAttrs.add(name);
+        }
+
+        this.setAttribute(name, value);
+      } else if (contextAttrs.has(name)) {
+        this.setAttribute(name, value);
+      }
+
+      clearAttrs.delete(name);
+    });
+
+    clearAttrs.forEach(name => {
+      this.removeAttribute(name);
+    });
+  }
+
+  nuCreateContext() {
+    let parent = this.parentNode;
+
+    while (!parent.nuContext && parent !== document.body) {
+      parent = parent.parentNode;
+    }
+
+    if (this.nuContext) {
+      this.nuContextTemp = this.nuContext;
+
+      if (this.nuContext.hasOwnProperty('$root')) {
+        delete this.nuContext.$root;
+      }
+    }
+
+    if (parent.nuContext) {
+      const temp = this.nuContext;
+
+      this.nuContext = Object.create(parent.nuContext);
+
+      if (temp) {
+        Object.assign(this.nuContext, temp);
+      }
+
+      this.nuSetMod('root', false);
+    } else {
+      this.nuContext = { $root: this };
+      this.nuSetMod('root', true);
+
+      applyTheme(this, BASE_THEME, 'main');
+    }
+
+    if (this.nuContextTemp) {
+      Object.assign(this.nuContext, this.nuContextTemp);
+    }
+
+    delete this.nuContextTemp;
   }
 }

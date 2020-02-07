@@ -48,7 +48,9 @@ export default function ActiveMixin() {
 
       this.addEventListener('mousedown', () => {
         if (!this.nuDisabled && this.nuHasMod('focusable')) {
-          this.nuSetMod('active', true);
+          setTimeout(() => {
+            this.nuSetMod('active', true);
+          });
         }
       });
 

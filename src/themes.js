@@ -400,14 +400,14 @@ export function declareTheme(el, name, hue, saturation, pastel, defaultMods) {
   const key = `theme:${name}`;
   const theme = applyDefaultMods(BASE_THEME, defaultMods);
 
-  el.nuContext[key] = {
+  el.nuSetContext(key, {
     mods: defaultMods,
     ...theme,
     hue,
     saturation,
     pastel,
     $context: el,
-  };
+  });
 
   if (!el.hasAttribute('theme') && name === 'main') {
     el.setAttribute('theme', 'main');
@@ -583,7 +583,7 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
 
   if (themeName === name) return;
 
-  element.nuContext[`theme:${themeName}`] = {
+  element.nuSetContext(`theme:${themeName}`, {
     name,
     hue,
     saturation,
@@ -592,5 +592,5 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
     contrast,
     lightness,
     $context: element
-  };
+  });
 }

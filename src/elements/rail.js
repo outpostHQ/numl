@@ -55,7 +55,7 @@ export default class NuRail extends NuElement {
     this.nuOnDragging = this.nuOnDragging.bind(this);
     this.nuOnDragEnd = this.nuOnDragEnd.bind(this);
 
-    this.addEventListener('touchmove', (evt) => evt.preventDefault());
+    this.addEventListener('touchmove', (evt) => evt.preventDefault(), { passive: true });
 
     ['mousedown', 'touchstart']
       .forEach(eventName => {

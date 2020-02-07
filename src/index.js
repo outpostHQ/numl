@@ -49,6 +49,8 @@ import NuRail from './elements/rail';
 import NuSlider from './elements/slider';
 import NuMarkdown from './elements/markdown';
 import NuMd from './elements/md';
+import NuList from './elements/list';
+import NuListItem from './elements/listitem';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -71,6 +73,7 @@ import {
   parseAttrStates,
   parseColor,
   setAttrs,
+  normalizeAttrStates,
 } from './helpers';
 import { enableFocus, disableFocus } from './focus';
 import { applyTheme, BASE_THEME } from './themes';
@@ -80,7 +83,7 @@ import { generateCSS, injectCSS } from './css';
 const IGNORE_KEYS = ['Alt', 'Control', 'Meta', 'Shift'];
 
 window.addEventListener('mousedown', disableFocus);
-window.addEventListener('touchstart', disableFocus);
+window.addEventListener('touchstart', disableFocus, { passive: true });
 window.addEventListener('keydown', (event) => {
   if (!IGNORE_KEYS.includes(event.key)) {
     enableFocus();
@@ -124,6 +127,7 @@ const Nude = {
     parseAttrStates,
     parseColor,
     setAttrs,
+    normalizeAttrStates,
   },
   version: process.env.APP_VERSION,
 };
@@ -132,14 +136,59 @@ Nude.init = (...elements) => {
   elements.forEach(el => {
     el.nuInit();
   });
+
+  const els = [...document.querySelectorAll('[nu]')];
+
+  els.forEach(el => {
+    el.nuCreateContext();
+  });
+
+  els.forEach(el => {
+    el.nuContextChanged(name);
+    el.nuSetContextAttrs();
+
+    if (el.hasAttribute('theme')) {
+      el.nuEnsureThemes();
+    }
+
+    if (el.nuApply) {
+      el.nuApply();
+    }
+  });
+
+  [...document.querySelectorAll('[nu-root]')]
+    .forEach(el => {
+      el.nuVerifyChildren(true);
+    });
+
+  [...document.querySelectorAll('.nu-loading')]
+    .forEach(el => el.style.display = 'none !important');
+
+  [...document.querySelectorAll('[nu-hidden]')]
+    .forEach(el => el.removeAttribute('nu-hidden'));
 };
 
-Nude.getElementById = function(id) {
+Nude.getElementById = function (id) {
   return document.querySelector(`[nu-id="${id}"]`);
 };
 
-Nude.getElementsById = function(id) {
+Nude.getElementsById = function (id) {
   return document.querySelectorAll(`[nu-id="${id}"]`);
+};
+
+Nude.getCriticalCSS = function () {
+  return [...document.querySelectorAll('[data-nu-name]')]
+    .reduce((html, el) => {
+      const name = el.dataset.nuName.replace(/&quot;/g, '"');
+
+      if ((!name.includes('#nu--') && !name.startsWith('theme:') && !name.includes('theme='))
+        || name === 'theme:base' || name === 'theme:main:body') {
+        html += el.outerHTML;
+        html += '\n';
+      }
+
+      return html;
+    }, '');
 };
 
 export default Nude;
@@ -198,6 +247,8 @@ export {
   NuSlider,
   NuMarkdown,
   NuMd,
+  NuList,
+  NuListItem,
   NuAttrs,
   NuTheme,
   NuVars,

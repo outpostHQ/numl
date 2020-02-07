@@ -52,7 +52,7 @@ export default function fillAttr(val) {
       [LOCAL_PROP]: color,
       [TEXT_PROP]: TEXT_VALUE,
       [BG_STYLE]: LOCAL_VALUE,
-      [HOVER_VALUE]: HOVER_VALUE,
+      [HOVER_PROP]: HOVER_VALUE,
     }];
   }
 

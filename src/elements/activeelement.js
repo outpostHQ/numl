@@ -143,6 +143,8 @@ export default class NuActiveElement extends NuElement {
   }
 
   nuCreateLink() {
+    let link;
+
     if (!this.hasAttribute('to')) {
       if (this.nuLink) {
         this.removeChild(this.nuLink);
@@ -151,26 +153,32 @@ export default class NuActiveElement extends NuElement {
       return;
     }
 
-    if (this.nuLink) return;
+    if (!this.nuLink) {
+      link = document.createElement('a');
 
-    const link = document.createElement('a');
+      link.href = this.nuHref;
+      link.target = this.nuNewTab ? '_blank' : '_self';
+      link.setAttribute('tabindex', '-1');
+      link.setAttribute('aria-label', this.innerText);
 
-    link.href = this.nuHref;
-    link.target = this.nuNewTab ? '_blank' : '_self';
-    link.setAttribute('tabindex', '-1');
-    link.setAttribute('aria-label', this.innerText);
+      this.nuLink = link;
 
-    this.nuLink = link;
+      this.appendChild(this.nuLink);
 
-    this.appendChild(this.nuLink);
+      this.nuLink.addEventListener('click', (evt) => {
+        if (evt.button === 0 && !this.nuDisabled) {
+          this.nuTap(evt);
+        }
 
-    this.nuLink.addEventListener('click', (evt) => {
-      if (evt.button === 0 && !this.nuDisabled) {
-        this.nuTap(evt);
-      }
+        evt.stopPropagation();
+      });
+    }
 
-      evt.stopPropagation();
-    });
+    if ((link && link.href || this.nuHref || '').includes('//')) {
+      this.nuLink.setAttribute('rel', 'noreferrer');
+    } else {
+      this.nuLink.removeAttribute('rel');
+    }
   }
 
   nuTap(evt) {
