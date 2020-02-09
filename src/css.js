@@ -298,6 +298,10 @@ html.nu-prefers-reduced-motion-reduce [nu], html.nu-prefers-reduced-motion-reduc
 html.nu-prefers-reduced-motion-reduce-force [nu], html.nu-prefers-reduced-motion-reduce-force body {
   transition: initial !important;
 }
+
+[nu-hidden] {
+  display: none !important;
+}
 `;
 
 injectStyleTag(globalCSS, 'nu-defaults');

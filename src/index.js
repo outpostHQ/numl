@@ -164,8 +164,10 @@ Nude.init = (...elements) => {
   [...document.querySelectorAll('.nu-loading')]
     .forEach(el => el.style.display = 'none !important');
 
-  [...document.querySelectorAll('[nu-hidden]')]
-    .forEach(el => el.removeAttribute('nu-hidden'));
+  setTimeout(() => {
+    [...document.querySelectorAll('[nu-hidden]')]
+      .forEach(el => el.removeAttribute('nu-hidden'));
+  });
 
   cleanCSSByPart('attrs:all');
 };
