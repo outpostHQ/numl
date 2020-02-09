@@ -2,7 +2,7 @@ import NuBase from '../base';
 import { THEME_ATTR } from '../themes';
 import { RESPONSIVE_ATTR } from '../responsive';
 
-const IGNORE_ATTRS = ['id', 'class', 'nu'];
+const IGNORE_ATTRS = ['id', 'class', 'nu', 'for'];
 
 export default class NuDecorator extends NuBase {
   static get nuTag() {
@@ -39,7 +39,7 @@ export default class NuDecorator extends NuBase {
 
   get nuOwnAttrs() {
     return [...this.attributes].reduce((map, { name, value }) => {
-      if (IGNORE_ATTRS.includes(name) || name.startsWith('nu-')) return map;
+      if (IGNORE_ATTRS.includes(name) || name.startsWith('nu-') || name.startsWith('aria-')) return map;
 
       map[name] = value;
 

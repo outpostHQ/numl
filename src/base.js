@@ -46,6 +46,7 @@ export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
 export const MIXINS_MAP = {};
 export const COMBINATORS_MAP = {};
+export const ELEMENTS_MAP = {};
 
 export function getAllAttrs() {
   return Object.keys(ATTRS_MAP).reduce((arr, tag) => {
@@ -284,6 +285,10 @@ export default class NuBase extends HTMLElement {
     if (!tag || TAG_LIST.includes(tag)) return;
 
     TAG_LIST.push(tag);
+
+    if (!ELEMENTS_MAP[tag]) {
+      ELEMENTS_MAP[tag] = this;
+    }
 
     // Generate default styles on first attributeChangeCallback() instead.
     // But make exception for initially hidden tags!
@@ -575,9 +580,7 @@ export default class NuBase extends HTMLElement {
    * @returns {String}
    */
   get nuId() {
-    if (!this.id || !this.id.includes('--')) {
-      generateId(this);
-    }
+    generateId(this);
 
     return this.getAttribute('nu-id');
   }
@@ -587,10 +590,6 @@ export default class NuBase extends HTMLElement {
    * @returns {String}
    */
   get nuUniqId() {
-    if (this.id && this.id.includes('--')) {
-      return this.id;
-    }
-
     return generateId(this);
   }
 
@@ -719,12 +718,15 @@ export default class NuBase extends HTMLElement {
       this.nuApplyAttr(attr);
 
       if (value.includes('|')) {
-        context[`nu-${RESPONSIVE_MOD}`] = '';
-        value = value.split('|')[0];
+        context[`nu-${RESPONSIVE_MOD}`] = null; // :not(...
+
+        if (!value.includes('@')) {
+          value = normalizeAttrStates(value, true);
+        }
       }
 
       if (value.includes('@')) {
-        context[`nu-${VAR_MOD}`] = '';
+        context[`nu-${VAR_MOD}`] = null; // :not(...
         value = '';
       }
 
@@ -1282,31 +1284,46 @@ export default class NuBase extends HTMLElement {
   }
 
   nuSetContextAttrs() {
+    if (!this.nuIsConnected) return;
+
     if (!this.nuContextAttrs) {
       this.nuContextAttrs = new Set;
     }
 
-    const as = this.getAttribute('as') || this.getAttribute('nu-id');
+    const as = this.getAttribute('as');
+    const id = this.getAttribute('nu-id');
 
     /**
      * @type {Set<String>}
      */
     const contextAttrs = this.nuContextAttrs;
+    const elTags = this.nuContext[`attrs:${this.constructor.nuTag}`];
+    const asTags = as ? this.nuContext[`attrs:${as}`] : null;
+    const idTags = id ? this.nuContext[`attrs:${id}`] : null;
 
-    if (!as && !contextAttrs.size) {
+    if (!elTags && !asTags && !idTags && !contextAttrs.size) {
       return;
     }
 
-    const key = `attrs:${as}`;
-    const attrs = this.nuContext[key];
+    const attrs = {};
 
-    if (!attrs && !contextAttrs.size) {
-      return;
+    if (elTags) {
+      Object.assign(attrs, elTags);
+    }
+
+    if (asTags) {
+      Object.assign(attrs, asTags);
+    }
+
+    if (idTags) {
+      Object.assign(attrs, idTags);
     }
 
     const clearAttrs = new Set(contextAttrs);
 
-    attrs.forEach(({ name, value }) => {
+    Object.keys(attrs).forEach(name => {
+      const value = attrs[name];
+
       if (!this.hasAttribute(name)) {
         if (!contextAttrs.has(name)) {
           contextAttrs.add(name);

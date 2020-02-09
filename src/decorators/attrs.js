@@ -1,8 +1,19 @@
 import NuDecorator from './decorator';
-import { getAllAttrs } from '../base';
-import { devMode, log } from '../helpers';
+import { getAllAttrs, ELEMENTS_MAP } from '../base';
+import { computeStyles, log } from '../helpers';
+import { generateCSS } from '../css';
 
-export default class NuStyle extends NuDecorator {
+function getSelector(id) {
+  const isTag = !!ELEMENTS_MAP[id];
+
+  if (isTag) {
+    return id;
+  }
+
+  return `[as="${id}"], [id="${id}"], [id^="${id}--"]`;
+}
+
+export default class NuAttrs extends NuDecorator {
   static get nuTag() {
     return 'nu-attrs';
   }
@@ -14,7 +25,9 @@ export default class NuStyle extends NuDecorator {
   nuConnected() {
     super.nuConnected();
 
-    this.nuApply();
+    setTimeout(() => {
+      this.nuApply();
+    });
   }
 
   nuChanged(name, oldValue, value) {
@@ -29,35 +42,64 @@ export default class NuStyle extends NuDecorator {
 
   nuApply() {
     const parent = this.parentNode;
-    const id = this.nuGetAttr('for', true);
+    const id = this.getAttribute('for');
 
     if (!parent.nuContext || !id) return;
 
-    const attrs = [...this.attributes];
-    const define = [];
+    const attrs = this.nuOwnAttrs;
+    const define = {};
 
-    attrs.forEach(attr => {
-      const attrName = attr.name;
+    delete attrs.for;
 
-      if (attrName === 'for'
-        || attrName === 'nu'
-        || attrName.startsWith('nu-')
-        || attrName.startsWith('aria-')) return;
-
-      define.push({
-        name: attrName,
-        value: this.nuGetAttr(attrName),
-      });
+    Object.keys(attrs).forEach(name => {
+      define[name] = attrs[name];
     });
 
     parent.nuSetContext(`attrs:${id}`, define);
 
-    [...parent.querySelectorAll(`[nu-id^="${id}"], [as="${id}"][nu]`)]
+    const selector = getSelector(id);
+
+    [...parent.querySelectorAll(selector)]
       .forEach(el => {
         log('reapply context attrs', { el });
 
-        el.nuSetContextAttrs();
+        el.nuSetContextAttrs && el.nuSetContextAttrs();
       });
+  }
+
+  nuGetCriticalCSS() {
+    const parent = this.parentNode;
+    const uniqId = parent.nuUniqId;
+
+    if (!uniqId || uniqId.includes('--')) return '';
+
+    const id = this.getAttribute('for');
+    const attrs = this.nuOwnAttrs;
+    const selector = getSelector(id);
+    const Element = ELEMENTS_MAP[id] || ELEMENTS_MAP['nu-el'];
+    const context = `#${uniqId}`;
+
+    delete attrs.for;
+
+    let styles, query, css = '';
+
+    Object.keys(attrs).forEach(name => {
+      const value = attrs[name];
+
+      styles = computeStyles(name, value, Element.nuAllAttrs, Element.nuAllDefaults);
+
+      if (styles) {
+        selector.split(', ').forEach(sel => {
+          query = `${context} ${sel}:not([${name}])`;
+
+          css += generateCSS(query, styles);
+        });
+      }
+    });
+
+    console.log('!', css);
+
+    return css;
   }
 
   nuDisconnected() {

@@ -78,7 +78,7 @@ import {
 import { enableFocus, disableFocus } from './focus';
 import { applyTheme, BASE_THEME } from './themes';
 import themeAttr from './attributes/theme';
-import { generateCSS, injectCSS } from './css';
+import { cleanCSSByPart, generateCSS, injectCSS } from './css';
 
 const IGNORE_KEYS = ['Alt', 'Control', 'Meta', 'Shift'];
 
@@ -166,6 +166,8 @@ Nude.init = (...elements) => {
 
   [...document.querySelectorAll('[nu-hidden]')]
     .forEach(el => el.removeAttribute('nu-hidden'));
+
+  cleanCSSByPart('attrs:all');
 };
 
 Nude.getElementById = function (id) {
@@ -177,7 +179,7 @@ Nude.getElementsById = function (id) {
 };
 
 Nude.getCriticalCSS = function () {
-  return [...document.querySelectorAll('[data-nu-name]')]
+  const baseCSS = [...document.querySelectorAll('[data-nu-name]')]
     .reduce((html, el) => {
       const name = el.dataset.nuName.replace(/&quot;/g, '"');
 
@@ -189,6 +191,15 @@ Nude.getCriticalCSS = function () {
 
       return html;
     }, '');
+
+  const attrsCSS = `<style data-nu-name="attrs:all">${[...document.querySelectorAll('nu-attrs')]
+    .reduce((css, el) => {
+      css += el.nuGetCriticalCSS();
+
+      return css;
+    }, '')}</style>`;
+
+  return `${baseCSS}\n${attrsCSS}`;
 };
 
 export default Nude;

@@ -299,27 +299,15 @@ const ID_MAP = {};
 
 /**
  * Return current id of the element and generate it if it's no presented.
- * @param {Element} el
+ * @param {Element} element
  * @returns {String}
  */
 export function generateId(element) {
+  if (element.nuIdGenerated) return element.id;
+
+  element.nuIdGenerated = true;
+
   let name = element.id;
-
-  if (name && name.includes('--')) return name;
-
-  const uniqId = element.getAttribute('nu-uniq-id');
-
-  if (uniqId) {
-    if (!element.hasAttribute('nu-id')) {
-      element.setAttribute('nu-id', uniqId);
-    }
-
-    if (!element.id) {
-      element.id = uniqId;
-    }
-
-    return uniqId;
-  }
 
   name = name || 'nu';
 
@@ -333,7 +321,7 @@ export function generateId(element) {
 
   const id = (ID_MAP[name] += 1);
 
-  element.id = `${name}--${id}`;
+  element.id = id === 1 && name !== 'nu' ? `${name}` : `${name}--${id}`;
 
   return element.id;
 }
@@ -1031,8 +1019,12 @@ export function parseAttrStates(val) {
   return zones;
 }
 
-export function normalizeAttrStates(val) {
+export function normalizeAttrStates(val, firstValueOnly = false) {
   let zones = Array.isArray(val) ? val : parseAttrStates(val);
+
+  if (firstValueOnly) {
+    zones = zones.slice(0, 1);
+  }
 
   return zones.map((zone, zoneIndex) => {
     return `${zone.rawContext || ''} ${

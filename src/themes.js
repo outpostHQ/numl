@@ -557,7 +557,7 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
           html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${darkContrastProps}}
           html.nu-prefers-color-scheme:not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
         }
-        @media (prefers-color-scheme: light), @media (prefers-color-scheme: no-reference) {
+        @media (prefers-color-scheme: light), (prefers-color-scheme: no-reference) {
           html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${lightContrastProps}}
           html.nu-prefers-color-scheme:not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
         }
@@ -593,4 +593,8 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
     lightness,
     $context: element
   });
+}
+
+export function hueFromString(str) {
+  return str.split('').reduce((sum, ch) => sum + ch.charCodeAt(0),0) % 360;
 }

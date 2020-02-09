@@ -146,7 +146,7 @@ export function markdownToNuml(md, inline, prevLinks) {
     }
     // Code/Indent blocks:
     else if (!inline && (token[3] || token[4])) {
-      chunk = '</nu-block><nu-code ' + (!token[4] && token[2].toLowerCase() === 'enumerate' ? 'enumerate' : '') + '><textarea>' + outdent(encodeAttr(token[3] || token[4]).replace(/^\n+|\n+$/g, '')) + '</textarea></nu-code><nu-block>';
+      chunk = '</nu-block><nu-code padding ' + (!token[4] && token[2].toLowerCase() === 'enumerate' ? 'enumerate' : '') + '><textarea>' + outdent(encodeAttr(token[3] || token[4]).replace(/^\n+|\n+$/g, '')) + '</textarea></nu-code><nu-block>';
     }
     // > Quotes, -* lists:
     else if (!inline && token[6]) {
@@ -202,3 +202,5 @@ export function markdownToNuml(md, inline, prevLinks) {
 
   return result;
 }
+
+NuMarkdown.nuConvert = markdownToNuml;

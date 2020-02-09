@@ -1,5 +1,5 @@
 import NuDecorator from './decorator';
-import { declareTheme, removeTheme, ALL_THEME_MODS } from '../themes';
+import { declareTheme, removeTheme, ALL_THEME_MODS, hueFromString } from '../themes';
 import { convertUnit, devMode, error, warn } from '../helpers';
 import { getOptimalSaturation, strToHsl } from '../color';
 
@@ -82,6 +82,10 @@ export default class NuTheme extends NuDecorator {
     }, {});
 
     let { name = '', hue, saturation, pastel, from, mod } = attrs;
+
+    if (hue && !parseInt(hue) && hue !== '0') {
+      hue = hueFromString(hue);
+    }
 
     pastel = !!pastel;
     name = name.trim();
