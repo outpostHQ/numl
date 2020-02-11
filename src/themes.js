@@ -596,5 +596,5 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
 }
 
 export function hueFromString(str) {
-  return str.split('').reduce((sum, ch) => sum + ch.charCodeAt(0),0) % 360;
+  return str.split('').reduce((sum, ch) => sum + ch.charCodeAt(0) * 70,0) % 360;
 }

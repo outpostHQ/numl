@@ -20,7 +20,11 @@ export default function themeAttr(val) {
     }
 
     return map;
-  }, {})];
+  }, {
+    '--nu-local-border-color': 'var(--nu-border-color)',
+    '--nu-local-hover-color': 'var(--nu-hover-color)',
+    '--nu-local-intensity': 'var(--nu-intensity)',
+  })];
 
   // rgb colors
   RGB_COLORS.forEach(clr => {

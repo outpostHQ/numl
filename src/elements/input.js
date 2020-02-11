@@ -62,6 +62,8 @@ export default class NuInput extends NuBlock {
         color: inherit;
         -webkit-text-fill-color: currentColor;
         word-spacing: calc(1rem / 8);
+        height: min-content;
+        min-height: 100%;
       }
 
       ${tag} input[disabled] {
