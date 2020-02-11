@@ -26,16 +26,17 @@ export default class NuClamp extends NuElement {
     return `
       ${css}
       ${tag} {
-        --nu-local-max-lines: 1;
-
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: var(--nu-local-max-lines);
         overflow: hidden;
       }
+      ${tag}:not([max]), ${tag}[max="1"] {
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      ${tag}[max]:not([max="1"]) {
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: var(--nu-local-max-lines);
+      }
     `;
-  }
-
-  nuIsClamped() {
-    return this.scrollHeight > this.offsetHeight;
   }
 }

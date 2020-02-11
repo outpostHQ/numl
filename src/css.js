@@ -70,6 +70,9 @@ export function stylesString(styles) {
     .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}` : ''};`, '');
 }
 
+const TOUCH_REGEXP = /:hover(?!\))/; // |\[nu-active](?!\))
+const NON_TOUCH_REGEXP = /:hover(?=\))/;
+
 export function generateCSS(query, styles, context = '') {
   if (!styles || !styles.length) return;
 
@@ -92,6 +95,15 @@ export function generateCSS(query, styles, context = '') {
 
     delete map.$suffix;
     delete map.$prefix;
+
+    if (currentQuery.match(TOUCH_REGEXP)) {
+      return `@media (hover: hover){${context}${currentQuery}{${stylesString(map)}}}`;
+    } else if (currentQuery.match(NON_TOUCH_REGEXP)) {
+      return `
+        @media (hover: hover){${context}${currentQuery}{${stylesString(map)}}}
+        @media (hover: none){${context}${currentQuery.replace(':not(:hover)', '')}{${stylesString(map)}}}
+      `;
+    }
 
     return `${context}${currentQuery}{${stylesString(map)}}`;
   }).join('\n');
@@ -141,7 +153,9 @@ export function injectCSS(name, selector, css, root) {
 
 export function cleanCSSByPart(selectorPart) {
   log('clean css by part', selectorPart);
-  const keys = Object.keys(STYLE_MAP).filter(selector => selector.includes(selectorPart));
+  const isRegexp = selectorPart instanceof RegExp;
+  const keys = Object.keys(STYLE_MAP).filter(selector => isRegexp
+    ? selector.match(selectorPart) : selector.includes(selectorPart));
 
   keys.forEach(key => {
     removeCSS(key);

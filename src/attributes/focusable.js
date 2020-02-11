@@ -32,7 +32,7 @@ export default function focusableAttr(val) {
     },
     {
       $prefix,
-      $suffix: ':not[disabled][nu-focus]::before',
+      $suffix: ':not([disabled])[nu-focus]::before',
       'z-index': '9',
     },
   ] : []);

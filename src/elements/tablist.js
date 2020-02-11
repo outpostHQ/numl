@@ -27,6 +27,8 @@ export default class NuTablist extends NuRadioGroup {
   }
 
   static get nuMixins() {
-    return [DirectionMixin({ aria: true })];
+    return {
+      direction: DirectionMixin({ aria: true }),
+    };
   }
 }

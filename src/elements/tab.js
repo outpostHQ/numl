@@ -38,13 +38,15 @@ export default class NuTab extends NuActiveElement {
   }
 
   static get nuMixins() {
-    return [DirectionMixin({
-      initial() {
-        return this.nuContext.direction
-          ? (this.nuContext.direction || 'bottom')
-          : 'bottom';
-      },
-    })]
+    return {
+      direction: DirectionMixin({
+        initial() {
+          return this.nuContext.direction
+            ? (this.nuContext.direction || 'bottom')
+            : 'bottom';
+        },
+      }),
+    };
   }
 
   nuConnected() {

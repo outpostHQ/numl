@@ -14,7 +14,7 @@ export default class NuBtn extends NuActiveElement {
       flow: 'column',
       gap: '1x',
       content: 'center',
-      items: 'center',
+      items: 'center stretch',
       hoverable: 'n :focusable[y]',
       fill: 'bg :special[special-bg] :themed[bg] :special:themed[special-bg]',
       text: 'nowrap :special[w5 nowrap]',

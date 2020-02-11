@@ -15,7 +15,9 @@ export default class NuLine extends NuBlock {
   }
 
   static get nuMixins() {
-    return [OrientMixin({ aria: true })];
+    return {
+      orient: OrientMixin({ aria: true }),
+    };
   }
 
   static get nuDefaults() {

@@ -29,17 +29,19 @@ export default class NuSlider extends NuActiveElement {
   }
 
   static get nuMixins() {
-    return [OrientMixin({
-      aria: true,
-      initial() {
-        return !this.hasAttribute('orient') && this.nuContext.orientation
-          ? (this.nuContext.orientation === VERTICAL ? 'v' : 'h')
-          : (this.getAttribute('orient') || 'v');
-      },
-    })]
+    return {
+      orient: OrientMixin({
+        aria: true,
+        initial() {
+          return !this.hasAttribute('orient') && this.nuContext.orientation
+            ? (this.nuContext.orientation === VERTICAL ? 'v' : 'h')
+            : (this.getAttribute('orient') || 'v');
+        },
+      }),
+    };
   }
 
-  static nuCSS({ css, tag}) {
+  static nuCSS({ css, tag }) {
     return `
       ${css}
       ${tag} {

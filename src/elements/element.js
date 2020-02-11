@@ -263,4 +263,8 @@ export default class NuElement extends NuBase {
       this.nuChanged('t', null, this.getAttribute('t'));
     }
   }
+
+  nuIsClamped() {
+    return this.scrollHeight > this.offsetHeight || this.scrollWidth > this.offsetWidth;
+  }
 }

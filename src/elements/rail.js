@@ -36,7 +36,9 @@ export default class NuRail extends NuElement {
   }
 
   static get nuMixins() {
-    return [OrientMixin()];
+    return {
+      orient: OrientMixin(),
+    };
   }
 
   static nuCSS({ css, tag }) {

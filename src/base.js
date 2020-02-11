@@ -226,7 +226,7 @@ export default class NuBase extends HTMLElement {
    * They are used to inject reusable logic into elements.
    */
   static get nuMixins() {
-    return [];
+    return {};
   }
 
   /**
@@ -235,10 +235,10 @@ export default class NuBase extends HTMLElement {
   static get nuAllMixins() {
     return (
       MIXINS_MAP[this.nuTag] ||
-      (MIXINS_MAP[this.nuTag] = Array.from(new Set([
-        ...(this.nuParent && this.nuParent.nuAllMixins || []),
-        ...(this.nuMixins || []),
-      ])))
+      (MIXINS_MAP[this.nuTag] = {
+        ...(this.nuParent && this.nuParent.nuAllMixins || {}),
+        ...(this.nuMixins || {}),
+      })
     );
   }
 
@@ -561,7 +561,7 @@ export default class NuBase extends HTMLElement {
     }
 
     if (this.id) {
-      cleanCSSByPart(this.id);
+      cleanCSSByPart(new RegExp(`#${this.id}(?![a-z0-9_-])`, 'g'));
     }
 
     delete this.nuIsConnected;
@@ -919,7 +919,7 @@ export default class NuBase extends HTMLElement {
   nuMixinCall(method, args = []) {
     const mixins = this.constructor.nuAllMixins;
 
-    mixins.forEach(mixin => {
+    Object.values(mixins).forEach(mixin => {
       if (mixin[method]) {
         mixin[method].apply(this, args);
       }

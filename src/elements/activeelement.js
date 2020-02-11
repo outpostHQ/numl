@@ -45,7 +45,9 @@ export default class NuActiveElement extends NuElement {
   }
 
   static get nuMixins() {
-    return [ActiveMixin()];
+    return {
+      active: ActiveMixin(),
+    };
   }
 
   static nuCSS({ tag, css }) {
@@ -64,6 +66,7 @@ export default class NuActiveElement extends NuElement {
         right: 0;
         bottom: 0;
         left: 0;
+        overflow: hidden;
       }
 
       ${tag} > a:focus {

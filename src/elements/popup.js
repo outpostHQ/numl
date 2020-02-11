@@ -17,7 +17,9 @@ export default class NuPopup extends NuCard {
   }
 
   static get nuMixins() {
-    return [FixateMixin()];
+    return {
+      fixate: FixateMixin(),
+    };
   }
 
   static get nuAttrs() {
@@ -63,13 +65,15 @@ export default class NuPopup extends NuCard {
   nuConnected() {
     super.nuConnected();
 
+    this.nuSetContext('popup', this);
+
+    if (!this.nuFirstConnect) return;
+
     if (!this.hasAttribute(PLACE_ATTR)
       && !this.hasAttribute(FIXATE_ATTR)
       && this.nuParent.nuContext.popup) {
       this.setAttribute(PLACE_ATTR, 'outside-right top');
     }
-
-    this.nuSetContext('popup', this);
 
     if (!this.hasAttribute('theme')) {
       this.setAttribute('theme', 'main');
@@ -97,6 +101,10 @@ export default class NuPopup extends NuCard {
       if (event.key === 'Escape') {
         this.parentNode.nuSetPressed(false);
         this.parentNode.focus();
+        event.stopPropagation();
+      }
+
+      if (event.key === 'Enter' || event.key === ' ') {
         event.stopPropagation();
       }
     });

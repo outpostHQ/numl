@@ -33,7 +33,7 @@ export default class NuIcon extends NuBlock {
         return val
           ? {
             $suffix: ` > [name="${val}"]`,
-            display: `block !important`,
+            opacity: `1 !important`,
           } : null;
       },
     };
@@ -64,6 +64,7 @@ export default class NuIcon extends NuBlock {
         width: var(--nu-font-size);
         height: var(--nu-font-size);
         transform: translate(-50%, -50%);
+        transition: opacity var(--nu-animation-time) linear;
       }
 
       ${tag} > :not(svg) {
@@ -90,7 +91,7 @@ export default class NuIcon extends NuBlock {
           const svgNode = svgElement(svg);
 
           svgNode.setAttribute('name', name);
-          svgNode.style.display = 'none';
+          svgNode.style.opacity = '0';
 
           this.appendChild(svgNode);
         });

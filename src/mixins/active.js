@@ -6,7 +6,11 @@
 export default function ActiveMixin() {
   return {
     connected() {
+      if (!this.nuFirstConnect) return;
+
       this.addEventListener('click', evt => {
+        this.nuSetMod('active', false);
+
         if (this.nuDisabled || evt.nuHandled) return;
 
         evt.nuHandled = true;
@@ -33,32 +37,33 @@ export default function ActiveMixin() {
       });
 
       this.addEventListener('keyup', evt => {
+        this.nuSetMod('active', false);
+
         if (this.nuDisabled || evt.nuHandled) return;
 
         evt.nuHandled = true;
 
         if (evt.key === ' ') {
           evt.preventDefault();
-          this.nuSetMod('active', false);
           this.nuTap(evt);
         }
       });
 
       this.addEventListener('blur', () => this.nuSetMod('active', false));
 
-      this.addEventListener('mousedown', () => {
-        if (!this.nuDisabled && this.nuHasMod('focusable')) {
-          setTimeout(() => {
+      ['mousedown', 'touchstart'].forEach(eventName => {
+        this.addEventListener(eventName, () => {
+          if (!this.nuDisabled && this.nuHasMod('focusable')) {
             this.nuSetMod('active', true);
-          });
-        }
+          }
+        }, { passive: true });
       });
 
-      ['mouseleave', 'mouseup'].forEach(eventName => {
+      ['mouseleave', 'mouseup', 'touchend'].forEach(eventName => {
         this.addEventListener(eventName, () => {
           this.nuSetMod('active', false);
         });
-      });
+      }, { passive: true });
     },
   };
 }

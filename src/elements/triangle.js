@@ -46,7 +46,9 @@ export default class NuTriangle extends NuElement {
   }
 
   static get nuMixins() {
-    return [DirectionMixin()];
+    return {
+      direction: DirectionMixin(),
+    };
   }
 
   static nuCSS({ tag, css }) {

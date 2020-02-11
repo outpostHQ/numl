@@ -12,7 +12,9 @@ export default class NuTooltip extends NuBlock {
   }
 
   static get nuMixins() {
-    return [FixateMixin()];
+    return {
+      fixate: FixateMixin(),
+    };
   }
 
   static get nuDefaults() {
