@@ -8,6 +8,8 @@ export const ROOT_CONTEXT = 'html';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
 
+export const isTouch = !matchMedia('(hover: hover)').matches;
+
 /**
  * Script injection.
  * @param {String} src
@@ -442,12 +444,14 @@ export function splitStates(attrValue) {
         baseValue = value;
       }
 
+      if (isTouch && state.match(/hover(?=($|:))/)) return;
+
       return {
         states: !state ? [] : state.split(':'),
         notStates: [],
         value,
       };
-    });
+    }).filter(m => m);
 
   // create mutually exclusive selectors
   for (let i = 0; i < stateMaps.length; i++) {

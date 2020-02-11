@@ -73,7 +73,7 @@ export function stylesString(styles) {
 const TOUCH_REGEXP = /:hover(?!\))/; // |\[nu-active](?!\))
 const NON_TOUCH_REGEXP = /:hover(?=\))/;
 
-export function generateCSS(query, styles, context = '') {
+export function generateCSS(query, styles, context = '', universal = false) {
   if (!styles || !styles.length) return;
 
   return styles.map(map => {
@@ -96,13 +96,15 @@ export function generateCSS(query, styles, context = '') {
     delete map.$suffix;
     delete map.$prefix;
 
-    if (currentQuery.match(TOUCH_REGEXP)) {
-      return `@media (hover: hover){${context}${currentQuery}{${stylesString(map)}}}`;
-    } else if (currentQuery.match(NON_TOUCH_REGEXP)) {
-      return `
+    if (!universal) {
+      if (currentQuery.match(TOUCH_REGEXP)) {
+        return `@media (hover: hover){${context}${currentQuery}{${stylesString(map)}}}`;
+      } else if (currentQuery.match(NON_TOUCH_REGEXP)) {
+        return `
         @media (hover: hover){${context}${currentQuery}{${stylesString(map)}}}
         @media (hover: none){${context}${currentQuery.replace(':not(:hover)', '')}{${stylesString(map)}}}
       `;
+      }
     }
 
     return `${context}${currentQuery}{${stylesString(map)}}`;

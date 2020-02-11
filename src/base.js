@@ -371,7 +371,7 @@ export default class NuBase extends HTMLElement {
 
         const query = `${tag}${name !== 'text' && !isProp ? `:not([${name}])` : ''}`;
 
-        defaultsCSS += generateCSS(query, styles);
+        defaultsCSS += generateCSS(query, styles, '', true);
       });
 
     injectCSS(tag, tag, `${css}${defaultsCSS}`, root);
@@ -627,7 +627,7 @@ export default class NuBase extends HTMLElement {
 
     let styles = computeStyles(name, value, this.constructor.nuAllAttrs, this.constructor.nuAllDefaults);
 
-    return generateCSS(query, styles);
+    return generateCSS(query, styles, '', true);
   }
 
   /**

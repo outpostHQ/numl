@@ -1,6 +1,6 @@
 import NuDecorator from './decorator';
-import { declareTheme, removeTheme, ALL_THEME_MODS, hueFromString } from '../themes';
-import { convertUnit, devMode, error, warn } from '../helpers';
+import { declareTheme, removeTheme, ALL_THEME_MODS, hueFromString, THEME_ATTR } from '../themes';
+import { devMode, error, warn } from '../helpers';
 import { getOptimalSaturation, strToHsl } from '../color';
 
 const ATTRS_LIST = [
@@ -29,6 +29,10 @@ const NAME_STOP_LIST = [
   'tone',
   'swap',
 ];
+
+const SELECTOR = '[nu][theme]';
+
+const VERIFY_MAP = new Map;
 
 /**
  * @class
@@ -166,14 +170,17 @@ export default class NuTheme extends NuDecorator {
     declareTheme(this.nuParent, name, hue, saturation, pastel, defaultMods || '');
 
     if (!initial) {
-      setTimeout(() => {
-        const selector = name === 'main' ? '[nu][theme]' : `[nu][theme*="${name}"]`;
+      const parent = this.nuParent;
 
-        [...this.nuParent.querySelectorAll(selector)]
-          .forEach(el => {
-            el.nuEnsureThemes(true);
-          });
-      }, 0);
+      if (!VERIFY_MAP.has(parent)) {
+        VERIFY_MAP.set(parent, setTimeout(() => {
+          VERIFY_MAP.delete(parent);
+          [...parent.querySelectorAll(SELECTOR)]
+            .forEach(el => {
+              el.nuEnsureThemes(true);
+            });
+        }));
+      }
     }
   }
 }
