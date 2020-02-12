@@ -15,9 +15,14 @@ export default class NuClamp extends NuElement {
     };
   }
 
+  static get nuAttrs() {
+    return {
+      display: null,
+    };
+  }
+
   static get nuDefaults() {
     return {
-      display: '-webkit-box',
       width: 'max(100%)',
     };
   }
@@ -34,6 +39,7 @@ export default class NuClamp extends NuElement {
         text-overflow: ellipsis;
       }
       ${tag}[max]:not([max="1"]) {
+        display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: var(--nu-local-max-lines);
       }
