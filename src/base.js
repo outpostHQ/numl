@@ -513,9 +513,9 @@ export default class NuBase extends HTMLElement {
       this.setAttribute('role', this.constructor.nuRole);
     }
 
-    this.nuSetContextAttrs();
-
     this.nuIsConnected = true;
+
+    this.nuSetContextAttrs();
 
     if (this.nuContext.$shadowRoot) {
       if (!hasCSS(this.constructor.nuTag, this.nuContext.$shadowRoot)) {
@@ -889,6 +889,13 @@ export default class NuBase extends HTMLElement {
    */
   nuChanged(name, oldValue, value) {
     this.nuMixinCall('changed', [name, oldValue, value]);
+
+    switch (name) {
+      case 'id':
+      case 'as':
+        this.nuSetContextAttrs();
+        break;
+    }
   }
 
   /**

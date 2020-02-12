@@ -108,6 +108,10 @@ export default class NuInput extends NuBlock {
 
         this.nuEmit('change', this.nuRef.value);
       });
+    } else {
+      this.nuRef.addEventListener('input', (event) => {
+        this.nuSetMod('empty', !this.nuRef.value);
+      });
     }
 
     if (this.hasAttribute('label')) {

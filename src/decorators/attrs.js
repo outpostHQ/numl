@@ -61,9 +61,9 @@ export default class NuAttrs extends NuDecorator {
 
     [...parent.querySelectorAll(selector)]
       .forEach(el => {
-        log('reapply context attrs', { el });
+        log('apply context attrs', { el });
 
-        el.nuSetContextAttrs && el.nuSetContextAttrs();
+        if (el.nuSetContextAttrs) el.nuSetContextAttrs();
       });
   }
 
