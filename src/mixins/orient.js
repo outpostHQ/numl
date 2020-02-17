@@ -1,5 +1,6 @@
 const ORIENT_X_MOD = 'orient-h';
 const ORIENT_Y_MOD = 'orient-v';
+export const ORIENT_ATTR = 'orient';
 export const VERTICAL = 'vertical';
 export const HORIZONTAL = 'horizontal';
 
@@ -15,8 +16,8 @@ export default function OrientMixin({ aria, initial } = {}) {
       this.nuSetOrient();
     },
     changed(name, oldValue, value) {
-      if (name === 'orient') {
-        value = value === 'v' ? 'v' : 'h';
+      if (name === ORIENT_ATTR) {
+        value = this.nuGetAttr(ORIENT_ATTR, true) === 'v' ? 'v' : 'h';
 
         [ORIENT_X_MOD, ORIENT_Y_MOD]
           .forEach(attr => this.nuSetMod(attr, false));

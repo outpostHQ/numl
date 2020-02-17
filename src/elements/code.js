@@ -159,7 +159,7 @@ export default class NuCode extends NuElement {
 
         injectStyleTag(
           this.constructor.nuCSS({ tag: '', css: '' }),
-          'nu-code',
+          'shadow:nu-code',
           this.nuShadow,
         );
       } else {

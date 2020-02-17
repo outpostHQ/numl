@@ -279,6 +279,7 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
   text-align: left;
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
+  -moz-osx-font-smoothing: grayscale;
   transition: background-color var(--nu-animation-time) linear;
 }
 

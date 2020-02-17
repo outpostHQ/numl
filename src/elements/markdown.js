@@ -1,4 +1,5 @@
 import NuElement from './element';
+import { injectStyleTag } from '../css';
 
 export default class NuMarkdown extends NuElement {
   static get nuTag() {
@@ -17,6 +18,12 @@ export default class NuMarkdown extends NuElement {
       ${css}
       ${tag} > pre, ${tag} > textarea {
         display: none;
+      }
+      ${tag} [nu-id="bold"]:not([text]) {
+        font-weight: bold;
+      }
+      ${tag} [nu-id="italic"]:not([text]) {
+        font-style: italic;
       }
     `;
   }
@@ -40,6 +47,14 @@ export default class NuMarkdown extends NuElement {
       container.setAttribute('gap', this.getAttribute('gap') || '1x');
 
       (this.nuShadow || this).appendChild(container);
+
+      if (this.nuShadow) {
+        injectStyleTag(
+          this.constructor.nuCSS({ tag: '', css: '' }),
+          'shadow:nu-markdown',
+          this.nuShadow,
+        );
+      }
 
       this.nuObserve = () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
@@ -67,7 +82,7 @@ export default class NuMarkdown extends NuElement {
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
-    if (name === 'gap') {
+    if (name === 'gap' && this.nuObserve) {
       this.nuObserve();
     }
   }
@@ -77,15 +92,17 @@ function prepareContent(str) {
   const tab = str.match(/^\s*/)[0];
 
   if (tab) {
-    return str.split('\n').map(str => str.replace(tab, '')).join('\n');
+    str = str.split('\n').map(str => str.replace(tab, '')).join('\n');
   }
 
-  return str;
+  return str
+    .replace(/^\s*\n/g, '')
+    .replace(/\n\s*$/g, '');
 }
 
 const TAGS = {
-  '': ['<nu-el text="i">', '</nu-el>'],
-  _: ['<nu-el text="w7">', '</nu-el>'],
+  '': ['<nu-el id="italic">', '</nu-el>'],
+  _: ['<nu-el id="bold">', '</nu-el>'],
   '~': ['<nu-el text="s">', '</nu-el>'],
   '\n': ['</nu-block><nu-block>'],
   ' ': ['<br />'],
@@ -115,7 +132,7 @@ export function markdownToNuml(md, inline, prevLinks) {
     last = 0,
     chunk, prev, token, inner, t, heading;
 
-  TAGS['\n'] = inline ? '\n' : '</nu-block><nu-block>';
+  TAGS['\n\n'] = inline ? '\n' : '</nu-block><nu-block>';
 
   function tag(token) {
     var desc = TAGS[token.replace(/\*/g, '_')[1] || ''],
@@ -154,13 +171,13 @@ export function markdownToNuml(md, inline, prevLinks) {
       if (t.match(/\./)) {
         token[5] = token[5].replace(/^\d+/gm, '');
       }
-      inner = markdownToNuml(outdent(token[5].replace(/^\s*[>*+.-]/gm, '')));
+      inner = markdownToNuml(outdent(token[5].replace(/^\s*[>*+.-]/gm, '')), true);
       if (t === '>') t = 'blockquote';
       else {
-        t = t.match(/\./) ? 'ol' : 'ul';
-        inner = inner.replace(/^(.*)(\n|$)/gm, '<li>$1</li>');
+        t = 'nu-list';
+        inner = inner.replace(/^(.*)(\n|$)/gm, '<nu-listitem>$1</nu-listitem>');
       }
-      chunk = '<' + t + '>' + inner + '</' + t + '>';
+      chunk = '<' + t + (t.match(/\./) ? ' enumerate' : '') + '>' + inner + '</' + t + '>';
     }
     // Images:
     else if (!inline && token[8]) {
@@ -177,27 +194,25 @@ export function markdownToNuml(md, inline, prevLinks) {
     else if (!inline && (token[12] || token[14])) {
       heading = true;
       t = (token[14] ? token[14].length : (token[13][0] === '=' ? 1 : 2));
-      chunk = '</nu-block><nu-heading level="' + t + '">' + markdownToNuml(token[12] || token[15], links) + '</nu-heading><nu-block>';
+      chunk = '</nu-block><nu-heading level="' + t + '">' + markdownToNuml(token[12] || token[15], inline, links) + '</nu-heading><nu-block>';
     }
     // `code`:
     else if (token[16]) {
-      chunk = '<nu-code inline><textarea>' + encodeAttr(token[16]) + '</textarea></nu-code>';
+      chunk = '<nu-mark>' + encodeAttr(token[16]) + '</nu-mark>';
     }
     // Inline formatting: *em*, **strong** & friends
     else if (token[17] || token[1]) {
       chunk = tag(token[17] || '--');
     }
 
-
-
     out += prev;
     out += chunk;
   }
 
-  const result = (out + md.substring(last) + flush()).trim();
+  let result = (out + md.substring(last) + flush()).trim();
 
   if (!inline) {
-    return ('<nu-block>' + result + '</nu-block>').replace(/<nu-block><\/nu-block>/g, '');
+    result = ('<nu-block>' + result + '</nu-block>').replace(/<nu-block><\/nu-block>/g, '');
   }
 
   return result;

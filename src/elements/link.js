@@ -30,6 +30,7 @@ export default class NuLink extends NuActiveElement {
     return `
       ${css}
       ${tag} {
+        --nu-local-focus-inset: 0 0;
         font-weight: bolder;
         position: relative;
       }

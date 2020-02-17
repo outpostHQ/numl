@@ -1,3 +1,5 @@
+import { FLEX_GAP_SUPPORTED } from './gap';
+
 const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 
 // to reset style
@@ -25,9 +27,15 @@ export default function displayAttr(val) {
       }]
       : [])
     .concat(val.endsWith('flex')
-      ? [{
-        gap: RESET_VALUE,
-        'grid-gap': RESET_VALUE,
-      }]
+      ? (!FLEX_GAP_SUPPORTED
+        ? [{
+          gap: RESET_VALUE,
+          'grid-gap': RESET_VALUE,
+        }]
+        : [{
+          $suffix: '>*',
+          '--nu-v-gap': INVALID_VALUE,
+          '--nu-h-gap': INVALID_VALUE,
+        }])
       : []);
 };

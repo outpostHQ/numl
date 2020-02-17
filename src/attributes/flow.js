@@ -1,5 +1,4 @@
 import { extractMods } from '../helpers';
-import attrGap from './gap';
 
 const FLEX_MAP = {
   row: 'margin-right',
@@ -60,10 +59,12 @@ export default function flowAttr(val, defaults) {
     const dirStyle = FLEX_MAP[dir];
     const dirProp = getProp(dir);
 
+    styles.push({
+      'flex-flow': mods.join(' '),
+    });
+
     if (!mods.includes('wrap')) {
       styles.push({
-        'flex-flow': mods.join(' '),
-      }, {
         $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:last-child)`,
         [dirStyle]: dirProp,
       });
@@ -74,8 +75,6 @@ export default function flowAttr(val, defaults) {
       const invertLocalProp = getLocalProp(dir, true);
 
       styles.push({
-        'flex-flow': mods.join(' '),
-      }, {
         $suffix: ':not(:empty)',
         [dirStyle]: `calc(${dirLocalProp} * -1)`,
         [dirSecondStyle]: `calc(${invertLocalProp} * -1)`,

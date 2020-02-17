@@ -98,7 +98,7 @@ export default class NuInput extends NuBlock {
 
         const value = this.nuRef.value;
 
-        this.nuSetMod('empty', !value);
+        this.nuSetEmpty();
 
         this.nuEmit('input', value);
       });
@@ -110,7 +110,7 @@ export default class NuInput extends NuBlock {
       });
     } else {
       this.nuRef.addEventListener('input', (event) => {
-        this.nuSetMod('empty', !this.nuRef.value);
+        this.nuSetEmpty();
       });
     }
 
@@ -154,5 +154,9 @@ export default class NuInput extends NuBlock {
 
       this.nuSetMod('empty', !this.nuRef.value);
     });
+  }
+
+  nuSetEmpty() {
+    this.nuSetMod('empty', !this.nuRef.value);
   }
 }

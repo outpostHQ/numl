@@ -73,7 +73,7 @@ import {
   parseAttrStates,
   parseColor,
   setAttrs,
-  normalizeAttrStates,
+  normalizeAttrStates, isTouch,
 } from './helpers';
 import { enableFocus, disableFocus } from './focus';
 import { applyTheme, BASE_THEME } from './themes';
@@ -129,6 +129,7 @@ const Nude = {
     setAttrs,
     normalizeAttrStates,
   },
+  isTouch: isTouch,
   version: process.env.APP_VERSION,
 };
 
