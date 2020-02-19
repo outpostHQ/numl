@@ -59,6 +59,9 @@ export default class NuMarkdown extends NuElement {
       this.nuObserve = () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
 
+        content.setAttribute('role', 'none');
+        content.setAttribute('aria-hidden', 'true');
+
         container.innerHTML = markdownToNuml(prepareContent(content), this.nuInline);
       };
 

@@ -169,6 +169,9 @@ export default class NuCode extends NuElement {
       this.nuObserve = () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
 
+        content.setAttribute('role', 'none');
+        content.setAttribute('aria-hidden', 'true');
+
         container.innerHTML = codeToMarkup(
           extractContent(content),
           this.hasAttribute('enumerate'),
@@ -203,7 +206,7 @@ const TOKEN_RES = [
   [COM, /\/\*[\s\S]*?\*\//],
   [COM, /<!--[\s\S]*?-->/],
   [REX, /\/(\\\/|[^\n])*?\/(?=[^\w])/],
-  [STR, /(['"`])(\\\1|[\s\S])*?\1/],
+  [STR, /(['"])(\\\1|[\s\S])*?\1/],
   [NUM, /[+-]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?/],
   [SPC, /\s+/],
   [NAM, /[\w-$]+/],
