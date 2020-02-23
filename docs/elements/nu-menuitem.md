@@ -8,11 +8,13 @@
 
 
 ## Own default values
+* **`[--local-focus-inset]`: `"inset 0 0"`**
 * **`[border]`: `"0"`**
 * **`[content]`: `"center start"`**
 * **`[fill]`: `"transparent"`**
 * **`[flow]`: `"column"`**
 * **`[gap]`: `"1x"`**
+* **`[items]`: `"stretch"`**
 * **`[padding]`: `"1x"`**
 * **`[radius]`: `"0"`**
 * **`[width]`: `"100%"`**
@@ -140,6 +142,7 @@ nu-menuitem > a {
   right: 0;
   bottom: 0;
   left: 0;
+  overflow: hidden;
 }
 nu-menuitem > a:focus {
   outline: none;
@@ -150,8 +153,6 @@ nu-menuitem[special] > :not([theme]) {
   --nu-special: var(--nu-special-text-color);
   --nu-special: var(--nu-special-color);
   --nu-special-color: var(--nu-special-text-color);
-}
-nu-menuitem {
-  --nu-local-focus-inset: inset 0 0;
+  --nu-hover-color: var(--nu-special-hover-color);
 }
 ```

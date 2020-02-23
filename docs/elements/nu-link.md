@@ -132,11 +132,13 @@ nu-link > a {
   right: 0;
   bottom: 0;
   left: 0;
+  overflow: hidden;
 }
 nu-link > a:focus {
   outline: none;
 }
 nu-link {
+  --nu-local-focus-inset: 0 0;
   font-weight: bolder;
   position: relative;
 }

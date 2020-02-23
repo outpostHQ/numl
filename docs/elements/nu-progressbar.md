@@ -6,7 +6,10 @@
 
 
 ## Own default values
+* **`[border]`: `""`**
 * **`[display]`: `"block"`**
+* **`[fill]`: `"bg"`**
+* **`[radius]`: `".5r"`**
 * **`[transition]`: `"opacity"`**
 
 ## Inherited default values
@@ -109,16 +112,6 @@ nu-progressbar {
   position: relative;
   min-height: .5em;
   overflow: hidden;
-}
-nu-progressbar:not([fill]) {
-  background-color: var(--nu-bg-color);
-}
-nu-progressbar:not([radius]) {
-  --nu-local-radius: calc(var(--nu-radius) / 2);
-  border-radius: var(--nu-local-radius);
-}
-nu-progressbar:not([border]) {
-  border: var(--nu-border-width) solid var(--nu-border-color);
 }
 nu-progressbar::before {
   content: '';

@@ -64,6 +64,7 @@ export default class NuInput extends NuBlock {
         word-spacing: calc(1rem / 8);
         height: min-content;
         min-height: 100%;
+        user-select: all;
       }
 
       ${tag} input[disabled] {
@@ -98,8 +99,6 @@ export default class NuInput extends NuBlock {
 
         const value = this.nuRef.value;
 
-        this.nuSetEmpty();
-
         this.nuEmit('input', value);
       });
 
@@ -108,11 +107,11 @@ export default class NuInput extends NuBlock {
 
         this.nuEmit('change', this.nuRef.value);
       });
-    } else {
-      this.nuRef.addEventListener('input', (event) => {
-        this.nuSetEmpty();
-      });
     }
+
+    this.nuRef.addEventListener('input', () => {
+      this.nuSetEmpty();
+    });
 
     if (this.hasAttribute('label')) {
       this.nuChanged('label', null, this.getAttribute('label'));

@@ -150,7 +150,11 @@ export default class NuCode extends NuElement {
 
       if (!nuRef) {
         error('nu-snippet: textarea tag required');
+        return;
       }
+
+      nuRef.setAttribute('role', 'none');
+      nuRef.setAttribute('aria-hidden', 'true');
 
       const container = document.createElement('nu-block');
 
@@ -168,9 +172,6 @@ export default class NuCode extends NuElement {
 
       this.nuObserve = () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
-
-        content.setAttribute('role', 'none');
-        content.setAttribute('aria-hidden', 'true');
 
         container.innerHTML = codeToMarkup(
           extractContent(content),

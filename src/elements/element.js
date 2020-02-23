@@ -127,7 +127,7 @@ export default class NuElement extends NuBase {
       focusable: focusableAttr,
       hoverable: hoverableAttr,
       expand: expandAttr,
-      // fade: fadeAttr,
+      fade: fadeAttr,
       drop: dropAttr,
       direction: '',
       controls: '',

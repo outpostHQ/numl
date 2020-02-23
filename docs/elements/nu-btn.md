@@ -15,6 +15,8 @@
 * **`[fill]`: `"bg :special[special-bg] :themed[bg] :special:themed[special-bg]"`**
 * **`[flow]`: `"column"`**
 * **`[gap]`: `"1x"`**
+* **`[hoverable]`: `"n :focusable[y]"`**
+* **`[items]`: `"center stretch"`**
 * **`[padding]`: `"1x 2x"`**
 * **`[radius]`: `"1r"`**
 * **`[text]`: `"nowrap :special[w5 nowrap]"`**
@@ -23,7 +25,6 @@
 ## Inherited default values
 * **`[cursor]`: `"pointer :disabled[default]"`**
 * **`[focusable]`: `"y"`**
-* **`[hoverable]`: `"n :focusable[y]"`**
 * **`[opacity]`: `"1 :disabled[.5]"`**
 * **`[sizing]`: `"border"`**
 * **`[transition]`: `"theme, radius"`**
@@ -139,6 +140,7 @@ nu-btn > a {
   right: 0;
   bottom: 0;
   left: 0;
+  overflow: hidden;
 }
 nu-btn > a:focus {
   outline: none;
@@ -149,5 +151,6 @@ nu-btn[special] > :not([theme]) {
   --nu-special: var(--nu-special-text-color);
   --nu-special: var(--nu-special-color);
   --nu-special-color: var(--nu-special-text-color);
+  --nu-hover-color: var(--nu-special-hover-color);
 }
 ```

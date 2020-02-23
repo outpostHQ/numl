@@ -12,16 +12,21 @@ export default class NuMark extends NuElement {
 
   static get nuDefaults() {
     return {
-      text: 'w6 nowrap',
+      text: 'nowrap',
       padding: '0 .25em',
       space: '0 .25em',
       radius: '1r',
       fill: 'hover :special[special-bg] :themed[bg] :special:themed[special-bg]',
-      color: '',
+      color: 'inherit',
     };
   }
 
   static nuCSS({ css, tag }) {
-    return NuBadge.nuCSS({ css, tag });
+    return `
+      ${NuBadge.nuCSS({ css, tag })}
+      ${tag}:not([text]) {
+        font-weight: var(--nu-local-font-weight, 600);
+      }
+    `;
   }
 }

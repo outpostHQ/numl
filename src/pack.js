@@ -56,6 +56,7 @@ import Nude, {
   NuMd,
   NuList,
   NuListItem,
+  NuRoot
 } from './index';
 
 Nude.elements = {
@@ -110,6 +111,7 @@ Nude.elements = {
   NuMd,
   NuList,
   NuListItem,
+  NuRoot,
   // decorators
   NuDecorator,
   NuTheme,

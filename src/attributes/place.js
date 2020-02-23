@@ -112,7 +112,7 @@ export default function placeAttr(val, defaults) {
 
         return map;
       }, {}),
-    }];
+    }, ...getEmptyTransform(defaults)];
   }
 
   const abs = PLACE_ABS.find(place => mods.includes(place));

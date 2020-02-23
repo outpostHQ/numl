@@ -85,14 +85,12 @@ export default class NuPopup extends NuCard {
       event.nuPopup = this;
 
       event.stopPropagation();
-      event.preventDefault();
     });
 
     this.addEventListener('click', (event) => {
       event.nuPopup = this;
 
       event.stopPropagation();
-      event.preventDefault();
     });
 
     this.nuClose();

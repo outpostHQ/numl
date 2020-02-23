@@ -8,12 +8,12 @@
 ## Own default values
 * **`[border]`: `"1b"`**
 * **`[display]`: `"inline-grid"`**
-* **`[fill]`: `"input"`**
+* **`[fill]`: `"input :disabled[special-bg 20%]"`**
 * **`[flow]`: `"column"`**
 * **`[focusable]`: `"force"`**
+* **`[opacity]`: `"1 :disabled[.5]"`**
 * **`[padding]`: `"1x"`**
 * **`[radius]`: `""`**
-* **`[text]`: `"center"`**
 
 ## Inherited default values
 * **`[sizing]`: `"border"`**
@@ -135,16 +135,14 @@ nu-input input {
   box-sizing: border-box;
   color: inherit;
   -webkit-text-fill-color: currentColor;
-}
-nu-input input:not(:first-child) {
-  padding-left: 0;
-}
-nu-input input:not(:last-child) {
-  padding-right: 0;
+  word-spacing: calc(1rem / 8);
+  height: min-content;
+  min-height: 100%;
+  user-select: all;
 }
 nu-input input[disabled] {
-  color: rgb(var(--nu-text-color-rgb), .6);
-  background: var(--nu-hover-color);
+  color: inherit;
+  background: transparent;
   -webkit-opacity: 1;
 }
 nu-input input::placeholder {

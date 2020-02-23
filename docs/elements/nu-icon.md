@@ -4,12 +4,14 @@
 * Parent: [`<nu-block/>`](./nu-block.md)
 * Type: `element`
 * Role: `img`
+* Auto ID: `icon`
 
 
 ## Own default values
 * **`[display]`: `"inline-block"`**
 * **`[height]`: `"min(1fs)"`**
 * **`[sizing]`: `"content"`**
+* **`[transition]`: `"transform"`**
 * **`[width]`: `"min(1fs)"`**
 
 ## Inherited default values
@@ -117,6 +119,7 @@ nu-icon > svg {
   width: var(--nu-font-size);
   height: var(--nu-font-size);
   transform: translate(-50%, -50%);
+  transition: opacity var(--nu-animation-time) linear;
 }
 nu-icon > :not(svg) {
   display: none;

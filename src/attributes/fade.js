@@ -22,6 +22,7 @@ export default function fadeAttr(val) {
     display: 'block',
     content: "''",
     position: 'absolute',
+    'pointer-events': 'none',
     'background-image': `linear-gradient(to ${direction}, ${color}, transparent)`,
   };
 

@@ -137,6 +137,7 @@ nu-slider > a {
   right: 0;
   bottom: 0;
   left: 0;
+  overflow: hidden;
 }
 nu-slider > a:focus {
   outline: none;

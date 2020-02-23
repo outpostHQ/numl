@@ -20,9 +20,10 @@ export default class NuLink extends NuActiveElement {
       text: 'nowrap u',
       cursor: 'pointer',
       radius: '.5x',
-      transition: 'shadow',
+      transition: 'shadow, fill, color',
       focusable: 'y',
-      hoverable: '.25em',
+      hoverable: 'y',
+      expand: '.5x',
     };
   }
 

@@ -169,18 +169,18 @@ export default class NuTheme extends NuDecorator {
 
     declareTheme(this.nuParent, name, hue, saturation, pastel, defaultMods || '');
 
-    if (!initial) {
-      const parent = this.nuParent;
+    // if (!initial) {
+    const parent = this.nuParent;
 
-      if (!VERIFY_MAP.has(parent)) {
-        VERIFY_MAP.set(parent, setTimeout(() => {
-          VERIFY_MAP.delete(parent);
-          [...parent.querySelectorAll(SELECTOR)]
-            .forEach(el => {
-              el.nuEnsureThemes(true);
-            });
-        }));
-      }
+    if (!VERIFY_MAP.has(parent)) {
+      VERIFY_MAP.set(parent, setTimeout(() => {
+        VERIFY_MAP.delete(parent);
+        [...parent.querySelectorAll(SELECTOR)]
+          .forEach(el => {
+            el.nuEnsureThemes(true);
+          });
+      }));
     }
+    // }
   }
 }

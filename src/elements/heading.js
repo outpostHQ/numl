@@ -34,6 +34,7 @@ export default class NuHeading extends NuBlock {
         }, {
           $suffix: ':not([text])',
           'font-weight': 700,
+          '--nu-local-font-weight': 700,
         }];
       },
     };

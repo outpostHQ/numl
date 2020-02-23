@@ -6,15 +6,17 @@
 
 
 ## Own default values
-* **`[display]`: `"-webkit-box"`**
+* **`[lines]`: `"1"`**
 * **`[width]`: `"max(100%)"`**
 
 ## Inherited default values
+* **`[display]`: `"inline-block"`**
 * **`[sizing]`: `"border"`**
 
 
 ## Own attributes
-* **max** `style`
+* **display** `style`
+* **lines** `style`
 
 
 ## Inherited attributes
@@ -35,7 +37,6 @@
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
 * **[`[direction]`](../attributes/direction.md)** `style`
-* **[`[display]`](../attributes/display.md)** `style`
 * **[`[drop]`](../attributes/drop.md)** `style`
 * **[`[expand]`](../attributes/expand.md)** `style`
 * **[`[expanded]`](../attributes/expanded.md)** `aria`
@@ -104,9 +105,11 @@ nu-clamp[hidden] {
   display: none !important;
 }
 nu-clamp {
-  --nu-local-max-lines: 1;
+  overflow: hidden;
+}
+nu-clamp {
+  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: var(--nu-local-max-lines);
-  overflow: hidden;
 }
 ```

@@ -169,6 +169,11 @@ export default class NuActiveElement extends NuElement {
       this.appendChild(this.nuLink);
 
       this.nuLink.addEventListener('click', (evt) => {
+        if (this.nuDisabled) {
+          evt.preventDefault();
+          return;
+        }
+
         if (evt.button === 0 && !this.nuDisabled) {
           this.nuTap(evt);
         }

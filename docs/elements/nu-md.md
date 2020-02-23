@@ -107,4 +107,10 @@ nu-md[hidden] {
 nu-md > pre, nu-md > textarea {
   display: none;
 }
+nu-md [nu-id="bold"]:not([text]) {
+  font-weight: bold;
+}
+nu-md [nu-id="italic"]:not([text]) {
+  font-style: italic;
+}
 ```

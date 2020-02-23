@@ -3,6 +3,7 @@
 ## Base info
 * Parent: [`<nu-el/>`](./nu-el.md)
 * Type: `element`
+* Auto ID: `mark`
 
 
 ## Own default values

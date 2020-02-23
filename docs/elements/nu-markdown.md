@@ -106,4 +106,10 @@ nu-markdown[hidden] {
 nu-markdown > pre, nu-markdown > textarea {
   display: none;
 }
+nu-markdown [nu-id="bold"]:not([text]) {
+  font-weight: bold;
+}
+nu-markdown [nu-id="italic"]:not([text]) {
+  font-style: italic;
+}
 ```

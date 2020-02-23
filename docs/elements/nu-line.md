@@ -4,6 +4,7 @@
 * Parent: [`<nu-block/>`](./nu-block.md)
 * Type: `element`
 * Role: `separator`
+* Auto ID: `line`
 
 
 ## Own default values

@@ -140,6 +140,7 @@ nu-switch > a {
   right: 0;
   bottom: 0;
   left: 0;
+  overflow: hidden;
 }
 nu-switch > a:focus {
   outline: none;

@@ -7,12 +7,13 @@
 
 ## Own default values
 * **`[border]`: `"1b"`**
-* **`[cursor]`: `"pointer"`**
+* **`[cursor]`: `"pointer :disabled[default]"`**
 * **`[display]`: `"inline-block"`**
 * **`[expand]`: `".5em"`**
-* **`[fill]`: `"special-bg"`**
+* **`[fill]`: `"special-bg :disabled[text 50%]"`**
 * **`[height]`: `":orient-h[.5em] :orient-v[100%]"`**
-* **`[hoverable]`: `".5em"`**
+* **`[hoverable]`: `".5em :disabled[n]"`**
+* **`[opacity]`: `"1 :disabled[.5]"`**
 * **`[radius]`: `"round"`**
 * **`[text]`: `"v-middle"`**
 * **`[transition]`: `"shadow"`**

@@ -3,6 +3,7 @@
 ## Base info
 * Parent: [`<nu-el/>`](./nu-el.md)
 * Type: `element`
+* Auto ID: `badge`
 
 
 ## Own default values

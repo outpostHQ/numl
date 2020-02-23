@@ -303,7 +303,7 @@ export default class NuBase extends HTMLElement {
     return tag;
   }
 
-  static nuGenerateDefaultStyle(root) {
+  static nuGenerateDefaultStyle(root, dontInject) {
     const tag = this.nuTag;
 
     // already declared
@@ -374,7 +374,11 @@ export default class NuBase extends HTMLElement {
         defaultsCSS += generateCSS(query, styles, '', true);
       });
 
-    injectCSS(tag, tag, `${css}${defaultsCSS}`, root);
+    if (!dontInject) {
+      injectCSS(tag, tag, `${css}${defaultsCSS}`, root);
+    }
+
+    return `${css}${defaultsCSS}`;
   }
 
   constructor() {
@@ -1329,9 +1333,15 @@ export default class NuBase extends HTMLElement {
     const clearAttrs = new Set(contextAttrs);
 
     Object.keys(attrs).forEach(name => {
-      const value = attrs[name];
+      let value = attrs[name];
 
-      if (!this.hasAttribute(name)) {
+      const force = value && value.startsWith('!');
+
+      if (force) {
+        value = value.slice(1);
+      }
+
+      if (!this.hasAttribute(name) || force) {
         if (!contextAttrs.has(name)) {
           contextAttrs.add(name);
         }

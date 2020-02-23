@@ -1,32 +1,15 @@
-# `<nu-tab/>` element
+# `<nu-root/>` element
 
 ## Base info
-* Parent: [`<nu-activeelement/>`](./nu-activeelement.md)
+* Parent: [`<nu-el/>`](./nu-el.md)
 * Type: `element`
-* Role: `tab`
-* Auto ID: `btn`
 
 
 ## Own default values
-* **`[--local-line-width]`: `"0\n        :focusable:hover[1b]\n        :pressed[3b]\n        :hover:pressed[3b]\n        :focusable:active[2b]\n        :focusable:active:hover[2b]"`**
-* **`[border]`: `"0\n        \n          :dir-top[--local-line-width top inside color(special)],\n          :dir-right[--local-line-width right inside color(special)],\n          :dir-bottom[--local-line-width bottom inside color(special)],\n          :dir-left[--local-line-width left inside color(special)]"`**
-* **`[display]`: `"inline-grid"`**
-* **`[expand]`: `"0 --local-h-gap :orient-v[--local-v-gap 0]"`**
-* **`[fill]`: `"transparent"`**
-* **`[flow]`: `"column"`**
-* **`[gap]`: `"1x"`**
-* **`[hoverable]`: `null`**
-* **`[items]`: `"center\n         :dir-right[center end]\n         :dir-left[center start]"`**
-* **`[padding]`: `"1x 0 :orient-v[0 2x]"`**
-* **`[radius]`: `"0"`**
+* **`[display]`: `"flow-root"`**
 
 ## Inherited default values
-* **`[cursor]`: `"pointer :disabled[default]"`**
-* **`[focusable]`: `"y"`**
-* **`[opacity]`: `"1 :disabled[.5]"`**
 * **`[sizing]`: `"border"`**
-* **`[text]`: `"nowrap"`**
-* **`[transition]`: `"theme, radius"`**
 
 
 ## Own attributes
@@ -42,7 +25,6 @@
 * **[`[basis]`](../attributes/basis.md)** `style`
 * **[`[before]`](../attributes/before.md)** `style`
 * **[`[border]`](../attributes/border.md)** `style`
-* `checked`
 * **[`[color]`](../attributes/color.md)** `style`
 * **[`[column]`](../attributes/column.md)** `style`
 * **[`[columns]`](../attributes/columns.md)** `style`
@@ -52,7 +34,6 @@
 * **[`[cursor]`](../attributes/cursor.md)** `style`
 * **[`[describedby]`](../attributes/describedby.md)** `aria`
 * **[`[direction]`](../attributes/direction.md)** `style`
-* `disabled`
 * **[`[display]`](../attributes/display.md)** `style`
 * **[`[drop]`](../attributes/drop.md)** `style`
 * **[`[expand]`](../attributes/expand.md)** `style`
@@ -68,7 +49,6 @@
 * **[`[height]`](../attributes/height.md)** `style`
 * **[`[hide]`](../attributes/hide.md)** `style`
 * **[`[hoverable]`](../attributes/hoverable.md)** `style`
-* `href`
 * **[`[id]`](../attributes/id.md)** `style`
 * **[`[image]`](../attributes/image.md)** `style`
 * **[`[interactive]`](../attributes/interactive.md)** `style`
@@ -89,7 +69,6 @@
 * **[`[padding]`](../attributes/padding.md)** `style`
 * **[`[place]`](../attributes/place.md)** `style`
 * **[`[posinset]`](../attributes/posinset.md)** `aria`
-* `pressed`
 * **[`[prop]`](../attributes/prop.md)** `style`
 * **[`[radius]`](../attributes/radius.md)** `style`
 * **[`[responsive]`](../attributes/responsive.md)** `helper`
@@ -98,7 +77,6 @@
 * **[`[rows]`](../attributes/rows.md)** `style`
 * **[`[scale]`](../attributes/scale.md)** `style`
 * **[`[scrollbar]`](../attributes/scrollbar.md)** `style`
-* `selected`
 * **[`[setsize]`](../attributes/setsize.md)** `aria`
 * **[`[shadow]`](../attributes/shadow.md)** `style`
 * **[`[show]`](../attributes/show.md)** `style`
@@ -108,14 +86,11 @@
 * **[`[space]`](../attributes/space.md)** `style`
 * **[`[special]`](../attributes/special.md)** `style`
 * **[`[t]`](../attributes/t.md)** `style`
-* `target`
 * **[`[text]`](../attributes/text.md)** `style`
 * **[`[theme]`](../attributes/theme.md)** `helper`
-* `to`
 * **[`[toggle]`](../attributes/toggle.md)** `style`
 * **[`[transform]`](../attributes/transform.md)** `style`
 * **[`[transition]`](../attributes/transition.md)** `style`
-* `value`
 * **[`[valuemax]`](../attributes/valuemax.md)** `aria`
 * **[`[valuemin]`](../attributes/valuemin.md)** `aria`
 * **[`[valuenow]`](../attributes/valuenow.md)** `aria`
@@ -124,24 +99,7 @@
 
 ## Generated CSS
 ```css
-nu-tab[hidden] {
+nu-root[hidden] {
   display: none !important;
-}
-nu-tab {
-  position: relative;
-  user-select: none;
-  touch-action: manipulation;
-}
-nu-tab > a {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  overflow: hidden;
-}
-nu-tab > a:focus {
-  outline: none;
 }
 ```

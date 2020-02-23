@@ -25,6 +25,9 @@ export default class NuMarkdown extends NuElement {
       ${tag} [nu-id="italic"]:not([text]) {
         font-style: italic;
       }
+      ${tag} nu-heading:not([padding]) {
+        padding-top: .5em;
+      }
     `;
   }
 
@@ -40,11 +43,15 @@ export default class NuMarkdown extends NuElement {
 
       if (!nuRef) {
         error('nu-snippet: textarea tag required');
+        return;
       }
+
+      nuRef.setAttribute('role', 'none');
+      nuRef.setAttribute('aria-hidden', 'true');
 
       const container = document.createElement(this.nuInline ? 'nu-el' : 'nu-flow');
 
-      container.setAttribute('gap', this.getAttribute('gap') || '1x');
+      container.setAttribute('gap', this.getAttribute('gap') || '2x');
 
       (this.nuShadow || this).appendChild(container);
 
@@ -58,9 +65,6 @@ export default class NuMarkdown extends NuElement {
 
       this.nuObserve = () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
-
-        content.setAttribute('role', 'none');
-        content.setAttribute('aria-hidden', 'true');
 
         container.innerHTML = markdownToNuml(prepareContent(content), this.nuInline);
       };
@@ -166,7 +170,11 @@ export function markdownToNuml(md, inline, prevLinks) {
     }
     // Code/Indent blocks:
     else if (!inline && (token[3] || token[4])) {
-      chunk = '</nu-block><nu-code padding ' + (!token[4] && token[2].toLowerCase() === 'enumerate' ? 'enumerate' : '') + '><textarea>' + outdent(encodeAttr(token[3] || token[4]).replace(/^\n+|\n+$/g, '')) + '</textarea></nu-code><nu-block>';
+      if (!token[4] && token[2].toLowerCase() === 'markup') {
+        chunk = `</nu-block><nu-block radius padding="2x" fill="diff">${token[3]}</nu-block><nu-block>`;
+      } else {
+        chunk = '</nu-block><nu-code fill="diff" radius padding overflow="auto" ' + (!token[4] && token[2].toLowerCase() === 'enumerate' ? 'enumerate' : '') + '><textarea>' + outdent(encodeAttr(token[3] || token[4]).replace(/^\n+|\n+$/g, '')) + '</textarea></nu-code><nu-block>';
+      }
     }
     // > Quotes, -* lists:
     else if (!inline && token[6]) {
