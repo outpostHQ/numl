@@ -137,6 +137,9 @@ export default class NuPopup extends NuCard {
     fixPosition(this);
 
     if (activeElement) activeElement.focus();
+
+    this.nuEmit('open', null, { bubbles: false });
+    this.nuEmit('toggle', null, { bubbles: false });
   }
 
   nuClose() {
@@ -146,6 +149,9 @@ export default class NuPopup extends NuCard {
     this.parentNode.nuSetPressed(false);
 
     this.style.removeProperty('--nu-transform');
+
+    this.nuEmit('close', null, { bubbles: false });
+    this.nuEmit('toggle', null, { bubbles: false });
   }
 }
 

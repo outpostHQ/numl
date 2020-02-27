@@ -39,12 +39,16 @@ export default class NuMarkdown extends NuElement {
     }
 
     setTimeout(() => {
+      if (this.nuRef) return;
+
       const nuRef = this.querySelector('textarea, pre');
 
       if (!nuRef) {
-        error('nu-snippet: textarea tag required');
+        error('nu-markdown: textarea tag required');
         return;
       }
+
+      this.nuRef = nuRef;
 
       nuRef.setAttribute('role', 'none');
       nuRef.setAttribute('aria-hidden', 'true');
@@ -132,7 +136,7 @@ function encodeAttr(str) {
 
 /** Parse Markdown into an NuML String. */
 export function markdownToNuml(md, inline, prevLinks) {
-  let tokenizer = /((?:^|\n+)(?:\n---+|\* \*(?: \*)+)\n)|(?:^``` *(\w*)\n([\s\S]*?)\n```$)|((?:(?:^|\n+)(?:\t|  {2,}).+)+\n*)|((?:(?:^|\n)([>*+-]|\d+\.)\s+.*)+)|(?:\!\[([^\]]*?)\]\(([^\)]+?)\))|(\[)|(\](?:\(([^\)]+?)\))?)|(?:(?:^|\n+)([^\s].*)\n(\-{3,}|={3,})(?:\n+|$))|(?:(?:^|\n+)(#{1,6})\s*(.+)(?:\n+|$))|(?:`([^`].*?)`)|(  \n\n*|\n{2,}|__|\*\*|[_*]|~~)/gm,
+  let tokenizer = /((?:^|\n+)(?:\n---+|\* \*(?: \*)+)\n)|(?:^``` *([\w-]*)\n([\s\S]*?)\n```$)|((?:(?:^|\n+)(?:\t|  {2,}).+)+\n*)|((?:(?:^|\n)([>*+-]|\d+\.)\s+.*)+)|(?:\!\[([^\]]*?)\]\(([^\)]+?)\))|(\[)|(\](?:\(([^\)]+?)\))?)|(?:(?:^|\n+)([^\s].*)\n(\-{3,}|={3,})(?:\n+|$))|(?:(?:^|\n+)(#{1,6})\s*(.+)(?:\n+|$))|(?:`([^`].*?)`)|(  \n\n*|\n{2,}|__|\*\*|[_*]|~~)/gm,
     context = [],
     out = '',
     links = prevLinks || {},
@@ -170,10 +174,13 @@ export function markdownToNuml(md, inline, prevLinks) {
     }
     // Code/Indent blocks:
     else if (!inline && (token[3] || token[4])) {
-      if (!token[4] && token[2].toLowerCase() === 'markup') {
-        chunk = `</nu-block><nu-block radius padding="2x" fill="diff">${token[3]}</nu-block><nu-block>`;
+      if (!token[4] && token[2].toLowerCase().includes('-')) {
+        const el = token[2];
+        chunk = `</nu-block><${el}><textarea>${token[3]}</textarea></${el}><nu-block>`;
+      } else if (!token[4] && token[2].toLowerCase() === 'preview') {
+        chunk = `</nu-block><nu-block id="preview" radius padding="2x" fill="diff">${token[3]}</nu-block><nu-block>`;
       } else {
-        chunk = '</nu-block><nu-code fill="diff" radius padding overflow="auto" ' + (!token[4] && token[2].toLowerCase() === 'enumerate' ? 'enumerate' : '') + '><textarea>' + outdent(encodeAttr(token[3] || token[4]).replace(/^\n+|\n+$/g, '')) + '</textarea></nu-code><nu-block>';
+        chunk = '</nu-block><nu-code theme fill="subtle" radius padding overflow="auto" ' + (!token[4] && token[2].toLowerCase() === 'enumerate' ? 'enumerate' : '') + '><textarea>' + outdent(encodeAttr(token[3] || token[4]).replace(/^\n+|\n+$/g, '')) + '</textarea></nu-code><nu-block>';
       }
     }
     // > Quotes, -* lists:

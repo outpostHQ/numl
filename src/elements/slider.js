@@ -1,5 +1,5 @@
 import NuActiveElement from './activeelement';
-import { getIntFromAttr, numberFromString } from '../helpers';
+import { getFloatFromAttr, numberFromString } from '../helpers';
 import OrientMixin, { VERTICAL } from '../mixins/orient';
 
 export default class NuSlider extends NuActiveElement {
@@ -77,6 +77,8 @@ export default class NuSlider extends NuActiveElement {
     });
 
     this.nuInitEvents();
+
+    this.nuSetValue(this.getAttribute('value'));
   }
 
   nuInitEvents() {
@@ -110,6 +112,9 @@ export default class NuSlider extends NuActiveElement {
     switch (name) {
       case 'min':
       case 'max':
+      case 'value':
+        if (!this.nuIsConnected) break;
+
         this.nuSetValue(this.getAttribute('value'));
         break;
     }
@@ -122,7 +127,7 @@ export default class NuSlider extends NuActiveElement {
     if (value < minValue) value = minValue;
     if (value > maxValue) value = maxValue;
 
-    value = getIntFromAttr(value, minValue);
+    value = getFloatFromAttr(value, minValue);
 
     super.nuSetValue(value, notify);
 
@@ -133,15 +138,15 @@ export default class NuSlider extends NuActiveElement {
   }
 
   get nuMinValue() {
-    return getIntFromAttr(this.getAttribute('min'), 0);
+    return getFloatFromAttr(this.getAttribute('min'), 0);
   }
 
   get nuMaxValue() {
-    return getIntFromAttr(this.getAttribute('max'), 100);
+    return getFloatFromAttr(this.getAttribute('max'), 100);
   }
 
   get nuStep() {
-    return getIntFromAttr(this.getAttribute('step'), 1);
+    return getFloatFromAttr(this.getAttribute('step'), 1);
   }
 
   nuGetOffset(value) {

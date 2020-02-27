@@ -19,11 +19,10 @@ export default class NuLink extends NuActiveElement {
       color: 'special',
       text: 'nowrap u',
       cursor: 'pointer',
-      radius: '.5x',
+      radius: '.5r',
       transition: 'shadow, fill, color',
       focusable: 'y',
       hoverable: 'y',
-      expand: '.5x',
     };
   }
 
@@ -31,7 +30,6 @@ export default class NuLink extends NuActiveElement {
     return `
       ${css}
       ${tag} {
-        --nu-local-focus-inset: 0 0;
         font-weight: bolder;
         position: relative;
       }

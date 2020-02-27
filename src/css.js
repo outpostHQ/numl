@@ -288,31 +288,32 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
 }
 
 @media (prefers-color-scheme: dark) {
-  html.nu-prefers-color-scheme .nu-dark-invert {
+  html:not(.nu-scheme-dark) .nu-dark-invert {
     filter: invert(100%) hue-rotate(180deg);
   }
 
-  html.nu-prefers-color-scheme .nu-dark-dim {
+  html:not(.nu-scheme-dark) .nu-dark-dim {
     filter: invert(5%);
   }
 }
 
-html.nu-prefers-color-scheme-dark .nu-dark-invert {
+html.nu-scheme-dark .nu-dark-invert {
   filter: invert(95%) hue-rotate(180deg);
 }
 
-html.nu-prefers-color-scheme-dark .nu-dark-dim {
+html.nu-scheme-dark .nu-dark-dim {
   filter: invert(5%);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nu-prefers-reduced-motion [nu], body {
+  .nu-reduce-motion [nu], body {
     transition: initial !important;
   }
 }
 
-html.nu-prefers-reduced-motion-reduce [nu], html.nu-prefers-reduced-motion-reduce body,
-html.nu-prefers-reduced-motion-reduce-force [nu], html.nu-prefers-reduced-motion-reduce-force body {
+html.nu-reduce-motion [nu], html.nu-reduce-motion body,
+html.nu-reduce-motion-force [nu], html.nu-reduce-motion-force body {
+  --nu-animation-time: 0s;
   transition: initial !important;
 }
 

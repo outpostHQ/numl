@@ -1,5 +1,6 @@
 import NuElement from './element';
 import ActiveMixin from '../mixins/active';
+import { setImmediate } from '../helpers';
 
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
@@ -117,7 +118,6 @@ export default class NuActiveElement extends NuElement {
         this.nuSetAria('haspopup', true);
         this.nuSetAria('expanded', this.nuPressed || false);
         this.nuRole = 'button';
-        this.setAttribute('type', 'dropdown');
 
         return;
       }
@@ -162,11 +162,11 @@ export default class NuActiveElement extends NuElement {
       link.href = this.nuHref;
       link.target = this.nuNewTab ? '_blank' : '_self';
       link.setAttribute('tabindex', '-1');
-      link.setAttribute('aria-label', this.innerText);
+      link.setAttribute('aria-labelledby', this.nuUniqId);
 
       this.nuLink = link;
 
-      this.appendChild(this.nuLink);
+      setTimeout(() => this.appendChild(this.nuLink));
 
       this.nuLink.addEventListener('click', (evt) => {
         if (this.nuDisabled) {
@@ -368,7 +368,7 @@ export default class NuActiveElement extends NuElement {
       this.nuControl();
 
       if (notify) {
-        this.nuEmit('input', value, { bubble: false });
+        this.nuEmitInput(value);
       }
     }, 0);
   }

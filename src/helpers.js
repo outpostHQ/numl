@@ -1064,6 +1064,14 @@ export function getIntFromAttr(value, defaultValue = 0) {
   return num;
 }
 
+export function getFloatFromAttr(value, defaultValue = 0) {
+  let num = parseFloat(value);
+
+  if (num == null || num !== num) num = defaultValue;
+
+  return num;
+}
+
 export function setAttrs(el, attrs) {
   Object.entries(attrs).forEach(([name, value]) => {
     if (value != null) {

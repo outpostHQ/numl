@@ -565,7 +565,9 @@ export default class NuBase extends HTMLElement {
     }
 
     if (this.id) {
-      cleanCSSByPart(new RegExp(`#${this.id}(?![a-z0-9_-])`, 'g'));
+      setTimeout(() => {
+        cleanCSSByPart(new RegExp(`#${this.id}(?![a-z0-9_-])`, 'g'));
+      });
     }
 
     delete this.nuIsConnected;
@@ -1212,6 +1214,12 @@ export default class NuBase extends HTMLElement {
         break;
       case 'float':
         value = notNull ? parseFloat(value) : null;
+
+        const precision = parseInt(this.getAttribute('precision'));
+
+        if (value != null && precision === precision) {
+          value = parseFloat(value.toFixed(precision));
+        }
 
         break;
       case 'bool':

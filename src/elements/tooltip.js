@@ -69,8 +69,9 @@ export default class NuTooltip extends NuBlock {
 
     const onMouseLeave = (force) => {
       hover = false;
+      focus = false;
 
-      if (focus) return;
+      // if (focus) return;
 
       this.nuFixateEnd();
       this.nuSetMod('show', false);

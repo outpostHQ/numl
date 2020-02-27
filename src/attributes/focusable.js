@@ -1,12 +1,14 @@
 export default function focusableAttr(val) {
-  const force = val === 'force';
-  const focusable = val === 'y' || val === 'yes' || force;
+  const mods = val.split(/\s/);
+  const force = mods.includes('force');
+  const focusable = mods.includes('y') || mods.includes('yes') || force;
+  const inset = mods.includes('inset');
   const $prefix = force ? '' : 'html.nu-focus-enabled ';
 
   return [
     {
       '--nu-local-focus-color': 'transparent',
-      '--nu-local-focus-shadow': 'var(--nu-local-focus-inset, 0 0) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color)',
+      '--nu-local-focus-shadow': `var(--nu-local-focus-inset, ${inset ? 'inset ' : ''}0 0) 0 calc(var(--nu-border-width) * 3) var(--nu-local-focus-color)`,
       outline: 'none',
     }
   ].concat(focusable ? [

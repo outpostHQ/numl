@@ -1,5 +1,5 @@
 import {
-  log, extractMods, intersection, devMode, generateId
+  log, extractMods, intersection, devMode, generateId, parseColor
 } from "./helpers";
 import {
   findContrastColor,
@@ -9,7 +9,7 @@ import {
   hslToRgbaStr,
   getTheBrightest,
   hslToRgb,
-  findContrastLightness, setSaturation,
+  findContrastLightness, setSaturation, strToHsl,
 } from './color';
 import { cleanCSSByPart, injectCSS, stylesString } from './css';
 
@@ -508,78 +508,82 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
   const prefersContrastSupport = matchMedia('(prefers-contrast)').matches;
   const prefersColorSchemeSupport = matchMedia('(prefers-color-scheme)').matches;
 
+  const notContrastClass = ':not([class*="nu-contrast-"])';
+  const notSchemeClass = ':not([class*="nu-scheme-"])';
+
+  let finalCSS = '';
+
   if (prefersContrastSupport && prefersColorSchemeSupport) {
-    injectCSS(
-      styleTagName,
-      baseQuery,
-      `
-        @media (prefers-color-scheme: dark) and (prefers-contrast: high) {
-          html.nu-prefers-color-scheme.nu-prefers-contrast ${baseQuery}{${darkContrastProps}}
-        }
-        @media (prefers-color-scheme: dark) and (prefers-contrast: low), @media (prefers-color-scheme: dark) and (prefers-contrast: no-reference) {
-          html.nu-prefers-color-scheme.nu-prefers-contrast ${baseQuery}{${darkNormalProps}}
-        }
-        @media @media (prefers-color-scheme: light) and (prefers-contrast: high), @media (prefers-color-scheme: no-reference)  and (prefers-contrast: high) {
-          html.nu-prefers-color-scheme.nu-prefers-contrast ${baseQuery}{${lightContrastProps}}
-        }
-        @media @media (prefers-color-scheme: light) and (prefers-contrast: low), @media (prefers-color-scheme: no-reference)  and (prefers-contrast: low), @media @media (prefers-color-scheme: light) and (prefers-contrast: no-reference), @media (prefers-color-scheme: no-reference)  and (prefers-contrast: no-reference) {
-          html.nu-prefers-color-scheme.nu-prefers-contrast ${baseQuery}{${lightNormalProps}}
-        }
-
+    finalCSS += `
+      @media (prefers-color-scheme: dark) {
         @media (prefers-contrast: high) {
-          html.nu-prefers-color-scheme-dark.nu-prefers-contrast ${baseQuery}{${darkContrastProps}}
-          html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark).nu-prefers-contrast ${baseQuery}{${lightContrastProps}}
+          html.nu-scheme-light${notContrastClass} ${baseQuery}{${lightContrastProps}}
+          html${notSchemeClass}${notContrastClass} ${baseQuery}
+          , html.nu-scheme-dark${notContrastClass} ${baseQuery}{${darkContrastProps}}
         }
 
-        @media (prefers-color-scheme: light), @media (prefers-color-scheme: no-reference) {
-          html.nu-prefers-color-scheme-dark.nu-prefers-contrast ${baseQuery}{${darkNormalProps}}
-          html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark).nu-prefers-contrast ${baseQuery}{${lightNormalProps}}
+        @media (prefers-contrast: low), (prefers-contrast: no-reference) {
+          html.nu-scheme-light${notContrastClass} ${baseQuery}{${lightNormalProps}}
+          html${notSchemeClass}${notContrastClass} ${baseQuery}
+          , html.nu-scheme-dark${notContrastClass} ${baseQuery}{${darkNormalProps}}
         }
 
-        @media (prefers-color-scheme: dark) {
-          html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${darkContrastProps}}
-          html.nu-prefers-color-scheme:(.nu-prefers-contrast):not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
-        }
-        @media (prefers-color-scheme: light), @media (prefers-color-scheme: no-reference) {
-          html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${lightContrastProps}}
-          html.nu-prefers-color-scheme:not(.nu-prefers-contrast):not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
+        html.nu-contrast-high${notSchemeClass} ${baseQuery}{${darkContrastProps}}
+        html.nu-contrast-low${notSchemeClass} ${baseQuery}{${darkNormalProps}}
+      }
+
+      @media (prefers-color-scheme: light), (prefers-color-scheme: no-reference) {
+        @media (prefers-contrast: high) {
+          html.nu-scheme-dark${notContrastClass} ${baseQuery}{${darkContrastProps}}
+          html${notSchemeClass}${notContrastClass} ${baseQuery}
+          , html.nu-scheme-light${notContrastClass} ${baseQuery}{${lightContrastProps}}
         }
 
-        html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark):not(.nu-prefers-contrast):not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
-      `
-    );
+        @media (prefers-contrast: low), (prefers-contrast: no-reference) {
+          html.nu-scheme-dark${notContrastClass} ${baseQuery}{${darkNormalProps}}
+          html${notSchemeClass}${notContrastClass} ${baseQuery}
+          , html.nu-scheme-light${notContrastClass} ${baseQuery}{${lightNormalProps}}
+        }
+
+        html.nu-contrast-high${notSchemeClass} ${baseQuery}{${lightContrastProps}}
+        html.nu-contrast-low${notSchemeClass} ${baseQuery}{${lightNormalProps}}
+      }
+    `;
   } else if (prefersColorSchemeSupport) {
-    injectCSS(
-      styleTagName,
-      baseQuery,
-      `
-        @media (prefers-color-scheme: dark) {
-          html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${darkContrastProps}}
-          html.nu-prefers-color-scheme:not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
-        }
-        @media (prefers-color-scheme: light), (prefers-color-scheme: no-reference) {
-          html.nu-prefers-color-scheme.nu-prefers-contrast-high ${baseQuery}{${lightContrastProps}}
-          html.nu-prefers-color-scheme:not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
-        }
+    finalCSS += `
+      @media (prefers-color-scheme: dark) {
+        html.nu-contrast-high${notSchemeClass} ${baseQuery}{${darkContrastProps}}
+        html.nu-contrast-low${notSchemeClass} ${baseQuery}
+        , html${notContrastClass}${notSchemeClass} ${baseQuery}{${darkNormalProps}}
+      }
 
-        html.nu-prefers-color-scheme-dark.nu-prefers-contrast-high ${baseQuery}{${darkContrastProps}}
-        html.nu-prefers-color-scheme-dark:not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
-        html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark).nu-prefers-contrast-high ${baseQuery}{${lightContrastProps}}
-        html:not(.nu-prefers-color-scheme):not(.nu-prefers-color-scheme-dark):not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
-      `
-    );
+      @media (prefers-color-scheme: light), (prefers-color-scheme: no-reference) {
+        html.nu-contrast-high${notSchemeClass} ${baseQuery}{${lightContrastProps}}
+        html.nu-contrast-low${notSchemeClass} ${baseQuery}
+        , html${notContrastClass}${notSchemeClass} ${baseQuery}{${lightNormalProps}}
+      }
+
+      html${notContrastClass}.nu-scheme-light ${baseQuery}{${lightNormalProps}}
+      html${notContrastClass}.nu-scheme-dark ${baseQuery}{${darkNormalProps}}
+    `;
   } else {
-    injectCSS(
-      styleTagName,
-      baseQuery,
-      `
-        html:not(.nu-prefers-color-scheme-dark):not(.nu-prefers-contrast-high) ${baseQuery}{${lightNormalProps}}
-        html.nu-prefers-color-scheme-dark:not(.nu-prefers-contrast-high) ${baseQuery}{${darkNormalProps}}
-        html.nu-prefers-contrast-high:not(.nu-prefers-color-scheme-dark) ${baseQuery}{${lightContrastProps}}
-        html.nu-prefers-contrast-high.nu-prefers-color-scheme-dark ${baseQuery}{${darkContrastProps}}
-      `
-    );
+    finalCSS += `
+      html${notContrastClass}${notSchemeClass} ${baseQuery}{${lightNormalProps}}
+    `;
   }
+
+  finalCSS += `
+    html.nu-scheme-light.nu-contrast-low ${baseQuery}{${lightNormalProps}}
+    html.nu-scheme-light.nu-contrast-high ${baseQuery}{${lightContrastProps}}
+    html.nu-scheme-dark.nu-contrast-low ${baseQuery}{${darkNormalProps}}
+    html.nu-scheme-dark.nu-contrast-high ${baseQuery}{${darkContrastProps}}
+  `;
+
+  injectCSS(
+    styleTagName,
+    baseQuery,
+    finalCSS,
+  );
 
   if (themeName === name) return;
 
@@ -596,5 +600,15 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
 }
 
 export function hueFromString(str) {
-  return str.split('').reduce((sum, ch) => sum + ch.charCodeAt(0) * 70,0) % 360;
+  const { color } = parseColor(str);
+
+  if (color) {
+    const hsl = strToHsl(color);
+
+    if (hsl) {
+      return hsl[0];
+    }
+  }
+
+  return str.split('').reduce((sum, ch) => sum + ch.charCodeAt(0) * 70, 0) % 360;
 }

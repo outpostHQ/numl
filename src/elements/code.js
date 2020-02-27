@@ -146,12 +146,16 @@ export default class NuCode extends NuElement {
     }
 
     setTimeout(() => {
+      if (this.nuRef) return;
+
       const nuRef = this.querySelector('textarea, pre');
 
       if (!nuRef) {
         error('nu-snippet: textarea tag required');
         return;
       }
+
+      this.nuRef = nuRef;
 
       nuRef.setAttribute('role', 'none');
       nuRef.setAttribute('aria-hidden', 'true');

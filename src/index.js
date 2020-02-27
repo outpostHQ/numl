@@ -15,6 +15,7 @@ import NuSwitch from './elements/switch';
 import NuGridTable from './elements/gridtable';
 import NuBadge from './elements/badge';
 import NuLink from './elements/link';
+import NuBlockLink from './elements/blocklink';
 import NuInput from './elements/input';
 import NuFlex from './elements/flex';
 import NuBtnGroup from './elements/btngroup';
@@ -101,7 +102,7 @@ injectCSS('theme:base', 'body', generateCSS('body', [...styles, {
   '--nu-diff-color': 'var(--nu-bg-color)',
 }]));
 
-const REDUCED_MOTION_CLASS = 'nu-prefers-reduced-motion-reduce-force';
+const REDUCED_MOTION_CLASS = 'nu-reduce-motion-force';
 const ROOT = document.querySelector('html');
 
 if (!ROOT.classList.contains(REDUCED_MOTION_CLASS)) {
@@ -234,6 +235,7 @@ export {
   NuMenu,
   NuMenuItem,
   NuLink,
+  NuBlockLink,
   NuActiveElement,
   NuTriangle,
   NuTooltip,
