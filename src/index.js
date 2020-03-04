@@ -134,6 +134,9 @@ const Nude = {
   themes: {
     applyTheme,
   },
+  css: {
+    cleanCSSByPart,
+  },
   isTouch: isTouch,
   version: process.env.APP_VERSION,
 };

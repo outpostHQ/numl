@@ -12,7 +12,6 @@ export default function fadeAttr(val) {
   // if (!values.length) return;
 
   const size = values[0] || 'calc(var(--nu-gap) * 2)';
-  const color = values[1] || 'var(--nu-local-bg-color, var(--nu-bg-color))';
 
   const mods = filterMods(allMods, ALLOWED_MODS);
 
@@ -23,7 +22,7 @@ export default function fadeAttr(val) {
     content: "''",
     position: 'absolute',
     'pointer-events': 'none',
-    'background-image': `linear-gradient(to ${direction}, ${color}, transparent)`,
+    'background-image': `linear-gradient(to ${direction}, rgba(var(--nu-local-bg-color-rgb), 1), rgba(var(--nu-local-bg-color-rgb), 0))`,
   };
 
   if (HORIZONTAL_MODS.includes(direction)) {

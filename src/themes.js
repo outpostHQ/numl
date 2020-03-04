@@ -45,7 +45,7 @@ const darkContrastBaseBgColor = [0, 0, contrastMinLightness];
 
 export const BASE_THEME = {
   hue: 252,
-  saturation: 80,
+  saturation: 100,
   pastel: true,
   name: 'main',
   type: 'main',
@@ -53,7 +53,7 @@ export const BASE_THEME = {
   lightness: 'normal',
 };
 
-export const RGB_COLORS = ['text', 'bg', 'special-text', 'special-bg'];
+export const RGB_COLORS = ['text', 'bg', 'subtle', 'special-text', 'special-bg'];
 
 /**
  * Get minimal possible contrast ratio between text and foreground.

@@ -4,9 +4,10 @@ import { BASE_COLOR } from './color';
 /**
  * Apply theme to the element by providing specific custom properties.
  * @param {String} val - Theme name.
+ * @param {Object} defaults - Element default attribute values.
  * @returns {*}
  */
-export default function themeAttr(val) {
+export default function themeAttr(val, defaults = {}) {
   if (val == null) val = '';
 
   const theme = parseThemeAttr(val);
@@ -31,11 +32,13 @@ export default function themeAttr(val) {
     styles[0][`--nu-${clr}-color-rgb`] = `var(--nu-${themeName}-${clr}-color-rgb, var(--nu-main-${clr}-color-rgb))`;
   });
 
-  styles.push({
-    $suffix: ':not([color])',
-    color: BASE_COLOR,
-    '--nu-local-text-color': 'var(--nu-text-color)',
-  });
+  if (defaults.color == null) {
+    styles.push({
+      $suffix: ':not([color])',
+      color: BASE_COLOR,
+      '--nu-local-text-color': 'var(--nu-text-color)',
+    });
+  }
 
   return styles;
 }
