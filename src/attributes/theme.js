@@ -32,13 +32,11 @@ export default function themeAttr(val, defaults = {}) {
     styles[0][`--nu-${clr}-color-rgb`] = `var(--nu-${themeName}-${clr}-color-rgb, var(--nu-main-${clr}-color-rgb))`;
   });
 
-  if (defaults.color == null) {
-    styles.push({
-      $suffix: ':not([color])',
-      color: BASE_COLOR,
-      '--nu-local-text-color': 'var(--nu-text-color)',
-    });
-  }
+  styles.push({
+    $suffix: ':not([color])',
+    color: BASE_COLOR,
+    '--nu-local-text-color': 'var(--nu-text-color)',
+  });
 
   return styles;
 }
