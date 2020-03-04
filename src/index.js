@@ -131,6 +131,9 @@ const Nude = {
     setAttrs,
     normalizeAttrStates,
   },
+  themes: {
+    applyTheme,
+  },
   isTouch: isTouch,
   version: process.env.APP_VERSION,
 };

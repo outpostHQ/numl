@@ -1,17 +1,18 @@
 import { extractMods } from '../helpers';
+import { FLEX_GAP_SUPPORTED } from './gap';
 
 const FLEX_MAP = {
-  row: 'margin-right',
-  column: 'margin-bottom',
-  'row-reverse': 'margin-left',
-  'column-reverse': 'margin-top',
+  row: 'margin-left',
+  column: 'margin-top',
+  'row-reverse': 'margin-right',
+  'column-reverse': 'margin-bottom',
 };
 
 const FLEX_MAP_SECOND = {
-  row: 'margin-bottom',
-  column: 'margin-right',
-  'row-reverse': 'margin-top',
-  'column-reverse': 'margin-left',
+  row: 'margin-top',
+  column: 'margin-left',
+  'row-reverse': 'margin-bottom',
+  'column-reverse': 'margin-right',
 };
 
 function getLocalProp(dir, invert = false) {
@@ -65,7 +66,7 @@ export default function flowAttr(val, defaults) {
 
     if (!mods.includes('wrap')) {
       styles.push({
-        $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:last-child)`,
+        $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:first-child)`,
         [dirStyle]: dirProp,
       });
     } else {
@@ -74,11 +75,15 @@ export default function flowAttr(val, defaults) {
       const dirLocalProp = getLocalProp(dir);
       const invertLocalProp = getLocalProp(dir, true);
 
+      if (!FLEX_GAP_SUPPORTED) {
+        styles.push({
+          $suffix: ':not(:empty)',
+          [dirStyle]: `calc(${dirLocalProp} * -1)`,
+          [dirSecondStyle]: `calc(${invertLocalProp} * -1)`,
+        });
+      }
+
       styles.push({
-        $suffix: ':not(:empty)',
-        [dirStyle]: `calc(${dirLocalProp} * -1)`,
-        [dirSecondStyle]: `calc(${invertLocalProp} * -1)`,
-      }, {
         $suffix: `${defaults.gap ? '' : '[gap]'}>*`,
         [dirStyle]: dirProp,
         [dirSecondStyle]: invertProp,

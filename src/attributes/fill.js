@@ -50,6 +50,7 @@ export default function fillAttr(val) {
       [INTENSITY_PROP]: INTENSITY_VALUE,
       [DIFF_PROP]: otherColor,
       [LOCAL_PROP]: color,
+      [`--nu-local-${name}-color-rgb`]: `var(--nu-${name}-color-rgb, var(--nu-bg-color-rgb))`,
       [TEXT_PROP]: TEXT_VALUE,
       [BG_STYLE]: LOCAL_VALUE,
       [HOVER_PROP]: HOVER_VALUE,

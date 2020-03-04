@@ -27,6 +27,10 @@ export default class NuDecorator extends NuBase {
     return {};
   }
 
+  static nuCSS({ tag, css }) {
+    return `${tag} { display: none !important; }`;
+  }
+
   get nuParentContext() {
     return `#${this.parentNode.nuUniqId}`;
   }

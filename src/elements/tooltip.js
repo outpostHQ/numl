@@ -32,7 +32,7 @@ export default class NuTooltip extends NuBlock {
       border: '1b outside',
       size: 'xs',
       interactive: 'no',
-      text: 'wrap w6',
+      text: 'w6 nowrap',
       width: 'clamp(min-content, initial, 100vw)',
     };
   }
@@ -113,11 +113,5 @@ export default class NuTooltip extends NuBlock {
         onBlur();
       }
     });
-
-    if (!this.hasAttribute('width')) {
-      const width = `min(${Math.min(Math.ceil(this.innerText.length / 2), 15)}em)`;
-
-      this.setAttribute('width', width);
-    }
   }
 }
