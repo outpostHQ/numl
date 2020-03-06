@@ -17,7 +17,7 @@ export default class NuMark extends NuElement {
       space: '0 .25em',
       radius: '1r',
       fill: 'hover :special[special-bg] :themed[bg] :special:themed[special-bg]',
-      color: 'inherit',
+      color: 'text :special[special-text]',
     };
   }
 

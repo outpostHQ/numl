@@ -2,17 +2,17 @@ import { extractMods } from '../helpers';
 import { FLEX_GAP_SUPPORTED } from './gap';
 
 const FLEX_MAP = {
-  row: 'margin-left',
-  column: 'margin-top',
-  'row-reverse': 'margin-right',
-  'column-reverse': 'margin-bottom',
+  row: 'margin-right',
+  column: 'margin-bottom',
+  'row-reverse': 'margin-left',
+  'column-reverse': 'margin-top',
 };
 
 const FLEX_MAP_SECOND = {
-  row: 'margin-top',
-  column: 'margin-left',
-  'row-reverse': 'margin-bottom',
-  'column-reverse': 'margin-right',
+  row: 'margin-bottom',
+  column: 'margin-right',
+  'row-reverse': 'margin-top',
+  'column-reverse': 'margin-left',
 };
 
 function getLocalProp(dir, invert = false) {
@@ -66,7 +66,7 @@ export default function flowAttr(val, defaults) {
 
     if (!mods.includes('wrap')) {
       styles.push({
-        $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:first-child)`,
+        $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:last-child)`,
         [dirStyle]: dirProp,
       });
     } else {
