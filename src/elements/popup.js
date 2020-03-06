@@ -49,6 +49,7 @@ export default class NuPopup extends NuCard {
 
   static get nuDefaults() {
     return {
+      display: 'flow-root',
       shadow: '',
       z: 'front',
       opacity: '^ 0 :pressed[1]',

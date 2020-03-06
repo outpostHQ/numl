@@ -1,8 +1,8 @@
 export default function focusableAttr(val) {
   const mods = val.split(/\s/);
   const force = mods.includes('force');
-  const focusable = mods.includes('y') || mods.includes('yes') || force;
   const inset = mods.includes('inset');
+  const focusable = mods.includes('y') || mods.includes('yes') || force || inset;
   const $prefix = force ? '' : 'html.nu-focus-enabled ';
 
   return [

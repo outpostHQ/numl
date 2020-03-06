@@ -19,6 +19,7 @@ export default class NuTooltip extends NuBlock {
 
   static get nuDefaults() {
     return {
+      display: 'flow-root',
       shadow: '',
       padding: '.5x 1x',
       z: 'front',
@@ -32,8 +33,8 @@ export default class NuTooltip extends NuBlock {
       border: '1b outside',
       size: 'xs',
       interactive: 'no',
-      text: 'w6 nowrap',
-      width: 'clamp(min-content, initial, 100vw)',
+      text: 'w6 wrap',
+      width: 'clamp(min-content, max-content, 20rem)',
     };
   }
 
