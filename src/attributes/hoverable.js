@@ -1,7 +1,7 @@
 import { parseAttr } from '../helpers';
 
 export default function hoverableAttr(val) {
-  const { values, mods, color } = parseAttr(val, true);
+  const { values, mods, color } = parseAttr(val, 1);
 
   const size = values[0] || '0';
 

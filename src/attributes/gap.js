@@ -35,7 +35,7 @@ export const FLEX_GAP_SUPPORTED = CSS.supports('-moz-appearance: none');
 export default function gapAttr(val) {
   if (val == null) return;
 
-  const { values } = parseAttr(val, true);
+  const { values } = parseAttr(val, 1);
 
   const vGap = values[0] || BASE;
   const hGap = values[1] || vGap;

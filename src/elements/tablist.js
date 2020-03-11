@@ -1,5 +1,14 @@
 import NuRadioGroup from './radiogroup';
-import DirectionMixin from '../mixins/direction';
+import DirectionMixin, { DIRECTION_ATTR } from '../mixins/direction';
+import combinedAttr from '../attributes/combined';
+import { convertUnit, DIRECTIONS } from '../helpers';
+import OrientMixin from '../mixins/orient';
+
+const ITEMS_MAP = {
+  right: 'center end',
+  left: 'center start',
+};
+const ORIENT_V = ['left', 'right'];
 
 export default class NuTablist extends NuRadioGroup {
   static get nuTag() {
@@ -14,11 +23,34 @@ export default class NuTablist extends NuRadioGroup {
     return 'tablist';
   }
 
+  static get nuAttrs() {
+    return {
+      direction(val) {
+        let direction = DIRECTIONS.includes(val) ? val : 'bottom';
+        const orientV = ORIENT_V.includes(direction);
+
+        return combinedAttr([{
+          $suffix: '>[role="tab"]',
+          border: `--local-line-width ${direction} inside color(special)`,
+        }, {
+          flow: orientV ? 'column' : 'row',
+        }], NuTablist).concat({
+          '--nu-local-tab-items': ITEMS_MAP[direction] || 'center',
+          '--nu-local-tab-padding-h': orientV ? convertUnit('2x') : '0',
+          '--nu-local-tab-padding-v': orientV ? '0' : convertUnit('1x'),
+          '--nu-local-tab-expand-h': orientV ? '0' : '--local-h-gap',
+          '--nu-local-tab-expand-v': orientV ? '--local-v-gap' : '0',
+          '--nu-local-tab-gap': orientV ? convertUnit('1x') : convertUnit('2x'),
+        });
+      },
+    }
+  }
+
   static get nuDefaults() {
     return {
-      gap: '2x :orient-v[1x]',
-      flow: `row
-        :orient-v[column]`,
+      direction: 'bottom',
+      gap: '--local-tab-gap',
+      flow: null,
     };
   }
 
@@ -28,7 +60,17 @@ export default class NuTablist extends NuRadioGroup {
 
   static get nuMixins() {
     return {
-      direction: DirectionMixin({ aria: true }),
+      orient: OrientMixin({ aria: true }),
     };
+  }
+
+  nuConnected() {
+    super.nuConnected();
+
+    if (this.nuFirstConnect) {
+      this.addEventListener('focusin', () => {
+        this.nuSetOrient(getComputedStyle(this).flexFlow.includes('column') ? 'v' : 'h');
+      });
+    }
   }
 }

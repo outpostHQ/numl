@@ -1,7 +1,7 @@
 import { parseAttr } from '../helpers';
 
 export default function shadowAttr(val) {
-  const { values, color } = parseAttr(val, true);
+  const { values, color } = parseAttr(val, 1);
 
   let x = '0';
   let y = '0';

@@ -24,7 +24,8 @@ export default class NuSlider extends NuActiveElement {
       border: '1b color(text)',
       space: '.375em + 1b',
       text: 'v-middle',
-      move: ':orient-h[-.25em 0] :orient-v[0 .25em]'
+      move: '--local-rail-move-v --local-rail-move-h',
+      orient: 'h',
     };
   }
 
@@ -48,14 +49,10 @@ export default class NuSlider extends NuActiveElement {
         position: absolute;
       }
 
-      ${tag}[nu-orient-h] {
-        top: 0;
-        left: var(--nu-local-offset);
-      }
-
-      ${tag}[nu-orient-v] {
-        left: 0;
-        bottom: var(--nu-local-offset);
+      ${tag} {
+        top: var(--nu-local-rail-top);
+        left: var(--nu-local-rail-left);
+        bottom: var(--nu-local-rail-bottom);
       }
     `;
   }
@@ -63,7 +60,9 @@ export default class NuSlider extends NuActiveElement {
   nuConnected() {
     super.nuConnected();
 
-    this.nuSetContextHook('orientation', this.nuSetOrient.bind(this));
+    this.nuSetContextHook('orientation', (val) => {
+      this.nuSetOrient(val === VERTICAL ? 'v' : 'h');
+    });
     this.nuSetContextHook('sliderValue', () => {
       const value = this.nuContext.sliderValue;
 

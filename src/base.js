@@ -355,17 +355,7 @@ export default class NuBase extends HTMLElement {
 
         const isProp = name.startsWith('--');
 
-        if (isProp) {
-          styles = computeStyles(name, value, {
-            [name]: (val) => {
-              return [{
-                [name.replace('--', '--nu-')]: parseAttr(val).value,
-              }]
-            },
-          }, {});
-        } else {
-          styles = computeStyles(name, value, allAttrs, allDefaults);
-        }
+        styles = computeStyles(name, value, allAttrs, allDefaults);
 
         if (!styles) return;
 

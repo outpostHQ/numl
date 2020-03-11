@@ -15,6 +15,13 @@ const FLEX_MAP_SECOND = {
   'column-reverse': 'margin-left',
 };
 
+const INVERT_MAP = {
+  'margin-top': 'margin-bottom',
+  'margin-right': 'margin-left',
+  'margin-bottom': 'margin-top',
+  'margin-left': 'margin-right',
+};
+
 function getLocalProp(dir, invert = false) {
   return (invert ^ dir.includes('row')) ? 'var(--nu-local-h-gap)' : 'var(--nu-local-v-gap)';
 }

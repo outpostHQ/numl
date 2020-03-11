@@ -1,6 +1,4 @@
 import NuActiveElement from './activeelement';
-import DirectionMixin from '../mixins/direction';
-import { DIRECTIONS } from '../helpers';
 
 export default class NuTab extends NuActiveElement {
   static get nuTag() {
@@ -14,18 +12,13 @@ export default class NuTab extends NuActiveElement {
   static get nuDefaults() {
     return {
       display: 'inline-grid',
-      padding: '1x 0 :orient-v[0 2x]',
       fill: 'transparent',
       radius: '0',
-      flow: `column`,
-      gap: '1x',
-      items: `center
-         :dir-right[center end]
-         :dir-left[center start]`,
-      expand: `0 --local-h-gap :orient-v[--local-v-gap 0]`,
-      border: `0
-        ${DIRECTIONS.map(dir => `
-          :dir-${dir}[--local-line-width ${dir} inside color(special)]`)}`,
+      gap: '--local-tab-gap',
+      items: '--local-tab-items',
+      padding: '--local-tab-padding-v --local-tab-padding-h',
+      border: '0',
+      expand: '--local-tab-expand-v --local-tab-expand-h',
       hoverable: null,
 
       '--local-line-width': `0
@@ -35,23 +28,5 @@ export default class NuTab extends NuActiveElement {
         :focusable:active[2b]
         :focusable:active:hover[2b]`,
     };
-  }
-
-  static get nuMixins() {
-    return {
-      direction: DirectionMixin({
-        initial() {
-          return this.nuContext.direction
-            ? (this.nuContext.direction || 'bottom')
-            : 'bottom';
-        },
-      }),
-    };
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    this.nuSetContextHook('direction', this.nuSetDirection.bind(this));
   }
 }

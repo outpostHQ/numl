@@ -58,6 +58,7 @@ export default class NuActiveElement extends NuElement {
         position: relative;
         user-select: none;
         touch-action: manipulation;
+        -webkit-tap-highlight-color: var(--nu-hover-color);
       }
 
       ${tag} > a {

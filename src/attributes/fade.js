@@ -7,7 +7,7 @@ const ALLOWED_MODS = HORIZONTAL_MODS.concat(VERTICAL_MODS);
 export default function fadeAttr(val) {
   if (!val) return;
 
-  const { values, mods: allMods } = parseAttr(val, true);
+  const { values, mods: allMods } = parseAttr(val, 1);
 
   // if (!values.length) return;
 

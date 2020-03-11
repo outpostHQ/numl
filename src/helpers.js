@@ -85,7 +85,7 @@ export function colorUnit(style, initial) {
 export function convertUnit(unit) {
   if (!unit) return unit;
 
-  return parseAttr(unit, true).value;
+  return parseAttr(unit, 1).value;
 }
 
 /**
@@ -531,6 +531,8 @@ export function splitStates(attrValue) {
 export function computeStyles(name, value, attrs, defaults) {
   if (value == null) return;
 
+  const isProp = name.startsWith('--');
+
   if (name !== 'before' && name !== 'after') {
     value = value.trim();
   }
@@ -566,13 +568,17 @@ export function computeStyles(name, value, attrs, defaults) {
     return allStyles;
   }
 
-  const attrValue = attrs[name];
+  const attrValue = isProp ? (val) => {
+    return [{
+      [name.replace('--', '--nu-')]: parseAttr(val).value,
+    }];
+  } : attrs[name];
 
   if (!attrValue) return null;
 
   switch (typeof attrValue) {
     case 'string':
-      return value ? [{ [attrValue]: value }] : null;
+      return value ? [{ [attrValue]: parseAttr(value, 2).value }] : null;
     case 'function':
       const styles = attrValue(value, defaults);
 
@@ -730,8 +736,14 @@ export function isResponsiveAttr(value) {
 const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-f0-9]{3,8}(?![a-f0-9\[-]))|(--[a-z-]+)|([a-z][a-z-]*)|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
 
 const ATTR_CACHE = new Map;
+const ATTR_CACHE_AUTOCALC = new Map;
 const ATTR_CACHE_REM = new Map;
 const MAX_CACHE = 10000;
+const ATTR_CACHE_MODE_MAP = [
+  ATTR_CACHE_AUTOCALC,
+  ATTR_CACHE_REM,
+  ATTR_CACHE,
+];
 
 function prepareNuVar(name) {
   const isNu = name.startsWith('--nu-');
@@ -758,8 +770,8 @@ function prepareParsedValue(val) {
  * @param {String} value
  * @returns {Object<String,String|Array>}
  */
-export function parseAttr(value, insertRem = false) {
-  const CACHE = insertRem ? ATTR_CACHE_REM : ATTR_CACHE;
+export function parseAttr(value, mode = 0) {
+  const CACHE = ATTR_CACHE_MODE_MAP[mode];
 
   if (!CACHE.has(value)) {
     if (CACHE.size > MAX_CACHE) {
@@ -767,6 +779,8 @@ export function parseAttr(value, insertRem = false) {
     }
 
     const mods = [];
+    const insertRem = mode === 1;
+    const autoCalc = mode !== 2;
 
     let currentValue = '';
     let calc = -1;
@@ -826,7 +840,7 @@ export function parseAttr(value, insertRem = false) {
 
           currentValue += `${bracket}${bracket === ')' ? ' ' : ''}`;
         } else if (operator) {
-          if (!~calc) {
+          if (!~calc && autoCalc) {
             if (currentValue) {
               if (currentValue.includes('(')) {
                 const index = currentValue.lastIndexOf('(');

@@ -5,7 +5,7 @@ const BASE = 'var(--nu-gap)';
 export default function paddingAttr(val) {
   if (val == null) return;
 
-  const { values, mods: allMods } = parseAttr(val, true);
+  const { values, mods: allMods } = parseAttr(val, 1);
 
   const mods = filterMods(allMods, DIRECTIONS);
 

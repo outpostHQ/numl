@@ -1,5 +1,6 @@
 import NuElement from './element';
 import OrientMixin, { HORIZONTAL } from '../mixins/orient';
+import combinedAttr from '../attributes/combined';
 
 const EVENT_MAP = {
   'mousemove': 'nuOnDragging',
@@ -18,11 +19,29 @@ export default class NuRail extends NuElement {
     return '';
   }
 
+  static get nuAttrs() {
+    return {
+      orient(val) {
+        const vertical = val === 'v';
+
+        return combinedAttr([{
+          width: vertical ? '.5em' : '100%',
+          height: vertical ? '100%' : '.5em',
+          '--local-rail-move-h': vertical ? '.25em' : '0',
+          '--local-rail-move-v': vertical ? '0' : '-.25em',
+        }, {
+          $suffix: '>',
+          '--local-rail-top': vertical ? 'initial' : '0',
+          '--local-rail-left': vertical ? 'initial' : '--local-offset',
+          '--local-rail-bottom': vertical ? '--local-offset' : 'initial',
+        }], NuRail);
+      },
+    };
+  }
+
   static get nuDefaults() {
     return {
       display: 'inline-block',
-      width: ':orient-h[100%] :orient-v[.5em]',
-      height: ':orient-h[.5em] :orient-v[100%]',
       radius: 'round',
       fill: 'special-bg :disabled[text 50%]',
       opacity: '1 :disabled[.5]',
@@ -32,6 +51,7 @@ export default class NuRail extends NuElement {
       hoverable: '.5em :disabled[n]',
       transition: 'shadow',
       expand: '.5em',
+      orient: 'h',
     };
   }
 
@@ -105,7 +125,9 @@ export default class NuRail extends NuElement {
 
     let value;
 
-    if (this.nuOrient === HORIZONTAL) {
+    this.nuSetOrient(rect.width > rect.height ? 'h' : 'v');
+
+    if (rect.width > rect.height) {
       const pageX = (evt.pageX || (evt.touches && evt.touches.length && evt.touches[0].pageX)) - window.scrollX;
       value = Math.max(0, Math.min(1,
         (pageX - rect.x) / (rect.width)));

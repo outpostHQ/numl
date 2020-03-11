@@ -29,8 +29,7 @@ export default class NuBtn extends NuActiveElement {
       ${tag}[special] > :not([theme]) {
         --nu-text-soft-color: var(--nu-special-text-color);
         --nu-text-contrast-color: var(--nu-special-text-color);
-        --nu-special: var(--nu-special-text-color);
-        --nu-special: var(--nu-special-color);
+        --nu-text-color: var(--nu-special-text-color);
         --nu-special-color: var(--nu-special-text-color);
         --nu-hover-color: var(--nu-special-hover-color);
       }

@@ -48,7 +48,7 @@ export default function borderAttr(val) {
   let style = 'solid';
   let dirs = [];
 
-  let { values, mods, color } = parseAttr(val, true);
+  let { values, mods, color } = parseAttr(val, 1);
 
   color = color || 'var(--nu-local-border-color, var(--nu-border-color))';
 

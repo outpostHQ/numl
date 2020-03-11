@@ -9,10 +9,10 @@ export const PLACE_VALUES = [
   return CSS.supports(`place-${name}`, 'stretch stretch')
     ? function (val) {
       return {
-        [`place-${name}`]: val,
+        [`place-${name}`]: parseAttr(val).value,
       };
     } : function (val) {
-      const values = val && val.split(/\s+/);
+      const values = parseAttr(val).values;
 
       return val ? {
         [`align-${name}`]: values[0],
@@ -97,18 +97,20 @@ function getEmptyTransform(defaults) {
 export default function placeAttr(val, defaults) {
   if (!val) return getEmptyTransform(defaults);
 
-  let { mods, values } = parseAttr(val, true);
+  let { mods, values } = parseAttr(val, 1);
+
+  const offsetY = values[0] || '0';
+  const offsetX = values[1] || values[0] || '0';
 
   let pos = '';
 
   if (mods.includes('sticky')) {
-    const directions = mods.filter(mod => DIRECTIONS.includes(mod));
-    const size = values[0] || '0';
-
     return [{
       position: 'sticky',
-      ...directions.reduce((map, dir) => {
-        map[dir] = size;
+      ...DIRECTIONS.reduce((map, dir, i) => {
+        if (DIRECTIONS.includes(dir)) {
+          map[dir] = (i % 2) ? offsetX : offsetY;
+        }
 
         return map;
       }, {}),
@@ -146,16 +148,16 @@ export default function placeAttr(val, defaults) {
     let transY = 0;
 
     if (mods.includes('cover')) {
-      return {
+      return [{
         ...styles,
         ...COVER_STYLES,
-      };
+      }, ...getEmptyTransform(defaults)];
     }
 
     PLACE_ABS_INSIDE.forEach((place, i) => {
       if (!mods.includes(place)) return;
 
-      styles[place] = values[0] || '0';
+      styles[place] = (i % 2) ? offsetX : offsetY;
       delete styles[PLACE_ABS_INSIDE[(PLACE_ABS_INSIDE.indexOf(place) + 2) % 4]];
 
       if (i % 2 && !styles.top && !styles.bottom) {
@@ -170,7 +172,9 @@ export default function placeAttr(val, defaults) {
     PLACE_ABS_OUTSIDE.forEach((place, i) => {
       if (!mods.includes(place)) return;
 
-      styles[PLACE_ABS_INSIDE[(PLACE_ABS_OUTSIDE.indexOf(place) + 2) % 4]] = values[0] ? `calc(100% + ${stripCalc(values[0])})` : '100%';
+      const offset = stripCalc((i % 2) ? offsetX : offsetY);
+
+      styles[PLACE_ABS_INSIDE[(PLACE_ABS_OUTSIDE.indexOf(place) + 2) % 4]] = offset === '0' ? '100%' : `calc(100% + ${offset})`;
       delete styles[PLACE_ABS_INSIDE[PLACE_ABS_OUTSIDE.indexOf(place)]];
 
       if (i % 2 && !styles.top && !styles.bottom) {

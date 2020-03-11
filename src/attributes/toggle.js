@@ -1,7 +1,7 @@
 import { parseAttr } from '../helpers';
 
 export default function toggleAttr(val) {
-  const { values } = parseAttr(val, true);
+  const { values } = parseAttr(val, 1);
   const size = values[0];
   const intensity = values[1] || 'var(--nu-local-intensity, var(--nu-intensity))';
 

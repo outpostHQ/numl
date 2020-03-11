@@ -1,5 +1,6 @@
 import NuBlock from './block';
 import OrientMixin from '../mixins/orient';
+import combinedAttr from '../attributes/combined';
 
 export default class NuLine extends NuBlock {
   static get nuTag() {
@@ -20,17 +21,28 @@ export default class NuLine extends NuBlock {
     };
   }
 
+  static get nuAttrs() {
+    return {
+      orient(val) {
+        const vertical = val === 'v';
+
+        val = vertical ? 'v' : 'h';
+
+        return combinedAttr({
+          width: vertical ? 'minmax(1fs, 1fs)' : 'min(1em)',
+          height: vertical ? 'min(1em)' : 'minmax(1fs, 1fs)',
+          column: vertical ? 'initial' : '1 / -1',
+          row: vertical ? '1 / -1' : 'initial',
+        }, NuLine);
+      },
+    };
+  }
+
   static get nuDefaults() {
     return {
       place: 'stretch',
       orient: 'h',
       size: '1b',
-      width: `min(1em)
-        :orient-v[minmax(1fs, 1fs)]`,
-      height: `min(1em)
-        :orient-h[minmax(1fs, 1fs)]`,
-      column: ':orient-h[1 / -1]',
-      row: ':orient-v[1 / -1]',
       fill: 'var(--nu-local-border-color, var(--nu-border-color)) :special[special]',
       text: 'v-middle',
     };
