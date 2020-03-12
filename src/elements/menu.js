@@ -9,10 +9,6 @@ export default class NuMenu extends NuFlow {
     return 'menu';
   }
 
-  static get nuId() {
-    return 'menu';
-  }
-
   nuConnected() {
     super.nuConnected();
 

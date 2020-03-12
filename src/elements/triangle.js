@@ -1,5 +1,4 @@
 import NuElement from './element';
-import { convertUnit } from '../helpers';
 import DirectionMixin from '../mixins/direction';
 
 const UP = 'up';

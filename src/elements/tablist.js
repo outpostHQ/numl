@@ -19,10 +19,6 @@ export default class NuTablist extends NuRadioGroup {
     return 'tablist';
   }
 
-  static get nuId() {
-    return 'tablist';
-  }
-
   static get nuAttrs() {
     return {
       direction(val) {

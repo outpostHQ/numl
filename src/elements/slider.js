@@ -7,10 +7,6 @@ export default class NuSlider extends NuActiveElement {
     return 'nu-slider';
   }
 
-  static get nuId() {
-    return 'slider';
-  }
-
   static get nuRole() {
     return 'slider';
   }

@@ -9,10 +9,6 @@ export default class NuList extends NuBlock {
     return 'list';
   }
 
-  static get nuId() {
-    return 'list';
-  }
-
   static get nuAttrs() {
     return {
       type(type) {

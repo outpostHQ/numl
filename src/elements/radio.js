@@ -18,10 +18,6 @@ export default class NuRadio extends NuActiveElement {
     return 'radio';
   }
 
-  static get nuId() {
-    return 'radio';
-  }
-
   static get nuAttrs() {
     return {
       fill: null,

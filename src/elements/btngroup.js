@@ -7,10 +7,6 @@ export default class NuBtnGroup extends NuRadioGroup {
     return 'nu-btngroup';
   }
 
-  static get nuId() {
-    return 'btngroup';
-  }
-
   static get nuAttrs() {
     return {
       padding: '',

@@ -17,10 +17,6 @@ export default class NuCheckbox extends NuActiveElement {
     return 'checkbox';
   }
 
-  static get nuId() {
-    return 'checkbox';
-  }
-
   static get nuDefaults() {
     return {
       display: 'inline-grid',

@@ -13,10 +13,6 @@ export default class NuHeading extends NuBlock {
     return 'heading';
   }
 
-  static get nuId() {
-    return 'heading';
-  }
-
   static get nuAttrs() {
     return {
       level(val) {

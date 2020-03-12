@@ -6,10 +6,6 @@ export default class NuMark extends NuElement {
     return 'nu-mark';
   }
 
-  static get nuId() {
-    return 'mark';
-  }
-
   static get nuDefaults() {
     return {
       text: 'nowrap',

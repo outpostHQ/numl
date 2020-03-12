@@ -11,10 +11,6 @@ export default class NuActiveElement extends NuElement {
     return 'button';
   }
 
-  static get nuId() {
-    return 'btn';
-  }
-
   static get nuAttrs() {
     return {
       disabled: '',
@@ -69,6 +65,9 @@ export default class NuActiveElement extends NuElement {
         bottom: 0;
         left: 0;
         overflow: hidden;
+        cursor: inherit;
+        color: inherit;
+        text-decoration: inherit;
       }
 
       ${tag} > a:focus {

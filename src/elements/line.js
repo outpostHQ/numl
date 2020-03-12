@@ -7,10 +7,6 @@ export default class NuLine extends NuBlock {
     return 'nu-line';
   }
 
-  static get nuId() {
-    return 'line';
-  }
-
   static get nuRole() {
     return 'separator';
   }

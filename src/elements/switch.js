@@ -21,10 +21,6 @@ export default class NuSwitch extends NuActiveElement {
     return 'switch';
   }
 
-  static get nuId() {
-    return 'btn';
-  }
-
   static get nuAttrs() {
     return {
       disabled: '',

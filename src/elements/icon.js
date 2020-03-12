@@ -10,10 +10,6 @@ export default class NuIcon extends NuBlock {
     return 'nu-icon';
   }
 
-  static get nuId() {
-    return 'icon';
-  }
-
   static get nuRole() {
     return 'img';
   }

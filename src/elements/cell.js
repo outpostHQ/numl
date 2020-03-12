@@ -9,10 +9,6 @@ export default class NuCell extends NuElement {
     return 'cell';
   }
 
-  static get nuId() {
-    return 'cell';
-  }
-
   static get nuDefaults() {
     return {
       display: '^ block :role-row[table-cell]',

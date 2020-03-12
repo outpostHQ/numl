@@ -9,10 +9,6 @@ export default class NuLink extends NuActiveElement {
     return 'link';
   }
 
-  static get nuId() {
-    return 'link';
-  }
-
   static get nuDefaults() {
     return {
       display: 'inline-block',
@@ -30,6 +26,7 @@ export default class NuLink extends NuActiveElement {
     return `
       ${css}
       ${tag} {
+        user-select: text;
         font-weight: bolder;
         position: relative;
       }

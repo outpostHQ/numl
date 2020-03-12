@@ -5,10 +5,6 @@ export default class NuLabel extends NuElement {
     return 'nu-label';
   }
 
-  static get nuId() {
-    return 'label';
-  }
-
   static get nuDefaults() {
     return {
       text: 'w6',

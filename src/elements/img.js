@@ -1,5 +1,6 @@
 import NuBlock from './block';
 import { warn } from '../helpers';
+import combinedAttr from '../attributes/combined';
 
 export default class NuImg extends NuBlock {
   static get nuTag() {
@@ -13,16 +14,35 @@ export default class NuImg extends NuBlock {
   static get nuAttrs() {
     return {
       src: '',
+      fit(val) {
+        const isAuto = val === 'auto';
+        const fit = isAuto ? 'none' : val;
+
+        const sizing = !isAuto ? {
+          'object-fit': fit,
+          $suffix: '>img',
+          'max-width': '100%',
+          'min-width': '100%',
+          'max-height': '100%',
+          'min-height': '100%',
+        } : {
+          'object-fit': fit,
+        };
+
+        return combinedAttr({
+          display: val === 'auto' ? 'inline-grid' : 'block',
+        }, NuImg).concat([sizing]);
+      }
     };
   }
 
   static get nuDefaults() {
     return {
-      display: 'inline-grid',
+      display: null,
+      fit: 'auto',
       sizing: 'content',
       width: 'min(1fs)',
       height: 'min(1fs)',
-      content: 'center',
     };
   }
 
@@ -36,22 +56,6 @@ export default class NuImg extends NuBlock {
 
       ${tag} > img {
         display: block;
-      }
-
-      ${tag}[width] > img {
-        min-width: 100%;
-        max-width: 100%;
-        width: auto;
-      }
-
-      ${tag}[height] > img {
-        min-height: 100%;
-        max-height: 100%;
-        height: auto;
-      }
-
-      ${tag}[width][height] > img {
-        position: absolute;
       }
     `;
   }
