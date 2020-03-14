@@ -1,27 +1,6 @@
 import NuElement from './element';
 import DirectionMixin from '../mixins/direction';
 
-const UP = 'up';
-const DOWN = 'down';
-const LEFT = 'left';
-const RIGHT = 'right';
-const TOP = 'top';
-const BOTTOM = 'bottom';
-
-export const DIR_MAP = {
-  [UP]: BOTTOM,
-  [RIGHT]: LEFT,
-  [DOWN]: TOP,
-  [LEFT]: RIGHT,
-};
-
-export const DIR_MAP_ZERO = {
-  [UP]: TOP,
-  [RIGHT]: RIGHT,
-  [DOWN]: BOTTOM,
-  [LEFT]: LEFT,
-};
-
 export default class NuTriangle extends NuElement {
   static get nuTag() {
     return 'nu-triangle';
@@ -29,18 +8,14 @@ export default class NuTriangle extends NuElement {
 
   static get nuDefaults() {
     return {
+      direction: 'up',
       display: 'block',
-      dir: 'up',
       color: 'border',
       overflow: 'no',
       text: 'v-middle',
       height: '0',
       width: '0',
       border: '(1fs / 2) color(clear)',
-      rotate: `0
-        :dir-right[90deg]
-        :dir-bottom[180deg]
-        :dir-left[270deg]`,
     };
   }
 

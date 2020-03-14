@@ -26,13 +26,7 @@ export default function DirectionMixin({ aria, initial } = {}) {
         value = DIRECTIONS.includes(value) ? value : 'bottom';
         oldValue = DIRECTIONS.includes(oldValue) ? oldValue : 'bottom';
 
-        this.nuSetMod(`dir-${oldValue}`, false);
-        this.nuSetMod(`dir-${value}`, true);
-
         const orientation = value === 'top' || value === 'bottom' ? HORIZONTAL : VERTICAL;
-
-        this.nuSetMod(`orient-${orientation === HORIZONTAL ? 'v' : 'h'}`, false);
-        this.nuSetMod(`orient-${orientation === HORIZONTAL ? 'h' : 'v'}`, true);
 
         if (aria) {
           this.nuSetAria('orientation', orientation);
