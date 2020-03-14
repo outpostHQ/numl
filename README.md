@@ -31,6 +31,8 @@ With **NUDE Elements** you can:
 * Be calm for technical debt in markup code
 * **Enjoy** while doing what you love
 
+[Learn more](https://numl.design/)
+
 ## FAQ
 
 **Q: There are many CSS-Frameworks out there. Why is NUDE different?**
@@ -65,11 +67,6 @@ With **NUDE Elements** you can:
 
 **A:** It's NOT despite the fact it's widely used in production by the Author of NUDE. And he is working hard to make it production-ready for everyone as soon as possible but without community support it will be a long run. So give it a try, leave some feedback, post issues and tell friends to support our project!
 
-## Playground
-See [Online playground](http://j.mp/numl-play). You can edit markup using DevTools and instantly see changes!
-
-[Playground - JSBin version](http://j.mp/numl-jsbin) (without theme variants for faster performance). For those who love REPLing around.
-
 ## Usage
 Add `numl.js` to your page and initialize it.
 
@@ -79,43 +76,7 @@ Add `numl.js` to your page and initialize it.
 
 And that's all! Now your application is **NUDE-ready**!
 
-Try to write some HTML to build awesome interfaces.
-
-```html
-<nu-card
-  display="flex"
-  width="clamp(320px, 100%, initial)"
-  responsive="480px"
-  labelledby="heading"
-  describedby="description price"
-  gap="1" flow="row|column" items="start|initial">
-  <nu-icon name="package" size="4" place="start"></nu-icon>
-  <nu-flow gap=".5" grow="1">
-    <nu-heading level="3" id="heading">Product name</nu-heading>
-    <nu-line></nu-line>
-    <nu-block id="description">Very very long product description</nu-block>
-    <nu-flex gap="1" items="center|start" flow="row|column-reverse">
-      <nu-btn special>
-        <nu-icon name="dollar-sign" inline></nu-icon>
-        Order now
-      </nu-btn>
-      <nu-block mod="w6" color="special" size="lg|md" id="price" padding=".5x 1x">
-        Only $99.99
-      </nu-block>
-    </nu-flex>
-  </nu-flow>
-</nu-card>
-```
-
-[Open in CodePen](https://codepen.io/tenphi/pen/zYOgjrP)
-
-Desktop render
-
-<img src="https://github.com/tenphi/nude/blob/master/example-desktop.png?raw=true" alt="NUDE Elements" width="492">
-
-Mobile render
-
-<img src="https://github.com/tenphi/nude/blob/master/example-mobile.png?raw=true" alt="NUDE Elements" width="357">
+Try to write some HTML and build awesome interfaces.
 
 Nude Elements are also available via npm.
 ```bash
@@ -129,6 +90,7 @@ import 'numl';
 
 ## Sites that use **NUDE Elements** 
 
+* **[NuML Landing Page](https://numl.design)**
 * **[Sellerscale](https://sellerscale.com)** – [Project Screenshot Light](https://github.com/tenphi/nude/blob/master/images/example-app-light.png?raw=true) | [Project Screenshot Dark](https://github.com/tenphi/nude/blob/master/images/example-app-dark.png?raw=true) | [Project Screenshot Light Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-light-contrast.png?raw=true) | [Project Screenshot Dark Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-dark-contrast.png?raw=true)
 
 ## Development status (v1)
@@ -141,7 +103,7 @@ And here is our [Telegram Chat](https://t.me/nudeml). (Ask your questions here!)
 
 Based on [caniuse.com](caniuse.com). Real-world support table will be presented after production-release.
 
-* Microsoft Edge 15-18 (with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
+* Microsoft Edge 15-18 (Partial support with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
 * Microsoft Edge 76+
 * Google Chrome 57+
 * Mozilla Firefox 52+
