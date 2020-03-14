@@ -288,12 +288,12 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
 }
 
 @media (prefers-color-scheme: dark) {
-  html:not(.nu-scheme-dark) .nu-dark-invert {
+  html:not(.nu-scheme-light) .nu-dark-invert {
     filter: invert(100%) hue-rotate(180deg);
   }
 
-  html:not(.nu-scheme-dark) .nu-dark-dim {
-    filter: invert(5%);
+  html:not(.nu-scheme-light) .nu-dark-dim, html:not(.nu-scheme-light) nu-img {
+    filter: brightness(0.95);
   }
 }
 
@@ -301,8 +301,8 @@ html.nu-scheme-dark .nu-dark-invert {
   filter: invert(95%) hue-rotate(180deg);
 }
 
-html.nu-scheme-dark .nu-dark-dim {
-  filter: invert(5%);
+html.nu-scheme-dark .nu-dark-dim, html.nu-scheme-dark nu-img {
+  filter: brightness(0.95);
 }
 
 @media (prefers-reduced-motion: reduce) {

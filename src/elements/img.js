@@ -18,20 +18,24 @@ export default class NuImg extends NuBlock {
         const isAuto = val === 'auto';
         const fit = isAuto ? 'none' : val;
 
-        const sizing = !isAuto ? {
+        const sizing = !isAuto ? [{
           'object-fit': fit,
           $suffix: '>img',
           'max-width': '100%',
           'min-width': '100%',
           'max-height': '100%',
           'min-height': '100%',
-        } : {
+        }] : [{
           'object-fit': fit,
-        };
+        }, {
+          $suffix: '>img',
+          'max-width': '100%',
+        }];
 
         return combinedAttr({
-          display: val === 'auto' ? 'inline-grid' : 'block',
-        }, NuImg).concat([sizing]);
+          display: !isAuto ? 'inline-grid' : 'block',
+          width: isAuto ? 'max(100%)' : '',
+        }, NuImg).concat(sizing);
       }
     };
   }
@@ -41,8 +45,6 @@ export default class NuImg extends NuBlock {
       display: null,
       fit: 'auto',
       sizing: 'content',
-      width: 'min(1fs)',
-      height: 'min(1fs)',
     };
   }
 
@@ -76,7 +78,7 @@ export default class NuImg extends NuBlock {
 
       img.role = 'none';
       img.src = value;
-      img.alt = this.getAttribute('label');
+      img.alt = this.getAttribute('label') || 'Image';
 
       this.appendChild(img);
 
