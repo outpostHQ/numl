@@ -164,26 +164,11 @@ Based on [caniuse.com](caniuse.com). Real-world support table will be presented 
 
 Run `npm run play` to view test page with few examples.
 
-## Documentation
-
-*IN PROGRESS*
-
-* [Introduction](docs/introduction.md)
-* [Elements](docs/elements/README.md) - `60% Complete`
-* [Attributes](docs/attributes/README.md) - `5% Complete`
-* [Markup methodology](docs/markup.md) - `0% Complete`
-* [Theme system](docs/themes.md)
-* [Responsive system](docs/responsive.md)
-* [State system](docs/states.md)
-* [Widgets](docs/widgets.md) - `0% Complete`
-* [Integration with Frameworks](docs/integration.md)
-* [Known issues](docs/issues.md)
-
 ## Roadmap
 
 * New useful elements
 * Showcase with examples
-* Documentation
+* More documentation
 
 ## Changelog
 
@@ -217,7 +202,7 @@ Run `npm run play` to view test page with few examples.
 	* **x** is equal **var(--nu-indent)** now
 * Remove custom properties declarations from **[nu-theme](./docs/elements/nu-theme.md)** decorator! Use brand new **[nu-props](./docs/elements/nu-props.md)** decorator.
 * Theme type **toned** renamed to **tone**.
-* **nu-triangle**: **[set]** renamed to **[direction]**.
+* **nu-triangle**: remove direction attribute, use **rotate** instead.
 
 #### New elements
 * **[nu-props](./docs/elements/nu-props.md)** - new decorator to declare custom properties.
@@ -243,11 +228,13 @@ Run `npm run play` to view test page with few examples.
 
 #### Minor and internal changes
 * Refactoring for table elements.
+* **[nu-img](./docs/elements/nu-img.md)** new simplified API with **fit** attribute.
 * **[hide](./docs/attributes/hide.md)** attribute is no longer hide element if no value provided.
 * **[nu-checkbox](./docs/elements/nu-checkbox.md)** - style fixes.
 * **[nu-mark](./docs/elements/nu-mark.md)** – minor style fixes and **[theme]** support.
 * **[nu-line](./docs/elements/nu-line.md)** - refactoring. Migrate to **Orient Mixin** and NUDE attribute declarations.
 * **[nu-tab](./docs/elements/nu-tab.md)** - add active region.
+* **[nu-tooltip](./docs/elements/nu-tooltip.md)** - fix styling to better fill space while allowing wrapping.
 * **inline** attribute is no longer required for accurate positioning of inline elements like **[nu-icon](./docs/elements/nu-icon.md)**.
 * Tables style rework.
 * Active elements style rework.

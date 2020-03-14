@@ -20,7 +20,7 @@ const MAP = {
   z: ['z-index'],
 };
 
-const DEFAULT_TIMING = 'var(--nu-animation-time)';
+const DEFAULT_TIMING = 'var(--nu-transition-time)';
 const DEFAULT_EASING = 'linear';
 
 const tmp = document.createElement('div').style;

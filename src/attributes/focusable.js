@@ -25,7 +25,7 @@ export default function focusableAttr(val) {
       'pointer-events': 'none',
       'border-radius': 'var(--nu-local-radius, var(--nu-radius))',
       'box-shadow': 'var(--nu-local-focus-shadow)',
-      transition: 'box-shadow var(--nu-animation-time) linear',
+      transition: 'box-shadow var(--nu-transition-time) linear',
     },
     {
       $prefix,

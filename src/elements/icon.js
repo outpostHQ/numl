@@ -60,7 +60,7 @@ export default class NuIcon extends NuBlock {
         width: var(--nu-font-size);
         height: var(--nu-font-size);
         transform: translate(-50%, -50%);
-        transition: opacity var(--nu-animation-time) linear;
+        transition: opacity var(--nu-transition-time) linear;
       }
 
       ${tag} > :not(svg) {

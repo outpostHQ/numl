@@ -251,7 +251,7 @@ body {
   --nu-radius: 0.5rem;
   --nu-gap: 0.5rem;
   --nu-border-width: 1px;
-  --nu-animation-time: 0.08s;
+  --nu-transition-time: 0.08s;
   --nu-inline-offset: -.15em;
 
   --nu-font-size: 1rem;
@@ -280,7 +280,7 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color var(--nu-animation-time) linear;
+  transition: background-color var(--nu-transition-time) linear;
 }
 
 .nu-defaults:not(body) {
@@ -313,7 +313,7 @@ html.nu-scheme-dark .nu-dark-dim, html.nu-scheme-dark nu-img {
 
 html.nu-reduce-motion [nu], html.nu-reduce-motion body,
 html.nu-reduce-motion-force [nu], html.nu-reduce-motion-force body {
-  --nu-animation-time: 0s;
+  --nu-transition-time: 0s;
   transition: initial !important;
 }
 
