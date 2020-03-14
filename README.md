@@ -210,7 +210,7 @@ Run `npm run play` to view test page with few examples.
 * **[nu-radio](./docs/elements/nu-radio.md)** - radio button.
 * **[nu-progressbar](./docs/elements/nu-progressbar.md)** - To show progress of a process.
 * **[nu-slider](./docs/elements/nu-slider.md)** and **[nu-rail](./docs/elements/nu-rail.md)** – To create sliders.
-* **[nu-markdown](./docs/elements/nu-markdown.md)** and **[nu-md](./docs/elements/nu-md.md)** - To convert markdown markup.
+* **[nu-markdown](./docs/elements/nu-markdown.md)** and **[nu-md](./docs/elements/nu-md.md)** - To convert markdown markup. EXPERIMENTAL.
 
 #### New attributes & modifiers
 * **[scale](./docs/attributes/scale.md)** with **flip**, **flip-x** and **flip-y** modifiers.
