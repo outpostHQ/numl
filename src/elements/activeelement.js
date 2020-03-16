@@ -216,7 +216,9 @@ export default class NuActiveElement extends NuElement {
       }
     }
 
-    this.nuEmit('tap', this.nuValue);
+    setTimeout(() => {
+      this.nuEmit('tap', this.nuValue);
+    }, 0);
 
     this.nuToggle();
     this.nuControl();
@@ -318,7 +320,7 @@ export default class NuActiveElement extends NuElement {
   }
 
   nuSetPressed(pressed) {
-    if (pressed === this.nuPressed && !(pressed == null && this.nuPressed == null)) return;
+    if (pressed === this.nuPressed) return;
 
     if (!this.nuIsToggle()) return;
 
