@@ -1,9 +1,11 @@
 {
-  "html.experimental.customData": ["./numl.json"],
   "json.schemas": [
     {
       "fileMatch": ["/numl.json"],
       "url": "https://raw.githubusercontent.com/Microsoft/vscode-html-languageservice/master/docs/customData.schema.json"
     }
+  ],
+  "html.customData": [
+    "./numl.json"
   ]
 }

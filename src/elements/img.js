@@ -1,5 +1,5 @@
 import NuBlock from './block';
-import { warn } from '../helpers';
+import { devMode, warn } from '../helpers';
 import combinedAttr from '../attributes/combined';
 
 export default class NuImg extends NuBlock {
@@ -15,18 +15,25 @@ export default class NuImg extends NuBlock {
     return {
       src: '',
       fit(val) {
-        const isAuto = val === 'auto';
-        const fit = isAuto ? 'none' : val;
+        val = val || 'contain';
+
+        const isAuto = val === 'none';
+
+        if (devMode && !['none', 'contain', 'fill', 'cover', 'scale-down'].includes(val)) {
+          warn('nu-img[fit]: incorrect value', JSON.stringify(val));
+
+          val = 'none';
+        }
 
         const sizing = !isAuto ? [{
-          'object-fit': fit,
+          'object-fit': val,
           $suffix: '>img',
           'max-width': '100%',
           'min-width': '100%',
           'max-height': '100%',
           'min-height': '100%',
         }] : [{
-          'object-fit': fit,
+          'object-fit': val,
         }, {
           $suffix: '>img',
           'max-width': '100%',
@@ -43,7 +50,7 @@ export default class NuImg extends NuBlock {
   static get nuDefaults() {
     return {
       display: null,
-      fit: 'auto',
+      fit: 'none',
       sizing: 'content',
     };
   }

@@ -43,8 +43,12 @@ export default class NuTheme extends NuDecorator {
     return 'nu-theme';
   }
 
-  static get nuAttrsList() {
-    return [...ATTRS_LIST];
+  static get nuAttrs() {
+    return ATTRS_LIST.reduce((attrs, attr) => {
+      attrs[attr] = '';
+
+      return attrs;
+    }, {});
   }
 
   nuChanged(name, oldValue, value) {
