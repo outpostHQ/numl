@@ -339,6 +339,17 @@ export function getTheBrightest(hslA, hslB) {
   return hslA[2] > hslB[2] ? [...hslA] : [...hslB];
 }
 
+export function getSaturationRatio(hue, saturation, pastel) {
+  if (pastel) {
+    const pastelSaturation = setPastelSaturation([hue, 50, 50])[1];
+    const referenceSaturation = pastelSaturation * saturation / 100;
+
+    return referenceSaturation / 100;
+  } else {
+    return saturation / 100;
+  }
+}
+
 export default {
   toRelative,
   fromRelative,
@@ -346,6 +357,7 @@ export default {
   rgbToHsl,
   findContrastColor,
   getLuminanceByRatio,
+  getSaturationRatio,
   calcError,
   strToHsl,
   mix,

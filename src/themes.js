@@ -9,7 +9,7 @@ import {
   hslToRgbaStr,
   getTheBrightest,
   hslToRgb,
-  findContrastLightness, setSaturation, strToHsl,
+  findContrastLightness, setSaturation, strToHsl, getSaturationRatio,
 } from './color';
 import { cleanCSSByPart, injectCSS, stylesString } from './css';
 
@@ -136,15 +136,16 @@ const SPECIAL_CONTRAST_MAP = {
 export function generateTheme({ hue, saturation, pastel, type, contrast, lightness, darkScheme, highContrast, shadowIntensity }) {
   const theme = {};
   const minContrast = getMinContrast(contrast, highContrast, darkScheme);
+  const specialContrast = minContrast * (1 - (darkScheme ? 0 : (getSaturationRatio(hue, saturation, pastel) / 4.5)));
   const softContrast = Math.max(minContrast * .8, darkScheme ? 3.75 : 3);
-  const strongContrast = Math.min(minContrast / .8, 7);
+  // const strongContrast = Math.min(minContrast / .8, 7);
   const tonedBgLightness = getBgLightness(lightness, highContrast, darkScheme);
   const textColor = getBaseTextColor(highContrast, darkScheme);
   const bgColor = getBaseBgColor(highContrast, darkScheme);
   const borderContrastModifier = contrast === 'strong' ? 1.5 : 0;
 
   const originalContrast = theme['special-text'] = getTheBrightest(textColor, bgColor);
-  const originalSpecial = theme['special-bg'] = setSaturation([hue, saturation, findContrastLightness(theme['special-text'][2], type === 'tone' || type === 'swap' ? (softContrast + minContrast) / 2 : softContrast)], saturation, pastel);
+  const originalSpecial = theme['special-bg'] = setSaturation([hue, saturation, findContrastLightness(theme['special-text'][2], type === 'tone' || type === 'swap' ? minContrast : specialContrast)], saturation, pastel);
   // themes with same hue should have focus color with consistent setPastelSaturation saturation
 
   if (type === 'main' || type === 'tint') {
@@ -210,9 +211,9 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
   }
 
   if (type === 'main') {
-    theme.special = setSaturation([hue, saturation, findContrastLightness(theme.subtle[2], softContrast)], saturation, pastel);
+    theme.special = setSaturation([hue, saturation, findContrastLightness(theme.subtle[2], specialContrast)], saturation, pastel);
   } else if (!theme.special) {
-    const contrastLightness = findContrastLightness(theme.bg[2], softContrast, darkScheme);
+    const contrastLightness = findContrastLightness(theme.bg[2], specialContrast, darkScheme);
     theme.special = contrastLightness ? setSaturation([hue, saturation, contrastLightness], saturation, pastel) : [...theme.text];
   }
 
