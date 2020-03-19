@@ -1039,7 +1039,7 @@ export default class NuBase extends HTMLElement {
     });
   }
 
-  nuSetContextHook(name, hook) {
+  nuSetContextHook(name, hook, runOnInit) {
     if (!hook) return;
 
     if (!this.nuContextHooks) {
@@ -1051,6 +1051,10 @@ export default class NuBase extends HTMLElement {
     }
 
     hook.nuCache = this.nuContext && this.nuContext[name];
+
+    if (runOnInit) {
+      hook(hook.nuCache);
+    }
 
     this.nuContextHooks[name] = hook;
   }

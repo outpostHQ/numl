@@ -60,27 +60,12 @@ import NuVars from './decorators/vars';
 import NuAttrs from './decorators/attrs';
 import NuProps from './decorators/props';
 // helpers
-import {
-  injectScript,
-  splitStates,
-  convertCustomUnit,
-  ROOT_CONTEXT,
-  CUSTOM_UNITS,
-  STATES_MAP,
-  parseAllValues,
-  setImmediate,
-  extractMods,
-  fixPosition,
-  parseAttr,
-  parseAttrStates,
-  parseColor,
-  setAttrs,
-  normalizeAttrStates, isTouch,
-} from './helpers';
+import * as helpers from './helpers';
+import * as color from './color';
 import { enableFocus, disableFocus } from './focus';
-import { applyTheme, BASE_THEME } from './themes';
+import * as themes from './themes';
 import themeAttr from './attributes/theme';
-import { cleanCSSByPart, generateCSS, injectCSS } from './css';
+import * as css from './css';
 
 const IGNORE_KEYS = ['Alt', 'Control', 'Meta', 'Shift'];
 
@@ -93,12 +78,12 @@ window.addEventListener('keydown', (event) => {
 });
 
 setTimeout(() => {
-  applyTheme(document.body, BASE_THEME, 'main');
+  themes.applyTheme(document.body, themes.BASE_THEME, 'main');
 });
 
 const styles = themeAttr('main');
 
-injectCSS('theme:base', 'body', generateCSS('body', [...styles, {
+css.injectCSS('theme:base', 'body', css.generateCSS('body', [...styles, {
   '--nu-diff-color': 'var(--nu-bg-color)',
 }]));
 
@@ -117,27 +102,11 @@ if (!ROOT.classList.contains(REDUCED_MOTION_CLASS)) {
 
 const Nude = {
   tags: {},
-  helpers: {
-    injectScript,
-    splitStates,
-    convertCustomUnit,
-    parseAllValues,
-    setImmediate,
-    extractMods,
-    fixPosition,
-    parseAttr,
-    parseAttrStates,
-    parseColor,
-    setAttrs,
-    normalizeAttrStates,
-  },
-  themes: {
-    applyTheme,
-  },
-  css: {
-    cleanCSSByPart,
-  },
-  isTouch: isTouch,
+  helpers,
+  color,
+  themes,
+  css,
+  isTouch: helpers.isTouch,
   version: process.env.APP_VERSION,
 };
 
@@ -178,7 +147,7 @@ Nude.init = (...elements) => {
       .forEach(el => el.removeAttribute('nu-hidden'));
   });
 
-  cleanCSSByPart('attrs:all');
+  css.cleanCSSByPart('attrs:all');
 };
 
 Nude.getElementById = function (id) {
@@ -214,6 +183,12 @@ Nude.getCriticalCSS = function () {
 };
 
 export default Nude;
+
+const {
+  STATES_MAP,
+  CUSTOM_UNITS,
+  ROOT_CONTEXT,
+} = helpers;
 
 export {
   STATES_MAP,

@@ -3,7 +3,7 @@ const SCROLLBAR_SUPPORT = CSS.supports('scrollbar-width', 'thin');
 export default function scrollbarAttr(val) {
   if (val == null) return null;
 
-  if (val === 'none'.slice(0, val.length)) {
+  if (val === 'none'.slice(0, Math.max(val.length, 1))) {
     return [{
       $suffix: '::-webkit-scrollbar',
       display: 'none',

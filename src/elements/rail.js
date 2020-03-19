@@ -21,6 +21,7 @@ export default class NuRail extends NuElement {
 
   static get nuAttrs() {
     return {
+      disabled: '',
       orient(val) {
         const vertical = val === 'v';
 
@@ -78,6 +79,8 @@ export default class NuRail extends NuElement {
     this.nuOnDragEnd = this.nuOnDragEnd.bind(this);
 
     this.addEventListener('touchmove', (evt) => evt.preventDefault(), { passive: true });
+
+    this.nuSetContext('disabled', this.hasAttribute('disabled'));
 
     ['mousedown', 'touchstart']
       .forEach(eventName => {
@@ -144,7 +147,7 @@ export default class NuRail extends NuElement {
     super.nuChanged(name, oldValue, value);
 
     if (name === 'disabled') {
-      this.nuSetContext(name, value);
+      this.nuSetContext(name, value == null);
     }
   }
 }
