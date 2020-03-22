@@ -142,7 +142,7 @@ export default class NuCode extends NuElement {
     }
 
     if (this.hasAttribute('shady')) {
-      this.nuAttachShadow();
+      this.attachShadow();
     }
 
     setTimeout(() => {

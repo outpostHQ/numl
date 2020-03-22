@@ -1285,8 +1285,8 @@ export default class NuBase extends HTMLElement {
     });
   }
 
-  nuAttachShadow() {
-    const shadow = this.attachShadow({ mode: 'open' });
+  attachShadow() {
+    const shadow = HTMLElement.prototype.attachShadow.call(this, { mode: 'open' });
 
     this.nuShadow = shadow;
 
