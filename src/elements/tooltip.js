@@ -19,7 +19,7 @@ export default class NuTooltip extends NuBlock {
 
   static get nuDefaults() {
     return {
-      display: 'flow-root',
+      display: 'block',
       shadow: '',
       padding: '.5x 1x',
       z: 'front',

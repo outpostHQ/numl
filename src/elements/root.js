@@ -7,7 +7,7 @@ export default class NuRoot extends NuElement {
 
   static get nuDefaults() {
     return {
-      display: 'flow-root',
+      display: 'block',
     };
   }
 }
