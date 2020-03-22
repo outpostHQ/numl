@@ -34,7 +34,7 @@ import {
   isVariableAttr,
   isResponsiveAttr,
   normalizeAttrStates,
-  parseAttr, isDefined, parseAttrStates,
+  parseAttr, isDefined, parseAttrStates, resetScroll,
 } from './helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibility';
 import displayAttr from './attributes/display';
@@ -1398,5 +1398,18 @@ export default class NuBase extends HTMLElement {
     }
 
     delete this.nuContextTemp;
+  }
+
+  /**
+   * Reset scroll on the element.
+   * @param children - affect children
+   */
+  nuResetScroll(children = false) {
+    if (children) {
+      this.querySelector('[overflow]')
+        .forEach(resetScroll);
+    }
+
+    resetScroll(this);
   }
 }

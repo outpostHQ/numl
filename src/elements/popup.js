@@ -152,7 +152,7 @@ export default class NuPopup extends NuCard {
     this.nuEmit('open', null, { bubbles: false });
     this.nuEmit('toggle', null, { bubbles: false });
 
-    this.scrollTop = 0;
+    this.nuResetScroll(true);
   }
 
   nuClose() {
@@ -166,7 +166,7 @@ export default class NuPopup extends NuCard {
     this.nuEmit('close', null, { bubbles: false });
     this.nuEmit('toggle', null, { bubbles: false });
 
-    this.scrollTop = 0;
+    this.nuResetScroll(true);
   }
 }
 

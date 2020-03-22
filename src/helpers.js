@@ -1172,3 +1172,13 @@ export function parseColor(val, ignoreError) {
 export function isDefined(tag) {
   return document.createElement(tag).constructor !== HTMLElement;
 }
+
+export function resetScroll(el) {
+  if (el.scrollTop) {
+    el.scrollTop = 0;
+  }
+
+  if (el.scrollLeft) {
+    el.scrollLeft = 0;
+  }
+}
