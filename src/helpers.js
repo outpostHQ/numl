@@ -1114,7 +1114,7 @@ const COLOR_NAME_LIST = [
 ];
 const COLOR_NAME_REGEXP = COLOR_NAME_LIST.map(name => new RegExp(`(^|-)${name}$`));
 
-export function parseColor(val) {
+export function parseColor(val, ignoreError) {
   val = val.trim();
 
   if (!val) return {};
@@ -1148,7 +1148,7 @@ export function parseColor(val) {
   }
 
   if (!name) {
-    if (devMode) {
+    if (!ignoreError && devMode) {
       warn('incorrect color value:', val);
     }
 

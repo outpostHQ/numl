@@ -37,12 +37,12 @@ export default class NuHeading extends NuBlock {
   }
 
   static get nuDefaultLevel() {
-    return 1;
+    return 2;
   }
 
   static get nuDefaults() {
     return {
-      level: 1,
+      level: this.nuDefaultLevel,
       color: 'text-soft',
     };
   }
@@ -52,7 +52,7 @@ export default class NuHeading extends NuBlock {
 
     switch (name) {
       case 'level':
-        if (!value) value = 1;
+        if (!value) value = 2;
 
         if (devMode && !LEVELS.includes(Number(value))) {
           return warn('invalid heading level', value);
@@ -67,7 +67,7 @@ export default class NuHeading extends NuBlock {
     super.nuConnected();
 
     if (!this.hasAttribute('level')) {
-      this.nuChanged('level');
+      this.setAttribute('level', this.constructor.nuDefaultLevel);
     }
   }
 }

@@ -1,4 +1,4 @@
-import { parseColor } from '../helpers';
+import { parseAttr, parseColor } from '../helpers';
 
 const BG_STYLE = 'background-color';
 const LOCAL_PROP = '--nu-local-bg-color';
@@ -19,8 +19,34 @@ const SUBTLE_VALUE = 'var(--nu-subtle-color)';
 const TEXT_VALUE = ''; // make it invalid
 const SPECIAL_TEXT_VALUE = 'var(--nu-special-text-color)';
 
+const BLUR_REGEXP = /backdrop-blur([^(]|$|\((.*)\))/;
+
+const BLUR_SUPPORT = CSS.supports('backdrop-filter', 'blur(1rem)');
+const DEFAULT_BLUR_OPACITY = 70;
+
 export default function fillAttr(val) {
-  let { color, name } = parseColor(val);
+  let blur, blurStyles;
+
+  val = val.replace(BLUR_REGEXP, (s, s2, blurSize) => {
+    blur = blurSize ? parseAttr(blurSize, 1).value : '1rem';
+  }, '').trim();
+
+  let { color, name, opacity } = parseColor(val);
+
+  if (blur) {
+    if (BLUR_SUPPORT) {
+      if (name && !opacity) {
+        color = parseColor(`${name} ${DEFAULT_BLUR_OPACITY}%`).color;
+      }
+
+      blurStyles = {
+        $suffix: ':not([filter*="backdrop"])',
+        'backdrop-filter': `blur(${blur})`,
+      };
+    } else if (name) {
+      color = parseColor(`${name}`).color;
+    }
+  }
 
   if (!val || !color || name === 'local') {
     return [{
@@ -34,6 +60,8 @@ export default function fillAttr(val) {
     }];
   }
 
+  let styles;
+
   if (name === 'bg' || name === 'subtle') {
     let otherColor;
 
@@ -43,7 +71,7 @@ export default function fillAttr(val) {
       otherColor = BG_VALUE;
     }
 
-    return [{
+    styles = [{
       $suffix: '>:not([fill]):not([nu-popup])',
       [BORDER_PROP]: BORDER_VALUE,
     }, {
@@ -55,22 +83,22 @@ export default function fillAttr(val) {
       [BG_STYLE]: LOCAL_VALUE,
       [HOVER_PROP]: HOVER_VALUE,
     }];
+  } else {
+    styles = [{
+      [LOCAL_PROP]: color,
+      [BG_STYLE]: LOCAL_VALUE,
+    }];
+
+    if (name === 'special-bg') {
+      styles[0][INTENSITY_PROP] = SPECIAL_INTENSITY_VALUE;
+      styles[0][TEXT_PROP] = SPECIAL_TEXT_VALUE;
+      styles[0][HOVER_PROP] = SPECIAL_HOVER_VALUE;
+      styles.push({
+        $suffix: '>:not([fill]):not([nu-popup])',
+        [BORDER_PROP]: SPECIAL_BORDER_VALUE,
+      });
+    }
   }
 
-  const styles = [{
-    [LOCAL_PROP]: color,
-    [BG_STYLE]: LOCAL_VALUE,
-  }];
-
-  if (name === 'special-bg') {
-    styles[0][INTENSITY_PROP] = SPECIAL_INTENSITY_VALUE;
-    styles[0][TEXT_PROP] = SPECIAL_TEXT_VALUE;
-    styles[0][HOVER_PROP] = SPECIAL_HOVER_VALUE;
-    styles.push({
-      $suffix: '>:not([fill]):not([nu-popup])',
-      [BORDER_PROP]: SPECIAL_BORDER_VALUE,
-    });
-  }
-
-  return styles;
+  return blurStyles ? styles.concat([blurStyles]) : styles;
 }

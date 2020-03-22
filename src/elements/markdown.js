@@ -178,7 +178,7 @@ export function markdownToNuml(md, inline, prevLinks) {
         const el = token[2];
         chunk = `</nu-block><${el}><textarea>${token[3]}</textarea></${el}><nu-block>`;
       } else if (!token[4] && token[2].toLowerCase() === 'preview') {
-        chunk = `</nu-block><nu-block id="preview" radius padding="2x" fill="diff">${token[3]}</nu-block><nu-block>`;
+        chunk = `</nu-block><nu-block id="preview">${token[3]}</nu-block><nu-block>`;
       } else {
         chunk = '</nu-block><nu-code theme fill="subtle" radius padding overflow="auto" ' + (!token[4] && token[2].toLowerCase() === 'enumerate' ? 'enumerate' : '') + '><textarea>' + outdent(encodeAttr(token[3] || token[4]).replace(/^\n+|\n+$/g, '')) + '</textarea></nu-code><nu-block>';
       }

@@ -601,7 +601,7 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
 }
 
 export function hueFromString(str) {
-  const { color } = parseColor(str);
+  const { color } = parseColor(str, true);
 
   if (color) {
     const hsl = strToHsl(color);

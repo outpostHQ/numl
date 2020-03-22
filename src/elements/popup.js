@@ -63,6 +63,16 @@ export default class NuPopup extends NuCard {
     };
   }
 
+  static nuCSS({ css, tag }) {
+    return `
+      ${css}
+      ${tag} {
+        user-select: initial;
+      }
+    `;
+  }
+
+
   nuConnected() {
     super.nuConnected();
 
