@@ -108,7 +108,7 @@ export default function placeAttr(val, defaults) {
     return [{
       position: 'sticky',
       ...DIRECTIONS.reduce((map, dir, i) => {
-        if (DIRECTIONS.includes(dir)) {
+        if (mods.includes(dir)) {
           map[dir] = (i % 2) ? offsetX : offsetY;
         }
 

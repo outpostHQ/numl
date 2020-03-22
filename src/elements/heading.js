@@ -2,7 +2,7 @@ import NuBlock from './block';
 import { SIZES } from '../attributes/size';
 import { devMode, warn } from '../helpers';
 
-const LEVELS = [1,2,3,4,5,6];
+const LEVELS = [1, 2, 3, 4, 5, 6];
 
 export default class NuHeading extends NuBlock {
   static get nuTag() {
@@ -66,8 +66,10 @@ export default class NuHeading extends NuBlock {
   nuConnected() {
     super.nuConnected();
 
-    if (!this.hasAttribute('level')) {
-      this.setAttribute('level', this.constructor.nuDefaultLevel);
-    }
+    setTimeout(() => {
+      if (!this.hasAttribute('level')) {
+        this.setAttribute('level', this.constructor.nuDefaultLevel);
+      }
+    });
   }
 }

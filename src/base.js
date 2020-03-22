@@ -1406,7 +1406,7 @@ export default class NuBase extends HTMLElement {
    */
   nuResetScroll(children = false) {
     if (children) {
-      this.querySelector('[overflow]')
+      [...this.querySelectorAll('[overflow]')]
         .forEach(resetScroll);
     }
 
