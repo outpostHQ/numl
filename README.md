@@ -107,10 +107,10 @@ And here is our [Telegram Chat](https://t.me/nudeml). (Ask your questions here!)
 
 Based on [caniuse.com](caniuse.com). Real-world support table will be presented after production-release.
 
-* Microsoft Edge 15-18 (Partial support with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
+* Microsoft Edge 16-18 (Partial support with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
 * Microsoft Edge 76+
-* Google Chrome 57+
-* Mozilla Firefox 52+
+* Google Chrome 67+
+* Mozilla Firefox 63+
 * Apple Safari 10.1+
 * Apple iOS Safari 10.3+
 * Google Android 67+
