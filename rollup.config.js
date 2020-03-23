@@ -1,4 +1,4 @@
-import minify from 'rollup-plugin-babel-minify';
+import { terser } from 'rollup-plugin-terser';
 import replace from 'rollup-plugin-replace';
 import pkg from './package.json';
 
@@ -17,9 +17,7 @@ export default (!DEV ? [
         'process.env.NODE_ENV': '"production"',
         'process.env.APP_VERSION': VERSION,
       }),
-      minify({
-        comments: false,
-      }),
+      terser(),
     ]
   },
   {
@@ -33,9 +31,7 @@ export default (!DEV ? [
         'process.env.NODE_ENV': '"production"',
         'process.env.APP_VERSION': VERSION,
       }),
-      minify({
-        comments: false,
-      }),
+      terser(),
     ]
   },
   {
