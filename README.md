@@ -1,5 +1,7 @@
 # <img src="https://github.com/tenphi/nude/blob/master/images/logo.png?raw=true" alt="NUDE Elements" width="891">
 
+Design System Framework based on Custom Elements and runtime CSS generation.
+
 [![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 **ALPHA VERSION, UNDER RAPID DEVELOPMENT, API is subject to change**
