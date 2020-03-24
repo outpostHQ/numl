@@ -27,8 +27,6 @@ export default class NuLine extends NuBlock {
         return combinedAttr({
           width: vertical ? 'minmax(1fs, 1fs)' : 'min(1em)',
           height: vertical ? 'min(1em)' : 'minmax(1fs, 1fs)',
-          column: vertical ? 'initial' : '1 / -1',
-          row: vertical ? '1 / -1' : 'initial',
         }, NuLine);
       },
     };
