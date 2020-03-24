@@ -67,6 +67,13 @@ export default class NuInput extends NuBlock {
         user-select: all;
       }
 
+      ${tag} input:-webkit-autofill, ${tag} input:-webkit-autofill:hover, ${tag} input:-webkit-autofill:focus {
+        caret-color: var(--nu-special-color);
+        -webkit-text-fill-color: var(--nu-special-color);
+        -webkit-box-shadow: 0 0 0px 9999rem var(--nu-input-color) inset;
+        box-shadow: 0 0 0px 9999rem var(--nu-input-color) inset;
+      }
+
       ${tag} input[disabled] {
         color: inherit;
         background: transparent;

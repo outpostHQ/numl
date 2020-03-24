@@ -382,6 +382,7 @@ export const STATES_MAP = {
   inline: '[inline]',
   even: ':nth-child(even)',
   odd: ':nth-child(odd)',
+  autofill: ':-webkit-autofill',
 };
 
 function getStateSelector(name) {
