@@ -143,12 +143,12 @@ Run `npm run play` to view test page with few examples.
 #### New features
 * Full rework of attribute parsing. More features, more stable and much faster.
 * Rework of RadioGroup mechanics (migration to Context system). Elements involved: 
-    * **[nu-radiogroup](./docs/elements/nu-radiogroup.md)**
-    * **[nu-activeelement](./docs/elements/nu-activeelement.md)**
-    * **[nu-radio](./docs/elements/nu-radio.md)**
-    * **[nu-tablist](./docs/elements/nu-tablist.md)**
-    * **[nu-tab](./docs/elements/nu-tab.md)**
-    * **[nu-btngroup](./docs/elements/nu-btngroup.md)**
+    * **[nu-radiogroup](https://numl.design/reference/elements/nu-radiogroup.md)**
+    * **[nu-activeelement](https://numl.design/reference/elements/nu-activeelement.md)**
+    * **[nu-radio](https://numl.design/reference/elements/nu-radio.md)**
+    * **[nu-tablist](https://numl.design/reference/elements/nu-tablist.md)**
+    * **[nu-tab](https://numl.design/reference/elements/nu-tab.md)**
+    * **[nu-btngroup](https://numl.design/reference/elements/nu-btngroup.md)**
 * Automatic **calc** insertion.
 * New **color()** function for some style attributes.
 * Custom states for **nu-** modifiers and **role** attribute.
@@ -166,42 +166,42 @@ Run `npm run play` to view test page with few examples.
 	* **br** -> **r**
 	* **bw** -> **b**
 	* **x** is equal **var(--nu-indent)** now
-* Remove custom properties declarations from **[nu-theme](./docs/elements/nu-theme.md)** decorator! Use brand new **[nu-props](./docs/elements/nu-props.md)** decorator.
+* Remove custom properties declarations from **[nu-theme](https://numl.design/reference/elements/nu-theme.md)** decorator! Use brand new **[nu-props](https://numl.design/reference/elements/nu-props.md)** decorator.
 * Theme type **toned** renamed to **tone**.
 * **nu-triangle**: remove direction attribute, use **rotate** instead.
 
 #### New elements
-* **[nu-props](./docs/elements/nu-props.md)** - new decorator to declare custom properties.
-* **[nu-radiogroup](./docs/elements/nu-radiogroup.md)** - radio group.
-* **[nu-radio](./docs/elements/nu-radio.md)** - radio button.
-* **[nu-progressbar](./docs/elements/nu-progressbar.md)** - To show progress of a process.
-* **[nu-slider](./docs/elements/nu-slider.md)** and **[nu-rail](./docs/elements/nu-rail.md)** – To create sliders.
-* **[nu-markdown](./docs/elements/nu-markdown.md)** and **[nu-md](./docs/elements/nu-md.md)** - To convert markdown markup. EXPERIMENTAL.
+* **[nu-props](https://numl.design/reference/elements/nu-props.md)** - new decorator to declare custom properties.
+* **[nu-radiogroup](https://numl.design/reference/elements/nu-radiogroup.md)** - radio group.
+* **[nu-radio](https://numl.design/reference/elements/nu-radio.md)** - radio button.
+* **[nu-progressbar](https://numl.design/reference/elements/nu-progressbar.md)** - To show progress of a process.
+* **[nu-slider](https://numl.design/reference/elements/nu-slider.md)** and **[nu-rail](https://numl.design/reference/elements/nu-rail.md)** – To create sliders.
+* **[nu-markdown](https://numl.design/reference/elements/nu-markdown.md)** and **[nu-md](https://numl.design/reference/elements/nu-md.md)** - To convert markdown markup. EXPERIMENTAL.
 
 #### New attributes & modifiers
-* **[scale](./docs/attributes/scale.md)** with **flip**, **flip-x** and **flip-y** modifiers.
-* **[rotate](./docs/attributes/rotate.md)** - to rotate element.
-* **[move](./docs/attributes/move.md)** - to move element (via `transform:translate(...)`).
-* **[show](./docs/attributes/show.md)** - to conditionally show elements. Hide them by default.
-* **[hoverable](./docs/attributes/hoverable.md)** - to activate hover effect on background for active elements.
-* **[focusable](./docs/attributes/focusable.md)** - to activate focus effect on active elements. 
-* **[toggle](./docs/attributes/toggle.md)** - to activate toggle effect on active elements.
-* **[expand](./docs/attributes/expand.md)** - to increase active region.
-* **[drop](./docs/attributes/drop.md)** - to statically fix element position based on parent element (using `position: fixed`).
-* **[place](./docs/attributes/place.md)** now support sticky positioning with distance: `[place="sticky top 3"]`.
-* **[t](./docs/attributes/t.md)** - for responsive labels.
-* **[shadow](./docs/attributes/shadow.md)** - support for native CSS shadows with NUDE shortcuts.
+* **[scale](https://numl.design/reference/attributes/scale.md)** with **flip**, **flip-x** and **flip-y** modifiers.
+* **[rotate](https://numl.design/reference/attributes/rotate.md)** - to rotate element.
+* **[move](https://numl.design/reference/attributes/move.md)** - to move element (via `transform:translate(...)`).
+* **[show](https://numl.design/reference/attributes/show.md)** - to conditionally show elements. Hide them by default.
+* **[hoverable](https://numl.design/reference/attributes/hoverable.md)** - to activate hover effect on background for active elements.
+* **[focusable](https://numl.design/reference/attributes/focusable.md)** - to activate focus effect on active elements. 
+* **[toggle](https://numl.design/reference/attributes/toggle.md)** - to activate toggle effect on active elements.
+* **[expand](https://numl.design/reference/attributes/expand.md)** - to increase active region.
+* **[drop](https://numl.design/reference/attributes/drop.md)** - to statically fix element position based on parent element (using `position: fixed`).
+* **[place](https://numl.design/reference/attributes/place.md)** now support sticky positioning with distance: `[place="sticky top 3"]`.
+* **[t](https://numl.design/reference/attributes/t.md)** - for responsive labels.
+* **[shadow](https://numl.design/reference/attributes/shadow.md)** - support for native CSS shadows with NUDE shortcuts.
 
 #### Minor and internal changes
 * Refactoring for table elements.
-* **[nu-img](./docs/elements/nu-img.md)** new simplified API with **fit** attribute.
-* **[hide](./docs/attributes/hide.md)** attribute is no longer hide element if no value provided.
-* **[nu-checkbox](./docs/elements/nu-checkbox.md)** - style fixes.
-* **[nu-mark](./docs/elements/nu-mark.md)** – minor style fixes and **[theme]** support.
-* **[nu-line](./docs/elements/nu-line.md)** - refactoring. Migrate to **Orient Mixin** and NUDE attribute declarations.
-* **[nu-tab](./docs/elements/nu-tab.md)** - add active region.
-* **[nu-tooltip](./docs/elements/nu-tooltip.md)** - fix styling to better fill space while allowing wrapping.
-* **inline** attribute is no longer required for accurate positioning of inline elements like **[nu-icon](./docs/elements/nu-icon.md)**.
+* **[nu-img](https://numl.design/reference/elements/nu-img.md)** new simplified API with **fit** attribute.
+* **[hide](https://numl.design/reference/attributes/hide.md)** attribute is no longer hide element if no value provided.
+* **[nu-checkbox](https://numl.design/reference/elements/nu-checkbox.md)** - style fixes.
+* **[nu-mark](https://numl.design/reference/elements/nu-mark.md)** – minor style fixes and **[theme]** support.
+* **[nu-line](https://numl.design/reference/elements/nu-line.md)** - refactoring. Migrate to **Orient Mixin** and NUDE attribute declarations.
+* **[nu-tab](https://numl.design/reference/elements/nu-tab.md)** - add active region.
+* **[nu-tooltip](https://numl.design/reference/elements/nu-tooltip.md)** - fix styling to better fill space while allowing wrapping.
+* **inline** attribute is no longer required for accurate positioning of inline elements like **[nu-icon](https://numl.design/reference/elements/nu-icon.md)**.
 * Tables style rework.
 * Active elements style rework.
 * Migrate element styles to NUDE attribute definitions.
@@ -239,9 +239,9 @@ Run `npm run play` to view test page with few examples.
 #### Breaking changes
 
 * **theme**, **color**, **fill** attributes now works completely different.
-* **[nu-theme](./docs/elements/nu-theme.md)** has new awesome API.
-* **[nu-triangle](./docs/elements/nu-triangle.md)**: **[dir]** -> **[set]**.
-* **[nu-style](./docs/elements/nu-style.md)** renamed to **nu-attrs** for a more accurate understanding.
+* **[nu-theme](https://numl.design/reference/elements/nu-theme.md)** has new awesome API.
+* **[nu-triangle](https://numl.design/reference/elements/nu-triangle.md)**: **[dir]** -> **[set]**.
+* **[nu-style](https://numl.design/reference/elements/nu-style.md)** renamed to **nu-attrs** for a more accurate understanding.
 * **nu-scroll** removed. (legacy element)
 
 #### New elements
@@ -250,12 +250,12 @@ Run `npm run play` to view test page with few examples.
 * **nu-code** - Code snippets!
 
 #### New attributes
-* **[scrollbar](./docs/attributes/scrollbar.md)** - To control over scroll bar styling.
+* **[scrollbar](https://numl.design/reference/attributes/scrollbar.md)** - To control over scroll bar styling.
 
 #### Bug fixes
 * Unable to change border width of **nu-switch**.
 * Flex doubles gap in Firefox.
-* Fix **[nu-switch](./docs/elements/nu-switch.md)** styles.
+* Fix **[nu-switch](https://numl.design/reference/elements/nu-switch.md)** styles.
 * Fix flash of non-styled content for responsive elements.
 
 ### v0.7
