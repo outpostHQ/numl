@@ -1077,7 +1077,7 @@ export default class NuBase extends HTMLElement {
     const selectors = [];
 
     const force = options === true;
-    const { vars, responsive } = options;
+    const { vars, responsive, attrs, shadow } = options;
 
     if (!this.nuIsConnectionComplete) return;
 
@@ -1091,27 +1091,43 @@ export default class NuBase extends HTMLElement {
       if (responsive) {
         selectors.push(`[nu-${RESPONSIVE_MOD}="${this.nuUniqId}"]`);
       }
+
+      if (attrs) {
+        selectors.push(attrs);
+
+        if (shadow) {
+          selectors.push('[shadow-root]');
+        }
+      }
     }
 
     const selector = selectors.join(', ');
     const elements = this.querySelectorAll(selector);
 
-    log('verify children', { vars, responsive, selector });
+    log('verify children', { vars, responsive, attrs, shadow, selector });
 
     [this, ...elements].forEach(el => {
       if (el.nuApplyCSS) {
         [...el.attributes].forEach(({ name, value }) => {
           if (name === RESPONSIVE_ATTR) return;
 
-          el.attributeChangedCallback(name, null, value, true);
+          if (vars || responsive) {
+            el.attributeChangedCallback(name, null, value, true);
+          }
+
+          if (attrs) {
+            log('apply context attrs', { el });
+
+            if (el.nuSetContextAttrs) el.nuSetContextAttrs();
+          }
         });
       }
 
-      // if (el.nuShadow) {
-      //   [...el.nuShadow.querySelector(selector)].forEach(shadowEl => {
-      //     shadowEl.nuVerifyChildren(vars, responsive);
-      //   });
-      // }
+      if (shadow && el.nuShadow) {
+        [...el.nuShadow.children].forEach(shadowEl => {
+          shadowEl.nuVerifyChildren && shadowEl.nuVerifyChildren(options);
+        });
+      }
     });
   }
 
@@ -1291,7 +1307,13 @@ export default class NuBase extends HTMLElement {
     this.nuShadow = shadow;
 
     shadow.nuContext = Object.create(this.nuContext);
-    shadow.nuContext = { $shadowRoot: this.nuShadow };
+
+    Object.assign(shadow.nuContext, {
+      $shadowRoot: this.nuShadow,
+      $parentShadowRoot: this.nuContext.$shadowRoot || null,
+    });
+
+    this.setAttribute('shadow-root', '');
 
     return shadow;
   }
@@ -1310,31 +1332,53 @@ export default class NuBase extends HTMLElement {
      * @type {Set<String>}
      */
     const contextAttrs = this.nuContextAttrs;
-    const elTags = this.nuContext[`attrs:${this.constructor.nuTag}`];
-    const asTags = as ? this.nuContext[`attrs:${as}`] : null;
-    const idTags = id ? this.nuContext[`attrs:${id}`] : null;
+    const keys = [`attrs:${this.constructor.nuTag}`];
+    const $shadowRoot = this.nuContext.$shadowRoot;
+    const $parentShadowRoot = this.nuContext.$parentShadowRoot;
 
-    if (!elTags && !asTags && !idTags && !contextAttrs.size) {
-      return;
+    if (as) {
+      as.split(/\s+/g).forEach(name => {
+        keys.push(`attrs:${name}`);
+      });
     }
+
+    if (id) {
+      keys.push(`attrs:${id}`);
+    }
+
+    const attrSets = keys.map(key => this.nuContext[key]).filter(set => set);
 
     const attrs = {};
 
-    if (elTags) {
-      Object.assign(attrs, elTags);
+    attrSets.forEach(set => {
+      if ($shadowRoot && $shadowRoot !== set.$shadowRoot) return;
+
+      Object.assign(attrs, set);
+    });
+
+    if ($shadowRoot && id) {
+      const shadowAttrs = this.nuContext[`attrs:$${id}`];
+
+      if (shadowAttrs && shadowAttrs.$shadowRoot === $parentShadowRoot) {
+        Object.assign(attrs, shadowAttrs);
+      }
+
+      const deepShadowAttrs = this.nuContext[`attrs:$$${id}`];
+
+      if (deepShadowAttrs) {
+        Object.assign(attrs, deepShadowAttrs);
+      }
     }
 
-    if (asTags) {
-      Object.assign(attrs, asTags);
-    }
-
-    if (idTags) {
-      Object.assign(attrs, idTags);
+    if (!Object.keys(attrs).length && !contextAttrs.size) {
+      return;
     }
 
     const clearAttrs = new Set(contextAttrs);
 
     Object.keys(attrs).forEach(name => {
+      if (name.startsWith('$')) return;
+
       let value = attrs[name];
 
       const force = value && value.startsWith('!');
@@ -1387,7 +1431,7 @@ export default class NuBase extends HTMLElement {
 
       this.nuSetMod('root', false);
     } else {
-      this.nuContext = { $root: this };
+      this.nuContext = { $root: this, $shadowRoot: null, $parentShadowRoot: null };
       this.nuSetMod('root', true);
 
       applyTheme(this, BASE_THEME, 'main');

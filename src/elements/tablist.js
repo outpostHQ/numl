@@ -1,5 +1,4 @@
 import NuRadioGroup from './radiogroup';
-import DirectionMixin, { DIRECTION_ATTR } from '../mixins/direction';
 import combinedAttr from '../attributes/combined';
 import { convertUnit, DIRECTIONS } from '../helpers';
 import OrientMixin from '../mixins/orient';

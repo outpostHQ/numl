@@ -10,7 +10,7 @@ function getSelector(id) {
     return id;
   }
 
-  return `[as="${id}"], [id="${id}"], [id^="${id}--"]`;
+  return `[as*="${id}"], [id="${id}"], [id^="${id}--"]`;
 }
 
 export default class NuAttrs extends NuDecorator {
@@ -55,16 +55,14 @@ export default class NuAttrs extends NuDecorator {
       define[name] = attrs[name];
     });
 
+    define.$shadowRoot = this.nuContext.$shadowRoot;
+
     parent.nuSetContext(`attrs:${id}`, define);
 
     const selector = getSelector(id);
+    const shadow = id.startsWith('$');
 
-    [...parent.querySelectorAll(selector)]
-      .forEach(el => {
-        log('apply context attrs', { el });
-
-        if (el.nuSetContextAttrs) el.nuSetContextAttrs();
-      });
+    parent.nuVerifyChildren({ attrs: selector, shadow });
   }
 
   nuGetCriticalCSS() {
