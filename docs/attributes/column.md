@@ -1,2 +1,0 @@
-# `[column]` `style` attribute
-

@@ -1,2 +1,0 @@
-# `[items-basis]` `style` attribute
-

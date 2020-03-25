@@ -1,2 +1,0 @@
-# `[describedby]` `aria` attribute
-

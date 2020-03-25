@@ -1,2 +1,0 @@
-# `[focusable]` `style` attribute
-

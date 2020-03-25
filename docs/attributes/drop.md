@@ -1,2 +1,0 @@
-# `[drop]` `style` attribute
-

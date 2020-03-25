@@ -1,2 +1,0 @@
-# `[after]` `style` attribute
-

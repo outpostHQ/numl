@@ -1,2 +1,0 @@
-# `[items-shrink]` `style` attribute
-

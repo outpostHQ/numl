@@ -1,2 +1,0 @@
-# `[valuemin]` `aria` attribute
-

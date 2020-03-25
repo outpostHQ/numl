@@ -1,2 +1,0 @@
-# `[space]` `style` attribute
-

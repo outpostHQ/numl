@@ -1,2 +1,0 @@
-# `[items-padding]` `style` attribute
-

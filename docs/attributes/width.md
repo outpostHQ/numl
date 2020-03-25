@@ -1,2 +1,0 @@
-# `[width]` `style` attribute
-

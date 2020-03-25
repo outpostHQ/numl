@@ -1,2 +1,0 @@
-# `[move]` `style` attribute
-

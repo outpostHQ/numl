@@ -1,2 +1,0 @@
-# `[prop]` `style` attribute
-

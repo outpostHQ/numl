@@ -1,2 +1,0 @@
-# `[order]` `style` attribute
-

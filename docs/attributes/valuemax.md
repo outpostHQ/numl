@@ -1,2 +1,0 @@
-# `[valuemax]` `aria` attribute
-

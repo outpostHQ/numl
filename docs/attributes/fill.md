@@ -1,2 +1,0 @@
-# `[fill]` `style` attribute
-

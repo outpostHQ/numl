@@ -1,2 +1,0 @@
-# `[expand]` `style` attribute
-

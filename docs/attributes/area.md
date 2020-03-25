@@ -1,2 +1,0 @@
-# `[area]` `style` attribute
-

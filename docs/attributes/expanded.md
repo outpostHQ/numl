@@ -1,2 +1,0 @@
-# `[expanded]` `aria` attribute
-

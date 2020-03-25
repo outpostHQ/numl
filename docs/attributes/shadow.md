@@ -1,2 +1,0 @@
-# `[shadow]` `style` attribute
-

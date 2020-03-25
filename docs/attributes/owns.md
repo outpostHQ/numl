@@ -1,2 +1,0 @@
-# `[owns]` `aria` attribute
-

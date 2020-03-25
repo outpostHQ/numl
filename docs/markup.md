@@ -1,2 +1,0 @@
-# Markup methodology
-

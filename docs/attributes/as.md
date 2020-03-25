@@ -1,2 +1,0 @@
-# `[as]` `helper` attribute
-

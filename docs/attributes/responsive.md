@@ -1,2 +1,0 @@
-# `[responsive]` `helper` attribute
-

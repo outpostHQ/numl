@@ -1,2 +1,0 @@
-# `[row]` `style` attribute
-

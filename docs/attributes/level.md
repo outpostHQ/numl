@@ -1,2 +1,0 @@
-# `[level]` `aria` attribute
-

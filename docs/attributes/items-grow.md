@@ -1,2 +1,0 @@
-# `[items-grow]` `style` attribute
-

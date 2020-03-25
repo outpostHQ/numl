@@ -1,2 +1,0 @@
-# `[haspopup]` `aria` attribute
-

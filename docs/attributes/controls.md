@@ -1,2 +1,0 @@
-# `[controls]` `aria` attribute
-

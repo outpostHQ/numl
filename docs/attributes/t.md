@@ -1,2 +1,0 @@
-# `[t]` `style` attribute
-

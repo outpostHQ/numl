@@ -1,2 +1,0 @@
-# `[hoverable]` `style` attribute
-

@@ -1,2 +1,0 @@
-# `[toggle]` `style` attribute
-

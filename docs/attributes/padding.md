@@ -1,2 +1,0 @@
-# `[padding]` `style` attribute
-

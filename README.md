@@ -6,7 +6,7 @@ Framework and Design System based on Custom Elements and runtime CSS generation.
 
 **ALPHA VERSION, UNDER RAPID DEVELOPMENT, API is subject to change**
 
-**NUDE Elements** is: 
+**NuML** is: 
 
 * Customizable **Design System** for any project and scale
 * Accessible production-ready **Prototyping Solution**
@@ -24,7 +24,7 @@ And also... it's **just a single js-file** that you can include into your websit
 * **No** confusing classes to style
 * **No** frustration in usage
 
-With **NUDE Elements** you can: 
+With **NuML** you can: 
 
 * Create virtually **any interface** you want
 * Make your interface **accessible** without fighting IDs and specifications

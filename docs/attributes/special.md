@@ -1,2 +1,0 @@
-# `[special]` `style` attribute
-
