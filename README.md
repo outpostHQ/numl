@@ -101,7 +101,7 @@ import 'numl';
 
 Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
 
-And here is our [Telegram Chat](https://t.me/nudeml). (Ask your questions here!)
+And here is our [Telegram Chat](https://tele.click/numldesign). (Ask your questions here!)
 
 ### Browser Support
 
