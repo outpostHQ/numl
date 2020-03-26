@@ -78,11 +78,13 @@ export default class NuPopup extends NuCard {
 
     this.nuSetContext('popup', this);
 
+    this.nuActive = this.nuContext.active;
+
     if (!this.nuFirstConnect) return;
 
     if (!this.hasAttribute(PLACE_ATTR)
       && !this.hasAttribute(FIXATE_ATTR)
-      && this.nuParent.nuContext.popup) {
+      && this.nuActive && this.nuActive.nuContext.popup) {
       this.setAttribute(PLACE_ATTR, 'outside-right top');
     }
 
@@ -108,8 +110,10 @@ export default class NuPopup extends NuCard {
 
     this.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
-        this.parentNode.nuSetPressed(false);
-        this.parentNode.focus();
+        if (this.nuActive) {
+          this.nuActive.nuSetPressed(false);
+          this.nuActive.focus();
+        }
         event.stopPropagation();
       }
 
@@ -119,12 +123,16 @@ export default class NuPopup extends NuCard {
     });
 
     this.addEventListener('mouseenter', () => {
-      this.parentNode.style.setProperty('--nu-local-hover-color', 'transparent');
+      if (!this.nuActive) return;
+
+      this.nuActive.style.setProperty('--nu-local-hover-color', 'transparent');
       // this.style.setProperty('--nu-local-hover-color', 'var(--nu-hover-color)');
     });
 
     this.addEventListener('mouseleave', () => {
-      this.parentNode.style.removeProperty('--nu-local-hover-color');
+      if (!this.nuActive) returrn;
+
+      this.nuActive.style.removeProperty('--nu-local-hover-color');
       // this.style.removeProperty('--nu-local-hover-color');
     });
 
@@ -141,7 +149,10 @@ export default class NuPopup extends NuCard {
     this.nuFixateStart();
 
     this.hidden = false;
-    this.parentNode.nuSetAria('expanded', true);
+
+    if (this.nuActive) {
+      this.nuActive.nuSetAria('expanded', true);
+    }
 
     const activeElement = this.querySelector('input, [tabindex]:not([tabindex="-1"]');
 
@@ -159,7 +170,10 @@ export default class NuPopup extends NuCard {
     this.nuFixateEnd();
 
     this.hidden = true;
-    this.parentNode.nuSetPressed(false);
+
+    if (this.nuActive) {
+      this.nuActive.nuSetPressed(false);
+    }
 
     this.style.removeProperty('--nu-transform');
 
@@ -188,7 +202,9 @@ function handleOutside(event) {
   [...document.querySelectorAll('[nu-popup]')]
     .forEach((currentPopup) => {
       if (!popups.includes(currentPopup)) {
-        currentPopup.parentNode.nuSetPressed(false);
+        if (currentPopup.nuActive) {
+          currentPopup.nuActive.nuSetPressed(false);
+        }
       }
     });
 }

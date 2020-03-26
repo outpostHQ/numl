@@ -383,6 +383,8 @@ export const STATES_MAP = {
   even: ':nth-child(even)',
   odd: ':nth-child(odd)',
   autofill: ':-webkit-autofill',
+  checked: '[nu-pressed]',
+  selected: '[nu-pressed]',
 };
 
 function getStateSelector(name) {
@@ -1171,7 +1173,9 @@ export function parseColor(val, ignoreError) {
 }
 
 export function isDefined(tag) {
-  return document.createElement(tag).constructor !== HTMLElement;
+  const constructor = document.createElement(tag).constructor;
+
+  return constructor !== HTMLUnknownElement && constructor !== HTMLElement;
 }
 
 export function resetScroll(el) {

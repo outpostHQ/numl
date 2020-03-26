@@ -17,6 +17,8 @@ export function getVarsList(val) {
 
   const list = val.match(/@[a-z0-9-]+/ig);
 
+  if (!list) return [];
+
   list.forEach(str => {
     set.add(str.slice(1));
   });

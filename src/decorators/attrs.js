@@ -3,14 +3,16 @@ import { getAllAttrs, ELEMENTS_MAP } from '../base';
 import { computeStyles, log } from '../helpers';
 import { generateCSS } from '../css';
 
-function getSelector(id) {
-  const isTag = !!ELEMENTS_MAP[id];
+function getSelector(id, oldId) {
+  id = id.replace(/^\$+/, '');
+  oldId = oldId ? oldId.replace(/^\$+/, '') : null;
 
-  if (isTag) {
-    return id;
-  }
-
-  return `[as="${id}"], [id="${id}"], [id^="${id}--"]`;
+  return `${(!ELEMENTS_MAP[id] ? `[as*="${id}"], [id="${id}"], [id^="${id}--"]` : id)}${
+    oldId
+      ? (!ELEMENTS_MAP[oldId]
+        ? `, [as*="${oldId}"], [id="${oldId}"], [id^="${oldId}--"]`
+        : `, ${oldId}`)
+      : ''}`;
 }
 
 export default class NuAttrs extends NuDecorator {
@@ -43,8 +45,13 @@ export default class NuAttrs extends NuDecorator {
   nuApply() {
     const parent = this.parentNode;
     const id = this.getAttribute('for');
+    const oldId = this.nuFor !== id ? this.nuFor : null;
 
     if (!parent.nuContext || !id) return;
+
+    this.nuParent = parent;
+
+    this.nuFor = id;
 
     const attrs = this.nuOwnAttrs;
     const define = {};
@@ -55,16 +62,18 @@ export default class NuAttrs extends NuDecorator {
       define[name] = attrs[name];
     });
 
+    define.$shadowRoot = this.nuContext.$shadowRoot;
+
     parent.nuSetContext(`attrs:${id}`, define);
 
-    const selector = getSelector(id);
+    if (oldId) {
+      parent.nuSetContext(`attrs:${oldId}`, null);
+    }
 
-    [...parent.querySelectorAll(selector)]
-      .forEach(el => {
-        log('apply context attrs', { el });
+    const selector = getSelector(id, oldId);
+    const shadow = id.startsWith('$') || (oldId && oldId.startsWith('$'));
 
-        if (el.nuSetContextAttrs) el.nuSetContextAttrs();
-      });
+    parent.nuVerifyChildren({ attrs: selector, shadow });
   }
 
   nuGetCriticalCSS() {
@@ -102,5 +111,17 @@ export default class NuAttrs extends NuDecorator {
 
   nuDisconnected() {
     super.nuDisconnected();
+
+    const parent = this.nuParent;
+
+    if (!parent) return;
+
+    const id = this.getAttribute('for');
+    const selector = getSelector(id);
+    const shadow = id.startsWith('$');
+
+    parent.nuSetContext(`attrs:${id}`, null);
+
+    parent.nuVerifyChildren({ attrs: selector, shadow });
   }
 }
