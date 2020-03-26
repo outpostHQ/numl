@@ -3,14 +3,19 @@ import { getAllAttrs, ELEMENTS_MAP } from '../base';
 import { computeStyles, log } from '../helpers';
 import { generateCSS } from '../css';
 
-function getSelector(id) {
+function getSelector(id, oldId) {
   const isTag = !!ELEMENTS_MAP[id];
 
   if (isTag) {
     return id;
   }
 
-  return `[as*="${id}"], [id="${id}"], [id^="${id}--"]`;
+  id = id.replace(/^\$+/, '');
+  oldId = oldId ? oldId.replace(/^\$+/, '') : null;
+
+  return `[as*="${id}"], [id="${id}"], [id^="${id}--"]${
+    oldId ? `[as*="${oldId}"], [id="${oldId}"], [id^="${oldId}--"]` : ''
+  }`;
 }
 
 export default class NuAttrs extends NuDecorator {
@@ -43,8 +48,11 @@ export default class NuAttrs extends NuDecorator {
   nuApply() {
     const parent = this.parentNode;
     const id = this.getAttribute('for');
+    const oldId = this.nuFor !== id ? this.nuFor : null;
 
     if (!parent.nuContext || !id) return;
+
+    this.nuFor = id;
 
     const attrs = this.nuOwnAttrs;
     const define = {};
@@ -59,8 +67,12 @@ export default class NuAttrs extends NuDecorator {
 
     parent.nuSetContext(`attrs:${id}`, define);
 
-    const selector = getSelector(id);
-    const shadow = id.startsWith('$');
+    if (oldId) {
+      parent.nuSetContext(`attrs:${oldId}`, null);
+    }
+
+    const selector = getSelector(id, oldId);
+    const shadow = id.startsWith('$') || (oldId && oldId.startsWith('$'));
 
     parent.nuVerifyChildren({ attrs: selector, shadow });
   }

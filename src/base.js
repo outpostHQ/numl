@@ -1124,9 +1124,7 @@ export default class NuBase extends HTMLElement {
       }
 
       if (shadow && el.nuShadow) {
-        [...el.nuShadow.children].forEach(shadowEl => {
-          shadowEl.nuVerifyChildren && shadowEl.nuVerifyChildren(options);
-        });
+        el.nuShadow.nuVerifyChildren(options);
       }
     });
   }
@@ -1306,7 +1304,13 @@ export default class NuBase extends HTMLElement {
 
     this.nuShadow = shadow;
 
-    shadow.nuContext = Object.create(this.nuContext);
+    Object.assign(shadow, {
+      nuContext: Object.create(this.nuContext),
+      nuSetContext: this.nuSetContext,
+      nuVerifyChildren: this.nuVerifyChildren,
+      nuIsConnectionComplete: true,
+      nuIsConnected: true,
+    });
 
     Object.assign(shadow.nuContext, {
       $shadowRoot: this.nuShadow,
@@ -1365,7 +1369,7 @@ export default class NuBase extends HTMLElement {
 
       const deepShadowAttrs = this.nuContext[`attrs:$$${id}`];
 
-      if (deepShadowAttrs) {
+      if (deepShadowAttrs && deepShadowAttrs.$shadowRoot !== $shadowRoot) {
         Object.assign(attrs, deepShadowAttrs);
       }
     }
