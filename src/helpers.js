@@ -383,6 +383,8 @@ export const STATES_MAP = {
   even: ':nth-child(even)',
   odd: ':nth-child(odd)',
   autofill: ':-webkit-autofill',
+  checked: '[nu-pressed]',
+  selected: '[nu-pressed]',
 };
 
 function getStateSelector(name) {

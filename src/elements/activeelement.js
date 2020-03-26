@@ -112,7 +112,7 @@ export default class NuActiveElement extends NuElement {
     }
 
     setTimeout(() => {
-      const innerPopup = this.querySelector('[nu-popup]');
+      const innerPopup = this.nuDeepQuery('[nu-popup]');
 
       if (innerPopup) {
         this.nuSetAria('haspopup', true);
@@ -143,6 +143,8 @@ export default class NuActiveElement extends NuElement {
         event.nuRole = this.getAttribute('role');
       }
     });
+
+    this.nuSetContext('active', this);
   }
 
   nuCreateLink() {
@@ -354,7 +356,7 @@ export default class NuActiveElement extends NuElement {
       }
     }
 
-    const innerPopup = this.querySelector('[nu-popup]');
+    const innerPopup = this.nuDeepQuery('[nu-popup]');
 
     if (innerPopup) {
       innerPopup[this.nuPressed ? 'nuOpen' : 'nuClose']();

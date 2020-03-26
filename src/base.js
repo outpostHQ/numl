@@ -1308,6 +1308,7 @@ export default class NuBase extends HTMLElement {
       nuContext: Object.create(this.nuContext),
       nuSetContext: this.nuSetContext,
       nuVerifyChildren: this.nuVerifyChildren,
+      nuDeepQuery: this.nuDeepQuery,
       nuIsConnectionComplete: true,
       nuIsConnected: true,
     });
@@ -1459,5 +1460,24 @@ export default class NuBase extends HTMLElement {
     }
 
     resetScroll(this);
+  }
+
+  nuDeepQuery(selector) {
+    if (this.nuShadow) {
+      const shadowEl = this.nuShadow.querySelector(selector);
+
+      if (shadowEl) {
+        return shadowEl;
+      }
+    }
+
+    const el = this.querySelector(selector);
+
+    if (el) return;
+
+    [...this.querySelectorAll('[shadow-root]')]
+      .find(shadowEl => {
+        return shadowEl.nuShadow.nuDeepQuery(selector);
+      });
   }
 }
