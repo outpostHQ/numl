@@ -52,6 +52,8 @@ export default class NuAttrs extends NuDecorator {
 
     if (!parent.nuContext || !id) return;
 
+    this.nuParent = parent;
+
     this.nuFor = id;
 
     const attrs = this.nuOwnAttrs;
@@ -112,5 +114,17 @@ export default class NuAttrs extends NuDecorator {
 
   nuDisconnected() {
     super.nuDisconnected();
+
+    const parent = this.nuParent;
+
+    if (!parent) return;
+
+    const id = this.getAttribute('for');
+    const selector = getSelector(id);
+    const shadow = id.startsWith('$');
+
+    parent.nuSetContext(`attrs:${id}`, null);
+
+    parent.nuVerifyChildren({ attrs: selector, shadow });
   }
 }
