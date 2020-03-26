@@ -4,18 +4,15 @@ import { computeStyles, log } from '../helpers';
 import { generateCSS } from '../css';
 
 function getSelector(id, oldId) {
-  const isTag = !!ELEMENTS_MAP[id];
-
-  if (isTag) {
-    return id;
-  }
-
   id = id.replace(/^\$+/, '');
   oldId = oldId ? oldId.replace(/^\$+/, '') : null;
 
-  return `[as*="${id}"], [id="${id}"], [id^="${id}--"]${
-    oldId ? `[as*="${oldId}"], [id="${oldId}"], [id^="${oldId}--"]` : ''
-  }`;
+  return `${(!ELEMENTS_MAP[id] ? `[as*="${id}"], [id="${id}"], [id^="${id}--"]` : id)}${
+    oldId
+      ? (!ELEMENTS_MAP[oldId]
+        ? `, [as*="${oldId}"], [id="${oldId}"], [id^="${oldId}--"]`
+        : `, ${oldId}`)
+      : ''}`;
 }
 
 export default class NuAttrs extends NuDecorator {
