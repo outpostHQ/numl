@@ -611,5 +611,5 @@ export function hueFromString(str) {
     }
   }
 
-  return str.split('').reduce((sum, ch) => sum + ch.charCodeAt(0) * 70, 0) % 360;
+  return str.split('').reduce((sum, ch) => sum + ch.charCodeAt(0) * 69, 0) % 360;
 }

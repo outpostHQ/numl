@@ -1173,7 +1173,9 @@ export function parseColor(val, ignoreError) {
 }
 
 export function isDefined(tag) {
-  return document.createElement(tag).constructor !== HTMLElement;
+  const constructor = document.createElement(tag).constructor;
+
+  return constructor !== HTMLUnknownElement && constructor !== HTMLElement;
 }
 
 export function resetScroll(el) {

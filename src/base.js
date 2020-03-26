@@ -1473,7 +1473,7 @@ export default class NuBase extends HTMLElement {
 
     const el = this.querySelector(selector);
 
-    if (el) return;
+    if (el) return el;
 
     [...this.querySelectorAll('[shadow-root]')]
       .find(shadowEl => {
