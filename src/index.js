@@ -53,6 +53,7 @@ import NuMd from './elements/md';
 import NuList from './elements/list';
 import NuListItem from './elements/listitem';
 import NuRoot from './elements/root';
+import NuNum from './elements/num';
 // decorators
 import NuDecorator from './decorators/decorator';
 import NuTheme from './decorators/theme';
@@ -248,6 +249,7 @@ export {
   NuList,
   NuListItem,
   NuRoot,
+  NuNum,
   NuAttrs,
   NuTheme,
   NuVars,
