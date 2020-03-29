@@ -1277,6 +1277,12 @@ export default class NuBase extends HTMLElement {
     log('set variable', { context: this, name, value });
   }
 
+  nuGetVar(name) {
+    const data = this.nuContext[`var:${name}`];
+
+    return data && data.value;
+  }
+
   nuRemoveVar(name) {
     delete this.nuContext[`var:${name}`];
 
@@ -1436,7 +1442,12 @@ export default class NuBase extends HTMLElement {
 
       this.nuSetMod('root', false);
     } else {
-      this.nuContext = { $root: this, $shadowRoot: null, $parentShadowRoot: null };
+      this.nuContext = {
+        $root: this,
+        $shadowRoot: null,
+        $parentShadowRoot: null,
+        'var:locale': navigator.language || navigator.languages[0],
+      };
       this.nuSetMod('root', true);
 
       applyTheme(this, BASE_THEME, 'main');
