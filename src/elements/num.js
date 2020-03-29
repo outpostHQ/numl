@@ -1,4 +1,5 @@
-import NuElement from './element';
+import NuFormatter from './formatter';
+import { devMode, warn } from '../helpers';
 
 export const NUM_NOTATIONS = [
   'standard', 'scientific', 'engineering', 'compact',
@@ -34,60 +35,48 @@ function getInList(val, list) {
   if (list.includes(val)) return val;
 }
 
-export default class NuNum extends NuElement {
+export default class NuNum extends NuFormatter {
   static get nuTag() {
     return 'nu-num';
   }
 
   static get nuAttrs() {
     return {
+      value: '',
+      locale: '',
       type: '',
       code: '',
       sign: '',
+      unit: '',
       notation: '',
-      value: '',
-      signification: '',
+      fallback: '',
+      significant: '',
       integer: '',
       decimal: '',
-      locale: '',
     };
   }
 
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
+  static nuFormat(value, locale, {
+    type, code, sign, unit, notation, fallback, significant, integer, decimal,
+  } = {}) {
+    fallback = fallback || '–';
 
-    if (!this.nuIsConnected) return;
-
-    if (Object.keys(this.constructor.nuAttrs).includes(name)) {
-      this.nuApply();
-    }
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    this.nuApply();
-  }
-
-  nuApply() {
-    const typeAttr = this.getAttribute('type');
-    const notationAttr = (this.getAttribute('notation') || '').split(/\s+/);
-    const unitAttr = (this.getAttribute('unit') || '').split(/\s+/);
-    const fractionAttr = (this.getAttribute('decimal') || '').split(/\s+/);
-    const integerAttr = this.getAttribute('integer');
-    const significantAttr = (this.getAttribute('significant') || '').split(/\s+/);
-    const type = getInList(typeAttr, NUM_TYPES);
-    const code = this.getAttribute('code');
-    const notation = getInList(notationAttr[0], NUM_NOTATIONS);
-    const unit = getInList(unitAttr[0], NUM_UNITS);
+    const notationAttr = String(notation || '').split(/\s+/);
+    const unitAttr = String(unit || '').split(/\s+/);
+    const fractionAttr = String(decimal || '').split(/\s+/);
+    const codeAttr = String(code || '').split(/\s+/);
+    const integerAttr = integer;
+    const significantAttr = String(significant || '').split(/\s+/);
+    const typeOption = getInList(String(type), NUM_TYPES);
+    const notationOption = getInList(notationAttr[0], NUM_NOTATIONS);
+    const unitOption = getInList(unitAttr[0], NUM_UNITS);
     const notationDisplay = notationAttr[1];
     const unitDisplay = unitAttr[1];
-    const signAttr = (this.getAttribute('sign') || '').split(/\s+/);
-    const sign = getInList(signAttr[0], NUM_SIGN_OPTIONS);
+    const signAttr = String(sign || '').split(/\s+/);
+    const signOption = getInList(signAttr[0], NUM_SIGN_OPTIONS);
     const isAccounting = signAttr.includes('accounting');
-    const valueNum = Number(this.getAttribute('value'));
-    const value = valueNum === valueNum ? valueNum : this.getAttribute('nanValue') || '0';
-    const locale = this.getAttribute('locale') || this.nuGetVar('locale') || 'en';
+
+    value = Number(value);
 
     const options = {};
 
@@ -114,19 +103,23 @@ export default class NuNum extends NuElement {
     }
 
     if (sign) {
-      options.signDisplay = sign;
+      options.signDisplay = signOption;
     }
 
     if (isAccounting) {
       options.currencySign = 'accounting';
     }
 
-    if (code) {
-      options.currency = code;
+    if (codeAttr[0]) {
+      options.currency = codeAttr[0];
+
+      if (codeAttr[1] === 'narrow') {
+        options.currencyDisplay = 'narrowSymbol';
+      }
     }
 
     if (type) {
-      options.style = type;
+      options.style = typeOption;
     }
 
     if (unitDisplay) {
@@ -134,7 +127,7 @@ export default class NuNum extends NuElement {
     }
 
     if (notation) {
-      options.notation = notation;
+      options.notation = notationOption;
 
       if (notation === 'compact' && notationDisplay) {
         options.notationDisplay = notationDisplay;
@@ -142,11 +135,19 @@ export default class NuNum extends NuElement {
     }
 
     if (unit) {
-      options.unit = unit;
+      options.unit = unitOption;
     }
 
-    const formatter = new Intl.NumberFormat(locale, options);
+    if (value !== value) {
+      return fallback;
+    }
 
-    this.innerHTML = formatter.format(value);
+    try {
+      return new Intl.NumberFormat(locale, options).format(value);
+    } catch (e) {
+      warn('number format error', e);
+
+      return devMode ? 'Invalid' : fallback;
+    }
   }
 }
