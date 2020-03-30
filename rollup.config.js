@@ -4,13 +4,14 @@ import pkg from './package.json';
 
 const DEV = !!process.env.ROLLUP_WATCH;
 const VERSION = `"${pkg.version}"`;
+const moduleName = pkg.module;
 
 export default (!DEV ? [
   {
     input: 'src/pack.js',
     external: ['ms'],
     output: [
-      { name: 'Nude', file: pkg.module, format: 'iife', exports: 'default' }
+      { name: 'Nude', file: moduleName, format: 'iife', exports: 'default' }
     ],
     plugins: [
       replace({
@@ -24,7 +25,7 @@ export default (!DEV ? [
     input: 'src/index.js',
     external: ['ms'],
     output: [
-      { name: 'Nude', file: pkg.module.replace('.js', '.module.js'), format: 'es' }
+      { name: 'Nude', file: moduleName.replace('.js', '.module.js'), format: 'es' }
     ],
     plugins: [
       replace({
@@ -40,7 +41,7 @@ export default (!DEV ? [
     output: [
       {
         name: 'Nude',
-        file: pkg.module.replace('.js', '.module.dev.js'),
+        file: moduleName.replace('.js', '.module.dev.js'),
         format: 'es'
       }
     ],
@@ -58,7 +59,7 @@ export default (!DEV ? [
     output: [
       {
         name: 'Nude',
-        file: pkg.module.replace('.js', '.dev.js'),
+        file: moduleName.replace('.js', '.dev.js'),
         format: 'iife',
         exports: 'default'
       }

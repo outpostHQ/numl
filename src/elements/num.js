@@ -43,7 +43,7 @@ export default class NuNum extends NuFormatter {
   static get nuAttrs() {
     return {
       value: '',
-      locale: '',
+      lang: '',
       type: '',
       code: '',
       sign: '',
@@ -60,6 +60,14 @@ export default class NuNum extends NuFormatter {
     type, code, sign, unit, notation, fallback, significant, integer, decimal,
   } = {}) {
     fallback = fallback || '–';
+
+    if (!type) {
+      if (code) {
+        type = 'currency';
+      } else if (unit) {
+        type = 'unit';
+      }
+    }
 
     const notationAttr = String(notation || '').split(/\s+/);
     const unitAttr = String(unit || '').split(/\s+/);

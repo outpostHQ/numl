@@ -26,6 +26,10 @@ export default class NuFormatter extends NuElement {
     super.nuConnected();
 
     this.nuApply();
+
+    if (this.nuFirstConnect) {
+      this.nuSetContextHook('locale', () => this.nuApply());
+    }
   }
 
   nuApply() {
