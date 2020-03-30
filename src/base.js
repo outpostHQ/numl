@@ -34,7 +34,9 @@ import {
   isVariableAttr,
   isResponsiveAttr,
   normalizeAttrStates,
-  parseAttr, isDefined, parseAttrStates, resetScroll,
+  isDefined,
+  parseAttrStates,
+  resetScroll,
 } from './helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibility';
 import displayAttr from './attributes/display';
@@ -187,6 +189,7 @@ export default class NuBase extends HTMLElement {
       special: '',
       theme: themeAttr,
       prop: propAttr,
+      lang: '',
     };
   }
 
@@ -891,6 +894,8 @@ export default class NuBase extends HTMLElement {
       case 'as':
         this.nuSetContextAttrs();
         break;
+      case 'lang':
+        this.nuSetVar('locale', value);
     }
   }
 
