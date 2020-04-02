@@ -101,7 +101,7 @@ export default class NuAttrs extends NuDecorator {
         selector.split(', ').forEach(sel => {
           query = `${context} ${sel}:not([${name}])`;
 
-          css += generateCSS(query, styles, '', true);
+          css += generateCSS(query, styles, true);
         });
       }
     });

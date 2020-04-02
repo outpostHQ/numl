@@ -1,7 +1,9 @@
 import NuCard from './card';
 import placeAttr, { PLACE_ATTR } from '../attributes/place';
-import { extractMods, fixPosition } from '../helpers';
+import { deepQuery, deepQueryAll, extractMods, fixPosition } from '../helpers';
 import FixateMixin, { FIXATE_ATTR } from '../mixins/fixate';
+
+let CURRENT_POPUPS = new Set;
 
 export default class NuPopup extends NuCard {
   static get nuTag() {
@@ -72,13 +74,20 @@ export default class NuPopup extends NuCard {
     `;
   }
 
-
   nuConnected() {
     super.nuConnected();
+
+    const shadowRoot = this.nuContext.$shadowRoot;
+
+    if (shadowRoot) {
+      bindGlobalEvents(shadowRoot);
+    }
 
     this.nuSetContext('popup', this);
 
     this.nuActive = this.nuContext.active;
+
+    this.nuActive.nuLinkPopup(this);
 
     if (!this.nuFirstConnect) return;
 
@@ -95,13 +104,13 @@ export default class NuPopup extends NuCard {
     this.nuSetMod('popup', true);
 
     this.addEventListener('mousedown', (event) => {
-      event.nuPopup = this;
+      CURRENT_POPUPS.add(this);
 
       event.stopPropagation();
     });
 
     this.addEventListener('click', (event) => {
-      event.nuPopup = this;
+      CURRENT_POPUPS.add(this);
 
       event.stopPropagation();
     });
@@ -145,6 +154,15 @@ export default class NuPopup extends NuCard {
     });
   }
 
+  nuDisconnected() {
+    super.nuDisconnected();
+
+    this.nuClose();
+    this.nuActive.nuUnlinkPopup(this);
+
+    delete this.nuActive;
+  }
+
   nuOpen() {
     this.nuFixateStart();
 
@@ -185,30 +203,56 @@ export default class NuPopup extends NuCard {
 }
 
 function findParentPopup(element) {
-  const elements = [];
+  const elements = []
 
   do {
-    if (element.hasAttribute && element.hasAttribute('aria-haspopup')) {
-      elements.push(element.querySelector('[nu-popup]'));
+    if (element) {
+      if (element.nuChildPopup) {
+        const popup = element.nuChildPopup;
+
+        if (popup) {
+          elements.push(popup);
+        }
+      }
+    } else {
+      break;
     }
-  } while (element = element.parentNode);
+  } while (element = element.parentNode || element.host);
 
   return elements;
 }
 
 function handleOutside(event) {
-  const popups = event.nuPopup || findParentPopup(event.target);
+  if (event.nuPopupHandled) return;
 
-  [...document.querySelectorAll('[nu-popup]')]
+  const popups = findParentPopup(event.target);
+
+  popups.forEach(popup => CURRENT_POPUPS.add(popup));
+
+  if (CURRENT_POPUPS) {
+    setInterval(() => {
+      CURRENT_POPUPS.clear();
+    }, 0);
+  }
+
+  deepQueryAll(this === window ? document : this, '[nu-popup]')
     .forEach((currentPopup) => {
-      if (!popups.includes(currentPopup)) {
-        if (currentPopup.nuActive) {
-          currentPopup.nuActive.nuSetPressed(false);
-        }
+      if (!CURRENT_POPUPS.has(currentPopup)) {
+        console.log(currentPopup, CURRENT_POPUPS);
+        currentPopup.nuClose();
+        event.nuPopupHandled = true;
       }
     });
 }
 
-['mousedown', 'touchstart', 'focusin'].forEach(eventName => {
-  window.addEventListener(eventName, handleOutside, { passive: true });
-});
+function bindGlobalEvents(root) {
+  if (root.nuPopupEventsBinded) return;
+
+  ['mousedown', 'touchstart', 'focusin'].forEach(eventName => {
+    root.addEventListener(eventName, handleOutside.bind(root), { passive: true });
+
+    root.nuPopupEventsBinded = true;
+  });
+}
+
+bindGlobalEvents(window);

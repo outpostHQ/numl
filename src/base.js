@@ -36,7 +36,7 @@ import {
   normalizeAttrStates,
   isDefined,
   parseAttrStates,
-  resetScroll,
+  resetScroll, deepQuery, deepQueryAll,
 } from './helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibility';
 import displayAttr from './attributes/display';
@@ -364,7 +364,7 @@ export default class NuBase extends HTMLElement {
 
         const query = `${tag}${name !== 'text' && !isProp ? `:not([${name}])` : ''}`;
 
-        defaultsCSS += generateCSS(query, styles, '', true);
+        defaultsCSS += generateCSS(query, styles, true);
       });
 
     if (!dontInject) {
@@ -427,6 +427,7 @@ export default class NuBase extends HTMLElement {
         this.nuVerifyChildren({
           vars: true,
           responsive: true,
+          shadow: true,
         });
 
         return;
@@ -626,7 +627,7 @@ export default class NuBase extends HTMLElement {
 
     let styles = computeStyles(name, value, this.constructor.nuAllAttrs, this.constructor.nuAllDefaults);
 
-    return generateCSS(query, styles, '', true);
+    return generateCSS(query, styles, true);
   }
 
   /**
@@ -1033,7 +1034,7 @@ export default class NuBase extends HTMLElement {
         return;
       }
 
-      const elements = this.querySelectorAll('[nu]');
+      const elements = this.nuDeepQueryAll('[nu]');
 
       elements.forEach(el => el.nuContextChanged(name));
     }
@@ -1079,7 +1080,7 @@ export default class NuBase extends HTMLElement {
   }
 
   nuVerifyChildren(options) {
-    const selectors = [];
+    const selectors = ['[shadow-root]'];
 
     const force = options === true;
     const { vars, responsive, attrs, shadow } = options;
@@ -1087,7 +1088,7 @@ export default class NuBase extends HTMLElement {
     if (!this.nuIsConnectionComplete) return;
 
     if (force) {
-      selectors.push('[nu]');
+      selectors.push('[nu]', '[shadow-root]');
     } else {
       if (vars) {
         selectors.push(`[nu-${VAR_MOD}]`);
@@ -1099,10 +1100,10 @@ export default class NuBase extends HTMLElement {
 
       if (attrs) {
         selectors.push(attrs);
+      }
 
-        if (shadow) {
-          selectors.push('[shadow-root]');
-        }
+      if (shadow) {
+        selectors.push('[shadow-root]');
       }
     }
 
@@ -1271,15 +1272,23 @@ export default class NuBase extends HTMLElement {
   }
 
   nuSetVar(name, value, decorator) {
+    if (this.nuHasVar(name) && this.nuGetVar(name) === value) {
+      return;
+    }
+
     this.nuSetContext(`var:${name}`, {
       context: this,
       decorator,
       value: value,
     });
 
-    this.nuVerifyChildren({ vars: true });
+    this.nuVerifyChildren({ vars: true, shadow: true });
 
     log('set variable', { context: this, name, value });
+  }
+
+  nuHasVar(name) {
+    return `var:${name}` in this.nuContext;
   }
 
   nuGetVar(name) {
@@ -1293,7 +1302,7 @@ export default class NuBase extends HTMLElement {
 
     setTimeout(() => {
       if (!this.nuContext.hasOwnProperty(`var:${name}`)) {
-        this.nuVerifyChildren({ vars: true });
+        this.nuVerifyChildren({ vars: true, shadow: true });
       }
     });
 
@@ -1479,21 +1488,10 @@ export default class NuBase extends HTMLElement {
   }
 
   nuDeepQuery(selector) {
-    if (this.nuShadow) {
-      const shadowEl = this.nuShadow.querySelector(selector);
+    return deepQuery(this, selector);
+  }
 
-      if (shadowEl) {
-        return shadowEl;
-      }
-    }
-
-    const el = this.querySelector(selector);
-
-    if (el) return el;
-
-    [...this.querySelectorAll('[shadow-root]')]
-      .find(shadowEl => {
-        return shadowEl.nuShadow.nuDeepQuery(selector);
-      });
+  nuDeepQueryAll(selector) {
+    return deepQueryAll(this, selector);
   }
 }

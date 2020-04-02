@@ -27,6 +27,6 @@ export function generateCSSByZones(Element, query, name, value, zones) {
 
     const stls = computeStyles(name, val, Element.nuAllAttrs, Element.nuAllDefaults);
 
-    return generateCSS(query, stls, '', true);
+    return generateCSS(query, stls, true);
   });
 }

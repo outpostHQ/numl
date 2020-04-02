@@ -1,4 +1,5 @@
 import NuElement from './element';
+import { VAR_MOD } from '../variables';
 
 export default class NuFormatter extends NuElement {
   static get nuTag() {
@@ -28,7 +29,12 @@ export default class NuFormatter extends NuElement {
     this.nuApply();
 
     if (this.nuFirstConnect) {
-      this.nuSetContextHook('locale', () => this.nuApply());
+      this.nuSetContextHook('locale', (locale) => {
+        if (this.nuLocale !== locale && !this.hasAttribute('lang')) {
+          this.nuApply();
+        }
+      });
+      this.nuSetMod(VAR_MOD, true);
     }
   }
 
@@ -41,6 +47,8 @@ export default class NuFormatter extends NuElement {
       }, {});
 
     const locale = data.locale || this.nuGetVar('locale') || 'en';
+
+    this.nuLocale = locale;
 
     this.innerHTML = this.constructor.nuFormat(data.value, locale, data);
   }

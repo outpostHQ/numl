@@ -49,11 +49,8 @@ export function stylesString(styles) {
   if (devMode) {
     Object.keys(styles)
       .forEach(style => {
-        if (!styles[style]) {
-          delete styles[style];
-
-          return;
-        }
+        if (style.startsWith('$')) return;
+        if (!styles[style]) return;
 
         const value = String(styles[style]);
 
@@ -67,47 +64,59 @@ export function stylesString(styles) {
   }
 
   return Object.keys(styles)
-    .reduce((string, style) => `${string}${styles[style] ? `${style}:${styles[style]}` : ''};`, '');
+    .reduce((string, style) => !style.startsWith('$') ? `${string}${styles[style] ? `${style}:${styles[style]}` : ''};` : string, '');
 }
 
 const TOUCH_REGEXP = /:hover(?!\))/; // |\[nu-active](?!\))
 const NON_TOUCH_REGEXP = /:hover(?=\))/;
 
-export function generateCSS(query, styles, context = '', universal = false) {
+export function generateCSS(query, styles, universal = false) {
   if (!styles || !styles.length) return;
 
   return styles.map(map => {
-    let currentQuery = query;
+    let queries = [query];
 
-    if (map.$suffix) {
-      currentQuery += map.$suffix;
+    const $prefix = map.$prefix;
+    const $suffix = map.$suffix;
+
+    [$suffix, $prefix]
+      .forEach((add, addIndex) => {
+        if (!add) return;
+
+        const multiple = ~add.indexOf(',');
+        const list = multiple && add.split(',');
+        [...queries].forEach((query, queryIndex) => {
+          if (multiple) {
+            queries[queryIndex] = addIndex ? `${list[0]} ${query}` : `${query}${list[0]}`;
+
+            list.forEach((ad, adIndex) => {
+              if (adIndex) { // skip first suffix
+                queries.push(addIndex ? `${ad} ${query}` : `${query}${ad}`);
+              }
+            });
+          } else {
+            queries[queryIndex] = `${query}${$suffix}`;
+          }
+        });
+      });
+
+    if (universal) {
+      return `${queries.join(',')}{${stylesString(map)}}`;
     }
 
-    if (map.$prefix) {
-      if (currentQuery.startsWith('#')) {
-        const index = currentQuery.indexOf(' ');
+    const touchQueries = queries.filter(query => query.match(TOUCH_REGEXP));
+    const touchCSS = touchQueries.length
+      ? `@media (hover: hover){${touchQueries.join(',')}{${stylesString(map)}}}`
+      : '';
+    const nonTouchQueries = queries.filter(query => query.match(NON_TOUCH_REGEXP));
+    const nonTouchCSS = nonTouchQueries.length ? `
+      @media (hover: hover){${nonTouchQueries.join(',')}{${stylesString(map)}}}
+      @media (hover: none){${nonTouchQueries.join(',').replace(':not(:hover)', '')}{${stylesString(map)}}}
+    ` : '';
+    const otherQueries = queries.filter(query => !touchQueries.includes(query) && !nonTouchQueries.includes(query));
+    const otherCSS = `${otherQueries.join(',')}{${stylesString(map)}}`;
 
-        currentQuery = `${currentQuery.slice(0, index)} ${map.$prefix} ${currentQuery.slice(index)}`;
-      } else {
-        currentQuery = `${map.$prefix} ${currentQuery}`;
-      }
-    }
-
-    delete map.$suffix;
-    delete map.$prefix;
-
-    if (!universal) {
-      if (currentQuery.match(TOUCH_REGEXP)) {
-        return `@media (hover: hover){${context}${currentQuery}{${stylesString(map)}}}`;
-      } else if (currentQuery.match(NON_TOUCH_REGEXP)) {
-        return `
-        @media (hover: hover){${context}${currentQuery}{${stylesString(map)}}}
-        @media (hover: none){${context}${currentQuery.replace(':not(:hover)', '')}{${stylesString(map)}}}
-      `;
-      }
-    }
-
-    return `${context}${currentQuery}{${stylesString(map)}}`;
+    return [touchCSS, nonTouchCSS, otherCSS].join('\n');
   }).join('\n');
 }
 

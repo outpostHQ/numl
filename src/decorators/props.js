@@ -65,7 +65,5 @@ export default class NuProps extends NuDecorator {
 
       log('apply property', { context: parent, name: varName, value: value });
     });
-
-    parent.nuVerifyChildren({ vars: true });
   }
 }
