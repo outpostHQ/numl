@@ -112,16 +112,6 @@ export default class NuActiveElement extends NuElement {
     }
 
     setTimeout(() => {
-      const innerPopup = this.nuDeepQuery('[nu-popup]');
-
-      if (innerPopup) {
-        this.nuSetAria('haspopup', true);
-        this.nuSetAria('expanded', this.nuPressed || false);
-        this.nuRole = 'button';
-
-        return;
-      }
-
       if (!this.parentNode) return;
 
       if (this.getAttribute('role') === 'button') {
@@ -145,6 +135,20 @@ export default class NuActiveElement extends NuElement {
     });
 
     this.nuSetContext('active', this);
+  }
+
+  nuLinkPopup(popup) {
+    this.nuChildPopup = popup;
+    this.nuSetAria('haspopup', true);
+    this.nuSetAria('expanded', this.nuPressed || false);
+    this.nuRole = 'button';
+  }
+
+  nuUnlinkPopup() {
+    delete this.nuChildPopup;
+    this.nuSetAria('haspopup', null);
+    this.nuSetAria('expanded', this.nuPressed || false);
+    this.nuRole = 'button';
   }
 
   nuCreateLink() {

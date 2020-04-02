@@ -9,7 +9,7 @@ export function enableFocus() {
     const root = document.querySelector(ROOT_CONTEXT);
 
     if (root) {
-      root.classList.add('nu-focus-enabled');
+      root.style.setProperty('--nu-focus-enabler', '1');
     }
 
     enableTimerId = 0;
@@ -23,7 +23,7 @@ export function disableFocus() {
     const root = document.querySelector(ROOT_CONTEXT);
 
     if (root) {
-      root.classList.remove('nu-focus-enabled');
+      root.style.setProperty('--nu-focus-enabler', '0');
     }
 
     disableTimerId = 0;

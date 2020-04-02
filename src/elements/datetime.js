@@ -128,7 +128,7 @@ export default class NuDateTime extends NuFormatter {
   }
 
   static nuFormat(value, locale, data) {
-    const fallback = devMode ? 'Invalid' : (data.fallback || '–');
+    const fallback = data.fallback != null ? data.fallback : (devMode ? 'Invalid' : '–');
 
     if (!(value instanceof Date)) {
       if (value === 'now') {

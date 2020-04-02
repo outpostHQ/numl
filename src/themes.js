@@ -517,67 +517,55 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
   if (prefersContrastSupport && prefersColorSchemeSupport) {
     finalCSS += `
       @media (prefers-color-scheme: dark) {
-        @media (prefers-contrast: high) {
-          html.nu-scheme-light${notContrastClass} ${baseQuery}{${lightContrastProps}}
-          html${notSchemeClass}${notContrastClass} ${baseQuery}
-          , html.nu-scheme-dark${notContrastClass} ${baseQuery}{${darkContrastProps}}
+        @media (prefers-contrast: high) and (prefers-contrast: low), (prefers-contrast: high) and (prefers-contrast: no-reference) {
+          ${generateThemeQuery(baseQuery, 'light', 'no')}{${lightContrastProps}}
+          ${generateThemeQuery(baseQuery, 'no', 'no')}
+          , ${generateThemeQuery(baseQuery, 'dark', 'no')}{${darkContrastProps}}
         }
 
-        @media (prefers-contrast: low), (prefers-contrast: no-reference) {
-          html.nu-scheme-light${notContrastClass} ${baseQuery}{${lightNormalProps}}
-          html${notSchemeClass}${notContrastClass} ${baseQuery}
-          , html.nu-scheme-dark${notContrastClass} ${baseQuery}{${darkNormalProps}}
-        }
-
-        html.nu-contrast-high${notSchemeClass} ${baseQuery}{${darkContrastProps}}
-        html.nu-contrast-low${notSchemeClass} ${baseQuery}{${darkNormalProps}}
+        ${generateThemeQuery(baseQuery, 'no', 'high')}{${darkContrastProps}}
+        ${generateThemeQuery(baseQuery, 'no', 'low')}{${darkNormalProps}}
       }
 
       @media (prefers-color-scheme: light), (prefers-color-scheme: no-reference) {
-        @media (prefers-contrast: high) {
-          html.nu-scheme-dark${notContrastClass} ${baseQuery}{${darkContrastProps}}
-          html${notSchemeClass}${notContrastClass} ${baseQuery}
-          , html.nu-scheme-light${notContrastClass} ${baseQuery}{${lightContrastProps}}
+        @media (prefers-contrast: high) and (prefers-contrast: low), (prefers-contrast: high) and (prefers-contrast: no-reference) {
+          ${generateThemeQuery(baseQuery, 'dark', 'no')}{${darkContrastProps}}
+          ${generateThemeQuery(baseQuery, 'no', 'no')}
+          , ${generateThemeQuery(baseQuery, 'light', 'no')}{${lightContrastProps}}
         }
 
-        @media (prefers-contrast: low), (prefers-contrast: no-reference) {
-          html.nu-scheme-dark${notContrastClass} ${baseQuery}{${darkNormalProps}}
-          html${notSchemeClass}${notContrastClass} ${baseQuery}
-          , html.nu-scheme-light${notContrastClass} ${baseQuery}{${lightNormalProps}}
-        }
-
-        html.nu-contrast-high${notSchemeClass} ${baseQuery}{${lightContrastProps}}
-        html.nu-contrast-low${notSchemeClass} ${baseQuery}{${lightNormalProps}}
+        ${generateThemeQuery(baseQuery, 'no', 'high')}{${lightContrastProps}}
+        ${generateThemeQuery(baseQuery, 'no', 'low')}{${lightNormalProps}}
       }
     `;
   } else if (prefersColorSchemeSupport) {
     finalCSS += `
       @media (prefers-color-scheme: dark) {
-        html.nu-contrast-high${notSchemeClass} ${baseQuery}{${darkContrastProps}}
-        html.nu-contrast-low${notSchemeClass} ${baseQuery}
-        , html${notContrastClass}${notSchemeClass} ${baseQuery}{${darkNormalProps}}
+        ${generateThemeQuery(baseQuery, 'no', 'high')}{${darkContrastProps}}
+        ${generateThemeQuery(baseQuery, 'no', 'low')}
+        , ${generateThemeQuery(baseQuery, 'no', 'no')}{${darkNormalProps}}
       }
 
       @media (prefers-color-scheme: light), (prefers-color-scheme: no-reference) {
-        html.nu-contrast-high${notSchemeClass} ${baseQuery}{${lightContrastProps}}
-        html.nu-contrast-low${notSchemeClass} ${baseQuery}
-        , html${notContrastClass}${notSchemeClass} ${baseQuery}{${lightNormalProps}}
+        ${generateThemeQuery(baseQuery, 'no', 'high')}{${lightContrastProps}}
+        ${generateThemeQuery(baseQuery, 'no', 'low')}
+        , ${generateThemeQuery(baseQuery, 'no', 'no')}{${lightNormalProps}}
       }
 
-      html${notContrastClass}.nu-scheme-light ${baseQuery}{${lightNormalProps}}
-      html${notContrastClass}.nu-scheme-dark ${baseQuery}{${darkNormalProps}}
+      ${generateThemeQuery(baseQuery, 'light', 'no')}{${lightNormalProps}}
+      ${generateThemeQuery(baseQuery, 'dark', 'no')}{${darkNormalProps}}
     `;
   } else {
     finalCSS += `
-      html${notContrastClass}${notSchemeClass} ${baseQuery}{${lightNormalProps}}
+      ${generateThemeQuery(baseQuery, 'no', 'no')} {${lightNormalProps}}
     `;
   }
 
   finalCSS += `
-    html.nu-scheme-light.nu-contrast-low ${baseQuery}{${lightNormalProps}}
-    html.nu-scheme-light.nu-contrast-high ${baseQuery}{${lightContrastProps}}
-    html.nu-scheme-dark.nu-contrast-low ${baseQuery}{${darkNormalProps}}
-    html.nu-scheme-dark.nu-contrast-high ${baseQuery}{${darkContrastProps}}
+    ${generateThemeQuery(baseQuery, 'light', 'low')}{${lightNormalProps}}
+    ${generateThemeQuery(baseQuery, 'light', 'high')}{${lightContrastProps}}
+    ${generateThemeQuery(baseQuery, 'dark', 'low')}{${darkNormalProps}}
+    ${generateThemeQuery(baseQuery, 'dark', 'high')}{${darkContrastProps}}
   `;
 
   injectCSS(
@@ -598,6 +586,33 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
     lightness,
     $context: element
   });
+}
+
+const notContrastClass = ':not([class*="nu-contrast-"])';
+const notSchemeClass = ':not([class*="nu-scheme-"])';
+
+export function generateThemeQuery(query, scheme = '', contrast = '') {
+  if (scheme) {
+    if (scheme === 'light') {
+      scheme = '.nu-scheme-light';
+    } else if (scheme === 'dark') {
+      scheme = '.nu-scheme-dark';
+    } else {
+      scheme = notSchemeClass;
+    }
+  }
+
+  if (contrast) {
+    if (contrast === 'low') {
+      contrast = '.nu-contrast-low';
+    } else if (contrast === 'high') {
+      contrast = '.nu-contrast-high';
+    } else {
+      contrast = notContrastClass;
+    }
+  }
+
+  return `html${scheme}${contrast} ${query}`;
 }
 
 export function hueFromString(str) {

@@ -1187,3 +1187,45 @@ export function resetScroll(el) {
     el.scrollLeft = 0;
   }
 }
+
+export function deepQuery(element, selector) {
+  if (element.nuShadow) {
+    const shadowEl = deepQuery(element.nuShadow, selector);
+
+    if (shadowEl) {
+      return shadowEl;
+    }
+  }
+
+  const el = element.querySelector(selector);
+
+  if (el) return el;
+
+  return [...element.querySelectorAll('[shadow-root]')]
+    .find(shadowEl => {
+      return deepQuery(shadowEl.nuShadow, selector);
+    });
+}
+
+export function deepQueryAll(element, selector) {
+  const found = [];
+
+  if (element.nuShadow) {
+    const shadowEls = deepQueryAll(element.nuShadow, selector);
+
+    found.push(shadowEls);
+  }
+
+  const els = [...element.querySelectorAll(selector)];
+
+  if (els.length) {
+    found.push(...els);
+  }
+
+  [...element.querySelectorAll('[shadow-root]')]
+    .forEach(shadowEl => {
+      found.push(...deepQueryAll(shadowEl.nuShadow, selector));
+    });
+
+  return found;
+}

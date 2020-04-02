@@ -59,7 +59,7 @@ export default class NuNum extends NuFormatter {
   static nuFormat(value, locale, {
     type, code, sign, unit, notation, fallback, significant, integer, decimal,
   } = {}) {
-    fallback = fallback || '–';
+    fallback = data.fallback != null ? data.fallback : '–';
 
     if (!type) {
       if (code) {
