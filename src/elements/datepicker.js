@@ -9,6 +9,16 @@ export default class NuDatePicker extends NuSvelteComponent {
     return import('../components/datepicker.svelte').then(module => module.default);
   }
 
+  static get nuAttrs() {
+    return {
+      value: '',
+      locale: '',
+      begin: '',
+      end: '',
+      mode: '',
+    };
+  }
+
   static get nuDefaults() {
     return {
       display: 'grid',
