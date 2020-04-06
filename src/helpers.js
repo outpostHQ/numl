@@ -1231,7 +1231,7 @@ export function deepQueryAll(element, selector) {
 }
 
 export function isValidDate(date) {
-  return !isNan(date.getTime());
+  return !date || !isNan(date.getTime());
 }
 
 export function isNan(val) {

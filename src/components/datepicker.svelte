@@ -90,6 +90,7 @@
 
 </nu-grid>
 
+{#if mode === 'range'}
 <nu-flex gap size="xs">
   <nu-attrs for="nu-btn" special padding></nu-attrs>
 
@@ -106,12 +107,7 @@
     <nu-datetime year month="short" value={navDate}></nu-datetime>
   </nu-btn>
 </nu-flex>
-<!-- <nu-block>{locale} {weekStartDate}</nu-block>-->
-<nu-block>
-  <nu-datetime date value={fromDate} fallback=""></nu-datetime>
-  -
-  <nu-datetime date value={toDate} fallback=""></nu-datetime>
-</nu-block>
+{/if}
 
 <script>
 import { createEventDispatcher } from 'svelte';
@@ -283,7 +279,7 @@ $: years = (() => {
   return list;
 })();
 $: weekDays = monthDays.slice(0, 7).map(day => day.date);
-$: currentYear = navDate.toLocaleString(locale, { year: 'long' });
+$: currentYear = navDate.toLocaleString(locale, { year: 'numeric' });
 $: currentMonth = navDate.toLocaleString(locale, { month: 'short' });
 $: haveNextMonth = isMonthInRange(addMonths(navDate, 1), beginDate, endDate);
 $: havePrevMonth = isMonthInRange(addMonths(navDate, -1), beginDate, endDate);

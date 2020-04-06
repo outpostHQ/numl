@@ -12,8 +12,6 @@ export default class NuSvelteComponent extends NuElement {
     return {
       value: '',
       locale: '',
-      begin: '',
-      end: '',
     };
   }
 
