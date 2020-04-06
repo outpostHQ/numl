@@ -6,7 +6,7 @@ export default class NuDatePicker extends NuSvelteComponent {
   }
 
   static get nuComponent() {
-    return import('../components/datepicker.svelte').then(module => module.default);
+    return import('../components/datepicker.svelte');
   }
 
   static get nuAttrs() {

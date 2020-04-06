@@ -3,9 +3,9 @@ import { toCamelCase } from '../helpers';
 
 const BaseAttrs = NuElement.nuAllAttrs;
 
-export default class NuSvelteComponent extends NuElement {
+export default class NuComponent extends NuElement {
   static get nuTag() {
-    return 'nu-abstract-sveltecomponent';
+    return 'nu-abstract-component';
   }
 
   static get nuAttrs() {
@@ -20,7 +20,7 @@ export default class NuSvelteComponent extends NuElement {
 
     if (!this.nuFirstConnect) return;
 
-    const Component = await this.constructor.nuComponent.then(module => module.default || module);
+    const Component = await this.constructor.nuComponent;
 
     const target = this.hasAttribute('shadow-root') ? this.attachShadow({ mode: 'open' }) : this;
 
@@ -32,6 +32,27 @@ export default class NuSvelteComponent extends NuElement {
     this.nuComponent.$on('input', (event) => {
       this.nuEmitInput(event.detail);
     });
+  }
+
+  nuInitComponent(Component) {
+    this.nuComponent = new Component({
+      target,
+      props: this.nuProps,
+    });
+  }
+
+  nuChangeComponent() {
+    this.nuComponent.set(this.nuProps);
+  }
+
+  nuGetProp(attr) {
+    const nuAttrs = this.constructor.nuAllAttrs;
+
+    if (attr === 'locale') {
+
+    } else {
+
+    }
   }
 
   get nuProps() {

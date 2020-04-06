@@ -33,7 +33,7 @@
   <nu-attrs for="section" flow="column" gap="@gap" labelledby=":prev" debug></nu-attrs>
 
   <nu-flow gap="2x">
-    <nu-heading level="1">
+    <!-- <nu-heading level="1">
       <nu-svg
         id="logo-vector"
         width="clamp(18, 100%, 36)"
@@ -2058,7 +2058,6 @@
         It's <b>polyfill</b> requirements!
       </nu-block>
 
-      <!-- additional block wrapper is required in this case -->
       <nu-block>
         <nu-flex flow="row wrap" gap="1 2" items-grow="1">
           <nu-card width="min(20)">Card 1</nu-card>
@@ -2621,7 +2620,7 @@
         <nu-triangle direction="bottom"></nu-triangle>
         <nu-triangle direction="left"></nu-triangle>
       </nu-flex>
-    </nu-card>
+    </nu-card>-->
 
     <nu-heading level="2">Code snippets
       <nu-badge special size="md">experimental</nu-badge>
@@ -2824,6 +2823,14 @@
           color="white" role="checkbox">
           Toggle Button
         </nu-btn>
+      </nu-block>
+    </nu-card>
+
+    <nu-card as="section">
+      <nu-heading level="3">Date picker</nu-heading>
+
+      <nu-card width="20">
+        <nu-datepicker mode="range"></nu-datepicker>
       </nu-block>
     </nu-card>
 
