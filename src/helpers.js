@@ -1229,3 +1229,11 @@ export function deepQueryAll(element, selector) {
 
   return found;
 }
+
+export function isValidDate(date) {
+  return !isNan(date.getTime());
+}
+
+export function isNan(val) {
+  return val !== val;
+}

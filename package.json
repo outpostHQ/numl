@@ -1,21 +1,29 @@
 {
   "name": "numl",
-  "version": "0.10.10",
-  "module": "dist/numl.js",
+  "version": "0.11.0-beta.1",
+  "module": "dist/index.js",
   "homepage": "https://github.com/tenphi/numl#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tenphi/numl.git"
   },
+  "dependencies": {
+    "date-fns": "^2.11.1",
+    "svelte": "^3.20.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "@size-limit/preset-big-lib": "^4.4.1",
     "inline-assets": "^1.4.4",
     "install": "^0.13.0",
     "npm": "^6.14.3",
     "parcel-bundler": "^1.12.4",
+    "parcel-plugin-svelte": "^4.0.6",
     "rollup": "^2.1.0",
     "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-resolve": "0.0.1-predev.1",
+    "rollup-plugin-svelte": "^5.2.0",
     "rollup-plugin-terser": "^5.3.0",
     "size-limit": "^4.4.2"
   },
@@ -38,23 +46,22 @@
   "sideEffects": false,
   "size-limit": [
     {
-      "name": "numl",
+      "name": "NuML Core",
       "path": [
-        "dist/numl.js"
+        "dist/index.js"
       ]
     },
     {
-      "name": "numl module",
+      "name": "DatePicker Component",
       "path": [
-        "dist/numl.module.js"
-      ]
-    },
-    {
-      "name": "numl core",
-      "import": "Nude, { NuBase, NuElement }",
-      "path": [
-        "dist/numl.module.js"
+        "dist/datepicker.js"
       ]
     }
+  ],
+  "browserslist": [
+    "iOS 10",
+    "last 10 Chrome versions",
+    "last 5 Firefox versions",
+    "last 3 Safari versions"
   ]
 }

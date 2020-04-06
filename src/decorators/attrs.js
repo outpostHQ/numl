@@ -1,5 +1,5 @@
 import NuDecorator from './decorator';
-import { getAllAttrs, ELEMENTS_MAP } from '../base';
+import { getAllAttrs, ELEMENTS_MAP } from '../elements/base';
 import { computeStyles, log } from '../helpers';
 import { generateCSS } from '../css';
 
