@@ -159,6 +159,14 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
+   * Static css for Shadow DOM of the element.
+   * @returns {string}
+   */
+  static nuShadowCSS() {
+    return '';
+  }
+
+  /**
    * @private
    */
   static get nuAllAttrs() {

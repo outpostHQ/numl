@@ -8,9 +8,9 @@ const DEV = !!process.env.ROLLUP_WATCH;
 const VERSION = `"${pkg.version}"`;
 // const moduleName = pkg.module;
 
-function componentConfig(name) {
+function partConfig(url) {
   return {
-    input: `src/components/${name}.svelte`,
+    input: `src/${url}`,
     external: ['ms'],
     output: [{
       name: 'Nude',
@@ -48,4 +48,8 @@ export default [{
     svelte(),
     resolve(),
   ]
-}, componentConfig('datepicker')];
+},
+  partConfig('components/datepicker.svelte'),
+  partConfig('converters/markdown.js'),
+  partConfig('converters/code.js'),
+];

@@ -56,6 +56,18 @@
       "path": [
         "dist/datepicker.js"
       ]
+    },
+    {
+      "name": "Markdown Converter",
+      "path": [
+        "dist/markdown.js"
+      ]
+    },
+    {
+      "name": "Code Converter",
+      "path": [
+        "dist/code.js"
+      ]
     }
   ],
   "browserslist": [
