@@ -48,6 +48,8 @@ export default class NuConverter extends NuElement {
       if (this.nuShadow) {
         const shadowCSS = this.constructor.nuShadowCSS();
 
+        console.log('!!', shadowCSS);
+
         if (shadowCSS) {
           injectStyleTag(
             shadowCSS,

@@ -122,7 +122,7 @@ export default class NuCode extends NuConverter {
     `;
   }
 
-  nuShadowCSS() {
+  static nuShadowCSS() {
     return this.nuCSS({ tag: '', css: '' });
   }
 
