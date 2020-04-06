@@ -253,7 +253,7 @@ export function beautifyCSS(css) {
 }
 
 const globalCSS = `
-body {
+html {
   --nu-base: 16px;
   --nu-pixel: 1px;
 
@@ -262,6 +262,7 @@ body {
   --nu-border-width: 1px;
   --nu-transition-time: 0.08s;
   --nu-inline-offset: -.15em;
+  --nu-transition-enabler: 1;
 
   --nu-font-size: 1rem;
   --nu-line-height: 1.5rem;
@@ -315,15 +316,13 @@ html.nu-scheme-dark .nu-dark-dim, html.nu-scheme-dark nu-img {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nu-reduce-motion [nu], body {
-    transition: initial !important;
+  html {
+    --nu-transition-enabler: 0;
   }
 }
 
-html.nu-reduce-motion [nu], html.nu-reduce-motion body,
-html.nu-reduce-motion-force [nu], html.nu-reduce-motion-force body {
-  --nu-transition-time: 0s;
-  transition: initial !important;
+html.nu-reduce-motion {
+  --nu-transition-enabler: 0;
 }
 
 [nu-hidden] {

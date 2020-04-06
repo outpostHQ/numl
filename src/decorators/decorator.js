@@ -1,4 +1,4 @@
-import NuBase from '../base';
+import NuBase from '../elements/base';
 import { THEME_ATTR } from '../themes';
 import { RESPONSIVE_ATTR } from '../responsive';
 

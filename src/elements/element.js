@@ -3,7 +3,7 @@ import {
   setImmediate,
   parseAllValues,
 } from '../helpers';
-import NuBase from '../base';
+import NuBase from './base';
 import BaseAttributes from '../attributes/base';
 import TransformCombinator from '../combinators/transform';
 import ShadowCombinator from '../combinators/shadow';

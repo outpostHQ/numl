@@ -238,7 +238,6 @@ function handleOutside(event) {
   deepQueryAll(this === window ? document : this, '[nu-popup]')
     .forEach((currentPopup) => {
       if (!CURRENT_POPUPS.has(currentPopup)) {
-        console.log(currentPopup, CURRENT_POPUPS);
         currentPopup.nuClose();
         event.nuPopupHandled = true;
       }

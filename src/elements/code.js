@@ -141,7 +141,7 @@ export default class NuCode extends NuElement {
       declareThemes(this.constructor);
     }
 
-    if (this.hasAttribute('shady')) {
+    if (this.hasAttribute('shadow-root')) {
       this.attachShadow();
     }
 

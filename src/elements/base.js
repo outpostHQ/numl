@@ -7,7 +7,7 @@ import {
   cleanCSSByPart,
   transferCSS,
   STYLE_MAP,
-} from './css';
+} from '../css';
 import {
   parseThemeAttr,
   applyTheme,
@@ -16,9 +16,9 @@ import {
   BASE_THEME,
   ALL_THEME_MODS,
   THEME_TYPE_MODS, THEME_ATTR
-} from './themes';
-import { generateCSSByZones, RESPONSIVE_ATTR, RESPONSIVE_MOD } from './responsive';
-import { composeVarsValue, getVarsList, VAR_MOD } from './variables';
+} from '../themes';
+import { generateCSSByZones, RESPONSIVE_ATTR, RESPONSIVE_MOD } from '../responsive';
+import { composeVarsValue, getVarsList, VAR_MOD } from '../variables';
 import {
   getParent,
   invertQuery,
@@ -37,12 +37,12 @@ import {
   isDefined,
   parseAttrStates,
   resetScroll, deepQuery, deepQueryAll,
-} from './helpers';
-import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from './compatibility';
-import displayAttr from './attributes/display';
-import themeAttr from './attributes/theme';
-import propAttr from './attributes/prop';
-import combine from './combinators/index';
+} from '../helpers';
+import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
+import displayAttr from '../attributes/display';
+import themeAttr from '../attributes/theme';
+import propAttr from '../attributes/prop';
+import combine from '../combinators/index';
 
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
@@ -81,7 +81,7 @@ export default class NuBase extends HTMLElement {
    * @returns {String}
    */
   static get nuTag() {
-    return 'nu-base'; // abstract tag
+    return 'nu-abstract-base'; // abstract tag
   }
 
   /**
@@ -1244,6 +1244,14 @@ export default class NuBase extends HTMLElement {
         value = notNull ? new Date(value) : null;
 
         break;
+      case 'daterange':
+        if (!Array.isArray(value)) {
+          value = null;
+        }
+
+        value = [new Date(value[0]), new Date(value[1])];
+
+        break
       case 'array':
         try {
           value = JSON.parse(value);

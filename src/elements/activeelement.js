@@ -1,10 +1,9 @@
 import NuElement from './element';
 import ActiveMixin from '../mixins/active';
-import { setImmediate } from '../helpers';
 
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
-    return 'nu-activeelement'; // abstract tag
+    return 'nu-abstract-activeelement'; // abstract tag
   }
 
   static get nuRole() {

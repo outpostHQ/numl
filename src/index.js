@@ -1,66 +1,7 @@
-// elements
-import NuBase from './base';
-import NuElement from './elements/element';
-import NuGrid from './elements/grid';
-import NuBlock from './elements/block';
-import NuHeading from './elements/heading';
-import NuIcon from './elements/icon';
-import NuLine from './elements/line';
-import NuPane from './elements/pane';
-import NuCard from './elements/card';
-import NuLayout from './elements/flow';
-import NuBtn from './elements/btn';
-import NuTab from './elements/tab';
-import NuSwitch from './elements/switch';
-import NuGridTable from './elements/gridtable';
-import NuBadge from './elements/badge';
-import NuLink from './elements/link';
-import NuBlockLink from './elements/blocklink';
-import NuInput from './elements/input';
-import NuFlex from './elements/flex';
-import NuBtnGroup from './elements/btngroup';
-import NuMenu from './elements/menu';
-import NuMenuItem from './elements/menuitem';
-import NuTablist from './elements/tablist';
+export * from './elements';
+import * as ELEMENTS from './elements';
+import NuBase from './elements/base';
 import NuActiveElement from './elements/activeelement';
-import NuTriangle from './elements/triangle';
-import NuTooltip from './elements/tooltip';
-import NuTable from './elements/table';
-import NuRow from './elements/row';
-import NuRowGroup from './elements/rowgroup';
-import NuCell from './elements/cell';
-import NuColumnHeader from './elements/columnheader';
-import NuRowHeader from './elements/rowheader';
-import NuPopup from './elements/popup';
-import NuPopupMenu from './elements/popupmenu';
-import NuGroup from './elements/group';
-import NuCheckbox from './elements/checkbox';
-import NuRadioGroup from './elements/radiogroup';
-import NuRadio from './elements/radio';
-import NuLabel from './elements/label';
-import NuNumInput from './elements/numinput';
-import NuMark from './elements/mark';
-import NuSpecial from './elements/special';
-import NuSvg from './elements/svg';
-import NuImg from './elements/img';
-import NuCode from './elements/code';
-import NuClamp from './elements/clamp';
-import NuProgressBar from './elements/progress';
-import NuRail from './elements/rail';
-import NuSlider from './elements/slider';
-import NuMarkdown from './elements/markdown';
-import NuMd from './elements/md';
-import NuList from './elements/list';
-import NuListItem from './elements/listitem';
-import NuRoot from './elements/root';
-import NuNum from './elements/num';
-import NuDateTime from './elements/datetime';
-// decorators
-import NuDecorator from './decorators/decorator';
-import NuTheme from './decorators/theme';
-import NuVars from './decorators/vars';
-import NuAttrs from './decorators/attrs';
-import NuProps from './decorators/props';
 // helpers
 import * as helpers from './helpers';
 import * as color from './color';
@@ -71,9 +12,11 @@ import * as css from './css';
 
 const IGNORE_KEYS = ['Alt', 'Control', 'Meta', 'Shift'];
 
-window.addEventListener('mousedown', disableFocus);
-window.addEventListener('touchstart', disableFocus, { passive: true });
-window.addEventListener('keydown', (event) => {
+const win = window;
+
+win.addEventListener('mousedown', disableFocus);
+win.addEventListener('touchstart', disableFocus, { passive: true });
+win.addEventListener('keydown', (event) => {
   if (!IGNORE_KEYS.includes(event.key)) {
     enableFocus();
   }
@@ -184,6 +127,10 @@ Nude.getCriticalCSS = function () {
   return `${baseCSS}\n${attrsCSS}`;
 };
 
+Nude.init(...Object.values(ELEMENTS));
+
+win.Nude = Nude;
+
 export default Nude;
 
 const {
@@ -196,65 +143,7 @@ export {
   STATES_MAP,
   CUSTOM_UNITS,
   ROOT_CONTEXT,
-  NuElement,
   NuBase,
-  NuGrid,
-  NuBlock,
-  NuHeading,
-  NuBtn,
-  NuTab,
-  NuCard,
-  NuIcon,
-  NuLayout,
-  NuLine,
-  NuPane,
-  NuGridTable,
-  NuBadge,
-  NuInput,
-  NuSwitch,
-  NuFlex,
-  NuBtnGroup,
-  NuTablist,
-  NuMenu,
-  NuMenuItem,
-  NuLink,
-  NuBlockLink,
   NuActiveElement,
-  NuTriangle,
-  NuTooltip,
-  NuCell,
-  NuColumnHeader,
-  NuRowHeader,
-  NuRow,
-  NuRowGroup,
-  NuTable,
-  NuPopup,
-  NuPopupMenu,
-  NuGroup,
-  NuCheckbox,
-  NuRadioGroup,
-  NuRadio,
-  NuLabel,
-  NuNumInput,
-  NuMark,
-  NuSpecial,
-  NuSvg,
-  NuImg,
-  NuCode,
-  NuClamp,
-  NuProgressBar,
-  NuRail,
-  NuSlider,
-  NuMarkdown,
-  NuMd,
-  NuList,
-  NuListItem,
-  NuRoot,
-  NuNum,
-  NuDateTime,
-  NuAttrs,
-  NuTheme,
-  NuVars,
-  NuProps,
-  NuDecorator,
+  ELEMENTS,
 };
