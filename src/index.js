@@ -56,11 +56,11 @@ const Nude = {
 };
 
 Nude.init = (...elements) => {
+  const els = [...document.querySelectorAll('[nu]')];
+
   elements.forEach(el => {
     el.nuInit();
   });
-
-  const els = [...document.querySelectorAll('[nu]')];
 
   els.forEach(el => {
     el.nuCreateContext();

@@ -35,6 +35,8 @@ export default class NuMarkdown extends NuConverter {
   }
 
   nuApply(container, content, converter) {
+    if (!converter) return;
+
     container.setAttribute('gap', this.getAttribute('gap') || '2x');
 
     container.innerHTML = converter(

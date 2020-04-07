@@ -68,6 +68,18 @@
       "path": [
         "dist/code.js"
       ]
+    },
+    {
+      "name": "DateTime Formatter",
+      "path": [
+        "dist/datetime.js"
+      ]
+    },
+    {
+      "name": "Number Formatter",
+      "path": [
+        "dist/number.js"
+      ]
     }
   ],
   "browserslist": [

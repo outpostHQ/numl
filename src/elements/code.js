@@ -136,6 +136,8 @@ export default class NuCode extends NuConverter {
   }
 
   nuApply(container, content, converter) {
+    if (!converter) return;
+
     container.innerHTML = converter(
       extractContent(content),
       this.hasAttribute('enumerate'),

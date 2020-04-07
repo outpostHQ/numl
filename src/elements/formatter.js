@@ -11,7 +11,7 @@ export default class NuFormatter extends NuElement {
    * @param value
    * @param locale
    */
-  static nuFormat(value, locale) {}
+  static nuFormatter(value, locale) {}
 
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
@@ -38,7 +38,9 @@ export default class NuFormatter extends NuElement {
     }
   }
 
-  nuApply() {
+  async nuApply() {
+    const formatter = await this.constructor.nuFormatter.then(module => module.default);
+
     const data = Object.keys(this.constructor.nuAttrs)
       .reduce((data, attr) => {
         data[attr] = this.getAttribute(attr);
@@ -50,6 +52,6 @@ export default class NuFormatter extends NuElement {
 
     this.nuLocale = locale;
 
-    this.innerHTML = this.constructor.nuFormat(data.value, locale, data);
+    this.innerHTML = formatter(data.value, locale, data);
   }
 }
