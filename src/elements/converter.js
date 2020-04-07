@@ -48,8 +48,6 @@ export default class NuConverter extends NuElement {
       if (this.nuShadow) {
         const shadowCSS = this.constructor.nuShadowCSS();
 
-        console.log('!!', shadowCSS);
-
         if (shadowCSS) {
           injectStyleTag(
             shadowCSS,
@@ -62,7 +60,9 @@ export default class NuConverter extends NuElement {
       this.nuObserve = async () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
 
-        const converter = await this.constructor.nuConverter.then(module => module.default || module);
+        const converter = this.nuConverter || await this.constructor.nuConverter.then(module => module.default || module);
+
+        this.nuConverter = converter;
 
         this.nuApply(container, content, converter);
       };
