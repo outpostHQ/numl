@@ -96,6 +96,7 @@ import 'numl';
 
 * **[NuML Landing Page](https://numl.design)**
 * **[Sellerscale](https://sellerscale.com)** – [Project Screenshot Light](https://github.com/tenphi/nude/blob/master/images/example-app-light.png?raw=true) | [Project Screenshot Dark](https://github.com/tenphi/nude/blob/master/images/example-app-dark.png?raw=true) | [Project Screenshot Light Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-light-contrast.png?raw=true) | [Project Screenshot Dark Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-dark-contrast.png?raw=true)
+* **[Web Standards Calendar](Web Standart)** – [GitHub Repo](https://github.com/katrinLuna/frontend-events-numl)
 
 ## Development status (v1)
 
