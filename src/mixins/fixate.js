@@ -15,7 +15,56 @@ function onFixateChange() {
 
 export default function FixateMixin($host) {
   return {
-    enabled() {
+    init() {
+      this.change = this.change.bind(this);
+      this.start = this.start.bind(this);
+      this.end = this.end.bind(this);
+
+      this.changed(FIXATE_ATTR, $host.getAttribute(FIXATE_ATTR) || 'down');
+    },
+    disconnected() {
+      this.end();
+
+      delete this.parent;
+    },
+    changed(name) {
+      if (name !== PLACE_ATTR && name !== FIXATE_ATTR) return;
+
+      $host.nuSetMod(FIXATE_ATTR, false);
+      $host.nuSetContext('fixate', null);
+      $host.style.display = '';
+      $host.style.opacity = '';
+      delete this.position;
+
+      const fixateValue = $host.getAttribute(FIXATE_ATTR)
+        || $host.constructor.nuAllDefaults[FIXATE_ATTR]
+        || 'down';
+
+      if (!this.enabled) return;
+
+      if (devMode) {
+        const { mods } = parseAttr(fixateValue);
+
+        if ((mods[0] && !FIXATE_DIRECTIONS.includes(mods[0]))
+          || (mods[1] && !DIRECTIONS.includes(mods[1]))) {
+          warn('[fixate.mixin] incorrect [drop] value:', JSON.stringify(fixateValue));
+
+          return;
+        }
+      }
+
+      this.position = fixateValue;
+
+      $host.nuSetMod(FIXATE_ATTR, true);
+      $host.nuSetContext('fixate', {
+        context: $host,
+        position: fixateValue,
+      });
+
+      $host.style.display = 'none';
+      $host.style.opacity = '0';
+    },
+    get enabled() {
       const place = $host.getAttribute(PLACE_ATTR);
       const fixate = $host.getAttribute(FIXATE_ATTR);
 
@@ -146,58 +195,6 @@ export default function FixateMixin($host) {
         }
       }, 500);
     },
-    init() {
-      this.change = this.change.bind(this);
-      this.start = this.start.bind(this);
-      this.end = this.end.bind(this);
-
-      this.changed(FIXATE_ATTR, $host.getAttribute(FIXATE_ATTR) || 'down');
-    },
-    disconnected() {
-      this.end();
-
-      delete this.parent;
-    },
-    changed(name) {
-      if (name !== PLACE_ATTR && name !== FIXATE_ATTR) return;
-
-      $host.nuSetMod(FIXATE_ATTR, false);
-      $host.nuSetContext('fixate', null);
-      $host.style.display = '';
-      $host.style.opacity = '';
-      delete this.position;
-
-      const fixate = this.enabled;
-      const fixateValue = $host.getAttribute(FIXATE_ATTR)
-        || $host.constructor.nuAllDefaults[FIXATE_ATTR]
-        || 'down';
-
-      if (!fixate) return;
-
-      if (devMode) {
-        const { mods } = parseAttr(fixateValue);
-
-        if ((mods[0] && !FIXATE_DIRECTIONS.includes(mods[0]))
-          || (mods[1] && !DIRECTIONS.includes(mods[1]))) {
-          warn('[fixate.mixin] incorrect [drop] value:', JSON.stringify(fixateValue));
-
-          return;
-        }
-      }
-
-      this.position = fixateValue;
-
-      console.log('!', fixateValue, $host);
-
-      $host.nuSetMod(FIXATE_ATTR, true);
-      $host.nuSetContext('fixate', {
-        context: $host,
-        position: fixateValue,
-      });
-
-      $host.style.display = 'none';
-      $host.style.opacity = '0';
-    }
   };
 }
 
