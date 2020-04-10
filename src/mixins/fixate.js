@@ -132,7 +132,7 @@ export default function FixateMixin($host) {
 
       this.fixated = false;
 
-      LISTENERS.delete($this.change);
+      LISTENERS.delete(this.change);
 
       $host.style.opacity = '0';
 
