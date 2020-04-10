@@ -52,9 +52,9 @@ export const COMBINATORS_MAP = {};
 export const ELEMENTS_MAP = {};
 
 const MIXINS = {
-  active: import(`../mixins/active.js`),
-  fixate: import(`../mixins/fixate.js`),
-  orient: import(`../mixins/orient.js`),
+  active: () => import(`../mixins/active.js`),
+  fixate: () => import(`../mixins/fixate.js`),
+  orient: () => import(`../mixins/orient.js`),
 };
 
 export function getAllAttrs() {
@@ -1571,7 +1571,7 @@ export default class NuBase extends HTMLElement {
 
     return this.nuMixinLoaders[name] = (async () => {
       if (!Mixin) {
-        Mixin = await MIXINS[name].then(module => module.default || module);
+        Mixin = await MIXINS[name]().then(module => module.default || module);
       }
 
       if (isClass(Mixin)) {
