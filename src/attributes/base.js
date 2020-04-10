@@ -35,7 +35,7 @@ import toggleAttr from '../attributes/toggle';
 import focusableAttr from '../attributes/focusable';
 import hoverableAttr from '../attributes/hoverable';
 import dropAttr from '../attributes/drop';
-import { expandAttr } from '../attributes/expand';
+import expandAttr from '../attributes/expand';
 import opacityAttr from '../attributes/opacity';
 
 export default {

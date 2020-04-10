@@ -37,6 +37,7 @@ import {
   isDefined,
   parseAttrStates,
   resetScroll, deepQuery, deepQueryAll,
+  isClass,
 } from '../helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
@@ -49,6 +50,12 @@ export const DEFAULTS_MAP = {};
 export const MIXINS_MAP = {};
 export const COMBINATORS_MAP = {};
 export const ELEMENTS_MAP = {};
+
+const MIXINS = {
+  active: import(`../mixins/active.js`),
+  fixate: import(`../mixins/fixate.js`),
+  orient: import(`../mixins/orient.js`),
+};
 
 export function getAllAttrs() {
   return Object.keys(ATTRS_MAP).reduce((arr, tag) => {
@@ -307,6 +314,8 @@ export default class NuBase extends HTMLElement {
       this.nuGenerateDefaultStyle();
     }
 
+    this.nuMixinList = Object.keys(this.nuAllMixins);
+
     customElements.define(tag, this);
 
     log('custom element registered', tag);
@@ -491,7 +500,7 @@ export default class NuBase extends HTMLElement {
   /**
    * @private
    */
-  connectedCallback() {
+  async connectedCallback() {
     if (!STYLE_MAP[this.constructor.nuTag]) {
       this.constructor.nuGenerateDefaultStyle();
     }
@@ -547,7 +556,19 @@ export default class NuBase extends HTMLElement {
       this.attributeChangedCallback(RESPONSIVE_ATTR, null, this.getAttribute(RESPONSIVE_ATTR), true);
     }
 
+    if (this.nuFirstConnect) {
+      this.nuInit();
+    }
+
     this.nuConnected();
+
+    const mixinList = this.constructor.nuMixinList;
+
+    if (mixinList.length) {
+      for (let name of mixinList) {
+        this.nuMixin(name);
+      }
+    }
 
     this.nuFirstConnect = false;
     this.nuIsConnectionComplete = true;
@@ -557,6 +578,8 @@ export default class NuBase extends HTMLElement {
    * @private
    */
   disconnectedCallback() {
+    delete this.nuIsConnected;
+
     this.nuDisconnected();
 
     if (this.nuDisconnectedHooks) {
@@ -571,8 +594,6 @@ export default class NuBase extends HTMLElement {
         cleanCSSByPart(new RegExp(`#${this.id}(?![a-z0-9_-])`, 'g'));
       });
     }
-
-    delete this.nuIsConnected;
   }
 
   get nuRole() {
@@ -896,7 +917,7 @@ export default class NuBase extends HTMLElement {
    * @param {*} value
    */
   nuChanged(name, oldValue, value) {
-    this.nuMixinCall('changed', [name, oldValue, value]);
+    this.nuMixinCall('changed', [name, value]);
 
     switch (name) {
       case 'id':
@@ -907,6 +928,13 @@ export default class NuBase extends HTMLElement {
         this.nuSetVar('locale', value);
     }
   }
+
+  /**
+   * Called when element is first connected to the DOM.
+   * Just before nuConnected().
+   * Called only once during element life-cycle.
+   */
+  nuInit() {}
 
   /**
    * Called when element is connected to the DOM.
@@ -933,8 +961,15 @@ export default class NuBase extends HTMLElement {
     this.nuMixinCall('disconnected');
   }
 
+  /**
+   * Trigger mixin hooks
+   * @param {String} method
+   * @param {Array} args
+   */
   nuMixinCall(method, args = []) {
-    const mixins = this.constructor.nuAllMixins;
+    const mixins = this.nuMixins;
+
+    if (!mixins) return;
 
     Object.values(mixins).forEach(mixin => {
       if (mixin[method]) {
@@ -1455,10 +1490,6 @@ export default class NuBase extends HTMLElement {
 
     if (this.nuContext) {
       this.nuContextTemp = this.nuContext;
-
-      if (this.nuContext.hasOwnProperty('$root')) {
-        delete this.nuContext.$root;
-      }
     }
 
     if (parent.nuContext) {
@@ -1473,7 +1504,6 @@ export default class NuBase extends HTMLElement {
       this.nuSetMod('root', false);
     } else {
       this.nuContext = {
-        $root: this,
         $shadowRoot: null,
         $parentShadowRoot: null,
         'var:locale': navigator.language || navigator.languages[0],
@@ -1509,5 +1539,58 @@ export default class NuBase extends HTMLElement {
 
   nuDeepQueryAll(selector) {
     return deepQueryAll(this, selector);
+  }
+
+  /** Mixin System **/
+
+  /**
+   * Require mixin
+   */
+  async nuMixin(name, options, Mixin) {
+    const mixins = this.constructor.nuAllMixins;
+
+    options = options || (!Mixin && mixins[name]);
+
+    if (options === true) {
+      options = {};
+    }
+
+    if (!this.nuMixins) {
+      this.nuMixins = {};
+    }
+
+    let mixin = this.nuMixins[name];
+
+    if (mixin) return mixin;
+
+    if (!this.nuMixinLoaders) {
+      this.nuMixinLoaders = {};
+    }
+
+    if (this.nuMixinLoaders[name]) return this.nuMixinLoaders[name];
+
+    return this.nuMixinLoaders[name] = (async () => {
+      if (!Mixin) {
+        Mixin = await MIXINS[name].then(module => module.default || module);
+      }
+
+      if (isClass(Mixin)) {
+        mixin = new Mixin(this, options);
+      } else {
+        mixin = Mixin(this, options);
+      }
+
+      this.nuMixins[name] = mixin;
+
+      if (mixin.init) {
+        await mixin.init();
+      }
+
+      if (this.nuConnected && mixin.connected) {
+        mixin.connected();
+      }
+
+      return mixin;
+    })();
   }
 }

@@ -1,6 +1,5 @@
 import NuBlock from './block';
 import { fixPosition } from '../helpers';
-import FixateMixin from '../mixins/fixate';
 
 export default class NuTooltip extends NuBlock {
   static get nuTag() {
@@ -13,7 +12,7 @@ export default class NuTooltip extends NuBlock {
 
   static get nuMixins() {
     return {
-      fixate: FixateMixin(),
+      fixate: true,
     };
   }
 
@@ -54,12 +53,13 @@ export default class NuTooltip extends NuBlock {
     let hover = false;
     let focus = false;
 
-    const onMouseEnter = () => {
+    const onMouseEnter = async () => {
       hover = true;
 
       if (focus) return;
 
-      this.nuFixateStart();
+      (await this.nuMixin('fixate')).start();
+
       this.nuSetMod('show', true);
       parent.nuSetMod('tooltip', true);
 
@@ -68,33 +68,36 @@ export default class NuTooltip extends NuBlock {
       });
     };
 
-    const onMouseLeave = (force) => {
+    const onMouseLeave = async (force) => {
       hover = false;
       focus = false;
 
       // if (focus) return;
 
-      this.nuFixateEnd();
+      (await this.nuMixin('fixate')).end();
+
       this.nuSetMod('show', false);
       parent.nuSetMod('tooltip', false);
     };
 
-    const onFocus = () => {
+    const onFocus = async () => {
       focus = true;
 
       if (hover) return;
 
-      this.nuFixateStart();
+      (await this.nuMixin('fixate')).start();
+
       this.nuSetMod('show', true);
       parent.nuSetMod('tooltip', true);
     };
 
-    const onBlur = () => {
+    const onBlur = async () => {
       focus = false;
 
       if (hover) return;
 
-      this.nuFixateEnd();
+      (await this.nuMixin('fixate')).end();
+
       this.nuSetMod('show', false);
       parent.nuSetMod('tooltip', false);
     };

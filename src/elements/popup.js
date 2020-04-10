@@ -1,6 +1,6 @@
 import NuCard from './card';
 import placeAttr, { PLACE_ATTR } from '../attributes/place';
-import { deepQuery, deepQueryAll, extractMods, fixPosition } from '../helpers';
+import { deepQueryAll, extractMods, fixPosition } from '../helpers';
 import FixateMixin, { FIXATE_ATTR } from '../mixins/fixate';
 
 let CURRENT_POPUPS = new Set;
@@ -163,8 +163,8 @@ export default class NuPopup extends NuCard {
     delete this.nuActive;
   }
 
-  nuOpen() {
-    this.nuFixateStart();
+  async nuOpen() {
+    (await this.nuMixin('fixate')).start();
 
     this.hidden = false;
 
@@ -184,8 +184,8 @@ export default class NuPopup extends NuCard {
     this.nuResetScroll(true);
   }
 
-  nuClose() {
-    this.nuFixateEnd();
+  async nuClose() {
+    (await this.nuMixin('fixate')).end();
 
     this.hidden = true;
 

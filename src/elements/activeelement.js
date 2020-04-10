@@ -1,5 +1,4 @@
 import NuElement from './element';
-import ActiveMixin from '../mixins/active';
 
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
@@ -42,7 +41,7 @@ export default class NuActiveElement extends NuElement {
 
   static get nuMixins() {
     return {
-      active: ActiveMixin(),
+      active: true,
     };
   }
 
@@ -212,7 +211,6 @@ export default class NuActiveElement extends NuElement {
       const to = this.getAttribute('to');
       const href = to.replace(/^!/, '');
       const openNewTab = to.startsWith('!') || evt.metaKey || evt.shiftKey;
-
       const useLink = this.constructor.nuNavigate(href, openNewTab);
 
       if (!useLink) {

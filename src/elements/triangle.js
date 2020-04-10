@@ -1,5 +1,4 @@
 import NuElement from './element';
-import DirectionMixin from '../mixins/direction';
 
 export default class NuTriangle extends NuElement {
   static get nuTag() {
@@ -16,12 +15,6 @@ export default class NuTriangle extends NuElement {
       height: '0',
       width: '0',
       border: '(1fs / 2) color(clear)',
-    };
-  }
-
-  static get nuMixins() {
-    return {
-      direction: DirectionMixin(),
     };
   }
 
