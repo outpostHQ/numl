@@ -1,4 +1,5 @@
-import { svgElement } from './src/helpers';
+// import { svgElement } from './src/helpers';
+import Nude from './dist/index';
 
 const schemeWidget = Nude.getElementById("prefers-color-scheme");
 const contrastWidget = Nude.getElementById("prefers-contrast");

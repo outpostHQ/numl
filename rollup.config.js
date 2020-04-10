@@ -16,6 +16,7 @@ function partConfig(url) {
       name: 'Nude',
       dir: './dist/',
       format: 'iife',
+      exports: 'named',
     }],
     plugins: [
       replace({

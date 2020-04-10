@@ -2,27 +2,28 @@ export const ORIENT_ATTR = 'orient';
 export const VERTICAL = 'vertical';
 export const HORIZONTAL = 'horizontal';
 
-export default function OrientMixin({ aria, initial } = {}) {
+export default function OrientMixin($host) {
   return {
+    orient: 'h',
+    set(val) {
+      if (val == null) {
+        const attrValue = $host.nuGetAttr(ORIENT_ATTR, true);
+        val = attrValue != null ? attrValue : 'h';
+      }
+
+      const orientation = val === 'v' ? VERTICAL : HORIZONTAL;
+
+      $host.nuSetAria('orientation', orientation);
+      $host.nuSetContext('orientation', orientation);
+
+      this.orient = orientation;
+    },
     connected() {
-      this.nuSetOrient = (val) => {
-        if (val == null) {
-          const attrValue = this.nuGetAttr(ORIENT_ATTR, true);
-          val = attrValue != null ? attrValue : (initial || 'h');
-        }
-
-        const orientation = val === 'v' ? VERTICAL : HORIZONTAL;
-
-        this.nuSetAria('orientation', orientation);
-        this.nuSetContext('orientation', orientation);
-        this.nuOrient = orientation;
-      };
-
-      this.nuSetOrient();
+      this.set();
     },
     changed(name) {
-      if (name === ORIENT_ATTR && this.nuSetOrient) {
-        this.nuSetOrient();
+      if (name === ORIENT_ATTR) {
+        this.set();
       }
     },
   };

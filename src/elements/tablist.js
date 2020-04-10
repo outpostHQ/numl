@@ -1,7 +1,6 @@
 import NuRadioGroup from './radiogroup';
 import combinedAttr from '../attributes/combined';
 import { convertUnit, DIRECTIONS } from '../helpers';
-import OrientMixin from '../mixins/orient';
 
 const ITEMS_MAP = {
   right: 'center end',
@@ -55,7 +54,7 @@ export default class NuTablist extends NuRadioGroup {
 
   static get nuMixins() {
     return {
-      orient: OrientMixin({ aria: true }),
+      orient: { aria: true },
     };
   }
 
@@ -63,8 +62,9 @@ export default class NuTablist extends NuRadioGroup {
     super.nuConnected();
 
     if (this.nuFirstConnect) {
-      this.addEventListener('focusin', () => {
-        this.nuSetOrient(getComputedStyle(this).flexFlow.includes('column') ? 'v' : 'h');
+      this.addEventListener('focusin', async () => {
+        (await this.nuMixin('orient'))
+          .set(getComputedStyle(this).flexFlow.includes('column') ? 'v' : 'h');
       });
     }
   }

@@ -123,12 +123,12 @@ export default class NuRail extends NuElement {
     }
   }
 
-  nuSetValueByEvent(evt) {
+  async nuSetValueByEvent(evt) {
     const rect = this.getBoundingClientRect();
 
     let value;
 
-    this.nuSetOrient(rect.width > rect.height ? 'h' : 'v');
+    (await this.nuMixin('orient')).set(rect.width > rect.height ? 'h' : 'v');
 
     if (rect.width > rect.height) {
       const pageX = (evt.pageX || (evt.touches && evt.touches.length && evt.touches[0].pageX)) - window.scrollX;

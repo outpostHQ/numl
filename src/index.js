@@ -127,6 +127,8 @@ Nude.getCriticalCSS = function () {
   return `${baseCSS}\n${attrsCSS}`;
 };
 
+Nude.elements = ELEMENTS;
+
 Nude.init(...Object.values(ELEMENTS));
 
 win.Nude = Nude;

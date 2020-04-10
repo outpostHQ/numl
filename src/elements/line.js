@@ -1,5 +1,4 @@
 import NuBlock from './block';
-import OrientMixin from '../mixins/orient';
 import combinedAttr from '../attributes/combined';
 
 export default class NuLine extends NuBlock {
@@ -13,7 +12,7 @@ export default class NuLine extends NuBlock {
 
   static get nuMixins() {
     return {
-      orient: OrientMixin({ aria: true }),
+      orient: { aria: true },
     };
   }
 

@@ -1,6 +1,6 @@
 import { parseAttr, stripCalc } from '../helpers';
 
-export function expandAttr(value) {
+export default function expandAttr(value) {
   if (!value) return;
 
   const { values, color } = parseAttr(value);
