@@ -24,31 +24,6 @@ export default class NuPopup extends NuCard {
     };
   }
 
-  static get nuAttrs() {
-    return {
-      place(val, defaults) {
-        const { mods } = extractMods(val, ['top', 'bottom']);
-
-        let sideStyle;
-
-        if (mods.includes('top')) {
-          sideStyle = 'margin-top'
-        } else if (mods.includes('bottom')) {
-          sideStyle = 'margin-bottom';
-        }
-
-        if (sideStyle) {
-          return [{
-            $suffix: ':not([space])',
-            [sideStyle]: 'calc(var(--nu-gap) * -1)',
-          }, ...placeAttr(val, defaults)];
-        }
-
-        return placeAttr(val, defaults);
-      },
-    };
-  }
-
   static get nuDefaults() {
     return {
       display: 'block',
@@ -135,14 +110,12 @@ export default class NuPopup extends NuCard {
       if (!this.nuActive) return;
 
       this.nuActive.style.setProperty('--nu-local-hover-color', 'transparent');
-      // this.style.setProperty('--nu-local-hover-color', 'var(--nu-hover-color)');
     });
 
     this.addEventListener('mouseleave', () => {
       if (!this.nuActive) returrn;
 
       this.nuActive.style.removeProperty('--nu-local-hover-color');
-      // this.style.removeProperty('--nu-local-hover-color');
     });
 
     this.addEventListener('submit', (event) => {
