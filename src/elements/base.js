@@ -55,6 +55,7 @@ const MIXINS = {
   active: () => import(`../mixins/active.js`),
   fixate: () => import(`../mixins/fixate.js`),
   orient: () => import(`../mixins/orient.js`),
+  popup: () => import('../mixins/popup.js'),
 };
 
 export function getAllAttrs() {
@@ -1518,19 +1519,6 @@ export default class NuBase extends HTMLElement {
     }
 
     delete this.nuContextTemp;
-  }
-
-  /**
-   * Reset scroll on the element.
-   * @param children - affect children
-   */
-  nuResetScroll(children = false) {
-    if (children) {
-      [...this.querySelectorAll('[overflow]')]
-        .forEach(resetScroll);
-    }
-
-    resetScroll(this);
   }
 
   nuDeepQuery(selector) {

@@ -55,4 +55,6 @@ export default [{
   partConfig('converters/code.js'),
   partConfig('formatters/datetime.js'),
   partConfig('formatters/number.js'),
+  partConfig('mixins/fixate.js'),
+  partConfig('mixins/popup.js'),
 ];

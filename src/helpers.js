@@ -1178,13 +1178,22 @@ export function isDefined(tag) {
   return constructor !== HTMLUnknownElement && constructor !== HTMLElement;
 }
 
-export function resetScroll(el) {
+/**
+ * Reset scroll on the element.
+ * @param affectChildren
+ */
+export function resetScroll(el, affectChildren = false) {
   if (el.scrollTop) {
     el.scrollTop = 0;
   }
 
   if (el.scrollLeft) {
     el.scrollLeft = 0;
+  }
+
+  if (affectChildren) {
+    [...deepQueryAll(el, '[overflow]')]
+      .forEach(resetScroll);
   }
 }
 

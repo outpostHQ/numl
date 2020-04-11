@@ -67,6 +67,7 @@ export default function FixateMixin($host) {
     get enabled() {
       const place = $host.getAttribute(PLACE_ATTR);
       const fixate = $host.getAttribute(FIXATE_ATTR);
+      const defaults = $host.constructor.nuAllDefaults;
 
       if (place) {
         return false;
