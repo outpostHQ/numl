@@ -29,8 +29,8 @@ export default class NuFormatter extends NuElement {
     this.nuApply();
 
     if (this.nuFirstConnect) {
-      this.nuSetContextHook('locale', (locale) => {
-        if (this.nuLocale !== locale && !this.hasAttribute('lang')) {
+      this.nuSetContextHook('var:locale', (contextLocale) => {
+        if (this.nuLocale !== contextLocale.value && !this.hasAttribute('lang')) {
           this.nuApply();
         }
       });

@@ -1,3 +1,4 @@
+import CONTEXT from '../context';
 import {
   hasCSS,
   injectCSS,
@@ -36,7 +37,7 @@ import {
   normalizeAttrStates,
   isDefined,
   parseAttrStates,
-  resetScroll, deepQuery, deepQueryAll,
+  deepQuery, deepQueryAll,
   isClass,
 } from '../helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
@@ -1504,11 +1505,7 @@ export default class NuBase extends HTMLElement {
 
       this.nuSetMod('root', false);
     } else {
-      this.nuContext = {
-        $shadowRoot: null,
-        $parentShadowRoot: null,
-        'var:locale': navigator.language || navigator.languages[0],
-      };
+      this.nuContext = Object.create(CONTEXT);
       this.nuSetMod('root', true);
 
       applyTheme(this, BASE_THEME, 'main');

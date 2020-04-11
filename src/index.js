@@ -5,22 +5,14 @@ import NuActiveElement from './elements/activeelement';
 // helpers
 import * as helpers from './helpers';
 import * as color from './color';
-import { enableFocus, disableFocus } from './focus';
+import { initFocus } from './focus';
 import * as themes from './themes';
 import themeAttr from './attributes/theme';
 import * as css from './css';
+import { scheme, contrast, reduceMotion } from './settings';
+import CONTEXT from './context';
 
-const IGNORE_KEYS = ['Alt', 'Control', 'Meta', 'Shift'];
-
-const win = window;
-
-win.addEventListener('mousedown', disableFocus);
-win.addEventListener('touchstart', disableFocus, { passive: true });
-win.addEventListener('keydown', (event) => {
-  if (!IGNORE_KEYS.includes(event.key)) {
-    enableFocus();
-  }
-});
+initFocus();
 
 setTimeout(() => {
   themes.applyTheme(document.body, themes.BASE_THEME, 'main');
@@ -32,8 +24,6 @@ css.injectCSS('theme:base', 'body', css.generateCSS('body', [...styles, {
   '--nu-diff-color': 'var(--nu-bg-color)',
 }]));
 
-const ROOT = document.querySelector(':root');
-
 const Nude = {
   tags: {},
   helpers,
@@ -42,6 +32,10 @@ const Nude = {
   css,
   isTouch: helpers.isTouch,
   version: process.env.APP_VERSION,
+  scheme,
+  contrast,
+  reduceMotion,
+  CONTEXT,
 };
 
 Nude.init = (...elements) => {
@@ -116,55 +110,11 @@ Nude.getCriticalCSS = function () {
   return `${baseCSS}\n${attrsCSS}`;
 };
 
-const DATASET = ROOT.dataset;
-const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
-const CONTRAST_OPTIONS = ['auto', 'low', 'high'];
-
-Nude.scheme = (val) => {
-  const currentScheme = DATASET.nuScheme || 'auto';
-
-  if (!SCHEME_OPTIONS.includes(currentScheme)) {
-    currentScheme = 'auto';
-  }
-
-  if (val == null) {
-    return currentScheme;
-  }
-
-  if (SCHEME_OPTIONS.includes(val)) {
-    DATASET.nuScheme = val;
-  }
-};
-
-Nude.contrast = (val) => {
-  const currentContrast = DATASET.nuContrast || 'auto';
-
-  if (!CONTRAST_OPTIONS.includes(currentContrast)) {
-    currentContrast = 'auto';
-  }
-
-  if (val == null) {
-    return currentContrast;
-  }
-
-  if (CONTRAST_OPTIONS.includes(val)) {
-    DATASET.nuContrast = val;
-  }
-};
-
-Nude.reduceMotion = (bool) => {
-  if (bool) {
-    DATASET.nuReduceMotion = '';
-  } else {
-    delete DATASET.nuReduceMotion;
-  }
-}
-
 Nude.elements = ELEMENTS;
 
 Nude.init(...Object.values(ELEMENTS));
 
-win.Nude = Nude;
+window.Nude = Nude;
 
 export default Nude;
 
@@ -181,4 +131,7 @@ export {
   NuBase,
   NuActiveElement,
   ELEMENTS,
+  scheme,
+  contrast,
+  reduceMotion,
 };
