@@ -321,7 +321,7 @@ const globalCSS = `
   }
 }
 
-:root.nu-reduce-motion {
+:root[data-nu-reduce-motion] {
   --nu-transition-enabler: 0;
 }
 
