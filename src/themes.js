@@ -509,9 +509,6 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
   const prefersContrastSupport = matchMedia('(prefers-contrast)').matches;
   const prefersColorSchemeSupport = matchMedia('(prefers-color-scheme)').matches;
 
-  const notContrastClass = ':not([class*="nu-contrast-"])';
-  const notSchemeClass = ':not([class*="nu-scheme-"])';
-
   let finalCSS = '';
 
   if (prefersContrastSupport && prefersColorSchemeSupport) {
@@ -588,15 +585,15 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
   });
 }
 
-const notContrastClass = ':not([class*="nu-contrast-"])';
-const notSchemeClass = ':not([class*="nu-scheme-"])';
+const notContrastClass = ':not([data-nu-contrast="low"]):not([data-nu-contrast="high"])';
+const notSchemeClass = ':not([data-nu-scheme="light"]):not([data-nu-scheme="dark"])';
 
 export function generateThemeQuery(query, scheme = '', contrast = '') {
   if (scheme) {
     if (scheme === 'light') {
-      scheme = '.nu-scheme-light';
+      scheme = '[data-nu-scheme="light"]';
     } else if (scheme === 'dark') {
-      scheme = '.nu-scheme-dark';
+      scheme = '[data-nu-scheme="dark"]';
     } else {
       scheme = notSchemeClass;
     }
@@ -604,15 +601,15 @@ export function generateThemeQuery(query, scheme = '', contrast = '') {
 
   if (contrast) {
     if (contrast === 'low') {
-      contrast = '.nu-contrast-low';
+      contrast = '[data-nu-contrast="low"]';
     } else if (contrast === 'high') {
-      contrast = '.nu-contrast-high';
+      contrast = '[data-nu-contrast="high"]';
     } else {
       contrast = notContrastClass;
     }
   }
 
-  return `html${scheme}${contrast} ${query}`;
+  return `:root${scheme}${contrast} ${query}`;
 }
 
 export function hueFromString(str) {
