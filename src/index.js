@@ -32,18 +32,7 @@ css.injectCSS('theme:base', 'body', css.generateCSS('body', [...styles, {
   '--nu-diff-color': 'var(--nu-bg-color)',
 }]));
 
-const REDUCED_MOTION_CLASS = 'nu-reduce-motion-force';
-const ROOT = document.querySelector('html');
-
-if (!ROOT.classList.contains(REDUCED_MOTION_CLASS)) {
-  ROOT.classList.add(REDUCED_MOTION_CLASS);
-
-  setTimeout(() => {
-    setTimeout(() => {
-      ROOT.classList.remove(REDUCED_MOTION_CLASS);
-    }, 2000); // wait for 2s before re-enable animations
-  }, 0); // wait for current flow complete
-}
+const ROOT = document.querySelector(':root');
 
 const Nude = {
   tags: {},
@@ -126,6 +115,50 @@ Nude.getCriticalCSS = function () {
 
   return `${baseCSS}\n${attrsCSS}`;
 };
+
+const DATASET = ROOT.dataset;
+const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
+const CONTRAST_OPTIONS = ['auto', 'low', 'high'];
+
+Nude.scheme = (val) => {
+  const currentScheme = DATASET.nuScheme || 'auto';
+
+  if (!SCHEME_OPTIONS.includes(currentScheme)) {
+    currentScheme = 'auto';
+  }
+
+  if (val == null) {
+    return currentScheme;
+  }
+
+  if (SCHEME_OPTIONS.includes(val)) {
+    DATASET.nuScheme = val;
+  }
+};
+
+Nude.contrast = (val) => {
+  const currentContrast = DATASET.nuContrast || 'auto';
+
+  if (!CONTRAST_OPTIONS.includes(currentContrast)) {
+    currentContrast = 'auto';
+  }
+
+  if (val == null) {
+    return currentContrast;
+  }
+
+  if (CONTRAST_OPTIONS.includes(val)) {
+    DATASET.nuContrast = val;
+  }
+};
+
+Nude.reduceMotion = (bool) => {
+  if (bool) {
+    DATASET.nuReduceMotion = '';
+  } else {
+    delete DATASET.nuReduceMotion;
+  }
+}
 
 Nude.elements = ELEMENTS;
 
