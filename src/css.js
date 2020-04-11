@@ -253,7 +253,7 @@ export function beautifyCSS(css) {
 }
 
 const globalCSS = `
-html {
+:root {
   --nu-base: 16px;
   --nu-pixel: 1px;
 
@@ -268,15 +268,15 @@ html {
   --nu-line-height: 1.5rem;
 }
 
-body:not(.nu-prevent-defaults) {
+:root:not([data-nu-prevent-reset]) body {
   line-height: 1rem;
 }
 
-body:not(.nu-prevent-defaults) > *:not([size]) {
+:root:not([data-nu-prevent-reset]) body > *:not([size]) {
   line-height: 1.5rem;
 }
 
-.nu-defaults, body:not(.nu-prevent-defaults) {
+.nu-defaults, :root:not([data-nu-prevent-reset]) body {
   margin: 0;
   padding: 0;
   font-family: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
@@ -298,30 +298,30 @@ body:not(.nu-prevent-defaults) > *:not([size]) {
 }
 
 @media (prefers-color-scheme: dark) {
-  html:not(.nu-scheme-light) .nu-dark-invert {
+  :root:not([data-nu-scheme="light"]) .nu-dark-invert {
     filter: invert(100%) hue-rotate(180deg);
   }
 
-  html:not(.nu-scheme-light) .nu-dark-dim, html:not(.nu-scheme-light) nu-img {
+  :root:not([data-nu-scheme="light"]) .nu-dark-dim, :root:not([data-nu-scheme="light"]) nu-img {
     filter: brightness(0.95);
   }
 }
 
-html.nu-scheme-dark .nu-dark-invert {
+:root[data-nu-scheme="dark"] .nu-dark-invert {
   filter: invert(95%) hue-rotate(180deg);
 }
 
-html.nu-scheme-dark .nu-dark-dim, html.nu-scheme-dark nu-img {
+:root[data-nu-scheme="dark"] .nu-dark-dim, :root[data-nu-scheme="dark"] nu-img {
   filter: brightness(0.95);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
+  :root {
     --nu-transition-enabler: 0;
   }
 }
 
-html.nu-reduce-motion {
+:root.nu-reduce-motion {
   --nu-transition-enabler: 0;
 }
 
