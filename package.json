@@ -80,6 +80,18 @@
       "path": [
         "dist/number.js"
       ]
+    },
+    {
+      "name": "Popup Mixin",
+      "path": [
+        "dist/popup.js"
+      ]
+    },
+    {
+      "name": "Fixate Mixin",
+      "path": [
+        "dist/fixate.js"
+      ]
     }
   ],
   "browserslist": [

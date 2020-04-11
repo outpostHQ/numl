@@ -322,7 +322,7 @@ export default class NuActiveElement extends NuElement {
     this.nuSetPressed(!this.nuPressed);
   }
 
-  nuSetPressed(pressed) {
+  async nuSetPressed(pressed) {
     if (pressed === this.nuPressed) return;
 
     if (!this.nuIsToggle()) return;
@@ -360,7 +360,7 @@ export default class NuActiveElement extends NuElement {
     const innerPopup = this.nuDeepQuery('[nu-popup]');
 
     if (innerPopup) {
-      innerPopup[this.nuPressed ? 'nuOpen' : 'nuClose']();
+      (await innerPopup.nuMixin('popup'))[this.nuPressed ? 'open' : 'close']();
     }
   }
 
