@@ -22,7 +22,7 @@ export default class NuSvelteComponent extends NuElement {
 
     const Component = await this.constructor.nuComponent.then(module => module.default || module);
 
-    const target = this.hasAttribute('shadow-root') ? this.attachShadow({ mode: 'open' }) : this;
+    const target = this.nuContext.useShadow ? this.attachShadow({ mode: 'open' }) : this;
 
     this.nuComponent = new Component({
       target,
@@ -31,6 +31,10 @@ export default class NuSvelteComponent extends NuElement {
 
     this.nuComponent.$on('input', (event) => {
       this.nuEmitInput(event.detail);
+    });
+
+    this.nuSetContextHook('var:locale', () => {
+      this.nuComponent.$set(this.nuProps);
     });
   }
 
@@ -46,7 +50,7 @@ export default class NuSvelteComponent extends NuElement {
         return data;
       }, {});
 
-    data.locale = data.locale || this.nuGetVar('locale') || 'en';
+    data.locale = data.locale || this.nuGetVar('locale');
 
     return data;
   }

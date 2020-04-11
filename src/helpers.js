@@ -4,7 +4,7 @@
  */
 import { strToHsl } from './color';
 
-export const ROOT_CONTEXT = 'html';
+export const ROOT_CONTEXT = ':root';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
 
