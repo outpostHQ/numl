@@ -1,7 +1,5 @@
 // import { svgElement } from './src/helpers';
-// import Nude from './src/index';
-
-const Nude = window.Nude;
+import Nude from './src/index';
 
 const schemeWidget = Nude.getElementById("prefers-color-scheme");
 const contrastWidget = Nude.getElementById("prefers-contrast");

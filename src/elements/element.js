@@ -114,7 +114,7 @@ export default class NuElement extends NuBase {
           const ariaValue = value.split(/\s+/g).map((id) => {
             let link;
 
-            link = this.nuInvertQueryById(id);
+            link = this.nuQueryById(id);
 
             if (!link) return '';
 

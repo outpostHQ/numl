@@ -60,7 +60,7 @@ export default class NuRadio extends NuActiveElement {
 
     if (labelledBy) {
       setTimeout(() => {
-        const el = this.nuInvertQueryById(labelledBy);
+        const el = this.nuQueryById(labelledBy);
 
         if (el) {
           const cb = () => {

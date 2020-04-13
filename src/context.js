@@ -2,6 +2,10 @@ import { deepQueryAll } from './helpers';
 
 export const ROOT = document.querySelector(':root');
 
+function observeContext() {
+  setLocale();
+}
+
 const observer = new MutationObserver(() => observeContext());
 
 observer.observe(ROOT, {
@@ -18,10 +22,6 @@ const CONTEXT = {
 
 export default CONTEXT;
 
-function observeContext() {
-  setLocale();
-}
-
 function setLocale() {
   const value = ROOT.getAttribute('lang') || navigator.language || navigator.languages[0];
 
@@ -34,7 +34,7 @@ export function setRootContext(name, value) {
 
     delete CONTEXT[name];
   } else {
-    if (CONTEXT[name] === value) return;
+    if (JSON.stringify(CONTEXT[name]) === JSON.stringify(value)) return;
 
     CONTEXT[name] = value;
   }

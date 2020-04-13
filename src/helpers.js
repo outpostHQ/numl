@@ -229,7 +229,7 @@ export function getParent(element, selector) {
  * @param {String} selector
  * @returns {undefined|Element}
  */
-export function invertQuery(element, selector) {
+export function query(element, selector) {
   const origElement = element;
 
   let prevElement = element;
@@ -257,8 +257,8 @@ export function invertQuery(element, selector) {
  * @param {String} id
  * @returns {undefined|Element}
  */
-export function invertQueryById(element, id) {
-  return invertQuery(element, `[id^="${id}--"], [id="${id}"]`);
+export function queryById(element, id) {
+  return query(element, `[id^="${id}--"], [id="${id}"]`);
 }
 
 /**
