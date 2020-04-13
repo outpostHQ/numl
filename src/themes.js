@@ -44,8 +44,8 @@ const darkNormanBaseBgColor = [0, 0, normalMinLightness];
 const darkContrastBaseBgColor = [0, 0, contrastMinLightness];
 
 export const BASE_THEME = {
-  hue: 252,
-  saturation: 100,
+  hue: 0,
+  saturation: 0,
   pastel: true,
   name: 'main',
   type: 'main',
@@ -495,6 +495,7 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
   const darkContrastTheme = generateTheme({
     hue, saturation, pastel, type, contrast, lightness, highContrast: true, darkScheme: true,
   });
+
   themeName = themeName || composeThemeName({ name, type, contrast, lightness });
   const lightNormalProps = stylesString(themeToProps(themeName, lightNormalTheme));
   const lightContrastProps = stylesString(themeToProps(themeName, lightContrastTheme));

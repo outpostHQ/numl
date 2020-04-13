@@ -12,6 +12,10 @@ import * as css from './css';
 import { scheme, contrast, reduceMotion } from './settings';
 import CONTEXT from './context';
 
+if (window.Nude) {
+  warn('Several instances of NUDE Framework is loaded. Initialization aborted');
+}
+
 initFocus();
 
 setTimeout(() => {
