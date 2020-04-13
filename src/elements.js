@@ -42,7 +42,6 @@ export { default as NuNum } from './elements/num';
 export { default as NuInput } from './elements/input';
 export { default as NuNumInput } from './elements/numinput';
 export { default as NuDateTime } from './elements/datetime';
-export { default as NuDatePicker } from './elements/datepicker';
 export { default as NuRail } from './elements/rail';
 export { default as NuSlider } from './elements/slider';
 export { default as NuRadio } from './elements/radio';
@@ -55,6 +54,7 @@ export { default as NuMd } from './elements/md';
 export { default as NuTooltip } from './elements/tooltip';
 export { default as NuPopup } from './elements/popup';
 export { default as NuPopupMenu } from './elements/popupmenu';
+export { default as NuDatePicker } from './elements/datepicker';
 
 /* Decorators */
 export { default as NuTheme } from './decorators/theme';
