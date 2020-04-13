@@ -22,13 +22,13 @@ import { generateCSSByZones, RESPONSIVE_ATTR, RESPONSIVE_MOD } from '../responsi
 import { composeVarsValue, getVarsList, VAR_MOD } from '../variables';
 import {
   getParent,
-  invertQuery,
+  query,
   generateId,
   devMode,
   warn,
   log,
   computeStyles,
-  invertQueryById,
+  queryById,
   error,
   parseAllValues,
   extractMods,
@@ -1027,22 +1027,22 @@ export default class NuBase extends HTMLElement {
    * Get closest element that satisfies specified selector
    * @param {String} selector
    */
-  nuInvertQuery(selector) {
-    return invertQuery(this, selector);
+  nuQuery(selector) {
+    return query(this, selector);
   }
 
   /**
    * Get closest element that satisfies specified selector
    * @param {String} id
    */
-  nuInvertQueryById(id) {
+  nuQueryById(id) {
     if (id === ':prev') {
       return this.previousElementSibling;
     } else if (id === ':next') {
       return this.nextElementSibling;
     }
 
-    return invertQueryById(this, id);
+    return queryById(this, id);
   }
 
   /**
@@ -1165,13 +1165,13 @@ export default class NuBase extends HTMLElement {
           if (vars || responsive) {
             el.attributeChangedCallback(name, null, value, true);
           }
-
-          if (attrs) {
-            log('apply context attrs', { el });
-
-            if (el.nuSetContextAttrs) el.nuSetContextAttrs();
-          }
         });
+      }
+
+      if (attrs && el.nuSetContextAttrs) {
+        log('apply context attrs', { el });
+
+        if (el.nuSetContextAttrs) el.nuSetContextAttrs();
       }
 
       if (shadow && el.nuShadow) {
@@ -1244,7 +1244,7 @@ export default class NuBase extends HTMLElement {
   nuScrollTo(id) {
     if (!id) return;
 
-    const element = this.nuInvertQueryById(id);
+    const element = this.nuQueryById(id);
 
     if (element) {
       scrollTo(0, element.getBoundingClientRect().y + window.pageYOffset);

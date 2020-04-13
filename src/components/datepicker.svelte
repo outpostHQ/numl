@@ -76,7 +76,7 @@
 <nu-grid
   columns="repeat(7, 1fr)" content="start stretch"
   text="center">
-  <nu-attrs for="day" padding=".5x 1x" text="w5" border="color(bg)" focusable="inset"></nu-attrs>
+  <nu-attrs for="day" text="w5" border="color(bg)" focusable="inset"></nu-attrs>
   <nu-attrs for="today" text="w7" color="special"></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
@@ -90,7 +90,8 @@
     <nu-btn
             as={day.modifiers}
             on:tap={() => selectRange(day.date)}
-            on:mouseover={() => setHover(day.date)}>
+            on:mouseover={() => setHover(day.date)}
+            padding=".5x 1x">
       <nu-datetime day value={day.date}></nu-datetime>
     </nu-btn>
   {/each}

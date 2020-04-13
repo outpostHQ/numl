@@ -171,7 +171,7 @@ function handleOutside(event) {
   popups.forEach(popup => CURRENT_POPUPS.add(popup));
 
   if (CURRENT_POPUPS) {
-    setInterval(() => {
+    setTimeout(() => {
       CURRENT_POPUPS.clear();
     }, 0);
   }
