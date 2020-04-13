@@ -95,7 +95,7 @@ export function generateCSS(query, styles, universal = false) {
               }
             });
           } else {
-            queries[queryIndex] = `${query}${$suffix}`;
+            queries[queryIndex] = addIndex ? `${add} ${query}` : `${query}${add}`;
           }
         });
       });

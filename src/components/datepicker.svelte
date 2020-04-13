@@ -1,18 +1,25 @@
-<nu-grid padding="0" gap columns="1fr 1fr">
-  <nu-attrs for="arrow" padding="0.25x 0" special border="color(special-bg)"></nu-attrs>
+<nu-grid padding="0" gap columns="1fr 1fr" on:focusin={() => touched = true}>
+  <nu-attrs 
+    for="arrow" 
+    padding="0.5x 0.25x" special border="color(special-bg)"></nu-attrs>
   <nu-attrs for="arrow-left-icon" name="chevron-left" size="3x" move="-.125x 0"></nu-attrs>
   <nu-attrs for="arrow-right-icon" name="chevron-right" size="3x" move=".125x 0"></nu-attrs>
+  <nu-attrs 
+    for="dropdown-icon" 
+    name="chevron-down" 
+    opacity="^:hover[1] :pressed[1] :hover:pressed[1] 0"
+    scale="^:pressed[flip-y]" place="right" height="100%"></nu-attrs>
   <nu-attrs
     for="dropdown"
-    text="w5" content="stretch" columns="1fr auto"
-    padding=".25x .25x .25x .75x" grow="1"></nu-attrs>
+    text="w5 center" content="stretch" columns="1fr auto"
+    padding=".5x .25x .5x .75x" grow="1"></nu-attrs>
   <nu-group radius>
     <nu-btn id="arrow" on:tap={prevYear} disabled={havePrevYear ? undefined : ''}>
       <nu-icon id="arrow-left-icon"></nu-icon>
     </nu-btn>
     <nu-btn id="dropdown" on:tap={toggle}>
       <nu-datetime year value={navDate}></nu-datetime>
-      <nu-icon name="chevron-down"></nu-icon>
+      <nu-icon id="dropdown-icon"></nu-icon>
       <nu-popupmenu height="28x" overflow="auto" scrollbar bind:this={yearPopup}>
         {#each years as year}
         <nu-menuitem
@@ -37,7 +44,7 @@
     </nu-btn>
     <nu-btn id="dropdown" on:tap={toggle}>
       <nu-datetime month="short" value={navDate}></nu-datetime>
-      <nu-icon name="chevron-down"></nu-icon>
+      <nu-icon id="dropdown-icon"></nu-icon>
       <nu-popupmenu height="28x" overflow="auto" scrollbar bind:this={monthPopup}>
         {#each months as month}
         <nu-menuitem
@@ -180,6 +187,7 @@ let hoverDate;
 let todayDate = new Date;
 let yearPopup;
 let monthPopup;
+let touched = false; 
 
 $: navQuater = getQuarter(navDate);
 $: navMonthStartDate = navDate;
@@ -251,9 +259,13 @@ $: monthDays = (() => {
 })();
 $: startOfYearDate = startOfYear(navDate);
 $: months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(i => {
+  if (!touched) return [];
+
   return addMonths(startOfYearDate, i);
 });
 $: years = (() => {
+  if (!touched) return [];
+
   const list = [navDate];
 
   let date = navDate;
@@ -406,6 +418,8 @@ function toLowerCase(date) {
 }
 
 function toggle() {
+  touched = true;
+
   setTimeout(() => {
     yearPopup.querySelector('[nu-current]').scrollIntoView({ block: 'center' });
     monthPopup.querySelector('[nu-current]').scrollIntoView({ block: 'center' });
