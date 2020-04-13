@@ -1,4 +1,5 @@
 import { ROOT, setRootContext } from './context';
+import { requestIdleCallback } from './helpers';
 
 const DATASET = ROOT.dataset;
 const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
@@ -50,3 +51,13 @@ setRootContext('scheme', scheme());
 setRootContext('contrast', contrast());
 setRootContext('reduceMotion', scheme());
 setRootContext('useShadow', DATASET.nuShadow != null);
+
+if (requestIdleCallback) {
+  if (!reduceMotion()) {
+    reduceMotion(true);
+
+    requestIdleCallback(() => {
+      reduceMotion(false);
+    });
+  }
+}

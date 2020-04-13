@@ -1251,3 +1251,7 @@ export function isClass(func) {
   return typeof func === 'function'
     && /^class\s/.test(Function.prototype.toString.call(func));
 }
+
+export function requestIdleCallback() {
+  return requestIdleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1000));
+}

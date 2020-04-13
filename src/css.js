@@ -1,4 +1,4 @@
-import { devMode, log, warn } from "./helpers";
+import { devMode, log, warn, requestIdleCallback } from "./helpers";
 
 export const STYLE_MAP = {};
 const testEl = document.createElement('div');
@@ -168,9 +168,11 @@ export function cleanCSSByPart(selectorPart) {
   const keys = Object.keys(STYLE_MAP).filter(selector => isRegexp
     ? selector.match(selectorPart) : selector.includes(selectorPart));
 
-  keys.forEach(key => {
-    removeCSS(key);
-    log('css removed:', key)
+  requestIdleCallback(() => {
+    keys.forEach(key => {
+      removeCSS(key);
+      log('css removed:', key);
+    });
   });
 }
 
@@ -290,7 +292,7 @@ const globalCSS = `
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color var(--nu-transition-time) linear;
+  transition: background-color calc(var(--nu-transition-enabler) * var(--nu-transition-time)) linear;
 }
 
 .nu-defaults:not(body) {
