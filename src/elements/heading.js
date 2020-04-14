@@ -28,9 +28,7 @@ export default class NuHeading extends NuBlock {
           '--nu-font-size': fontSize,
           '--nu-line-height': lineHeight,
         }, {
-          $suffix: ':not([text])',
-          'font-weight': 700,
-          '--nu-local-font-weight': 700,
+          '--nu-level-font-weight': 700,
         }];
       },
     };
