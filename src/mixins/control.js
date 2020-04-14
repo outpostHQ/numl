@@ -7,7 +7,7 @@ export default class ControlMixin {
     this.$host = $host;
   }
 
-  apply(bool) {
+  apply(bool, applyValue) {
     const { $host } = this;
     const value = $host.getAttribute(CONTROL_ATTR);
 
@@ -17,7 +17,7 @@ export default class ControlMixin {
 
     const elements = [];
 
-    while(token = CONTROL_REGEXP.exec(value)) {
+    while (token = CONTROL_REGEXP.exec(value)) {
       let [s, id, s1, attr, s2, val] = token;
 
       // find controlled node
@@ -34,28 +34,33 @@ export default class ControlMixin {
         continue;
       }
 
-      if (!bool) {
-        element.removeAttribute(attr);
-
-        continue;
-      }
-
       // if no value specified then use default value
       if (val == null) {
         val = '@value';
       }
 
-      if (val.startsWith('@')) {
-        val = $host.nuGetVar('value');
+      let values = val.split('|')
+        .map(vl => {
+          if (val.startsWith('@')) {
+            vl = vl.slice(1);
 
-        console.log('!', val);
+            return vl === 'value' ? applyValue : $host.nuGetVar(vl);
+          }
 
-        if (val == null) {
-          continue;
+          return vl;
+        });
+
+      if (!bool) {
+        if (values.length > 1) {
+          element.setAttribute(attr, values[1]);
+        } else {
+          element.removeAttribute(attr);
         }
+
+        continue;
       }
 
-      element.setAttribute(attr, val);
+      element.setAttribute(attr, values[0]);
     }
 
     if (elements.length) {
