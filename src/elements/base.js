@@ -1342,7 +1342,7 @@ export default class NuBase extends HTMLElement {
   }
 
   nuHasVar(name) {
-    return `var:${name}` in this.nuContext;
+    return this.nuContext && `var:${name}` in this.nuContext;
   }
 
   nuGetVar(name) {
@@ -1578,5 +1578,11 @@ export default class NuBase extends HTMLElement {
 
       return mixin;
     })();
+  }
+
+  async nuControl(bool, value) {
+    if (!this.hasAttribute('controls')) return;
+
+    (await this.nuMixin('control')).apply(!!bool, value);
   }
 }

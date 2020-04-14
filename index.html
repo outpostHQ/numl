@@ -2166,12 +2166,16 @@
         <nu-btn value="three">Three</nu-btn>
       </nu-btngroup>-->
 
+      <nu-block>
+        <nu-btn role="checkbox" controls="tabs-header[color=special|hover]">Toggle</nu-btn>
+      </nu-block>
+
       <nu-heading id="tabs-header" level="3">Tabs</nu-heading>
 
-      <nu-tablist border="inside bottom">
-        <nu-tab controls="first tabs-header[padding]">First</nu-tab>
-        <nu-tab controls="second">Second</nu-tab>
-        <nu-tab controls="third">Third</nu-tab>
+      <nu-tablist value="1x" border="inside bottom" controls="tabs-header[padding]">
+        <nu-tab controls="first" value="1x">First</nu-tab>
+        <nu-tab controls="second" value="2x">Second</nu-tab>
+        <nu-tab controls="third" value="3x">Third</nu-tab>
       </nu-tablist>
 
       <nu-block>
@@ -2856,13 +2860,13 @@
       </nu-block>
     </nu-card>-->
 
-    <nu-card as="section">
+    <!--<nu-card as="section">
       <nu-heading level="3">Date picker</nu-heading>
 
       <nu-card width="20">
         <nu-datepicker mode="range"></nu-datepicker>
       </nu-block>
-    </nu-card>
+    </nu-card>-->
 
   </nu-flow>
 

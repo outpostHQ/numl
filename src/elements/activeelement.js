@@ -139,7 +139,7 @@ export default class NuActiveElement extends NuElement {
         this.nuSetPressed(this.hasAttribute('pressed'));
       }
 
-      this.nuControl();
+      this.nuControl(this.nuPressed, this.nuValue);
       this.nuCreateLink();
     }, 0);
 
@@ -235,7 +235,7 @@ export default class NuActiveElement extends NuElement {
     }, 0);
 
     this.nuToggle();
-    this.nuControl();
+    this.nuControl(this.nuPressed, this.nuValue);
 
     if (this.nuIsCheckbox()) {
       this.nuEmit('pressed', this.nuPressed);
@@ -245,31 +245,6 @@ export default class NuActiveElement extends NuElement {
     if (this.getAttribute('action') === 'submit') {
       this.nuEmit('submit', this.nuValue);
     }
-  }
-
-  async nuControl() {
-    if (!this.hasAttribute('controls')) return;
-
-    this.nuSetVar('value', this.nuValue);
-
-    (await this.nuMixin('control')).apply(this.nuPressed === true);
-
-    // const role = this.getAttribute('role');
-
-    // setTimeout(() => {
-    //   (this.getAttribute('aria-controls') || '').split(' ')
-    //     .forEach(id => {
-    //       const el = document.getElementById(id);
-
-    //       if (!el) return;
-
-    //       el.hidden = this.nuPressed !== true;
-
-    //       if (role === 'tab' && !el.hasAttribute('aria-labelledby')) {
-    //         el.setAttribute('aria-labelledby', this.nuUniqId);
-    //       }
-    //     });
-    // }, 0);
   }
 
   nuChanged(name, oldValue, value) {
@@ -356,7 +331,7 @@ export default class NuActiveElement extends NuElement {
 
     this.nuSetMod('pressed', pressed);
 
-    this.nuControl();
+    this.nuControl(this.nuPressed, this.nuValue);
 
     if (pressed) {
       const radioGroup = this.nuContext && this.nuContext.radiogroup;
@@ -379,7 +354,7 @@ export default class NuActiveElement extends NuElement {
     this.nuValue = value;
 
     setTimeout(() => {
-      this.nuControl();
+      this.nuControl(this.nuPressed, this.nuValue);
 
       if (notify) {
         this.nuEmitInput(value);

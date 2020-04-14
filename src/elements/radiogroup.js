@@ -19,6 +19,12 @@ export default class NuRadioGroup extends NuFlex {
     };
   }
 
+  static get nuMixins() {
+    return {
+      control: true,
+    };
+  }
+
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
@@ -38,6 +44,7 @@ export default class NuRadioGroup extends NuFlex {
     }
 
     this.nuSetRadioGroupContext();
+    this.nuControl(true);
   }
 
   nuSetRadioGroupContext() {
@@ -63,6 +70,10 @@ export default class NuRadioGroup extends NuFlex {
       this.nuEmitInput(value);
 
       this.nuSetRadioGroupContext();
+    }
+
+    if (this.nuIsConnected) {
+      this.nuControl(true, value);
     }
   }
 }
