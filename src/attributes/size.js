@@ -29,14 +29,18 @@ Object.keys(SIZES).forEach(size => {
 
 injectStyleTag(`:root{${PROPS}`, 'nu-sizes');
 
+const BASE_STYLES = {
+  'font-size': 'var(--nu-font-size)',
+  'line-height': 'var(--nu-line-height)',
+};
+
 export default function sizeAttr(val) {
   if (!val) val = 'md';
 
   const tmp = val.split(/\s+/).map(vl => parseAttr(val, 1));
-  const styles = {
-    'font-size': 'var(--nu-font-size)',
-    'line-height': 'var(--nu-line-height)',
-  };
+  const styles = {};
+
+  tmp[0] = tmp[1] || tmp[0];
 
   if (tmp[0].values.length) {
     styles['--nu-font-size'] = tmp[0].values[0];
@@ -54,13 +58,5 @@ export default function sizeAttr(val) {
     }
   }
 
-  if (!styles['--nu-line-height']) {
-    if (tmp[0].mods.length) {
-      styles['--nu-line-height'] = `var(--nu-${tmp[0].mods[0]}-line-height, inherit)`;
-    } else {
-      styles['--nu-line-height'] = 'var(--nu-font-size)';
-    }
-  }
-
-  return styles;
+  return [BASE_STYLES, styles];
 }
