@@ -30,11 +30,11 @@ export default class NuRadioGroup extends NuFlex {
     }
   }
 
-  nuConnected() {
-    super.nuConnected();
+  nuInit() {
+    super.nuInit();
 
-    if (this.nuValue === undefined) {
-      this.nuValue = null;
+    if (!this.hasAttribute('value')) {
+      this.setAttribute('value', '0');
     }
 
     this.nuSetRadioGroupContext();

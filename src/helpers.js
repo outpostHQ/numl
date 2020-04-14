@@ -793,134 +793,134 @@ export function parseAttr(value, mode = 0) {
     let color = '';
     let currentFunc = '';
     let usedFunc = '';
+    let token;
 
-    value.replace(
-      ATTR_REGEXP,
-      (s, quoted, func, hashColor, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma) => {
-        if (quoted) {
-          currentValue += `${quoted} `;
-        } else if (func) {
-          currentFunc = func.slice(0, -1);
-          currentValue += func;
-          counter++;
-        } else if (hashColor) {
-          // currentValue += `${hashColor} `;
-          color = hashColor;
-        } else if (mod) {
-          // ignore mods inside brackets
-          if (counter || IGNORE_MODS.includes(mod)) {
-            currentValue += `${mod} `;
-          } else {
-            mods.push(mod);
-            parsedValue += `${mod} `;
+    while (token = ATTR_REGEXP.exec(value)) {
+      let [s, quoted, func, hashColor, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma] = token;
+
+      if (quoted) {
+        currentValue += `${quoted} `;
+      } else if (func) {
+        currentFunc = func.slice(0, -1);
+        currentValue += func;
+        counter++;
+      } else if (hashColor) {
+        // currentValue += `${hashColor} `;
+        color = hashColor;
+      } else if (mod) {
+        // ignore mods inside brackets
+        if (counter || IGNORE_MODS.includes(mod)) {
+          currentValue += `${mod} `;
+        } else {
+          mods.push(mod);
+          parsedValue += `${mod} `;
+        }
+      } else if (bracket) {
+        if (bracket === '(') {
+          if (!~calc) {
+            calc = counter;
+            currentValue += 'calc';
           }
-        } else if (bracket) {
-          if (bracket === '(') {
-            if (!~calc) {
+
+          counter++;
+        }
+
+        if (bracket === ')' && counter) {
+          currentValue = currentValue.trim();
+
+          if (counter > 0) {
+            counter--;
+          }
+
+          if (counter === calc) {
+            calc = -1;
+          }
+        }
+
+        if (bracket === ')' && !counter) {
+          usedFunc = currentFunc;
+          currentFunc = '';
+        }
+
+        currentValue += `${bracket}${bracket === ')' ? ' ' : ''}`;
+      } else if (operator) {
+        if (!~calc && autoCalc) {
+          if (currentValue) {
+            if (currentValue.includes('(')) {
+              const index = currentValue.lastIndexOf('(');
+
+              currentValue = `${currentValue.slice(0, index)}(calc(${currentValue.slice(index + 1)}`;
+
               calc = counter;
+              counter++;
+            }
+          } else if (values.length) {
+            parsedValue = parsedValue.slice(0, parsedValue.length - values[values.length - 1].length - 1);
+
+            let tmp = values.splice(values.length - 1, 1)[0];
+
+            if (tmp) {
+              if (tmp.startsWith('calc(')) {
+                tmp = tmp.slice(4);
+              }
+
+              calc = counter;
+              counter++;
+              currentValue = `calc((${tmp}) `;
+            }
+          }
+        }
+
+        currentValue += `${operator} `;
+      } else if (unit) {
+        if (unitMetric && CUSTOM_UNITS[unitMetric]) {
+          if (unitVal === '1') {
+            currentValue += `${CUSTOM_UNITS[unitMetric]} `;
+          } else {
+            if (!~calc) {
               currentValue += 'calc';
             }
 
-            counter++;
+            currentValue += `(${unitVal} * ${CUSTOM_UNITS[unitMetric]}) `;
           }
+        } else if (insertRem && !unitMetric && !counter) {
+          currentValue += `${unit}rem `;
+        } else {
+          currentValue += `${unit} `;
+        }
+      } else if (prop) {
+        if (currentFunc !== 'var') {
+          currentValue += `${prepareNuVar(prop)} `;
+        } else {
+          currentValue += `${prop} `;
+        }
+      } else if (comma) {
+        if (~calc) {
+          calc = -1;
+          counter--;
+          currentValue = `${currentValue.trim()}), `;
+        } else {
+          currentValue = `${currentValue.trim()}, `;
+        }
+      }
 
-          if (bracket === ')' && counter) {
-            currentValue = currentValue.trim();
+      if (currentValue && !counter) {
+        let prepared = prepareParsedValue(currentValue);
 
-            if (counter > 0) {
-              counter--;
-            }
+        if (COLOR_FUNCS.includes(usedFunc)) {
+          color = prepared;
+        } else if (prepared.startsWith('color(')) {
+          prepared = prepared.slice(6, -1);
 
-            if (counter === calc) {
-              calc = -1;
-            }
-          }
-
-          if (bracket === ')' && !counter) {
-            usedFunc = currentFunc;
-            currentFunc = '';
-          }
-
-          currentValue += `${bracket}${bracket === ')' ? ' ' : ''}`;
-        } else if (operator) {
-          if (!~calc && autoCalc) {
-            if (currentValue) {
-              if (currentValue.includes('(')) {
-                const index = currentValue.lastIndexOf('(');
-
-                currentValue = `${currentValue.slice(0, index)}(calc(${currentValue.slice(index + 1)}`;
-
-                calc = counter;
-                counter++;
-              }
-            } else if (values.length) {
-              parsedValue = parsedValue.slice(0, parsedValue.length - values[values.length - 1].length - 1);
-
-              let tmp = values.splice(values.length - 1, 1)[0];
-
-              if (tmp) {
-                if (tmp.startsWith('calc(')) {
-                  tmp = tmp.slice(4);
-                }
-
-                calc = counter;
-                counter++;
-                currentValue = `calc((${tmp}) `;
-              }
-            }
-          }
-
-          currentValue += `${operator} `;
-        } else if (unit) {
-          if (unitMetric && CUSTOM_UNITS[unitMetric]) {
-            if (unitVal === '1') {
-              currentValue += `${CUSTOM_UNITS[unitMetric]} `;
-            } else {
-              if (!~calc) {
-                currentValue += 'calc';
-              }
-
-              currentValue += `(${unitVal} * ${CUSTOM_UNITS[unitMetric]}) `;
-            }
-          } else if (insertRem && !unitMetric && !counter) {
-            currentValue += `${unit}rem `;
-          } else {
-            currentValue += `${unit} `;
-          }
-        } else if (prop) {
-          if (currentFunc !== 'var') {
-            currentValue += `${prepareNuVar(prop)} `;
-          } else {
-            currentValue += `${prop} `;
-          }
-        } else if (comma) {
-          if (~calc) {
-            calc = -1;
-            counter--;
-            currentValue = `${currentValue.trim()}), `;
-          } else {
-            currentValue = `${currentValue.trim()}, `;
-          }
+          color = parseColor(prepared).color;
+        } else {
+          values.push(prepared);
+          parsedValue += `${prepared} `;
         }
 
-        if (currentValue && !counter) {
-          let prepared = prepareParsedValue(currentValue);
-
-          if (COLOR_FUNCS.includes(usedFunc)) {
-            color = prepared;
-          } else if (prepared.startsWith('color(')) {
-            prepared = prepared.slice(6, -1);
-
-            color = parseColor(prepared).color;
-          } else {
-            values.push(prepared);
-            parsedValue += `${prepared} `;
-          }
-
-          currentValue = '';
-        }
-      },
-    );
+        currentValue = '';
+      }
+    }
 
     if (counter) {
       let prepared = prepareParsedValue(`${currentValue.trim()}${')'.repeat(counter)}`);
@@ -980,8 +980,11 @@ export function parseAttrStates(val) {
   let responsiveState = false;
   let zone;
   let currentContext;
+  let token;
 
-  val.replace(STATE_REGEXP, (s, delimiter, open, close, rawContext, context, state, value) => {
+  while(token = STATE_REGEXP.exec(val)) {
+    let [s, delimiter, open, close, rawContext, context, state, value] = token;
+
     zone = requireZone(zones, zoneIndex);
     currentContext = zone.context;
 
@@ -1023,7 +1026,7 @@ export function parseAttrStates(val) {
         zone.states[currentState] = value.trim();
       }
     }
-  });
+  }
 
   // restore responsive values
   // zones.forEach((zone, zoneIndex) => {
@@ -1057,7 +1060,7 @@ export function normalizeAttrStates(val, firstValueOnly = false) {
 
         return value;
       }).join(' ')
-    }`.trim();
+      }`.trim();
   }).join('|');
 }
 

@@ -5,6 +5,7 @@ export default function WeightCombinator() {
       if (!attrs.length) return;
 
       return {
+        $suffix: ':not([text*="lighter"]):not([text*="bolder"])',
         'font-weight': 'var(--nu-font-weight)',
         '--nu-font-weight': allAttrs.reduce((value, attr) => {
           if (attrs.includes(attr)) {

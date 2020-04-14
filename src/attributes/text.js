@@ -34,6 +34,9 @@ set('tabular-nums', {
 set('wrap', { 'white-space': 'normal' });
 set('nowrap', { 'white-space': 'nowrap' });
 
+set('bolder', { 'font-weight': 'calc(var(--nu-font-weight) + 200)' });
+set('lighter', { 'font-weight': 'calc(var(--nu-font-weight) - 200)' });
+
 const LIST = Object.keys(MAP);
 
 /**

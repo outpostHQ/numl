@@ -151,7 +151,7 @@
         <nu-block size="h4">Text with heading level 1 size</nu-block>
         <nu-block size="h5">Text with heading level 1 size</nu-block>
         <nu-block size="h6">Text with heading level 1 size</nu-block>
-        <nu-block size="xxl xxl h1" text="w1">XXL text size</nu-block>
+        <nu-block size="xxl">XXL text size</nu-block>
         <nu-block size="xl">XL text size</nu-block>
         <nu-block size="lg">Large text size</nu-block>
         <nu-block size="md">Medium text size</nu-block>
@@ -2166,10 +2166,10 @@
         <nu-btn value="three">Three</nu-btn>
       </nu-btngroup>-->
 
-      <nu-heading level="3">Tabs</nu-heading>
+      <nu-heading id="tabs-header" level="3">Tabs</nu-heading>
 
-      <nu-tablist value="third" border="inside bottom">
-        <nu-tab controls="first">First</nu-tab>
+      <nu-tablist border="inside bottom">
+        <nu-tab controls="first tabs-header[padding]">First</nu-tab>
         <nu-tab controls="second">Second</nu-tab>
         <nu-tab controls="third">Third</nu-tab>
       </nu-tablist>
@@ -2363,7 +2363,7 @@
     <nu-card as="section">
       <nu-flex gap="1x" flow="row wrap">
         <nu-btn special>
-          <nu-block text="w6">Dropdown menu 123</nu-block>
+          <nu-block>Dropdown menu 123</nu-block>
           <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
           <nu-popupmenu drop="down">
             <nu-menuitem value="first-item">Menu button level 1</nu-menuitem>
@@ -2383,7 +2383,7 @@
           </nu-popupmenu>
         </nu-btn>
         <nu-btn special>
-          <nu-block text="w6">Dropdown card</nu-block>
+          <nu-block>Dropdown card</nu-block>
           <nu-icon name="chevron-down" transform="^:pressed[scale(1, -1)]"></nu-icon>
           <nu-popup gap="1x" width="24">
             <nu-block>
