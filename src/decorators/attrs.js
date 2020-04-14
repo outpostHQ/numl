@@ -73,6 +73,10 @@ export default class NuAttrs extends NuDecorator {
     const selector = getSelector(id, oldId);
     const shadow = id.startsWith('$') || (oldId && oldId.startsWith('$'));
 
+    if (!this.nuContext.useShadow) {
+      id = id.replace(/^$+/, '');
+    }
+
     parent.nuVerifyChildren({ attrs: selector, shadow });
   }
 
