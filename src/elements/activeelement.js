@@ -42,6 +42,7 @@ export default class NuActiveElement extends NuElement {
   static get nuMixins() {
     return {
       active: true,
+      control: true,
     };
   }
 
@@ -74,8 +75,8 @@ export default class NuActiveElement extends NuElement {
     `;
   }
 
-  nuConnected() {
-    super.nuConnected();
+  nuInit() {
+    super.nuInit();
 
     this.nuSetFocusable(!this.nuDisabled);
 
@@ -85,10 +86,26 @@ export default class NuActiveElement extends NuElement {
       }
     });
 
+    this.addEventListener('tap', (event) => {
+      if (!event.nuRole && this.hasAttribute('role')) {
+        event.nuRole = this.getAttribute('role');
+      }
+    });
+  }
+
+  nuConnected() {
+    super.nuConnected();
+
     const radioGroup = this.nuContext.radiogroup;
 
     if (radioGroup) {
       this.nuRole = radioGroup.itemRole;
+
+      if (!this.hasAttribute('value')) {
+        if (!radioGroup.nuCounter) radioGroup.nuCounter = 0;
+
+        this.setAttribute('value', radioGroup.nuCounter++);
+      }
 
       if (this.nuPressed) {
         radioGroup.context.nuSetValue(this.nuValue);
@@ -125,12 +142,6 @@ export default class NuActiveElement extends NuElement {
       this.nuControl();
       this.nuCreateLink();
     }, 0);
-
-    this.addEventListener('tap', (event) => {
-      if (!event.nuRole && this.hasAttribute('role')) {
-        event.nuRole = this.getAttribute('role');
-      }
-    });
 
     this.nuSetContext('active', this);
   }
@@ -236,25 +247,29 @@ export default class NuActiveElement extends NuElement {
     }
   }
 
-  nuControl() {
+  async nuControl() {
     if (!this.hasAttribute('controls')) return;
 
-    const role = this.getAttribute('role');
+    this.nuSetVar('value', this.nuValue);
 
-    setTimeout(() => {
-      (this.getAttribute('aria-controls') || '').split(' ')
-        .forEach(id => {
-          const el = document.getElementById(id);
+    (await this.nuMixin('control')).apply(this.nuPressed === true);
 
-          if (!el) return;
+    // const role = this.getAttribute('role');
 
-          el.hidden = this.nuPressed !== true;
+    // setTimeout(() => {
+    //   (this.getAttribute('aria-controls') || '').split(' ')
+    //     .forEach(id => {
+    //       const el = document.getElementById(id);
 
-          if (role === 'tab' && !el.hasAttribute('aria-labelledby')) {
-            el.setAttribute('aria-labelledby', this.nuUniqId);
-          }
-        });
-    }, 0);
+    //       if (!el) return;
+
+    //       el.hidden = this.nuPressed !== true;
+
+    //       if (role === 'tab' && !el.hasAttribute('aria-labelledby')) {
+    //         el.setAttribute('aria-labelledby', this.nuUniqId);
+    //       }
+    //     });
+    // }, 0);
   }
 
   nuChanged(name, oldValue, value) {
@@ -281,12 +296,6 @@ export default class NuActiveElement extends NuElement {
 
         break;
       case 'value':
-        this.nuSetValue(value);
-
-        break;
-      case 'controls':
-        if (this.hasAttribute('value')) break;
-
         this.nuSetValue(value);
 
         break;

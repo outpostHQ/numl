@@ -57,6 +57,7 @@ const MIXINS = {
   fixate: () => import(`../mixins/fixate.js`),
   orient: () => import(`../mixins/orient.js`),
   popup: () => import('../mixins/popup.js'),
+  control: () => import('../mixins/control'),
 };
 
 export function getAllAttrs() {

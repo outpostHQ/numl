@@ -13,7 +13,7 @@ export default class NuLink extends NuActiveElement {
     return {
       display: 'inline-block',
       color: 'special',
-      text: 'nowrap u',
+      text: 'nowrap u bolrder',
       cursor: 'pointer',
       radius: '.5r',
       transition: 'shadow, fill, color',
@@ -27,7 +27,6 @@ export default class NuLink extends NuActiveElement {
       ${css}
       ${tag} {
         user-select: text;
-        font-weight: bolder;
         position: relative;
       }
     `;

@@ -268,6 +268,7 @@ const globalCSS = `
 
   --nu-font-size: 1rem;
   --nu-line-height: 1.5rem;
+  --nu-font-weight: 400;
 }
 
 :root:not([data-nu-prevent-reset]) body {

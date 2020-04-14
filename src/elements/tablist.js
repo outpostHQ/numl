@@ -58,14 +58,12 @@ export default class NuTablist extends NuRadioGroup {
     };
   }
 
-  nuConnected() {
-    super.nuConnected();
+  nuInit() {
+    super.nuInit();
 
-    if (this.nuFirstConnect) {
-      this.addEventListener('focusin', async () => {
-        (await this.nuMixin('orient'))
-          .set(getComputedStyle(this).flexFlow.includes('column') ? 'v' : 'h');
-      });
-    }
+    this.addEventListener('focusin', async () => {
+      (await this.nuMixin('orient'))
+        .set(getComputedStyle(this).flexFlow.includes('column') ? 'v' : 'h');
+    });
   }
 }
