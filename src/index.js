@@ -12,6 +12,8 @@ import * as css from './css';
 import { scheme, contrast, reduceMotion } from './settings';
 import CONTEXT from './context';
 
+const body = document.body;
+
 if (window.Nude) {
   warn('Several instances of NUDE Framework is loaded. Initialization aborted');
 }
@@ -42,11 +44,7 @@ const Nude = {
   CONTEXT,
 };
 
-Nude.init = (...elements) => {
-  elements.forEach(el => {
-    el.nuInit();
-  });
-
+const verifyDOM = helpers.asyncDebounce(() => {
   const els = [...document.querySelectorAll('[nu]')];
 
   els.forEach(el => {
@@ -71,12 +69,15 @@ Nude.init = (...elements) => {
       el.nuVerifyChildren(true);
     });
 
-  setTimeout(() => {
-    [...document.querySelectorAll('[nu-hidden]')]
-      .forEach(el => el.removeAttribute('nu-hidden'));
+  css.cleanCSSByPart('attrs:all');
+});
+
+Nude.init = (...elements) => {
+  elements.forEach(el => {
+    el.nuInit();
   });
 
-  css.cleanCSSByPart('attrs:all');
+  verifyDOM();
 };
 
 Nude.getElementById = function (id) {
@@ -113,7 +114,29 @@ Nude.getCriticalCSS = function () {
 
 Nude.elements = ELEMENTS;
 
+const rootEls = document.querySelectorAll('nu-root');
+
+rootEls.forEach(el => {
+  el.nuParent = el.parentNode;
+
+  el.parentNode.removeChild(el);
+});
+
+const styleEl = [...document.querySelectorAll('style')].find(style => {
+  if (style.textContent.includes('nu-root')) {
+    return true;
+  }
+});
+
 Nude.init(...Object.values(ELEMENTS));
+
+rootEls.forEach(el => {
+  el.nuParent.appendChild(el);
+});
+
+if (styleEl) {
+  styleEl.parentNode.removeChild(styleEl);
+}
 
 window.Nude = Nude;
 
@@ -126,6 +149,7 @@ const {
 } = helpers;
 
 export {
+  Nude,
   STATES_MAP,
   CUSTOM_UNITS,
   ROOT_CONTEXT,

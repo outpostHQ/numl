@@ -37,8 +37,9 @@ export default [{
     name: 'Nude',
     dir: './dist/',
     // file: moduleName,
-    format: 'esm',
-    // exports: 'default'
+    format: 'es',
+    // format: 'system',
+    // exports: 'named'
   }],
   plugins: [
     replace({

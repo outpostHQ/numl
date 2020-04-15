@@ -563,7 +563,17 @@ export default class NuBase extends HTMLElement {
       this.nuInit();
     }
 
+    this.setAttribute('nu', '');
+
+    if (this.hasAttribute(THEME_ATTR)) {
+      setTimeout(() => {
+        this.nuEnsureThemes();
+      }, 0);
+    }
+
     this.nuConnected();
+
+    this.nuMixinCall('connected');
 
     const mixinList = this.constructor.nuMixinList;
 
@@ -944,17 +954,7 @@ export default class NuBase extends HTMLElement {
    * Can be called twice or more.
    * While using frameworks this method can be fired without element having parentNode.
    */
-  nuConnected() {
-    this.setAttribute('nu', '');
-
-    if (this.hasAttribute(THEME_ATTR)) {
-      setTimeout(() => {
-        this.nuEnsureThemes();
-      }, 0);
-    }
-
-    this.nuMixinCall('connected');
-  }
+  nuConnected() {}
 
   /**
    * Called when element is disconnected from the DOM.
