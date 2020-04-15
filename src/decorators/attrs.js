@@ -44,7 +44,12 @@ export default class NuAttrs extends NuDecorator {
 
   nuApply() {
     const parent = this.parentNode;
-    const id = this.getAttribute('for');
+    let id = this.getAttribute('for');
+
+    if (!this.nuContext.useShadow) {
+      id = id.replace(/^\$+/, '');
+    }
+
     const oldId = this.nuFor !== id ? this.nuFor : null;
 
     if (!parent.nuContext || !id) return;
@@ -73,45 +78,41 @@ export default class NuAttrs extends NuDecorator {
     const selector = getSelector(id, oldId);
     const shadow = id.startsWith('$') || (oldId && oldId.startsWith('$'));
 
-    if (!this.nuContext.useShadow) {
-      id = id.replace(/^$+/, '');
-    }
-
     parent.nuVerifyChildren({ attrs: selector, shadow });
   }
 
-  nuGetCriticalCSS() {
-    const parent = this.parentNode;
-    const uniqId = parent.nuUniqId;
+  // nuGetCriticalCSS() {
+  //   const parent = this.parentNode;
+  //   const uniqId = parent.nuUniqId;
 
-    if (!uniqId || uniqId.includes('--')) return '';
+  //   if (!uniqId || uniqId.includes('--')) return '';
 
-    const id = this.getAttribute('for');
-    const attrs = this.nuOwnAttrs;
-    const selector = getSelector(id);
-    const Element = ELEMENTS_MAP[id] || ELEMENTS_MAP['nu-el'];
-    const context = `#${uniqId}`;
+  //   const id = this.getAttribute('for');
+  //   const attrs = this.nuOwnAttrs;
+  //   const selector = getSelector(id);
+  //   const Element = ELEMENTS_MAP[id] || ELEMENTS_MAP['nu-el'];
+  //   const context = `#${uniqId}`;
 
-    delete attrs.for;
+  //   delete attrs.for;
 
-    let styles, query, css = '';
+  //   let styles, query, css = '';
 
-    Object.keys(attrs).forEach(name => {
-      const value = attrs[name];
+  //   Object.keys(attrs).forEach(name => {
+  //     const value = attrs[name];
 
-      styles = computeStyles(name, value, Element.nuAllAttrs, Element.nuAllDefaults);
+  //     styles = computeStyles(name, value, Element.nuAllAttrs, Element.nuAllDefaults);
 
-      if (styles) {
-        selector.split(', ').forEach(sel => {
-          query = `${context} ${sel}:not([${name}])`;
+  //     if (styles) {
+  //       selector.split(', ').forEach(sel => {
+  //         query = `${context} ${sel}:not([${name}])`;
 
-          css += generateCSS(query, styles, true);
-        });
-      }
-    });
+  //         css += generateCSS(query, styles, true);
+  //       });
+  //     }
+  //   });
 
-    return css;
-  }
+  //   return css;
+  // }
 
   nuDisconnected() {
     super.nuDisconnected();

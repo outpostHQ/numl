@@ -42,7 +42,7 @@ export default function combine(combinator, defaults) {
   return combinations.reduce((stylesList, combination) => {
     const presentedAttrs = [...definedAttrs, ...combination];
     const excludeAttrs = combinatorAttrs.filter(attr => !presentedAttrs.includes(attr));
-    const styles = combinator.generator(presentedAttrs, combinatorAttrs);
+    const styles = combinator.generator(presentedAttrs, combinatorAttrs, defaults);
 
     if (styles) {
       styles.$suffix = `${[

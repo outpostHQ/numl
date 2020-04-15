@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-nu-shadow>
+<html lang="en">
 <head>
   <link rel="icon" media="(prefers-color-scheme:light)" type="image/png" sizes="32x32"
         href="/images/nude-logo-32.png">
@@ -144,7 +144,7 @@
         <nu-heading level="4">Heading level 4</nu-heading>
         <nu-heading level="5">Heading level 5</nu-heading>
         <nu-heading level="6">Heading level 6</nu-heading>
-        <nu-block>Typical paragraph text</nu-block>
+        <nu-block>Typical <nu-mark>paragraph</nu-mark> text</nu-block>
         <nu-block size="h1">Text with heading level 1 size</nu-block>
         <nu-block size="h2">Text with heading level 1 size</nu-block>
         <nu-block size="h3">Text with heading level 1 size</nu-block>
@@ -2167,7 +2167,8 @@
       </nu-btngroup>-->
 
       <nu-block>
-        <nu-btn role="checkbox" controls="tabs-header[color=special|hover]">Toggle</nu-btn>
+        <nu-btn role="checkbox" fill="clear" border="0" controls="light[color=text|special] light[size=3x|2x]">Toggle</nu-btn>
+        <nu-icon id="light" name="sun"></nu-icon>
       </nu-block>
 
       <nu-heading id="tabs-header" level="3">Tabs</nu-heading>
@@ -2860,13 +2861,15 @@
       </nu-block>
     </nu-card>-->
 
-    <!--<nu-card as="section">
+    <nu-attrs for="$arrow" color="#996633"></nu-attrs>
+
+    <nu-card as="section">
       <nu-heading level="3">Date picker</nu-heading>
 
       <nu-card width="20">
         <nu-datepicker mode="range"></nu-datepicker>
       </nu-block>
-    </nu-card>-->
+    </nu-card>
 
   </nu-flow>
 

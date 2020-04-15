@@ -43,11 +43,11 @@ const Nude = {
 };
 
 Nude.init = (...elements) => {
-  const els = [...document.querySelectorAll('[nu]')];
-
   elements.forEach(el => {
     el.nuInit();
   });
+
+  const els = [...document.querySelectorAll('[nu]')];
 
   els.forEach(el => {
     el.nuCreateContext();
@@ -70,9 +70,6 @@ Nude.init = (...elements) => {
     .forEach(el => {
       el.nuVerifyChildren(true);
     });
-
-  [...document.querySelectorAll('.nu-loading')]
-    .forEach(el => el.style.display = 'none !important');
 
   setTimeout(() => {
     [...document.querySelectorAll('[nu-hidden]')]
