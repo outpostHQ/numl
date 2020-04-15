@@ -1,3 +1,5 @@
+import { asyncDebounce } from "../helpers";
+
 const CONTROL_REGEXP = /([a-z][a-z0-9-]+)([\s]|$|\[([a-z-]+)(\]|=([^\]]+)\]))/g;
 
 export const CONTROL_ATTR = 'controls';
@@ -5,6 +7,8 @@ export const CONTROL_ATTR = 'controls';
 export default class ControlMixin {
   constructor($host) {
     this.$host = $host;
+
+    this.apply = asyncDebounce(this.apply, this);
   }
 
   apply(bool, applyValue) {

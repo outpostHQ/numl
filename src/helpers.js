@@ -378,6 +378,7 @@ export const STATES_MAP = {
   'focus-within': ':focus-within',
   themed: '[theme]',
   special: '[special]',
+  clear: '[clear]',
   disabled: '[disabled]',
   inline: '[inline]',
   even: ':nth-child(even)',
@@ -795,6 +796,8 @@ export function parseAttr(value, mode = 0) {
     let usedFunc = '';
     let token;
 
+    ATTR_REGEXP.lastIndex = 0;
+
     while (token = ATTR_REGEXP.exec(value)) {
       let [s, quoted, func, hashColor, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma] = token;
 
@@ -982,6 +985,8 @@ export function parseAttrStates(val) {
   let currentContext;
   let token;
 
+  STATE_REGEXP.lastIndex = 0;
+
   while(token = STATE_REGEXP.exec(val)) {
     let [s, delimiter, open, close, rawContext, context, state, value] = token;
 
@@ -1118,14 +1123,13 @@ const COLOR_NAME_LIST = [
   'diff', // additional
   'local', // additional
 ];
-const COLOR_NAME_REGEXP = COLOR_NAME_LIST.map(name => new RegExp(`(^|-)${name}$`));
 
 export function parseColor(val, ignoreError) {
   val = val.trim();
 
   if (!val) return {};
 
-  let { values, mods, color } = parseAttr(val);
+  let { values, mods, color, value } = parseAttr(val);
 
   let name, opacity;
 
@@ -1142,7 +1146,7 @@ export function parseColor(val, ignoreError) {
   });
 
   mods.forEach(mod => {
-    if (COLOR_NAME_REGEXP.find(regexp => mod.match(regexp))) {
+    if (COLOR_NAME_LIST.includes(mod)) {
       name = mod;
     } else if (mod === 'transparent' || mod === 'clear') {
       color = 'transparent';
@@ -1257,4 +1261,22 @@ export function isClass(func) {
 
 export function requestIdleCallback() {
   return requestIdleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1000));
+}
+
+export function asyncDebounce(cb, context) {
+  const timers = {};
+
+  return (...args) => {
+    const key = JSON.stringify(args);
+
+    if (timers[key]) {
+      return;
+    }
+
+    cb.apply(context, args);
+
+    timers[key] = setTimeout(() => {
+      delete timers[key];
+    }, 0);
+  };
 }
