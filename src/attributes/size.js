@@ -38,6 +38,17 @@ export default function sizeAttr(val) {
 
   const tmp = val.split(/\s+/).map(vl => parseAttr(vl, 1));
   const styles = {};
+  const mod = tmp[0].mods[0];
+
+  if (mod === 'smaller') {
+    return [{
+      'font-size': 'calc(var(--nu-font-size) / 1.5)',
+    }];
+  } else if (mod === 'bigger') {
+    return [{
+      'font-size': 'var(--nu-line-height)',
+    }];
+  }
 
   tmp[1] = tmp[1] || tmp[0];
 
