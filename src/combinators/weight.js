@@ -1,8 +1,10 @@
 export default function WeightCombinator() {
   return {
     attrs: ['level', 'text'],
-    generator(attrs, allAttrs) {
+    generator(attrs, allAttrs, defaults) {
       if (!attrs.length) return;
+
+      if (defaults.text && (defaults.text.includes('lighter') || defaults.text.includes('bolder'))) return;
 
       return {
         $suffix: ':not([text*="lighter"]):not([text*="bolder"])',
