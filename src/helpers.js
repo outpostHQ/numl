@@ -1259,7 +1259,7 @@ export function requestIdleCallback(cb) {
 
   return ric
     ? ric(cb)
-    : setTimeout(cb, 1000);
+    : setTimeout(cb, 100);
 }
 
 export function asyncDebounce(cb, context) {
