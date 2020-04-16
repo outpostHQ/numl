@@ -1,4 +1,4 @@
-import { deepQueryAll } from './helpers';
+import { deepQueryAll, requestIdleCallback, log, asyncDebounce } from './helpers';
 
 export const ROOT = document.querySelector(':root');
 
@@ -39,8 +39,27 @@ export function setRootContext(name, value) {
     CONTEXT[name] = value;
   }
 
+  verifyRoot();
+}
+
+const verifyRoot = asyncDebounce(() => {
+  log('root context verification');
+
   deepQueryAll(ROOT, '[nu]')
-    .forEach(el => el.nuContextChanged(name))
+    .forEach(el => el.nuContextChanged(name));
+});
+
+export function verifyContext(element) {
+  if (element.nuVerification) return;
+
+  element.nuVerification = true;
+
+  requestIdleCallback(() => {
+    element.nuVerification = false;
+
+    deepQueryAll(element, '[nu]')
+      .forEach(el => el.nuContextChanged(name));
+  });
 }
 
 export function getRootContext(name) {
