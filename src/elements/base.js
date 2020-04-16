@@ -38,7 +38,6 @@ import {
   isDefined,
   parseAttrStates,
   deepQuery, deepQueryAll,
-  isClass,
 } from '../helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
@@ -864,39 +863,6 @@ export default class NuBase extends HTMLElement {
     return `${useId ? '' : this.constructor.nuTag}${useId ? `#${this.nuUniqId}` : ''}${attrsQuery(
       attrs
     )}`;
-  }
-
-  /**
-   * Make element focusable or temporarily disable that ability.
-   * @param {boolean} bool
-   */
-  nuSetFocusable(bool) {
-    if (bool) {
-      (this.nuRef || this).setAttribute('tabindex', this.nuTabIndex);
-    } else {
-      (this.nuRef || this).removeAttribute('tabindex');
-    }
-
-    this.nuSetMod('focusable', bool);
-
-    if (this.nuFocusable) return;
-
-    (this.nuRef || this).addEventListener('focus', () => {
-      this.nuSetMod('focus', true);
-      this.nuSetContext('focus', true);
-    });
-
-    (this.nuRef || this).addEventListener('blur', () => {
-      this.nuSetMod('focus', false);
-      this.nuSetContext('focus', null);
-    });
-
-    if (document.activeElement === this.nuRef) {
-      this.nuSetMod('focus', true);
-      this.nuSetContext('focus', true);
-    }
-
-    this.nuFocusable = true;
   }
 
   /**

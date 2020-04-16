@@ -79,7 +79,8 @@ export default class NuActiveElement extends NuElement {
   nuInit() {
     super.nuInit();
 
-    this.nuSetFocusable(!this.nuDisabled);
+    this.nuMixin('focus')
+      .then(focusMixin => focusMixin.set(!this.nuDisabled));
 
     this.addEventListener('keydown', (event) => {
       if (this.getAttribute('aria-expanded') && event.key === 'Escape') {
@@ -254,7 +255,8 @@ export default class NuActiveElement extends NuElement {
     switch (name) {
       case 'disabled':
         this.nuSetMod('disabled', value != null);
-        this.nuSetFocusable(value == null);
+        this.nuMixin('focus')
+          .then(focusMixin => focusMixin.set(value == null));
         break;
       case 'selected':
       case 'checked':
@@ -317,7 +319,8 @@ export default class NuActiveElement extends NuElement {
     this.nuPressed = pressed;
 
     if (this.nuIsRadio()) {
-      this.nuSetFocusable(!pressed && !this.nuDisabled);
+      this.nuMixin('focus')
+        .then(focusMixin => focusMixin.set(!pressed && !this.nuDisabled));
     }
 
     if (this.hasAttribute('aria-expanded')) {

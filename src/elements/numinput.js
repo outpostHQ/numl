@@ -52,6 +52,12 @@ export default class NuNumInput extends NuInput {
     `;
   }
 
+  static get nuMixins() {
+    return {
+      focus: true,
+    }
+  }
+
   nuGetRef() {
     const isNewRef = !this.nuRef;
 
@@ -138,8 +144,12 @@ export default class NuNumInput extends NuInput {
         this.nuGetRef();
 
         if (this.nuRef) {
-          this.nuRef.disabled = value != null;
-          this.nuSetFocusable(value != null);
+          const bool = value != null;
+
+          this.nuRef.disabled = bool;
+
+          this.nuMixin('focus')
+            .then(focusMixin => focusMixin.set(bool));
         }
 
         break;
