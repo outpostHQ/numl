@@ -1,4 +1,5 @@
 import NuElement from './element';
+import { getMixin } from '../mixins';
 
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
@@ -306,7 +307,7 @@ export default class NuActiveElement extends NuElement {
     this.nuSetPressed(!this.nuPressed);
   }
 
-  async nuSetPressed(pressed) {
+  nuSetPressed(pressed) {
     if (pressed === this.nuPressed) return;
 
     if (!this.nuIsToggle()) return;
@@ -344,7 +345,8 @@ export default class NuActiveElement extends NuElement {
     const innerPopup = this.nuDeepQuery('[nu-popup]');
 
     if (innerPopup) {
-      (await innerPopup.nuMixin('popup'))[this.nuPressed ? 'open' : 'close']();
+      innerPopup.nuMixin('popup')
+        .then(popupMixin => popupMixin[this.nuPressed ? 'open' : 'close']());
     }
   }
 

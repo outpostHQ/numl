@@ -57,10 +57,11 @@ export default class NuSlider extends NuActiveElement {
   nuInit() {
     super.nuConnected();
 
-    this.nuSetContextHook('orientation', async (val) => {
-      const orient = await this.nuMixin('orient');
-
-      orient.set(val === VERTICAL ? 'v' : 'h');
+    this.nuSetContextHook('orientation', (val) => {
+      this.nuMixin('orient')
+        .then(orientMixin => {
+          orientMixin.set(val === VERTICAL ? 'v' : 'h');
+        });
     });
 
     this.nuSetContextHook('disabled', (val) => {

@@ -45,20 +45,13 @@ import displayAttr from '../attributes/display';
 import themeAttr from '../attributes/theme';
 import propAttr from '../attributes/prop';
 import combine from '../combinators/index';
+import { getMixin } from '../mixins';
 
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
 export const MIXINS_MAP = {};
 export const COMBINATORS_MAP = {};
 export const ELEMENTS_MAP = {};
-
-const MIXINS = {
-  active: () => import(`../mixins/active.js`),
-  fixate: () => import(`../mixins/fixate.js`),
-  orient: () => import(`../mixins/orient.js`),
-  popup: () => import('../mixins/popup.js'),
-  control: () => import('../mixins/control'),
-};
 
 export function getAllAttrs() {
   return Object.keys(ATTRS_MAP).reduce((arr, tag) => {
@@ -503,7 +496,7 @@ export default class NuBase extends HTMLElement {
   /**
    * @private
    */
-  async connectedCallback() {
+  connectedCallback() {
     if (!STYLE_MAP[this.constructor.nuTag]) {
       this.constructor.nuGenerateDefaultStyle();
     }
@@ -1532,10 +1525,10 @@ export default class NuBase extends HTMLElement {
   /**
    * Require mixin
    */
-  async nuMixin(name, options, Mixin) {
+  nuMixin(name) {
     const mixins = this.constructor.nuAllMixins;
 
-    options = options || (!Mixin && mixins[name]);
+    let options = mixins[name];
 
     if (options === true) {
       options = {};
@@ -1545,31 +1538,20 @@ export default class NuBase extends HTMLElement {
       this.nuMixins = {};
     }
 
+    // search among the mixin instances
     let mixin = this.nuMixins[name];
 
-    if (mixin) return mixin;
+    if (mixin) return Promise.resolve(mixin);
 
-    if (!this.nuMixinLoaders) {
-      this.nuMixinLoaders = {};
-    }
-
-    if (this.nuMixinLoaders[name]) return this.nuMixinLoaders[name];
-
-    return this.nuMixinLoaders[name] = (async () => {
-      if (!Mixin) {
-        Mixin = await MIXINS[name]().then(module => module.default || module);
-      }
-
-      if (isClass(Mixin)) {
-        mixin = new Mixin(this, options);
-      } else {
-        mixin = Mixin(this, options);
-      }
+    // request Mixin class and create new instance
+    return getMixin(name).then(Mixin => {
+      const mixin = new Mixin(this, options);
 
       this.nuMixins[name] = mixin;
 
+      // call hooks
       if (mixin.init) {
-        await mixin.init();
+        mixin.init();
       }
 
       if (this.nuConnected && mixin.connected) {
@@ -1577,12 +1559,13 @@ export default class NuBase extends HTMLElement {
       }
 
       return mixin;
-    })();
+    });
   }
 
-  async nuControl(bool, value) {
+  nuControl(bool, value) {
     if (!this.hasAttribute('controls')) return;
 
-    (await this.nuMixin('control')).apply(!!bool, value);
+    this.nuMixin('control')
+      .then(controlMixin => controlMixin.apply(!!bool, value));
   }
 }

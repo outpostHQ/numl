@@ -15,27 +15,28 @@ export default class NuSvelteComponent extends NuElement {
     };
   }
 
-  async nuConnected() {
+  nuConnected() {
     super.nuConnected();
 
     if (!this.nuFirstConnect) return;
 
-    const Component = await this.constructor.nuComponent.then(module => module.default || module);
+    this.constructor.nuComponent.then(module => module.default || module)
+      .then(Component => {
+        const target = this.nuContext.useShadow ? this.attachShadow({ mode: 'open' }) : this;
 
-    const target = this.nuContext.useShadow ? this.attachShadow({ mode: 'open' }) : this;
+        this.nuComponent = new Component({
+          target,
+          props: this.nuProps,
+        });
 
-    this.nuComponent = new Component({
-      target,
-      props: this.nuProps,
-    });
+        this.nuComponent.$on('input', (event) => {
+          this.nuEmitInput(event.detail);
+        });
 
-    this.nuComponent.$on('input', (event) => {
-      this.nuEmitInput(event.detail);
-    });
-
-    this.nuSetContextHook('var:locale', () => {
-      this.nuComponent.$set(this.nuProps);
-    });
+        this.nuSetContextHook('var:locale', () => {
+          this.nuComponent.$set(this.nuProps);
+        });
+      });
   }
 
   get nuProps() {

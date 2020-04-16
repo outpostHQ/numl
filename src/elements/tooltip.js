@@ -53,12 +53,13 @@ export default class NuTooltip extends NuBlock {
     let hover = false;
     let focus = false;
 
-    const onMouseEnter = async () => {
+    const onMouseEnter = () => {
       hover = true;
 
       if (focus) return;
 
-      (await this.nuMixin('fixate')).start();
+      this.nuMixin('fixate')
+        .then(fixateMixin => fixateMixin.start());
 
       this.nuSetMod('show', true);
       parent.nuSetMod('tooltip', true);
@@ -68,35 +69,38 @@ export default class NuTooltip extends NuBlock {
       });
     };
 
-    const onMouseLeave = async (force) => {
+    const onMouseLeave = (force) => {
       hover = false;
       focus = false;
 
       // if (focus) return;
 
-      (await this.nuMixin('fixate')).end();
+      this.nuMixin('fixate')
+        .then(fixateMixin => fixateMixin.end());
 
       this.nuSetMod('show', false);
       parent.nuSetMod('tooltip', false);
     };
 
-    const onFocus = async () => {
+    const onFocus = () => {
       focus = true;
 
       if (hover) return;
 
-      (await this.nuMixin('fixate')).start();
+      this.nuMixin('fixate')
+        .then(fixateMixin => fixateMixin.start());
 
       this.nuSetMod('show', true);
       parent.nuSetMod('tooltip', true);
     };
 
-    const onBlur = async () => {
+    const onBlur = () => {
       focus = false;
 
       if (hover) return;
 
-      (await this.nuMixin('fixate')).end();
+      this.nuMixin('fixate')
+        .then(fixateMixin => fixateMixin.end());
 
       this.nuSetMod('show', false);
       parent.nuSetMod('tooltip', false);

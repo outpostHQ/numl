@@ -61,9 +61,9 @@ export default class NuTablist extends NuRadioGroup {
   nuInit() {
     super.nuInit();
 
-    this.addEventListener('focusin', async () => {
-      (await this.nuMixin('orient'))
-        .set(getComputedStyle(this).flexFlow.includes('column') ? 'v' : 'h');
+    this.addEventListener('focusin', () => {
+      this.nuMixin('orient')
+        .then(orientMixin => orientMixin.set(getComputedStyle(this).flexFlow.includes('column') ? 'v' : 'h'));
     });
   }
 }
