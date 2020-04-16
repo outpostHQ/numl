@@ -29,7 +29,7 @@ export default class NuWidget extends NuElement {
    */
   static get nuTemplate() {}
 
-  async nuConnected() {
+  nuConnected() {
     super.nuConnected();
 
     const template = this.constructor.nuTemplate;
@@ -42,13 +42,17 @@ export default class NuWidget extends NuElement {
       this.nuRoot.innerHTML = template;
     }
 
-    if (!this.nuWidget) {
-      const Component = await this.constructor.nuWidget;
-
-      this.nuWidget = new Component(this, this.nuProps);
-    }
-
-    this.nuWidget.connected();
+    return Promise.resolve()
+      .then(() => {
+        if (!this.nuWidget) {
+          return this.constructor.nuWidget
+            .then(Component => {
+              this.nuWidget = new Component(this, this.nuProps);
+            });
+        }
+      }).then(() => {
+        this.nuWidget.connected();
+      });
   }
 
   nuDisconnected() {

@@ -96,12 +96,13 @@ export default class PopupMixin {
     delete this.container;
   }
 
-  async open() {
+  open() {
     const { $host } = this;
 
     if (!$host.hidden) return;
 
-    (await $host.nuMixin('fixate')).start();
+    $host.nuMixin('fixate')
+      .then(fixateMixin => fixateMixin.start());
 
     $host.hidden = false;
 
@@ -121,12 +122,13 @@ export default class PopupMixin {
     resetScroll($host, true);
   }
 
-  async close() {
+  close() {
     const { $host } = this;
 
     if ($host.hidden) return;
 
-    (await $host.nuMixin('fixate')).end();
+    $host.nuMixin('fixate')
+      .then(fixateMixin => fixateMixin.end());
 
     $host.hidden = true;
 

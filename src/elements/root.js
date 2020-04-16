@@ -10,4 +10,10 @@ export default class NuRoot extends NuElement {
       display: 'block',
     };
   }
+
+  nuConnected() {
+    super.nuConnected();
+
+    this.style.opacity = '';
+  }
 }

@@ -3,65 +3,63 @@
  * Enable focus and active states.
  * Should be bind to the element before call.
  */
-export default function ActiveMixin($host) {
-  return {
-    init() {
-      $host.addEventListener('click', evt => {
-        $host.nuSetMod('active', false);
+export default class ActiveMixin {
+  constructor($host) {
+    $host.addEventListener('click', evt => {
+      $host.nuSetMod('active', false);
 
-        if ($host.nuDisabled || evt.nuHandled) return;
+      if ($host.nuDisabled || evt.nuHandled) return;
 
-        evt.nuHandled = true;
+      evt.nuHandled = true;
 
-        if (!$host.hasAttribute('disabled')) {
-          $host.nuTap(evt);
+      if (!$host.hasAttribute('disabled')) {
+        $host.nuTap(evt);
+      }
+    });
+
+    $host.addEventListener('keydown', evt => {
+      if ($host.nuDisabled || evt.nuHandled) return;
+
+      evt.nuHandled = true;
+
+      if (evt.key === 'Enter') {
+        $host.nuTap(evt);
+      } else if (evt.key === ' ') {
+        evt.preventDefault();
+
+        if (!$host.hasAttribute('disabled') && $host.nuHasMod('focusable')) {
+          $host.nuSetMod('active', true);
         }
-      });
+      }
+    });
 
-      $host.addEventListener('keydown', evt => {
-        if ($host.nuDisabled || evt.nuHandled) return;
+    $host.addEventListener('keyup', evt => {
+      $host.nuSetMod('active', false);
 
-        evt.nuHandled = true;
+      if ($host.nuDisabled || evt.nuHandled) return;
 
-        if (evt.key === 'Enter') {
-          $host.nuTap(evt);
-        } else if (evt.key === ' ') {
-          evt.preventDefault();
+      evt.nuHandled = true;
 
-          if (!$host.hasAttribute('disabled') && $host.nuHasMod('focusable')) {
-            $host.nuSetMod('active', true);
-          }
+      if (evt.key === ' ') {
+        evt.preventDefault();
+        $host.nuTap(evt);
+      }
+    });
+
+    $host.addEventListener('blur', () => $host.nuSetMod('active', false));
+
+    ['mousedown', 'touchstart'].forEach(eventName => {
+      $host.addEventListener(eventName, () => {
+        if (!$host.nuDisabled && $host.nuHasMod('focusable')) {
+          $host.nuSetMod('active', true);
         }
-      });
-
-      $host.addEventListener('keyup', evt => {
-        $host.nuSetMod('active', false);
-
-        if ($host.nuDisabled || evt.nuHandled) return;
-
-        evt.nuHandled = true;
-
-        if (evt.key === ' ') {
-          evt.preventDefault();
-          $host.nuTap(evt);
-        }
-      });
-
-      $host.addEventListener('blur', () => $host.nuSetMod('active', false));
-
-      ['mousedown', 'touchstart'].forEach(eventName => {
-        $host.addEventListener(eventName, () => {
-          if (!$host.nuDisabled && $host.nuHasMod('focusable')) {
-            $host.nuSetMod('active', true);
-          }
-        }, { passive: true });
-      });
-
-      ['mouseleave', 'mouseup', 'touchend'].forEach(eventName => {
-        $host.addEventListener(eventName, () => {
-          $host.nuSetMod('active', false);
-        });
       }, { passive: true });
-    },
-  };
+    });
+
+    ['mouseleave', 'mouseup', 'touchend'].forEach(eventName => {
+      $host.addEventListener(eventName, () => {
+        $host.nuSetMod('active', false);
+      });
+    }, { passive: true });
+  }
 }

@@ -57,14 +57,18 @@ export default class NuConverter extends NuElement {
         }
       }
 
-      this.nuObserve = async () => {
+      this.nuObserve = () => {
         const content = nuRef.tagName === 'TEXTAREA' ? nuRef.textContent : nuRef.innerHTML;
 
-        const converter = this.nuConverter || await this.constructor.nuConverter.then(module => module.default || module);
+        return Promise.resolve()
+          .then(() => {
+            return this.nuConverter || this.constructor.nuConverter.then(module => module.default || module);
+          })
+          .then(converter => {
+            this.nuConverter = converter;
 
-        this.nuConverter = converter;
-
-        this.nuApply(container, content, converter);
+            this.nuApply(container, content, converter);
+          });
       };
 
       const observer = new MutationObserver(() => this.nuObserve());
