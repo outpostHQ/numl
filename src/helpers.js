@@ -1254,13 +1254,12 @@ export function isNan(val) {
   return val !== val;
 }
 
-export function isClass(func) {
-  return typeof func === 'function'
-    && /^class\s/.test(Function.prototype.toString.call(func));
-}
+export function requestIdleCallback(cb) {
+  const ric = window.requestIdleCallback;
 
-export function requestIdleCallback() {
-  return requestIdleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1000));
+  return ric
+    ? ric(cb)
+    : setTimeout(cb, 1000);
 }
 
 export function asyncDebounce(cb, context) {

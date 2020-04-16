@@ -91,6 +91,12 @@ export default class NuInput extends NuBlock {
     `;
   }
 
+  static get nuMixins() {
+    return {
+      focus: true,
+    }
+  }
+
   nuGetRef() {
     this.nuRef = this.querySelector('input');
 
@@ -140,8 +146,14 @@ export default class NuInput extends NuBlock {
 
     switch (name) {
       case 'disabled':
-        this.nuRef.disabled = value != null;
-        this.nuSetFocusable(value != null);
+        const bool = value != null;
+
+        if (this.nuRef) {
+          this.nuRef.disabled = bool;
+
+          this.nuMixin('focus')
+            .then(focusMixin => focusMixin.set(bool));
+        }
 
         break;
       case 'placeholder':

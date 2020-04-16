@@ -20,9 +20,9 @@ schemeWidget.addEventListener('input', function (evt) {
   setTimeout(() => {
     Nude.scheme(evt.detail);
 
-    setTimeout(() => {
+    Nude.helpers.requestIdleCallback(() => {
       restoreMotion();
-    }, 1000);
+    });
   }, 0);
 });
 
