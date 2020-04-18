@@ -24,4 +24,10 @@ export default class NuMenuitem extends NuBtn {
       '--local-focus-inset': 'inset 0 0',
     };
   }
+
+  static get nuMixins() {
+    return {
+      menuitem: true
+    };
+  }
 }

@@ -9,17 +9,9 @@ export default class NuMenu extends NuFlow {
     return 'menu';
   }
 
-  nuConnected() {
-    super.nuConnected();
-
-    this.addEventListener('tap', (event) => {
-      if (event.nuRole !== 'menuitem') return;
-
-      if (this.getAttribute('action') === 'submit') {
-        this.nuEmit('submit', event.detail);
-      }
-
-      this.nuEmit('input', event.detail, { bubbles: false });
-    });
+  static get nuMixin() {
+    return {
+      menu: true
+    };
   }
 }

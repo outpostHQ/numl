@@ -827,6 +827,10 @@ export default class NuBase extends HTMLElement {
     }
   }
 
+  nuHasAria(name) {
+    return (this.nuRef || this).hasAttribute(`aria-${name}`);
+  }
+
   /**
    * Set a local modifier.
    * @param {String} name
@@ -935,7 +939,7 @@ export default class NuBase extends HTMLElement {
 
     Object.values(mixins).forEach(mixin => {
       if (mixin[method]) {
-        mixin[method].apply(this, args);
+        mixin[method].apply(mixin, args);
       }
     });
   }
@@ -1342,6 +1346,7 @@ export default class NuBase extends HTMLElement {
       nuSetContext: this.nuSetContext,
       nuVerifyChildren: this.nuVerifyChildren,
       nuDeepQuery: this.nuDeepQuery,
+      nuDeepQueryAll: this.nuDeepQueryAll,
       nuIsConnectionComplete: true,
       nuIsConnected: true,
     });
@@ -1457,6 +1462,8 @@ export default class NuBase extends HTMLElement {
     if (parent.nuContext) {
       const temp = this.nuContext;
 
+      this.nuParentContext = parent.nuContext;
+
       this.nuContext = Object.create(parent.nuContext);
 
       if (temp) {
@@ -1467,6 +1474,8 @@ export default class NuBase extends HTMLElement {
     } else {
       this.nuContext = Object.create(CONTEXT);
       this.nuSetMod('root', true);
+
+      this.nuParentContext = CONTEXT;
 
       applyTheme(this, BASE_THEME, 'main');
     }
@@ -1492,6 +1501,12 @@ export default class NuBase extends HTMLElement {
    * Require mixin
    */
   nuMixin(name) {
+    if (!this.nuConnected) {
+      error('it\'s impossible to inject mixin before element is connected', { el: this, mixin: name });
+
+      return;
+    }
+
     const mixins = this.constructor.nuAllMixins;
 
     let options = mixins[name];
@@ -1520,7 +1535,7 @@ export default class NuBase extends HTMLElement {
         mixin.init();
       }
 
-      if (this.nuConnected && mixin.connected) {
+      if (mixin.connected) {
         mixin.connected();
       }
 
@@ -1529,9 +1544,11 @@ export default class NuBase extends HTMLElement {
   }
 
   nuControl(bool, value) {
-    if (!this.hasAttribute('controls')) return;
-
     this.nuMixin('control')
       .then(controlMixin => controlMixin.apply(!!bool, value));
+  }
+
+  get nuDisabled() {
+    return this.hasAttribute('disabled') || this.getAttribute('tabindex') === '-1';
   }
 }

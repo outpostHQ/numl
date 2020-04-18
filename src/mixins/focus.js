@@ -4,6 +4,8 @@
 
 import Mixin from "./mixin";
 
+export const DISABLED_ATTR = 'disabled';
+
 export default class FocusMixin extends Mixin {
   constructor($host) {
     super($host);
@@ -23,16 +25,27 @@ export default class FocusMixin extends Mixin {
     }
   }
 
+  init() {
+    this.set(this.$host.getAttribute(DISABLED_ATTR) == null);
+  }
+
+  changed(name, value) {
+    if (name === DISABLED_ATTR) {
+      this.set(value == null);
+    }
+  }
+
   setEffect(bool) {
     this.$host.nuSetMod('focus', bool);
     this.$host.nuSetContext('focus', bool || null);
   }
 
   set(bool) {
+    // @TODO: replace nuTabIndex with more sane approach
     if (bool) {
       this.$ref.setAttribute('tabindex', this.$host.nuTabIndex);
     } else {
-      this.$ref.removeAttribute('tabindex');
+      this.$ref.setAttribute('tabindex', '-1');
     }
 
     this.$host.nuSetMod('focusable', bool || null);

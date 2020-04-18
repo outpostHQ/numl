@@ -17,13 +17,9 @@ export default class NuPopupMenu extends NuPopup {
     };
   }
 
-  nuConnected() {
-    super.nuConnected();
-
-    if (!this.hasAttribute('action')) {
-      this.setAttribute('action', 'submit');
-    }
-
-    NuMenu.prototype.nuConnected.call(this);
+  static get nuMixins() {
+    return {
+      menu: true,
+    };
   }
 }

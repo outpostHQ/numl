@@ -1,4 +1,3 @@
-import FocusMixin from './mixins/focus.js';
 import { devMode, error } from './helpers.js';
 
 function extract(module) {
@@ -8,13 +7,23 @@ function extract(module) {
 const DICT = {};
 
 const MIXINS = {
-  focus: () => FocusMixin,
+  focus: () => extract(import(`./mixins/focus.js`)),
+  menu: () => extract(import(`./mixins/menu.js`)),
+  menuitem: () => extract(import(`./mixins/menuitem.js`)),
   active: () => extract(import(`./mixins/active.js`)),
   fixate: () => extract(import(`./mixins/fixate.js`)),
   orient: () => extract(import(`./mixins/orient.js`)),
   popup: () => extract(import('./mixins/popup.js')),
   control: () => extract(import('./mixins/control')),
+  radiogroup: () => extract(import('./mixins/radiogroup')),
+  button: () => extract(import('./mixins/button')),
 };
+
+export function hasMixin(el, name) {
+  const mixins = el.constructor.nuAllMixins;
+
+  return mixins && (name in mixins);
+}
 
 export function getMixin(name) {
   if (DICT[name]) {

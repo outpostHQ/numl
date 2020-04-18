@@ -3,4 +3,8 @@ export default class Mixin {
     this.$host = $host;
     this.$ref = $host.nuRef || $host;
   }
+
+  mixin(name) {
+    return this.$host.nuMixin(name);
+  }
 }

@@ -1,6 +1,6 @@
 import NuActiveElement from './activeelement';
 import { getFloatFromAttr, numberFromString } from '../helpers';
-import OrientMixin, { VERTICAL } from '../mixins/orient';
+import { VERTICAL } from '../mixins/orient';
 
 export default class NuSlider extends NuActiveElement {
   static get nuTag() {
@@ -28,14 +28,14 @@ export default class NuSlider extends NuActiveElement {
 
   static get nuMixins() {
     return {
-      orient: OrientMixin({
+      orient: {
         aria: true,
-        initial() {
-          return !this.hasAttribute('orient') && this.nuContext.orientation
-            ? (this.nuContext.orientation === VERTICAL ? 'v' : 'h')
-            : (this.getAttribute('orient') || 'v');
+        initial($host) {
+          return !th$hostis.hasAttribute('orient') && $host.nuContext.orientation
+            ? ($host.nuContext.orientation === VERTICAL ? 'v' : 'h')
+            : ($host.getAttribute('orient') || 'v');
         },
-      }),
+      },
     };
   }
 

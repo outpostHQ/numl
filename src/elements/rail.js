@@ -1,5 +1,4 @@
 import NuElement from './element';
-import OrientMixin, { HORIZONTAL } from '../mixins/orient';
 import combinedAttr from '../attributes/combined';
 
 const EVENT_MAP = {
@@ -58,7 +57,7 @@ export default class NuRail extends NuElement {
 
   static get nuMixins() {
     return {
-      orient: OrientMixin(),
+      orient: true,
     };
   }
 
