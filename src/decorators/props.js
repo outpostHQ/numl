@@ -33,7 +33,7 @@ export default class NuProps extends NuDecorator {
 
   nuApply() {
     const parent = this.parentNode;
-    const context = this.nuParentContext;
+    const context = this.nuParentSelector;
     const props = this.nuOwnAttrs;
 
     if (JSON.stringify(this.nuProps) === JSON.stringify(props)) return;

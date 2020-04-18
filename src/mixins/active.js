@@ -1,10 +1,18 @@
+import Mixin from "./mixin";
+
 /**
  * Event bindings for active elements.
  * Enable focus and active states.
  * Should be bind to the element before call.
  */
-export default class ActiveMixin {
+export default class ActiveMixin extends Mixin {
   constructor($host) {
+    super($host);
+
+    let button;
+
+    this.mixin('button').then(buttonMixin => button = buttonMixin);
+
     $host.addEventListener('click', evt => {
       $host.nuSetMod('active', false);
 
@@ -12,9 +20,7 @@ export default class ActiveMixin {
 
       evt.nuHandled = true;
 
-      if (!$host.hasAttribute('disabled')) {
-        $host.nuTap(evt);
-      }
+      button && button.tap(evt);
     });
 
     $host.addEventListener('keydown', evt => {
@@ -23,11 +29,11 @@ export default class ActiveMixin {
       evt.nuHandled = true;
 
       if (evt.key === 'Enter') {
-        $host.nuTap(evt);
+        button && button.tap(evt);
       } else if (evt.key === ' ') {
         evt.preventDefault();
 
-        if (!$host.hasAttribute('disabled') && $host.nuHasMod('focusable')) {
+        if (!$host.nuDisabled && $host.nuHasMod('focusable')) {
           $host.nuSetMod('active', true);
         }
       }
@@ -42,7 +48,7 @@ export default class ActiveMixin {
 
       if (evt.key === ' ') {
         evt.preventDefault();
-        $host.nuTap(evt);
+        button && button.tap(evt);
       }
     });
 

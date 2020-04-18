@@ -12,11 +12,11 @@
   <title>NUDE Elements Playground</title>
   <meta name="Description" content="Design System Framework for the any scale projects.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>nu-root { opacity: 0; }</style>
+  <!-- <style>nu-root { opacity: 0; }</style> -->
   <!-- <script module src="src/index.js"></script> -->
 </head>
 <body>
-<nu-root padding="2x||1x" responsive="1280px|960px|640px" fill="subtle">
+<nu-root padding="2x||1x" responsive="1280px|960px|640px" fill="subtle" style="opacity: 0;">
   <!-- This theme has default values -->
   <nu-theme
     hue="250"
@@ -2376,11 +2376,11 @@
             <nu-menuitem>
               Submenu level 1
               <nu-popupmenu place="outside-right top -1x 0">
-                <nu-menuitem>Menu button level 2</nu-menuitem>
+                <nu-menuitem value="second-item">Menu button level 2</nu-menuitem>
                 <nu-menuitem>
                   Submenu level 2
                   <nu-popupmenu place="outside-right top -1x 0">
-                    <nu-menuitem>Menu button level 3</nu-menuitem>
+                    <nu-menuitem value="third-item">Menu button level 3</nu-menuitem>
                     <nu-menuitem>etc...</nu-menuitem>
                   </nu-popupmenu>
                 </nu-menuitem>

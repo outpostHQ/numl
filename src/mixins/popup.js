@@ -1,12 +1,15 @@
 import { PLACE_ATTR } from '../attributes/place';
 import { deepQueryAll, fixPosition, resetScroll } from '../helpers';
 import { FIXATE_ATTR } from './fixate';
+import Widget from './widget';
 
 let CURRENT_POPUPS = new Set;
 
-export default class PopupMixin {
-  constructor($host) {
-    this.$host = $host;
+export default class PopupMixin extends Widget {
+  init() {
+    super.init();
+
+    const { $host } = this;
 
     if (!$host.hasAttribute('theme')) {
       $host.setAttribute('theme', 'main');
@@ -27,12 +30,12 @@ export default class PopupMixin {
     });
 
     $host.addEventListener('keydown', (event) => {
-      const { container } = this;
+      const { button } = this;
 
       if (event.key === 'Escape') {
-        if (container) {
-          container.nuSetPressed(false);
-          container.focus();
+        if (button) {
+          button.set(false);
+          button.focus();
         }
         event.stopPropagation();
       }
@@ -43,23 +46,20 @@ export default class PopupMixin {
     });
 
     $host.addEventListener('mouseenter', () => {
-      if (!this.container) return;
+      if (!this.button) return;
 
-      this.container.style.setProperty('--nu-local-hover-color', 'transparent');
+      this.button.$host.style.setProperty('--nu-local-hover-color', 'transparent');
     });
 
     $host.addEventListener('mouseleave', () => {
-      if (!this.container) returrn;
+      if (!this.button) return;
 
-      this.container.style.removeProperty('--nu-local-hover-color');
+      this.button.$host.style.removeProperty('--nu-local-hover-color');
     });
 
-    $host.addEventListener('submit', (event) => {
-      this.close();
-
-      if ($host.getAttribute('role') !== 'menu') {
-        event.stopPropagation();
-      }
+    $host.nuSetContext('submit', (detail) => {
+      this.emit('input', detail);
+      this.button.set(false);
     });
   }
 
@@ -73,27 +73,34 @@ export default class PopupMixin {
     }
 
     $host.nuSetContext('popup', this);
+    $host.nuSetContextHook('button', () => this.linkButton());
 
-    const container = this.container = $host.nuContext.active;
-
-    if (container) {
-      container.nuLinkPopup($host);
-    }
+    this.linkButton();
 
     if (!$host.hasAttribute(PLACE_ATTR)
       && !$host.hasAttribute(FIXATE_ATTR)
-      && container && container.nuContext.popup) {
+      && $host.nuParentContext.popup) {
       $host.setAttribute(PLACE_ATTR, 'outside-right top');
     }
 
     this.close();
   }
 
+  linkButton() {
+    const { $host } = this;
+
+    const button = this.button = $host.nuContext.button;
+
+    if (button) {
+      button.linkPopup(this);
+    }
+  }
+
   disconnected() {
     this.close();
-    this.container.nuUnlinkPopup($host);
+    this.button.unlinkPopup(this);
 
-    delete this.container;
+    delete this.button;
   }
 
   open() {
@@ -106,18 +113,19 @@ export default class PopupMixin {
 
     $host.hidden = false;
 
-    if (this.container) {
-      this.container.nuSetAria('expanded', true);
+    if (this.button) {
+      this.button.$host.nuSetAria('expanded', true);
     }
 
-    const activeElement = $host.nuDeepQuery('input, [tabindex]:not([tabindex="-1"]');
+    // Select first focusable element
+    const activeElement = $host.nuDeepQuery('input, [tabindex]:not([tabindex="-1"]):not([disabled])');
 
     fixPosition($host);
 
     if (activeElement) activeElement.focus();
 
-    $host.nuEmit('open', null, { bubbles: false });
-    $host.nuEmit('toggle', null, { bubbles: false });
+    this.emit('open', null);
+    this.emit('toggle', null);
 
     resetScroll($host, true);
   }
@@ -132,16 +140,22 @@ export default class PopupMixin {
 
     $host.hidden = true;
 
-    if (this.container) {
-      this.container.nuSetPressed(false);
+    if (this.button) {
+      this.button.set(false);
     }
 
     $host.style.removeProperty('--nu-transform');
 
-    $host.nuEmit('close', null, { bubbles: false });
-    $host.nuEmit('toggle', null, { bubbles: false });
+    this.emit('close', null);
+    this.emit('toggle', null);
 
     resetScroll($host, true);
+
+    const childPopup = $host.nuDeepQuery('[nu-popup]');
+
+    if (childPopup) {
+      childPopup.nuMixin('popup').then(popupMixin => popupMixin.close());
+    }
   }
 }
 
@@ -150,11 +164,13 @@ function findParentPopup(element) {
 
   do {
     if (element) {
-      if (element.nuChildPopup) {
-        const popup = element.nuChildPopup;
+      const mixins = element.nuMixins;
 
-        if (popup) {
-          elements.push(popup);
+      if (mixins && mixins.button && mixins.button.popup) {
+        const popupEl = mixins.button.popup.$host;
+
+        if (popupEl) {
+          elements.push(popupEl);
         }
       }
     } else {
@@ -175,7 +191,7 @@ function handleOutside(event) {
   if (CURRENT_POPUPS) {
     setTimeout(() => {
       CURRENT_POPUPS.clear();
-    }, 0);
+    }, 100);
   }
 
   deepQueryAll(this === window ? document : this, '[nu-popup]')

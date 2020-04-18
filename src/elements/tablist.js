@@ -48,22 +48,10 @@ export default class NuTablist extends NuRadioGroup {
     };
   }
 
-  static get nuItemRole() {
-    return 'tab';
-  }
-
   static get nuMixins() {
     return {
-      orient: { aria: true },
+      orient: { aria: true, dynamic: true },
+      radiogroup: { itemRole: 'tab' },
     };
-  }
-
-  nuInit() {
-    super.nuInit();
-
-    this.addEventListener('focusin', () => {
-      this.nuMixin('orient')
-        .then(orientMixin => orientMixin.set(getComputedStyle(this).flexFlow.includes('column') ? 'v' : 'h'));
-    });
   }
 }

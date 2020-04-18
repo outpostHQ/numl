@@ -9,10 +9,6 @@ export default class NuRadioGroup extends NuFlex {
     return 'radiogroup';
   }
 
-  static get nuItemRole() {
-    return 'radio';
-  }
-
   static get nuAttrs() {
     return {
       value: '',
@@ -21,59 +17,8 @@ export default class NuRadioGroup extends NuFlex {
 
   static get nuMixins() {
     return {
+      radiogroup: true,
       control: true,
     };
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
-    switch (name) {
-      case 'value':
-        this.nuSetValue(value, false);
-
-        break;
-    }
-  }
-
-  nuInit() {
-    super.nuInit();
-
-    if (!this.hasAttribute('value')) {
-      this.setAttribute('value', '0');
-    }
-
-    this.nuSetRadioGroupContext();
-    this.nuControl(true);
-  }
-
-  nuSetRadioGroupContext() {
-    this.nuSetContext('radiogroup', {
-      value: this.nuValue,
-      context: this,
-      itemRole: this.constructor.nuItemRole,
-    });
-  }
-
-  nuSetValue(value) {
-    let announce;
-
-    if (this.nuValue === undefined) {
-      announce = value !== this.getAttribute('value');
-    } else {
-      announce = this.nuValue !== value;
-    }
-
-    this.nuValue = value;
-
-    if (announce) {
-      this.nuEmitInput(value);
-
-      this.nuSetRadioGroupContext();
-    }
-
-    if (this.nuIsConnected) {
-      this.nuControl(true, value);
-    }
   }
 }
