@@ -9,7 +9,7 @@ export default class MenuMixin extends Widget {
     const parentMenu = $host.nuContext.menu;
 
     if (!parentMenu) {
-      $host.nuSetContext('menu', this);
+      $host.nuSetContext('menu', this, true);
     }
   }
 

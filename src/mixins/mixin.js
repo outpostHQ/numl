@@ -7,4 +7,8 @@ export default class Mixin {
   mixin(name) {
     return this.$host.nuMixin(name);
   }
+
+  get context() {
+    return this.$host.nuContext;
+  }
 }

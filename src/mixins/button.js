@@ -4,6 +4,10 @@ import Routing from '../routing';
 export default class ButtonMixin extends WidgetMixin {
   init() {
     this.props.to = null;
+    this.props.pressed = (bool) => this.set(bool != null);
+    this.props.value = (val) => {
+      this.setValue(val, true);
+    }
 
     super.init();
 
@@ -27,8 +31,9 @@ export default class ButtonMixin extends WidgetMixin {
 
     const { $host } = this;
 
-    this.verifyRadioGroup();
     $host.nuSetContextHook('radiogroup', () => this.verifyRadioGroup());
+
+    this.verifyRadioGroup();
 
     if (this.role === 'button') {
       if (this.to) {
@@ -61,16 +66,6 @@ export default class ButtonMixin extends WidgetMixin {
         }
 
         break;
-      case 'pressed':
-        value = value != null;
-
-        this.set(value);
-
-        break;
-      case 'value':
-        this.setValue(value);
-
-        break;
       case 'to':
         if (value && value.length) {
           this.newTab = value.startsWith('!');
@@ -94,22 +89,24 @@ export default class ButtonMixin extends WidgetMixin {
   verifyRadioGroup() {
     const { $host } = this;
 
-    const radioGroupContext = $host.nuContext.radiogroup;
+    this.radioGroup = this.context.radiogroup;
 
-    if (!radioGroupContext) return;
+    const radioGroup = this.radioGroup;
 
-    const radioGroup = this.radioGroup = radioGroupContext.mixin;
+    if (!radioGroup) return;
 
     this.setRole(radioGroup.itemRole);
 
-    if (!$host.hasAttribute('value')) {
+    if (this.value == null) {
       if (!radioGroup.counter) radioGroup.counter = 0;
 
-      $host.setAttribute('value', radioGroup.counter++);
+      this.setValue(String(radioGroup.counter++));
     }
 
-    if (this.pressed) {
-      radioGroup.set(this.value);
+    if (radioGroup.value == null) {
+      if (this.pressed) {
+        radioGroup.set(this.value);
+      }
     } else if (radioGroup.value === this.value) {
       $host.setAttribute('pressed', '');
     } else {
@@ -224,6 +221,7 @@ export default class ButtonMixin extends WidgetMixin {
       this.emit('input', value);
     }
 
+    // Actions
     const action = this.$host.getAttribute('action');
 
     if (action) {
@@ -276,11 +274,9 @@ export default class ButtonMixin extends WidgetMixin {
     this.control(this.pressed, this.value);
 
     if (pressed) {
-      const radioGroupContext = this.nuContext && this.nuContext.radiogroup;
+      const radioGroup = this.context && this.context.radiogroup;
 
-      if (radioGroupContext) {
-        const radioGroup = radioGroupContext.mixin;
-
+      if (radioGroup) {
         radioGroup.set(this.value);
       }
     }
@@ -293,7 +289,7 @@ export default class ButtonMixin extends WidgetMixin {
     }
   }
 
-  setValue(value) {
+  setValue(value, silent) {
     if (value === this.value) return;
 
     this.value = value;
@@ -301,10 +297,10 @@ export default class ButtonMixin extends WidgetMixin {
     setTimeout(() => {
       this.control(this.pressed, this.value);
 
-      if (notify) {
+      if (!silent) {
         this.emit('input', value);
       }
-    }, 0);
+    });
   }
 
   isToggle() {

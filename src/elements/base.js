@@ -1025,7 +1025,7 @@ export default class NuBase extends HTMLElement {
     });
   }
 
-  nuSetContext(name, value) {
+  nuSetContext(name, value, force) {
     if (!this.nuContext) {
       if (!this.nuContextTemp) {
         this.nuContextTemp = {};
@@ -1035,9 +1035,15 @@ export default class NuBase extends HTMLElement {
 
       return;
     } else {
+      const oldValue = this.nuContext[name];
+
       if (value == null) {
-        delete this.nuContext[name];
-      } else if (this.nuContext[name] !== value) {
+        if (name in this.nuContext) {
+          delete this.nuContext[name];
+        } else if (!force) {
+          return;
+        }
+      } else if (oldValue !== value || force) {
         this.nuContext[name] = value;
       } else {
         return;

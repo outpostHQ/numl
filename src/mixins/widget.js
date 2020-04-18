@@ -44,7 +44,11 @@ export default class WidgetMixin extends Mixin {
     const defaults = this.props[name];
 
     if (typeof defaults === 'function') {
-      this[name] = defaults(value);
+      const val = defaults(value);
+
+      if (val !== undefined) {
+        this[name] = defaults(value);
+      }
     } else {
       this[name] = value || defaults;
     }
