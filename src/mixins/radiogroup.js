@@ -5,50 +5,41 @@ export default class RadioGroupMixin extends WidgetMixin {
     super($host, options);
 
     this.itemRole = options.itemRole;
+  }
+
+  init() {
+    this.props.value = (val) => {
+      this.set(val, true);
+    };
+
+    super.init();
 
     // uncontrolled behaviour
-    if (!$host.hasAttribute('value')) {
-      $host.setAttribute('value', '0');
-    }
-
-    this.setContext();
-  }
-
-  changed(name, value) {
-    if (name === 'value') {
-      this.set(value);
+    if (!this.value) {
+      this.set('0');
     }
   }
 
-  setContext() {
-    const { $host, itemRole } = this;
-
-    $host.nuSetContext('radiogroup', {
-      value: this.value,
-      host: $host,
-      mixin: this,
-      itemRole: itemRole,
-    });
-  }
-
-  set(value) {
+  connected() {
     const { $host } = this;
 
-    let announce;
+    $host.nuSetContext('radiogroup', this, true);
+  }
 
-    if (this.value === undefined) {
-      announce = value !== $host.getAttribute('value');
-    } else {
-      announce = this.value !== value;
-    }
+  set(value, silent) {
+    const { $host } = this;
+
+    if (this.value === value) return;
 
     this.value = value;
 
-    if (announce) {
-      this.emitInput(value);
+    if (!silent) {
+      console.log('! radiogroup', this.value, value);
 
-      this.setContext();
+      this.emit('input', value);
     }
+
+    $host.nuSetContext('radiogroup', this, true);
 
     if (this.nuIsConnected) {
       $host.nuMixin('control')
