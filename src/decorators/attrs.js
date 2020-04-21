@@ -1,17 +1,15 @@
 import NuDecorator from './decorator';
 import { getAllAttrs, ELEMENTS_MAP } from '../elements/base';
-import { computeStyles, log } from '../helpers';
-import { generateCSS } from '../css';
 
 function getSelector(id, oldId) {
   id = id.replace(/^\$+/, '');
   oldId = oldId ? oldId.replace(/^\$+/, '') : null;
 
-  return `${(!ELEMENTS_MAP[id] ? `[as*="${id}"], [id="${id}"], [id^="${id}--"]` : id)}${
+  return `* > nu-attrs[for="${id}"], ${(!ELEMENTS_MAP[id] ? `[as*="${id}"], [id="${id}"], [id^="${id}--"]` : id)}${
     oldId
-      ? (!ELEMENTS_MAP[oldId]
+      ? `, * > nu-attrs[for="${oldId}"]${(!ELEMENTS_MAP[oldId]
         ? `, [as*="${oldId}"], [id="${oldId}"], [id^="${oldId}--"]`
-        : `, ${oldId}`)
+        : `, ${oldId}`)}`
       : ''}`;
 }
 
@@ -50,16 +48,22 @@ export default class NuAttrs extends NuDecorator {
       id = id.replace(/^\$+/, '');
     }
 
+    // Clear previous declaration
     const oldId = this.nuFor !== id ? this.nuFor : null;
+
+    if (oldId) {
+      parent.nuSetContext(`attrs:${oldId}`, null);
+    }
 
     if (!parent.nuContext || !id) return;
 
     this.nuParent = parent;
-
     this.nuFor = id;
 
     const attrs = this.nuOwnAttrs;
-    const define = {};
+    const key = `attrs:${id}`;
+    const parentDefine = parent.nuParentContext[key];
+    const define = parentDefine ? Object.assign({}, parentDefine) : {};
 
     delete attrs.for;
 
@@ -71,14 +75,10 @@ export default class NuAttrs extends NuDecorator {
 
     parent.nuSetContext(`attrs:${id}`, define);
 
-    if (oldId) {
-      parent.nuSetContext(`attrs:${oldId}`, null);
-    }
-
     const selector = getSelector(id, oldId);
     const shadow = id.startsWith('$') || (oldId && oldId.startsWith('$'));
 
-    parent.nuVerifyChildren({ attrs: selector, shadow });
+    parent.nuVerifyChildren({ attrs: selector, shadow, ignore: parent.nuQueryChildren('nu-attrs') });
   }
 
   // nuGetCriticalCSS() {

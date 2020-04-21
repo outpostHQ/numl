@@ -37,7 +37,7 @@ import {
   normalizeAttrStates,
   isDefined,
   parseAttrStates,
-  deepQuery, deepQueryAll,
+  deepQuery, deepQueryAll, queryChildren,
 } from '../helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
@@ -74,8 +74,18 @@ export function getAllAttrs() {
 const TAG_LIST = [];
 
 /**
+ * @typedef NudeContext
+ * @property useShadow {boolean}
+ * @property $shadowRoot {HTMLFragment}
+ * @property $parentShadowRoot {HTMLFragment}
+ */
+
+/**
  * @class
  * @abstract
+ * @property nuContext {NudeContext}
+ * @property nuParent {HTMLElement}
+ * @property nuParentContext {NudeContext}
  */
 export default class NuBase extends HTMLElement {
   /**
@@ -104,7 +114,7 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Method to extract element css with current element context.
-   * @private
+   * @protected
    * @param cls
    * @returns {string}
    */
@@ -122,17 +132,14 @@ export default class NuBase extends HTMLElement {
   /**
    * Parent element
    */
-  static get nuParent() {
+  static get nuParentClass() {
     const parent = Object.getPrototypeOf(this);
 
     if (parent.nuTag != null) return parent;
-
-    return;
   }
 
   /**
    * Method to generate parent CSS with current element context.
-   * @private
    * @param cls
    * @returns {string}
    */
@@ -140,7 +147,7 @@ export default class NuBase extends HTMLElement {
     let parent = this;
 
     do {
-      parent = parent.nuParent;
+      parent = parent.nuParentClass;
     } while (parent && parent.nuCSS && parent.nuCSS === this.nuCSS);
 
     if (parent && parent.nuCSS) {
@@ -175,7 +182,7 @@ export default class NuBase extends HTMLElement {
     return (
       ATTRS_MAP[this.nuTag] ||
       (ATTRS_MAP[this.nuTag] = {
-        ...(this.nuParent && this.nuParent.nuAllAttrs || {}),
+        ...(this.nuParentClass && this.nuParentClass.nuAllAttrs || {}),
         ...this.nuAttrs
       })
     );
@@ -228,7 +235,7 @@ export default class NuBase extends HTMLElement {
     return (
       DEFAULTS_MAP[this.nuTag] ||
       (DEFAULTS_MAP[this.nuTag] = {
-        ...(this.nuParent && this.nuParent.nuAllDefaults || {}),
+        ...(this.nuParentClass && this.nuParentClass.nuAllDefaults || {}),
         ...(this.nuDefaults || {}),
       })
     );
@@ -249,7 +256,7 @@ export default class NuBase extends HTMLElement {
     return (
       MIXINS_MAP[this.nuTag] ||
       (MIXINS_MAP[this.nuTag] = {
-        ...(this.nuParent && this.nuParent.nuAllMixins || {}),
+        ...(this.nuParentClass && this.nuParentClass.nuAllMixins || {}),
         ...(this.nuMixins || {}),
       })
     );
@@ -270,7 +277,7 @@ export default class NuBase extends HTMLElement {
     return (
       COMBINATORS_MAP[this.nuTag] ||
       (COMBINATORS_MAP[this.nuTag] = {
-        ...(this.nuParent && this.nuParent.nuAllCombinators || {}),
+        ...(this.nuParentClass && this.nuParentClass.nuAllCombinators || {}),
         ...(this.nuCombinators || {}),
       })
     );
@@ -1094,11 +1101,25 @@ export default class NuBase extends HTMLElement {
     return this.nuContextHooks && this.nuContextHooks[name];
   }
 
+  /**
+   * @typedef VerifyOptions
+   * @property vars {boolean}
+   * @property responsive {boolean}
+   * @property attrs {string}
+   * @property shadow {boolean}
+   * @property ignore {null|Array<string>}
+   */
+
+  /**
+   *
+   * @param options {null|VerifyOptions}
+   */
   nuVerifyChildren(options) {
     const selectors = ['[shadow-root]'];
 
     const force = options === true;
     const { vars, responsive, attrs, shadow } = options;
+    const ignore = options.ignore;
 
     if (!this.nuIsConnectionComplete) return;
 
@@ -1128,6 +1149,8 @@ export default class NuBase extends HTMLElement {
     log('verify children', { vars, responsive, attrs, shadow, selector });
 
     [this, ...elements].forEach(el => {
+      if (ignore && ignore.includes(el)) return;
+
       if (el.nuApplyCSS) {
         [...el.attributes].forEach(({ name, value }) => {
           if (name === RESPONSIVE_ATTR) return;
@@ -1140,6 +1163,10 @@ export default class NuBase extends HTMLElement {
 
       if (attrs && el.nuSetContextAttrs) {
         log('apply context attrs', { el });
+
+        if (this !== el && el.nuApply) {
+          el.nuApply();
+        }
 
         if (el.nuSetContextAttrs) el.nuSetContextAttrs();
       }
@@ -1499,6 +1526,10 @@ export default class NuBase extends HTMLElement {
 
   nuDeepQueryAll(selector) {
     return deepQueryAll(this, selector);
+  }
+
+  nuQueryChildren(selector) {
+    return queryChildren(this, selector);
   }
 
   /** Mixin System **/

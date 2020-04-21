@@ -1246,6 +1246,12 @@ export function deepQueryAll(element, selector) {
   return found;
 }
 
+export function queryChildren(element, selector) {
+  const children = [...element.querySelectorAll(selector)];
+
+  return children.filter(el => el.parentNode === element);
+}
+
 export function isValidDate(date) {
   return !date || !date.getTime || !isNan(date.getTime());
 }
