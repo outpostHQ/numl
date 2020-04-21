@@ -582,7 +582,7 @@ export function computeStyles(name, value, attrs, defaults) {
 
   switch (typeof attrValue) {
     case 'string':
-      return value ? [{ [attrValue]: parseAttr(value, 2).value }] : null;
+      return [{ [attrValue]: value ? parseAttr(value, 2).value : 'initial' }];
     case 'function':
       const styles = attrValue(value, defaults);
 

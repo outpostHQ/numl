@@ -40,6 +40,22 @@
         <nu-attrs for="nu-btn" padding></nu-attrs>
         <nu-btn>Button</nu-btn>
       </nu-block>
+
+      <nu-btn width="10" role="checkbox">
+        Something
+        <nu-card
+                 place="outside-bottom"
+                 scale="^:pressed[1 1] 1 .5"
+                 opacity="^:pressed[1] 0"
+                 transition="scale, opacity"
+                 padding="1x 0" width="100%" z="above" origin="top">
+          <nu-menu display="flex">
+            <nu-menuitem>Item 1</nu-menuitem>
+            <nu-menuitem>Item 2</nu-menuitem>
+          </nu-menu>
+        </nu-card>
+      </nu-btn>
+
     </nu-card>
 
     <!-- <nu-heading level="1">
@@ -2870,7 +2886,7 @@
       </nu-block>
     </nu-card>-->
 
-    <nu-attrs for="$arrow" color="#996633"></nu-attrs>
+<!--    <nu-attrs for="$arrow" color="#996633"></nu-attrs>-->
 
     <nu-card as="section">
       <nu-heading level="3">Date picker</nu-heading>

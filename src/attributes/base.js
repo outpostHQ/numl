@@ -110,4 +110,5 @@ export default {
   expand: expandAttr,
   fade: fadeAttr,
   drop: dropAttr,
+  origin: 'transform-origin',
 };
