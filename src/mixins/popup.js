@@ -3,7 +3,7 @@ import { deepQueryAll, fixPosition, resetScroll } from '../helpers';
 import { FIXATE_ATTR } from './fixate';
 import Widget from './widget';
 
-let CURRENT_POPUPS = new Set;
+let POPUPS = new Set;
 
 export default class PopupMixin extends Widget {
   init() {
@@ -18,14 +18,10 @@ export default class PopupMixin extends Widget {
     $host.nuSetMod('popup', true);
 
     $host.addEventListener('mousedown', (event) => {
-      CURRENT_POPUPS.add($host);
-
       event.stopPropagation();
     });
 
     $host.addEventListener('click', (event) => {
-      CURRENT_POPUPS.add($host);
-
       event.stopPropagation();
     });
 
@@ -84,6 +80,8 @@ export default class PopupMixin extends Widget {
     }
 
     this.close();
+
+    POPUPS.add($host);
   }
 
   linkButton() {
@@ -101,6 +99,8 @@ export default class PopupMixin extends Widget {
     this.button.unlinkPopup(this);
 
     delete this.button;
+
+    POPUPS.remove($host);
   }
 
   open() {
@@ -159,7 +159,7 @@ export default class PopupMixin extends Widget {
   }
 }
 
-function findParentPopup(element) {
+function findParentPopup(element, current) {
   const elements = []
 
   do {
@@ -176,7 +176,9 @@ function findParentPopup(element) {
     } else {
       break;
     }
-  } while (element = element.parentNode || element.host);
+
+    element = element.parentNode || element.host;
+  } while (element || !current.has(element));
 
   return elements;
 }
@@ -184,19 +186,11 @@ function findParentPopup(element) {
 function handleOutside(event) {
   if (event.nuPopupHandled) return;
 
-  const popups = findParentPopup(event.target);
-
-  popups.forEach(popup => CURRENT_POPUPS.add(popup));
-
-  if (CURRENT_POPUPS) {
-    setTimeout(() => {
-      CURRENT_POPUPS.clear();
-    }, 100);
-  }
+  const popups = findParentPopup(event.target, POPUPS);
 
   deepQueryAll(this === window ? document : this, '[nu-popup]')
     .forEach((currentPopup) => {
-      if (!CURRENT_POPUPS.has(currentPopup)) {
+      if (!popups.includes(currentPopup)) {
         currentPopup.nuMixin('popup').then(popup => popup.close());
         event.nuPopupHandled = true;
       }
