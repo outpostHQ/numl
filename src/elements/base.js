@@ -44,7 +44,7 @@ import displayAttr from '../attributes/display';
 import themeAttr from '../attributes/theme';
 import propAttr from '../attributes/prop';
 import combine from '../combinators/index';
-import { getBehavior } from '../behaviors';
+import { BEHAVIORS, getBehavior } from '../behaviors';
 
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
@@ -217,6 +217,7 @@ export default class NuBase extends HTMLElement {
       theme: themeAttr,
       prop: propAttr,
       lang: '',
+      role: '',
     };
   }
 
@@ -909,6 +910,16 @@ export default class NuBase extends HTMLElement {
    * @param {*} value
    */
   nuChanged(name, oldValue, value) {
+    if (name.startsWith('nu-')) {
+      name = name.replace('nu-', '');
+
+      if (name in BEHAVIORS) {
+        this.nu(name, value);
+      }
+
+      return;
+    }
+
     this.nuBehaviorCall('changed', [name, value]);
 
     switch (name) {
@@ -1546,9 +1557,10 @@ export default class NuBase extends HTMLElement {
   /**
    * Require behavior
    * @param name {String} - Behavior name
+   * @param value {String} - Options string
    * @return {null|Behavior}
    */
-  nu(name) {
+  nu(name, value) {
     const behaviors = this.constructor.nuAllBehaviors;
 
     let options = behaviors[name];

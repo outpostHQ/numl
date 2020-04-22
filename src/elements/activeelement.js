@@ -38,10 +38,8 @@ export default class NuActiveElement extends NuElement {
 
   static get nuBehaviors() {
     return {
-      active: true,
       control: true,
       button: true,
-      focusable: true,
     };
   }
 
