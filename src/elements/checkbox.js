@@ -40,27 +40,6 @@ export default class NuCheckbox extends NuActiveElement {
   nuConnected() {
     super.nuConnected();
 
-    const labelledBy = this.getAttribute('labelledby');
-
-    if (labelledBy) {
-      setTimeout(() => {
-        const el = this.nuQueryById(labelledBy);
-
-        if (el) {
-          const cb = () => {
-            this.nuTap();
-            this.focus();
-          };
-
-          el.addEventListener('click', cb);
-
-          this.nuSetDisconnectedHook(() => {
-            el.removeEventListener('click', cb);
-          });
-        }
-      }, 0);
-    }
-
     if (this.querySelector('nu-icon')) return;
 
     const icon = document.createElement('nu-icon');
