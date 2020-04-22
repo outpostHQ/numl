@@ -1545,14 +1545,10 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Require behavior
+   * @param name {String} - Behavior name
+   * @return {null|Behavior}
    */
   nu(name) {
-    if (!this.nuConnected) {
-      error('it\'s impossible to inject behavior before element is connected', { el: this, behavior: name });
-
-      return;
-    }
-
     const behaviors = this.constructor.nuAllBehaviors;
 
     let options = behaviors[name];
@@ -1572,6 +1568,10 @@ export default class NuBase extends HTMLElement {
 
     // request Mixin class and create new instance
     return getBehavior(name).then(Behavior => {
+      if (!Behavior) {
+        throw error('behavior not found', Behavior);
+      }
+
       behavior = new Behavior(this, options);
 
       this.nuBehaviors[name] = behavior;
@@ -1581,7 +1581,7 @@ export default class NuBase extends HTMLElement {
         behavior.init();
       }
 
-      if (behavior.connected) {
+      if (this.nuIsConnected && behavior.connected) {
         behavior.connected();
       }
 
