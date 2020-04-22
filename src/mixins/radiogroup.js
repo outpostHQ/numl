@@ -4,7 +4,7 @@ export default class RadioGroupMixin extends WidgetMixin {
   constructor($host, options) {
     super($host, options);
 
-    this.itemRole = options.itemRole;
+    this.itemRole = options.itemRole || 'radio';
   }
 
   init() {
