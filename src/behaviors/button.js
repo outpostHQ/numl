@@ -3,6 +3,9 @@ import Routing from '../routing';
 
 export default class ButtonBehavior extends WidgetBehavior {
   init() {
+    // require mixins
+    this.require('active', 'focusable');
+
     this.props.to = null;
     this.props.pressed = (bool) => this.set(bool != null);
     this.props.value = (val) => {

@@ -9,10 +9,6 @@ export default class ActiveBehavior extends Behavior {
   constructor($host) {
     super($host);
 
-    let button;
-
-    this.nu('button').then(_button => button = _button);
-
     $host.addEventListener('click', evt => {
       $host.nuSetMod('active', false);
 
@@ -20,7 +16,7 @@ export default class ActiveBehavior extends Behavior {
 
       evt.nuHandled = true;
 
-      button && button.tap(evt);
+      this.tap(evt);
     });
 
     $host.addEventListener('keydown', evt => {
@@ -29,7 +25,7 @@ export default class ActiveBehavior extends Behavior {
       evt.nuHandled = true;
 
       if (evt.key === 'Enter') {
-        button && button.tap(evt);
+        this.tap(evt);
       } else if (evt.key === ' ') {
         evt.preventDefault();
 
@@ -48,7 +44,7 @@ export default class ActiveBehavior extends Behavior {
 
       if (evt.key === ' ') {
         evt.preventDefault();
-        button && button.tap(evt);
+        this.tap(evt);
       }
     });
 
@@ -67,5 +63,12 @@ export default class ActiveBehavior extends Behavior {
         $host.nuSetMod('active', false);
       });
     }, { passive: true });
+  }
+
+  tap(evt) {
+    if (this.has('button')) {
+      return this.nu('button')
+        .then(button => button.tap(evt));
+    }
   }
 }

@@ -13,6 +13,20 @@ export default class Behavior {
     return this.$host.nu(name);
   }
 
+  has(name) {
+    return !!this.$host.nuBehaviors[name];
+  }
+
+  /**
+   * Require other behaviors
+   * @param args
+   */
+  require(...args) {
+    args.forEach(name => {
+      this.$host.nu(name);
+    });
+  }
+
   get context() {
     return this.$host.nuContext;
   }
