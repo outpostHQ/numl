@@ -34,8 +34,6 @@ export default class RadioGroupMixin extends WidgetMixin {
     this.value = value;
 
     if (!silent) {
-      console.log('! radiogroup', this.value, value);
-
       this.emit('input', value);
     }
 

@@ -41,7 +41,7 @@ export default class NuActiveElement extends NuElement {
       active: true,
       control: true,
       button: true,
-      focus: true,
+      focusable: true,
     };
   }
 

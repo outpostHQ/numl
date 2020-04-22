@@ -6,7 +6,7 @@ import Mixin from "./mixin";
 
 export const DISABLED_ATTR = 'disabled';
 
-export default class FocusMixin extends Mixin {
+export default class FocusableMixin extends Mixin {
   constructor($host) {
     super($host);
 

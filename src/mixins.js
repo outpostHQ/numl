@@ -7,7 +7,7 @@ function extract(module) {
 const DICT = {};
 
 const MIXINS = {
-  focus: () => extract(import(`./mixins/focus.js`)),
+  focusable: () => extract(import(`./mixins/focusable.js`)),
   menu: () => extract(import(`./mixins/menu.js`)),
   menuitem: () => extract(import(`./mixins/menuitem.js`)),
   active: () => extract(import(`./mixins/active.js`)),

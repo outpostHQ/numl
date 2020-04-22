@@ -255,8 +255,8 @@ export default class ButtonMixin extends WidgetMixin {
     this.pressed = pressed;
 
     if (this.isRadio()) {
-      $host.nuMixin('focus')
-        .then(focusMixin => focusMixin.set(!pressed && !this.disabled));
+      $host.nuMixin('focusable')
+        .then(focusableMixin => focusableMixin.set(!pressed && !this.disabled));
     }
 
     if (this.radioGroup) {

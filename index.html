@@ -47,11 +47,14 @@
                  place="outside-bottom"
                  scale="^:pressed[1 1] 1 .5"
                  opacity="^:pressed[1] 0"
-                 transition="scale, opacity"
+                 transition="scale ease-out, opacity"
                  padding="1x 0" width="100%" z="above" origin="top">
           <nu-menu display="flex">
             <nu-menuitem>Item 1</nu-menuitem>
             <nu-menuitem>Item 2</nu-menuitem>
+            <nu-menuitem>Item 3</nu-menuitem>
+            <nu-menuitem>Item 4</nu-menuitem>
+            <nu-menuitem>Item 5</nu-menuitem>
           </nu-menu>
         </nu-card>
       </nu-btn>
@@ -2582,7 +2585,7 @@
       </nu-grid>
     </nu-card>
 
-    <!--<nu-heading level="2">Tables</nu-heading>
+    <nu-heading level="2">Tables</nu-heading>
 
     <nu-card as="section" gap="2x">
       <nu-heading level="3">Table with column headers</nu-heading>
@@ -2893,7 +2896,7 @@
 
       <nu-card width="20">
         <nu-datepicker mode="range"></nu-datepicker>
-      </nu-block>
+      </nu-card>
     </nu-card>
 
   </nu-flow>

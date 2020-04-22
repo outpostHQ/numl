@@ -1567,6 +1567,8 @@ export default class NuBase extends HTMLElement {
 
       this.nuMixins[name] = mixin;
 
+      // this.nuSetMod(name, true);
+
       // call hooks
       if (mixin.init) {
         mixin.init();
