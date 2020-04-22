@@ -1,11 +1,11 @@
-export default class Mixin {
+export default class Behavior {
   constructor($host) {
     this.$host = $host;
     this.$ref = $host.nuRef || $host;
   }
 
-  mixin(name) {
-    return this.$host.nuMixin(name);
+  nu(name) {
+    return this.$host.nu(name);
   }
 
   get context() {

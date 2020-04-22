@@ -1,6 +1,6 @@
 import NuActiveElement from './activeelement';
 import { getFloatFromAttr, numberFromString } from '../helpers';
-import { VERTICAL } from '../mixins/orient';
+import { VERTICAL } from '../behaviors/orient';
 
 export default class NuSlider extends NuActiveElement {
   static get nuTag() {
@@ -26,7 +26,7 @@ export default class NuSlider extends NuActiveElement {
     };
   }
 
-  static get nuMixins() {
+  static get nuBehaviors() {
     return {
       orient: {
         aria: true,
@@ -58,10 +58,8 @@ export default class NuSlider extends NuActiveElement {
     super.nuConnected();
 
     this.nuSetContextHook('orientation', (val) => {
-      this.nuMixin('orient')
-        .then(orientMixin => {
-          orientMixin.set(val === VERTICAL ? 'v' : 'h');
-        });
+      this.nu('orient')
+        .then(Orient => Orient.set(val === VERTICAL ? 'v' : 'h'));
     });
 
     this.nuSetContextHook('disabled', (val) => {
@@ -73,7 +71,7 @@ export default class NuSlider extends NuActiveElement {
     }, true);
 
     this.nuSetContextHook('sliderValue', () => {
-      const value = this.nuContext.sliderValue;
+      const value = this.nuContext['sliderValue'];
 
       if (value != null) {
         const minValue = this.nuMinValue;

@@ -15,7 +15,7 @@ export default class NuRadioGroup extends NuFlex {
     };
   }
 
-  static get nuMixins() {
+  static get nuBehaviors() {
     return {
       radiogroup: true,
       control: true,

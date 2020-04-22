@@ -1,6 +1,6 @@
 import Widget from './widget';
 
-export default class MenuMixin extends Widget {
+export default class MenuBehavior extends Widget {
   init() {
     super.init();
 

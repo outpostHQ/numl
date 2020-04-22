@@ -9,7 +9,7 @@ export default class NuMenu extends NuFlow {
     return 'menu';
   }
 
-  static get nuMixin() {
+  static get nuBehaviors() {
     return {
       menu: true
     };

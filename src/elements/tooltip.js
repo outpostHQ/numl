@@ -10,7 +10,7 @@ export default class NuTooltip extends NuBlock {
     return 'tooltip';
   }
 
-  static get nuMixins() {
+  static get nuBehaviors() {
     return {
       fixate: true,
     };
@@ -58,8 +58,8 @@ export default class NuTooltip extends NuBlock {
 
       if (focus) return;
 
-      this.nuMixin('fixate')
-        .then(fixateMixin => fixateMixin.start());
+      this.nu('fixate')
+        .then(Fixate => Fixate.start());
 
       this.nuSetMod('show', true);
       parent.nuSetMod('tooltip', true);
@@ -75,8 +75,8 @@ export default class NuTooltip extends NuBlock {
 
       // if (focus) return;
 
-      this.nuMixin('fixate')
-        .then(fixateMixin => fixateMixin.end());
+      this.nu('fixate')
+        .then(Fixate => Fixate.end());
 
       this.nuSetMod('show', false);
       parent.nuSetMod('tooltip', false);
@@ -87,8 +87,8 @@ export default class NuTooltip extends NuBlock {
 
       if (hover) return;
 
-      this.nuMixin('fixate')
-        .then(fixateMixin => fixateMixin.start());
+      this.nu('fixate')
+        .then(Fixate => Fixate.start());
 
       this.nuSetMod('show', true);
       parent.nuSetMod('tooltip', true);
@@ -99,8 +99,8 @@ export default class NuTooltip extends NuBlock {
 
       if (hover) return;
 
-      this.nuMixin('fixate')
-        .then(fixateMixin => fixateMixin.end());
+      this.nu('fixate')
+        .then(Fixate => Fixate.end());
 
       this.nuSetMod('show', false);
       parent.nuSetMod('tooltip', false);

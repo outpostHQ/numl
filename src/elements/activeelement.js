@@ -36,7 +36,7 @@ export default class NuActiveElement extends NuElement {
     };
   }
 
-  static get nuMixins() {
+  static get nuBehaviors() {
     return {
       active: true,
       control: true,

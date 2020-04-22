@@ -10,7 +10,7 @@ export default class NuLine extends NuBlock {
     return 'separator';
   }
 
-  static get nuMixins() {
+  static get nuBehaviors() {
     return {
       orient: { aria: true },
     };

@@ -1,7 +1,7 @@
-import WidgetMixin from "./widget";
+import WidgetBehavior from "./widget";
 import Routing from '../routing';
 
-export default class ButtonMixin extends WidgetMixin {
+export default class ButtonBehavior extends WidgetBehavior {
   init() {
     this.props.to = null;
     this.props.pressed = (bool) => this.set(bool != null);
@@ -255,8 +255,8 @@ export default class ButtonMixin extends WidgetMixin {
     this.pressed = pressed;
 
     if (this.isRadio()) {
-      $host.nuMixin('focusable')
-        .then(focusableMixin => focusableMixin.set(!pressed && !this.disabled));
+      $host.nu('focusable')
+        .then(Focusable => Focusable.set(!pressed && !this.disabled));
     }
 
     if (this.radioGroup) {
@@ -284,8 +284,8 @@ export default class ButtonMixin extends WidgetMixin {
     const innerPopup = $host.nuDeepQuery('[nu-popup]');
 
     if (innerPopup) {
-      innerPopup.nuMixin('popup')
-        .then(popupMixin => popupMixin[this.pressed ? 'open' : 'close']());
+      innerPopup.nu('popup')
+        .then(Popup => Popup[this.pressed ? 'open' : 'close']());
     }
   }
 

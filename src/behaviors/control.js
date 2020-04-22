@@ -4,7 +4,7 @@ const CONTROL_REGEXP = /([a-z][a-z0-9-]+)([\s]|$|\[([a-z-]+)(\]|=([^\]]+)\]))/g;
 
 export const CONTROL_ATTR = 'controls';
 
-export default class ControlMixin {
+export default class ControlBehavior {
   constructor($host) {
     this.$host = $host;
 

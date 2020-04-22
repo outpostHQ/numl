@@ -13,7 +13,7 @@ function onFixateChange() {
   });
 }
 
-export default class FixateMixin {
+export default class FixateBehavior {
   constructor($host) {
     this.$host = $host;
     this.change = this.change.bind(this);
@@ -51,7 +51,7 @@ export default class FixateMixin {
 
       if ((mods[0] && !FIXATE_DIRECTIONS.includes(mods[0]))
         || (mods[1] && !DIRECTIONS.includes(mods[1]))) {
-        warn('[fixate.mixin] incorrect [drop] value:', JSON.stringify(fixateValue));
+        warn('[fixate.behavior] incorrect [drop] value:', JSON.stringify(fixateValue));
 
         return;
       }
