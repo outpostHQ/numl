@@ -6,7 +6,7 @@ function extract(module) {
 
 const DICT = {};
 
-const Behaviors = {
+export const BEHAVIORS = {
   focusable: () => extract(import(`./behaviors/focusable.js`)),
   menu: () => extract(import(`./behaviors/menu.js`)),
   menuitem: () => extract(import(`./behaviors/menuitem.js`)),
@@ -30,12 +30,12 @@ export function getBehavior(name) {
     return DICT[name];
   }
 
-  if (devMode && !Behaviors[name]) {
+  if (devMode && !BEHAVIORS[name]) {
     error('behavior not found', name);
     return;
   }
 
-  let promise = Behaviors[name]();
+  let promise = BEHAVIORS[name]();
 
   if (promise.then) {
     promise = promise.then(module => module.default || module);
