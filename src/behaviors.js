@@ -14,9 +14,10 @@ export const BEHAVIORS = {
   fixate: () => extract(import(`./behaviors/fixate.js`)),
   orient: () => extract(import(`./behaviors/orient.js`)),
   popup: () => extract(import('./behaviors/popup.js')),
-  control: () => extract(import('./behaviors/control')),
-  radiogroup: () => extract(import('./behaviors/radiogroup')),
-  button: () => extract(import('./behaviors/button')),
+  control: () => extract(import('./behaviors/control.js')),
+  radiogroup: () => extract(import('./behaviors/radiogroup.js')),
+  button: () => extract(import('./behaviors/button.js')),
+  label: () => extract(import('./behaviors/label.js'))
 };
 
 export function hasBehavior(el, name) {

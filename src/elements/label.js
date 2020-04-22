@@ -11,4 +11,10 @@ export default class NuLabel extends NuElement {
       cursor: 'default',
     };
   }
+
+  static get nuBehaviors() {
+    return {
+      label: true,
+    };
+  }
 }
