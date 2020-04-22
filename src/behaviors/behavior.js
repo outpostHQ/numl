@@ -4,6 +4,11 @@ export default class Behavior {
     this.$ref = $host.nuRef || $host;
   }
 
+  /**
+   * Require other behavior
+   * @param name
+   * @returns {undefined|Promise<Behavior>}
+   */
   nu(name) {
     return this.$host.nu(name);
   }

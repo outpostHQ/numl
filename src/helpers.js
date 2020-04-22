@@ -294,6 +294,8 @@ export function warn(...args) {
 export function error(...args) {
   if (devMode) {
     console.error('nude:', ...args);
+
+    return new Error([...args].join(' '));
   }
 }
 
