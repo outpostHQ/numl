@@ -8,6 +8,7 @@ import BaseAttributes from '../attributes/base';
 import TransformCombinator from '../combinators/transform';
 import ShadowCombinator from '../combinators/shadow';
 import WeightCombinator from '../combinators/weight';
+import { BEHAVIORS } from '../behaviors';
 
 /**
  * @class
@@ -48,6 +49,11 @@ export default class NuElement extends NuBase {
             display: `block !important`,
           } : null;
       },
+      ...Object.keys(BEHAVIORS).reduce((map, name) => {
+        map[`nu-${name}`] = '';
+
+        return map;
+      }, {}),
     };
   }
 
