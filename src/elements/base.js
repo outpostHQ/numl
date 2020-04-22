@@ -81,11 +81,21 @@ const TAG_LIST = [];
  */
 
 /**
+ * @typedef NudeMixin
+ * @method [init]
+ * @method [connected]
+ * @method [disconnected]
+ * @method [changed]
+ * @method [set]
+ */
+
+/**
  * @class
  * @abstract
  * @property nuContext {NudeContext}
  * @property nuParent {HTMLElement}
  * @property nuParentContext {NudeContext}
+ * @property nuMixins {Array<NudeMixin>}
  */
 export default class NuBase extends HTMLElement {
   /**
@@ -396,7 +406,6 @@ export default class NuBase extends HTMLElement {
   constructor() {
     super();
 
-    this.nuTabIndex = 0;
     this.nuRef = null;
     this.nuThemes = {};
   }
