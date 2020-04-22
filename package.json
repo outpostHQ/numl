@@ -83,15 +83,21 @@
       ]
     },
     {
-      "name": "Popup Mixin",
+      "name": "Popup Behavior",
       "path": [
         "dist/popup.js"
       ]
     },
     {
-      "name": "Fixate Mixin",
+      "name": "Fixate Behavior",
       "path": [
         "dist/fixate.js"
+      ]
+    },
+    {
+      "name": "Button Behavior",
+      "path": [
+        "dist/button.js"
       ]
     }
   ],
