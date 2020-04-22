@@ -7,7 +7,7 @@ export default class NuCircle extends NuElement {
 
   static get nuDefaults() {
     return {
-      display: 'inline-block',
+      display: 'block',
       width: 'minmax(1fs, 1fs)',
       height: 'minmax(1fs, 1fs)',
       radius: 'round',

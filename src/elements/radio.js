@@ -1,13 +1,4 @@
 import NuActiveElement from './activeelement';
-import { setAttrs } from '../helpers';
-
-const CIRCLE_ATTRS = {
-  radius: 'round',
-  fill: '^ bg :pressed[special-bg] :disabled:pressed[text 50%]',
-  width: '1em',
-  height: '1em',
-  transition: 'fill',
-};
 
 export default class NuRadio extends NuActiveElement {
   static get nuTag() {
@@ -22,6 +13,15 @@ export default class NuRadio extends NuActiveElement {
     return {
       fill: null,
     };
+  }
+
+  static get nuTemplate() {
+    return `
+      <nu-circle
+        fill="^host bg :pressed[special-bg] :disabled:pressed[text 50%]"
+        transition="fill"
+        border="0"></nu-circle>
+    `;
   }
 
   static get nuDefaults() {
@@ -42,47 +42,5 @@ export default class NuRadio extends NuActiveElement {
       fill: 'bg',
       expand: '.5em',
     };
-  }
-
-  static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
-        position: relative;
-      }
-    `;
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    const labelledBy = this.getAttribute('labelledby');
-
-    if (labelledBy) {
-      setTimeout(() => {
-        const el = this.nuQueryById(labelledBy);
-
-        if (el) {
-          const cb = () => {
-            this.nuTap();
-            this.focus();
-          };
-
-          el.addEventListener('click', cb);
-
-          this.nuSetDisconnectedHook(() => {
-            el.removeEventListener('click', cb);
-          });
-        }
-      }, 0);
-    }
-
-    if (this.querySelector('nu-el')) return;
-
-    const circle = document.createElement('nu-el');
-
-    setAttrs(circle, CIRCLE_ATTRS);
-
-    this.appendChild(circle);
   }
 }

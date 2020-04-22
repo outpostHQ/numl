@@ -36,9 +36,9 @@ const BASE_STYLES = {
 export default function sizeAttr(val) {
   if (!val) val = 'md';
 
-  const tmp = val.split(/\s+/).map(vl => parseAttr(vl, 1));
+  const { mods, all, values } = parseAttr(val, 1);
   const styles = {};
-  const mod = tmp[0].mods[0];
+  const mod = all[0];
 
   if (mod === 'smaller') {
     return [{
@@ -50,24 +50,24 @@ export default function sizeAttr(val) {
     }];
   }
 
-  tmp[1] = tmp[1] || tmp[0];
+  all[1] = all[1] || all[0];
 
-  if (tmp[0].values.length) {
-    let value = tmp[0].values[0];
+  if (values.includes(all[0])) {
+    let value = all[0];
 
     styles['--nu-font-size'] = value === '-' ? 'inherit' : value;
-  } else if (tmp[0].mods.length) {
-    styles['--nu-font-size'] = `var(--nu-${tmp[0].mods[0]}-font-size, inherit)`;
+  } else if (mods.includes(all[0])) {
+    styles['--nu-font-size'] = `var(--nu-${all[0]}-font-size, inherit)`;
   } else {
     return;
   }
 
-  if (tmp[1].values.length) {
-    let value = tmp[1].values[0];
+  if (values.includes(all[1])) {
+    let value = all[1];
 
     styles['--nu-line-height'] = value === '-' ? 'inherit' : value;
-  } else if (tmp[1].mods.length) {
-    styles['--nu-line-height'] = `var(--nu-${tmp[1].mods[0]}-line-height, inherit)`;
+  } else if (mods.includes(all[1])) {
+    styles['--nu-line-height'] = `var(--nu-${all[1]}-line-height, inherit)`;
   }
 
   return [BASE_STYLES, styles];
