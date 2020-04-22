@@ -3,6 +3,7 @@
  * @type {String}
  */
 import { strToHsl } from './color';
+import { USE_SHADOW } from './settings';
 
 export const ROOT_CONTEXT = ':root';
 
@@ -416,13 +417,13 @@ const CONTEXT_START_MAP = {
   'parent': '[nu]',
   'any': '[nu]',
   'root': ':root',
-  'host': ':host(',
+  'host': USE_SHADOW ? ':host(' : '[nu-host]',
 };
 const CONTEXT_END_MAP = {
   'parent': '>',
   'any': '',
   'root': '',
-  'host': ')',
+  'host': USE_SHADOW ? ')' : '',
 };
 
 /**
@@ -774,6 +775,7 @@ function prepareParsedValue(val) {
 /**
  *
  * @param {String} value
+ * @param {Integer} mode
  * @returns {Object<String,String|Array>}
  */
 export function parseAttr(value, mode = 0) {
@@ -785,12 +787,13 @@ export function parseAttr(value, mode = 0) {
     }
 
     const mods = [];
+    const all = [];
+    const values = [];
     const insertRem = mode === 1;
     const autoCalc = mode !== 2;
 
     let currentValue = '';
     let calc = -1;
-    let values = [];
     let counter = 0;
     let parsedValue = '';
     let color = '';
@@ -818,6 +821,7 @@ export function parseAttr(value, mode = 0) {
           currentValue += `${mod} `;
         } else {
           mods.push(mod);
+          all.push(mod);
           parsedValue += `${mod} `;
         }
       } else if (bracket) {
@@ -863,6 +867,8 @@ export function parseAttr(value, mode = 0) {
             parsedValue = parsedValue.slice(0, parsedValue.length - values[values.length - 1].length - 1);
 
             let tmp = values.splice(values.length - 1, 1)[0];
+
+            all.splice(values.length - 1, 1);
 
             if (tmp) {
               if (tmp.startsWith('calc(')) {
@@ -920,6 +926,7 @@ export function parseAttr(value, mode = 0) {
           color = parseColor(prepared).color;
         } else {
           values.push(prepared);
+          all.push(prepared);
           parsedValue += `${prepared} `;
         }
 
@@ -936,6 +943,7 @@ export function parseAttr(value, mode = 0) {
         color = parseColor(prepared).color;
       } else {
         values.push(prepared);
+        all.push(prepared);
         parsedValue += prepared;
       }
     }
@@ -943,6 +951,7 @@ export function parseAttr(value, mode = 0) {
     CACHE.set(value, {
       values,
       mods,
+      all,
       value: `${parsedValue} ${color}`.trim(),
       color,
     });
@@ -1229,16 +1238,10 @@ export function deepQueryAll(element, selector) {
   const found = [];
 
   if (element.nuShadow) {
-    const shadowEls = deepQueryAll(element.nuShadow, selector);
-
-    found.push(shadowEls);
+    found.push(...deepQueryAll(element.nuShadow, selector));
   }
 
-  const els = [...element.querySelectorAll(selector)];
-
-  if (els.length) {
-    found.push(...els);
-  }
+  found.push(...element.querySelectorAll(selector));
 
   [...element.querySelectorAll('[shadow-root]')]
     .forEach(shadowEl => {

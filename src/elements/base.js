@@ -51,6 +51,7 @@ export const DEFAULTS_MAP = {};
 export const MIXINS_MAP = {};
 export const COMBINATORS_MAP = {};
 export const ELEMENTS_MAP = {};
+export const TEMPLATES_MAP = {};
 
 export function getAllAttrs() {
   return Object.keys(ATTRS_MAP).reduce((arr, tag) => {
@@ -196,6 +197,21 @@ export default class NuBase extends HTMLElement {
         ...this.nuAttrs
       })
     );
+  }
+
+  /**
+   * Static template declaration
+   * @return {string}
+   */
+  static get nuTemplate() {
+    return '';
+  }
+
+  /**
+   * @private
+   */
+  static get nuCachedTemplate() {
+    return TEMPLATES_MAP[this.nuTag] || (TEMPLATES_MAP[this.nuTag] = this.nuTemplate);
   }
 
   /**
@@ -569,6 +585,7 @@ export default class NuBase extends HTMLElement {
     }
 
     if (this.nuFirstConnect) {
+      this.nuRender();
       this.nuInit();
     }
 
@@ -722,9 +739,7 @@ export default class NuBase extends HTMLElement {
 
     const css = this.nuGetCSS(query, name, value);
 
-    if (css) {
-      injectCSS(query, query, css);
-    }
+    injectCSS(query, query, css || '');
 
     if (cssRoot) {
       transferCSS(query, cssRoot);
@@ -1599,6 +1614,24 @@ export default class NuBase extends HTMLElement {
 
       return behavior;
     });
+  }
+
+  nuRender() {
+    const template = this.constructor.nuCachedTemplate;
+
+    if (!template) return;
+
+    const useShadow = this.nuContext.useShadow;
+
+    let host = this;
+
+    if (useShadow) {
+      host = this.attachShadow({ mode: 'open' });
+    } else {
+      this.nuSetMod('host', true);
+    }
+
+    host.innerHTML = template;
   }
 
   nuControl(bool, value) {

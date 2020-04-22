@@ -8,6 +8,8 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     this.props.to = null;
     this.props.pressed = (bool) => this.set(bool != null);
+    this.props.checked = true;
+    this.props.selected = true;
     this.props.value = (val) => {
       this.setValue(val, true);
     }
@@ -63,9 +65,9 @@ export default class ButtonBehavior extends WidgetBehavior {
       case 'selected':
       case 'checked':
         if (value != null) {
-          this.setAttribute('pressed', '');
+          $host.setAttribute('pressed', '');
         } else {
-          this.removeAttribute('pressed');
+          $host.removeAttribute('pressed');
         }
 
         break;

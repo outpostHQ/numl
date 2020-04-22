@@ -6,7 +6,7 @@ const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
 const CONTRAST_OPTIONS = ['auto', 'low', 'high'];
 
 export function scheme(val) {
-  const currentScheme = DATASET.nuScheme || 'auto';
+  let currentScheme = DATASET.nuScheme || 'auto';
 
   if (!SCHEME_OPTIONS.includes(currentScheme)) {
     currentScheme = 'auto';
@@ -22,7 +22,7 @@ export function scheme(val) {
 };
 
 export function contrast (val) {
-  const currentContrast = DATASET.nuContrast || 'auto';
+  let currentContrast = DATASET.nuContrast || 'auto';
 
   if (!CONTRAST_OPTIONS.includes(currentContrast)) {
     currentContrast = 'auto';
@@ -47,10 +47,12 @@ export function reduceMotion(bool) {
   }
 }
 
+export const USE_SHADOW = DATASET.nuShadow != null;
+
 setRootContext('scheme', scheme());
 setRootContext('contrast', contrast());
 setRootContext('reduceMotion', scheme());
-setRootContext('useShadow', DATASET.nuShadow != null);
+setRootContext('useShadow', USE_SHADOW);
 
 if (requestIdleCallback) {
   if (!reduceMotion()) {

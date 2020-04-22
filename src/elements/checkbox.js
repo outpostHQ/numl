@@ -1,12 +1,4 @@
 import NuActiveElement from './activeelement';
-import { setAttrs } from '../helpers';
-
-const ICON_ATTRS = {
-  name: 'check',
-  opacity: '^ 0 :pressed[1]',
-  transition: 'opacity',
-  color: '^ special :disabled[text 66%]',
-};
 
 export default class NuCheckbox extends NuActiveElement {
   static get nuTag() {
@@ -15,6 +7,16 @@ export default class NuCheckbox extends NuActiveElement {
 
   static get nuRole() {
     return 'checkbox';
+  }
+
+  static get nuTemplate() {
+    return `
+      <nu-icon
+        name="check"
+        opacity="--icon-opacity"
+        transition="opacity"
+        color="--icon-color"></nu-icon>
+    `;
   }
 
   static get nuDefaults() {
@@ -34,18 +36,21 @@ export default class NuCheckbox extends NuActiveElement {
       toggle: '0 :active[.5em] :pressed[0] :active:pressed[.5em]',
       hoverable: 'n :focusable[.5em]',
       expand: '.5em',
+
+      '--icon-opacity': ':pressed[1] 0',
+      '--icon-color': 'special :disabled[text 66%]',
     };
   }
 
-  nuConnected() {
-    super.nuConnected();
-
-    if (this.querySelector('nu-icon')) return;
-
-    const icon = document.createElement('nu-icon');
-
-    setAttrs(icon, ICON_ATTRS);
-
-    this.appendChild(icon);
-  }
+  // nuConnected() {
+  //   super.nuConnected();
+  //
+  //   if (this.querySelector('nu-icon')) return;
+  //
+  //   const icon = document.createElement('nu-icon');
+  //
+  //   setAttrs(icon, ICON_ATTRS);
+  //
+  //   this.appendChild(icon);
+  // }
 }

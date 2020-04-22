@@ -26,7 +26,10 @@ export default class WidgetBehavior extends Behavior {
       const value = $host.getAttribute(prop);
 
       this.fromAttr(prop, value);
-      this.changed(prop, value);
+
+      if (value != null) {
+        this.changed(prop, value);
+      }
     }
   }
 

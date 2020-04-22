@@ -1,16 +1,4 @@
 import NuActiveElement from './activeelement';
-import { setAttrs } from '../helpers';
-
-const CIRCLE_ATTRS = {
-  width: 'clamp(initial, --circle-size, --circle-size)',
-  height: 'clamp(initial, --circle-size, --circle-size)',
-  interactive: 'n',
-  transition: 'transform, fill',
-  move: '--circle-offset',
-  fill: '--circle-bg-color',
-  radius: 'round',
-  overflow: 'no',
-};
 
 export default class NuSwitch extends NuActiveElement {
   static get nuTag() {
@@ -19,6 +7,19 @@ export default class NuSwitch extends NuActiveElement {
 
   static get nuRole() {
     return 'switch';
+  }
+
+  static get nuTemplate() {
+    return `
+      <nu-circle
+        size="--circle-size"
+        interactive="n"
+        transition="transform, fill"
+        move="--circle-offset"
+        fill="--circle-bg-color"
+        overflow="no"
+        border="0"></nu-circle>
+    `;
   }
 
   static get nuAttrs() {
@@ -39,7 +40,7 @@ export default class NuSwitch extends NuActiveElement {
         :active[.5em]
         :active:pressed[.5em]`,
       transition: 'shadow',
-      width: '(--size * 2)',
+      width: '(--size * 2 + --circle-gap * 2)',
       fill: `bg
         :pressed[special-bg]
         :pressed:disabled[text 50%]`,
@@ -51,31 +52,11 @@ export default class NuSwitch extends NuActiveElement {
       '--circle-gap': '.125em + 1b',
       '--circle-size': '--size',
       '--circle-offset': `0
-        :pressed[--size]`,
+        :pressed[--size - 1b]`,
       '--circle-bg-color': `--special-bg-color
         :disabled[rgba(--text-color-rgb, .66)]
         :pressed[--special-text-color]
         :pressed:disabled[--special-text-color]`,
     };
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    this.nuCreateCircle();
-  }
-
-  nuCreateCircle() {
-    let circle = this.querySelector('nu-block');
-
-    if (circle) {
-      return;
-    }
-
-    circle = document.createElement('nu-block');
-
-    setAttrs(circle, CIRCLE_ATTRS);
-
-    this.appendChild(circle);
   }
 }
