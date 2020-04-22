@@ -43,7 +43,7 @@ export default class FocusableMixin extends Mixin {
   set(bool) {
     // @TODO: replace nuTabIndex with more sane approach
     if (bool) {
-      this.$ref.setAttribute('tabindex', this.$host.nuTabIndex);
+      this.$ref.setAttribute('tabindex', '0');
     } else {
       this.$ref.setAttribute('tabindex', '-1');
     }
