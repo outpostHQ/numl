@@ -1,7 +1,7 @@
-import Mixin from "./mixin";
+import Behavior from "./behavior";
 import { log } from '../helpers';
 
-export default class WidgetMixin extends Mixin {
+export default class WidgetBehavior extends Behavior {
   constructor($host, options) {
     super($host, options);
 
@@ -143,7 +143,7 @@ export default class WidgetMixin extends Mixin {
   }
 
   control(bool, value) {
-    this.mixin('control')
-      .then(controlMixin => controlMixin.apply(!!bool, value));
+    this.nu('control')
+      .then(Control => Control.apply(!!bool, value));
   }
 }

@@ -44,7 +44,7 @@ import displayAttr from '../attributes/display';
 import themeAttr from '../attributes/theme';
 import propAttr from '../attributes/prop';
 import combine from '../combinators/index';
-import { getMixin } from '../mixins';
+import { getBehavior } from '../behaviors';
 
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
@@ -95,7 +95,7 @@ const TAG_LIST = [];
  * @property nuContext {NudeContext}
  * @property nuParent {HTMLElement}
  * @property nuParentContext {NudeContext}
- * @property nuMixins {Array<NudeMixin>}
+ * @property nuBehaviors {Array<NudeMixin>}
  */
 export default class NuBase extends HTMLElement {
   /**
@@ -252,22 +252,22 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
-   * Element mixins.
+   * Element behaviors.
    * They are used to inject reusable logic into elements.
    */
-  static get nuMixins() {
+  static get nuBehaviors() {
     return {};
   }
 
   /**
    * @private
    */
-  static get nuAllMixins() {
+  static get nuAllBehaviors() {
     return (
       MIXINS_MAP[this.nuTag] ||
       (MIXINS_MAP[this.nuTag] = {
-        ...(this.nuParentClass && this.nuParentClass.nuAllMixins || {}),
-        ...(this.nuMixins || {}),
+        ...(this.nuParentClass && this.nuParentClass.nuAllBehaviors || {}),
+        ...(this.nuBehaviors || {}),
       })
     );
   }
@@ -326,7 +326,7 @@ export default class NuBase extends HTMLElement {
       this.nuGenerateDefaultStyle();
     }
 
-    this.nuMixinList = Object.keys(this.nuAllMixins);
+    this.nuBehaviorList = Object.keys(this.nuAllBehaviors);
 
     customElements.define(tag, this);
 
@@ -581,13 +581,13 @@ export default class NuBase extends HTMLElement {
 
     this.nuConnected();
 
-    this.nuMixinCall('connected');
+    this.nuBehaviorCall('connected');
 
-    const mixinList = this.constructor.nuMixinList;
+    const behaviorList = this.constructor.nuBehaviorList;
 
-    if (mixinList.length) {
-      for (let name of mixinList) {
-        this.nuMixin(name);
+    if (behaviorList.length) {
+      for (let name of behaviorList) {
+        this.nu(name);
       }
     }
 
@@ -909,7 +909,7 @@ export default class NuBase extends HTMLElement {
    * @param {*} value
    */
   nuChanged(name, oldValue, value) {
-    this.nuMixinCall('changed', [name, value]);
+    this.nuBehaviorCall('changed', [name, value]);
 
     switch (name) {
       case 'id':
@@ -940,22 +940,22 @@ export default class NuBase extends HTMLElement {
    * Can be called more than once.
    */
   nuDisconnected() {
-    this.nuMixinCall('disconnected');
+    this.nuBehaviorCall('disconnected');
   }
 
   /**
-   * Trigger mixin hooks
+   * Trigger behavior hooks
    * @param {String} method
    * @param {Array} args
    */
-  nuMixinCall(method, args = []) {
-    const mixins = this.nuMixins;
+  nuBehaviorCall(method, args = []) {
+    const behaviors = this.nuBehaviors;
 
-    if (!mixins) return;
+    if (!behaviors) return;
 
-    Object.values(mixins).forEach(mixin => {
-      if (mixin[method]) {
-        mixin[method].apply(mixin, args);
+    Object.values(behaviors).forEach(behavior => {
+      if (behavior[method]) {
+        behavior[method].apply(behavior, args);
       }
     });
   }
@@ -1541,57 +1541,57 @@ export default class NuBase extends HTMLElement {
     return queryChildren(this, selector);
   }
 
-  /** Mixin System **/
+  /** Behavior System **/
 
   /**
-   * Require mixin
+   * Require behavior
    */
-  nuMixin(name) {
+  nu(name) {
     if (!this.nuConnected) {
-      error('it\'s impossible to inject mixin before element is connected', { el: this, mixin: name });
+      error('it\'s impossible to inject behavior before element is connected', { el: this, behavior: name });
 
       return;
     }
 
-    const mixins = this.constructor.nuAllMixins;
+    const behaviors = this.constructor.nuAllBehaviors;
 
-    let options = mixins[name];
+    let options = behaviors[name];
 
     if (options === true) {
       options = {};
     }
 
-    if (!this.nuMixins) {
-      this.nuMixins = {};
+    if (!this.nuBehaviors) {
+      this.nuBehaviors = {};
     }
 
-    // search among the mixin instances
-    let mixin = this.nuMixins[name];
+    // search among the behavior instances
+    let behavior = this.nuBehaviors[name];
 
-    if (mixin) return Promise.resolve(mixin);
+    if (behavior) return Promise.resolve(behavior);
 
     // request Mixin class and create new instance
-    return getMixin(name).then(Mixin => {
-      const mixin = new Mixin(this, options);
+    return getBehavior(name).then(Behavior => {
+      behavior = new Behavior(this, options);
 
-      this.nuMixins[name] = mixin;
+      this.nuBehaviors[name] = behavior;
 
       // call hooks
-      if (mixin.init) {
-        mixin.init();
+      if (behavior.init) {
+        behavior.init();
       }
 
-      if (mixin.connected) {
-        mixin.connected();
+      if (behavior.connected) {
+        behavior.connected();
       }
 
-      return mixin;
+      return behavior;
     });
   }
 
   nuControl(bool, value) {
-    this.nuMixin('control')
-      .then(controlMixin => controlMixin.apply(!!bool, value));
+    this.nu('control')
+      .then(Control => Control.apply(!!bool, value));
   }
 
   get nuDisabled() {

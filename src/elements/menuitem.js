@@ -25,7 +25,7 @@ export default class NuMenuitem extends NuBtn {
     };
   }
 
-  static get nuMixins() {
+  static get nuBehaviors() {
     return {
       menuitem: true
     };

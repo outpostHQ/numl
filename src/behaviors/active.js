@@ -1,17 +1,17 @@
-import Mixin from "./mixin";
+import Behavior from "./behavior";
 
 /**
  * Event bindings for active elements.
  * Enable focus and active states.
  * Should be bind to the element before call.
  */
-export default class ActiveMixin extends Mixin {
+export default class ActiveBehavior extends Behavior {
   constructor($host) {
     super($host);
 
     let button;
 
-    this.mixin('button').then(buttonMixin => button = buttonMixin);
+    this.nu('button').then(_button => button = _button);
 
     $host.addEventListener('click', evt => {
       $host.nuSetMod('active', false);

@@ -2,11 +2,11 @@
  * Make element focusable or temporarily disable that ability.
  */
 
-import Mixin from "./mixin";
+import Behavior from "./behavior";
 
 export const DISABLED_ATTR = 'disabled';
 
-export default class FocusableMixin extends Mixin {
+export default class FocusableBehavior extends Behavior {
   constructor($host) {
     super($host);
 

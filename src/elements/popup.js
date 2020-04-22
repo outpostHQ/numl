@@ -13,7 +13,7 @@ export default class NuPopup extends NuCard {
     return 'popup';
   }
 
-  static get nuMixins() {
+  static get nuBehaviors() {
     return {
       fixate: true,
       popup: true,

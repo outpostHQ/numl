@@ -1,6 +1,6 @@
-import WidgetMixin from "./widget";
+import WidgetBehavior from "./widget";
 
-export default class RadioGroupMixin extends WidgetMixin {
+export default class RadioGroupBehavior extends WidgetBehavior {
   constructor($host, options) {
     super($host, options);
 
@@ -40,8 +40,8 @@ export default class RadioGroupMixin extends WidgetMixin {
     $host.nuSetContext('radiogroup', this, true);
 
     if (this.nuIsConnected) {
-      $host.nuMixin('control')
-        .then(controlMixin => controlMixin.apply(true, value));
+      $host.nu('control')
+        .then(Control => Control.apply(true, value));
     }
   }
 }

@@ -1,6 +1,6 @@
 // Don't work without Fixate Mixin!
 
-import { FIXATE_ATTR } from '../mixins/fixate';
+import { FIXATE_ATTR } from '../behaviors/fixate';
 import { PLACE_ATTR } from './place';
 
 export default function dropAttr(val, defaults) {

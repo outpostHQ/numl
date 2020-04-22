@@ -154,7 +154,7 @@ Run `npm run play` to view test page with few examples.
 * New **color()** function for some style attributes.
 * Custom states for **nu-** modifiers and **role** attribute.
 * New parent selectors: `root`, `any`, `host`. Usage: `opacity="^host :hover[1] 0"`.
-* Add **Mixin System**.
+* Add **Behavior System**.
 * **nu-tablist** now supports direction change.
 * Add **Active** mixin for active elements.
 * Add **Direction** mixin for elements that have direction.
@@ -199,7 +199,7 @@ Run `npm run play` to view test page with few examples.
 * **[hide](https://numl.design/reference/attributes/hide)** attribute is no longer hide element if no value provided.
 * **[nu-checkbox](https://numl.design/reference/elements/nu-checkbox)** - style fixes.
 * **[nu-mark](https://numl.design/reference/elements/nu-mark)** – minor style fixes and **[theme]** support.
-* **[nu-line](https://numl.design/reference/elements/nu-line)** - refactoring. Migrate to **Orient Mixin** and NUDE attribute declarations.
+* **[nu-line](https://numl.design/reference/elements/nu-line)** - refactoring. Migrate to **Orient Behavior** and NUDE attribute declarations.
 * **[nu-tab](https://numl.design/reference/elements/nu-tab)** - add active region.
 * **[nu-tooltip](https://numl.design/reference/elements/nu-tooltip)** - fix styling to better fill space while allowing wrapping.
 * **inline** attribute is no longer required for accurate positioning of inline elements like **[nu-icon](https://numl.design/reference/elements/nu-icon)**.

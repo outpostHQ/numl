@@ -1,11 +1,11 @@
 import { PLACE_ATTR } from '../attributes/place';
 import { deepQueryAll, fixPosition, resetScroll } from '../helpers';
 import { FIXATE_ATTR } from './fixate';
-import Widget from './widget';
+import WidgetBehavior from './widget';
 
 let POPUPS = new Set;
 
-export default class PopupMixin extends Widget {
+export default class PopupBehavior extends WidgetBehavior {
   init() {
     super.init();
 
@@ -108,8 +108,8 @@ export default class PopupMixin extends Widget {
 
     if (!$host.hidden) return;
 
-    $host.nuMixin('fixate')
-      .then(fixateMixin => fixateMixin.start());
+    $host.nu('fixate')
+      .then(Fixate => Fixate.start());
 
     $host.hidden = false;
 
@@ -135,8 +135,8 @@ export default class PopupMixin extends Widget {
 
     if ($host.hidden) return;
 
-    $host.nuMixin('fixate')
-      .then(fixateMixin => fixateMixin.end());
+    $host.nu('fixate')
+      .then(Fixate => Fixate.end());
 
     $host.hidden = true;
 
@@ -154,7 +154,7 @@ export default class PopupMixin extends Widget {
     const childPopup = $host.nuDeepQuery('[nu-popup]');
 
     if (childPopup) {
-      childPopup.nuMixin('popup').then(popupMixin => popupMixin.close());
+      childPopup.nu('popup').then(Popup => Popup.close());
     }
   }
 }
@@ -164,10 +164,10 @@ function findParentPopup(element, current) {
 
   do {
     if (element) {
-      const mixins = element.nuMixins;
+      const behaviors = element.nuBehaviors;
 
-      if (mixins && mixins.button && mixins.button.popup) {
-        const popupEl = mixins.button.popup.$host;
+      if (behaviors && behaviors.button && behaviors.button.popup) {
+        const popupEl = behaviors.button.popup.$host;
 
         if (popupEl) {
           elements.push(popupEl);
@@ -191,7 +191,7 @@ function handleOutside(event) {
   deepQueryAll(this === window ? document : this, '[nu-popup]')
     .forEach((currentPopup) => {
       if (!popups.includes(currentPopup)) {
-        currentPopup.nuMixin('popup').then(popup => popup.close());
+        currentPopup.nu('popup').then(popup => popup.close());
         event.nuPopupHandled = true;
       }
     });

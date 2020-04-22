@@ -17,7 +17,7 @@ export default class NuPopupMenu extends NuPopup {
     };
   }
 
-  static get nuMixins() {
+  static get nuBehaviors() {
     return {
       menu: true,
     };

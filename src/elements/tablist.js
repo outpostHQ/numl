@@ -48,7 +48,7 @@ export default class NuTablist extends NuRadioGroup {
     };
   }
 
-  static get nuMixins() {
+  static get nuBehaviors() {
     return {
       orient: { aria: true, dynamic: true },
       radiogroup: { itemRole: 'tab' },

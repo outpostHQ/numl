@@ -1,10 +1,10 @@
-import Mixin from "./mixin";
+import Behavior from "./behavior";
 
 export const ORIENT_ATTR = 'orient';
 export const VERTICAL = 'vertical';
 export const HORIZONTAL = 'horizontal';
 
-export default class OrientMixin extends Mixin {
+export default class OrientBehavior extends Behavior {
   constructor($host, options = {}) {
     super($host);
 

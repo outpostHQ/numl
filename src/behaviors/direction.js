@@ -3,7 +3,7 @@ import { HORIZONTAL, VERTICAL } from './orient';
 
 export const DIRECTION_ATTR = 'direction';
 
-export default function DirectionMixin({ aria, initial } = {}) {
+export default function DirectionBehavior({ aria, initial } = {}) {
   return {
     connected() {
       this.nuSetDirection = (val) => {
