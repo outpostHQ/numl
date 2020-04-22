@@ -5,14 +5,14 @@ import NuActiveElement from './elements/activeelement';
 // helpers
 import * as helpers from './helpers';
 import * as color from './color';
-import { initFocus } from './focus';
 import * as themes from './themes';
-import themeAttr from './attributes/theme';
 import * as css from './css';
+import themeAttr from './attributes/theme';
+import { initFocus } from './focus';
 import { scheme, contrast, reduceMotion } from './settings';
 import CONTEXT from './context';
 
-const body = document.body;
+const BODY = document.body;
 
 if (window.Nude) {
   helpers.warn('Several instances of NUDE Framework is loaded. Initialization aborted');
@@ -21,7 +21,7 @@ if (window.Nude) {
 initFocus();
 
 setTimeout(() => {
-  themes.applyTheme(document.body, themes.BASE_THEME, 'main');
+  themes.applyTheme(BODY, themes.BASE_THEME, 'main');
 });
 
 const styles = themeAttr('main');
@@ -115,49 +115,50 @@ Nude.getElementsById = function (id) {
 
 Nude.elements = ELEMENTS;
 
-// const rootEls = document.querySelectorAll('nu-root');
-//
-// rootEls.forEach(el => {
-//   el.nuParent = el.parentNode;
-//
-//   el.parentNode.removeChild(el);
-// });
-//
-// const styleEl = [...document.querySelectorAll('style')].find(style => {
-//   if (style.textContent.includes('nu-root')) {
-//     return true;
-//   }
-// });
+const rootEls = document.querySelectorAll('nu-root');
+
+rootEls.forEach(el => {
+  el.nuParent = el.parentNode;
+
+  el.parentNode.removeChild(el);
+});
+
+const styleEl = [...document.querySelectorAll('style')].find(style => {
+  if (style.textContent.includes('nu-root')) {
+    return true;
+  }
+});
 
 Nude.init(...Object.values(ELEMENTS));
 
-// rootEls.forEach(el => {
-//   el.nuParent.appendChild(el);
-// });
-//
-// if (styleEl) {
-//   styleEl.parentNode.removeChild(styleEl);
-// }
+rootEls.forEach(el => {
+  el.nuParent.appendChild(el);
+});
+
+if (styleEl) {
+  styleEl.parentNode.removeChild(styleEl);
+}
 
 window.Nude = Nude;
 
 export default Nude;
 
-const {
+export {
   STATES_MAP,
   CUSTOM_UNITS,
   ROOT_CONTEXT,
-} = helpers;
+} from './helpers';
 
 export {
   Nude,
-  STATES_MAP,
-  CUSTOM_UNITS,
-  ROOT_CONTEXT,
   NuBase,
   NuActiveElement,
   ELEMENTS,
   scheme,
   contrast,
   reduceMotion,
+  helpers,
+  themes,
+  css,
+  color,
 };
