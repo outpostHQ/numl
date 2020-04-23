@@ -1,79 +1,8 @@
-import NuConverter from './converter';
-import { applyTheme } from '../themes';
+import NuElement from './element';
 
-let themesDeclared = false;
-
-const COM = 'com';
-const KEY = 'key';
-const NAM = 'nam';
-const NUM = 'num';
-const PCT = 'pct';
-const REX = 'rex';
-const SPC = 'spc';
-const STR = 'str';
-const UNK = 'unk';
-const PLS = 'pls';
-const MNS = 'mns';
-const MRK = 'mrk';
-const IMP = 'imp';
-
-export default class NuCode extends NuConverter {
+export default class NuCode extends NuElement {
   static get nuTag() {
     return 'nu-code';
-  }
-
-  static get nuThemes() {
-    return {
-      [COM]: {
-        saturation: 0,
-        contrast: 'soft',
-      },
-      [SPC]: { skip: true },
-      [NAM]: { skip: true },
-      [KEY]: {
-        hue: 240,
-      },
-      [NUM]: {
-        hue: 280,
-        saturation: 100,
-        pastel: true,
-      },
-      [PCT]: {
-        hue: 60,
-        pastel: true,
-      },
-      [REX]: {
-        hue: 340,
-      },
-      [STR]: {
-        hue: 180,
-      },
-      [UNK]: {
-        hue: 240,
-        saturation: 0,
-      },
-      [PLS]: {
-        hue: 180,
-      },
-      [MNS]: {
-        hue: 1,
-      },
-      [MRK]: {
-        hue: 240,
-        type: 'tone',
-      },
-      [IMP]: {
-        hue: 1,
-        type: 'special',
-        lightness: 'dim',
-        saturation: 75,
-        pastel: false,
-      }
-    };
-  }
-
-  static get nuConverter() {
-    return import('../converters/code');
   }
 
   static get nuDefaults() {
@@ -126,52 +55,9 @@ export default class NuCode extends NuConverter {
     return this.nuCSS({ tag: '', css: '' });
   }
 
-  nuConnected() {
-    super.nuConnected();
-
-    if (!themesDeclared) {
-      themesDeclared = true;
-      declareThemes(this.constructor);
-    }
+  static get nuBehaviors() {
+    return {
+      code: true,
+    };
   }
-
-  nuApply(container, content, converter) {
-    if (!converter) return;
-
-    container.innerHTML = converter(
-      extractContent(content),
-      this.hasAttribute('enumerate'),
-      NuCode.nuThemes,
-    );
-  }
-}
-
-function declareThemes(cls) {
-  Object.entries(cls.nuThemes).forEach(([id, { hue, type, saturation, pastel, contrast, lightness, skip }]) => {
-    if (skip) return;
-
-    const name = `snippet-${id}`;
-
-    applyTheme(document.body, {
-      hue: hue != null ? String(hue) : 240,
-      saturation: saturation != null ? saturation : (pastel ? 100 : 75),
-      pastel: pastel != null ? pastel : false,
-      name,
-      type: type || 'tint',
-      lightness: lightness || 'normal',
-      contrast: contrast || 'normal',
-    }, name);
-  });
-}
-
-function extractContent(content) {
-  const str = content || '';
-
-  return str
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/(^|\n)\s*(?=\n)/g, '')
-    .replace(/\n\s*(?=(\n|$))/g, '')
-    .replace(/^\n/, '')
-    .replace(/\n$/, '');
 }
