@@ -52,7 +52,7 @@ export default [{
   ]
 },
   partConfig('components/datepicker.svelte'),
-  partConfig('converters/markdown.js'),
+  partConfig('behaviors/markdown.js'),
   partConfig('formatters/datetime.js'),
   partConfig('formatters/number.js'),
   partConfig('behaviors/fixate.js'),
