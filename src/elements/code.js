@@ -14,6 +14,12 @@ export default class NuCode extends NuElement {
     };
   }
 
+  static get nuAttrs() {
+    return {
+      enumerate: '',
+    }
+  }
+
   static nuCSS({ tag, css }) {
     return `
       ${css}

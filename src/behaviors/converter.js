@@ -5,6 +5,13 @@ import WidgetBehavior from './widget';
 export default class ConverterBehavior extends WidgetBehavior {
   static get converter() {}
 
+  constructor($host) {
+    super($host);
+
+    this.container = null;
+    this.observe = null;
+  }
+
   connected() {
     super.connected();
     setTimeout(() => this.initConverter());
@@ -12,8 +19,6 @@ export default class ConverterBehavior extends WidgetBehavior {
 
   initConverter() {
     if (this.ref) return;
-
-    console.log('!', this.ref);
 
     const { $host } = this;
     const ref = this.ref = $host.querySelector('textarea, pre');
@@ -34,7 +39,7 @@ export default class ConverterBehavior extends WidgetBehavior {
     ref.setAttribute('role', 'none');
     ref.setAttribute('aria-hidden', 'true');
 
-    const container = this.createContainer();
+    const container = this.container = this.createContainer();
 
     ($host.nuShadow || $host).appendChild(container);
 
@@ -50,7 +55,7 @@ export default class ConverterBehavior extends WidgetBehavior {
       }
     }
 
-    const observe = this.createObserveListener(ref, container, this.constructor.converter);
+    const observe = this.observe = this.createObserveListener(ref, container, this.constructor.converter);
 
     const observer = new MutationObserver(() => observe());
 
