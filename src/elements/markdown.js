@@ -30,6 +30,10 @@ export default class NuMarkdown extends NuElement {
     `;
   }
 
+  static nuShadowCSS() {
+    return this.nuCSS({ tag: '', css: '' });
+  }
+
   static get nuBehaviors() {
     return {
       markdown: true,

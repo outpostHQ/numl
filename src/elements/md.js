@@ -12,9 +12,9 @@ export default class NuMd extends NuMarkdown {
     };
   }
 
-  nuConnected() {
-    this.nuInline = true;
-
-    super.nuConnected();
+  static get nuBehaviors() {
+    return {
+      markdown: 'inline',
+    }
   }
 }
