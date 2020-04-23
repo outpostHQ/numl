@@ -2,7 +2,8 @@ export default function focusableAttr(val) {
   const mods = val.split(/\s/);
   const force = mods.includes('force');
   const inset = mods.includes('inset');
-  const focusable = mods.includes('y') || mods.includes('yes') || force || inset;
+  const outside = mods.includes('outside');
+  const focusable = mods.includes('y') || mods.includes('yes') || force || inset || outside;
 
   return [
     {
@@ -27,11 +28,13 @@ export default function focusableAttr(val) {
       transition: 'box-shadow calc(var(--nu-transition-enabler) * var(--nu-focus-enabler) * var(--nu-transition-time)) linear',
     },
     {
-      $suffix: ':not([disabled])[nu-focus]',
+      $prefix: outside ? '[nu-focus]:not([disabled]), :host([nu-focus]:not([disabled]))' : '',
+      $suffix: outside ? '' : '[nu-focus]',
       '--nu-local-focus-color': 'var(--nu-focus-color)',
     },
     {
-      $suffix: ':not([disabled])[nu-focus]::before',
+      $prefix: outside ? '[nu-focus]:not([disabled]), :host([nu-focus]:not([disabled]))' : '',
+      $suffix: `${outside ? '' : '[nu-focus]'}::before`,
       'z-index': '9',
     },
   ] : []);
