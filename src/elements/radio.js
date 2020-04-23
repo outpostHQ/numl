@@ -18,7 +18,7 @@ export default class NuRadio extends NuActiveElement {
   static get nuTemplate() {
     return `
       <nu-circle
-        fill="^host bg :pressed[special-bg] :disabled:pressed[text 50%]"
+        fill="^host bg :pressed[special] :disabled:pressed[text 50%]"
         transition="fill"
         border="0"></nu-circle>
     `;
