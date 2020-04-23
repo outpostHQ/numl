@@ -17,7 +17,8 @@ export const BEHAVIORS = {
   control: () => extract(import('./behaviors/control.js')),
   radiogroup: () => extract(import('./behaviors/radiogroup.js')),
   button: () => extract(import('./behaviors/button.js')),
-  label: () => extract(import('./behaviors/label.js'))
+  label: () => extract(import('./behaviors/label.js')),
+  code: () => extract(import('./behaviors/code.js')),
 };
 
 export function hasBehavior(el, name) {

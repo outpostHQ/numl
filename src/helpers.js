@@ -1230,7 +1230,9 @@ export function deepQuery(element, selector) {
 
   return [...element.querySelectorAll('[shadow-root]')]
     .find(shadowEl => {
-      return deepQuery(shadowEl.nuShadow, selector);
+      const root = shadowEl.nuShadow;
+
+      return root && deepQuery(root, selector);
     });
 }
 
@@ -1245,7 +1247,11 @@ export function deepQueryAll(element, selector) {
 
   [...element.querySelectorAll('[shadow-root]')]
     .forEach(shadowEl => {
-      found.push(...deepQueryAll(shadowEl.nuShadow, selector));
+      const root = shadowEl.nuShadow;
+
+      if (root) {
+        found.push(...deepQueryAll(root, selector));
+      }
     });
 
   return found;
