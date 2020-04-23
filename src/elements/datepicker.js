@@ -1,12 +1,8 @@
-import NuSvelteComponent from './svelte-component';
+import NuElement from './element';
 
-export default class NuDatePicker extends NuSvelteComponent {
+export default class NuDatePicker extends NuElement {
   static get nuTag() {
     return 'nu-datepicker';
-  }
-
-  static get nuComponent() {
-    return import('../components/datepicker.svelte');
   }
 
   static get nuAttrs() {
@@ -26,9 +22,9 @@ export default class NuDatePicker extends NuSvelteComponent {
     }
   }
 
-  nuConnected() {
-    super.nuConnected();
-
-    this.setAttribute('type', 'date');
+  static get nuBehaviors() {
+    return {
+      component: 'datepicker',
+    };
   }
 }
