@@ -96,7 +96,7 @@ const OPTIONS_MAP = {
   hourcycle: [HOUR_CYCLE_OPTIONS, AUTO, 'hourCycle'],
 };
 
-export default function nuDateTimeFormat(value, locale, data) {
+export default function dateTimeFormat(value, locale, data) {
   const fallback = data.fallback != null ? data.fallback : (devMode ? 'Invalid' : '–');
 
   if (!(value instanceof Date)) {
@@ -125,7 +125,7 @@ export default function nuDateTimeFormat(value, locale, data) {
         return opts(value, locale);
       }
 
-      return this.nuFormat(value, locale, opts);
+      return dateTimeFormat(value, locale, opts);
     });
 
     return format.trim();
@@ -145,7 +145,7 @@ export default function nuDateTimeFormat(value, locale, data) {
         if (map.includes(val)) {
           opts[optKey] = val;
         } else if (devMode) {
-          warn(`NuDate: wrong value for "${key}":`, JSON.stringify(val));
+          warn(`datetime: wrong value for "${key}":`, JSON.stringify(val));
         }
       }
 

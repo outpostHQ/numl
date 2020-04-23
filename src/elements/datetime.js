@@ -1,12 +1,8 @@
-import NuFormatter from './formatter';
+import NuElement from './element';
 
-export default class NuDateTime extends NuFormatter {
+export default class NuDateTime extends NuElement {
   static get nuTag() {
     return 'nu-datetime';
-  }
-
-  static get nuFormatter() {
-    return import('../formatters/datetime');
   }
 
   static get nuAttrs() {
@@ -34,18 +30,9 @@ export default class NuDateTime extends NuFormatter {
     };
   }
 
-
-  nuApply() {
-    super.nuApply();
-
-    clearInterval(this.nuIntervalId);
-
-    const value = this.getAttribute('value');
-
-    if (value === 'now') {
-      this.nuIntervalId = setInterval(() => {
-        this.nuApply();
-      }, 1000);
-    }
+  static get nuBehaviors() {
+    return {
+      datetime: true,
+    };
   }
 }

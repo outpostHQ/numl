@@ -1,12 +1,12 @@
 <nu-grid padding="0" gap columns="1fr 1fr" on:focusin={() => touched = true}>
-  <nu-attrs 
-    for="arrow" 
+  <nu-attrs
+    for="arrow"
     padding="0.5x 0.25x" special border="color(special-bg)"></nu-attrs>
   <nu-attrs for="arrow-left-icon" name="chevron-left" size="3x" move="-.125x 0"></nu-attrs>
   <nu-attrs for="arrow-right-icon" name="chevron-right" size="3x" move=".125x 0"></nu-attrs>
-  <nu-attrs 
-    for="dropdown-icon" 
-    name="chevron-down" 
+  <nu-attrs
+    for="dropdown-icon"
+    name="chevron-down"
     opacity="^:hover[1] :pressed[1] :hover:pressed[1] 0"
     scale="^:pressed[flip-y]" place="right" height="100%"></nu-attrs>
   <nu-attrs
@@ -77,10 +77,9 @@
   columns="repeat(7, 1fr)" content="start stretch"
   text="center">
   <nu-attrs for="day" text="w5" border="color(bg)" focusable="inset"></nu-attrs>
-  <nu-attrs for="today" text="w7" color="special"></nu-attrs>
+  <nu-attrs for="today" text="w7" color="special" border></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
-  <nu-attrs for="today" border></nu-attrs>
   <nu-attrs for="start" radius="1r 0r 0r 1r" special color></nu-attrs>
   <nu-attrs for="end" radius="0r 1r 1r 0r" special color></nu-attrs>
   <nu-attrs for="selected" radius special color></nu-attrs>
@@ -143,7 +142,7 @@ import {
   max as maxDate,
   min as minDate,
 } from 'date-fns';
-import { isNan, isValidDate } from '../helpers'; 
+import { isNan, isValidDate } from '../helpers';
 
 export let value;
 export let locale;
@@ -188,7 +187,7 @@ let hoverDate;
 let todayDate = new Date;
 let yearPopup;
 let monthPopup;
-let touched = false; 
+let touched = false;
 
 $: navQuater = getQuarter(navDate);
 $: navMonthStartDate = navDate;

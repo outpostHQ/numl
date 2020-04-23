@@ -52,6 +52,7 @@ export const MIXINS_MAP = {};
 export const COMBINATORS_MAP = {};
 export const ELEMENTS_MAP = {};
 export const TEMPLATES_MAP = {};
+export const PROPS_MAP = {};
 
 export function getAllAttrs() {
   return Object.keys(ATTRS_MAP).reduce((arr, tag) => {
@@ -239,6 +240,29 @@ export default class NuBase extends HTMLElement {
    */
   static get nuAttrsList() {
     return Object.keys(this.nuAllAttrs);
+  }
+
+  /**
+   * A list of attributes that are used as props or helpers
+   * @return {Array<String>}
+   */
+  static get nuPropsList() {
+    const tag = this.nuTag;
+    const baseAttrs = NuBase.nuAllAttrs;
+
+    return (PROPS_MAP[tag]
+      || (PROPS_MAP[tag] = Object
+        .entries(this.nuAllAttrs)
+        .reduce((list, entry) => {
+          const name = entry[0];
+
+          if (!entry[1] && !name.startsWith('nu-') && !(name in baseAttrs)) {
+            list.push(name);
+          }
+
+          return list;
+        }, []))
+    );
   }
 
   /**

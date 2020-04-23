@@ -1,6 +1,6 @@
-import NuFormatter from './formatter';
+import NuElement from './element';
 
-export default class NuNum extends NuFormatter {
+export default class NuNum extends NuElement {
   static get nuTag() {
     return 'nu-num';
   }
@@ -21,7 +21,9 @@ export default class NuNum extends NuFormatter {
     };
   }
 
-  static get nuFormatter() {
-    return import('../formatters/number');
+  static get nuBehaviors() {
+    return {
+      number: true,
+    };
   }
 }

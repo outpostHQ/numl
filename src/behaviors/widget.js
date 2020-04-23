@@ -1,20 +1,22 @@
 import Behavior from "./behavior";
 import { log } from '../helpers';
 
+export const BOOL_TYPE = (val) => val != null;
+
 export default class WidgetBehavior extends Behavior {
   constructor($host, options) {
     super($host, options);
 
-    this.props = {
+    this.props = $host.constructor.nuPropsList.reduce((props, name) => {
+      props[name] = null;
+
+      return props;
+    }, {});
+
+    Object.assign(this.props, {
       type: 'text',
-      precision: null,
-      disabled(val) { return val != null; },
-      role: null,
-      value: null,
-      scrollto: null,
-      action: null,
-      lang: null,
-    };
+      disabled: BOOL_TYPE,
+    });
   }
 
   init() {
@@ -53,7 +55,7 @@ export default class WidgetBehavior extends Behavior {
         this[name] = defaults(value);
       }
     } else {
-      this[name] = value || defaults;
+      this[name] = value != null ? value : defaults;
     }
   }
 

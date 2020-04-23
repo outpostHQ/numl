@@ -34,7 +34,7 @@ function getInList(val, list) {
   if (list.includes(val)) return val;
 }
 
-export default function nuNumberFormat(value, locale, {
+export default function numberFormat(value, locale, {
   type, code, sign, unit, notation, fallback, significant, integer, decimal,
 } = {}) {
   fallback = fallback != null ? fallback : '–';

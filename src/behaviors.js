@@ -20,6 +20,8 @@ export const BEHAVIORS = {
   label: () => extract(import('./behaviors/label.js')),
   code: () => extract(import('./behaviors/code.js')),
   markdown: () => extract(import('./behaviors/markdown.js')),
+  datetime: () => extract(import('./behaviors/datetime.js')),
+  number: () => extract(import('./behaviors/number.js')),
 };
 
 export function hasBehavior(el, name) {

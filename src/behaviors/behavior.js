@@ -30,4 +30,8 @@ export default class Behavior {
   get context() {
     return this.$host.nuContext;
   }
+
+  get isConnected() {
+    return this.$host.nuIsConnected;
+  }
 }
