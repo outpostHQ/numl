@@ -54,6 +54,15 @@ export default class NuElement extends NuBase {
 
         return map;
       }, {}),
+      type: '',
+      precision: '',
+      disabled: '',
+      role: '',
+      value: '',
+      scrollto: '',
+      action: '',
+      lang: '',
+      special: '',
     };
   }
 
