@@ -72,7 +72,13 @@ export default class CodeBehavior extends ConverterBehavior {
   }
 
   init() {
-    this.props.enumerate = true;
+    this.props.enumerate = (val) => {
+      if (this.observe) {
+        setTimeout(() => this.observe());
+      }
+
+      return val != null;
+    };
 
     super.init();
 
@@ -86,7 +92,7 @@ export default class CodeBehavior extends ConverterBehavior {
 
     container.innerHTML = converter(
       content,
-      this.$host.hasAttribute('enumerate'),
+      this.enumerate,
       CODE_THEMES,
     );
   }

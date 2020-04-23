@@ -19,6 +19,7 @@ export const BEHAVIORS = {
   button: () => extract(import('./behaviors/button.js')),
   label: () => extract(import('./behaviors/label.js')),
   code: () => extract(import('./behaviors/code.js')),
+  markdown: () => extract(import('./behaviors/markdown.js')),
 };
 
 export function hasBehavior(el, name) {
