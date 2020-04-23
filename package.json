@@ -71,13 +71,13 @@
       ]
     },
     {
-      "name": "DateTime Formatter",
+      "name": "DateTime Behavior",
       "path": [
         "dist/datetime.js"
       ]
     },
     {
-      "name": "Number Formatter",
+      "name": "Number Behavior",
       "path": [
         "dist/number.js"
       ]

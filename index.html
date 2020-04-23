@@ -2262,139 +2262,139 @@
       <nu-switch disabled></nu-switch>
       - Disabled.
     </nu-block>
-  <!--</nu-card>-->
+    <!--</nu-card>-->
 
-  <nu-heading level="2">Checkboxes</nu-heading>
+    <nu-heading level="2">Checkboxes</nu-heading>
 
-  <nu-card as="section">
-    <nu-grid
-      display="inline-grid" columns="auto auto" rows="auto auto" flow="column" gap="1x 2x">
-      <nu-flex gap="1x" items="center">
-        <nu-checkbox labelledby=":next"></nu-checkbox>
-        <nu-label>Checkbox</nu-label>
-      </nu-flex>
-
-      <nu-flex gap="1x" items="center">
-        <nu-checkbox labelledby=":next" checked></nu-checkbox>
-        <nu-label>Checked checkbox</nu-label>
-      </nu-flex>
-
-      <nu-flex gap="1x" items="center">
-        <nu-checkbox labelledby=":next" disabled></nu-checkbox>
-        <nu-label>Disabled checkbox</nu-label>
-      </nu-flex>
-
-      <nu-flex gap="1x" items="center">
-        <nu-checkbox labelledby=":next" disabled checked></nu-checkbox>
-        <nu-label>Disabled and checked checkbox</nu-label>
-      </nu-flex>
-    </nu-grid>
-  </nu-card>
-
-  <nu-heading level="2">Radio buttons</nu-heading>
-
-  <nu-card as="section" flow="row">
-    <nu-grid
-      display="inline-grid" columns="auto auto" gap="1x 2x">
-      <nu-radiogroup flow="column" gap value="second">
+    <nu-card as="section">
+      <nu-grid
+        display="inline-grid" columns="auto auto" rows="auto auto" flow="column" gap="1x 2x">
         <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="first"></nu-radio>
-          <nu-label>First value</nu-label>
+          <nu-checkbox labelledby=":next"></nu-checkbox>
+          <nu-label>Checkbox</nu-label>
         </nu-flex>
 
         <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="second"></nu-radio>
-          <nu-label>Second value</nu-label>
+          <nu-checkbox labelledby=":next" checked></nu-checkbox>
+          <nu-label>Checked checkbox</nu-label>
         </nu-flex>
 
         <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="third"></nu-radio>
-          <nu-label>Third value</nu-label>
-        </nu-flex>
-      </nu-radiogroup>
-
-      <nu-radiogroup flow="column" gap value="second">
-        <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="first" disabled></nu-radio>
-          <nu-label>First value</nu-label>
+          <nu-checkbox labelledby=":next" disabled></nu-checkbox>
+          <nu-label>Disabled checkbox</nu-label>
         </nu-flex>
 
         <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="second" disabled></nu-radio>
-          <nu-label>Second value</nu-label>
+          <nu-checkbox labelledby=":next" disabled checked></nu-checkbox>
+          <nu-label>Disabled and checked checkbox</nu-label>
         </nu-flex>
+      </nu-grid>
+    </nu-card>
 
-        <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="third" disabled></nu-radio>
-          <nu-label>Third value</nu-label>
-        </nu-flex>
-      </nu-radiogroup>
-    </nu-grid>
-  </nu-card>
+    <nu-heading level="2">Radio buttons</nu-heading>
 
-  <!--<nu-heading level="2">Progress bar</nu-heading>
+    <nu-card as="section" flow="row">
+      <nu-grid
+        display="inline-grid" columns="auto auto" gap="1x 2x">
+        <nu-radiogroup flow="column" gap value="second">
+          <nu-flex gap="1x" items="center">
+            <nu-radio labelledby=":next" value="first"></nu-radio>
+            <nu-label>First value</nu-label>
+          </nu-flex>
 
-  <nu-card as="section">
-    <nu-flow width="max(18)" gap>
-      <nu-progressbar value="0"></nu-progressbar>
-      <nu-progressbar value="50" min="0"></nu-progressbar>
-      <nu-progressbar value="100"></nu-progressbar>
-    </nu-flow>
-  </nu-card>
+          <nu-flex gap="1x" items="center">
+            <nu-radio labelledby=":next" value="second"></nu-radio>
+            <nu-label>Second value</nu-label>
+          </nu-flex>
 
-  <nu-heading level="2">Inputs</nu-heading>
+          <nu-flex gap="1x" items="center">
+            <nu-radio labelledby=":next" value="third"></nu-radio>
+            <nu-label>Third value</nu-label>
+          </nu-flex>
+        </nu-radiogroup>
 
-  <nu-card as="section">
-    <nu-heading level="3">Simple input</nu-heading>
+        <nu-radiogroup flow="column" gap value="second">
+          <nu-flex gap="1x" items="center">
+            <nu-radio labelledby=":next" value="first" disabled></nu-radio>
+            <nu-label>First value</nu-label>
+          </nu-flex>
 
-    <nu-block>
-      <nu-input width="15" label="Simple input">
+          <nu-flex gap="1x" items="center">
+            <nu-radio labelledby=":next" value="second" disabled></nu-radio>
+            <nu-label>Second value</nu-label>
+          </nu-flex>
 
-      </nu-input>
+          <nu-flex gap="1x" items="center">
+            <nu-radio labelledby=":next" value="third" disabled></nu-radio>
+            <nu-label>Third value</nu-label>
+          </nu-flex>
+        </nu-radiogroup>
+      </nu-grid>
+    </nu-card>
 
-      <nu-input width="15" label="Simple disabled input" value="Disabled input" disabled>
+    <!--<nu-heading level="2">Progress bar</nu-heading>
 
-      </nu-input>
-    </nu-block>
+    <nu-card as="section">
+      <nu-flow width="max(18)" gap>
+        <nu-progressbar value="0"></nu-progressbar>
+        <nu-progressbar value="50" min="0"></nu-progressbar>
+        <nu-progressbar value="100"></nu-progressbar>
+      </nu-flow>
+    </nu-card>
 
-    <nu-heading level="3">Input with icon and button</nu-heading>
+    <nu-heading level="2">Inputs</nu-heading>
 
-    <nu-group border radius width="15" fill="input">
-      <nu-icon name="user" width="2.5"></nu-icon>
-      <nu-input border="0" grow="1" label="Input with icon">
+    <nu-card as="section">
+      <nu-heading level="3">Simple input</nu-heading>
 
-      </nu-input>
-      <nu-btn border="left">
-        <nu-icon name="x" label="Circle"></nu-icon>
-      </nu-btn>
-    </nu-group>
+      <nu-block>
+        <nu-input width="15" label="Simple input">
 
-    <nu-heading level="3">Number input</nu-heading>
+        </nu-input>
 
-    <nu-block>
-      Currency input:
-      <nu-numinput prefix="$" value="12032" width="8" precision="2"
-                   label="Number input"></nu-numinput>
-    </nu-block>
+        <nu-input width="15" label="Simple disabled input" value="Disabled input" disabled>
 
-    <nu-block>
-      Percent input:
-      <nu-numinput suffix="%" value="0" min="0" max="100" precision="0" width="8"
-                   label="Percents input"></nu-numinput>
-    </nu-block>
-  </nu-card>
+        </nu-input>
+      </nu-block>
 
-  <nu-heading level="2">Slider</nu-heading>
+      <nu-heading level="3">Input with icon and button</nu-heading>
 
-  <nu-card as="section">
-    <nu-rail>
-      <nu-slider value="50" min="0" max="100"></nu-slider>
-    </nu-rail>
+      <nu-group border radius width="15" fill="input">
+        <nu-icon name="user" width="2.5"></nu-icon>
+        <nu-input border="0" grow="1" label="Input with icon">
 
-    <nu-rail orient="v" height="10">
-      <nu-slider value="50" min="0" max="100"></nu-slider>
-    </nu-rail>
-  </nu-card> -->
+        </nu-input>
+        <nu-btn border="left">
+          <nu-icon name="x" label="Circle"></nu-icon>
+        </nu-btn>
+      </nu-group>
+
+      <nu-heading level="3">Number input</nu-heading>
+
+      <nu-block>
+        Currency input:
+        <nu-numinput prefix="$" value="12032" width="8" precision="2"
+                     label="Number input"></nu-numinput>
+      </nu-block>
+
+      <nu-block>
+        Percent input:
+        <nu-numinput suffix="%" value="0" min="0" max="100" precision="0" width="8"
+                     label="Percents input"></nu-numinput>
+      </nu-block>
+    </nu-card>
+
+    <nu-heading level="2">Slider</nu-heading>
+
+    <nu-card as="section">
+      <nu-rail>
+        <nu-slider value="50" min="0" max="100"></nu-slider>
+      </nu-rail>
+
+      <nu-rail orient="v" height="10">
+        <nu-slider value="50" min="0" max="100"></nu-slider>
+      </nu-rail>
+    </nu-card> -->
 
     <nu-heading level="2">Popups</nu-heading>
 
@@ -2870,7 +2870,11 @@
       <nu-heading level="4">Inline markdown</nu-heading>
 
       <nu-block>
-        It's a fragment of "<nu-md><pre>**inlined** markdown _content_</pre></nu-md>".
+        It's a fragment of "
+        <nu-md>
+          <pre>**inlined** markdown _content_</pre>
+        </nu-md>
+        ".
       </nu-block>
     </nu-card>
 
@@ -2892,7 +2896,8 @@
           Toggle Button
         </nu-btn>
       </nu-block>
-    </nu-card>-->
+    </nu-card>
+    -->
 
     <!--    <nu-attrs for="$arrow" color="#996633"></nu-attrs>-->
 
@@ -2902,6 +2907,35 @@
       <nu-card width="20">
         <nu-datepicker mode="range"></nu-datepicker>
       </nu-card>
+    </nu-card>
+
+    <nu-card as="section">
+      <nu-flow gap>
+        <nu-block>
+          <nu-num
+            value="1234"></nu-num>
+        </nu-block>
+        <nu-block>
+          <nu-num
+            notation="compact long"
+            value="1234"></nu-num>
+        </nu-block>
+        <nu-block>
+          <nu-num
+            decimal="2"
+            value="1234"></nu-num>
+        </nu-block>
+        <nu-block>
+          <nu-num
+            integer="6"
+            value="1234"></nu-num>
+        </nu-block>
+        <nu-block>
+          <nu-num
+            significant="2"
+            value="1234"></nu-num>
+        </nu-block>
+      </nu-flow>
     </nu-card>
 
   </nu-flow>
