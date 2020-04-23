@@ -14,8 +14,7 @@ export default class NuCheckbox extends NuActiveElement {
       <nu-icon
         name="check"
         opacity="--icon-opacity"
-        transition="opacity"
-        color="--icon-color"></nu-icon>
+        transition="opacity"></nu-icon>
     `;
   }
 
@@ -36,9 +35,9 @@ export default class NuCheckbox extends NuActiveElement {
       toggle: '0 :active[.5em] :pressed[0] :active:pressed[.5em]',
       hoverable: 'n :focusable[.5em]',
       expand: '.5em',
+      color: 'special :disabled[text 66%]',
 
       '--icon-opacity': ':pressed[1] 0',
-      '--icon-color': 'special :disabled[text 66%]',
     };
   }
 
