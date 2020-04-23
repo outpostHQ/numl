@@ -26,6 +26,8 @@ export default class ComponentBehavior extends LocalizedWidgetBehavior {
       .then(Component => {
         const target = this.context.useShadow ? $host.attachShadow({ mode: 'open' }) : this;
 
+        this.Component = Component;
+
         this.component = new Component({
           target,
           props: this.componentProps,
@@ -38,9 +40,13 @@ export default class ComponentBehavior extends LocalizedWidgetBehavior {
   }
 
   get componentProps() {
+    const prototype = this.Component.prototype;
+
     return this.propsList
       .reduce((data, attr) => {
-        data[toCamelCase(attr)] = this[attr];
+        if (attr in prototype) {
+          data[toCamelCase(attr)] = this[attr];
+        }
 
         return data;
       }, {});
