@@ -1,7 +1,7 @@
 import { devMode, error } from './helpers.js';
 
-function extract(module) {
-  return module.default || module;
+function extract(promise) {
+  return promise.then(module => module.default || module);
 }
 
 const DICT = {};
@@ -22,6 +22,7 @@ export const BEHAVIORS = {
   markdown: () => extract(import('./behaviors/markdown.js')),
   datetime: () => extract(import('./behaviors/datetime.js')),
   number: () => extract(import('./behaviors/number.js')),
+  component: () => extract(import('./behaviors/component.js')),
 };
 
 export function hasBehavior(el, name) {
