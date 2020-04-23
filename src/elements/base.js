@@ -1581,7 +1581,7 @@ export default class NuBase extends HTMLElement {
     let options = behaviors[name];
 
     if (options === true) {
-      options = {};
+      options = undefined;
     }
 
     if (!this.nuBehaviors) {

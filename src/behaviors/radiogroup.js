@@ -1,10 +1,10 @@
 import WidgetBehavior from "./widget";
 
 export default class RadioGroupBehavior extends WidgetBehavior {
-  constructor($host, options) {
-    super($host, options);
+  constructor($host, value) {
+    super($host, value);
 
-    this.itemRole = options.itemRole || 'radio';
+    this.itemRole = value || 'radio';
   }
 
   init() {

@@ -3,13 +3,13 @@
  * @type {String}
  */
 import { strToHsl } from './color';
-import { USE_SHADOW } from './settings';
-
 export const ROOT_CONTEXT = ':root';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
 
 export const isTouch = !matchMedia('(hover: hover)').matches;
+
+const USE_SHADOW = document.querySelector(':root').dataset.nuShadow != null;
 
 /**
  * Script injection.

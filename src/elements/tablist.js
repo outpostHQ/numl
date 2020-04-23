@@ -50,8 +50,8 @@ export default class NuTablist extends NuRadioGroup {
 
   static get nuBehaviors() {
     return {
-      orient: { aria: true, dynamic: true },
-      radiogroup: { itemRole: 'tab' },
+      orient: 'dynamic',
+      radiogroup: 'tab',
     };
   }
 }

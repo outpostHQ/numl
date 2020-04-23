@@ -12,7 +12,7 @@ export default class NuLine extends NuBlock {
 
   static get nuBehaviors() {
     return {
-      orient: { aria: true },
+      orient: true,
     };
   }
 
