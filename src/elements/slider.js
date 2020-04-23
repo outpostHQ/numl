@@ -28,14 +28,7 @@ export default class NuSlider extends NuActiveElement {
 
   static get nuBehaviors() {
     return {
-      orient: {
-        aria: true,
-        initial($host) {
-          return !th$hostis.hasAttribute('orient') && $host.nuContext.orientation
-            ? ($host.nuContext.orientation === VERTICAL ? 'v' : 'h')
-            : ($host.getAttribute('orient') || 'v');
-        },
-      },
+      orient: true,
     };
   }
 

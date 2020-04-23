@@ -5,12 +5,16 @@ export const VERTICAL = 'vertical';
 export const HORIZONTAL = 'horizontal';
 
 export default class OrientBehavior extends Behavior {
-  constructor($host, options = {}) {
+  constructor($host, value) {
     super($host);
 
-    this.orient = options.initial ? options.initial.call(this, $host) : 'h';
+    const mods = value.split(/\s+/g);
 
-    if (options.dynamic) {
+    this.aria = !mods.includes('no-aria');
+
+    this.orient = mods.includes('v') ? 'v' : 'h';
+
+    if (mods.includes('dynamic')) {
       $host.addEventListener('focusin', () => {
         this.set(getComputedStyle($host).flexFlow.includes('column') ? 'v' : 'h');
       }, { passive: true });
