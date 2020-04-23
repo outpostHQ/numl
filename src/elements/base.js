@@ -228,12 +228,8 @@ export default class NuBase extends HTMLElement {
       display: displayAttr,
       responsive: '',
       as: '',
-      t: '',
-      special: '',
       theme: themeAttr,
       prop: propAttr,
-      lang: '',
-      role: '',
     };
   }
 
