@@ -11,7 +11,7 @@ export default class NuTab extends NuActiveElement {
 
   static get nuDefaults() {
     return {
-      display: 'inline-grid',
+      display: 'grid',
       fill: 'transparent',
       radius: '0',
       flow: 'column',
