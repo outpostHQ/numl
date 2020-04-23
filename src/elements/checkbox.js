@@ -29,13 +29,13 @@ export default class NuCheckbox extends NuActiveElement {
       items: 'center',
       padding: '0',
       sizing: 'content',
+      color: 'special :disabled[text 66%]',
       fill: 'bg',
       cursor: 'default',
       text: 'v-middle',
       toggle: '0 :active[.5em] :pressed[0] :active:pressed[.5em]',
       hoverable: 'n :focusable[.5em]',
       expand: '.5em',
-      color: 'special :disabled[text 66%]',
 
       '--icon-opacity': ':pressed[1] 0',
     };

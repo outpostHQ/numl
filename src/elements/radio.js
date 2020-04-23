@@ -18,7 +18,7 @@ export default class NuRadio extends NuActiveElement {
   static get nuTemplate() {
     return `
       <nu-circle
-        fill="^host bg :pressed[special] :disabled:pressed[text 50%]"
+        fill="^host clear :pressed[special] :disabled:pressed[text 50%]"
         transition="fill"
         border="0"></nu-circle>
     `;
@@ -38,7 +38,7 @@ export default class NuRadio extends NuActiveElement {
       cursor: 'default',
       text: 'v-middle',
       hoverable: 'n :focusable[.5em]',
-      toggle: '0 :active[.5em] :pressed[.5em]',
+      toggle: '0 :active[.5em] :pressed[0]',
       fill: 'bg',
       expand: '.5em',
     };
