@@ -65,7 +65,7 @@
       ]
     },
     {
-      "name": "Code Converter",
+      "name": "Code Behavior",
       "path": [
         "dist/code.js"
       ]
