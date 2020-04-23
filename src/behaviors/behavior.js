@@ -19,10 +19,10 @@ export default class Behavior {
 
   /**
    * Require other behaviors
-   * @param args
+   * @param behaviors
    */
-  require(...args) {
-    args.forEach(name => {
+  require(...behaviors) {
+    behaviors.forEach(name => {
       this.$host.nu(name);
     });
   }

@@ -23,6 +23,7 @@ export const BEHAVIORS = {
   datetime: () => extract(import('./behaviors/datetime.js')),
   number: () => extract(import('./behaviors/number.js')),
   component: () => extract(import('./behaviors/component.js')),
+  slider: () => extract(import('./behaviors/slider.js')),
 };
 
 export function hasBehavior(el, name) {

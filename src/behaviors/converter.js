@@ -43,17 +43,7 @@ export default class ConverterBehavior extends WidgetBehavior {
 
     ($host.nuShadow || $host).appendChild(container);
 
-    if ($host.nuShadow) {
-      const shadowCSS = $host.constructor.nuShadowCSS();
-
-      if (shadowCSS) {
-        injectStyleTag(
-          shadowCSS,
-          `shadow:${$host.constructor.nuTag}`,
-          $host.nuShadow,
-        );
-      }
-    }
+    $host.nuAttachShadowCSS();
 
     const observe = this.observe = this.createObserveListener(ref, container, this.constructor.converter);
 

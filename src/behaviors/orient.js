@@ -5,7 +5,7 @@ export const VERTICAL = 'vertical';
 export const HORIZONTAL = 'horizontal';
 
 export default class OrientBehavior extends Behavior {
-  constructor($host, value) {
+  constructor($host, value = '') {
     super($host);
 
     const mods = value.split(/\s+/g);

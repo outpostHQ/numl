@@ -7,7 +7,7 @@ import {
   generateCSS,
   cleanCSSByPart,
   transferCSS,
-  STYLE_MAP,
+  STYLE_MAP, injectStyleTag,
 } from '../css';
 import {
   parseThemeAttr,
@@ -127,16 +127,16 @@ export default class NuBase extends HTMLElement {
   /**
    * Method to extract element css with current element context.
    * @protected
-   * @param cls
+   * @param Element {Object} - NuBase (HTMLElement)
    * @returns {string}
    */
-  static nuExtractCSS(cls) {
+  static nuExtractCSS(Element) {
     const _this = this;
 
     return this.nuCSS({
-      tag: cls.nuTag,
+      tag: Element.nuTag,
       get css() {
-        return _this.nuParentCSS(cls);
+        return _this.nuGetParentCSS(Element);
       },
     });
   }
@@ -152,10 +152,10 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Method to generate parent CSS with current element context.
-   * @param cls
+   * @param Element
    * @returns {string}
    */
-  static nuParentCSS(cls) {
+  static nuGetParentCSS(Element) {
     let parent = this;
 
     do {
@@ -163,7 +163,7 @@ export default class NuBase extends HTMLElement {
     } while (parent && parent.nuCSS && parent.nuCSS === this.nuCSS);
 
     if (parent && parent.nuCSS) {
-      return parent.nuExtractCSS(cls);
+      return parent.nuExtractCSS(Element);
     }
 
     return '';
@@ -865,7 +865,7 @@ export default class NuBase extends HTMLElement {
   /**
    * Set aria attribute.
    * @param {String} name
-   * @param {Boolean|String} value
+   * @param {Boolean|String|Number} value
    */
   nuSetAria(name, value) {
     if (typeof value === 'boolean') {
@@ -972,14 +972,16 @@ export default class NuBase extends HTMLElement {
    * Just before nuConnected().
    * Called only once during element life-cycle.
    */
-  nuInit() {}
+  nuInit() {
+  }
 
   /**
    * Called when element is connected to the DOM.
    * Can be called twice or more.
    * While using frameworks this method can be fired without element having parentNode.
    */
-  nuConnected() {}
+  nuConnected() {
+  }
 
   /**
    * Called when element is disconnected from the DOM.
@@ -1652,6 +1654,24 @@ export default class NuBase extends HTMLElement {
     }
 
     host.innerHTML = template;
+
+    if (useShadow) {
+      this.nuAttachShadowCSS();
+    }
+  }
+
+  nuAttachShadowCSS() {
+    if (!this.nuShadow) return;
+
+    const shadowCSS = this.constructor.nuShadowCSS();
+
+    if (shadowCSS) {
+      injectStyleTag(
+        shadowCSS,
+        `shadow:${this.constructor.nuTag}`,
+        this.nuShadow,
+      );
+    }
   }
 
   nuControl(bool, value) {
