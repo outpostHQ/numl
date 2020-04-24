@@ -97,6 +97,8 @@ const OPTIONS_MAP = {
 };
 
 export default function dateTimeFormat(value, locale, data) {
+  value = value || new Date();
+
   const fallback = data.fallback != null ? data.fallback : (devMode ? 'Invalid' : '–');
 
   if (!(value instanceof Date)) {

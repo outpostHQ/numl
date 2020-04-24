@@ -51,48 +51,6 @@
       "path": [
         "dist/index.js"
       ]
-    },
-    {
-      "name": "DatePicker Component",
-      "path": [
-        "dist/datepicker-*.js"
-      ]
-    },
-    {
-      "name": "Markdown Behavior",
-      "path": [
-        "dist/markdown-*.js"
-      ]
-    },
-    {
-      "name": "Code Behavior",
-      "path": [
-        "dist/code-*.js"
-      ]
-    },
-    {
-      "name": "DateTime Behavior",
-      "path": [
-        "dist/datetime-*.js"
-      ]
-    },
-    {
-      "name": "Number Behavior",
-      "path": [
-        "dist/number-*.js"
-      ]
-    },
-    {
-      "name": "Popup Behavior",
-      "path": [
-        "dist/popup-*.js"
-      ]
-    },
-    {
-      "name": "Button Behavior",
-      "path": [
-        "dist/button-*.js"
-      ]
     }
   ],
   "browserslist": [

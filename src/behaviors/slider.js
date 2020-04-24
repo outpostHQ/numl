@@ -1,5 +1,5 @@
 import WidgetBehavior from './widget';
-import { getFloatFromAttr, numberFromString } from '../helpers';
+import { getFloatFromAttr } from '../helpers';
 
 const EVENT_MAP = {
   'mousemove': 'onDragging',

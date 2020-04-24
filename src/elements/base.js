@@ -180,14 +180,6 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
-   * Static css for Shadow DOM of the element.
-   * @returns {string}
-   */
-  static nuShadowCSS() {
-    return '';
-  }
-
-  /**
    * @private
    */
   static get nuAllAttrs() {
@@ -363,7 +355,9 @@ export default class NuBase extends HTMLElement {
       this.nuGenerateDefaultStyle();
     }
 
-    this.nuBehaviorList = Object.keys(this.nuAllBehaviors);
+    this.nuBehaviorList = Object
+      .keys(this.nuAllBehaviors)
+      .filter(name => this.nuAllBehaviors[name] != null);
 
     customElements.define(tag, this);
 
@@ -1598,7 +1592,7 @@ export default class NuBase extends HTMLElement {
   /**
    * Require behavior
    * @param name {String} - Behavior name
-   * @param value {String} - Options string
+   * @param [value] {String} - Options string
    * @return {null|Behavior}
    */
   nu(name, value) {
@@ -1667,7 +1661,7 @@ export default class NuBase extends HTMLElement {
   nuAttachShadowCSS() {
     if (!this.nuShadow) return;
 
-    const shadowCSS = this.constructor.nuShadowCSS();
+    const shadowCSS = this.constructor.nuCSS({ tag: '', css: '', shadow: true });
 
     if (shadowCSS) {
       injectStyleTag(
