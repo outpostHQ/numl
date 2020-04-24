@@ -76,7 +76,7 @@
 <nu-grid
   columns="repeat(7, 1fr)" content="start stretch"
   text="center">
-  <nu-attrs for="day" text="w5" border="color(bg)" focusable="inset"></nu-attrs>
+  <nu-attrs for="day" text="w5" border="color(bg)" focus="inset"></nu-attrs>
   <nu-attrs for="today" text="w7" color="special" border></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>

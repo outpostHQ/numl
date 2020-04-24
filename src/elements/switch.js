@@ -35,7 +35,7 @@ export default class NuSwitch extends NuActiveElement {
       border: '1b',
       sizing: 'content',
       radius: 'round',
-      focusable: 'y',
+      focus: 'y',
       toggle: `0
         :active[.5em]
         :active:pressed[.5em]`,

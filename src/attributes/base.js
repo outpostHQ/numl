@@ -32,7 +32,7 @@ import moveAttr from '../attributes/move';
 import showAttr from '../attributes/show';
 import fadeAttr from '../attributes/fade';
 import toggleAttr from '../attributes/toggle';
-import focusableAttr from '../attributes/focusable';
+import focusAttr from '../attributes/focus';
 import hoverableAttr from '../attributes/hoverable';
 import dropAttr from '../attributes/drop';
 import expandAttr from '../attributes/expand';
@@ -105,7 +105,7 @@ export default {
   before: beforeAttr,
   after: afterAttr,
   toggle: toggleAttr,
-  focusable: focusableAttr,
+  focus: focusAttr,
   hoverable: hoverableAttr,
   expand: expandAttr,
   fade: fadeAttr,

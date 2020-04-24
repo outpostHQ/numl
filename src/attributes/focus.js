@@ -1,4 +1,4 @@
-export default function focusableAttr(val) {
+export default function focusAttr(val) {
   const mods = val.split(/\s/);
   const force = mods.includes('force');
   const inset = mods.includes('inset');
@@ -26,6 +26,7 @@ export default function focusableAttr(val) {
       'box-shadow': 'var(--nu-local-focus-shadow)',
       // Activate transition only if transition and focusable effects are globally enabled
       transition: 'box-shadow calc(var(--nu-transition-enabler) * var(--nu-focus-enabler) * var(--nu-transition-time)) linear',
+      'z-index': '9',
     },
     {
       $prefix: outside ? '[nu-focus]:not([disabled]), :host([nu-focus]:not([disabled]))' : '',
@@ -35,7 +36,6 @@ export default function focusableAttr(val) {
     {
       $prefix: outside ? '[nu-focus]:not([disabled]), :host([nu-focus]:not([disabled]))' : '',
       $suffix: `${outside ? '' : '[nu-focus]'}::before`,
-      'z-index': '9',
     },
   ] : []);
 }
