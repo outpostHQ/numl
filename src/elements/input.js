@@ -31,7 +31,7 @@ export default class NuInput extends NuBlock {
       padding: '1x',
       fill: 'input :disabled[special-bg 20%]',
       border: '1b',
-      focus: 'force',
+      focus: 'input',
       opacity: '1 :disabled[.5]',
     };
   }

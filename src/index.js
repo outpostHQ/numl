@@ -11,6 +11,7 @@ import themeAttr from './attributes/theme';
 import { initFocus } from './focus';
 import { scheme, contrast, reduceMotion } from './settings';
 import CONTEXT from './context';
+export { default as Button } from './behaviors/button';
 
 const BODY = document.body;
 

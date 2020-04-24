@@ -1,14 +1,15 @@
 export default function focusAttr(val) {
   const mods = val.split(/\s/);
-  const force = mods.includes('force');
+  const input = mods.includes('input');
   const inset = mods.includes('inset');
   const outside = mods.includes('outside');
-  const focusable = mods.includes('y') || mods.includes('yes') || force || inset || outside;
+  const inside = !outside && mods.includes('inside');
+  const focusable = mods.includes('y') || mods.includes('yes') || input || inset || outside || inside;
 
   return [
     {
       '--nu-local-focus-color': 'transparent',
-      '--nu-local-focus-shadow': `var(--nu-local-focus-inset, ${inset ? 'inset ' : ''}0 0) 0 calc(${force ? '1' : 'var(--nu-focus-enabler)'} * var(--nu-focus-width, calc(var(--nu-border-width) * 3))) var(--nu-local-focus-color)`,
+      '--nu-local-focus-shadow': `var(--nu-local-focus-inset, ${inset ? 'inset ' : ''}0 0) 0 calc(${input ? '1' : 'var(--nu-focus-enabler)'} * (1 - var(--nu-focus-disabler, 0)) * var(--nu-focus-width, calc(var(--nu-border-width) * 3))) var(--nu-local-focus-color)`,
       outline: 'none',
     }
   ].concat(focusable ? [
@@ -30,12 +31,15 @@ export default function focusAttr(val) {
     },
     {
       $prefix: outside ? '[nu-focus]:not([disabled]), :host([nu-focus]:not([disabled]))' : '',
-      $suffix: outside ? '' : '[nu-focus]',
+      $suffix: `${outside ? '' : (inside ? ':focus-within' : '[nu-focus]')}`,
       '--nu-local-focus-color': 'var(--nu-focus-color)',
     },
     {
       $prefix: outside ? '[nu-focus]:not([disabled]), :host([nu-focus]:not([disabled]))' : '',
-      $suffix: `${outside ? '' : '[nu-focus]'}::before`,
+      $suffix: `${outside ? '' : (inside ? ':focus-within' : '[nu-focus]')}::before`,
     },
-  ] : []);
+  ] : []).concat(inside ? [{
+    $suffix: '>*',
+    '--nu-focus-disabler': '1',
+  }] : []);
 }

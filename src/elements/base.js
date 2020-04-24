@@ -823,7 +823,7 @@ export default class NuBase extends HTMLElement {
       };
     }
 
-    value = value == null ? this.getAttribute('value') : value;
+    value = value == null ? this.getAttribute(attr) : value;
 
     const responsive = this.nuContext && this.nuContext.responsive && this.nuContext.responsive;
     const varsList = getVarsList(value);
