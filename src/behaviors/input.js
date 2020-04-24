@@ -5,7 +5,7 @@ export default class InputBehavior extends WidgetBehavior {
     this.props.disabled = () => {
       return this.transferAttr('disabled', this.ref) != null;
     };
-    this.props.placeholder = () => this.transferAttr('placeholder', this.ref);
+    this.props.placeholder = () => this.transferAttr('placeholder', this.ref, '...');
 
     super.init();
 
@@ -34,6 +34,8 @@ export default class InputBehavior extends WidgetBehavior {
         this.emit('change', this.ref.value);
       });
     }
+
+    this.transferAttr('placeholder', this.ref, '...');
 
     this.ref.addEventListener('input', () => {
       this.setEmpty();
