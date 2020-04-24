@@ -26,7 +26,7 @@ export default class NuRadio extends NuActiveElement {
 
   static get nuDefaults() {
     return {
-      display: 'inline-grid',
+      display: 'inline-block',
       width: '1em',
       height: '1em',
       border: '1b color(text) :disabled[1b color(text 50%)]',

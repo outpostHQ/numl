@@ -21,8 +21,7 @@ export default class NuSlider extends NuElement {
     return `
       <nu-circle
         place="absolute"
-        width="1.25em"
-        height="1.25em"
+        size="1.25em"
         radius="round"
         fill="special-text"
         border="1b color(text)"
