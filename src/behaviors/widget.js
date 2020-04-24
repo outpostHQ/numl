@@ -154,4 +154,18 @@ export default class WidgetBehavior extends Behavior {
     this.nu('control')
       .then(Control => Control.apply(!!bool, value));
   }
+
+  transferAttr(name, ref) {
+    if (!ref) return;
+
+    const value = this.$host.getAttribute(name);
+
+    if (value != null) {
+      ref.setAttribute(name, value);
+    } else {
+      ref.removeAttribute(name);
+    }
+
+    return value;
+  }
 }

@@ -8,7 +8,7 @@ import BaseAttributes from '../attributes/base';
 import TransformCombinator from '../combinators/transform';
 import ShadowCombinator from '../combinators/shadow';
 import WeightCombinator from '../combinators/weight';
-import { BEHAVIORS } from '../behaviors';
+import { BEHAVIORS } from '../behaviors/index';
 
 /**
  * @class
@@ -63,6 +63,7 @@ export default class NuElement extends NuBase {
       action: '',
       lang: '',
       special: '',
+      placeholder: '',
     };
   }
 
