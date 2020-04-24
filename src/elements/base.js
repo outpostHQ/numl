@@ -44,7 +44,7 @@ import displayAttr from '../attributes/display';
 import themeAttr from '../attributes/theme';
 import propAttr from '../attributes/prop';
 import combine from '../combinators/index';
-import { BEHAVIORS, getBehavior } from '../behaviors';
+import { BEHAVIORS, getBehavior } from '../behaviors/index';
 
 export const ATTRS_MAP = {};
 export const DEFAULTS_MAP = {};
@@ -945,6 +945,10 @@ export default class NuBase extends HTMLElement {
    * @param {*} value
    */
   nuChanged(name, oldValue, value) {
+    if (value === undefined) {
+      value = this.getAttribute(name);
+    }
+
     if (name.startsWith('nu-')) {
       name = name.replace('nu-', '');
 

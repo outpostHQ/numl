@@ -8,6 +8,12 @@ export default class NuInput extends NuBlock {
     return 'nu-input';
   }
 
+  static get nuBehaviors() {
+    return {
+      input: true,
+    };
+  }
+
   static get nuAttrs() {
     return {
       autofocus: '',
@@ -31,7 +37,7 @@ export default class NuInput extends NuBlock {
       padding: '1x',
       fill: 'input :disabled[special-bg 20%]',
       border: '1b',
-      focus: 'input',
+      focus: 'inside input',
       opacity: '1 :disabled[.5]',
     };
   }
@@ -89,92 +95,5 @@ export default class NuInput extends NuBlock {
         width: calc(var(--nu-local-padding) * 2 + 1em);
       }
     `;
-  }
-
-  static get nuBehaviors() {
-    return {
-      focusable: true,
-    }
-  }
-
-  nuGetRef() {
-    this.nuRef = this.querySelector('input');
-
-    if (!this.nuRef) {
-      const input = document.createElement('input');
-
-      this.appendChild(input);
-
-      this.nuRef = input;
-
-      this.nuRef.addEventListener('input', (event) => {
-        event.stopPropagation();
-
-        const value = this.nuRef.value;
-
-        this.nuEmit('input', value);
-      });
-
-      this.nuRef.addEventListener('change', (event) => {
-        event.stopPropagation();
-
-        this.nuEmit('change', this.nuRef.value);
-      });
-    }
-
-    this.nuRef.addEventListener('input', () => {
-      this.nuSetEmpty();
-    });
-
-    if (this.hasAttribute('label')) {
-      this.nuChanged('label', null, this.getAttribute('label'));
-      this.removeAttribute('aria-label');
-    }
-
-    if (this.hasAttribute('labelledby')) {
-      this.nuChanged('label', null, this.getAttribute('labelledby'));
-      this.removeAttribute('aria-labelledby');
-    }
-
-    return this.nuRef;
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
-    if (!this.nuRef) return;
-
-    switch (name) {
-      case 'disabled':
-        const bool = value != null;
-
-        if (this.nuRef) {
-          this.nuRef.disabled = bool;
-
-          this.nu('focusable')
-            .then(Focusable => Focusable.set(bool));
-        }
-
-        break;
-      case 'placeholder':
-        this.nuRef.setAttribute('placeholder', value != null ? value : '...');
-        break;
-    }
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    setTimeout(() => {
-      this.nuGetRef();
-      this.nuChanged('disabled', '', this.getAttribute('disabled'));
-      this.nuChanged('placeholder', '', this.getAttribute('placeholder'));
-
-      this.nuSetMod('empty', !this.nuRef.value);
-    });
-  }
-
-  nuSetEmpty() {
-    this.nuSetMod('empty', !this.nuRef.value);
   }
 }

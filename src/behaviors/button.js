@@ -1,4 +1,4 @@
-import WidgetBehavior from "./widget";
+import WidgetBehavior, { BOOL_TYPE } from "./widget";
 import Routing from '../routing';
 
 export default class ButtonBehavior extends WidgetBehavior {
@@ -8,8 +8,8 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     this.props.to = null;
     this.props.pressed = (bool) => this.set(bool != null);
-    this.props.checked = true;
-    this.props.selected = true;
+    this.props.checked = BOOL_TYPE;
+    this.props.selected = BOOL_TYPE;
     this.props.value = (val) => {
       this.setValue(val, true);
     }
