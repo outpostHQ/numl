@@ -1,10 +1,16 @@
-import NuRadioGroup from './radiogroup';
 import NuGroup from './group';
 import { convertUnit, stripCalc } from '../helpers';
 
-export default class NuBtnGroup extends NuRadioGroup {
+export default class NuBtnGroup extends NuGroup {
   static get nuTag() {
     return 'nu-btngroup';
+  }
+
+  static get nuBehaviors() {
+    return {
+      radiogroup: true,
+      control: true,
+    };
   }
 
   static get nuAttrs() {
@@ -33,10 +39,11 @@ export default class NuBtnGroup extends NuRadioGroup {
     return {
       gap: '--nu-border-width * -1',
       radius: '1r',
+      focus: 'n',
     };
   }
 
-  static nuCSS({ tag }) {
+  static nuCSS({ css, tag }) {
     return `
       ${NuGroup.nuExtractCSS(this)}
 

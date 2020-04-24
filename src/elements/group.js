@@ -40,16 +40,21 @@ export default class NuGroup extends NuElement {
       display: 'flex',
       flow: 'row',
       gap: '0',
-      radius: '0',
+      radius: '',
+      border: '',
     };
   }
 
   static nuCSS({ tag, css }) {
     return `
       ${css}
+      ${tag} > *:not([grow]) {
+        flex-grow:1;
+      }
       ${tag} {
         --nu-item-radius: var(--nu-local-radius);
 
+        position: relative;
         border-radius: calc(var(--nu-local-radius, 0) + 1px) !important;
       }
       ${tag}:not([gap]) > :not(:last-child):not(:first-child) {
@@ -57,7 +62,6 @@ export default class NuGroup extends NuElement {
       }
       ${tag}:not([gap]) > :last-child:first-child {
         --nu-local-radius: inherit !important;
-      }
-    `;
+      }`;
   }
 }

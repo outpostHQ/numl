@@ -27,6 +27,7 @@ export { default as NuMenu } from './elements/menu';
 export { default as NuMenuItem } from './elements/menuitem';
 export { default as NuTriangle } from './elements/triangle';
 export { default as NuGroup } from './elements/group';
+export { default as NuInputGroup } from './elements/inputgroup';
 export { default as NuLabel } from './elements/label';
 export { default as NuMark } from './elements/mark';
 export { default as NuSpecial } from './elements/special';
