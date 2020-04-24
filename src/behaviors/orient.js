@@ -11,10 +11,11 @@ export default class OrientBehavior extends Behavior {
     const mods = value.split(/\s+/g);
 
     this.aria = !mods.includes('no-aria');
+    this.dynamic = mods.includes('dynamic');
 
     this.orient = mods.includes('v') ? 'v' : 'h';
 
-    if (mods.includes('dynamic')) {
+    if (this.dynamic) {
       $host.addEventListener('focusin', () => {
         const styles = getComputedStyle($host);
 

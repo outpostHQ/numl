@@ -37,7 +37,8 @@ export default class NuSlider extends NuElement {
 
   static get nuAttrs() {
     return {
-      disabled: '',
+      min: '',
+      max: '',
       orient(val) {
         const vertical = val === 'v';
 
