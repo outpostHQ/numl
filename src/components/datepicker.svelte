@@ -149,6 +149,7 @@ export let locale;
 export let begin;
 export let end;
 export let mode;
+export let host;
 
 const dispatch = createEventDispatcher();
 
@@ -189,6 +190,7 @@ let yearPopup;
 let monthPopup;
 let touched = false;
 
+$: host.setAttribute('type', mode === 'range' ? 'daterange' : 'date');
 $: navQuater = getQuarter(navDate);
 $: navMonthStartDate = navDate;
 $: navMonthEndDate = endOfMonth(navDate);

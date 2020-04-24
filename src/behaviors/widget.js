@@ -22,16 +22,12 @@ export default class WidgetBehavior extends Behavior {
   init() {
     const { $host } = this;
 
-    this.propsList = Object.keys(this.props);
+    this.propsList = Object.keys(this.props).reverse();
 
     for (let prop of this.propsList) {
       const value = $host.getAttribute(prop);
 
       this.fromAttr(prop, value);
-
-      if (value != null) {
-        this.changed(prop, value);
-      }
     }
   }
 
@@ -51,11 +47,13 @@ export default class WidgetBehavior extends Behavior {
     if (typeof defaults === 'function') {
       const val = defaults(value);
 
-      if (val !== undefined) {
+      if (val != null) {
         this[name] = defaults(value);
       }
-    } else {
-      this[name] = value != null ? value : defaults;
+    } else if (value != null || name in this) {
+      this[name] = value;
+    } else if (defaults != null) {
+      this[name] = defaults;
     }
   }
 
@@ -63,6 +61,7 @@ export default class WidgetBehavior extends Behavior {
    * Emit custom event.
    * @param {String} name
    * @param {*} detail
+   * @param {Object} options
    */
   emit(name, detail = null, options = {}) {
     if (name === 'input') {
@@ -87,7 +86,11 @@ export default class WidgetBehavior extends Behavior {
 
     switch (this.type || this.$host.constructor.nuType) {
       case 'int':
-        value = notNull ? parseInt(value, 10) : null;
+        if (value instanceof Date) {
+          value = value.getTime();
+        } else {
+          value = notNull ? parseInt(value, 10) : null;
+        }
 
         break;
       case 'float':

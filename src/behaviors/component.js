@@ -49,7 +49,7 @@ export default class ComponentBehavior extends LocalizedWidgetBehavior {
         }
 
         return data;
-      }, {});
+      }, { host: this.$host });
   }
 
   changed(name, value) {
