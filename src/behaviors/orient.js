@@ -16,7 +16,10 @@ export default class OrientBehavior extends Behavior {
 
     if (mods.includes('dynamic')) {
       $host.addEventListener('focusin', () => {
-        this.set(getComputedStyle($host).flexFlow.includes('column') ? 'v' : 'h');
+        const styles = getComputedStyle($host);
+
+        this.set(styles.flexFlow.includes('column')
+          || styles.getPropertyValue('--nu-orient') === 'v' ? 'v' : 'h');
       }, { passive: true });
     }
   }

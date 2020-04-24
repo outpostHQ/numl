@@ -43,12 +43,13 @@ export default class NuSlider extends NuElement {
 
         return combinedAttr([{
           width: vertical ? '.5em' : '100%',
-          height: vertical ? '100%' : '.5em',
+          height: vertical ? '10x' : '.5em',
           '--local-rail-move-h': vertical ? '.25em' : '0',
           '--local-rail-move-v': vertical ? '0' : '-.25em',
           '--local-rail-top': vertical ? 'initial' : '0',
           '--local-rail-left': vertical ? 'initial' : '--local-offset',
           '--local-rail-bottom': vertical ? '--local-offset' : 'initial',
+          '--orient': vertical ? 'v' : 'h',
         }], NuSlider);
       },
     };
@@ -73,6 +74,7 @@ export default class NuSlider extends NuElement {
 
   static get nuBehaviors() {
     return {
+      orient: 'dynamic',
       slider: true,
     };
   }
