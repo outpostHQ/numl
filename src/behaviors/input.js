@@ -1,6 +1,6 @@
-import WidgetBehavior from './widget';
+import LocalizedWidgetBehavior from './localized-widget';
 
-export default class InputBehavior extends WidgetBehavior {
+export default class InputBehavior extends LocalizedWidgetBehavior {
   init() {
     this.props.disabled = () => {
       return this.transferAttr('disabled', this.ref) != null;
@@ -23,15 +23,13 @@ export default class InputBehavior extends WidgetBehavior {
       input.addEventListener('input', (event) => {
         event.stopPropagation();
 
-        const value = input.value;
-
-        this.emit('input', value);
+        this.setValue(input.value);
       });
 
       input.addEventListener('change', (event) => {
         event.stopPropagation();
 
-        this.emit('change', this.ref.value);
+        this.emit('change', this.value);
       });
     }
 
@@ -58,5 +56,13 @@ export default class InputBehavior extends WidgetBehavior {
 
   setEmpty() {
     this.$host.nuSetMod('empty', !this.ref.value);
+  }
+
+  setValue(value, silent) {
+    this.value = value;
+
+    if (!silent) {
+      this.emit('input', this.value);
+    }
   }
 }

@@ -15,7 +15,7 @@ export default class NuMarkdown extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag} > pre, ${tag} > textarea {
+      ${tag} pre, ${tag} textarea {
         display: none;
       }
       ${tag} [nu-id="bold"]:not([text]) {
@@ -28,10 +28,6 @@ export default class NuMarkdown extends NuElement {
         padding-top: .5em;
       }
     `;
-  }
-
-  static nuShadowCSS() {
-    return this.nuCSS({ tag: '', css: '' });
   }
 
   static get nuBehaviors() {

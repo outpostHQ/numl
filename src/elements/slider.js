@@ -79,18 +79,19 @@ export default class NuSlider extends NuElement {
     };
   }
 
-  static nuCSS({ css, tag }) {
+  static nuCSS({ css, tag, shadow }) {
     return `
       ${css}
-      ${tag} {
+      ${!shadow ? `${tag} {
         position: relative;
+      }` : ''}
+
+      ${tag} nu-circle {
+        position: absolute;
+        top: var(--nu-local-rail-top);
+        left: var(--nu-local-rail-left);
+        bottom: var(--nu-local-rail-bottom);
       }
-
-      ${CIRCLE_CSS(tag)}
     `;
-  }
-
-  static nuShadowCSS() {
-    return CIRCLE_CSS();
   }
 }

@@ -71,6 +71,7 @@ export default class NuInput extends NuBlock {
         height: min-content;
         min-height: 100%;
         user-select: all;
+        text-align: inherit;
       }
 
       ${tag} input:-webkit-autofill, ${tag} input:-webkit-autofill:hover, ${tag} input:-webkit-autofill:focus {

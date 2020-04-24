@@ -1085,7 +1085,7 @@ export function numberFromString(num) {
 
   if (typeof num !== 'string') return null;
 
-  let value = Number(num.replace(/,/g, ''));
+  let value = Number(num);
 
   if (value !== value) return null;
 

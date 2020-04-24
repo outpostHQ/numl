@@ -24,6 +24,6 @@ export default class FormatterBehavior extends LocalizedWidgetBehavior {
       this.setLocale(this.lang);
     }
 
-    this.$host.innerHTML = this.constructor.formatter(this.value || Date(), this.locale, this);
+    this.$host.innerHTML = this.constructor.formatter(this.value, this.locale, this);
   }
 }

@@ -57,10 +57,6 @@ export default class NuCode extends NuElement {
     `;
   }
 
-  static nuShadowCSS() {
-    return this.nuCSS({ tag: '', css: '' });
-  }
-
   static get nuBehaviors() {
     return {
       code: true,

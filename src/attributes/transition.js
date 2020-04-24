@@ -20,7 +20,7 @@ const MAP = {
   z: ['z-index'],
 };
 
-const DEFAULT_TIMING = 'calc(var(--nu-transition-enabler) * var(--nu-transition-time))';
+export const DEFAULT_TIMING = 'calc(var(--nu-transition-enabler) * var(--nu-transition-time))';
 const DEFAULT_EASING = 'linear';
 
 const tmp = document.createElement('div').style;
