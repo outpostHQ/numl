@@ -29,7 +29,7 @@ export default class NuActiveElement extends NuElement {
       radius: '',
       text: 'nowrap',
       transition: 'theme, radius',
-      focusable: 'y',
+      focus: 'y',
       hoverable: 'n :focusable[y]',
       opacity: '1 :disabled[.5]',
       cursor: 'pointer :disabled[default]',

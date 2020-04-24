@@ -30,7 +30,7 @@ function partConfig(url) {
   };
 }
 
-export default [{
+export default {
   input: 'src/index.js',
   external: ['ms'],
   output: [{
@@ -50,13 +50,13 @@ export default [{
     svelte(),
     resolve(),
   ]
-},
-  partConfig('components/datepicker.svelte'),
-  partConfig('behaviors/markdown.js'),
-  partConfig('behaviors/datetime.js'),
-  partConfig('behaviors/number.js'),
-  partConfig('behaviors/fixate.js'),
-  partConfig('behaviors/popup.js'),
-  partConfig('behaviors/button.js'),
-  partConfig('behaviors/code.js'),
-];
+}
+  // partConfig('components/datepicker.svelte'),
+  // partConfig('behaviors/markdown.js'),
+  // partConfig('behaviors/datetime.js'),
+  // partConfig('behaviors/number.js'),
+  // partConfig('behaviors/fixate.js'),
+  // partConfig('behaviors/popup.js'),
+  // partConfig('behaviors/button.js'),
+  // partConfig('behaviors/code.js'),
+;

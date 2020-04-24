@@ -30,7 +30,7 @@ export default class NuSlider extends NuElement {
         move="--local-rail-move-v --local-rail-move-h"
         orient="h"
         opacity="1"
-        focusable="outside"></nu-circle>
+        focus="outside"></nu-circle>
     `;
   }
 
@@ -68,7 +68,7 @@ export default class NuSlider extends NuElement {
       transition: 'shadow',
       expand: '.5em',
       orient: 'h',
-      focusable: 'n',
+      focus: 'n',
     };
   }
 

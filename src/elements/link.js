@@ -17,7 +17,7 @@ export default class NuLink extends NuActiveElement {
       cursor: 'pointer',
       radius: '.5r',
       transition: 'shadow, fill, color',
-      focusable: 'y',
+      focus: 'y',
       hoverable: 'y',
     };
   }
