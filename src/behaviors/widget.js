@@ -155,10 +155,10 @@ export default class WidgetBehavior extends Behavior {
       .then(Control => Control.apply(!!bool, value));
   }
 
-  transferAttr(name, ref) {
+  transferAttr(name, ref, defaultValue) {
     if (!ref) return;
 
-    const value = this.$host.getAttribute(name);
+    const value = this.$host.getAttribute(name) ?? defaultValue;
 
     if (value != null) {
       ref.setAttribute(name, value);
