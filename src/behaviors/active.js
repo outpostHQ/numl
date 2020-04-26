@@ -6,21 +6,21 @@ import Behavior from "./behavior";
  * Should be bind to the element before call.
  */
 export default class ActiveBehavior extends Behavior {
-  constructor($host) {
-    super($host);
+  constructor(host) {
+    super(host);
 
-    $host.addEventListener('click', evt => {
-      $host.nuSetMod('active', false);
+    host.addEventListener('click', evt => {
+      host.nuSetMod('active', false);
 
-      if ($host.nuDisabled || evt.nuHandled) return;
+      if (host.nuDisabled || evt.nuHandled) return;
 
       evt.nuHandled = true;
 
       this.tap(evt);
     });
 
-    $host.addEventListener('keydown', evt => {
-      if ($host.nuDisabled || evt.nuHandled) return;
+    host.addEventListener('keydown', evt => {
+      if (host.nuDisabled || evt.nuHandled) return;
 
       evt.nuHandled = true;
 
@@ -29,16 +29,16 @@ export default class ActiveBehavior extends Behavior {
       } else if (evt.key === ' ') {
         evt.preventDefault();
 
-        if (!$host.nuDisabled && $host.nuHasMod('focusable')) {
-          $host.nuSetMod('active', true);
+        if (!host.nuDisabled && host.nuHasMod('focusable')) {
+          host.nuSetMod('active', true);
         }
       }
     });
 
-    $host.addEventListener('keyup', evt => {
-      $host.nuSetMod('active', false);
+    host.addEventListener('keyup', evt => {
+      host.nuSetMod('active', false);
 
-      if ($host.nuDisabled || evt.nuHandled) return;
+      if (host.nuDisabled || evt.nuHandled) return;
 
       evt.nuHandled = true;
 
@@ -48,19 +48,19 @@ export default class ActiveBehavior extends Behavior {
       }
     });
 
-    $host.addEventListener('blur', () => $host.nuSetMod('active', false));
+    host.addEventListener('blur', () => host.nuSetMod('active', false));
 
     ['mousedown', 'touchstart'].forEach(eventName => {
-      $host.addEventListener(eventName, () => {
-        if (!$host.nuDisabled && $host.nuHasMod('focusable')) {
-          $host.nuSetMod('active', true);
+      host.addEventListener(eventName, () => {
+        if (!host.nuDisabled && host.nuHasMod('focusable')) {
+          host.nuSetMod('active', true);
         }
       }, { passive: true });
     });
 
     ['mouseleave', 'mouseup', 'touchend'].forEach(eventName => {
-      $host.addEventListener(eventName, () => {
-        $host.nuSetMod('active', false);
+      host.addEventListener(eventName, () => {
+        host.nuSetMod('active', false);
       });
     }, { passive: true });
   }

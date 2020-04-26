@@ -5,15 +5,15 @@ const CONTROL_REGEXP = /([a-z][a-z0-9-]+)([\s]|$|\[([a-z-]+)(\]|=([^\]]+)\]))/g;
 export const CONTROL_ATTR = 'controls';
 
 export default class ControlBehavior {
-  constructor($host) {
-    this.$host = $host;
+  constructor(host) {
+    this.host = host;
 
     this.apply = asyncDebounce(this.apply, this);
   }
 
   apply(bool, applyValue) {
-    const { $host } = this;
-    const value = $host.getAttribute(CONTROL_ATTR);
+    const { host } = this;
+    const value = host.getAttribute(CONTROL_ATTR);
 
     if (!value) return;
 
@@ -25,7 +25,7 @@ export default class ControlBehavior {
       let [s, id, s1, attr, s2, val] = token;
 
       // find controlled node
-      const element = $host.nuQueryById(id);
+      const element = host.nuQueryById(id);
 
       if (!element) continue;
 
@@ -48,7 +48,7 @@ export default class ControlBehavior {
           if (val.startsWith('@')) {
             vl = vl.slice(1);
 
-            return vl === 'value' ? applyValue : $host.nuGetVar(vl);
+            return vl === 'value' ? applyValue : host.nuGetVar(vl);
           }
 
           return vl;
@@ -68,9 +68,9 @@ export default class ControlBehavior {
     }
 
     if (elements.length) {
-      $host.nuSetAria('controls', elements.map(el => el.nuUniqId));
+      host.nuSetAria('controls', elements.map(el => el.nuUniqId));
     } else {
-      $host.nuSetAria('controls', null);
+      host.nuSetAria('controls', null);
     }
   }
 }

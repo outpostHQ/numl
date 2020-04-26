@@ -7,8 +7,8 @@ import Behavior from "./behavior";
 export const DISABLED_ATTR = 'disabled';
 
 export default class FocusableBehavior extends Behavior {
-  constructor($host) {
-    super($host);
+  constructor(host) {
+    super(host);
 
     const ref = this.$ref;
 
@@ -26,7 +26,7 @@ export default class FocusableBehavior extends Behavior {
   }
 
   init() {
-    this.set(this.$host.getAttribute(DISABLED_ATTR) == null);
+    this.set(this.host.getAttribute(DISABLED_ATTR) == null);
   }
 
   changed(name, value) {
@@ -36,8 +36,8 @@ export default class FocusableBehavior extends Behavior {
   }
 
   setEffect(bool) {
-    this.$host.nuSetMod('focus', bool);
-    this.$host.nuSetContext('focus', bool || null);
+    this.host.nuSetMod('focus', bool);
+    this.host.nuSetContext('focus', bool || null);
   }
 
   set(bool) {
@@ -48,6 +48,6 @@ export default class FocusableBehavior extends Behavior {
       this.$ref.setAttribute('tabindex', '-1');
     }
 
-    this.$host.nuSetMod('focusable', bool || null);
+    this.host.nuSetMod('focusable', bool || null);
   }
 }

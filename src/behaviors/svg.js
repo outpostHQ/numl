@@ -4,7 +4,7 @@ import Svg from '../svg';
 
 export default class SvgBehavior extends Behavior {
   connected() {
-    const src = this.$host.getAttribute('src');
+    const src = this.host.getAttribute('src');
 
     if (src) {
       this.inject(src);
@@ -20,7 +20,7 @@ export default class SvgBehavior extends Behavior {
   }
 
   inject(src) {
-    const { $host } = this;
+    const { host } = this;
 
     if (!src || !src.trim()) return;
 
@@ -36,8 +36,8 @@ export default class SvgBehavior extends Behavior {
         }
       }
 
-      $host.innerHTML = '';
-      $host.appendChild(svgNode);
+      host.innerHTML = '';
+      host.appendChild(svgNode);
     }).catch(() => {
       error('svg not loaded:', name);
 

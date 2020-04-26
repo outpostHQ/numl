@@ -1,7 +1,7 @@
 export default class Behavior {
-  constructor($host) {
-    this.$host = $host;
-    this.$ref = $host.nuRef || $host;
+  constructor(host) {
+    this.host = host;
+    this.$ref = host.nuRef || host;
   }
 
   /**
@@ -10,11 +10,11 @@ export default class Behavior {
    * @returns {undefined|Promise<Behavior>}
    */
   nu(name) {
-    return this.$host.nu(name);
+    return this.host.nu(name);
   }
 
   has(name) {
-    return !!this.$host.nuBehaviors[name];
+    return !!this.host.nuBehaviors[name];
   }
 
   /**
@@ -23,15 +23,15 @@ export default class Behavior {
    */
   require(...behaviors) {
     behaviors.forEach(name => {
-      this.$host.nu(name);
+      this.host.nu(name);
     });
   }
 
   get context() {
-    return this.$host.nuContext;
+    return this.host.nuContext;
   }
 
   get isConnected() {
-    return this.$host.nuIsConnected;
+    return this.host.nuIsConnected;
   }
 }

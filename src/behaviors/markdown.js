@@ -7,8 +7,8 @@ export default class MarkdownBehavior extends ConverterBehavior {
     return markdownConverter;
   }
 
-  constructor($host, value = '') {
-    super($host);
+  constructor(host, value = '') {
+    super(host);
 
     const mods = value.split(/\s+/g);
 
@@ -34,7 +34,7 @@ export default class MarkdownBehavior extends ConverterBehavior {
   apply(container, content, converter) {
     if (!converter) return;
 
-    container.setAttribute('gap', this.$host.getAttribute('gap') || '2x');
+    container.setAttribute('gap', this.host.getAttribute('gap') || '2x');
 
     container.innerHTML = converter(
       content,

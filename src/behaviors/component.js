@@ -3,8 +3,8 @@ import LocalizedWidgetBehavior from './localized-widget';
 import Components from '../components/index';
 
 export default class ComponentBehavior extends LocalizedWidgetBehavior {
-  constructor($host, value) {
-    super($host, value);
+  constructor(host, value) {
+    super(host, value);
 
     const loader = Components[value];
 
@@ -16,15 +16,15 @@ export default class ComponentBehavior extends LocalizedWidgetBehavior {
   init() {
     super.init();
 
-    const { $host } = this;
+    const { host } = this;
 
-    if (!$host.hasAttribute('type')) {
-      $host.setAttribute('type', 'date');
+    if (!host.hasAttribute('type')) {
+      host.setAttribute('type', 'date');
     }
 
     this.componentPromise
       .then(Component => {
-        const target = this.context.useShadow ? $host.attachShadow({ mode: 'open' }) : this;
+        const target = this.context.useShadow ? host.attachShadow({ mode: 'open' }) : this;
 
         this.Component = Component;
 
@@ -34,7 +34,7 @@ export default class ComponentBehavior extends LocalizedWidgetBehavior {
         });
 
         this.component.$on('input', (event) => {
-          $host.nuEmitInput(event.detail);
+          host.nuEmitInput(event.detail);
         });
       });
   }
@@ -49,7 +49,7 @@ export default class ComponentBehavior extends LocalizedWidgetBehavior {
         }
 
         return data;
-      }, { host: this.$host });
+      }, { host: this.host });
   }
 
   changed(name, value) {

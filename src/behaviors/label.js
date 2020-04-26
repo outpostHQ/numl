@@ -2,8 +2,8 @@ import Behavior from './behavior';
 
 export default class LabelBehavior extends Behavior {
   init() {
-    this.$host.addEventListener('click', () => {
-      const id = this.$host.id;
+    this.host.addEventListener('click', () => {
+      const id = this.host.id;
 
       if (!id) return;
 

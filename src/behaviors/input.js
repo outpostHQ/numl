@@ -10,14 +10,14 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
 
     super.init();
 
-    const { $host } = this;
+    const { host } = this;
 
-    this.ref = $host.querySelector('input');
+    this.ref = host.querySelector('input');
 
     if (!this.ref) {
       const input = h('input');
 
-      $host.appendChild(input);
+      host.appendChild(input);
 
       this.ref = input;
 
@@ -40,23 +40,23 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
       this.setEmpty();
     });
 
-    $host.nuRef = this.ref;
+    host.nuRef = this.ref;
 
-    if ($host.hasAttribute('label')) {
-      $host.nuChanged('label', null);
-      $host.removeAttribute('aria-label');
+    if (host.hasAttribute('label')) {
+      host.nuChanged('label', null);
+      host.removeAttribute('aria-label');
     }
 
-    if ($host.hasAttribute('labelledby')) {
-      $host.nuChanged('label', null);
-      $host.removeAttribute('aria-labelledby');
+    if (host.hasAttribute('labelledby')) {
+      host.nuChanged('label', null);
+      host.removeAttribute('aria-labelledby');
     }
 
     return this.nuRef;
   }
 
   setEmpty() {
-    this.$host.nuSetMod('empty', !this.ref.value);
+    this.host.nuSetMod('empty', !this.ref.value);
   }
 
   setValue(value, silent) {

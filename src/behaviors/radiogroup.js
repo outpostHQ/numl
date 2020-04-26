@@ -1,8 +1,8 @@
 import WidgetBehavior from "./widget";
 
 export default class RadioGroupBehavior extends WidgetBehavior {
-  constructor($host, value) {
-    super($host, value);
+  constructor(host, value) {
+    super(host, value);
 
     this.itemRole = value || 'radio';
   }
@@ -21,13 +21,13 @@ export default class RadioGroupBehavior extends WidgetBehavior {
   }
 
   connected() {
-    const { $host } = this;
+    const { host } = this;
 
-    $host.nuSetContext('radiogroup', this, true);
+    host.nuSetContext('radiogroup', this, true);
   }
 
   set(value, silent) {
-    const { $host } = this;
+    const { host } = this;
 
     if (this.value === value) return;
 
@@ -37,10 +37,10 @@ export default class RadioGroupBehavior extends WidgetBehavior {
       this.emit('input', value);
     }
 
-    $host.nuSetContext('radiogroup', this, true);
+    host.nuSetContext('radiogroup', this, true);
 
     if (this.nuIsConnected) {
-      $host.nu('control')
+      host.nu('control')
         .then(Control => Control.apply(true, value));
     }
   }

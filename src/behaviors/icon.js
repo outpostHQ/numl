@@ -4,7 +4,7 @@ import Icons from '../icons';
 
 export default class IconBehavior extends Behavior {
   connected() {
-    this.$host.nuSetAria('hidden', true);
+    this.host.nuSetAria('hidden', true);
 
     this.apply();
   }
@@ -18,9 +18,9 @@ export default class IconBehavior extends Behavior {
   }
 
   apply() {
-    const { $host } = this;
+    const { host } = this;
 
-    const value = this.$host.nuGetAttr('name');
+    const value = this.host.nuGetAttr('name');
 
     // empty tag
     this.innerHTML = '';
@@ -30,7 +30,7 @@ export default class IconBehavior extends Behavior {
     const names = parseAllValues(value);
 
     names.forEach(name => {
-      if ($host.querySelector(`svg[name="${name}"]`)) return;
+      if (host.querySelector(`svg[name="${name}"]`)) return;
 
       Icons.load(name).then(svg => {
         if (!svg) return;
@@ -40,7 +40,7 @@ export default class IconBehavior extends Behavior {
         svgNode.setAttribute('name', name);
         svgNode.style.opacity = '0';
 
-        $host.appendChild(svgNode);
+        host.appendChild(svgNode);
       }).catch(() => {
         error('icon not found:', name);
 

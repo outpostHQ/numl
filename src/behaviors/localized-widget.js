@@ -13,15 +13,15 @@ export default class LocalizedWidgetBehavior extends WidgetBehavior {
 
     super.init();
 
-    const { $host } = this;
+    const { host } = this;
 
-    $host.nuSetContextHook(LOCALE_VAR, (contextLocale) => {
-      if (this.locale !== contextLocale.value && !$host.hasAttribute('lang')) {
+    host.nuSetContextHook(LOCALE_VAR, (contextLocale) => {
+      if (this.locale !== contextLocale.value && !host.hasAttribute('lang')) {
         this.apply();
       }
     });
 
-    $host.nuSetMod(VAR_MOD, true);
+    host.nuSetMod(VAR_MOD, true);
   }
 
   connected() {
