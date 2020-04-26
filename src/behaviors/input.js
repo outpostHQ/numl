@@ -2,6 +2,10 @@ import LocalizedWidgetBehavior from './localized-widget';
 import { h } from '../helpers';
 
 export default class InputBehavior extends LocalizedWidgetBehavior {
+  static get tag() {
+    return 'input';
+  }
+
   init() {
     this.props.disabled = () => {
       return this.transferAttr('disabled', this.ref) != null;
@@ -12,10 +16,12 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
 
     const { host } = this;
 
-    this.ref = host.querySelector('input');
+    const tag = this.constructor.tag;
+
+    this.ref = host.querySelector(tag);
 
     if (!this.ref) {
-      const input = h('input');
+      const input = h(tag);
 
       host.appendChild(input);
 

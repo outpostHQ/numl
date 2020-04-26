@@ -55,6 +55,7 @@ export { default as NuTooltip } from './elements/tooltip';
 export { default as NuPopup } from './elements/popup';
 export { default as NuPopupMenu } from './elements/popupmenu';
 export { default as NuDatePicker } from './elements/datepicker';
+export { default as NuTextArea } from './elements/textarea';
 
 /* Decorators */
 export { default as NuTheme } from './decorators/theme';

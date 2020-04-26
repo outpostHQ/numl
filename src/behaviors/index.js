@@ -26,6 +26,7 @@ export const BEHAVIORS = {
   slider: () => extract(import('./slider.js')),
   input: () => extract(import('./input.js')),
   numinput: () => extract(import('./numinput.js')),
+  textarea: () => extract(import('./textarea.js')),
   icon: () => extract(import('./icon.js')),
   svg: () => extract(import('./svg.js')),
   image: () => extract(import('./image.js')),
