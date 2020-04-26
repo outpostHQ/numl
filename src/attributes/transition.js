@@ -1,4 +1,4 @@
-import { devMode, parseAttr, toCamelCase, warn } from '../helpers';
+import { devMode, h, parseAttr, toCamelCase, warn } from '../helpers';
 
 const MAP = {
   move: ['transform'],
@@ -23,7 +23,7 @@ const MAP = {
 export const DEFAULT_TIMING = 'calc(var(--nu-transition-enabler) * var(--nu-transition-time))';
 const DEFAULT_EASING = 'linear';
 
-const tmp = document.createElement('div').style;
+const tmp = h('div').style;
 
 function isStyle(style) {
   return toCamelCase(style) in tmp;

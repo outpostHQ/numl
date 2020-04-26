@@ -1,5 +1,6 @@
 import WidgetBehavior, { BOOL_TYPE } from "./widget";
 import Routing from '../routing';
+import { h } from '../helpers';
 
 export default class ButtonBehavior extends WidgetBehavior {
   init() {
@@ -152,7 +153,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     }
 
     if (!this.$link) {
-      $link = document.createElement('a');
+      $link = h('a');
 
       $link.href = this.href;
       $link.target = this.newTab ? '_blank' : '_self';

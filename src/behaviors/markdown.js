@@ -1,5 +1,6 @@
 import ConverterBehavior from './converter';
 import markdownConverter from '../converters/markdown';
+import { h } from '../helpers';
 
 export default class MarkdownBehavior extends ConverterBehavior {
   static get converter() {
@@ -42,7 +43,7 @@ export default class MarkdownBehavior extends ConverterBehavior {
   }
 
   createContainer() {
-    return document.createElement(this.inline ? 'nu-el' : 'nu-flow');
+    return h(this.inline ? 'nu-el' : 'nu-flow');
   }
 
   prepareContent(str) {

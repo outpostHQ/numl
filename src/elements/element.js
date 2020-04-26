@@ -1,7 +1,7 @@
 import {
   generateId,
   setImmediate,
-  parseAllValues,
+  parseAllValues, h,
 } from '../helpers';
 import NuBase from './base';
 import BaseAttributes from '../attributes/base';
@@ -157,7 +157,7 @@ export default class NuElement extends NuBase {
         labels.forEach(label => {
           if (this.querySelector(`nu-el[name="${label}"]`)) return;
 
-          const el = document.createElement('nu-el');
+          const el = h('nu-el');
 
           el.setAttribute('name', label);
           el.style.display = 'none';
