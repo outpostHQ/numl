@@ -7,6 +7,8 @@ import * as helpers from './helpers';
 import * as color from './color';
 import * as themes from './themes';
 import * as css from './css';
+import icons from './icons';
+import routing from './routing';
 import themeAttr from './attributes/theme';
 import { initFocus } from './focus';
 import { scheme, contrast, reduceMotion } from './settings';
@@ -42,6 +44,8 @@ const Nude = {
   contrast,
   reduceMotion,
   CONTEXT,
+  routing,
+  icons,
 };
 
 const verifyDOM = helpers.asyncDebounce(() => {
@@ -115,6 +119,8 @@ Nude.getElementsById = function (id) {
 
 Nude.elements = ELEMENTS;
 
+window.Nude = Nude;
+
 const rootEls = document.querySelectorAll('nu-root');
 
 rootEls.forEach(el => {
@@ -139,8 +145,6 @@ if (styleEl) {
   styleEl.parentNode.removeChild(styleEl);
 }
 
-window.Nude = Nude;
-
 export default Nude;
 
 export {
@@ -153,7 +157,7 @@ export {
   Nude,
   NuBase,
   NuActiveElement,
-  ELEMENTS,
+  ELEMENTS as elements,
   scheme,
   contrast,
   reduceMotion,
@@ -161,4 +165,6 @@ export {
   themes,
   css,
   color,
+  routing,
+  icons,
 };

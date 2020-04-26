@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "date-fns": "^2.11.1",
+    "feather-icons": "^4.28.0",
     "src": "^1.1.2",
     "svelte": "^3.20.1"
   },
