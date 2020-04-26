@@ -615,6 +615,9 @@ export default class NuBase extends HTMLElement {
 
     this.nuBehaviorCall('connected');
 
+    this.nuFirstConnect = false;
+    this.nuIsConnectionComplete = true;
+
     const behaviorList = this.constructor.nuBehaviorList;
 
     if (behaviorList.length) {
@@ -622,9 +625,6 @@ export default class NuBase extends HTMLElement {
         this.nu(name);
       }
     }
-
-    this.nuFirstConnect = false;
-    this.nuIsConnectionComplete = true;
   }
 
   /**

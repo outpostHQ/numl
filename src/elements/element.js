@@ -26,6 +26,7 @@ export default class NuElement extends NuBase {
   static get nuAttrs() {
     return {
       ...BaseAttributes,
+      role: '',
       direction: '',
       controls: '',
       label: '',
@@ -57,7 +58,6 @@ export default class NuElement extends NuBase {
       type: '',
       precision: '',
       disabled: '',
-      role: '',
       value: '',
       scrollto: '',
       action: '',

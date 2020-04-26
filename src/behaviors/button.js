@@ -1,4 +1,4 @@
-import WidgetBehavior, { BOOL_TYPE } from "./widget";
+import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
 import { h } from '../helpers';
 
@@ -7,10 +7,12 @@ export default class ButtonBehavior extends WidgetBehavior {
     // require mixins
     this.require('active', 'focusable');
 
+    const pressedAttr = ALIAS_ATTR(this.host, 'pressed');
+
     this.props.to = null;
     this.props.pressed = (bool) => this.set(bool != null);
-    this.props.checked = BOOL_TYPE;
-    this.props.selected = BOOL_TYPE;
+    this.props.checked = pressedAttr;
+    this.props.selected = pressedAttr;
     this.props.value = (val) => {
       this.setValue(val, true);
     }
@@ -43,7 +45,7 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     if (this.role === 'button') {
       if (this.to) {
-        this.setRole('link');
+        this.role = 'link';
       }
     }
 
@@ -60,18 +62,7 @@ export default class ButtonBehavior extends WidgetBehavior {
   changed(name, value) {
     super.changed(name, value);
 
-    const { host } = this;
-
     switch (name) {
-      case 'selected':
-      case 'checked':
-        if (value != null) {
-          host.setAttribute('pressed', '');
-        } else {
-          host.removeAttribute('pressed');
-        }
-
-        break;
       case 'to':
         if (value && value.length) {
           this.newTab = value.startsWith('!');
@@ -101,7 +92,7 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     if (!radioGroup) return;
 
-    this.setRole(radioGroup.itemRole);
+    this.role = radioGroup.itemRole;
 
     if (this.value == null) {
       if (!radioGroup.counter) radioGroup.counter = 0;
@@ -126,7 +117,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.popup = popup;
     host.nuSetAria('haspopup', true);
     host.nuSetAria('expanded', this.pressed || false);
-    this.setRole('button');
+    this.role = 'button';
   }
 
   unlinkPopup() {
@@ -135,7 +126,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     delete this.popup;
     host.nuSetAria('haspopup', null);
     host.nuSetAria('expanded', null);
-    this.setRole(this.host.constructor.nuRole);
+    this.role = this.host.constructor.nuRole;
   }
 
   createLink() {
