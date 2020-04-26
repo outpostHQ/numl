@@ -7,6 +7,12 @@ export default class NuImg extends NuBlock {
     return 'nu-img';
   }
 
+  static get nuBehaviors() {
+    return {
+      image: true,
+    };
+  }
+
   static get nuRole() {
     return 'img';
   }
@@ -67,47 +73,5 @@ export default class NuImg extends NuBlock {
         display: block;
       }
     `;
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
-    if (name === 'src') {
-      if (this.querySelector('img')) {
-        this.innerHTML = '';
-      }
-
-      value = this.nuGetAttr('src', true);
-
-      if (!value || !value.trim()) return;
-
-      const img = document.createElement('img');
-
-      img.role = 'none';
-      img.src = value;
-      img.alt = this.getAttribute('label') || 'Image';
-
-      this.appendChild(img);
-
-      img.onerror = () => {
-        this.removeChild(img);
-
-        const icon = document.createElement('nu-icon');
-
-        icon.setAttribute('name', 'image');
-
-        if (this.hasAttribute('label')) {
-          icon.setAttribute('label', this.getAttribute('label'));
-        }
-
-        this.appendChild(icon);
-
-        warn('image not found', value);
-      };
-    }
-  }
-
-  nuConnected() {
-    super.nuConnected();
   }
 }

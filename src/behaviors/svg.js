@@ -39,7 +39,7 @@ export default class SvgBehavior extends Behavior {
       $host.innerHTML = '';
       $host.appendChild(svgNode);
     }).catch(() => {
-      error('svg not found:', name);
+      error('svg not loaded:', name);
 
       return '';
     });

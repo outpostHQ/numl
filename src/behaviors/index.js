@@ -28,6 +28,7 @@ export const BEHAVIORS = {
   numinput: () => extract(import('./numinput.js')),
   icon: () => extract(import('./icon.js')),
   svg: () => extract(import('./svg.js')),
+  image: () => extract(import('./image.js')),
 };
 
 export function hasBehavior(el, name) {
