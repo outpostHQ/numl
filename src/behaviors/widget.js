@@ -2,6 +2,17 @@ import Behavior from "./behavior";
 import { log } from '../helpers';
 
 export const BOOL_TYPE = (val) => val != null;
+export const ALIAS_ATTR = (el, name) => {
+  return (val) => {
+    if (el.hasAttribute(name)) return;
+
+    if (val != null) {
+      el.setAttribute(name, val);
+    } else {
+      el.removeAttribute(name);
+    }
+  }
+};
 
 export default class WidgetBehavior extends Behavior {
   constructor(host, options) {
@@ -17,6 +28,8 @@ export default class WidgetBehavior extends Behavior {
       type: 'text',
       disabled: BOOL_TYPE,
     });
+
+    delete this.props.role;
   }
 
   init() {
@@ -48,7 +61,7 @@ export default class WidgetBehavior extends Behavior {
       const val = defaults(value);
 
       if (val != null) {
-        this[name] = defaults(value);
+        this[name] = val;
       }
     } else if (value != null || name in this) {
       this[name] = value;
@@ -146,8 +159,12 @@ export default class WidgetBehavior extends Behavior {
     return value;
   }
 
-  setRole(role) {
+  set role(role) {
     this.host.setAttribute('role', role);
+  }
+
+  get role() {
+    return this.host.getAttribute('role');
   }
 
   control(bool, value) {
