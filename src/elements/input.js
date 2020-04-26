@@ -51,7 +51,7 @@ export default class NuInput extends NuBlock {
         position: relative;
       }
 
-      ${tag} input {
+      ${tag} input, ${tag} textarea {
         padding: var(--nu-local-padding);
         width: 100%;
         max-width: 100%;
@@ -72,6 +72,7 @@ export default class NuInput extends NuBlock {
         min-height: 100%;
         user-select: all;
         text-align: inherit;
+        resize: none;
       }
 
       ${tag} input:-webkit-autofill, ${tag} input:-webkit-autofill:hover, ${tag} input:-webkit-autofill:focus {
