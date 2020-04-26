@@ -5,8 +5,8 @@ export const VERTICAL = 'vertical';
 export const HORIZONTAL = 'horizontal';
 
 export default class OrientBehavior extends Behavior {
-  constructor($host, value = '') {
-    super($host);
+  constructor(host, value = '') {
+    super(host);
 
     const mods = value.split(/\s+/g);
 
@@ -16,8 +16,8 @@ export default class OrientBehavior extends Behavior {
     this.orient = mods.includes('v') ? 'v' : 'h';
 
     if (this.dynamic) {
-      $host.addEventListener('focusin', () => {
-        const styles = getComputedStyle($host);
+      host.addEventListener('focusin', () => {
+        const styles = getComputedStyle(host);
 
         this.set(styles.flexFlow.includes('column')
           || styles.getPropertyValue('--nu-orient') === 'v' ? 'v' : 'h');
@@ -26,17 +26,17 @@ export default class OrientBehavior extends Behavior {
   }
 
   set(val) {
-    const { $host } = this;
+    const { host } = this;
 
     if (val == null) {
-      const attrValue = $host.nuGetAttr(ORIENT_ATTR, true);
+      const attrValue = host.nuGetAttr(ORIENT_ATTR, true);
       val = attrValue != null ? attrValue : 'h';
     }
 
     const orientation = val === 'v' ? VERTICAL : HORIZONTAL;
 
-    $host.nuSetAria('orientation', orientation);
-    $host.nuSetContext('orientation', orientation);
+    host.nuSetAria('orientation', orientation);
+    host.nuSetContext('orientation', orientation);
 
     this.orient = orientation;
   }

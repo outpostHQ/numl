@@ -61,6 +61,6 @@ export default class NumInputBehavior extends InputBehavior {
   }
 
   declareProps() {
-    this.$host.style.setProperty('--nu-value', `"${NumberFormat(this.value, this.locale, this)}"`);
+    this.host.style.setProperty('--nu-value', `"${NumberFormat(this.value, this.locale, this)}"`);
   }
 }

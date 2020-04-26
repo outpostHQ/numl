@@ -6,8 +6,8 @@ export default class DateTimeBehavior extends FormatterBehavior {
     return DateTimeFormatter;
   }
 
-  constructor($host, value) {
-    super($host, value);
+  constructor(host, value) {
+    super(host, value);
 
     this.intervalId = null;
   }

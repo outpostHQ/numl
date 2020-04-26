@@ -9,23 +9,23 @@ export default class PopupBehavior extends WidgetBehavior {
   init() {
     super.init();
 
-    const { $host } = this;
+    const { host } = this;
 
-    if (!$host.hasAttribute('theme')) {
-      $host.setAttribute('theme', 'main');
+    if (!host.hasAttribute('theme')) {
+      host.setAttribute('theme', 'main');
     }
 
-    $host.nuSetMod('popup', true);
+    host.nuSetMod('popup', true);
 
-    $host.addEventListener('mousedown', (event) => {
+    host.addEventListener('mousedown', (event) => {
       event.stopPropagation();
     });
 
-    $host.addEventListener('click', (event) => {
+    host.addEventListener('click', (event) => {
       event.stopPropagation();
     });
 
-    $host.addEventListener('keydown', (event) => {
+    host.addEventListener('keydown', (event) => {
       const { button } = this;
 
       if (event.key === 'Escape') {
@@ -41,53 +41,53 @@ export default class PopupBehavior extends WidgetBehavior {
       }
     });
 
-    $host.addEventListener('mouseenter', () => {
+    host.addEventListener('mouseenter', () => {
       if (!this.button) return;
 
-      this.button.$host.style.setProperty('--nu-local-hover-color', 'transparent');
+      this.button.host.style.setProperty('--nu-local-hover-color', 'transparent');
     });
 
-    $host.addEventListener('mouseleave', () => {
+    host.addEventListener('mouseleave', () => {
       if (!this.button) return;
 
-      this.button.$host.style.removeProperty('--nu-local-hover-color');
+      this.button.host.style.removeProperty('--nu-local-hover-color');
     });
 
-    $host.nuSetContext('submit', (detail) => {
+    host.nuSetContext('submit', (detail) => {
       this.emit('input', detail);
       this.button.set(false);
     });
   }
 
   connected() {
-    const { $host } = this;
+    const { host } = this;
 
-    const shadowRoot = $host.nuContext.$shadowRoot;
+    const shadowRoot = host.nuContext.$shadowRoot;
 
     if (shadowRoot) {
       bindGlobalEvents(shadowRoot);
     }
 
-    $host.nuSetContext('popup', this);
-    $host.nuSetContextHook('button', () => this.linkButton());
+    host.nuSetContext('popup', this);
+    host.nuSetContextHook('button', () => this.linkButton());
 
     this.linkButton();
 
-    if (!$host.hasAttribute(PLACE_ATTR)
-      && !$host.hasAttribute(FIXATE_ATTR)
-      && $host.nuParentContext.popup) {
-      $host.setAttribute(PLACE_ATTR, 'outside-right top');
+    if (!host.hasAttribute(PLACE_ATTR)
+      && !host.hasAttribute(FIXATE_ATTR)
+      && host.nuParentContext.popup) {
+      host.setAttribute(PLACE_ATTR, 'outside-right top');
     }
 
     this.close();
 
-    POPUPS.add($host);
+    POPUPS.add(host);
   }
 
   linkButton() {
-    const { $host } = this;
+    const { host } = this;
 
-    const button = this.button = $host.nuContext.button;
+    const button = this.button = host.nuContext.button;
 
     if (button) {
       button.linkPopup(this);
@@ -100,58 +100,58 @@ export default class PopupBehavior extends WidgetBehavior {
 
     delete this.button;
 
-    POPUPS.remove($host);
+    POPUPS.remove(host);
   }
 
   open() {
-    const { $host } = this;
+    const { host } = this;
 
-    if (!$host.hidden) return;
+    if (!host.hidden) return;
 
-    $host.nu('fixate')
+    host.nu('fixate')
       .then(Fixate => Fixate.start());
 
-    $host.hidden = false;
+    host.hidden = false;
 
     if (this.button) {
-      this.button.$host.nuSetAria('expanded', true);
+      this.button.host.nuSetAria('expanded', true);
     }
 
     // Select first focusable element
-    const activeElement = $host.nuDeepQuery('input, [tabindex]:not([tabindex="-1"]):not([disabled])');
+    const activeElement = host.nuDeepQuery('input, [tabindex]:not([tabindex="-1"]):not([disabled])');
 
-    fixPosition($host);
+    fixPosition(host);
 
     if (activeElement) activeElement.focus();
 
     this.emit('open', null);
     this.emit('toggle', null);
 
-    resetScroll($host, true);
+    resetScroll(host, true);
   }
 
   close() {
-    const { $host } = this;
+    const { host } = this;
 
-    if ($host.hidden) return;
+    if (host.hidden) return;
 
-    $host.nu('fixate')
+    host.nu('fixate')
       .then(Fixate => Fixate.end());
 
-    $host.hidden = true;
+    host.hidden = true;
 
     if (this.button) {
       this.button.set(false);
     }
 
-    $host.style.removeProperty('--nu-transform');
+    host.style.removeProperty('--nu-transform');
 
     this.emit('close', null);
     this.emit('toggle', null);
 
-    resetScroll($host, true);
+    resetScroll(host, true);
 
-    const childPopup = $host.nuDeepQuery('[nu-popup]');
+    const childPopup = host.nuDeepQuery('[nu-popup]');
 
     if (childPopup) {
       childPopup.nu('popup').then(Popup => Popup.close());
@@ -167,7 +167,7 @@ function findParentPopup(element, current) {
       const behaviors = element.nuBehaviors;
 
       if (behaviors && behaviors.button && behaviors.button.popup) {
-        const popupEl = behaviors.button.popup.$host;
+        const popupEl = behaviors.button.popup.host;
 
         if (popupEl) {
           elements.push(popupEl);

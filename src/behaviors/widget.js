@@ -4,10 +4,10 @@ import { log } from '../helpers';
 export const BOOL_TYPE = (val) => val != null;
 
 export default class WidgetBehavior extends Behavior {
-  constructor($host, options) {
-    super($host, options);
+  constructor(host, options) {
+    super(host, options);
 
-    this.props = $host.constructor.nuPropsList.reduce((props, name) => {
+    this.props = host.constructor.nuPropsList.reduce((props, name) => {
       props[name] = null;
 
       return props;
@@ -20,12 +20,12 @@ export default class WidgetBehavior extends Behavior {
   }
 
   init() {
-    const { $host } = this;
+    const { host } = this;
 
     this.propsList = Object.keys(this.props).reverse();
 
     for (let prop of this.propsList) {
-      const value = $host.getAttribute(prop);
+      const value = host.getAttribute(prop);
 
       this.fromAttr(prop, value);
     }
@@ -76,15 +76,15 @@ export default class WidgetBehavior extends Behavior {
       ...options,
     });
 
-    event.nuTarget = this.$host;
+    event.nuTarget = this.host;
 
-    this.$host.dispatchEvent(event);
+    this.host.dispatchEvent(event);
   }
 
   getInputValue(value) {
     const notNull = value != null;
 
-    switch (this.type || this.$host.constructor.nuType) {
+    switch (this.type || this.host.constructor.nuType) {
       case 'int':
         if (value instanceof Date) {
           value = value.getTime();
@@ -147,7 +147,7 @@ export default class WidgetBehavior extends Behavior {
   }
 
   setRole(role) {
-    this.$host.setAttribute('role', role);
+    this.host.setAttribute('role', role);
   }
 
   control(bool, value) {
@@ -158,7 +158,7 @@ export default class WidgetBehavior extends Behavior {
   transferAttr(name, ref, defaultValue) {
     if (!ref) return;
 
-    let value = this.$host.getAttribute(name);
+    let value = this.host.getAttribute(name);
 
     value = value != null ? value : defaultValue;
 

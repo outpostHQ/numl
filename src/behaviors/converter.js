@@ -5,8 +5,8 @@ import WidgetBehavior from './widget';
 export default class ConverterBehavior extends WidgetBehavior {
   static get converter() {}
 
-  constructor($host) {
-    super($host);
+  constructor(host) {
+    super(host);
 
     this.container = null;
     this.observe = null;
@@ -20,30 +20,30 @@ export default class ConverterBehavior extends WidgetBehavior {
   initConverter() {
     if (this.ref) return;
 
-    const { $host } = this;
-    const ref = this.ref = $host.querySelector('textarea, pre');
+    const { host } = this;
+    const ref = this.ref = host.querySelector('textarea, pre');
 
-    const useShadow = $host.nuContext.useShadow;
+    const useShadow = host.nuContext.useShadow;
 
     if (useShadow) {
-      $host.attachShadow({ mode: 'open' });
+      host.attachShadow({ mode: 'open' });
     }
 
     if (!ref) {
-      error('converter: textarea tag required', this.$host);
+      error('converter: textarea tag required', this.host);
       return;
     }
 
-    $host.nuRef = ref;
+    host.nuRef = ref;
 
     ref.setAttribute('role', 'none');
     ref.setAttribute('aria-hidden', 'true');
 
     const container = this.container = this.createContainer();
 
-    ($host.nuShadow || $host).appendChild(container);
+    (host.nuShadow || host).appendChild(container);
 
-    $host.nuAttachShadowCSS();
+    host.nuAttachShadowCSS();
 
     const observe = this.observe = this.createObserveListener(ref, container, this.constructor.converter);
 

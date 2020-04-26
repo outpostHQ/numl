@@ -9,10 +9,10 @@ export default class ImageBehavior extends WidgetBehavior {
   }
 
   load(src) {
-    const { $host } = this;
+    const { host } = this;
 
-    if ($host.querySelector('img')) {
-      $host.innerHTML = '';
+    if (host.querySelector('img')) {
+      host.innerHTML = '';
     }
 
     if (!src || !src.trim()) return;
@@ -27,7 +27,7 @@ export default class ImageBehavior extends WidgetBehavior {
 
     this.ref = img;
 
-    $host.appendChild(img);
+    host.appendChild(img);
 
     img.onerror = () => {
       this.removeChild(img);
@@ -36,7 +36,7 @@ export default class ImageBehavior extends WidgetBehavior {
 
       icon.setAttribute('name', 'image');
 
-      $host.appendChild(icon);
+      host.appendChild(icon);
 
       warn('image not loaded', src);
     };

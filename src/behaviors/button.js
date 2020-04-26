@@ -17,15 +17,15 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     super.init();
 
-    const { $host } = this;
+    const { host } = this;
 
-    $host.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && $host.nuHasAria('expanded')) {
+    host.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && host.nuHasAria('expanded')) {
         this.set(false);
       }
     });
 
-    $host.addEventListener('tap', (event) => {
+    host.addEventListener('tap', (event) => {
       if (!event.nuRole && this.role) {
         event.nuRole = this.role;
       }
@@ -35,9 +35,9 @@ export default class ButtonBehavior extends WidgetBehavior {
   connected() {
     super.connected();
 
-    const { $host } = this;
+    const { host } = this;
 
-    $host.nuSetContextHook('radiogroup', () => this.verifyRadioGroup());
+    host.nuSetContextHook('radiogroup', () => this.verifyRadioGroup());
 
     this.verifyRadioGroup();
 
@@ -54,21 +54,21 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.control(this.pressed, this.value);
     this.createLink();
 
-    $host.nuSetContext('button', this);
+    host.nuSetContext('button', this);
   }
 
   changed(name, value) {
     super.changed(name, value);
 
-    const { $host } = this;
+    const { host } = this;
 
     switch (name) {
       case 'selected':
       case 'checked':
         if (value != null) {
-          $host.setAttribute('pressed', '');
+          host.setAttribute('pressed', '');
         } else {
-          $host.removeAttribute('pressed');
+          host.removeAttribute('pressed');
         }
 
         break;
@@ -93,7 +93,7 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   verifyRadioGroup() {
-    const { $host } = this;
+    const { host } = this;
 
     this.radioGroup = this.context.radiogroup;
 
@@ -114,39 +114,39 @@ export default class ButtonBehavior extends WidgetBehavior {
         radioGroup.set(this.value);
       }
     } else if (radioGroup.value === this.value) {
-      $host.setAttribute('pressed', '');
+      host.setAttribute('pressed', '');
     } else {
-      $host.removeAttribute('pressed');
+      host.removeAttribute('pressed');
     }
   }
 
   linkPopup(popup) {
-    const { $host } = this;
+    const { host } = this;
 
     this.popup = popup;
-    $host.nuSetAria('haspopup', true);
-    $host.nuSetAria('expanded', this.pressed || false);
+    host.nuSetAria('haspopup', true);
+    host.nuSetAria('expanded', this.pressed || false);
     this.setRole('button');
   }
 
   unlinkPopup() {
-    const { $host } = this;
+    const { host } = this;
 
     delete this.popup;
-    $host.nuSetAria('haspopup', null);
-    $host.nuSetAria('expanded', null);
-    this.setRole(this.$host.constructor.nuRole);
+    host.nuSetAria('haspopup', null);
+    host.nuSetAria('expanded', null);
+    this.setRole(this.host.constructor.nuRole);
   }
 
   createLink() {
-    const { $host } = this;
+    const { host } = this;
 
     let $link;
 
     if (!this.to) {
       if (this.$link) {
         delete this.$link;
-        $host.removeChild(this.$link);
+        host.removeChild(this.$link);
       }
 
       return;
@@ -158,11 +158,11 @@ export default class ButtonBehavior extends WidgetBehavior {
       $link.href = this.href;
       $link.target = this.newTab ? '_blank' : '_self';
       $link.setAttribute('tabindex', '-1');
-      $link.setAttribute('aria-labelledby', $host.nuUniqId);
+      $link.setAttribute('aria-labelledby', host.nuUniqId);
 
       this.$link = $link;
 
-      setTimeout(() => $host.appendChild(this.$link));
+      setTimeout(() => host.appendChild(this.$link));
 
       this.$link.addEventListener('click', (evt) => {
         if (this.disabled) {
@@ -186,7 +186,7 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   tap(evt) {
-    const { $host } = this;
+    const { host } = this;
 
     if (this.to && evt.target !== this.$link) {
       this.$link.click();
@@ -195,10 +195,10 @@ export default class ButtonBehavior extends WidgetBehavior {
     }
 
     if (this.disabled
-      || $host.getAttribute('tabindex') === '-1') return;
+      || host.getAttribute('tabindex') === '-1') return;
 
     if (this.scrollto) {
-      $host.nuScrollTo(this.scrollto);
+      host.nuScrollTo(this.scrollto);
     }
 
     if (this.to) {
@@ -228,10 +228,10 @@ export default class ButtonBehavior extends WidgetBehavior {
     }
 
     // Actions
-    const action = this.$host.getAttribute('action');
+    const action = this.host.getAttribute('action');
 
     if (action) {
-      const actionCallback = this.$host.nuContext[action];
+      const actionCallback = this.host.nuContext[action];
 
       if (actionCallback) {
         actionCallback(value);
@@ -254,28 +254,28 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     if (!this.isToggle()) return;
 
-    const { $host } = this;
+    const { host } = this;
 
     pressed = pressed || false;
 
     this.pressed = pressed;
 
     if (this.isRadio()) {
-      $host.nu('focusable')
+      host.nu('focusable')
         .then(Focusable => Focusable.set(!pressed && !this.disabled));
     }
 
     if (this.radioGroup) {
-      $host.nuSetAria('expanded', pressed);
+      host.nuSetAria('expanded', pressed);
     } else if (this.isCheckbox()) {
-      $host.nuSetAria('checked', pressed);
+      host.nuSetAria('checked', pressed);
     } else if (this.isSelectable()) {
-      $host.nuSetAria('selected', pressed);
+      host.nuSetAria('selected', pressed);
     } else {
-      $host.nuSetAria('pressed', pressed);
+      host.nuSetAria('pressed', pressed);
     }
 
-    $host.nuSetMod('pressed', pressed);
+    host.nuSetMod('pressed', pressed);
 
     this.control(this.pressed, this.value);
 
@@ -287,7 +287,7 @@ export default class ButtonBehavior extends WidgetBehavior {
       }
     }
 
-    const innerPopup = $host.nuDeepQuery('[nu-popup]');
+    const innerPopup = host.nuDeepQuery('[nu-popup]');
 
     if (innerPopup) {
       innerPopup.nu('popup')
@@ -310,12 +310,12 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   isToggle() {
-    const { $host } = this;
+    const { host } = this;
 
-    return $host.nuHasAria('pressed')
-      || $host.nuHasAria('expanded')
-      || $host.nuHasAria('checked')
-      || $host.nuHasAria('selected')
+    return host.nuHasAria('pressed')
+      || host.nuHasAria('expanded')
+      || host.nuHasAria('checked')
+      || host.nuHasAria('selected')
       || ['checkbox', 'radio', 'tab', 'switch'].includes(this.role);
   }
 

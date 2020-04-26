@@ -14,13 +14,13 @@ function onFixateChange() {
 }
 
 export default class FixateBehavior {
-  constructor($host) {
-    this.$host = $host;
+  constructor(host) {
+    this.host = host;
     this.change = this.change.bind(this);
     this.start = this.start.bind(this);
     this.end = this.end.bind(this);
 
-    this.changed(FIXATE_ATTR, $host.getAttribute(FIXATE_ATTR) || 'down');
+    this.changed(FIXATE_ATTR, host.getAttribute(FIXATE_ATTR) || 'down');
   }
 
   disconnected() {
@@ -30,18 +30,18 @@ export default class FixateBehavior {
   }
 
   changed(name) {
-    const { $host } = this;
+    const { host } = this;
 
     if (name !== PLACE_ATTR && name !== FIXATE_ATTR) return;
 
-    $host.nuSetMod(FIXATE_ATTR, false);
-    $host.nuSetContext('fixate', null);
-    $host.style.display = '';
-    $host.style.opacity = '';
+    host.nuSetMod(FIXATE_ATTR, false);
+    host.nuSetContext('fixate', null);
+    host.style.display = '';
+    host.style.opacity = '';
     delete this.position;
 
-    const fixateValue = $host.getAttribute(FIXATE_ATTR)
-      || $host.constructor.nuAllDefaults[FIXATE_ATTR]
+    const fixateValue = host.getAttribute(FIXATE_ATTR)
+      || host.constructor.nuAllDefaults[FIXATE_ATTR]
       || 'down';
 
     if (!this.enabled) return;
@@ -59,21 +59,21 @@ export default class FixateBehavior {
 
     this.position = fixateValue;
 
-    $host.nuSetMod(FIXATE_ATTR, true);
-    $host.nuSetContext('fixate', {
-      context: $host,
+    host.nuSetMod(FIXATE_ATTR, true);
+    host.nuSetContext('fixate', {
+      context: host,
       position: fixateValue,
     });
 
-    $host.style.display = 'none';
-    $host.style.opacity = '0';
+    host.style.display = 'none';
+    host.style.opacity = '0';
   }
 
   get enabled() {
-    const { $host } = this;
-    const place = $host.getAttribute(PLACE_ATTR);
-    const fixate = $host.getAttribute(FIXATE_ATTR);
-    const defaults = $host.constructor.nuAllDefaults;
+    const { host } = this;
+    const place = host.getAttribute(PLACE_ATTR);
+    const fixate = host.getAttribute(FIXATE_ATTR);
+    const defaults = host.constructor.nuAllDefaults;
 
     if (place) {
       return false;
@@ -87,7 +87,7 @@ export default class FixateBehavior {
   }
 
   change() {
-    const { $host } = this;
+    const { host } = this;
 
     const [pos, spos] = this.position.split(/\s+/);
     const parent = this.parent;
@@ -160,27 +160,27 @@ export default class FixateBehavior {
       .forEach(([name, value]) => {
         value = value ? `${value}px` : 'initial';
 
-        $host.style.setProperty(`--nu-fixate-${name}`, value);
+        host.style.setProperty(`--nu-fixate-${name}`, value);
       });
 
-    $host.style.setProperty(`--nu-fixate-width`, `${width}px`);
-    $host.style.setProperty(`--nu-transform-place`, `translate(${move})`);
+    host.style.setProperty(`--nu-fixate-width`, `${width}px`);
+    host.style.setProperty(`--nu-transform-place`, `translate(${move})`);
 
     setTimeout(() => {
-      fixPosition($host);
+      fixPosition(host);
     });
   }
 
   start() {
-    const { $host } = this;
+    const { host } = this;
 
     if (!this.position) return;
 
-    $host.style.display = '';
-    $host.style.opacity = '1';
+    host.style.display = '';
+    host.style.opacity = '1';
 
     if (!this.parent) {
-      this.parent = $host.parentNode;
+      this.parent = host.parentNode;
     }
 
     this.fixated = true;
@@ -191,7 +191,7 @@ export default class FixateBehavior {
   }
 
   end() {
-    const { $host } = this;
+    const { host } = this;
 
     if (!this.fixated) return;
 
@@ -199,15 +199,15 @@ export default class FixateBehavior {
 
     LISTENERS.delete(this.change);
 
-    $host.style.opacity = '0';
+    host.style.opacity = '0';
 
     setTimeout(() => {
       if (!this.fixated) {
-        $host.style.display = 'none';
-        $host.style.removeProperty(`--nu-transform-place`);
+        host.style.display = 'none';
+        host.style.removeProperty(`--nu-transform-place`);
 
         [...DIRECTIONS, 'width']
-          .forEach(prop => $host.style.removeProperty(`--nu-fixate-${prop}`));
+          .forEach(prop => host.style.removeProperty(`--nu-fixate-${prop}`));
       }
     }, 500);
   }

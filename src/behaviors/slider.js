@@ -28,7 +28,7 @@ export default class SliderBehavior extends WidgetBehavior {
 
     this.require('orient', 'active', 'focusable');
 
-    this.$host.addEventListener('keydown', (evt) => {
+    this.host.addEventListener('keydown', (evt) => {
       const step = this.step * (evt.shiftKey ? 10 : 1);
 
       switch (evt.key) {
@@ -51,19 +51,19 @@ export default class SliderBehavior extends WidgetBehavior {
   connected() {
     super.connected();
 
-    const { $host } = this;
+    const { host } = this;
 
     this.onDragStart = this.onDragStart.bind(this);
     this.onDragging = this.onDragging.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
 
-    $host.nuSetContext('disabled', this.disabled);
+    host.nuSetContext('disabled', this.disabled);
 
-    $host.addEventListener('touchmove', (evt) => evt.preventDefault(), { passive: true });
+    host.addEventListener('touchmove', (evt) => evt.preventDefault(), { passive: true });
 
     ['mousedown', 'touchstart']
       .forEach(eventName => {
-        $host.addEventListener(eventName, this.onDragStart, { passive: true });
+        host.addEventListener(eventName, this.onDragStart, { passive: true });
       });
   }
 
@@ -105,9 +105,9 @@ export default class SliderBehavior extends WidgetBehavior {
   }
 
   setValueByEvent(evt) {
-    const { $host } = this;
+    const { host } = this;
 
-    const rect = $host.getBoundingClientRect();
+    const rect = host.getBoundingClientRect();
 
     let value;
 
@@ -137,7 +137,7 @@ export default class SliderBehavior extends WidgetBehavior {
   }
 
   setValue(value, silent) {
-    const { $host } = this;
+    const { host } = this;
     const min = this.min;
     const max = this.max;
 
@@ -148,11 +148,11 @@ export default class SliderBehavior extends WidgetBehavior {
 
     this.value = value;
 
-    $host.style.setProperty('--nu-local-offset', this.getOffset(value));
+    host.style.setProperty('--nu-local-offset', this.getOffset(value));
 
-    $host.nuSetAria('valuemin', min);
-    $host.nuSetAria('valuemax', max);
-    $host.nuSetAria('valuenow', value);
+    host.nuSetAria('valuemin', min);
+    host.nuSetAria('valuemax', max);
+    host.nuSetAria('valuenow', value);
 
     if (!silent) {
       this.emit('input', value);
