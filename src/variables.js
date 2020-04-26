@@ -34,6 +34,7 @@ export function composeVarsValue(value, context, zonesNumber) {
   let anyVarResponsive = false;
 
   const styleValues = getResponsiveValues(value, zonesNumber);
+
   const varsList = getVarsList(value);
   const vars = varsList.reduce((map, varName) => {
     const varValue = getVarValue(varName, context);
