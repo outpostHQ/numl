@@ -1016,6 +1016,8 @@ export function normalizeAttrStates(val, firstValueOnly = false) {
       Object.entries(zone.states).map(([state, value]) => {
         if (state) {
           value = `:${state}[${value}]`;
+        } else if (!value && zoneIndex) {
+          value = zones[zoneIndex - 1].states[''];
         }
 
         return value;

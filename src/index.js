@@ -10,6 +10,7 @@ import * as css from './css';
 import icons from './icons';
 import routing from './routing';
 import svg from './svg';
+import * as variables from './variables';
 import themeAttr from './attributes/theme';
 import { initFocus } from './focus';
 import { scheme, contrast, reduceMotion } from './settings';
@@ -48,6 +49,7 @@ const Nude = {
   routing,
   icons,
   svg,
+  variables,
 };
 
 const verifyDOM = helpers.asyncDebounce(() => {
@@ -170,4 +172,5 @@ export {
   routing,
   icons,
   svg,
+  variables,
 };

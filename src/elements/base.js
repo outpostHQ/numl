@@ -836,7 +836,7 @@ export default class NuBase extends HTMLElement {
       contextIds.add(nuId);
     });
 
-    value = composeVarsValue(value, this.nuContext, responsive ? responsive.zones.length + 1 : 1);
+    value = composeVarsValue(normalizeAttrStates(value), this.nuContext, responsive ? responsive.zones.length + 1 : 1);
 
     if (responsive && value.includes('|')) {
       context[`nu-${RESPONSIVE_MOD}`] = responsive.context.nuUniqId;
