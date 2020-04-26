@@ -39,7 +39,7 @@ export default function numberFormat(value, locale, {
 } = {}) {
   fallback = fallback != null ? fallback : '–';
 
-  if (!type) {
+  if (!type || type === 'number') {
     if (code) {
       type = 'currency';
     } else if (unit) {

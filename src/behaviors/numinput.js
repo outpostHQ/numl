@@ -13,6 +13,7 @@ export default class NumInputBehavior extends InputBehavior {
     this.props.max = (val) => {
       return getFloatFromAttr(val, Number.MAX_SAFE_INTEGER);
     };
+    this.props.type = 'number';
 
     super.init();
 
@@ -27,6 +28,12 @@ export default class NumInputBehavior extends InputBehavior {
         ref.select();
       } catch(e) {}
     });
+  }
+
+  changed(name, value) {
+    super.changed(name, value);
+
+    this.declareProps();
   }
 
   setValue(value, silent) {
@@ -50,6 +57,10 @@ export default class NumInputBehavior extends InputBehavior {
       this.emit('input', this.value);
     }
 
+    this.declareProps();
+  }
+
+  declareProps() {
     this.$host.style.setProperty('--nu-value', `"${NumberFormat(this.value, this.locale, this)}"`);
   }
 }
