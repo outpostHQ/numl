@@ -2,7 +2,6 @@
  * Required root element attribute.
  * @type {String}
  */
-import { strToHsl } from './color';
 export const ROOT_CONTEXT = ':root';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
@@ -22,43 +21,6 @@ export const CUSTOM_UNITS = {
   'fs': 'var(--nu-font-size)',
   'lh': 'var(--nu-line-height)',
 };
-
-export function colorUnit(style, initial) {
-  return (color, raw = false) => {
-    if (color == null) return;
-
-    if (color.trim() && color.trim() !== 'text' && strToHsl(color)) {
-      if (raw) return color;
-
-      return { [style]: color };
-    }
-
-    if (!color) color = initial;
-
-    if (color === 'clear') {
-      color = 'transparent';
-    }
-
-    const match = color.match(/\s(\d+)%/);
-
-    let percent;
-
-    if (match) {
-      color = color.replace((/\s\d+%/), '');
-      percent = match[1];
-    }
-
-    if (percent != null) {
-      if (raw) return `rgba(var(--nu-${color}-color-rgb, ${color}) ${percent / 100})`;
-
-      return { [style]: `rgba(var(--nu-${color}-color-rgb, ${color}), ${percent / 100})` };
-    }
-
-    if (raw) return `var(--nu-${color}-color, ${color})`;
-
-    return { [style]: `var(--nu-${color}-color, ${color})` };
-  };
-}
 
 /**
  * Unit conversion for attribute values.
