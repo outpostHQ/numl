@@ -1,10 +1,12 @@
-export function setRouting(nav) {
-  Routing.route = nav;
+let router = () => true;
+
+export function setRouter(_router) {
+  router = _router;
 }
 
 const Routing = {
-  route() { return true },
-  set: setRouting,
+  route(...args) { return router(...args) },
+  setRouter: setRouter,
 };
 
 export default Routing;

@@ -48,9 +48,6 @@ export default class NuGroup extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag} > *:not([grow]) {
-        flex-grow:1;
-      }
       ${tag} {
         --nu-item-radius: var(--nu-local-radius);
 

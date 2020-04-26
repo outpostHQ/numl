@@ -26,6 +26,7 @@ export const BEHAVIORS = {
   slider: () => extract(import('./slider.js')),
   input: () => extract(import('./input.js')),
   numinput: () => extract(import('./numinput.js')),
+  icon: () => extract(import('./icon.js')),
 };
 
 export function hasBehavior(el, name) {

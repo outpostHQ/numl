@@ -10,17 +10,14 @@ export default class NuIcon extends NuBlock {
     return 'nu-icon';
   }
 
-  static get nuRole() {
-    return 'img';
+  static get nuBehaviors() {
+    return {
+      icon: true,
+    };
   }
 
-  static nuLoader(name) {
-    return (
-      featherPromise ||
-      (featherPromise = !window.feather
-        ? injectScript('https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.22.1/feather.js')
-        : Promise.resolve())
-    ).then(() => window.feather.icons[name].toSvg());
+  static get nuRole() {
+    return 'img';
   }
 
   static get nuAttrs() {
@@ -53,7 +50,7 @@ export default class NuIcon extends NuBlock {
         vertical-align: var(--nu-inline-offset);
       }
 
-      ${tag} > svg {
+      ${tag} svg {
         position: absolute;
         left: 50%;
         top: 50%;
@@ -62,42 +59,6 @@ export default class NuIcon extends NuBlock {
         transform: translate(-50%, -50%);
         transition: opacity calc(var(--nu-transition-enabler) * var(--nu-transition-time)) linear;
       }
-
-      ${tag} > :not(svg) {
-        display: none;
-      }
     `;
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
-    if (name === 'name') {
-      value = this.nuGetAttr(name);
-
-      const names = parseAllValues(value);
-
-      // empty tag
-      this.innerHTML = '';
-
-      names.forEach(name => {
-        if (this.querySelector(`svg[name="${name}"]`)) return;
-
-        this.constructor.nuLoader(name).then(svg => {
-          const svgNode = svgElement(svg);
-
-          svgNode.setAttribute('name', name);
-          svgNode.style.opacity = '0';
-
-          this.appendChild(svgNode);
-        });
-      });
-    }
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    this.nuSetAria('hidden', false);
   }
 }
