@@ -1,13 +1,6 @@
-import { error } from './helpers';
-
 let loader = (name) => {
   return import('feather-icons')
-    .then(feather => feather.icons[name].toSvg())
-    .catch(() => {
-      error('icon not found:', name);
-
-      return '';
-    });
+    .then(feather => feather.icons[name].toSvg());
 }
 
 const Icons = {

@@ -1,5 +1,5 @@
 import Behavior from './behavior';
-import { parseAllValues, svgElement } from '../helpers';
+import { error, parseAllValues, svgElement } from '../helpers';
 import Icons from '../icons';
 
 export default class IconBehavior extends Behavior {
@@ -33,12 +33,18 @@ export default class IconBehavior extends Behavior {
       if ($host.querySelector(`svg[name="${name}"]`)) return;
 
       Icons.load(name).then(svg => {
+        if (!svg) return;
+
         const svgNode = svgElement(svg);
 
         svgNode.setAttribute('name', name);
         svgNode.style.opacity = '0';
 
         $host.appendChild(svgNode);
+      }).catch(() => {
+        error('icon not found:', name);
+
+        return '';
       });
     });
   }
