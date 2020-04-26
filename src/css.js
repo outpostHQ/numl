@@ -1,7 +1,7 @@
-import { devMode, log, warn, requestIdleCallback } from "./helpers";
+import { devMode, log, warn, requestIdleCallback, h } from "./helpers";
 
 export const STYLE_MAP = {};
-const testEl = document.createElement('div');
+const testEl = h('div');
 
 [...document.querySelectorAll('style[data-nu-name]')]
   .forEach(element => {
@@ -23,7 +23,7 @@ export function injectStyleTag(css, name, root) {
     css = beautifyCSS(css);
   }
 
-  const style = document.createElement('style');
+  const style = h('style');
 
   if (name) {
     style.dataset.nuName = name;

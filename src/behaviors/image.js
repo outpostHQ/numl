@@ -1,5 +1,5 @@
 import WidgetBehavior from './widget';
-import { warn } from '../helpers';
+import { h, warn } from '../helpers';
 
 export default class ImageBehavior extends WidgetBehavior {
   init() {
@@ -17,7 +17,7 @@ export default class ImageBehavior extends WidgetBehavior {
 
     if (!src || !src.trim()) return;
 
-    const img = document.createElement('img');
+    const img = h('img');
 
     img.role = 'none';
     img.src = src;
@@ -32,7 +32,7 @@ export default class ImageBehavior extends WidgetBehavior {
     img.onerror = () => {
       this.removeChild(img);
 
-      const icon = document.createElement('nu-icon');
+      const icon = h('nu-icon');
 
       icon.setAttribute('name', 'image');
 

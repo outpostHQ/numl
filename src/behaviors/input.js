@@ -1,4 +1,5 @@
 import LocalizedWidgetBehavior from './localized-widget';
+import { h } from '../helpers';
 
 export default class InputBehavior extends LocalizedWidgetBehavior {
   init() {
@@ -14,7 +15,7 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
     this.ref = $host.querySelector('input');
 
     if (!this.ref) {
-      const input = document.createElement('input');
+      const input = h('input');
 
       $host.appendChild(input);
 

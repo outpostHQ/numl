@@ -12,24 +12,6 @@ export const isTouch = !matchMedia('(hover: hover)').matches;
 const USE_SHADOW = document.querySelector(':root').dataset.nuShadow != null;
 
 /**
- * Script injection.
- * @param {String} src
- * @returns {Promise<*>}
- */
-export function injectScript(src) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-
-    script.onload = resolve;
-    script.onerror = reject;
-    script.async = true;
-    script.src = src;
-
-    document.body.appendChild(script);
-  });
-}
-
-/**
  * Custom units dict
  * @type {Object}
  */
@@ -331,7 +313,7 @@ export function generateId(element) {
   return element.id;
 }
 
-const dim = document.createElement('div');
+const dim = h('div');
 
 /**
  * Helper to open link.
@@ -339,7 +321,7 @@ const dim = document.createElement('div');
  * @param {String} target
  */
 export function openLink(href, target) {
-  const link = document.createElement('a');
+  const link = h('a');
 
   link.href = href;
 
@@ -1191,7 +1173,7 @@ export function parseColor(val, ignoreError) {
 }
 
 export function isDefined(tag) {
-  const constructor = document.createElement(tag).constructor;
+  const constructor = h(tag).constructor;
 
   return constructor !== HTMLUnknownElement && constructor !== HTMLElement;
 }
@@ -1295,4 +1277,8 @@ export function asyncDebounce(cb, context) {
       delete timers[key];
     }, 0);
   };
+}
+
+export function h(tag) {
+  return document.createElement(tag);
 }

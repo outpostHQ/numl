@@ -1,4 +1,4 @@
-import { error } from '../helpers';
+import { error, h } from '../helpers';
 import { injectStyleTag } from '../css';
 import WidgetBehavior from './widget';
 
@@ -60,7 +60,7 @@ export default class ConverterBehavior extends WidgetBehavior {
   }
 
   createContainer() {
-    return document.createElement('nu-block');
+    return h('nu-block');
   }
 
   createObserveListener(ref, container, converter) {

@@ -40,16 +40,4 @@ export default class NuCheckbox extends NuActiveElement {
       '--icon-opacity': ':pressed[1] 0',
     };
   }
-
-  // nuConnected() {
-  //   super.nuConnected();
-  //
-  //   if (this.querySelector('nu-icon')) return;
-  //
-  //   const icon = document.createElement('nu-icon');
-  //
-  //   setAttrs(icon, ICON_ATTRS);
-  //
-  //   this.appendChild(icon);
-  // }
 }

@@ -1,4 +1,5 @@
 import { hsluvToRgb, rgbToHsluv, hpluvToHsluv, hpluvToRgb, rgbToHpluv } from './hsluv';
+import { h } from './helpers';
 
 export function hslToRgb(hsl) {
   return hsluvToRgb(hsl).map(n => Math.round(n));
@@ -133,7 +134,7 @@ export function getLuminanceByRatio(l1, ratio = 4.5, dir) {
   return l2 * 100;
 }
 
-const dim = document.createElement('div');
+const dim = h('div');
 const dimStyle = dim.style;
 
 export function extractColor(color, ignoreAlpha = false) {

@@ -1,9 +1,4 @@
-import {
-  parseAllValues, svgElement, injectScript,
-} from '../helpers';
 import NuBlock from './block';
-
-let featherPromise;
 
 export default class NuIcon extends NuBlock {
   static get nuTag() {
