@@ -1,4 +1,4 @@
-import { hsluvToRgb, rgbToHsluv, hpluvToHsluv, hpluvToRgb, rgbToHpluv } from './hsluv';
+import { hsluvToRgb, rgbToHsluv, hpluvToHsluv } from './hsluv';
 import { h } from './helpers';
 
 export function hslToRgb(hsl) {
@@ -350,24 +350,3 @@ export function getSaturationRatio(hue, saturation, pastel) {
     return saturation / 100;
   }
 }
-
-export default {
-  toRelative,
-  fromRelative,
-  hslToRgb,
-  rgbToHsl,
-  findContrastColor,
-  getLuminanceByRatio,
-  getSaturationRatio,
-  calcError,
-  strToHsl,
-  mix,
-  setLuminance,
-  hpluvToRgb,
-  rgbToHpluv,
-  hpluvToHsluv,
-  pastel: setPastelSaturation,
-  hslToRgbaStr,
-  setOptimalSaturation,
-  getTheBrightest,
-};
