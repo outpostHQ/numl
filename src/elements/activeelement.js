@@ -72,9 +72,9 @@ export default class NuActiveElement extends NuElement {
     `;
   }
 
-  set pressed(bool) {
-    if (bool) {
-      this.setAttribute('pressed', bool);
+  set pressed(val) {
+    if (val != null) {
+      this.setAttribute('pressed', val);
     } else {
       this.removeAttribute('pressed');
     }
