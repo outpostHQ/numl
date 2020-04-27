@@ -30,6 +30,11 @@ export default class WidgetBehavior extends Behavior {
     });
 
     delete this.props.role;
+
+    /**
+     * @type {FormBehavior}
+     */
+    this.form = null;
   }
 
   init() {
@@ -44,7 +49,36 @@ export default class WidgetBehavior extends Behavior {
     }
   }
 
-  connected() {}
+  connected() {
+    const { host } = this;
+    const id = host.nuId;
+
+    if (!id) return;
+
+    if (id) {
+      this.bindContext('form', (form) => {
+        if (!form) return;
+
+        const value = this.form[id];
+
+        if (value) {
+          this.setValue(value, true);
+        } else if (this.inputValue != null) {
+          this.form.setFieldValue(id, this.inputValue);
+        }
+      });
+    }
+  }
+
+  disconnected() {
+    const { host } = this;
+    const id = host.nuId;
+
+    if (!id || !this.form) return;
+
+    this.form.setFieldValue(id, undefined);
+    delete this.form;
+  }
 
   changed(name, value) {
     for (let prop of this.propsList) {
@@ -79,6 +113,12 @@ export default class WidgetBehavior extends Behavior {
   emit(name, detail = null, options = {}) {
     if (name === 'input') {
       detail = this.getInputValue(detail);
+
+      const id = this.host.nuId;
+
+      if (this.form && id) {
+        this.form.setFieldValue(id, detail);
+      }
     }
 
     log('emit', { element: this, name, detail, options });
@@ -186,5 +226,9 @@ export default class WidgetBehavior extends Behavior {
     }
 
     return value;
+  }
+
+  get inputValue() {
+    return this.value;
   }
 }

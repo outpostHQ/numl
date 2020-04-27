@@ -31,6 +31,7 @@ export const BEHAVIORS = {
   svg: () => extract(import('./svg.js')),
   image: () => extract(import('./image.js')),
   debug: () => extract(import('./debug.js')),
+  form: () => extract(import('./form.js')),
 };
 
 export function hasBehavior(el, name) {

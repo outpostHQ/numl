@@ -1,11 +1,21 @@
 <nu-card as="section">
-  <nu-inputgroup>
-    <nu-icon name="search" size="lg"></nu-icon>
-    <nu-input placeholder="User name" grow="1" value={inputValue}></nu-input>
-  </nu-inputgroup>
+  <nu-form nu-debug="debugger1" gap="">
+    <nu-inputgroup>
+      <nu-icon name="user" size="lg"></nu-icon>
+      <nu-input id="name" placeholder="User name" grow="1" value={inputValue} nu-debug="debugger2"></nu-input>
+    </nu-inputgroup>
+    <nu-pane gap padding>
+      <nu-checkbox id="press" labelledby=":next" nu-debug="debugger3"></nu-checkbox>
+      <nu-label>Some checkbox</nu-label>
+    </nu-pane>
+  </nu-form>
 </nu-card>
 
-<nu-debug id="debugger" as="section"></nu-debug>
+<nu-grid columns="repeat(3, 1fr)" gap>
+  <nu-debug id="debugger1" as="section"></nu-debug>
+  <nu-debug id="debugger2" as="section"></nu-debug>
+  <nu-debug id="debugger3" as="section"></nu-debug>
+</nu-grid>
 
 <nu-card as="section">
   <nu-numinput value="15" code="USD"></nu-numinput>
@@ -34,7 +44,7 @@
     </nu-flex>
 
     <nu-flex gap="1x" items="center">
-      <nu-checkbox labelledby=":next" pressed nu-debug="debugger"></nu-checkbox>
+      <nu-checkbox labelledby=":next" pressed></nu-checkbox>
       <nu-label>Checked checkbox</nu-label>
     </nu-flex>
 

@@ -4,7 +4,9 @@ export { default as NuGrid } from './elements/grid';
 export { default as NuElement } from './elements/element';
 export { default as NuBlock } from './elements/block';
 export { default as NuHeading } from './elements/heading';
+export { default as NuSpacer } from './elements/spacer';
 export { default as NuTable } from './elements/table';
+export { default as NuForm } from './elements/form';
 export { default as NuGridTable } from './elements/gridtable';
 export { default as NuRow } from './elements/row';
 export { default as NuRowGroup } from './elements/rowgroup';
@@ -58,7 +60,6 @@ export { default as NuDatePicker } from './elements/datepicker';
 export { default as NuTextArea } from './elements/textarea';
 export { default as NuBlockQuote } from './elements/blockquote';
 export { default as NuDebug } from './elements/debug';
-export { default as NuSpacer } from './elements/spacer';
 
 /* Decorators */
 export { default as NuTheme } from './decorators/theme';

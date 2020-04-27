@@ -211,7 +211,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.toggle();
     this.control(this.pressed, this.value);
 
-    const value = (this.pressed && this.value) || this.pressed;
+    const value = this.inputValue;
 
     if (this.isCheckbox()) {
       this.emit('pressed', this.pressed);
@@ -228,6 +228,10 @@ export default class ButtonBehavior extends WidgetBehavior {
         actionCallback(value);
       }
     }
+  }
+
+  get inputValue() {
+    return (this.pressed && this.value) || this.pressed || false;
   }
 
   toggle() {

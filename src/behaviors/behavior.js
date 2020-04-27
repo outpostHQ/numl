@@ -27,8 +27,36 @@ export default class Behavior {
     });
   }
 
+  setContext(name, value, force) {
+    this.host.nuSetContext(name, value, force);
+  }
+
+  getVar(name) {
+    return this.host.nuGetVar(name);
+  }
+
+  bindContext(name, cb) {
+    if (!this.host.nuHasContextHook(name)) {
+      this.host.nuSetContextHook(name, (data) => {
+        this[name] = data;
+
+        cb(data);
+      });
+    }
+
+    const value = this.parentContext[name];
+
+    this[name] = value || null;
+
+    cb(value);
+  }
+
   get context() {
     return this.host.nuContext;
+  }
+
+  get parentContext() {
+    return this.host.nuParentContext;
   }
 
   get isConnected() {
