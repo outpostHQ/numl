@@ -7,6 +7,7 @@ function set(name, styles) {
 }
 
 ['i', 'italic'].forEach(name => set(name, { 'font-style': 'italic' }));
+['ni', 'non-italic'].forEach(name => set(name, { 'font-style': 'normal' }));
 ['u', 'underline'].forEach(name => set(name, { 'text-decoration': 'underline' }));
 ['s', 'line-through'].forEach(name => set(name, { 'text-decoration': 'line-through' }));
 set('no-decoration', { 'text-decoration': 'none' });

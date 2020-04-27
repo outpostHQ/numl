@@ -11,10 +11,11 @@ export default class NuBlockQuote extends NuBlock {
 
   static get nuDefaults() {
     return {
-      border: '2b left color(special)',
+      border: '(1x / 2) left color(special)',
       fill: 'diff',
       text: 'i',
       padding: '2x',
+      size: 'lg',
     };
   }
 }
