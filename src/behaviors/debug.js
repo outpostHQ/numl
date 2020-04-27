@@ -31,15 +31,22 @@ export default class DebugBehavior extends Behavior {
 
     debugEl.nu('component').then(Debug => {
       Debug.componentPromise.then(() => {
-        if (!this.host.nuDebugId) {
-          const debugId = `el${++counter}`;
+        const { host } = this;
 
-          window[debugId] = this.host;
+        if (!host.nuDebugId) {
+          const debugId = ++counter;
 
-          this.host.nuDebugId = debugId;
+          window[`el${debugId}`] = host;
+
+          Object.keys(host.nuBehaviors || {})
+            .forEach(name => {
+              window[`${name}${counter}`] = host.nuBehaviors[name];
+            });
+
+          host.nuDebugId = debugId;
         }
 
-        Debug.set({ target: this.host });
+        Debug.set({ target: host });
       });
     });
   }
