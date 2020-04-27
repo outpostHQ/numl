@@ -3,7 +3,7 @@
     Debugger for
     <nu-link scrollto={target.nuUniqId}>
       {target.tagName.toLowerCase()}#{target.nuUniqId}
-    </nu-link>
+    </nu-link> | <nu-el text="w6">{target.nuDebugId}</nu-el> in console
   </nu-block>
   <nu-tablist value="eventlog" border="inside bottom" controls="tabs-header[padding]">
     <nu-tab controls="eventlog" value="eventlog">
@@ -76,7 +76,13 @@ function logBehaviorState(behavior) {
     .reduce((state, [prop, value]) => {
       if (!ignoreProps.includes(prop)
         && typeof value !== 'function') {
-        state[prop] = value;
+        try {
+          JSON.stringify(value);
+
+          state[prop] = value;
+        } catch(e) {
+          state[prop] = '{OBJECT}';
+        }
       }
 
       return state;
@@ -94,6 +100,8 @@ function createEventLogger(name) {
 }
 
 $: (() => {
+  if (currentTarget === target) return;
+
   if (currentTarget) {
     eventList.forEach(name => {
       currentTarget.removeEventListener(name, loggers[name]);

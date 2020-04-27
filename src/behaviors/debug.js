@@ -1,6 +1,8 @@
 import Behavior from './behavior';
 import { query } from '../helpers';
 
+let counter = 0;
+
 export default class DebugBehavior extends Behavior {
   constructor(host, value) {
     super(host, value);
@@ -29,6 +31,14 @@ export default class DebugBehavior extends Behavior {
 
     debugEl.nu('component').then(Debug => {
       Debug.componentPromise.then(() => {
+        if (!this.host.nuDebugId) {
+          const debugId = `el${++counter}`;
+
+          window[debugId] = this.host;
+
+          this.host.nuDebugId = debugId;
+        }
+
         Debug.set({ target: this.host });
       });
     });
@@ -40,9 +50,17 @@ export default class DebugBehavior extends Behavior {
 
     if (!id) return;
 
+    if (this.debugger && this.debugger.nuId === id) {
+      return this.debugger;
+    }
+
     const debugEl = query(host, `#${id}`);
 
-    if (debugEl && debugEl.nu) return debugEl;
+    if (debugEl && debugEl.nu) {
+      this.debugger = debugEl;
+
+      return debugEl;
+    }
   }
 
   log(event, detail) {
@@ -52,7 +70,6 @@ export default class DebugBehavior extends Behavior {
 
     debugEl.nu('component').then(Debug => {
       Debug.componentPromise.then(() => {
-        console.log('!', Debug.component);
         Debug.component.log(event, detail);
       });
     });
