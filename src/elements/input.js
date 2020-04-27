@@ -98,4 +98,20 @@ export default class NuInput extends NuBlock {
       }
     `;
   }
+
+  set value(val) {
+    const input = this.nuBehaviors && this.nuBehaviors.input;
+
+    if (input) {
+      input.setValue(val);
+    } else {
+      this._value = val;
+    }
+  }
+
+  get value() {
+    const input = this.nuBehaviors && this.nuBehaviors.input;
+
+    return input ? input.value : this._value;
+  }
 }

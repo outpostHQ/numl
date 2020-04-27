@@ -94,4 +94,20 @@ export default class NuSlider extends NuElement {
       }
     `;
   }
+
+  set value(val) {
+    const slider = this.nuBehaviors && this.nuBehaviors.slider;
+
+    if (slider) {
+      slider.setValue(val);
+    } else {
+      this._value = val;
+    }
+  }
+
+  get value() {
+    const slider = this.nuBehaviors && this.nuBehaviors.slider;
+
+    return slider ? slider.value : this._value;
+  }
 }
