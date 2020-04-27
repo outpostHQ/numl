@@ -28,6 +28,10 @@ export default function scrollbarAttr(val) {
       'border-radius': 'var(--nu-radius)',
       border: 'var(--nu-border-width) solid var(--nu-subtle-color)',
     },
+    {
+      $suffix: '::-webkit-scrollbar-corner',
+      'background-color': 'transparent',
+    }
   ].concat(SCROLLBAR_SUPPORT ? [{
     'scrollbar-width': 'thin',
     'scrollbar-color': 'var(--nu-subtle-color) rgba(var(--nu-text-color-rgb), .5)',
