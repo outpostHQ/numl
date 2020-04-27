@@ -5,17 +5,21 @@
   </nu-inputgroup>
 </nu-card>
 
+<nu-debug id="debugger" as="section"></nu-debug>
+
 <nu-card as="section">
   <nu-numinput value="15" code="USD"></nu-numinput>
 </nu-card>
 
 <nu-card as="section">
-  <nu-textarea value="1234"></nu-textarea>
+  <nu-textarea value={inputValue}></nu-textarea>
 </nu-card>
 
 <nu-card as="section">
   <nu-blockquote>
     Say something!
+    <nu-spacer></nu-spacer>
+    <nu-block text="w6" size="md">Andrey Yamanov, Frontend Engineer at Sellerscale</nu-block>
   </nu-blockquote>
 </nu-card>
 
@@ -30,7 +34,7 @@
     </nu-flex>
 
     <nu-flex gap="1x" items="center">
-      <nu-checkbox labelledby=":next" pressed></nu-checkbox>
+      <nu-checkbox labelledby=":next" pressed nu-debug="debugger"></nu-checkbox>
       <nu-label>Checked checkbox</nu-label>
     </nu-flex>
 

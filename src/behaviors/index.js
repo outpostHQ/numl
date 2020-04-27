@@ -30,6 +30,7 @@ export const BEHAVIORS = {
   icon: () => extract(import('./icon.js')),
   svg: () => extract(import('./svg.js')),
   image: () => extract(import('./image.js')),
+  debug: () => extract(import('./debug.js')),
 };
 
 export function hasBehavior(el, name) {

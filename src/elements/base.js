@@ -208,6 +208,14 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
+   * Allow Shadow DOM usage on the element
+   * @return {boolean}
+   */
+  static get nuAllowShadow() {
+    return true;
+  }
+
+  /**
    * Element attribute config.
    * @returns {Object}
    */
@@ -464,7 +472,17 @@ export default class NuBase extends HTMLElement {
 
     let varAttr;
 
-    if (name === 'nu' || name.startsWith('nu-')) return;
+    if (name === 'nu') return;
+
+    if (name.startsWith('nu-')) {
+      name = name.replace('nu-', '');
+
+      if (name in BEHAVIORS) {
+        this.nu(name, value);
+      }
+
+      return;
+    }
 
     if (name === 'id') {
       generateId(this); // trigger id generation
@@ -941,16 +959,6 @@ export default class NuBase extends HTMLElement {
   nuChanged(name, oldValue, value) {
     if (value === undefined) {
       value = this.getAttribute(name);
-    }
-
-    if (name.startsWith('nu-')) {
-      name = name.replace('nu-', '');
-
-      if (name in BEHAVIORS) {
-        this.nu(name, value);
-      }
-
-      return;
     }
 
     this.nuBehaviorCall('changed', [name, value]);
@@ -1598,7 +1606,7 @@ export default class NuBase extends HTMLElement {
   nu(name, value) {
     const behaviors = this.constructor.nuAllBehaviors;
 
-    let options = behaviors[name];
+    let options = behaviors[name] || value;
 
     if (options === true) {
       options = undefined;
@@ -1608,13 +1616,21 @@ export default class NuBase extends HTMLElement {
       this.nuBehaviors = {};
     }
 
+    if (!this.nuBehaviorPromises) {
+      this.nuBehaviorPromises = {};
+    }
+
     // search among the behavior instances
     let behavior = this.nuBehaviors[name];
 
     if (behavior) return Promise.resolve(behavior);
 
+    let behaviorPromise = this.nuBehaviorPromises[name];
+
+    if (behaviorPromise) return behaviorPromise;
+
     // request Mixin class and create new instance
-    return getBehavior(name).then(Behavior => {
+    return this.nuBehaviorPromises[name] = getBehavior(name).then(Behavior => {
       if (!Behavior) {
         throw error('behavior not found', Behavior);
       }
@@ -1622,6 +1638,8 @@ export default class NuBase extends HTMLElement {
       behavior = new Behavior(this, options);
 
       this.nuBehaviors[name] = behavior;
+
+      behavior.$$name = name;
 
       // call hooks
       if (behavior.init) {
@@ -1645,7 +1663,7 @@ export default class NuBase extends HTMLElement {
 
     let host = this;
 
-    if (useShadow) {
+    if (useShadow && this.constructor.nuAllowShadow) {
       host = this.attachShadow({ mode: 'open' });
     } else {
       this.nuSetMod('host', true);

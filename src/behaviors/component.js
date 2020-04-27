@@ -24,7 +24,8 @@ export default class ComponentBehavior extends LocalizedWidgetBehavior {
 
     this.componentPromise
       .then(Component => {
-        const target = this.context.useShadow ? host.attachShadow({ mode: 'open' }) : this;
+        const target = this.context.useShadow && this.constructor.nuAllowShadow
+          ? host.attachShadow({ mode: 'open' }) : host;
 
         this.Component = Component;
 
@@ -60,7 +61,17 @@ export default class ComponentBehavior extends LocalizedWidgetBehavior {
     }
 
     if (this.component) {
-      this.component.$set({ [name]: this[name] });
+      this.set({ [name]: this[name] });
+    }
+  }
+
+  set(data) {
+    if (typeof data === 'object' && this.component) {
+      this.component.$set(data);
+
+      return true;
+    } else {
+      return false;
     }
   }
 }

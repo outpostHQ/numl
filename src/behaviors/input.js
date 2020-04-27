@@ -17,6 +17,7 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
 
     const { host } = this;
 
+    // Check if some value was set using element property before behavior initialization
     if (host._value) {
       this.setValue(host._value, true);
       delete host._value;
