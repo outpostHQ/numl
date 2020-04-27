@@ -100,18 +100,25 @@ export default class NuInput extends NuBlock {
   }
 
   set value(val) {
-    const input = this.nuBehaviors && this.nuBehaviors.input;
+    const behaviors = this.constructor.nuAllBehaviors;
+    const name = Object.keys(behaviors).reverse().find(beh => behaviors[beh]);
+    const behavior = this.nuBehaviors && this.nuBehaviors[name];
 
-    if (input) {
-      input.setValue(val);
+    if (behavior) {
+      behavior.setValue(val);
     } else {
       this._value = val;
+
+      this.nu(name)
+        .then(Behavior => Behavior.setValue(this._value, true));
     }
   }
 
   get value() {
-    const input = this.nuBehaviors && this.nuBehaviors.input;
+    const behaviors = this.constructor.nuAllBehaviors;
+    const name = Object.keys(behaviors).reverse().find(beh => behaviors[beh]);
+    const behavior = this.nuBehaviors && this.nuBehaviors[name];
 
-    return input ? input.value : this._value;
+    return behavior ? behavior.value : this._value;
   }
 }

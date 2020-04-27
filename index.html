@@ -33,8 +33,8 @@
 
   <nu-attrs for="section" flow="column" gap="@gap" labelledby=":prev" debug></nu-attrs>
 
-  <nu-flow gap="2x">
-    <nu-card as="section">
+  <nu-flow gap="2x" id="content" height="min(100vh)">
+    <!--<nu-card as="section">
       <nu-inputgroup>
         <nu-icon name="search" size="lg"></nu-icon>
         <nu-input placeholder="User name" grow="1"></nu-input>
@@ -55,7 +55,7 @@
       </nu-blockquote>
     </nu-card>
 
-    <!--<nu-card as="section">
+    <nu-card as="section">
       <nu-attrs for="nu-btn" border="2b" special></nu-attrs>
       <nu-block>
         <nu-attrs for="nu-btn" padding></nu-attrs>
@@ -182,7 +182,7 @@
     <nu-card as="section">
       <nu-block
         t="'Very very long description of product item'|'Not so long description of product'|'Short description'"></nu-block>
-    </nu-card>-->
+    </nu-card>
 
     <nu-heading level="2">Typography</nu-heading>
 
@@ -277,7 +277,7 @@
       </nu-block>
     </nu-card>
 
-    <!--<nu-heading level="2">Badges</nu-heading>
+    <nu-heading level="2">Badges</nu-heading>
 
     <nu-card id="section">
       <nu-heading level="3">Normal badges</nu-heading>
@@ -2217,7 +2217,8 @@
         <nu-btn value="one">One</nu-btn>
         <nu-btn value="two">Two</nu-btn>
         <nu-btn value="three">Three</nu-btn>
-      </nu-btngroup>-->
+      </nu-btngroup>
+    </nu-card>
 
     <nu-block>
       <nu-btn role="checkbox" pressed clear controls="light[color=text|special] light[size=3x|2x]">Toggle
@@ -2225,7 +2226,7 @@
       <nu-icon id="light" name="sun"></nu-icon>
     </nu-block>
 
-    <!--<nu-heading id="tabs-header" level="3">Tabs</nu-heading>
+    <nu-heading id="tabs-header" level="3">Tabs</nu-heading>
 
     <nu-tablist value="2x" border="inside bottom" controls="tabs-header[padding]">
       <nu-tab controls="first" value="1x">First</nu-tab>
@@ -2283,7 +2284,7 @@
       <nu-switch disabled></nu-switch>
       - Disabled.
     </nu-block>
-    </nu-card>-->
+    </nu-card>
 
     <nu-heading level="2">Checkboxes</nu-heading>
 
@@ -2353,7 +2354,7 @@
       </nu-grid>
     </nu-card>
 
-    <!--<nu-heading level="2">Progress bar</nu-heading>
+    <nu-heading level="2">Progress bar</nu-heading>
 
     <nu-card as="section">
       <nu-flow width="max(18)" gap>
@@ -2403,7 +2404,7 @@
         <nu-numinput suffix="%" value="0" min="0" max="100" precision="0" width="8"
                      label="Percents input"></nu-numinput>
       </nu-block>
-    </nu-card>-->
+    </nu-card>
 
     <nu-heading level="2">Slider</nu-heading>
 
@@ -2460,7 +2461,7 @@
       </nu-flex>
     </nu-card>
 
-    <!-- <nu-heading level="2">Tooltips & [place] attribute</nu-heading>
+    <nu-heading level="2">Tooltips & [place] attribute</nu-heading>
 
     <nu-card as="section" overflow="no">
       <nu-block text="w6">Order of place modifiers is not strict!</nu-block>
@@ -2853,7 +2854,7 @@
           </nu-block>
         </nu-block>
       </nu-grid>
-    </nu-card>-->
+    </nu-card>
 
     <nu-heading level="2">Markdown</nu-heading>
 
@@ -2914,7 +2915,7 @@
       </nu-block>
     </nu-card>
 
-    <!--    <nu-attrs for="$arrow" color="#996633"></nu-attrs>-->
+    <nu-attrs for="$arrow" color="#996633"></nu-attrs>
 
     <nu-card as="section">
       <nu-heading level="3">Date picker</nu-heading>
@@ -2951,7 +2952,7 @@
             value="1234"></nu-num>
         </nu-block>
       </nu-flow>
-    </nu-card>
+    </nu-card>-->
 
   </nu-flow>
 

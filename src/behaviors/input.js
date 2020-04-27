@@ -78,9 +78,10 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
     this.setEmpty();
 
     if (!silent) {
-      this.setInputValue(value);
       this.emit('input', this.value);
     }
+
+    this.setInputValue(value);
   }
 
   setInputValue(value) {

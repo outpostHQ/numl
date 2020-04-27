@@ -1,11 +1,17 @@
 // import { svgElement } from './src/helpers';
 import Nude from './src/index';
+import Playground from './components/playground.svelte';
+
+const playground = new Playground({
+  target: Nude.getElementById('content'),
+});
 
 const schemeWidget = Nude.getElementById("prefers-color-scheme");
 const contrastWidget = Nude.getElementById("prefers-contrast");
 const svgImages = require('./images/*.svg');
 const pngImages = require('./images/*.png');
 
+/* Settings */
 function reduceMotion() {
   Nude.reduceMotion(true);
 }
