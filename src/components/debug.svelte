@@ -1,39 +1,48 @@
 {#if target}
-<nu-block>
-  Debugger for
-  <nu-link scrollto={target.nuUniqId}>
-    {target.tagName.toLowerCase()}#{target.nuUniqId}
-  </nu-link>
-</nu-block>
-<nu-tablist value="eventlog" border="inside bottom" controls="tabs-header[padding]">
-  <nu-tab controls="eventlog" value="eventlog">
-    event log
-  </nu-tab>
-  {#each behaviors as behavior}
-  <nu-tab controls={behavior.$$name} value={behavior.$$name}>
-    {behavior.$$name}
-  </nu-tab>
-  {/each}
-</nu-tablist>
+  <nu-block>
+    Debugger for
+    <nu-link scrollto={target.nuUniqId}>
+      {target.tagName.toLowerCase()}#{target.nuUniqId}
+    </nu-link>
+  </nu-block>
+  <nu-tablist value="eventlog" border="inside bottom" controls="tabs-header[padding]">
+    <nu-tab controls="eventlog" value="eventlog">
+      event log
+    </nu-tab>
+    <nu-tab controls="attributes" value="attributes">
+      attributes
+    </nu-tab>
+    {#each behaviors as behavior}
+      <nu-tab controls={behavior.$$name} value={behavior.$$name}>
+        {behavior.$$name}
+      </nu-tab>
+    {/each}
+  </nu-tablist>
 
-<nu-block height="max(20)" scrollbar overflow="scroll">
-  <nu-block id="eventlog">
-    {#each eventLog as log}
-    <nu-flex gap>
-      <nu-block>{log.timestamp}</nu-block>
-      <nu-block width="7">{log.name}</nu-block>
-      <nu-block>
-        {log.detail !== undefined ? JSON.stringify(log.detail, null, 2) : ''}
+  <nu-block height="clamp(initial, 15, 15)" scrollbar overflow="scroll">
+    <nu-block id="eventlog">
+      {#each eventLog as log}
+        <nu-flex gap>
+          <nu-block>{log.timestamp}</nu-block>
+          <nu-block width="7">{log.name}</nu-block>
+          <nu-block>
+            {log.detail !== undefined ? JSON.stringify(log.detail, null, 2) : ''}
+          </nu-block>
+        </nu-flex>
+      {/each}
+    </nu-block>
+    <nu-grid id="attributes" columns="auto 1fr" gap="0 1x">
+      {#each attrs as attr}
+        <nu-block text="w6">[{attr.name}]</nu-block>
+        <nu-block>{attr.value}</nu-block>
+      {/each}
+    </nu-grid>
+    {#each behaviors as behavior}
+      <nu-block id={behavior.$$name} style="white-space: pre">
+        {logBehaviorState(behavior)}
       </nu-block>
-    </nu-flex>
     {/each}
   </nu-block>
-  {#each behaviors as behavior}
-  <nu-block id={behavior.$$name} style="white-space: pre">
-    {logBehaviorState(behavior)}
-  </nu-block>
-  {/each}
-</nu-block>
 {/if}
 
 <script>
@@ -103,9 +112,20 @@ $: (() => {
 
 setInterval(() => {
   behaviors = behaviors;
+  attrs = attrs;
 }, 500);
 
 $: behaviors = target
   ? Object.values(target.nuBehaviors).filter(beh => beh.$$name !== 'debug')
   : [];
+$: attrs = target ? [...target.attributes].reduce((list, { name, value }) => {
+  value = value === '' ? 'true' : `"${value}"`;
+
+  list.push({
+    name,
+    value,
+  });
+
+  return list;
+}, []) : [];
 </script>
