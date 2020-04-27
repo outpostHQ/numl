@@ -17,6 +17,14 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
 
     const { host } = this;
 
+    if (host._value) {
+      this.setValue(host._value, true);
+      delete host._value;
+    }
+
+    host.nuSetValue = (val, silent) => this.setValue(val, silent);
+    host.nuGetValue = () => this.value;
+
     const tag = this.constructor.tag;
 
     this.ref = host.querySelector(tag);
