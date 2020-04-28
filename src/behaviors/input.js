@@ -7,6 +7,8 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
   }
 
   init() {
+    this.tagName = this.constructor.tag;
+    this.value = null;
     this.props.disabled = () => {
       return this.transferAttr('disabled', this.ref) != null;
     };
@@ -16,12 +18,6 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
     super.init();
 
     const { host } = this;
-
-    // Check if some value was set using element property before behavior initialization
-    if (host._value) {
-      this.setValue(host._value, true);
-      delete host._value;
-    }
 
     host.nuSetValue = (val, silent) => this.setValue(val, silent);
     host.nuGetValue = () => this.value;
@@ -38,13 +34,20 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
       this.ref = input;
     }
 
+    // Check if some value was set using element property before behavior initialization
+    // Require ref property to be set
+    if (host._value) {
+      this.setValue(host._value, true);
+      delete host._value;
+    }
+
     const { ref } = this;
 
     if (this.value == null) {
       this.setValue(tag === 'textarea' ? ref.textContent : ref.value, true);
-    } else {
-      this.setInputValue(this.value);
     }
+
+    this.setFieldValue();
 
     this.transferAttr('placeholder', this.ref, '...');
 
@@ -91,11 +94,12 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
     }
 
     this.setInputValue(value);
+    this.setFieldValue();
   }
 
   setInputValue(value) {
     const { ref } = this;
-    const tag = this.constructor.tag;
+    const tag = this.tagName;
 
     if (!ref) return;
 

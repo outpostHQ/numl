@@ -63,20 +63,15 @@ export default class WidgetBehavior extends Behavior {
 
         if (value) {
           this.setValue(value, true);
-        } else if (this.inputValue != null) {
-          this.form.setFieldValue(id, this.inputValue);
+        } else if (this.emitValue != null) {
+          this.setFieldValue();
         }
       });
     }
   }
 
   disconnected() {
-    const { host } = this;
-    const id = host.nuId;
-
-    if (!id || !this.form) return;
-
-    this.form.setFieldValue(id, undefined);
+    this.setFieldValue();
     delete this.form;
   }
 
@@ -114,11 +109,7 @@ export default class WidgetBehavior extends Behavior {
     if (name === 'input') {
       detail = this.getInputValue(detail);
 
-      const id = this.host.nuId;
-
-      if (this.form && id) {
-        this.form.setFieldValue(id, detail);
-      }
+      this.setFieldValue();
     }
 
     log('emit', { element: this, name, detail, options });
@@ -228,7 +219,21 @@ export default class WidgetBehavior extends Behavior {
     return value;
   }
 
-  get inputValue() {
+  /**
+   * @abstract
+   */
+  setValue() {}
+
+  setFieldValue() {
+    const { host, form } = this;
+    const id = host.nuId;
+
+    if (id && form) {
+      form.setFieldValue(id, this.emitValue);
+    }
+  }
+
+  get emitValue() {
     return this.value;
   }
 }
