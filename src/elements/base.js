@@ -703,7 +703,7 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Generate CSS for specific query, attribute and its value.
-   * Is used as separate method to provide API for decorators.
+   * Is used as separate method to provide API for definition elements.
    * @param {String} query - CSS query to apply styles.
    * @param {String} name - attribute (handler) name.
    * @param {String} value - attribute exact value (handler argument).
@@ -1256,7 +1256,7 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
-   * Return responsive decorator for the styles set.
+   * Return responsive definition for the styles set.
    * @returns {*}
    */
   nuResponsive() {
@@ -1384,14 +1384,14 @@ export default class NuBase extends HTMLElement {
     this.nuEmit('input', value, { bubbles: false });
   }
 
-  nuSetVar(name, value, decorator) {
+  nuSetVar(name, value, definition) {
     if (this.nuHasVar(name) && this.nuGetVar(name) === value) {
       return;
     }
 
     this.nuSetContext(`var:${name}`, {
       context: this,
-      decorator,
+      definition,
       value: value,
     });
 

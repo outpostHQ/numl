@@ -1,4 +1,4 @@
-import NuDecorator from './decorator';
+import NuDefinition from './definition';
 import { declareTheme, removeTheme, ALL_THEME_MODS, hueFromString, THEME_ATTR } from '../themes';
 import { devMode, error, warn } from '../helpers';
 import { getOptimalSaturation, strToHsl } from '../color';
@@ -38,7 +38,7 @@ const VERIFY_MAP = new Map;
  * @class
  * @property nuParent
  */
-export default class NuTheme extends NuDecorator {
+export default class NuTheme extends NuDefinition {
   static get nuTag() {
     return 'nu-theme';
   }
@@ -160,7 +160,7 @@ export default class NuTheme extends NuDecorator {
 
     if (hue == null || hue !== hue || saturation !== saturation) {
       warn('incorrect theme', {
-        decorator: this,
+        definition: this,
         name,
         hue,
         from,

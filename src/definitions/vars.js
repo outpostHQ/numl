@@ -1,6 +1,6 @@
-import NuDecorator from './decorator';
+import NuDefinition from './definition';
 
-export default class NuVars extends NuDecorator {
+export default class NuVars extends NuDefinition {
   static get nuTag() {
     return 'nu-vars';
   }

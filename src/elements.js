@@ -62,7 +62,7 @@ export { default as NuBlockQuote } from './elements/blockquote';
 export { default as NuDebug } from './elements/debug';
 
 /* Decorators */
-export { default as NuTheme } from './decorators/theme';
-export { default as NuVars } from './decorators/vars';
-export { default as NuAttrs } from './decorators/attrs';
-export { default as NuProps } from './decorators/props';
+export { default as NuTheme } from './definitions/theme';
+export { default as NuVars } from './definitions/vars';
+export { default as NuAttrs } from './definitions/attrs';
+export { default as NuProps } from './definitions/props';
