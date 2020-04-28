@@ -10,8 +10,13 @@
         Should be a valid email address
       </nu-check>
     </nu-flow>
-    <nu-input
-      id="password" placeholder="Password" grow="1" mask></nu-input>
+    <nu-flow>
+      <nu-input
+        id="password" placeholder="Password" grow="1" mask></nu-input>
+      <nu-check for="password" assert="required">
+        Password is required
+      </nu-check>
+    </nu-flow>
     <nu-card>
       <nu-form id="user" nu-debug="debugger1" gap>
         <nu-heading level="5">User</nu-heading>
@@ -23,10 +28,10 @@
               nu-debug="debugger2"></nu-input>
           </nu-inputgroup>
           <nu-check for="name" assert="required">
-            Field is required
+            Name is required
           </nu-check>
           <nu-check for="name" assert="minlength:5">
-            Name requires at least 5 characters
+            Name should contain at least 5 characters
           </nu-check>
         </nu-flow>
         <nu-pane gap padding>
