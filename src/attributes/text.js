@@ -34,6 +34,10 @@ set('tabular-nums', {
 
 set('wrap', { 'white-space': 'normal' });
 set('nowrap', { 'white-space': 'nowrap' });
+set('pre', { 'white-space': 'pre' });
+set('pre-wrap', { 'white-space': 'pre-wrap' });
+set('pre-line', { 'white-space': 'pre-line' });
+set('break-spaces', { 'white-space': 'break-spaces' });
 
 set('bolder', { 'font-weight': 'calc(var(--nu-font-weight) + 200)' });
 set('lighter', { 'font-weight': 'calc(var(--nu-font-weight) - 200)' });

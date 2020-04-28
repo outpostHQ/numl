@@ -41,7 +41,7 @@
       {/each}
     </nu-grid>
     {#each behaviors as behavior}
-      <nu-block id={behavior.$$name} style="white-space: pre">
+      <nu-block id={behavior.$$name} text="pre">
         <nu-block>
           <nu-el text="w6">{behavior.$$name}{target.nuDebugId}</nu-el> in console
         </nu-block>
