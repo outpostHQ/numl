@@ -1,8 +1,15 @@
 <nu-card as="section">
   <nu-form nu-debug="debugger0" gap value={formData}>
     <nu-heading level="4">Form</nu-heading>
+    <nu-flow>
+      <nu-input
+        id="email" placeholder="Email address" grow="1"></nu-input>
+      <nu-check for="email" assert="email">
+        Should be a valid email address
+      </nu-check>
+    </nu-flow>
     <nu-input
-      id="email" placeholder="Email address" grow="1"></nu-input>
+      id="password" placeholder="Password" grow="1" mask></nu-input>
     <nu-card>
       <nu-form id="user" nu-debug="debugger1" gap>
         <nu-heading level="5">User</nu-heading>

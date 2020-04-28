@@ -64,4 +64,16 @@ export default class FormBehavior extends WidgetBehavior {
   unregisterCheck(field, name) {
     delete this.checks[field][name];
   }
+
+  connectForm() {
+    super.connectForm();
+
+    const checks = this.checks;
+
+    this.checks = Object.create(this.form.checks);
+
+    Object.keys(checks).forEach(check => {
+      this.checks[check] = checks[check];
+    });
+  }
 }

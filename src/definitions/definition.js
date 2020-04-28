@@ -2,7 +2,7 @@ import NuBase from '../elements/base';
 import { THEME_ATTR } from '../themes';
 import { RESPONSIVE_ATTR } from '../responsive';
 
-const IGNORE_ATTRS = ['id', 'class', 'nu', 'for'];
+export const IGNORE_ATTRS = ['id', 'class', 'nu', 'for'];
 
 export default class NuDefinition extends NuBase {
   static get nuTag() {

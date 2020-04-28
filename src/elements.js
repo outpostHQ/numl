@@ -60,6 +60,7 @@ export { default as NuDatePicker } from './elements/datepicker';
 export { default as NuTextArea } from './elements/textarea';
 export { default as NuBlockQuote } from './elements/blockquote';
 export { default as NuDebug } from './elements/debug';
+export { default as NuCheck } from './elements/check';
 
 /* Decorators */
 export { default as NuTheme } from './definitions/theme';

@@ -42,7 +42,7 @@
     </nu-grid>
     {#each behaviors as behavior}
       <nu-block id={behavior.$$name} text="pre">
-        <nu-block>
+        <nu-block place="sticky top" fill="bg">
           <nu-el text="w6">{behavior.$$name}{target.nuDebugId}</nu-el> in console
         </nu-block>
         {logBehaviorState(behavior)}

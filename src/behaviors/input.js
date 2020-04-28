@@ -22,6 +22,13 @@ export default class InputBehavior extends WidgetBehavior {
     };
     this.props.placeholder = () => this.transferAttr('placeholder', this.ref, '...');
     this.props.value = (val) => this.setValue(val, true);
+    this.props.mask = (val) => {
+      val = val != null;
+
+      this.setMask(val);
+
+      return val;
+    };
 
     super.init();
 
@@ -117,6 +124,18 @@ export default class InputBehavior extends WidgetBehavior {
       }
     } else if (ref.value !== value) {
       ref.value = value;
+    }
+  }
+
+  setMask(mask) {
+    if (this.ref) {
+      if (mask) {
+        this.ref.type = 'password';
+      } else {
+        this.ref.type = 'text';
+      }
+    } else {
+      setTimeout(() => this.setMask(mask));
     }
   }
 }
