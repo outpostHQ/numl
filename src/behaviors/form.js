@@ -1,4 +1,5 @@
 import WidgetBehavior from './widget';
+import { checkErrors } from '../validators';
 
 /**
  * Behavior to handle form logic.
@@ -75,5 +76,18 @@ export default class FormBehavior extends WidgetBehavior {
     Object.keys(checks).forEach(check => {
       this.checks[check] = checks[check];
     });
+  }
+
+  validate() {
+    return checkErrors(this.value, this.checks)
+      .then(errors => {
+        if (errors) {
+          this.value.$errors = errors;
+        } else {
+          delete this.value.$errors;
+        }
+
+        return !errors;
+      });
   }
 }

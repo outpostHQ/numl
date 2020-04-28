@@ -5,7 +5,15 @@ export default class ValidatorBehavior extends WidgetBehavior {
     this.props.for = (val) => {
       this.fieldId = val;
     };
-    this.props.assert = true;
+    this.props.assert = (assert) => {
+      if (assert) {
+        const tmp = assert.split(':');
+        this.assert = tmp[0];
+        this.value = tmp[1];
+      } else {
+        this.assert = null;
+      }
+    };
 
     super.init();
   }
