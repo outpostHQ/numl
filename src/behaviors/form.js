@@ -31,6 +31,8 @@ export default class FormBehavior extends WidgetBehavior {
       this.setDirty()
         .then(() => this.validate())
         .then(valid => {
+          this.setErrorProps();
+
           if (valid) {
             this.emit('input', this.value);
           }
@@ -113,10 +115,6 @@ export default class FormBehavior extends WidgetBehavior {
           delete this.value.$errors;
         }
 
-        if (!silent) {
-          this.setErrorProps(errors || {});
-        }
-
         return !errors;
       });
   }
@@ -132,24 +130,24 @@ export default class FormBehavior extends WidgetBehavior {
           .then(Form => {
             return Form.setDirty()
               .then(() => Form.validate())
+              .then(() => Form.setErrorProps())
           });
       }));
   }
 
   /**
    * Set custom properties to show active errors
-   * @param errors {Object}
    * @returns
    */
-  setErrorProps(errors) {
+  setErrorProps() {
     const names = Object.keys(this.checks);
-    const dirty = this.dirty;
+    const errors = this.value.$errors || {};
 
     names.forEach(name => {
       const checks = Object.keys(this.checks[name]);
 
       checks.forEach(check => {
-        const value = errors && errors[name] && errors[name][check] && dirty ? '-' : 'none';
+        const value = errors && errors[name] && errors[name][check] ? '-' : 'none';
 
         this.host.style.setProperty(`--nu-check-${name}-${check}`, value);
       });
