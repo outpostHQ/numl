@@ -4,6 +4,8 @@ import { h } from '../helpers';
 
 export default class ButtonBehavior extends WidgetBehavior {
   init() {
+    this.value = null;
+    this.offValue = null;
     // require mixins
     this.require('active', 'focusable');
 
@@ -308,6 +310,31 @@ export default class ButtonBehavior extends WidgetBehavior {
     });
   }
 
+  setByValue(val) {
+    let value = this.value;
+    let offValue = this.offValue;
+
+    if (value != null) {
+      value = this.getTypedValue(value);
+
+      if (value === val) {
+        return this.set(true);
+      }
+
+      if (offValue != null) {
+        offValue = this.getTypedValue(offValue);
+
+        if (offValue === val) {
+          return this.set(false);
+        }
+      }
+
+      return this.set(false);
+    }
+
+    this.set(val != null);
+  }
+
   isToggle() {
     const { host } = this;
 
@@ -332,5 +359,16 @@ export default class ButtonBehavior extends WidgetBehavior {
 
   isCheckbox() {
     return ['radio', 'checkbox', 'switch'].includes(this.role);
+  }
+
+  connectForm() {
+    const id = this.host.nuId;
+    const value = this.form.value[id];
+
+    if (value != null) {
+      this.setByValue(value);
+    } else if (this.emitValue != null) {
+      this.setFormValue();
+    }
   }
 }

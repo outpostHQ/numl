@@ -76,9 +76,9 @@ export default class WidgetBehavior extends Behavior {
 
   connectForm() {
     const id = this.host.nuId;
-    const value = this.form[id];
+    const value = this.form.value[id];
 
-    if (value) {
+    if (value != null) {
       this.setValue(value, true);
     } else if (this.emitValue != null) {
       this.setFormValue();
