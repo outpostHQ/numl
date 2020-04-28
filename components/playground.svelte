@@ -1,10 +1,10 @@
 <nu-card as="section">
-  <nu-form nu-debug="debugger0" gap>
+  <nu-form nu-debug="debugger0" gap value={formData}>
     <nu-heading level="4">Form</nu-heading>
     <nu-input
       id="email" placeholder="Email address" grow="1"></nu-input>
     <nu-card>
-      <nu-form id="user" nu-debug="debugger1" gap value={user}>
+      <nu-form id="user" nu-debug="debugger1" gap>
         <nu-heading level="5">User</nu-heading>
         <nu-inputgroup>
           <nu-icon name="user" size="lg"></nu-icon>
@@ -13,8 +13,9 @@
             nu-debug="debugger2"></nu-input>
         </nu-inputgroup>
         <nu-pane gap padding>
-          <nu-checkbox checked id="press" type="num" value="4" off-value="2" labelledby=":next"
-                       nu-debug="debugger3"></nu-checkbox>
+          <nu-checkbox
+            checked id="press" type="num" value="4" off-value="2" labelledby=":next"
+            nu-debug="debugger3"></nu-checkbox>
           <nu-label>Some checkbox</nu-label>
         </nu-pane>
       </nu-form>
@@ -121,5 +122,9 @@ let inputValue = 'Some input value';
 let user = {
   press: 2,
   name: 'Something',
+};
+let formData = {
+  email: 'tenphi@gmail.com',
+  user,
 };
 </script>

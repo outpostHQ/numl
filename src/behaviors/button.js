@@ -360,15 +360,4 @@ export default class ButtonBehavior extends WidgetBehavior {
   isCheckbox() {
     return ['radio', 'checkbox', 'switch'].includes(this.role);
   }
-
-  connectForm() {
-    const id = this.host.nuId;
-    const value = this.form.value[id];
-
-    if (value != null) {
-      this.setByValue(value);
-    } else if (this.emitValue != null) {
-      this.setFormValue();
-    }
-  }
 }
