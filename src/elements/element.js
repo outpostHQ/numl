@@ -59,6 +59,7 @@ export default class NuElement extends NuBase {
       precision: '',
       disabled: '',
       value: '',
+      'off-value': '',
       scrollto: '',
       action: '',
       lang: '',

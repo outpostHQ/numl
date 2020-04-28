@@ -3,7 +3,10 @@
     Debugger for
     <nu-link scrollto={target.nuUniqId}>
       {target.tagName.toLowerCase()}#{target.nuUniqId}
-    </nu-link> | <nu-el text="w6">el{target.nuDebugId}</nu-el> in console
+    </nu-link>
+  </nu-block>
+  <nu-block>
+    <nu-el text="w6">el{target.nuDebugId}</nu-el> in console
   </nu-block>
   <nu-tablist value="eventlog" border="inside bottom" controls="tabs-header[padding]">
     <nu-tab controls="eventlog" value="eventlog">

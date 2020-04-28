@@ -5,7 +5,7 @@
       <nu-input id="name" placeholder="User name" grow="1" value={inputValue} nu-debug="debugger2"></nu-input>
     </nu-inputgroup>
     <nu-pane gap padding>
-      <nu-checkbox id="press" labelledby=":next" nu-debug="debugger3"></nu-checkbox>
+      <nu-checkbox checked id="press" type="num" value="4" off-value="2" labelledby=":next" nu-debug="debugger3"></nu-checkbox>
       <nu-label>Some checkbox</nu-label>
     </nu-pane>
   </nu-form>
