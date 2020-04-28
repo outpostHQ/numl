@@ -1,5 +1,5 @@
 import Behavior from "./behavior";
-import { log } from '../helpers';
+import { log, toCamelCase } from '../helpers';
 
 export const BOOL_TYPE = (val) => val != null;
 export const ALIAS_ATTR = (el, name) => {
@@ -85,17 +85,18 @@ export default class WidgetBehavior extends Behavior {
 
   fromAttr(name, value) {
     const defaults = this.props[name];
+    const prop = toCamelCase(name);
 
     if (typeof defaults === 'function') {
       const val = defaults(value);
 
       if (val != null) {
-        this[name] = val;
+        this[prop] = val;
       }
     } else if (value != null || name in this) {
-      this[name] = value;
+      this[prop] = value;
     } else if (defaults != null) {
-      this[name] = defaults;
+      this[prop] = defaults;
     }
   }
 
@@ -109,7 +110,7 @@ export default class WidgetBehavior extends Behavior {
     if (name === 'input') {
       detail = this.getInputValue(detail);
 
-      this.setFieldValue();
+      this.setFieldValue(detail);
     }
 
     log('emit', { element: this, name, detail, options });
@@ -137,6 +138,8 @@ export default class WidgetBehavior extends Behavior {
         }
 
         break;
+      case 'number':
+      case 'num':
       case 'float':
         value = notNull ? parseFloat(value) : null;
 
@@ -224,12 +227,12 @@ export default class WidgetBehavior extends Behavior {
    */
   setValue() {}
 
-  setFieldValue() {
+  setFieldValue(detail = this.getInputValue(this.emitValue)) {
     const { host, form } = this;
     const id = host.nuId;
 
     if (id && form) {
-      form.setFieldValue(id, this.emitValue);
+      form.setFieldValue(id, detail);
     }
   }
 

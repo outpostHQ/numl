@@ -10,7 +10,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     const pressedAttr = ALIAS_ATTR(this.host, 'pressed');
 
     this.props.to = null;
-    this.props.pressed = (bool) => this.set(bool != null);
+    this.props.pressed = (bool) => this.set(bool != null, true);
     this.props.checked = pressedAttr;
     this.props.selected = pressedAttr;
     this.props.value = (val) => {
@@ -47,10 +47,6 @@ export default class ButtonBehavior extends WidgetBehavior {
       if (this.to) {
         this.role = 'link';
       }
-    }
-
-    if (this.isToggle()) {
-      this.set(this.pressed);
     }
 
     this.control(this.pressed, this.value);
@@ -205,18 +201,11 @@ export default class ButtonBehavior extends WidgetBehavior {
     }
 
     setTimeout(() => {
-      this.emit('tap', this.value);
+      this.emit('tap');
     }, 0);
 
     this.toggle();
     this.control(this.pressed, this.value);
-
-    const value = this.emitValue;
-
-    if (this.isCheckbox()) {
-      this.emit('pressed', this.pressed);
-      this.emit('input', value);
-    }
 
     // Actions
     const action = this.host.getAttribute('action');
@@ -231,7 +220,17 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   get emitValue() {
-    return (this.pressed && this.value) || this.pressed || false;
+    if (this.pressed) {
+      if (this.value != null) {
+        return this.value;
+      }
+
+      return true;
+    } else if (this.offValue != null) {
+      return this.offValue;
+    }
+
+    return false;
   }
 
   toggle() {
@@ -244,7 +243,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.set(!this.pressed);
   }
 
-  set(pressed) {
+  set(pressed, silent) {
     if (pressed === this.pressed) return;
 
     if (!this.isToggle()) return;
@@ -268,6 +267,11 @@ export default class ButtonBehavior extends WidgetBehavior {
       host.nuSetAria('selected', pressed);
     } else {
       host.nuSetAria('pressed', pressed);
+    }
+
+    if (!silent && this.isCheckbox()) {
+      this.emit('pressed', this.pressed);
+      this.emit('input', this.emitValue);
     }
 
     host.nuSetMod('pressed', pressed);
