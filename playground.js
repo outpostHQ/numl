@@ -1,5 +1,5 @@
 // import { svgElement } from './src/helpers';
-import Nude from './src/index';
+import Nude, { FLEX_GAP_SUPPORTED } from './src/index';
 import Playground from './components/playground.svelte';
 
 const playground = new Playground({
