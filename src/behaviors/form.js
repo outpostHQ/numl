@@ -31,6 +31,8 @@ export default class FormBehavior extends WidgetBehavior {
 
     if (JSON.stringify(value) === this.serializedValue) return;
 
+    console.log('!', JSON.stringify(value));
+
     this.serializedValue = serializedValue;
     this.value = value;
 

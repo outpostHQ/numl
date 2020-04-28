@@ -4,7 +4,7 @@
     <nu-input
       id="email" placeholder="Email address" grow="1"></nu-input>
     <nu-card>
-      <nu-form id="user" nu-debug="debugger1" gap>
+      <nu-form id="user" nu-debug="debugger1" gap value={user}>
         <nu-heading level="5">User</nu-heading>
         <nu-inputgroup>
           <nu-icon name="user" size="lg"></nu-icon>
@@ -118,4 +118,8 @@
 
 <script>
 let inputValue = 'Some input value';
+let user = {
+  press: 2,
+  name: 'Something',
+};
 </script>
