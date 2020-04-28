@@ -27,7 +27,5 @@ export default class NuCheck extends NuElement {
 
   nuConnected() {
     super.nuConnected();
-
-    this.hidden = true;
   }
 }

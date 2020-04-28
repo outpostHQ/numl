@@ -16,9 +16,12 @@
         <nu-inputgroup>
           <nu-icon name="user" size="lg"></nu-icon>
           <nu-input
-            id="name" placeholder="User name" grow="1" value={inputValue}
+            id="name" placeholder="User name" grow="1"
             nu-debug="debugger2"></nu-input>
         </nu-inputgroup>
+        <nu-check for="name" assert="required">
+          Field is required
+        </nu-check>
         <nu-pane gap padding>
           <nu-checkbox
             checked id="press" type="num" value="4" off-value="2" labelledby=":next"
@@ -128,7 +131,7 @@
 let inputValue = 'Some input value';
 let user = {
   press: 2,
-  name: 'Something',
+  name: '',
 };
 let formData = {
   email: 'tenphi@gmail.com',

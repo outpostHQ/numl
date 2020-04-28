@@ -49,6 +49,8 @@ export default class ValidatorBehavior extends WidgetBehavior {
 
     if (!fieldId || !assert || !form) return;
 
+    this.host.style.display = `var(--nu-check-${fieldId}-${assert})`;
+
     this.form.registerCheck(fieldId, assert, value);
   }
 

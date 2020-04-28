@@ -25,6 +25,16 @@ const VALIDATORS = {
 
 export function checkErrors(data, checks) {
   const names = Object.keys(checks);
+  const errors = {};
+
+  Object.keys(data)
+    .forEach(name => {
+      const value = data[name];
+
+      if (typeof value === 'object' && value.$errors) {
+        errors[name] = value.$errors;
+      }
+    });
 
   return Promise.all(
     names
@@ -73,17 +83,19 @@ export function checkErrors(data, checks) {
           });
       })
   ).then(results => {
-    const valid = !results.every(r => r);
-
-    if (valid) return false;
-
     return names.reduce((map, name, i) => {
       if (results[i]) {
         map[name] = results[i];
       }
 
       return map;
-    }, {});
+    }, errors);
+  }).then(() => {
+    const valid = !Object.keys(errors).length;
+
+    if (valid) return false;
+
+    return errors;
   });
 }
 
