@@ -57,22 +57,40 @@ export default class WidgetBehavior extends Behavior {
 
     if (id) {
       this.bindContext('form', (form) => {
+        if (this.currentForm && form !== this.currentForm) {
+          this.disconnectForm(this.currentForm, !!form);
+        }
+
+        this.currentForm = form;
+
         if (!form) return;
 
-        const value = this.form[id];
-
-        if (value) {
-          this.setValue(value, true);
-        } else if (this.emitValue != null) {
-          this.setFieldValue();
-        }
+        this.connectForm();
       });
     }
   }
 
   disconnected() {
-    this.setFieldValue();
-    delete this.form;
+    this.disconnectForm();
+  }
+
+  connectForm() {
+    const id = this.host.nuId;
+    const value = this.form[id];
+
+    if (value) {
+      this.setValue(value, true);
+    } else if (this.emitValue != null) {
+      this.setFormValue();
+    }
+  }
+
+  disconnectForm(form = this.currentForm, dontDelete) {
+    this.setFormValue(null, form);
+
+    if (!dontDelete) {
+      delete this.form;
+    }
   }
 
   changed(name, value) {
@@ -108,9 +126,9 @@ export default class WidgetBehavior extends Behavior {
    */
   emit(name, detail = null, options = {}) {
     if (name === 'input') {
-      detail = this.getInputValue(detail);
+      detail = this.getTypedValue(detail);
 
-      this.setFieldValue(detail);
+      this.setFormValue(detail);
     }
 
     log('emit', { element: this, name, detail, options });
@@ -126,7 +144,7 @@ export default class WidgetBehavior extends Behavior {
     this.host.dispatchEvent(event);
   }
 
-  getInputValue(value) {
+  getTypedValue(value) {
     const notNull = value != null;
 
     switch (this.type || this.host.constructor.nuType) {
@@ -227,8 +245,8 @@ export default class WidgetBehavior extends Behavior {
    */
   setValue() {}
 
-  setFieldValue(detail = this.getInputValue(this.emitValue)) {
-    const { host, form } = this;
+  setFormValue(detail = this.getTypedValue(this.emitValue), form = this.form) {
+    const { host } = this;
     const id = host.nuId;
 
     if (id && form) {

@@ -208,13 +208,13 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.control(this.pressed, this.value);
 
     // Actions
-    const action = this.host.getAttribute('action');
+    const action = host.getAttribute('action');
 
     if (action) {
-      const actionCallback = this.host.nuContext[action];
+      const actionCallback = this.parentContext[action];
 
       if (actionCallback) {
-        actionCallback(value);
+        actionCallback(this.getTypedValue(this.emitValue));
       }
     }
   }

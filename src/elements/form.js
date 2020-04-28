@@ -11,6 +11,10 @@ export default class NuForm extends NuFlow {
     };
   }
 
+  static get nuType() {
+    return 'object';
+  }
+
   set value(val) {
     if (this.nuSetValue) {
       this.nuSetValue(val, true);

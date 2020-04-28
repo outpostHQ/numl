@@ -47,7 +47,7 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
       this.setValue(tag === 'textarea' ? ref.textContent : ref.value, true);
     }
 
-    this.setFieldValue();
+    this.setFormValue();
 
     this.transferAttr('placeholder', this.ref, '...');
 
@@ -94,7 +94,7 @@ export default class InputBehavior extends LocalizedWidgetBehavior {
     }
 
     this.setInputValue(value);
-    this.setFieldValue();
+    this.setFormValue();
   }
 
   setInputValue(value) {
