@@ -3,6 +3,10 @@ import Routing from '../routing';
 import { h } from '../helpers';
 
 export default class ButtonBehavior extends WidgetBehavior {
+  static get formField() {
+    return true;
+  }
+
   init() {
     this.value = null;
     this.offValue = null;

@@ -1,6 +1,10 @@
 import WidgetBehavior from "./widget";
 
 export default class RadioGroupBehavior extends WidgetBehavior {
+  static get formField() {
+    return true;
+  }
+
   constructor(host, value) {
     super(host, value);
 

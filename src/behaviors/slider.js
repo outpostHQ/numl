@@ -10,6 +10,10 @@ const EVENT_MAP = {
 };
 
 export default class SliderBehavior extends WidgetBehavior {
+  static get formField() {
+    return true;
+  }
+
   init() {
     this.props.value = (val) => {
       this.setValue(getFloatFromAttr(val, 0), true);

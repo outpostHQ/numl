@@ -1,8 +1,16 @@
 import { toCamelCase } from '../helpers';
-import LocalizedWidgetBehavior from './localized-widget';
+import WidgetBehavior from './widget';
 import Components from '../components/index';
 
-export default class ComponentBehavior extends LocalizedWidgetBehavior {
+export default class ComponentBehavior extends WidgetBehavior {
+  static get localized() {
+    return true;
+  }
+
+  static get formField() {
+    return true;
+  }
+
   constructor(host, value) {
     super(host, value);
 

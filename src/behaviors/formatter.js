@@ -1,7 +1,10 @@
-import LocalizedWidgetBehavior from './localized-widget';
+import WidgetBehavior from './widget';
 
-export default class FormatterBehavior extends LocalizedWidgetBehavior {
+export default class FormatterBehavior extends WidgetBehavior {
   static get formatter() {}
+  static get localized() {
+    return true;
+  }
 
   connected() {
     super.connected();

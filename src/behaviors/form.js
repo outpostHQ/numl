@@ -5,8 +5,13 @@ import WidgetBehavior from './widget';
  * Value of the form is actually DATA and can only be set by element property.
  */
 export default class FormBehavior extends WidgetBehavior {
+  static get formField() {
+    return true;
+  }
+
   init() {
     this.value = {};
+    this.checks = {};
 
     super.init();
 
@@ -46,5 +51,17 @@ export default class FormBehavior extends WidgetBehavior {
     } else {
       delete this.value[name];
     }
+  }
+
+  registerCheck(field, name, options) {
+    if (!this.checks[field]) {
+      this.checks[field] = {};
+
+      this.checks[field][name] = options;
+    }
+  }
+
+  unregisterCheck(field, name) {
+    delete this.checks[field][name];
   }
 }
