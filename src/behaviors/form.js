@@ -1,5 +1,6 @@
 import WidgetBehavior from './widget';
 import { checkErrors } from '../validators';
+import { deepQueryAll } from '../helpers';
 
 /**
  * Behavior to handle form logic.
@@ -18,6 +19,8 @@ export default class FormBehavior extends WidgetBehavior {
 
     const { host } = this;
 
+    host.nuSetMod('form', true);
+
     host.nuSetValue = (val, silent) => this.setValue(val, silent);
     host.nuGetValue = () => this.value;
 
@@ -25,8 +28,20 @@ export default class FormBehavior extends WidgetBehavior {
 
     this.setContext('form', this);
     this.setContext('submit', () => {
-      this.emit('input', this.value);
+      this.setDirty()
+        .then(() => this.validate())
+        .then(valid => {
+          if (valid) {
+            this.emit('input', this.value);
+          }
+        });
     });
+  }
+
+  connected() {
+    super.connected();
+
+    setTimeout(() => this.validate(true));
   }
 
   setValue(value, silent) {
@@ -40,7 +55,12 @@ export default class FormBehavior extends WidgetBehavior {
     this.value = value;
 
     if (!silent) {
-      this.emit('input', this.value);
+      this.validate()
+        .then(valid => {
+          if (valid) {
+            this.emit('input', this.value);
+          }
+        });
     }
   }
 
@@ -52,6 +72,8 @@ export default class FormBehavior extends WidgetBehavior {
     } else {
       delete this.value[name];
     }
+
+    this.validate();
   }
 
   registerCheck(field, name, options) {
@@ -78,7 +100,11 @@ export default class FormBehavior extends WidgetBehavior {
     });
   }
 
-  validate() {
+  /**
+   * Check form data correctness.
+   * @return {Promise<boolean>}
+   */
+  validate(silent) {
     return checkErrors(this.value, this.checks)
       .then(errors => {
         if (errors) {
@@ -87,7 +113,46 @@ export default class FormBehavior extends WidgetBehavior {
           delete this.value.$errors;
         }
 
+        if (!silent) {
+          this.setErrorProps(errors || {});
+        }
+
         return !errors;
       });
+  }
+
+  setDirty() {
+    const forms = deepQueryAll(this.host, '[nu-form]');
+
+    this.dirty = true;
+
+    return Promise.all(forms
+      .map(formEl => {
+        return formEl.nu('form')
+          .then(Form => {
+            return Form.setDirty()
+              .then(() => Form.validate())
+          });
+      }));
+  }
+
+  /**
+   * Set custom properties to show active errors
+   * @param errors {Object}
+   * @returns
+   */
+  setErrorProps(errors) {
+    const names = Object.keys(this.checks);
+    const dirty = this.dirty;
+
+    names.forEach(name => {
+      const checks = Object.keys(this.checks[name]);
+
+      checks.forEach(check => {
+        const value = errors && errors[name] && errors[name][check] && dirty ? '-' : 'none';
+
+        this.host.style.setProperty(`--nu-check-${name}-${check}`, value);
+      });
+    });
   }
 }
