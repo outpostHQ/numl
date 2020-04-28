@@ -1,5 +1,8 @@
 import Behavior from "./behavior";
 import { log, toCamelCase } from '../helpers';
+import { VAR_MOD } from '../variables';
+
+const LOCALE_VAR = 'var:locale';
 
 export const BOOL_TYPE = (val) => val != null;
 export const ALIAS_ATTR = (el, name) => {
@@ -15,6 +18,14 @@ export const ALIAS_ATTR = (el, name) => {
 };
 
 export default class WidgetBehavior extends Behavior {
+  static get localized() {
+    return false;
+  }
+
+  static get formField() {
+    return false;
+  }
+
   constructor(host, options) {
     super(host, options);
 
@@ -39,6 +50,15 @@ export default class WidgetBehavior extends Behavior {
 
   init() {
     const { host } = this;
+    const localized = this.constructor.localized;
+
+    if (localized) {
+      this.props.lang = (val) => {
+        this.setLocale(val);
+
+        return val;
+      };
+    }
 
     this.propsList = Object.keys(this.props).reverse();
 
@@ -47,31 +67,48 @@ export default class WidgetBehavior extends Behavior {
 
       this.fromAttr(prop, value);
     }
+
+    if (localized) {
+      host.nuSetContextHook(LOCALE_VAR, (contextLocale) => {
+        if (this.locale !== contextLocale.value && !host.hasAttribute('lang')) {
+          this.apply();
+        }
+      });
+
+      host.nuSetMod(VAR_MOD, true);
+    }
   }
 
   connected() {
-    const { host } = this;
-    const id = host.nuId;
+    if (this.constructor.localized) {
+      this.setLocale(this.lang);
+    }
 
-    if (!id) return;
+    // Form support
+    if (this.constructor.formField) {
+      const { host } = this;
+      const id = host.nuId;
 
-    if (id) {
-      this.bindContext('form', (form) => {
-        if (this.currentForm && form !== this.currentForm) {
-          this.disconnectForm(this.currentForm, !!form);
-        }
+      if (id) {
+        this.bindContext('form', (form) => {
+          if (this.currentForm && form !== this.currentForm) {
+            this.disconnectForm(this.currentForm, !!form);
+          }
 
-        this.currentForm = form;
+          this.currentForm = form;
 
-        if (!form) return;
+          if (!form) return;
 
-        this.connectForm();
-      });
+          this.connectForm();
+        });
+      }
     }
   }
 
   disconnected() {
-    this.disconnectForm();
+    if (this.constructor.formField) {
+      this.disconnectForm();
+    }
   }
 
   connectForm() {
@@ -142,7 +179,9 @@ export default class WidgetBehavior extends Behavior {
     if (name === 'input') {
       detail = this.getTypedValue(detail);
 
-      this.setFormValue(detail);
+      if (this.constructor.formField) {
+        this.setFormValue(detail);
+      }
     }
 
     log('emit', { element: this, name, detail, options });
@@ -254,9 +293,6 @@ export default class WidgetBehavior extends Behavior {
     return value;
   }
 
-  /**
-   * @abstract
-   */
   setValue() {
   }
 
@@ -271,5 +307,11 @@ export default class WidgetBehavior extends Behavior {
 
   get emitValue() {
     return this.value;
+  }
+
+  setLocale(val) {
+    const context = this.context;
+
+    this.locale = val ? val : (context[LOCALE_VAR] && context[LOCALE_VAR].value || 'en');
   }
 }

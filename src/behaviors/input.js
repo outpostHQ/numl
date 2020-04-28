@@ -1,7 +1,15 @@
-import LocalizedWidgetBehavior from './localized-widget';
+import WidgetBehavior from './widget';
 import { h } from '../helpers';
 
-export default class InputBehavior extends LocalizedWidgetBehavior {
+export default class InputBehavior extends WidgetBehavior {
+  static get localized() {
+    return true;
+  }
+
+  static get formField() {
+    return true;
+  }
+
   static get tag() {
     return 'input';
   }

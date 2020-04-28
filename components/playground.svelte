@@ -33,11 +33,11 @@
   <nu-debug id="debugger3" as="section"></nu-debug>
 </nu-grid>
 
-<!--<nu-card as="section">
+<nu-card as="section">
   <nu-numinput value="15" code="USD"></nu-numinput>
 </nu-card>
 
-<nu-card as="section">
+<!--<nu-card as="section">
   <nu-textarea value={inputValue}></nu-textarea>
 </nu-card>
 

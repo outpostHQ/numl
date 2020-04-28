@@ -5,12 +5,8 @@ export default class NuVars extends NuDefinition {
     return 'nu-vars';
   }
 
-  nuConnected() {
-    super.nuConnected();
-
-    this.nuApply();
-
-    if (this.nuObserve) return;
+  nuInit() {
+    super.nuInit();
 
     const observer = new MutationObserver(() => this.nuApply());
 
@@ -20,6 +16,12 @@ export default class NuVars extends NuDefinition {
       childList: false,
       subtree: false
     });
+  }
+
+  nuConnected() {
+    super.nuConnected();
+
+    this.nuApply();
   }
 
   nuApply() {

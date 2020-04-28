@@ -1,6 +1,5 @@
 import NuDefinition from './definition';
 import {
-  convertUnit,
   log,
   normalizeAttrStates,
   parseAttr,
