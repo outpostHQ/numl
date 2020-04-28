@@ -2,30 +2,30 @@ import { parseAttr } from '../helpers';
 
 const BASE = 'var(--nu-gap)';
 
+export function isFlexGapSupported() {
+  const els = [1, 2, 3].map(() => document.createElement('div'));
+
+  els[1].style.width = '1px';
+  els[2].style.width = '1px';
+  els[0].appendChild(els[1]);
+  els[0].appendChild(els[2]);
+
+  els[0].style.display = 'inline-flex';
+  els[0].style.gap = '1px';
+
+  document.body.appendChild(els[0]);
+
+  let FLEX_GAP_SUPPORTED = els[0].offsetWidth === 3;
+
+  document.body.removeChild(els[0]);
+
+  return FLEX_GAP_SUPPORTED;
+}
+
 // @TODO: Unable to calculate it before BODY is accessible.
 // Use native flex gap only for Firefox.
 // Other browsers use polyfill.
-export const FLEX_GAP_SUPPORTED = CSS.supports('-moz-appearance: none');
-
-// export function isFlexGapSupported() {
-//   const els = [1, 2, 3].map(() => document.createElement('div'));
-//
-//   els[1].style.width = '1px';
-//   els[2].style.width = '1px';
-//   els[0].appendChild(els[1]);
-//   els[0].appendChild(els[2]);
-//
-//   els[0].style.display = 'inline-flex';
-//   els[0].style.gap = '1px';
-//
-//   document.body.appendChild(els[0]);
-//
-//   FLEX_GAP_SUPPORTED = els[0].offsetWidth === 3;
-//
-//   document.body.removeChild(els[0]);
-//
-//   return FLEX_GAP_SUPPORTED;
-// }
+export const FLEX_GAP_SUPPORTED = isFlexGapSupported(); //CSS.supports('-moz-appearance: none');
 
 /**
  * CSS Gap value. Used for flex and grid layouts.

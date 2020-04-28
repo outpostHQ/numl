@@ -1,4 +1,5 @@
 export * from './elements';
+export { FLEX_GAP_SUPPORTED } from './attributes/gap';
 import * as ELEMENTS from './elements';
 import NuBase from './elements/base';
 import NuActiveElement from './elements/activeelement';
@@ -142,7 +143,7 @@ const styleEl = [...document.querySelectorAll('style')].find(style => {
 Nude.init(...Object.values(ELEMENTS));
 
 rootEls.forEach(el => {
-  el.nuParent.appendChild(el);
+  el.nuParent && el.nuParent.appendChild(el);
 });
 
 if (styleEl) {
