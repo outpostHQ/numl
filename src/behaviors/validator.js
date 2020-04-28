@@ -14,6 +14,7 @@ export default class ValidatorBehavior extends WidgetBehavior {
         this.assert = null;
       }
     };
+    delete this.props.value;
 
     super.init();
   }

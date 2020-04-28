@@ -81,9 +81,9 @@ export default class FormBehavior extends WidgetBehavior {
   registerCheck(field, name, options) {
     if (!this.checks[field]) {
       this.checks[field] = {};
-
-      this.checks[field][name] = options;
     }
+
+    this.checks[field][name] = options;
   }
 
   unregisterCheck(field, name) {
@@ -146,11 +146,18 @@ export default class FormBehavior extends WidgetBehavior {
     names.forEach(name => {
       const checks = Object.keys(this.checks[name]);
 
-      checks.forEach(check => {
-        const value = errors && errors[name] && errors[name][check] ? '-' : 'none';
+      let invalid = false;
 
-        this.host.style.setProperty(`--nu-check-${name}-${check}`, value);
-      });
+      for (let check of checks) {
+        const prop = `--nu-check-${name}-${check}`;
+
+        if (errors && errors[name] && errors[name][check] && !invalid) {
+          invalid = true;
+          this.host.style.setProperty(prop, 'block');
+        } else {
+          this.host.style.removeProperty(prop);
+        }
+      }
     });
   }
 }

@@ -1,5 +1,7 @@
 <nu-card as="section">
   <nu-form nu-debug="debugger0" gap value={formData}>
+    <nu-theme name="error" hue="1" mod="tint"></nu-theme>
+    <nu-attrs for="nu-check" theme="error"></nu-attrs>
     <nu-heading level="4">Form</nu-heading>
     <nu-flow>
       <nu-input
@@ -21,6 +23,9 @@
         </nu-inputgroup>
         <nu-check for="name" assert="required">
           Field is required
+        </nu-check>
+        <nu-check for="name" assert="minlength:5">
+          Name requires at least 5 characters
         </nu-check>
         <nu-pane gap padding>
           <nu-checkbox
