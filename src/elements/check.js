@@ -20,7 +20,7 @@ export default class NuCheck extends NuBlock {
 
   static get nuDefaults() {
     return {
-      size: 'xs',
+      size: 'sm',
       text: 'w6',
     }
   }

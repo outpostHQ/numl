@@ -56,9 +56,9 @@ export function checkErrors(data, checks) {
               return true;
             }
 
-            validator(data[name], options).then(result => {
-              console.log('validation', name, options, result);
-            });
+            // validator(data[name], options).then(result => {
+            //   console.log('validation', name, options, result);
+            // });
 
             return validator(data[name], options);
           }))

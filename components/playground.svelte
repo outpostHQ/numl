@@ -15,18 +15,20 @@
     <nu-card>
       <nu-form id="user" nu-debug="debugger1" gap>
         <nu-heading level="5">User</nu-heading>
-        <nu-inputgroup>
-          <nu-icon name="user" size="lg"></nu-icon>
-          <nu-input
-            id="name" placeholder="User name" grow="1"
-            nu-debug="debugger2"></nu-input>
-        </nu-inputgroup>
-        <nu-check for="name" assert="required">
-          Field is required
-        </nu-check>
-        <nu-check for="name" assert="minlength:5">
-          Name requires at least 5 characters
-        </nu-check>
+        <nu-flow>
+          <nu-inputgroup>
+            <nu-icon name="user" size="lg"></nu-icon>
+            <nu-input
+              id="name" placeholder="User name" grow="1"
+              nu-debug="debugger2"></nu-input>
+          </nu-inputgroup>
+          <nu-check for="name" assert="required">
+            Field is required
+          </nu-check>
+          <nu-check for="name" assert="minlength:5">
+            Name requires at least 5 characters
+          </nu-check>
+        </nu-flow>
         <nu-pane gap padding>
           <nu-checkbox
             checked id="press" type="num" value="4" off-value="2" labelledby=":next"
