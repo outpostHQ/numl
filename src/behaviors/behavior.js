@@ -46,9 +46,11 @@ export default class Behavior {
 
     const value = this.parentContext[name];
 
-    this[name] = value || null;
+    if (value != null) {
+      this[name] = value || null;
 
-    cb(value);
+      cb(value);
+    }
   }
 
   get context() {

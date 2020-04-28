@@ -6,7 +6,7 @@ import WidgetBehavior from './widget';
  */
 export default class FormBehavior extends WidgetBehavior {
   init() {
-    this.value = null;
+    this.value = {};
 
     super.init();
 
@@ -19,7 +19,8 @@ export default class FormBehavior extends WidgetBehavior {
 
     this.setContext('form', this);
     this.setContext('submit', () => {
-      this.setValue(this.value);
+      this.emit('input', this.value);
+      // this.setFormValue();
     });
   }
 
@@ -41,7 +42,7 @@ export default class FormBehavior extends WidgetBehavior {
   setFieldValue(name, value) {
     if (this.value[name] === value) return;
 
-    if (value !== undefined) {
+    if (value != null) {
       this.value[name] = value;
     } else {
       delete this.value[name];
