@@ -1,4 +1,4 @@
-import NuDecorator from './decorator';
+import NuDefinition from './definition';
 import { getAllAttrs, ELEMENTS_MAP } from '../elements/base';
 
 function getSelector(id, oldId) {
@@ -13,7 +13,7 @@ function getSelector(id, oldId) {
       : ''}`;
 }
 
-export default class NuAttrs extends NuDecorator {
+export default class NuAttrs extends NuDefinition {
   static get nuTag() {
     return 'nu-attrs';
   }

@@ -1,4 +1,4 @@
-import NuDecorator from './decorator';
+import NuDefinition from './definition';
 import {
   convertUnit,
   log,
@@ -9,7 +9,7 @@ import {
 } from '../helpers';
 import { injectCSS } from '../css';
 
-export default class NuProps extends NuDecorator {
+export default class NuProps extends NuDefinition {
   static get nuTag() {
     return 'nu-props';
   }
