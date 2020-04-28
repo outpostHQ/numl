@@ -20,7 +20,6 @@ export default class FormBehavior extends WidgetBehavior {
     this.setContext('form', this);
     this.setContext('submit', () => {
       this.emit('input', this.value);
-      // this.setFormValue();
     });
   }
 
@@ -29,11 +28,9 @@ export default class FormBehavior extends WidgetBehavior {
 
     const serializedValue = JSON.stringify(value);
 
-    if (JSON.stringify(value) === this.serializedValue) return;
+    if (JSON.stringify(value) === this._serializedValue) return;
 
-    console.log('!', JSON.stringify(value));
-
-    this.serializedValue = serializedValue;
+    this._serializedValue = serializedValue;
     this.value = value;
 
     if (!silent) {

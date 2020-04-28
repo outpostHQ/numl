@@ -1087,7 +1087,7 @@ export default class NuBase extends HTMLElement {
 
     if (!hooks || !hooks[name]) return;
 
-    hooks[name](this.nuContext[name]);
+    hooks[name](this.nuParentContext[name]);
 
     log('hook fired', {
       el: this,
@@ -1141,7 +1141,7 @@ export default class NuBase extends HTMLElement {
       this.nuContextHooks = {};
     }
 
-    hook.nuCache = this.nuContext && this.nuContext[name];
+    hook.nuCache = this.nuParentContext && this.nuParentContext[name];
 
     if (runOnInit) {
       hook(hook.nuCache);

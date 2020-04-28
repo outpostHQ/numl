@@ -76,13 +76,27 @@ export default class WidgetBehavior extends Behavior {
 
   connectForm() {
     const id = this.host.nuId;
+
     const value = this.form.value[id];
 
     if (value != null) {
-      this.setValue(value, true);
-    } else if (this.emitValue != null) {
-      this.setFormValue();
+      this.setByValue(value, true);
+    } else {
+      // wait for cascade of form to be initialized
+      setTimeout(() => {
+        const value = this.form.value[id];
+
+        if (value != null) {
+          this.setByValue(value, true);
+        } else if (this.emitValue != null) {
+          this.setFormValue();
+        }
+      });
     }
+  }
+
+  setByValue(val, silent) {
+    this.setValue(val, silent);
   }
 
   disconnectForm(form = this.currentForm, dontDelete) {
@@ -243,7 +257,8 @@ export default class WidgetBehavior extends Behavior {
   /**
    * @abstract
    */
-  setValue() {}
+  setValue() {
+  }
 
   setFormValue(detail = this.getTypedValue(this.emitValue), form = this.form) {
     const { host } = this;

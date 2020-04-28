@@ -81,7 +81,8 @@ function logBehaviorState(behavior) {
     .entries(behavior)
     .reduce((state, [prop, value]) => {
       if (!ignoreProps.includes(prop)
-        && typeof value !== 'function') {
+        && typeof value !== 'function'
+        && !prop.startsWith('_')) {
         try {
           JSON.stringify(value);
 
