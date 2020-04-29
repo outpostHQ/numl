@@ -155,7 +155,7 @@ export default class FormBehavior extends WidgetBehavior {
           invalid = true;
           this.host.style.setProperty(prop, 'block');
         } else {
-          this.host.style.removeProperty(prop);
+          this.host.style.setProperty(prop, 'none');
         }
       }
     });
