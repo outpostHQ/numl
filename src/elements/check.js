@@ -25,8 +25,4 @@ export default class NuCheck extends NuBlock {
       text: 'w6',
     }
   }
-
-  nuConnected() {
-    super.nuConnected();
-  }
 }
