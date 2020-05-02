@@ -942,7 +942,7 @@ export function parseAttrStates(val) {
 
   STATE_REGEXP.lastIndex = 0;
 
-  while(token = STATE_REGEXP.exec(val)) {
+  while (token = STATE_REGEXP.exec(val)) {
     let [s, delimiter, open, close, rawContext, context, state, value] = token;
 
     zone = requireZone(zones, zoneIndex);
@@ -1022,7 +1022,7 @@ export function normalizeAttrStates(val, firstValueOnly = false) {
 
         return value;
       }).join(' ')
-      }`.trim();
+    }`.trim();
   }).join('|');
 }
 
@@ -1056,12 +1056,16 @@ export function getFloatFromAttr(value, defaultValue = 0) {
 
 export function setAttrs(el, attrs) {
   Object.entries(attrs).forEach(([name, value]) => {
-    if (value != null) {
-      el.setAttribute(name, value);
-    } else {
-      el.removeAttribute(name);
-    }
+    setAttr(el, name, value);
   });
+}
+
+export function setAttr(el, name, value) {
+  if (value != null && value !== false) {
+    el.setAttribute(name, value === true ? '' : value);
+  } else {
+    el.removeAttribute(name);
+  }
 }
 
 const COLOR_NAME_LIST = [
