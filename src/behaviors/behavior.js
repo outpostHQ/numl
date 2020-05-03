@@ -31,6 +31,10 @@ export default class Behavior {
     this.host.nuSetContext(name, value, force);
   }
 
+  setMod(name, value) {
+    this.host.nuSetMod(name, value);
+  }
+
   getVar(name) {
     return this.host.nuGetVar(name);
   }
@@ -38,9 +42,11 @@ export default class Behavior {
   bindContext(name, cb) {
     if (!this.host.nuHasContextHook(name)) {
       this.host.nuSetContextHook(name, (data) => {
+        const oldValue = this[name];
+
         this[name] = data;
 
-        cb(data);
+        cb(data, oldValue);
       });
     }
 
@@ -51,6 +57,30 @@ export default class Behavior {
 
       cb(value);
     }
+  }
+
+  on(eventName, cb, options) {
+    if (Array.isArray(eventName)) {
+      for (let name of eventName) {
+        this.on(name, cb, options);
+      }
+
+      return () => {
+        for (let name of eventName) {
+          this.off(name, cb);
+        }
+      };
+    }
+
+    this.host.addEventListener(eventName, cb, options);
+
+    return () => {
+      this.off(eventName, cb);
+    };
+  }
+
+  off(eventName, cb) {
+    this.host.removeEventListener(eventName, cb);
   }
 
   get context() {

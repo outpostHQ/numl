@@ -9,8 +9,8 @@ export default class ActiveBehavior extends Behavior {
   constructor(host) {
     super(host);
 
-    host.addEventListener('click', evt => {
-      host.nuSetMod('active', false);
+    this.on('click', evt => {
+      this.setMod('active', false);
 
       if (host.nuDisabled || evt.nuHandled) return;
 
@@ -19,7 +19,7 @@ export default class ActiveBehavior extends Behavior {
       this.tap(evt);
     });
 
-    host.addEventListener('keydown', evt => {
+    this.on('keydown', evt => {
       if (host.nuDisabled || evt.nuHandled) return;
 
       evt.nuHandled = true;
@@ -30,13 +30,13 @@ export default class ActiveBehavior extends Behavior {
         evt.preventDefault();
 
         if (!host.nuDisabled && host.nuHasMod('focusable')) {
-          host.nuSetMod('active', true);
+          this.setMod('active', true);
         }
       }
     });
 
-    host.addEventListener('keyup', evt => {
-      host.nuSetMod('active', false);
+    this.on('keyup', evt => {
+      this.setMod('active', false);
 
       if (host.nuDisabled || evt.nuHandled) return;
 
@@ -48,20 +48,16 @@ export default class ActiveBehavior extends Behavior {
       }
     });
 
-    host.addEventListener('blur', () => host.nuSetMod('active', false));
+    this.on('blur', () => this.setMod('active', false));
 
-    ['mousedown', 'touchstart'].forEach(eventName => {
-      host.addEventListener(eventName, () => {
-        if (!host.nuDisabled && host.nuHasMod('focusable')) {
-          host.nuSetMod('active', true);
-        }
-      }, { passive: true });
-    });
+    this.on(['mousedown', 'touchstart'], () => {
+      if (!host.nuDisabled && host.nuHasMod('focusable')) {
+        this.setMod('active', true);
+      }
+    }, { passive: true });
 
-    ['mouseleave', 'mouseup', 'touchend'].forEach(eventName => {
-      host.addEventListener(eventName, () => {
-        host.nuSetMod('active', false);
-      });
+    this.on(['mouseleave', 'mouseup', 'touchend'], () => {
+      this.setMod('active', false);
     }, { passive: true });
   }
 

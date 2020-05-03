@@ -90,18 +90,22 @@ export default class WidgetBehavior extends Behavior {
       const id = host.nuId;
 
       if (id) {
-        this.bindContext('form', (form) => {
-          if (this.currentForm && form !== this.currentForm) {
-            this.disconnectForm(this.currentForm, !!form);
+        this.bindContext('form', (form, oldForm) => {
+          if (oldForm && form !== oldForm) {
+            this.disconnectForm(oldForm, !!form);
           }
-
-          this.currentForm = form;
 
           if (!form) return;
 
           this.connectForm();
         });
       }
+
+      this.bindContext('group', (group, oldGroup) => {
+        if (oldGroup) {
+          oldGroup.setMod('invalid', false);
+        }
+      });
     }
   }
 
@@ -111,17 +115,19 @@ export default class WidgetBehavior extends Behavior {
     }
   }
 
-  connectForm() {
+  connectForm(form = this.form) {
     const id = this.host.nuId;
 
-    const value = this.form.value[id];
+    const value = form.value[id];
+
+    form.registerField(id, this);
 
     if (value != null) {
       this.setByValue(value, true);
     } else {
       // wait for cascade of form to be initialized
       setTimeout(() => {
-        const value = this.form.value[id];
+        const value = form.value[id];
 
         if (value != null) {
           this.setByValue(value, true);
@@ -136,8 +142,11 @@ export default class WidgetBehavior extends Behavior {
     this.setValue(val, silent);
   }
 
-  disconnectForm(form = this.currentForm, dontDelete) {
+  disconnectForm(form, dontDelete) {
+    const id = this.host.nuId;
+
     this.setFormValue(null, form);
+    form.unregisterField(id);
 
     if (!dontDelete) {
       delete this.form;
@@ -313,5 +322,13 @@ export default class WidgetBehavior extends Behavior {
     const context = this.context;
 
     this.locale = val ? val : (context[LOCALE_VAR] && context[LOCALE_VAR].value || 'en');
+  }
+
+  setValidity(bool) {
+    this.setMod('invalid', !bool);
+
+    if (this.group) {
+      this.group.setMod('invalid', !bool);
+    }
   }
 }

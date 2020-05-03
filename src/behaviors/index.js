@@ -1,4 +1,5 @@
 import { devMode, error } from '../helpers.js';
+import GroupBehavior from './group';
 
 function extract(promise) {
   return promise.then(module => module.default || module);
@@ -33,6 +34,7 @@ export const BEHAVIORS = {
   debug: () => extract(import('./debug.js')),
   form: () => extract(import('./form.js')),
   validator: () => extract(import('./validator.js')),
+  group: () => Promise.resolve(GroupBehavior),
 };
 
 export function hasBehavior(el, name) {
