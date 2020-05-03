@@ -11,6 +11,12 @@ export default class NuForm extends NuFlow {
     };
   }
 
+  static get nuDefaults() {
+    return {
+      gap: '2x',
+    };
+  }
+
   static get nuType() {
     return 'object';
   }
