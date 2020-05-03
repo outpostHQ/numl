@@ -14,6 +14,7 @@ export default class FormBehavior extends WidgetBehavior {
   init() {
     this.value = {};
     this.checks = {};
+    this.fields = {};
 
     super.init();
 
@@ -67,10 +68,17 @@ export default class FormBehavior extends WidgetBehavior {
   }
 
   setFieldValue(name, value) {
+    const { fields } = this;
+
     if (this.value[name] === value) return;
 
     if (value != null) {
       this.value[name] = value;
+
+      if (fields[name]) {
+        // remove warnings if user changes data
+        this.resetFieldWarning(name);
+      }
     } else {
       delete this.value[name];
     }
@@ -86,8 +94,16 @@ export default class FormBehavior extends WidgetBehavior {
     this.checks[field][name] = options;
   }
 
+  registerField(name, el) {
+    this.fields[name] = el;
+  }
+
   unregisterCheck(field, name) {
     delete this.checks[field][name];
+  }
+
+  unregisterField(name) {
+    delete this.fields[name];
   }
 
   connectForm() {
@@ -142,6 +158,7 @@ export default class FormBehavior extends WidgetBehavior {
   setErrorProps() {
     const names = Object.keys(this.checks);
     const errors = this.value.$errors || {};
+    const fields = this.fields;
 
     names.forEach(name => {
       const checks = Object.keys(this.checks[name]);
@@ -158,6 +175,25 @@ export default class FormBehavior extends WidgetBehavior {
           this.host.style.setProperty(prop, 'none');
         }
       }
+
+      if (fields[name]) {
+        fields[name].setValidity(!invalid);
+      }
     });
+  }
+
+  resetFieldWarning(name) {
+    const field = this.fields[name];
+    const checks = Object.keys(this.checks[name] || {});
+
+    for (let check of checks) {
+      const prop = `--nu-check-${name}-${check}`;
+
+      this.host.style.setProperty(prop, 'none');
+    }
+
+    if (field) {
+      field.setValidity(true);
+    }
   }
 }

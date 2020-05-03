@@ -11,6 +11,12 @@ export default class NuGroup extends NuElement {
     return 'group';
   }
 
+  static get nuBehaviors() {
+    return {
+      group: true,
+    };
+  }
+
   static get nuAttrs() {
     return {
       flow(val, defaults) {

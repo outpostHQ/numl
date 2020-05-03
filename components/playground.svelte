@@ -11,8 +11,7 @@
       </nu-check>
     </nu-flow>
     <nu-flow>
-      <nu-input
-        id="password" placeholder="Password" grow="1" mask></nu-input>
+      <nu-input id="password" placeholder="Password" grow="1" mask></nu-input>
       <nu-check for="password" assert="required">
         Password is required
       </nu-check>
@@ -21,7 +20,7 @@
       <nu-form id="user" nu-debug="debugger1" gap>
         <nu-heading level="5">User</nu-heading>
         <nu-flow>
-          <nu-inputgroup>
+          <nu-inputgroup theme=":invalid[error]">
             <nu-icon name="user" size="lg"></nu-icon>
             <nu-input
               id="name" placeholder="User name" grow="1"
