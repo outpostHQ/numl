@@ -1,6 +1,6 @@
 <nu-card as="section">
-  <nu-form nu-debug="debugger0" gap value={formData}>
-    <nu-theme name="error" hue="1" mod="tint"></nu-theme>
+  <nu-form nu-debug="debugger0" value={formData} on:input={submit}>
+    <nu-theme name="error" hue="1" mod="tone"></nu-theme>
     <nu-attrs for="nu-check" theme="error"></nu-attrs>
     <nu-heading level="4">Form</nu-heading>
     <nu-flow>
@@ -17,7 +17,7 @@
       </nu-check>
     </nu-flow>
     <nu-card>
-      <nu-form id="user" nu-debug="debugger1" gap>
+      <nu-form id="user" nu-debug="debugger1">
         <nu-heading level="5">User</nu-heading>
         <nu-flow>
           <nu-inputgroup theme=":invalid[error]">
@@ -33,9 +33,9 @@
             Name should contain at least 5 characters
           </nu-check>
         </nu-flow>
-        <nu-pane gap padding>
+        <nu-pane gap>
           <nu-checkbox
-            checked id="press" type="num" value="4" off-value="2" labelledby=":next"
+            checked id="press" labelledby=":next"
             nu-debug="debugger3"></nu-checkbox>
           <nu-label>Some checkbox</nu-label>
         </nu-pane>
@@ -148,4 +148,8 @@ let formData = {
   email: 'tenphi@gmail.com',
   user,
 };
+
+function submit(event) {
+  console.log('! form data submitted', event.detail);
+}
 </script>

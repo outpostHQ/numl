@@ -7,8 +7,8 @@ function extract(promise) {
 const VALIDATORS = {
   email: (val) => extract(import('email-validator'))
     .then(validator => validator.validate(val)),
-  maxlength: (val, option) => Promise.resolve().then(() => val.length < Number(option)),
-  minlength: (val, option) => Promise.resolve().then(() => val.length > Number(option)),
+  maxlength: (val, option) => Promise.resolve().then(() => val.length <= Number(option)),
+  minlength: (val, option) => Promise.resolve().then(() => val.length >= Number(option)),
   required: (val) => Promise.resolve().then(() => {
     switch (typeof val) {
       case 'string':
