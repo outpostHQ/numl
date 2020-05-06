@@ -13,11 +13,11 @@ export default class NuBtnGroup extends NuGroup {
     };
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       padding: '',
       value: '',
-      ...NuGroup.nuAttrs,
+      ...NuGroup.nuGenerators,
       border(val) {
         if (val == null) return val;
 
@@ -35,7 +35,7 @@ export default class NuBtnGroup extends NuGroup {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       gap: '--nu-border-width * -1',
       radius: '1r',

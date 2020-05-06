@@ -5,7 +5,7 @@ export default class NuMarkdown extends NuElement {
     return 'nu-markdown';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'block',
       gap: '1x',

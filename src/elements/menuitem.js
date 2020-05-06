@@ -9,7 +9,7 @@ export default class NuMenuitem extends NuBtn {
     return 'menuitem';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       padding: '1x',
       fill: 'transparent',

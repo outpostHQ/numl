@@ -10,7 +10,7 @@ export default class NuGridTable extends NuGrid {
     return 'table';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       padding: unit('--nu-cell-padding', {
         convert: true,
@@ -18,7 +18,7 @@ export default class NuGridTable extends NuGrid {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       gap: '1b',
       color: '',

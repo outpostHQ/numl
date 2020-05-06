@@ -14,7 +14,7 @@ export default class NuInput extends NuBlock {
     };
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       autofocus: '',
       disabled: '',
@@ -29,7 +29,7 @@ export default class NuInput extends NuBlock {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'grid',
       flow: 'column',

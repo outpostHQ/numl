@@ -34,7 +34,7 @@ export default class NuSlider extends NuElement {
     `;
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       min: '',
       max: '',
@@ -55,7 +55,7 @@ export default class NuSlider extends NuElement {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-block',
       radius: 'round',

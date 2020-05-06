@@ -9,7 +9,7 @@ export default class NuRowGroup extends NuElement {
     return 'rowgroup';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'table-row-group',
     };

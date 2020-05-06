@@ -5,7 +5,7 @@ export default class NuDatePicker extends NuElement {
     return 'nu-datepicker';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       value: '',
       locale: '',
@@ -15,7 +15,7 @@ export default class NuDatePicker extends NuElement {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'grid',
       gap: '',

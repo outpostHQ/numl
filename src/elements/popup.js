@@ -20,7 +20,7 @@ export default class NuPopup extends NuCard {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'block',
       shadow: '',

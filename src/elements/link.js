@@ -9,7 +9,7 @@ export default class NuLink extends NuActiveElement {
     return 'link';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-block',
       color: 'special',

@@ -7,13 +7,13 @@ export default class NuNumInput extends NuInput {
     return 'nu-numinput';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       prefix: '',
       suffix: '',
       min: '',
       max: '',
-      ...NuNum.nuAttrs,
+      ...NuNum.nuGenerators,
     };
   }
 
@@ -24,7 +24,7 @@ export default class NuNumInput extends NuInput {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       text: 'center',
     };

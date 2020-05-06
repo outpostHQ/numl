@@ -31,11 +31,9 @@ export default class TooltipBehavior extends Behavior {
       });
     };
 
-    const onMouseLeave = (force) => {
+    const onMouseLeave = () => {
       hover = false;
       focus = false;
-
-      // if (focus) return;
 
       this.nu('fixate')
         .then(Fixate => Fixate.end());

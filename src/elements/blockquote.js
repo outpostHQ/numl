@@ -9,7 +9,7 @@ export default class NuBlockQuote extends NuBlock {
     return 'blockquote';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       border: '(1x / 2) left color(special)',
       fill: 'diff',

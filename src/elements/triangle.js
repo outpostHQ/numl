@@ -5,7 +5,7 @@ export default class NuTriangle extends NuElement {
     return 'nu-triangle';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       direction: 'up',
       display: 'block',

@@ -6,15 +6,15 @@ export default class NuBadge extends NuElement {
     return 'nu-badge';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
-      border: NuBlock.nuAttrs.border,
-      radius: NuBlock.nuAttrs.radius,
-      shadow: NuBlock.nuAttrs.shadow,
+      border: NuBlock.nuGenerators.border,
+      radius: NuBlock.nuGenerators.radius,
+      shadow: NuBlock.nuGenerators.shadow,
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-grid',
       flow: 'column',
@@ -27,10 +27,6 @@ export default class NuBadge extends NuElement {
       fill: 'bg :special[special-bg]',
       color: 'text :special[special-text]',
     };
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
   }
 
   static nuCSS({ tag, css }) {

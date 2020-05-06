@@ -16,7 +16,7 @@ export default class NuLine extends NuBlock {
     };
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       orient(val) {
         const vertical = val === 'v';
@@ -31,7 +31,7 @@ export default class NuLine extends NuBlock {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       place: 'stretch',
       orient: 'h',

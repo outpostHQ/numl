@@ -43,7 +43,7 @@ export default class NuTheme extends NuDefinition {
     return 'nu-theme';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return ATTRS_LIST.reduce((attrs, attr) => {
       attrs[attr] = '';
 

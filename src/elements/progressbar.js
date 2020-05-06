@@ -11,7 +11,7 @@ export default class NuProgressBar extends NuElement {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'block',
       transition: 'opacity',

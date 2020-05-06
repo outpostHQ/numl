@@ -16,7 +16,7 @@ export default class NuTable extends NuElement {
     return 'table';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       gap(val) {
         if (val == null) return;
@@ -61,7 +61,7 @@ export default class NuTable extends NuElement {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'table',
       gap: '',

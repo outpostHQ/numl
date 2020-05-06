@@ -6,7 +6,7 @@ export default class NuMark extends NuElement {
     return 'nu-mark';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       text: 'nowrap bolder',
       padding: '0 .25em',

@@ -18,7 +18,7 @@ export default class NuAttrs extends NuDefinition {
     return 'nu-attrs';
   }
 
-  static get nuAttrsList() {
+  static get nuGeneratorsList() {
     return ['for'].concat(getAllAttrs());
   }
 
@@ -100,7 +100,7 @@ export default class NuAttrs extends NuDefinition {
   //   Object.keys(attrs).forEach(name => {
   //     const value = attrs[name];
 
-  //     styles = computeStyles(name, value, Element.nuAllAttrs, Element.nuAllDefaults);
+  //     styles = computeStyles(name, value, Element.nuAllGenerators, Element.nuAllStyles);
 
   //     if (styles) {
   //       selector.split(', ').forEach(sel => {

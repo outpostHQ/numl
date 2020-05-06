@@ -5,7 +5,7 @@ export default class NuFlow extends NuBlock {
     return 'nu-flow';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       flow: 'column',
     };

@@ -9,7 +9,7 @@ export default class NuRadio extends NuActiveElement {
     return 'radio';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       fill: null,
     };
@@ -24,7 +24,7 @@ export default class NuRadio extends NuActiveElement {
     `;
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-block',
       width: '1em',

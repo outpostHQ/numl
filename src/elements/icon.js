@@ -15,7 +15,7 @@ export default class NuIcon extends NuBlock {
     return 'img';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       name(val) {
         return val
@@ -27,7 +27,7 @@ export default class NuIcon extends NuBlock {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-block',
       width: 'min(1fs)',

@@ -9,7 +9,7 @@ export default class NuRowHeader extends NuCell {
     return 'rowheader';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       text: 'w6 middle',
       border: '1b right',

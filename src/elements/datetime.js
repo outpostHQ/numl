@@ -5,7 +5,7 @@ export default class NuDateTime extends NuElement {
     return 'nu-datetime';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       value: '',
       locale: '',

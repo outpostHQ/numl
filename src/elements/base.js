@@ -37,7 +37,7 @@ import {
   normalizeAttrStates,
   isDefined,
   parseAttrStates,
-  deepQuery, deepQueryAll, queryChildren,
+  deepQuery, deepQueryAll, queryChildren, setAttr,
 } from '../helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
@@ -46,17 +46,18 @@ import propAttr from '../attributes/prop';
 import combine from '../combinators/index';
 import { BEHAVIORS, getBehavior } from '../behaviors/index';
 
-export const ATTRS_MAP = {};
-export const DEFAULTS_MAP = {};
+export const GENERATORS_MAP = {};
+export const STYLES_MAP = {};
 export const MIXINS_MAP = {};
 export const COMBINATORS_MAP = {};
 export const ELEMENTS_MAP = {};
 export const TEMPLATES_MAP = {};
 export const PROPS_MAP = {};
+export const ATTRS_MAP = {};
 
 export function getAllAttrs() {
-  return Object.keys(ATTRS_MAP).reduce((arr, tag) => {
-    const map = ATTRS_MAP[tag];
+  return Object.keys(GENERATORS_MAP).reduce((arr, tag) => {
+    const map = GENERATORS_MAP[tag];
 
     Object.keys(map)
       .forEach(attr => {
@@ -184,12 +185,12 @@ export default class NuBase extends HTMLElement {
   /**
    * @private
    */
-  static get nuAllAttrs() {
+  static get nuAllGenerators() {
     return (
-      ATTRS_MAP[this.nuTag] ||
-      (ATTRS_MAP[this.nuTag] = {
-        ...(this.nuParentClass && this.nuParentClass.nuAllAttrs || {}),
-        ...this.nuAttrs
+      GENERATORS_MAP[this.nuTag] ||
+      (GENERATORS_MAP[this.nuTag] = {
+        ...(this.nuParentClass && this.nuParentClass.nuAllGenerators || {}),
+        ...this.nuGenerators
       })
     );
   }
@@ -221,7 +222,7 @@ export default class NuBase extends HTMLElement {
    * Element attribute config.
    * @returns {Object}
    */
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       id: '',
       /**
@@ -240,8 +241,8 @@ export default class NuBase extends HTMLElement {
    * List of attributes.
    * @returns {Array}
    */
-  static get nuAttrsList() {
-    return Object.keys(this.nuAllAttrs);
+  static get nuGeneratorsList() {
+    return Object.keys(this.nuAllGenerators);
   }
 
   /**
@@ -250,11 +251,11 @@ export default class NuBase extends HTMLElement {
    */
   static get nuPropsList() {
     const tag = this.nuTag;
-    const baseAttrs = NuBase.nuAllAttrs;
+    const baseAttrs = NuBase.nuAllGenerators;
 
     return (PROPS_MAP[tag]
       || (PROPS_MAP[tag] = Object
-        .entries(this.nuAllAttrs)
+        .entries(this.nuAllGenerators)
         .reduce((list, entry) => {
           const name = entry[0];
 
@@ -268,10 +269,17 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
-   * Element default attribute values.
+   * Initial attribute values of the Element.
+   */
+  static get nuAttrs() {
+    return {};
+  }
+
+  /**
+   * Default styles of the Element.
    * They are used only to generate initial CSS for elements.
    */
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'none',
     };
@@ -280,14 +288,37 @@ export default class NuBase extends HTMLElement {
   /**
    * @private
    */
-  static get nuAllDefaults() {
+  static get nuAllStyles() {
     return (
-      DEFAULTS_MAP[this.nuTag] ||
-      (DEFAULTS_MAP[this.nuTag] = {
-        ...(this.nuParentClass && this.nuParentClass.nuAllDefaults || {}),
-        ...(this.nuDefaults || {}),
+      STYLES_MAP[this.nuTag] ||
+      (STYLES_MAP[this.nuTag] = {
+        ...(this.nuParentClass && this.nuParentClass.nuAllStyles || {}),
+        ...(this.nuStyles || {}),
       })
     );
+  }
+
+  /**
+   * @private
+   */
+  static get nuAllAttrs() {
+    if (this.nuTag in ATTRS_MAP) {
+      return ATTRS_MAP[this.nuTag];
+    }
+
+    const allAttrs = {
+      ...(this.nuParentClass && this.nuParentClass.nuAllAttrs || {}),
+      ...(this.nuAttrs || {}),
+    };
+
+    if (!Object.keys(allAttrs)) {
+      ATTRS_MAP[this.nuTag] = null;
+      return;
+    }
+
+    ATTRS_MAP[this.nuTag] = allAttrs;
+
+    return allAttrs;
   }
 
   /**
@@ -337,7 +368,7 @@ export default class NuBase extends HTMLElement {
    * @returns {String[]}
    */
   static get observedAttributes() {
-    return this.nuAttrsList;
+    return this.nuGeneratorsList;
   }
 
   static nuInit() {
@@ -361,7 +392,7 @@ export default class NuBase extends HTMLElement {
 
     // Generate default styles on first attributeChangeCallback() instead.
     // But make exception for initially hidden tags!
-    if (this.nuAllDefaults.display === 'none') {
+    if (this.nuAllStyles.display === 'none') {
       this.nuGenerateDefaultStyle();
     }
 
@@ -388,14 +419,14 @@ export default class NuBase extends HTMLElement {
 
     let css = el.nuExtractCSS(el);
 
-    const allAttrs = this.nuAllAttrs;
-    const allDefaults = this.nuAllDefaults;
+    const allAttrs = this.nuAllGenerators;
+    const allDefaults = this.nuAllStyles;
     const combinators = Object.values(this.nuAllCombinators);
 
     const globalAttrs = Object.keys(allAttrs).filter(attr => GLOBAL_ATTRS.includes(attr) && allAttrs[attr]);
 
     if (globalAttrs.length) {
-      error('incorrect declaration of nuAttrs, global attributes are used for styling:', globalAttrs.join(','));
+      error('incorrect declaration of nuGenerators, global attributes are used for styling:', globalAttrs.join(','));
 
       return;
     }
@@ -554,7 +585,7 @@ export default class NuBase extends HTMLElement {
       }
     }
 
-    if (value == null || !this.constructor.nuAllAttrs[name]) return;
+    if (value == null || !this.constructor.nuAllGenerators[name]) return;
 
     this.nuApplyCSS(name, varAttr, force);
   }
@@ -645,6 +676,19 @@ export default class NuBase extends HTMLElement {
         this.nu(name);
       }
     }
+
+    const allAttrs = this.constructor.nuAllAttrs;
+
+    if (allAttrs) {
+      setTimeout(() => {
+        Object.entries(allAttrs)
+          .forEach(([attr, value]) => {
+            if (value != null && !this.hasAttribute(attr)) {
+              this.setAttribute(attr, value);
+            }
+          });
+      });
+    }
   }
 
   /**
@@ -727,7 +771,7 @@ export default class NuBase extends HTMLElement {
       }
     }
 
-    let styles = computeStyles(name, value, this.constructor.nuAllAttrs, this.constructor.nuAllDefaults);
+    let styles = computeStyles(name, value, this.constructor.nuAllGenerators, this.constructor.nuAllStyles);
 
     return generateCSS(query, styles, true);
   }
@@ -1428,7 +1472,7 @@ export default class NuBase extends HTMLElement {
     if (!this.nuIsConnected) return;
 
     [...this.attributes].forEach(({ name, value }) => {
-      if (value == null || !this.constructor.nuAllAttrs[name]) return;
+      if (value == null || !this.constructor.nuAllGenerators[name]) return;
 
       this.nuApplyCSS(name);
     });

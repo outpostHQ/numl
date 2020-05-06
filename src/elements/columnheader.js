@@ -19,7 +19,7 @@ export default class NuColumnHeader extends NuRowHeader {
     }
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       border: null,
     };

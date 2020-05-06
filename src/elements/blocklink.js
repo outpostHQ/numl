@@ -5,7 +5,7 @@ export default class NuBlockLink extends NuLink {
     return 'nu-blocklink';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       expand: '',
       radius: '0',

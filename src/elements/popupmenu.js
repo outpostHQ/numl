@@ -10,7 +10,7 @@ export default class NuPopupMenu extends NuPopup {
     return 'menu';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       flow: 'column',
       padding: '1x 0',

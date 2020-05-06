@@ -17,7 +17,7 @@ export default class NuImg extends NuBlock {
     return 'img';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       src: '',
       fit(val) {
@@ -53,7 +53,7 @@ export default class NuImg extends NuBlock {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: null,
       fit: 'none',

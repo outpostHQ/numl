@@ -9,7 +9,7 @@ export default class NuRow extends NuElement {
     return 'row';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'table-row',
       fill: 'bg',

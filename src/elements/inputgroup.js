@@ -6,7 +6,7 @@ export default class NuInputGroup extends NuGroup {
     return 'nu-inputgroup';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       fill: 'input',
       focus: 'inside input',

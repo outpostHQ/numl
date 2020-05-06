@@ -9,13 +9,13 @@ export default class NuDefinition extends NuBase {
     return 'nu-abstract-definition'; // abstract tag
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'none',
     };
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       [THEME_ATTR]: null,
       responsive: null,

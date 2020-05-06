@@ -9,7 +9,7 @@ export default class NuCell extends NuElement {
     return 'cell';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: '^ block :role-row[table-cell]',
       padding: '--nu-cell-padding',

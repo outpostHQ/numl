@@ -6,7 +6,7 @@ export default class NuCircle extends NuElement {
     return 'nu-circle';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       size(val) {
         if (!val) val = '1em';
@@ -21,7 +21,7 @@ export default class NuCircle extends NuElement {
     }
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'block',
       size: '1em',
