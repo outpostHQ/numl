@@ -1,5 +1,4 @@
 import NuBlock from './block';
-import { fixPosition } from '../helpers';
 
 export default class NuTooltip extends NuBlock {
   static get nuTag() {
@@ -13,6 +12,7 @@ export default class NuTooltip extends NuBlock {
   static get nuBehaviors() {
     return {
       fixate: true,
+      tooltip: true,
     };
   }
 
@@ -37,89 +37,12 @@ export default class NuTooltip extends NuBlock {
     };
   }
 
-  nuConnected() {
-    super.nuConnected();
-
-    const parent = this.parentNode;
-
-    this.nuParent = parent;
-
-    if (parent && parent.nuElement && !parent.hasAttribute('describedby')) {
-      this.parentNode.setAttribute('describedby', this.nuId);
-    }
-
-    this.nuSetAria('hidden', true);
-
-    let hover = false;
-    let focus = false;
-
-    const onMouseEnter = () => {
-      hover = true;
-
-      if (focus) return;
-
-      this.nu('fixate')
-        .then(Fixate => Fixate.start());
-
-      this.nuSetMod('show', true);
-      parent.nuSetMod('tooltip', true);
-
-      setTimeout(() => {
-        fixPosition(this);
-      });
-    };
-
-    const onMouseLeave = (force) => {
-      hover = false;
-      focus = false;
-
-      // if (focus) return;
-
-      this.nu('fixate')
-        .then(Fixate => Fixate.end());
-
-      this.nuSetMod('show', false);
-      parent.nuSetMod('tooltip', false);
-    };
-
-    const onFocus = () => {
-      focus = true;
-
-      if (hover) return;
-
-      this.nu('fixate')
-        .then(Fixate => Fixate.start());
-
-      this.nuSetMod('show', true);
-      parent.nuSetMod('tooltip', true);
-    };
-
-    const onBlur = () => {
-      focus = false;
-
-      if (hover) return;
-
-      this.nu('fixate')
-        .then(Fixate => Fixate.end());
-
-      this.nuSetMod('show', false);
-      parent.nuSetMod('tooltip', false);
-    };
-
-    parent.addEventListener('mouseenter', onMouseEnter);
-    parent.addEventListener('mouseleave', onMouseLeave);
-
-    this.nuSetDisconnectedHook(() => {
-      parent.removeEventListener('mouseenter', onMouseEnter);
-      parent.removeEventListener('mouseleave', onMouseLeave);
-    });
-
-    this.nuSetContextHook('focus', (val) => {
-      if (val) {
-        onFocus();
-      } else {
-        onBlur();
+  static nuCSS({ tag, css }) {
+    return `
+      ${css}
+      ${tag} {
+        margin: 0 !important;
       }
-    });
+    `
   }
 }
