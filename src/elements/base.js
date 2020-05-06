@@ -128,15 +128,16 @@ export default class NuBase extends HTMLElement {
    * Method to extract element css with current element context.
    * @protected
    * @param Element {Object} - NuBase (HTMLElement)
+   * @param tag {String} - tag name
    * @returns {string}
    */
-  static nuExtractCSS(Element) {
+  static nuExtractCSS(Element, tag) {
     const _this = this;
 
     return this.nuCSS({
-      tag: Element.nuTag,
+      tag: tag || Element.nuTag,
       get css() {
-        return _this.nuGetParentCSS(Element);
+        return _this.nuGetParentCSS(Element, tag);
       },
     });
   }
@@ -153,9 +154,10 @@ export default class NuBase extends HTMLElement {
   /**
    * Method to generate parent CSS with current element context.
    * @param Element
-   * @returns {string}
+   * @param tag {String}
+   * @returns {String}
    */
-  static nuGetParentCSS(Element) {
+  static nuGetParentCSS(Element, tag) {
     let parent = this;
 
     do {
@@ -163,7 +165,7 @@ export default class NuBase extends HTMLElement {
     } while (parent && parent.nuCSS && parent.nuCSS === this.nuCSS);
 
     if (parent && parent.nuCSS) {
-      return parent.nuExtractCSS(Element);
+      return parent.nuExtractCSS(Element, tag);
     }
 
     return '';
@@ -1679,7 +1681,7 @@ export default class NuBase extends HTMLElement {
   nuAttachShadowCSS() {
     if (!this.nuShadow) return;
 
-    const shadowCSS = this.constructor.nuCSS({ tag: '', css: '', shadow: true });
+    const shadowCSS = this.constructor.nuExtractCSS(this.constructor, ':host');
 
     if (shadowCSS) {
       injectStyleTag(

@@ -2,6 +2,8 @@
   <nu-form nu-debug="debugger0" value={formData} on:input={submit}>
     <nu-theme name="error" hue="1" mod="tone"></nu-theme>
     <nu-attrs for="nu-check" theme="error"></nu-attrs>
+    <nu-attrs for="nu-input" theme=":invalid[error]"></nu-attrs>
+    <nu-attrs for="nu-inputgroup" theme=":invalid[error]"></nu-attrs>
     <nu-heading level="4">Form</nu-heading>
     <nu-flow>
       <nu-input
@@ -20,11 +22,9 @@
       <nu-form id="user" nu-debug="debugger1">
         <nu-heading level="5">User</nu-heading>
         <nu-flow>
-          <nu-inputgroup theme=":invalid[error]">
+          <nu-inputgroup>
             <nu-icon name="user" size="lg"></nu-icon>
-            <nu-input
-              id="name" placeholder="User name" grow="1"
-              nu-debug="debugger2"></nu-input>
+            <nu-input id="name" placeholder="User name" grow="1" nu-debug="debugger2"></nu-input>
           </nu-inputgroup>
           <nu-check for="name" assert="required">
             Name is required
@@ -34,9 +34,7 @@
           </nu-check>
         </nu-flow>
         <nu-pane gap>
-          <nu-checkbox
-            checked id="press" labelledby=":next"
-            nu-debug="debugger3"></nu-checkbox>
+          <nu-checkbox checked id="press" labelledby=":next" nu-debug="debugger3"></nu-checkbox>
           <nu-label>Some checkbox</nu-label>
         </nu-pane>
       </nu-form>
@@ -56,6 +54,28 @@
 
 <nu-card as="section">
   <nu-numinput value="15" code="USD"></nu-numinput>
+</nu-card>
+
+<nu-card as="section">
+  <nu-heading level="3">Date picker</nu-heading>
+
+  <nu-card width="20">
+    <nu-datepicker mode="range"></nu-datepicker>
+  </nu-card>
+</nu-card>
+
+<nu-card as="section">
+  <nu-markdown>
+    <pre>
+# Something
+
+Something **bold**.
+
+```
+var a = '123';
+```
+    </pre>
+  </nu-markdown>
 </nu-card>
 
 <!--<nu-card as="section">
