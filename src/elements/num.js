@@ -5,7 +5,7 @@ export default class NuNum extends NuElement {
     return 'nu-num';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       value: '',
       lang: '',

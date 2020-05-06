@@ -5,7 +5,7 @@ export default class NuSpecial extends NuElement {
     return 'nu-special';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       color: 'special',
       text: 'w5',

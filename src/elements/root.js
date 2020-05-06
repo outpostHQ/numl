@@ -5,7 +5,7 @@ export default class NuRoot extends NuElement {
     return 'nu-root';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'block',
     };

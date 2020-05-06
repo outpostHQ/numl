@@ -476,7 +476,7 @@ export function splitStates(attrValue) {
  * @param {String} name - Attribute name.
  * @param {String} value - Original attribute value.
  * @param {Object} attrs - Map of attribute handlers.
- * @param {Object} defaults - Default values of attributes. (see static getter nuDefaults)
+ * @param {Object} defaults - Default values of attributes. (see static getter nuStyles)
  * @returns {String|Object|Array}
  */
 export function computeStyles(name, value, attrs, defaults) {

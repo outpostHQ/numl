@@ -5,7 +5,7 @@ export default class NuClamp extends NuElement {
     return 'nu-clamp';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       lines(val) {
         return {
@@ -16,7 +16,7 @@ export default class NuClamp extends NuElement {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       width: 'max(100%)',
       lines: '1',

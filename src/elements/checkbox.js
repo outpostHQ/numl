@@ -18,7 +18,7 @@ export default class NuCheckbox extends NuActiveElement {
     `;
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-grid',
       width: '1em',

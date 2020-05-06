@@ -23,7 +23,7 @@ export default class NuElement extends NuBase {
    * Element attribute config.
    * @returns {Object}
    */
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       ...BaseAttributes,
       role: '',
@@ -74,7 +74,7 @@ export default class NuElement extends NuBase {
    * Element default attribute values.
    * They are used only to generate initial CSS for elements.
    */
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-block',
       sizing: 'border',

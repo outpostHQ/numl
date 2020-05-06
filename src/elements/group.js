@@ -1,6 +1,6 @@
 import NuElement from './element';
 
-const FLOW_ATTR = NuElement.nuAllAttrs.flow;
+const FLOW_ATTR = NuElement.nuAllGenerators.flow;
 
 export default class NuGroup extends NuElement {
   static get nuTag() {
@@ -17,7 +17,7 @@ export default class NuGroup extends NuElement {
     };
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       flow(val, defaults) {
         if (!val) return;
@@ -41,7 +41,7 @@ export default class NuGroup extends NuElement {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'flex',
       flow: 'row',

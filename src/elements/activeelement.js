@@ -9,7 +9,7 @@ export default class NuActiveElement extends NuElement {
     return 'button';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       disabled: '',
       pressed: '',
@@ -24,7 +24,7 @@ export default class NuActiveElement extends NuElement {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       radius: '',
       text: 'nowrap',

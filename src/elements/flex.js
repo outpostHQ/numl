@@ -5,7 +5,7 @@ export default class NuFlex extends NuBlock {
     return 'nu-flex';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'flex',
       flow: 'row',

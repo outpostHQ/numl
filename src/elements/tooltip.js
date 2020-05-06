@@ -16,7 +16,7 @@ export default class NuTooltip extends NuBlock {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'block',
       shadow: '',

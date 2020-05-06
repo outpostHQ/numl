@@ -5,7 +5,7 @@ export default class NuBtn extends NuActiveElement {
     return 'nu-btn';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-grid',
       padding: '1x 2x',

@@ -9,7 +9,7 @@ export default class NuTab extends NuActiveElement {
     return 'tab';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'grid',
       fill: 'transparent',

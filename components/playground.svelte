@@ -1,3 +1,5 @@
+<nu-heading>Playground</nu-heading>
+
 <nu-card as="section">
   <nu-form nu-debug="debugger0" value={formData} on:input={submit}>
     <nu-theme name="error" hue="1" mod="tone"></nu-theme>

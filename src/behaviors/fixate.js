@@ -41,7 +41,7 @@ export default class FixateBehavior {
     delete this.position;
 
     const fixateValue = host.getAttribute(FIXATE_ATTR)
-      || host.constructor.nuAllDefaults[FIXATE_ATTR]
+      || host.constructor.nuAllStyles[FIXATE_ATTR]
       || 'down';
 
     if (!this.enabled) return;
@@ -73,7 +73,7 @@ export default class FixateBehavior {
     const { host } = this;
     const place = host.getAttribute(PLACE_ATTR);
     const fixate = host.getAttribute(FIXATE_ATTR);
-    const defaults = host.constructor.nuAllDefaults;
+    const defaults = host.constructor.nuAllStyles;
 
     if (place) {
       return false;

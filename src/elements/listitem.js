@@ -9,7 +9,7 @@ export default class NuListItem extends NuBlock {
     return 'listitem';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'list-item',
     };

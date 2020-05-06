@@ -5,7 +5,7 @@ export default class NuCode extends NuElement {
     return 'nu-code';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'block',
       radius: '1r',
@@ -14,7 +14,7 @@ export default class NuCode extends NuElement {
     };
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       enumerate: '',
     }

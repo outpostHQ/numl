@@ -15,7 +15,7 @@ export default class NuDebug extends NuCard {
     return false;
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       gap: '1x',
     };

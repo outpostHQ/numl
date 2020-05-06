@@ -22,14 +22,14 @@ export default class NuSwitch extends NuActiveElement {
     `;
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       disabled: '',
       checked: '',
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-block',
       border: '1b',

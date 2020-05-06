@@ -17,7 +17,7 @@ export default class NuTablist extends NuRadioGroup {
     return 'tablist';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       direction(val) {
         let direction = DIRECTIONS.includes(val) ? val : 'bottom';
@@ -40,7 +40,7 @@ export default class NuTablist extends NuRadioGroup {
     }
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       direction: 'bottom',
       gap: '--local-tab-gap',

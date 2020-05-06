@@ -5,7 +5,7 @@ export default class NuMd extends NuMarkdown {
     return 'nu-md';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-block',
       text: 'baseline',

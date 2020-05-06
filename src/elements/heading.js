@@ -13,7 +13,7 @@ export default class NuHeading extends NuBlock {
     return 'heading';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       level(val) {
         if (!val || !LEVELS.includes(Number(val))) val = 1;
@@ -34,13 +34,15 @@ export default class NuHeading extends NuBlock {
     };
   }
 
-  static get nuDefaultLevel() {
-    return 2;
+  static get nuAttrs() {
+    return {
+      level: 2,
+    };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
-      level: this.nuDefaultLevel,
+      level: this.nuAttrs.level,
       color: 'text-soft',
     };
   }
@@ -59,15 +61,5 @@ export default class NuHeading extends NuBlock {
         this.nuSetAria('level', value);
         break;
     }
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    setTimeout(() => {
-      if (!this.hasAttribute('level')) {
-        this.setAttribute('level', this.constructor.nuDefaultLevel);
-      }
-    });
   }
 }

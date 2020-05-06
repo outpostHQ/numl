@@ -17,8 +17,8 @@ export default function combinedAttr(attrs, Element) {
     return attrs.reduce((all, innerAttrs) => all.concat(...combinedAttr(innerAttrs, Element)), []);
   }
 
-  const allAttrs = Element.nuAllAttrs;
-  const allDefaults = Element.nuAllDefaults;
+  const allAttrs = Element.nuAllGenerators;
+  const allDefaults = Element.nuAllStyles;
   const suffix = attrs.$suffix || '';
 
   delete attrs.$suffix;

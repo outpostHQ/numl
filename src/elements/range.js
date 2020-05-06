@@ -22,7 +22,7 @@ export default class NuRange extends NuWidget {
     return import('../widgets/slider');
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       disabled: '',
       orient(val) {
@@ -43,7 +43,7 @@ export default class NuRange extends NuWidget {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       display: 'inline-block',
       radius: 'round',

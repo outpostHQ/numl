@@ -9,7 +9,7 @@ export default class NuList extends NuBlock {
     return 'list';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       type(type) {
         return {
@@ -24,7 +24,7 @@ export default class NuList extends NuBlock {
     }
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       flow: 'column',
       gap: '1x',

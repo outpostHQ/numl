@@ -9,7 +9,7 @@ export default class NuCard extends NuBlock {
     return 'card';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       padding: '2x',
       fill: 'bg',

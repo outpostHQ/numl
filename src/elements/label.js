@@ -5,7 +5,7 @@ export default class NuLabel extends NuBlock {
     return 'nu-label';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       text: 'w6',
       cursor: 'default',

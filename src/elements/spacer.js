@@ -6,7 +6,7 @@ export default class NuSpacer extends NuBlock {
     return 'nu-spacer';
   }
 
-  static get nuAttrs() {
+  static get nuGenerators() {
     return {
       size(val) {
         if (!val) val = '1x';
@@ -22,7 +22,7 @@ export default class NuSpacer extends NuBlock {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       basis: '1x',
       size: '1x',

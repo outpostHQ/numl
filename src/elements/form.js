@@ -11,7 +11,7 @@ export default class NuForm extends NuFlow {
     };
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       gap: '2x',
     };

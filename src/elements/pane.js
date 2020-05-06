@@ -5,7 +5,7 @@ export default class NuPane extends NuFlex {
     return 'nu-pane';
   }
 
-  static get nuDefaults() {
+  static get nuStyles() {
     return {
       items: 'center',
       gap: '',
