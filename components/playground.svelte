@@ -57,6 +57,7 @@
 </nu-card>
 
 <nu-card as="section">
+  <nu-tooltip place="outside-top">Show me something</nu-tooltip>
   <nu-heading level="3">Date picker</nu-heading>
 
   <nu-card width="20">
