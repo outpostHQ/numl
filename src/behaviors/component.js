@@ -32,7 +32,7 @@ export default class ComponentBehavior extends WidgetBehavior {
 
     this.componentPromise
       .then(Component => {
-        const target = this.context.useShadow && this.constructor.nuAllowShadow
+        const target = this.context.useShadow && host.constructor.nuAllowShadow
           ? host.attachShadow({ mode: 'open' }) : host;
 
         this.Component = Component;
