@@ -16,6 +16,15 @@ export const ALIAS_ATTR = (el, name) => {
     }
   }
 };
+export const NUMBER_TYPE = (defaultValue) => {
+  return (value) => {
+    let num = parseFloat(value);
+
+    if (num == null || num !== num) num = defaultValue;
+
+    return num;
+  };
+};
 
 export default class WidgetBehavior extends Behavior {
   static get localized() {

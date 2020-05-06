@@ -57,6 +57,10 @@
 </nu-card>
 
 <nu-card as="section">
+  <nu-progressbar value="50"></nu-progressbar>
+</nu-card>
+
+<nu-card as="section">
   <nu-tooltip place="outside-top">Show me something</nu-tooltip>
   <nu-heading level="3">Date picker</nu-heading>
 

@@ -27,8 +27,4 @@ export default class NuGridTable extends NuGrid {
       padding: '1x',
     };
   }
-
-  nuConnected() {
-    super.nuConnected();
-  }
 }
