@@ -27,7 +27,7 @@ export default class TooltipBehavior extends Behavior {
       parent.nuSetMod('tooltip-shown', true);
 
       setTimeout(() => {
-        fixPosition(this);
+        fixPosition(host);
       });
     };
 

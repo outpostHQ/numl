@@ -38,7 +38,7 @@ export { default as NuSvg } from './elements/svg';
 export { default as NuImg } from './elements/img';
 export { default as NuCode } from './elements/code';
 export { default as NuClamp } from './elements/clamp';
-export { default as NuProgressBar } from './elements/progress';
+export { default as NuProgressBar } from './elements/progressbar';
 export { default as NuList } from './elements/list';
 export { default as NuListItem } from './elements/listitem';
 export { default as NuNum } from './elements/num';

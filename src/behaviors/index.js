@@ -36,6 +36,7 @@ export const BEHAVIORS = {
   validator: () => extract(import('./validator.js')),
   group: () => Promise.resolve(GroupBehavior),
   tooltip: () => extract(import('./tooltip.js')),
+  progressbar: () => extract(import('./progressbar.js')),
 };
 
 export function hasBehavior(el, name) {

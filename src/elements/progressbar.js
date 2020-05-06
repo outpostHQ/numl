@@ -5,11 +5,9 @@ export default class NuProgressBar extends NuElement {
     return 'nu-progressbar';
   }
 
-  static get nuAttrs() {
+  static get nuBehaviors() {
     return {
-      value: '',
-      min: '',
-      max: '',
+      progressbar: true,
     };
   }
 
@@ -21,44 +19,6 @@ export default class NuProgressBar extends NuElement {
       border: '',
       fill: 'bg',
     };
-  }
-
-  nuChanged(name, oldValue, value) {
-    super.nuChanged(name, oldValue, value);
-
-    this.nuSetValue();
-  }
-
-  nuConnected() {
-    super.nuConnected();
-
-    this.nuSetValue();
-  }
-
-  nuSetValue() {
-    let value = this.hasAttribute('value') ? Number(this.getAttribute('value')) : 0;
-    const max = this.hasAttribute('max') ? Number(this.getAttribute('max')) : 100;
-    const min = this.hasAttribute('min') ? Number(this.getAttribute('min')) : 0;
-
-    if (min > max) {
-      return;
-    }
-
-    if (value > max) {
-      value = max;
-    } else if (value < min) {
-      value = min;
-    }
-
-    const propValue = (value - min) / (max - min);
-
-    this.style.setProperty('--nu-value', Number(propValue.toFixed(4)));
-  }
-
-  nuApply() {
-    setTimeout(() => {
-      this.setAttribute('opacity', '1');
-    }, 0);
   }
 
   static nuCSS({ tag, css }) {
