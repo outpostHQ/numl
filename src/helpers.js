@@ -1141,13 +1141,12 @@ export function parseColor(val, ignoreError) {
 }
 
 export function isDefined(tag) {
-  const constructor = h(tag).constructor;
-
-  return constructor !== HTMLUnknownElement && constructor !== HTMLElement;
+  return !!customElements.get(tag);
 }
 
 /**
  * Reset scroll on the element.
+ * @param el {HTMLElement}
  * @param affectChildren
  */
 export function resetScroll(el, affectChildren = false) {
@@ -1249,4 +1248,8 @@ export function asyncDebounce(cb, context) {
 
 export function h(tag) {
   return document.createElement(tag);
+}
+
+export function extractModule(promise) {
+  return promise.then(module => module.default || module);
 }
