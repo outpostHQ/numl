@@ -46,15 +46,16 @@ import propAttr from '../attributes/prop';
 import combine from '../combinators/index';
 import { BEHAVIORS, getBehavior } from '../behaviors/index';
 
-export const GENERATORS_MAP = {};
-export const STYLES_MAP = {};
-export const MIXINS_MAP = {};
-export const COMBINATORS_MAP = {};
 export const ELEMENTS_MAP = {};
-export const TEMPLATES_MAP = {};
-export const PROPS_MAP = {};
-export const ATTRS_MAP = {};
-export const BEHAVIORS_MAP = {};
+
+const GENERATORS_MAP = {};
+const STYLES_MAP = {};
+const MIXINS_MAP = {};
+const COMBINATORS_MAP = {};
+const TEMPLATES_MAP = {};
+const PROPS_MAP = {};
+const ATTRS_MAP = {};
+const BEHAVIORS_MAP = {};
 
 export function getAllAttrs() {
   return Object.keys(GENERATORS_MAP).reduce((arr, tag) => {
