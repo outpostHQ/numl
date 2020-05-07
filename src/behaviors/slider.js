@@ -15,6 +15,8 @@ export default class SliderBehavior extends WidgetBehavior {
   }
 
   init() {
+    const { host } = this;
+
     this.props.value = (val) => {
       this.setValue(getFloatFromAttr(val, 0), true);
     };
@@ -32,7 +34,9 @@ export default class SliderBehavior extends WidgetBehavior {
 
     this.require('orient', 'active', 'focusable');
 
-    this.host.addEventListener('keydown', (evt) => {
+    this.linkValue((val, silent) => this.setValue(val, silent));
+
+    this.on('keydown', (evt) => {
       const step = this.step * (evt.shiftKey ? 10 : 1);
 
       switch (evt.key) {
@@ -63,11 +67,11 @@ export default class SliderBehavior extends WidgetBehavior {
 
     host.nuSetContext('disabled', this.disabled);
 
-    host.addEventListener('touchmove', (evt) => evt.preventDefault(), { passive: true });
+    this.on('touchmove', (evt) => evt.preventDefault(), { passive: true });
 
     ['mousedown', 'touchstart']
       .forEach(eventName => {
-        host.addEventListener(eventName, this.onDragStart, { passive: true });
+        this.on(eventName, this.onDragStart, { passive: true });
       });
   }
 
@@ -154,9 +158,9 @@ export default class SliderBehavior extends WidgetBehavior {
 
     host.style.setProperty('--nu-local-offset', this.getOffset(value));
 
-    host.nuSetAria('valuemin', min);
-    host.nuSetAria('valuemax', max);
-    host.nuSetAria('valuenow', value);
+    this.setAria('valuemin', min);
+    this.setAria('valuemax', max);
+    this.setAria('valuenow', value);
 
     if (!silent) {
       this.emit('input', value);

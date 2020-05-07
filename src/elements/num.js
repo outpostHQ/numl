@@ -5,22 +5,6 @@ export default class NuNum extends NuElement {
     return 'nu-num';
   }
 
-  static get nuGenerators() {
-    return {
-      value: '',
-      lang: '',
-      type: '',
-      code: '',
-      sign: '',
-      unit: '',
-      notation: '',
-      fallback: '',
-      significant: '',
-      integer: '',
-      decimal: '',
-    };
-  }
-
   static get nuBehaviors() {
     return {
       number: true,

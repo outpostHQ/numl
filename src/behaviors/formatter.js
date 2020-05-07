@@ -6,6 +6,15 @@ export default class FormatterBehavior extends WidgetBehavior {
     return true;
   }
 
+  init() {
+    super.init();
+
+    this.linkValue((val) => {
+      this.value = val;
+      this.apply();
+    });
+  }
+
   connected() {
     super.connected();
 

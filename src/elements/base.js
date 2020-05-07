@@ -259,7 +259,7 @@ export default class NuBase extends HTMLElement {
         .reduce((list, entry) => {
           const name = entry[0];
 
-          if (!entry[1] && !name.startsWith('nu-') && !(name in baseAttrs)) {
+          if (!entry[1] && !name.startsWith('nu-') && !name.startsWith('nu-') && !(name in baseAttrs)) {
             list.push(name);
           }
 
@@ -507,8 +507,8 @@ export default class NuBase extends HTMLElement {
 
     if (name === 'nu') return;
 
-    if (name.startsWith('nu-')) {
-      name = name.replace('nu-', '');
+    if (name.startsWith('nx-')) {
+      name = name.replace('nx-', '');
 
       if (name in BEHAVIORS) {
         this.nu(name, value);
@@ -1743,5 +1743,45 @@ export default class NuBase extends HTMLElement {
 
   get nuDisabled() {
     return this.hasAttribute('disabled') || this.getAttribute('tabindex') === '-1';
+  }
+
+  set value(val) {
+    if (this.nuSetValue) {
+      this.nuSetValue(val, true);
+    } else {
+      this._value = val;
+    }
+  }
+
+  get value() {
+    return this.nuGetValue ? this.nuGetValue() : this._value;
+  }
+
+  set pressed(val) {
+    if (val != null) {
+      this.setAttribute('pressed', val);
+    } else {
+      this.removeAttribute('pressed');
+    }
+  }
+
+  get pressed() {
+    return this.hasAttribute('pressed');
+  }
+
+  set checked(val) {
+    this.pressed = val;
+  }
+
+  get checked() {
+    return this.pressed;
+  }
+
+  set selected(val) {
+    this.pressed = val;
+  }
+
+  get selected() {
+    return this.pressed;
   }
 }

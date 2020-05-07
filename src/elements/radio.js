@@ -9,12 +9,6 @@ export default class NuRadio extends NuActiveElement {
     return 'radio';
   }
 
-  static get nuGenerators() {
-    return {
-      fill: null,
-    };
-  }
-
   static get nuTemplate() {
     return `
       <nu-circle

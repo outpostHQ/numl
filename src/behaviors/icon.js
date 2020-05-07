@@ -3,6 +3,10 @@ import { error, parseAllValues, svgElement } from '../helpers';
 import Icons from '../icons';
 
 export default class IconBehavior extends Behavior {
+  init() {
+    this.setMod('icon', true);
+  }
+
   connected() {
     this.host.nuSetAria('hidden', true);
 

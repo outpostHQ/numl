@@ -1,3 +1,5 @@
+import { setAttr } from '../helpers';
+
 export default class Behavior {
   constructor(host) {
     this.host = host;
@@ -39,11 +41,19 @@ export default class Behavior {
     this.host.nuSetAria(name, value);
   }
 
+  setAttr(name, value) {
+    setAttr(this.host, name, value);
+  }
+
+  hasAttr(name) {
+    return this.host.hasAttribute(name);
+  }
+
   getVar(name) {
     return this.host.nuGetVar(name);
   }
 
-  bindContext(name, cb) {
+  linkContext(name, cb) {
     if (!this.host.nuHasContextHook(name)) {
       this.host.nuSetContextHook(name, (data) => {
         const oldValue = this[name];

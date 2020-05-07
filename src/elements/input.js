@@ -16,12 +16,6 @@ export default class NuInput extends NuBlock {
 
   static get nuGenerators() {
     return {
-      autofocus: '',
-      disabled: '',
-      placeholder: '',
-      value: '',
-      maxlength: '',
-      name: '',
       padding: unit('--nu-local-padding', {
         empty: '--nu-gap',
         convert: true,
@@ -97,17 +91,5 @@ export default class NuInput extends NuBlock {
         width: calc(var(--nu-local-padding) * 2 + 1em);
       }
     `;
-  }
-
-  set value(val) {
-    if (this.nuSetValue) {
-      this.nuSetValue(val, true);
-    } else {
-      this._value = val;
-    }
-  }
-
-  get value() {
-    return this.nuGetValue ? this.nuGetValue() : this._value;
   }
 }

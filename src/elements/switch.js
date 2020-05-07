@@ -22,13 +22,6 @@ export default class NuSwitch extends NuActiveElement {
     `;
   }
 
-  static get nuGenerators() {
-    return {
-      disabled: '',
-      checked: '',
-    };
-  }
-
   static get nuStyles() {
     return {
       display: 'inline-block',

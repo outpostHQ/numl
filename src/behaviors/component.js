@@ -53,6 +53,10 @@ export default class ComponentBehavior extends WidgetBehavior {
 
     return this.propsList
       .reduce((data, attr) => {
+        if (attr === 'lang') {
+          attr = 'locale';
+        }
+
         if (attr in prototype) {
           data[toCamelCase(attr)] = this[attr];
         }
@@ -69,7 +73,11 @@ export default class ComponentBehavior extends WidgetBehavior {
     }
 
     if (this.component) {
-      this.set({ [name]: this[name] });
+      const prototype = this.Component.prototype;
+
+      if (name in prototype) {
+        this.set({ [name]: this[name] });
+      }
     }
   }
 

@@ -11,21 +11,21 @@ export default class PopupBehavior extends WidgetBehavior {
 
     const { host } = this;
 
-    if (!host.hasAttribute('theme')) {
-      host.setAttribute('theme', 'main');
+    if (!this.hasAttr('theme')) {
+      this.setAttr('theme', 'main');
     }
 
-    host.nuSetMod('popup', true);
+    this.setMod('popup', true);
 
-    host.addEventListener('mousedown', (event) => {
+    this.on('mousedown', (event) => {
       event.stopPropagation();
     });
 
-    host.addEventListener('click', (event) => {
+    this.on('click', (event) => {
       event.stopPropagation();
     });
 
-    host.addEventListener('keydown', (event) => {
+    this.on('keydown', (event) => {
       const { button } = this;
 
       if (event.key === 'Escape') {
@@ -41,19 +41,19 @@ export default class PopupBehavior extends WidgetBehavior {
       }
     });
 
-    host.addEventListener('mouseenter', () => {
+    this.on('mouseenter', () => {
       if (!this.button) return;
 
       this.button.host.style.setProperty('--nu-local-hover-color', 'transparent');
     });
 
-    host.addEventListener('mouseleave', () => {
+    this.on('mouseleave', () => {
       if (!this.button) return;
 
       this.button.host.style.removeProperty('--nu-local-hover-color');
     });
 
-    host.nuSetContext('submit', (detail) => {
+    this.setContext('submit', (detail) => {
       this.emit('input', detail);
       this.button.set(false);
     });
@@ -68,7 +68,7 @@ export default class PopupBehavior extends WidgetBehavior {
       bindGlobalEvents(shadowRoot);
     }
 
-    host.nuSetContext('popup', this);
+    this.setContext('popup', this);
     host.nuSetContextHook('button', () => this.linkButton());
 
     this.linkButton();

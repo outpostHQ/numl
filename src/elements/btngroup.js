@@ -15,8 +15,6 @@ export default class NuBtnGroup extends NuGroup {
 
   static get nuGenerators() {
     return {
-      padding: '',
-      value: '',
       ...NuGroup.nuGenerators,
       border(val) {
         if (val == null) return val;

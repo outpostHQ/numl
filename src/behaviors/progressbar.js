@@ -7,6 +7,11 @@ export default class ProgressBarBehavior extends WidgetBehavior {
     this.props.max = NUMBER_TYPE(100);
 
     super.init();
+
+    this.linkValue((val) => {
+      this.value = val;
+      this.apply();
+    });
   }
 
   connected() {

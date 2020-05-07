@@ -24,9 +24,10 @@
       <nu-form id="user" nu-debug="debugger1">
         <nu-heading level="5">User</nu-heading>
         <nu-flow>
+          <nu-label>User name</nu-label>
           <nu-inputgroup>
             <nu-icon name="user" size="lg"></nu-icon>
-            <nu-input id="name" placeholder="User name" grow="1" nu-debug="debugger2"></nu-input>
+            <nu-input id="name" grow="1" nu-debug="debugger2"></nu-input>
           </nu-inputgroup>
           <nu-check for="name" assert="required">
             Name is required
@@ -35,6 +36,15 @@
             Name should contain at least 5 characters
           </nu-check>
         </nu-flow>
+
+        <nu-flow>
+          <nu-label>Period</nu-label>
+          <nu-inputgroup>
+            <nu-icon name="hash" size="lg"></nu-icon>
+            <nu-numinput id="period" unit="day" grow="1"></nu-numinput>
+          </nu-inputgroup>
+        </nu-flow>
+
         <nu-pane gap>
           <nu-checkbox checked id="press" labelledby=":next" nu-debug="debugger3"></nu-checkbox>
           <nu-label>Some checkbox</nu-label>
@@ -60,6 +70,8 @@
 
 <nu-card as="section">
   <nu-progressbar value="50"></nu-progressbar>
+
+  <nu-slider value="50" orient="v"></nu-slider>
 </nu-card>
 
 <nu-card as="section">

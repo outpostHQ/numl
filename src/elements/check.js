@@ -11,13 +11,6 @@ export default class NuCheck extends NuBlock {
     };
   }
 
-  static get nuGenerators() {
-    return {
-      for: '',
-      assert: '',
-    };
-  }
-
   static get nuStyles() {
     return {
       display: 'none',
