@@ -1,10 +1,7 @@
 import { devMode, error } from '../helpers.js';
 import GroupBehavior from './group';
 import { warn } from '../helpers';
-
-function extract(promise) {
-  return promise.then(module => module.default || module);
-}
+import { extractModule as extract } from '../helpers';
 
 const DICT = {};
 

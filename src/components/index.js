@@ -1,6 +1,4 @@
-function extract(promise) {
-  return promise.then(module => module.default || module);
-}
+import { extractModule as extract } from '../helpers';
 
 export default {
   datepicker: () => extract(import('./datepicker.svelte')),

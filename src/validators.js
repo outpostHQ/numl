@@ -1,8 +1,4 @@
-import { warn } from './helpers';
-
-function extract(promise) {
-  return promise.then(module => module.default || module);
-}
+import { warn, extractModule as extract } from './helpers';
 
 const VALIDATORS = {
   email: (val) => extract(import('email-validator'))

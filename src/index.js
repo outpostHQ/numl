@@ -1,41 +1,58 @@
+import {
+  asyncDebounce,
+  devMode,
+  isDefined,
+  isTouch,
+  warn,
+  deepQueryAll,
+  deepQuery
+} from './helpers';
+
 export * from './elements';
 export { FLEX_GAP_SUPPORTED } from './attributes/gap';
 import * as elements from './elements';
 import NuBase from './elements/base';
 import NuActiveElement from './elements/activeelement';
-// helpers
-import * as helpers from './helpers';
-import * as color from './color';
-import * as themes from './themes';
-import * as css from './css';
+// export * from './helpers';
+// import * as color from './color';
+// import * as themes from './themes';
+// import * as css from './css';
+// import * as variables from './variables';
+import svg from './svg';
 import icons from './icons';
 import routing from './routing';
-import svg from './svg';
-import * as variables from './variables';
 import themeAttr from './attributes/theme';
 import { initFocus } from './focus';
 import { scheme, contrast, reduceMotion } from './settings';
 import CONTEXT from './context';
+import { applyTheme, BASE_THEME } from './themes';
+import { cleanCSSByPart, generateCSS, injectCSS } from './css';
+
+// const helpers = import('./helpers');
+// const color = import('./color');
+// const themes = import('./themes');
+// const css = import('./css');
+// const variables = import('./variables');
 
 const BODY = document.body;
 
 if (window.Nude) {
-  helpers.warn('Several instances of NUDE Framework is loaded. Initialization aborted');
+  warn('Several instances of NUDE Framework is loaded. Initialization aborted');
 }
 
 initFocus();
 
 setTimeout(() => {
-  themes.applyTheme(BODY, themes.BASE_THEME, 'main');
+  applyTheme(BODY, BASE_THEME, 'main');
 });
 
 const styles = themeAttr('main');
 
-css.injectCSS('theme:base', 'body', css.generateCSS('body', [...styles, {
+injectCSS('theme:base', 'body', generateCSS('body', [...styles, {
   '--nu-diff-color': 'var(--nu-bg-color)',
 }]));
 
-const verifyDOM = helpers.asyncDebounce(() => {
+const verifyDOM = asyncDebounce(() => {
   const els = [...document.querySelectorAll('[nu]')];
 
   els.forEach(el => {
@@ -60,16 +77,12 @@ const verifyDOM = helpers.asyncDebounce(() => {
       el.nuVerifyChildren(true);
     });
 
-  css.cleanCSSByPart('attrs:all');
+  cleanCSSByPart('attrs:all');
 });
 
 const Nude = {
   tags: {},
-  helpers,
-  color,
-  themes,
-  css,
-  isTouch: helpers.isTouch,
+  isTouch,
   version: process.env.APP_VERSION,
   scheme,
   contrast,
@@ -78,17 +91,23 @@ const Nude = {
   routing,
   icons,
   svg,
-  variables,
   elements,
   verifyDOM,
+  deepQueryAll,
+  deepQuery,
+  // helpers,
+  // color,
+  // themes,
+  // css,
+  // variables,
 };
 
 function define(el) {
   const tag = el.nuTag;
 
-  if (helpers.isDefined(tag)) {
-    if (helpers.devMode) {
-      helpers.warn('already defined: ', JSON.stringify(tag));
+  if (isDefined(tag)) {
+    if (devMode) {
+      warn('already defined: ', JSON.stringify(tag));
     }
 
     return;
@@ -179,13 +198,15 @@ export {
   scheme,
   contrast,
   reduceMotion,
-  helpers,
-  themes,
-  css,
-  color,
   routing,
   icons,
   svg,
-  variables,
   verifyDOM,
+  deepQueryAll,
+  deepQuery
+  // helpers,
+  // themes,
+  // css,
+  // color,
+  // variables,
 };
