@@ -1,5 +1,4 @@
-// import { svgElement } from './src/helpers';
-import Nude, { FLEX_GAP_SUPPORTED } from './src/index';
+import Nude, { requestIdleCallback } from './src/index';
 import Playground from './components/playground.svelte';
 
 const playground = new Playground({
@@ -26,7 +25,7 @@ schemeWidget.addEventListener('input', function (evt) {
   setTimeout(() => {
     Nude.scheme(evt.detail);
 
-    Nude.helpers.requestIdleCallback(() => {
+    requestIdleCallback(() => {
       restoreMotion();
     });
   }, 0);
