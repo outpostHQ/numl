@@ -1435,11 +1435,16 @@ export default class NuBase extends HTMLElement {
       return;
     }
 
-    this.nuSetContext(`var:${name}`, {
-      context: this,
-      definition,
-      value: value,
-    });
+    this.nuSetContext(
+      `var:${name}`,
+      value == null
+        ? null
+        : {
+          context: this,
+          definition,
+          value: value,
+        }
+    );
 
     this.nuVerifyChildren({ vars: true, shadow: true });
 

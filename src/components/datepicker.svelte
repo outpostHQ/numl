@@ -91,7 +91,7 @@
             on:tap={() => selectRange(day.date)}
             on:mouseover={() => setHover(day.date)}
             padding=".5x 1x">
-      <nu-datetime day value={day.date}></nu-datetime>
+      {day.date.getDate()}
     </nu-btn>
   {/each}
 
@@ -168,6 +168,8 @@ function weekStart(region) {
 }
 
 function decodeLocale(locale) {
+  console.log('! locale', locale);
+
   return locale.match(/^([a-zA-Z]{2,3})(?:[_-]+([a-zA-Z]{3})(?=$|[_-]+))?(?:[_-]+([a-zA-Z]{4})(?=$|[_-]+))?(?:[_-]+([a-zA-Z]{2}|\d{3})(?=$|[_-]+))?/);
 }
 

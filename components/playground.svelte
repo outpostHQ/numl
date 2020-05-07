@@ -1,7 +1,7 @@
 <nu-heading>Playground</nu-heading>
 
 <nu-card as="section">
-  <nu-form nu-debug="debugger0" value={formData} on:input={submit}>
+  <nu-form value={formData} on:input={submit} nx-debug="debugger0">
     <nu-theme name="error" hue="1" mod="tone"></nu-theme>
     <nu-attrs for="nu-check" theme="error"></nu-attrs>
     <nu-attrs for="nu-input" theme=":invalid[error]"></nu-attrs>
@@ -21,13 +21,13 @@
       </nu-check>
     </nu-flow>
     <nu-card>
-      <nu-form id="user" nu-debug="debugger1">
+      <nu-form id="user" nx-debug="debugger1">
         <nu-heading level="5">User</nu-heading>
         <nu-flow>
           <nu-label>User name</nu-label>
           <nu-inputgroup>
             <nu-icon name="user" size="lg"></nu-icon>
-            <nu-input id="name" grow="1" nu-debug="debugger2"></nu-input>
+            <nu-input id="name" grow="1" nx-debug="debugger2"></nu-input>
           </nu-inputgroup>
           <nu-check for="name" assert="required">
             Name is required
@@ -46,7 +46,7 @@
         </nu-flow>
 
         <nu-pane gap>
-          <nu-checkbox checked id="press" labelledby=":next" nu-debug="debugger3"></nu-checkbox>
+          <nu-checkbox checked id="press" labelledby=":next" nx-debug="debugger3"></nu-checkbox>
           <nu-label>Some checkbox</nu-label>
         </nu-pane>
       </nu-form>
@@ -78,7 +78,7 @@
   <nu-tooltip place="outside-top">Show me something</nu-tooltip>
   <nu-heading level="3">Date picker</nu-heading>
 
-  <nu-card width="20">
+  <nu-card width="minmax(20, min-content)">
     <nu-datepicker mode="range"></nu-datepicker>
   </nu-card>
 </nu-card>

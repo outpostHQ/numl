@@ -2,7 +2,7 @@ import Behavior from "./behavior";
 import { log, toCamelCase } from '../helpers';
 import { VAR_MOD } from '../variables';
 
-const LOCALE_VAR = 'var:locale';
+const LOCALE_VAR = 'locale';
 
 export const BOOL_TYPE = (val) => val != null;
 export const ALIAS_ATTR = (el, name) => {
@@ -78,13 +78,19 @@ export default class WidgetBehavior extends Behavior {
     }
 
     if (localized) {
-      host.nuSetContextHook(LOCALE_VAR, (contextLocale) => {
-        if (this.locale !== contextLocale.value && !host.hasAttribute('lang')) {
-          this.apply();
+      host.nuSetContextHook(LOCALE_VAR, (locale) => {
+        if (this.locale !== locale && !host.hasAttribute('lang')) {
+          this.setLocale();
+
+          // reapply element (required for formatters and etc)
+          if (this.apply) {
+            this.apply();
+          }
+
+          // trigger locale change (required for components)
+          this.changed('locale', this.locale);
         }
       });
-
-      host.nuSetMod(VAR_MOD, true);
     }
   }
 
@@ -151,7 +157,7 @@ export default class WidgetBehavior extends Behavior {
     this.setValue(val, silent);
   }
 
-  disconnectForm(form, dontDelete) {
+  disconnectForm(form = this.form, dontDelete) {
     const id = this.host.nuId;
 
     this.setFormValue(null, form);
@@ -330,7 +336,7 @@ export default class WidgetBehavior extends Behavior {
   setLocale(val) {
     const context = this.context;
 
-    this.locale = val ? val : (context[LOCALE_VAR] && context[LOCALE_VAR].value || 'en');
+    this.locale = val ? val : (context[LOCALE_VAR] && context[LOCALE_VAR] || 'en');
   }
 
   setValidity(bool) {
