@@ -1,5 +1,6 @@
 import { devMode, error } from '../helpers.js';
 import GroupBehavior from './group';
+import { warn } from '../helpers';
 
 function extract(promise) {
   return promise.then(module => module.default || module);
@@ -66,4 +67,14 @@ export function getBehavior(name) {
   DICT[name] = promise;
 
   return promise;
+}
+
+export function define(name, behaviorLoader) {
+  if (BEHAVIORS[name]) {
+    warn('behavior has already been defined', name);
+
+    return;
+  }
+
+  BEHAVIORS[name] = behaviorLoader;
 }

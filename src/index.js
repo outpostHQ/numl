@@ -53,40 +53,53 @@ const Nude = {
   variables,
 };
 
-const verifyDOM = helpers.asyncDebounce(() => {
-  const els = [...document.querySelectorAll('[nu]')];
+// const verifyDOM = helpers.asyncDebounce(() => {
+//   const els = [...document.querySelectorAll('[nu]')];
+//
+//   els.forEach(el => {
+//     el.nuCreateContext();
+//   });
+//
+//   els.forEach(el => {
+//     el.nuContextChanged(name);
+//     el.nuSetContextAttrs();
+//
+//     if (el.hasAttribute('theme')) {
+//       el.nuEnsureThemes();
+//     }
+//
+//     if (el.nuApply) {
+//       el.nuApply();
+//     }
+//   });
+//
+//   [...document.querySelectorAll('[nu-root]')]
+//     .forEach(el => {
+//       el.nuVerifyChildren(true);
+//     });
+//
+//   css.cleanCSSByPart('attrs:all');
+// });
 
-  els.forEach(el => {
-    el.nuCreateContext();
-  });
+function define(el) {
+  const tag = el.nuTag;
 
-  els.forEach(el => {
-    el.nuContextChanged(name);
-    el.nuSetContextAttrs();
-
-    if (el.hasAttribute('theme')) {
-      el.nuEnsureThemes();
+  if (helpers.isDefined(tag)) {
+    if (helpers.devMode) {
+      helpers.warn('already defined: ', JSON.stringify(tag));
     }
 
-    if (el.nuApply) {
-      el.nuApply();
-    }
-  });
+    return;
+  }
 
-  [...document.querySelectorAll('[nu-root]')]
-    .forEach(el => {
-      el.nuVerifyChildren(true);
-    });
+  customElements.define(tag, el);
+}
 
-  css.cleanCSSByPart('attrs:all');
-});
+Nude.init = () => {
+  Object.values(ELEMENTS)
+    .forEach(define);
 
-Nude.init = (...elements) => {
-  elements.forEach(el => {
-    el.nuInit();
-  });
-
-  verifyDOM();
+  // verifyDOM();
 };
 
 Nude.getElementById = function (id) {
@@ -140,7 +153,7 @@ const styleEl = [...document.querySelectorAll('style')].find(style => {
   }
 });
 
-Nude.init(...Object.values(ELEMENTS));
+Nude.init();
 
 rootEls.forEach(el => {
   el.nuParent && el.nuParent.appendChild(el);

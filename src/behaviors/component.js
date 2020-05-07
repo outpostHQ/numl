@@ -51,7 +51,7 @@ export default class ComponentBehavior extends WidgetBehavior {
   get componentProps() {
     const prototype = this.Component.prototype;
 
-    return this.propsList
+    return [...this.propsList, 'host']
       .reduce((data, attr) => {
         if (attr === 'lang') {
           attr = 'locale';
@@ -62,7 +62,7 @@ export default class ComponentBehavior extends WidgetBehavior {
         }
 
         return data;
-      }, { host: this.host });
+      }, {});
   }
 
   changed(name, value) {
