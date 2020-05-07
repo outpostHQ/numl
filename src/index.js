@@ -5,7 +5,8 @@ import {
   isTouch,
   warn,
   deepQueryAll,
-  deepQuery
+  deepQuery,
+  requestIdleCallback,
 } from './helpers';
 
 export * from './elements';
@@ -95,6 +96,7 @@ const Nude = {
   verifyDOM,
   deepQueryAll,
   deepQuery,
+  requestIdleCallback,
   // helpers,
   // color,
   // themes,
@@ -203,7 +205,8 @@ export {
   svg,
   verifyDOM,
   deepQueryAll,
-  deepQuery
+  deepQuery,
+  requestIdleCallback,
   // helpers,
   // themes,
   // css,
