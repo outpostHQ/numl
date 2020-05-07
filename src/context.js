@@ -45,8 +45,10 @@ export function setRootContext(name, value) {
 const verifyRoot = asyncDebounce((name) => {
   log('root context verification');
 
-  deepQueryAll(ROOT, '[nu]')
-    .forEach(el => el.nuContextChanged(name));
+  requestIdleCallback(() => {
+    deepQueryAll(ROOT, '[nu]')
+      .forEach(el => el.nuContextChanged(name));
+  });
 });
 
 // export function verifyContext(element) {

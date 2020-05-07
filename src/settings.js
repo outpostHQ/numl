@@ -47,7 +47,7 @@ export function reduceMotion(bool) {
   }
 }
 
-export const USE_SHADOW = DATASET.nuShadow != null;
+export const USE_SHADOW = DATASET.nuShadow != null && !!HTMLElement.prototype.attachShadow;
 
 setRootContext('scheme', scheme());
 setRootContext('contrast', contrast());
