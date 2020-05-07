@@ -54,6 +54,7 @@ export const ELEMENTS_MAP = {};
 export const TEMPLATES_MAP = {};
 export const PROPS_MAP = {};
 export const ATTRS_MAP = {};
+export const BEHAVIORS_MAP = {};
 
 export function getAllAttrs() {
   return Object.keys(GENERATORS_MAP).reduce((arr, tag) => {
@@ -374,14 +375,6 @@ export default class NuBase extends HTMLElement {
   static nuInit() {
     const tag = this.nuTag;
 
-    if (isDefined(tag)) {
-      if (devMode) {
-        warn('already defined: ', JSON.stringify(tag));
-      }
-
-      return;
-    }
-
     if (!tag || TAG_LIST.includes(tag)) return;
 
     TAG_LIST.push(tag);
@@ -391,20 +384,18 @@ export default class NuBase extends HTMLElement {
     }
 
     // Generate default styles on first attributeChangeCallback() instead.
-    // But make exception for initially hidden tags!
-    if (this.nuAllStyles.display === 'none') {
-      this.nuGenerateDefaultStyle();
-    }
+    this.nuGenerateDefaultStyle();
+  }
 
-    this.nuBehaviorList = Object
-      .keys(this.nuAllBehaviors)
-      .filter(name => this.nuAllBehaviors[name] != null);
+  static get nuBehaviorList() {
+    const tag = this.nuTag;
 
-    customElements.define(tag, this);
-
-    log('custom element registered', tag);
-
-    return tag;
+    return (
+      BEHAVIORS_MAP[tag]
+      || (BEHAVIORS_MAP[tag] = Object
+        .keys(this.nuAllBehaviors)
+        .filter(name => this.nuAllBehaviors[name] != null))
+    );
   }
 
   static nuGenerateDefaultStyle(root, dontInject) {
@@ -490,8 +481,8 @@ export default class NuBase extends HTMLElement {
    * @param {Boolean} force - Reapply CSS.
    */
   attributeChangedCallback(name, oldValue, value, force) {
-    if (!STYLE_MAP[this.constructor.nuTag]) {
-      this.constructor.nuGenerateDefaultStyle();
+    if (!ELEMENTS_MAP[this.constructor.nuTag]) {
+      this.constructor.nuInit();
     }
 
     const origValue = value;
@@ -594,8 +585,8 @@ export default class NuBase extends HTMLElement {
    * @private
    */
   connectedCallback() {
-    if (!STYLE_MAP[this.constructor.nuTag]) {
-      this.constructor.nuGenerateDefaultStyle();
+    if (!ELEMENTS_MAP[this.constructor.nuTag]) {
+      this.constructor.nuInit();
     }
 
     if (this.nuFirstConnect == null) {
