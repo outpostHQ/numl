@@ -5,6 +5,8 @@ const DATASET = ROOT.dataset;
 const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
 const CONTRAST_OPTIONS = ['auto', 'low', 'high'];
 
+export const preventInit = DATASET.nuPrevent != null;
+
 export function scheme(val) {
   let currentScheme = DATASET.nuScheme || 'auto';
 
@@ -19,7 +21,7 @@ export function scheme(val) {
   if (SCHEME_OPTIONS.includes(val)) {
     DATASET.nuScheme = val;
   }
-};
+}
 
 export function contrast (val) {
   let currentContrast = DATASET.nuContrast || 'auto';
@@ -35,7 +37,7 @@ export function contrast (val) {
   if (CONTRAST_OPTIONS.includes(val)) {
     DATASET.nuContrast = val;
   }
-};
+}
 
 export function reduceMotion(bool) {
   if (bool == null) return DATASET.nuReduceMotion != null;

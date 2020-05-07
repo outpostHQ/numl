@@ -1,6 +1,5 @@
 import Behavior from "./behavior";
 import { log, toCamelCase } from '../helpers';
-import { VAR_MOD } from '../variables';
 
 const LOCALE_VAR = 'locale';
 
@@ -27,6 +26,10 @@ export const NUMBER_TYPE = (defaultValue) => {
 };
 
 export default class WidgetBehavior extends Behavior {
+  static get widget() {
+    return true;
+  }
+
   static get localized() {
     return false;
   }

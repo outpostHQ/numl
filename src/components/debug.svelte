@@ -131,7 +131,7 @@ setInterval(() => {
 }, 500);
 
 $: behaviors = target
-  ? Object.values(target.nuBehaviors).filter(beh => beh.$$name !== 'debug')
+  ? Object.values(target.nuBehaviors).filter(beh => beh.$$name !== 'debug' && beh.constructor.widget)
   : [];
 $: attrs = target ? [...target.attributes].reduce((list, { name, value }) => {
   value = value === '' ? 'true' : `"${value}"`;

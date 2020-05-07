@@ -66,7 +66,7 @@ export function getBehavior(name) {
   return promise;
 }
 
-export function define(name, behaviorLoader) {
+export function defineBehavior(name, behaviorLoader) {
   if (BEHAVIORS[name]) {
     warn('behavior has already been defined', name);
 
