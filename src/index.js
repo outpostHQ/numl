@@ -14,21 +14,28 @@ export { FLEX_GAP_SUPPORTED } from './attributes/gap';
 import * as elements from './elements';
 import NuBase from './elements/base';
 import NuActiveElement from './elements/activeelement';
+// export * from './behaviors/widget';
 // export * from './helpers';
 // import * as color from './color';
 // import * as themes from './themes';
 // import * as css from './css';
 // import * as variables from './variables';
+import { defineBehavior, hasBehavior, getBehavior } from './behaviors';
 import svg from './svg';
 import icons from './icons';
 import routing from './routing';
 import themeAttr from './attributes/theme';
 import { initFocus } from './focus';
-import { scheme, contrast, reduceMotion } from './settings';
+import { scheme, contrast, reduceMotion, preventInit } from './settings';
 import CONTEXT from './context';
 import { applyTheme, BASE_THEME } from './themes';
 import { cleanCSSByPart, generateCSS, injectCSS } from './css';
 
+const behaviors = {
+  define: defineBehavior,
+  has: hasBehavior,
+  get: getBehavior,
+};
 // const helpers = import('./helpers');
 // const color = import('./color');
 // const themes = import('./themes');
@@ -88,6 +95,7 @@ const Nude = {
   scheme,
   contrast,
   reduceMotion,
+  behaviors,
   CONTEXT,
   routing,
   icons,
@@ -119,10 +127,30 @@ function define(el) {
 }
 
 Nude.init = () => {
+  const rootEls = document.querySelectorAll('nu-root');
+
+  rootEls.forEach(el => {
+    el.nuParent = el.parentNode;
+
+    el.parentNode.removeChild(el);
+  });
+
+  const styleEl = [...document.querySelectorAll('style')].find(style => {
+    if (style.textContent.includes('nu-root')) {
+      return true;
+    }
+  });
+
   Object.values(elements)
     .forEach(define);
 
-  // verifyDOM();
+  rootEls.forEach(el => {
+    el.nuParent && el.nuParent.appendChild(el);
+  });
+
+  if (styleEl) {
+    styleEl.parentNode.removeChild(styleEl);
+  }
 };
 
 Nude.getElementById = function (id) {
@@ -160,28 +188,8 @@ Nude.getElementsById = function (id) {
 
 window.Nude = Nude;
 
-const rootEls = document.querySelectorAll('nu-root');
-
-rootEls.forEach(el => {
-  el.nuParent = el.parentNode;
-
-  el.parentNode.removeChild(el);
-});
-
-const styleEl = [...document.querySelectorAll('style')].find(style => {
-  if (style.textContent.includes('nu-root')) {
-    return true;
-  }
-});
-
-Nude.init();
-
-rootEls.forEach(el => {
-  el.nuParent && el.nuParent.appendChild(el);
-});
-
-if (styleEl) {
-  styleEl.parentNode.removeChild(styleEl);
+if (!preventInit) {
+  Nude.init();
 }
 
 export default Nude;
@@ -200,6 +208,8 @@ export {
   scheme,
   contrast,
   reduceMotion,
+  CONTEXT,
+  behaviors,
   routing,
   icons,
   svg,
