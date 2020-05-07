@@ -51,7 +51,7 @@ export default class NuElement extends NuBase {
           } : null;
       },
       ...Object.keys(BEHAVIORS).reduce((map, name) => {
-        map[`nu-${name}`] = '';
+        map[`nx-${name}`] = '';
 
         return map;
       }, {}),
@@ -67,6 +67,45 @@ export default class NuElement extends NuBase {
       placeholder: '',
       min: '',
       max: '',
+      code: '',
+      sign: '',
+      unit: '',
+      notation: '',
+      fallback: '',
+      significant: '',
+      integer: '',
+      decimal: '',
+      pressed: '',
+      checked: '',
+      selected: '',
+      href: '',
+      target: '',
+      to: '',
+      begin: '',
+      end: '',
+      for: '',
+      assert: '',
+      enumerate: '',
+      date: '',
+      time: '',
+      weekday: '',
+      era: '',
+      year: '',
+      month: '',
+      day: '',
+      hour: '',
+      minute: '',
+      second: '',
+      zone: '',
+      timezone: '',
+      dayperiod: '',
+      calendar: '',
+      system: '',
+      hourcycle: '',
+      format: '',
+      src: '',
+      autofocus: '',
+      maxlength: '',
     };
   }
 

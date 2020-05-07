@@ -15,12 +15,6 @@ export default class NuSvg extends NuBlock {
     return 'img';
   }
 
-  static get nuGenerators() {
-    return {
-      src: '',
-    };
-  }
-
   static get nuStyles() {
     return {
       display: 'inline-block',

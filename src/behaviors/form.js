@@ -22,10 +22,11 @@ export default class FormBehavior extends WidgetBehavior {
 
     host.nuSetMod('form', true);
 
-    host.nuSetValue = (val, silent) => this.setValue(val, silent);
-    host.nuGetValue = () => this.value;
+    this.linkValue((val, silent) => this.setValue(val, silent));
 
-    this.setValue(host._value || {}, true);
+    if (!this.value) {
+      this.value = {};
+    }
 
     this.setContext('form', this);
     this.setContext('submit', () => {

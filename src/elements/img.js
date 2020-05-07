@@ -19,7 +19,6 @@ export default class NuImg extends NuBlock {
 
   static get nuGenerators() {
     return {
-      src: '',
       fit(val) {
         val = val || 'contain';
 

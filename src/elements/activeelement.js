@@ -9,21 +9,6 @@ export default class NuActiveElement extends NuElement {
     return 'button';
   }
 
-  static get nuGenerators() {
-    return {
-      disabled: '',
-      pressed: '',
-      checked: '',
-      selected: '',
-      href: '',
-      target: '',
-      controls: '',
-      value: '',
-      to: '',
-      action: '',
-    };
-  }
-
   static get nuStyles() {
     return {
       radius: '',
@@ -70,33 +55,5 @@ export default class NuActiveElement extends NuElement {
         outline: none;
       }
     `;
-  }
-
-  set pressed(val) {
-    if (val != null) {
-      this.setAttribute('pressed', val);
-    } else {
-      this.removeAttribute('pressed');
-    }
-  }
-
-  get pressed() {
-    return this.hasAttribute('pressed');
-  }
-
-  set checked(val) {
-    this.pressed = val;
-  }
-
-  get checked() {
-    return this.pressed;
-  }
-
-  set selected(val) {
-    this.pressed = val;
-  }
-
-  get selected() {
-    return this.pressed;
   }
 }

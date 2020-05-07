@@ -15,6 +15,7 @@ export default class InputBehavior extends WidgetBehavior {
   }
 
   init() {
+    this.setMod('input', true);
     this.tagName = this.constructor.tag;
     this.value = null;
     this.props.disabled = () => {
@@ -34,8 +35,7 @@ export default class InputBehavior extends WidgetBehavior {
 
     const { host } = this;
 
-    host.nuSetValue = (val, silent) => this.setValue(val, silent);
-    host.nuGetValue = () => this.value;
+    this.linkValue((val) => this.setValue(val, true));
 
     const tag = this.constructor.tag;
 
@@ -47,13 +47,6 @@ export default class InputBehavior extends WidgetBehavior {
       host.appendChild(input);
 
       this.ref = input;
-    }
-
-    // Check if some value was set using element property before behavior initialization
-    // Require ref property to be set
-    if (host._value) {
-      this.setValue(host._value, true);
-      delete host._value;
     }
 
     const { ref } = this;

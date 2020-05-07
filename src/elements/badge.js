@@ -1,17 +1,8 @@
-import NuBlock from './block';
 import NuElement from './element';
 
 export default class NuBadge extends NuElement {
   static get nuTag() {
     return 'nu-badge';
-  }
-
-  static get nuGenerators() {
-    return {
-      border: NuBlock.nuGenerators.border,
-      radius: NuBlock.nuGenerators.radius,
-      shadow: NuBlock.nuGenerators.shadow,
-    };
   }
 
   static get nuStyles() {

@@ -24,7 +24,7 @@ export default class ValidatorBehavior extends WidgetBehavior {
   }
 
   connected() {
-    this.bindContext('form', (form) => {
+    this.linkContext('form', (form) => {
       if (this.currentForm && form !== this.currentForm) {
         this.disconnectForm(this.currentForm, !!form);
       }

@@ -116,6 +116,10 @@
 </nu-flex>
 {/if}
 
+<script context="module">
+export const props = ['value', 'locale', 'begin', 'end', 'mode'];
+</script>
+
 <script>
 import { createEventDispatcher } from 'svelte';
 

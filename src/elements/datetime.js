@@ -5,31 +5,6 @@ export default class NuDateTime extends NuElement {
     return 'nu-datetime';
   }
 
-  static get nuGenerators() {
-    return {
-      value: '',
-      locale: '',
-      date: '',
-      time: '',
-      weekday: '',
-      era: '',
-      year: '',
-      month: '',
-      day: '',
-      hour: '',
-      minute: '',
-      second: '',
-      zone: '',
-      timezone: '',
-      dayperiod: '',
-      calendar: '',
-      system: '',
-      hourcycle: '',
-      fallback: '',
-      format: '',
-    };
-  }
-
   static get nuBehaviors() {
     return {
       datetime: true,

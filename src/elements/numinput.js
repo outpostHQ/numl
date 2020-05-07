@@ -7,16 +7,6 @@ export default class NuNumInput extends NuInput {
     return 'nu-numinput';
   }
 
-  static get nuGenerators() {
-    return {
-      prefix: '',
-      suffix: '',
-      min: '',
-      max: '',
-      ...NuNum.nuGenerators,
-    };
-  }
-
   static get nuBehaviors() {
     return {
       input: null,

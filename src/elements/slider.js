@@ -36,8 +36,6 @@ export default class NuSlider extends NuElement {
 
   static get nuGenerators() {
     return {
-      min: '',
-      max: '',
       orient(val) {
         const vertical = val === 'v';
 
@@ -93,21 +91,5 @@ export default class NuSlider extends NuElement {
         bottom: var(--nu-local-rail-bottom);
       }
     `;
-  }
-
-  set value(val) {
-    const slider = this.nuBehaviors && this.nuBehaviors.slider;
-
-    if (slider) {
-      slider.setValue(val);
-    } else {
-      this._value = val;
-    }
-  }
-
-  get value() {
-    const slider = this.nuBehaviors && this.nuBehaviors.slider;
-
-    return slider ? slider.value : this._value;
   }
 }

@@ -5,16 +5,6 @@ export default class NuDatePicker extends NuElement {
     return 'nu-datepicker';
   }
 
-  static get nuGenerators() {
-    return {
-      value: '',
-      locale: '',
-      begin: '',
-      end: '',
-      mode: '',
-    };
-  }
-
   static get nuStyles() {
     return {
       display: 'grid',

@@ -99,7 +99,7 @@ export default class WidgetBehavior extends Behavior {
       const id = host.nuId;
 
       if (id) {
-        this.bindContext('form', (form, oldForm) => {
+        this.linkContext('form', (form, oldForm) => {
           if (oldForm && form !== oldForm) {
             this.disconnectForm(oldForm, !!form);
           }
@@ -110,7 +110,7 @@ export default class WidgetBehavior extends Behavior {
         });
       }
 
-      this.bindContext('group', (group, oldGroup) => {
+      this.linkContext('group', (group, oldGroup) => {
         if (oldGroup) {
           oldGroup.setMod('invalid', false);
         }
@@ -339,5 +339,21 @@ export default class WidgetBehavior extends Behavior {
     if (this.group) {
       this.group.setMod('invalid', !bool);
     }
+  }
+
+  linkValue(set, get) {
+    const { host } = this;
+
+    set = set || ((val) => { this.value = val; });
+    get = get || (() => this.value);
+
+    if (host._value != null) {
+      set(host.value);
+
+      delete host._value;
+    }
+
+    host.nuSetValue = set;
+    host.nuGetValue = get;
   }
 }
