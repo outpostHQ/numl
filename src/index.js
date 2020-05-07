@@ -1,6 +1,6 @@
 export * from './elements';
 export { FLEX_GAP_SUPPORTED } from './attributes/gap';
-import * as ELEMENTS from './elements';
+import * as elements from './elements';
 import NuBase from './elements/base';
 import NuActiveElement from './elements/activeelement';
 // helpers
@@ -35,6 +35,34 @@ css.injectCSS('theme:base', 'body', css.generateCSS('body', [...styles, {
   '--nu-diff-color': 'var(--nu-bg-color)',
 }]));
 
+const verifyDOM = helpers.asyncDebounce(() => {
+  const els = [...document.querySelectorAll('[nu]')];
+
+  els.forEach(el => {
+    el.nuCreateContext();
+  });
+
+  els.forEach(el => {
+    el.nuContextChanged(name);
+    el.nuSetContextAttrs();
+
+    if (el.hasAttribute('theme')) {
+      el.nuEnsureThemes();
+    }
+
+    if (el.nuApply) {
+      el.nuApply();
+    }
+  });
+
+  [...document.querySelectorAll('[nu-root]')]
+    .forEach(el => {
+      el.nuVerifyChildren(true);
+    });
+
+  css.cleanCSSByPart('attrs:all');
+});
+
 const Nude = {
   tags: {},
   helpers,
@@ -51,35 +79,9 @@ const Nude = {
   icons,
   svg,
   variables,
+  elements,
+  verifyDOM,
 };
-
-// const verifyDOM = helpers.asyncDebounce(() => {
-//   const els = [...document.querySelectorAll('[nu]')];
-//
-//   els.forEach(el => {
-//     el.nuCreateContext();
-//   });
-//
-//   els.forEach(el => {
-//     el.nuContextChanged(name);
-//     el.nuSetContextAttrs();
-//
-//     if (el.hasAttribute('theme')) {
-//       el.nuEnsureThemes();
-//     }
-//
-//     if (el.nuApply) {
-//       el.nuApply();
-//     }
-//   });
-//
-//   [...document.querySelectorAll('[nu-root]')]
-//     .forEach(el => {
-//       el.nuVerifyChildren(true);
-//     });
-//
-//   css.cleanCSSByPart('attrs:all');
-// });
 
 function define(el) {
   const tag = el.nuTag;
@@ -96,7 +98,7 @@ function define(el) {
 }
 
 Nude.init = () => {
-  Object.values(ELEMENTS)
+  Object.values(elements)
     .forEach(define);
 
   // verifyDOM();
@@ -134,8 +136,6 @@ Nude.getElementsById = function (id) {
 //
 //   return `${baseCSS}\n${attrsCSS}`;
 // };
-
-Nude.elements = ELEMENTS;
 
 window.Nude = Nude;
 
@@ -175,7 +175,7 @@ export {
   Nude,
   NuBase,
   NuActiveElement,
-  ELEMENTS as elements,
+  elements,
   scheme,
   contrast,
   reduceMotion,
@@ -187,4 +187,5 @@ export {
   icons,
   svg,
   variables,
+  verifyDOM,
 };
