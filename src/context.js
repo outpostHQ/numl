@@ -25,7 +25,7 @@ export default CONTEXT;
 function setLocale() {
   const value = ROOT.getAttribute('lang') || navigator.language || navigator.languages[0];
 
-  setRootContext('var:locale', { value });
+  setRootContext('locale', value);
 }
 
 export function setRootContext(name, value) {
@@ -39,28 +39,28 @@ export function setRootContext(name, value) {
     CONTEXT[name] = value;
   }
 
-  verifyRoot();
+  verifyRoot(name);
 }
 
-const verifyRoot = asyncDebounce(() => {
+const verifyRoot = asyncDebounce((name) => {
   log('root context verification');
 
   deepQueryAll(ROOT, '[nu]')
     .forEach(el => el.nuContextChanged(name));
 });
 
-export function verifyContext(element) {
-  if (element.nuVerification) return;
-
-  element.nuVerification = true;
-
-  requestIdleCallback(() => {
-    element.nuVerification = false;
-
-    deepQueryAll(element, '[nu]')
-      .forEach(el => el.nuContextChanged(name));
-  });
-}
+// export function verifyContext(element) {
+//   if (element.nuVerification) return;
+//
+//   element.nuVerification = true;
+//
+//   requestIdleCallback(() => {
+//     element.nuVerification = false;
+//
+//     deepQueryAll(element, '[nu]')
+//       .forEach(el => el.nuContextChanged(name));
+//   });
+// }
 
 export function getRootContext(name) {
   return CONTEXT[name];
