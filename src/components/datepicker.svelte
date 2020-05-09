@@ -22,14 +22,14 @@
       <nu-icon id="dropdown-icon"></nu-icon>
       <nu-popupmenu height="28x" overflow="auto" scrollbar bind:this={yearPopup}>
         {#each years as year}
-        <nu-menuitem
-          on:tap={() => navDate = year}
-          disabled={!isMonthInRange(year, beginDate, endDate) ? '' : undefined}
-          nu-current={isSameDay(navDate, year) ? '' : undefined}
-          color=":current[special]"
-          fill=":current[subtle]">
-          <nu-datetime year value={year}></nu-datetime>
-        </nu-menuitem>
+          <nu-menuitem
+            on:tap={() => navDate = year}
+            disabled={!isMonthInRange(year, beginDate, endDate) ? '' : undefined}
+              nu-current={isSameDay(navDate, year) ? '' : undefined}
+              color=":current[special]"
+            fill=":current[subtle]">
+            <nu-datetime year value={year}></nu-datetime>
+          </nu-menuitem>
         {/each}
       </nu-popupmenu>
     </nu-btn>
@@ -47,14 +47,14 @@
       <nu-icon id="dropdown-icon"></nu-icon>
       <nu-popupmenu height="28x" overflow="auto" scrollbar bind:this={monthPopup}>
         {#each months as month}
-        <nu-menuitem
-          on:tap={() => navDate = month}
-          disabled={!isMonthInRange(month, beginDate, endDate) ? '' : undefined}
-          nu-current={isSameDay(navDate, month) ? '' : undefined}
-          color=":current[special]"
-          fill=":current[subtle]">
-          <nu-datetime month value={month}></nu-datetime>
-        </nu-menuitem>
+          <nu-menuitem
+            on:tap={() => navDate = month}
+            disabled={!isMonthInRange(month, beginDate, endDate) ? '' : undefined}
+              nu-current={isSameDay(navDate, month) ? '' : undefined}
+              color=":current[special]"
+            fill=":current[subtle]">
+            <nu-datetime month value={month}></nu-datetime>
+          </nu-menuitem>
         {/each}
       </nu-popupmenu>
     </nu-btn>
@@ -87,10 +87,10 @@
 
   {#each monthDays as day}
     <nu-btn
-            as={day.modifiers}
-            on:tap={() => selectRange(day.date)}
-            on:mouseover={() => setHover(day.date)}
-            padding=".5x 1x">
+      as={day.modifiers}
+      padding=".5x 1x"
+      on:tap={() => selectRange(day.date)}
+      on:mouseover={() => setHover(day.date)}>
       {day.date.getDate()}
     </nu-btn>
   {/each}
@@ -98,22 +98,22 @@
 </nu-grid>
 
 {#if mode === 'range'}
-<nu-flex gap size="xs">
-  <nu-attrs for="nu-btn" special padding></nu-attrs>
+  <nu-flex gap size="xs">
+    <nu-attrs for="nu-btn" special padding></nu-attrs>
 
-  <nu-btn on:tap={() => setRange(yearRange)}>
-    <nu-datetime year value={navDate}></nu-datetime>
-  </nu-btn>
+    <nu-btn on:tap={() => setRange(yearRange)}>
+      <nu-datetime year value={navDate}></nu-datetime>
+    </nu-btn>
 
-  <nu-btn on:tap={() => setRange(quaterRange)}>
-    Q{navQuater}
-    <nu-datetime year value={navDate}></nu-datetime>
-  </nu-btn>
+    <nu-btn on:tap={() => setRange(quaterRange)}>
+      Q{navQuater}
+      <nu-datetime year value={navDate}></nu-datetime>
+    </nu-btn>
 
-  <nu-btn on:tap={() => setRange(monthRange)}>
-    <nu-datetime year month="short" value={navDate}></nu-datetime>
-  </nu-btn>
-</nu-flex>
+    <nu-btn on:tap={() => setRange(monthRange)}>
+      <nu-datetime year month="short" value={navDate}></nu-datetime>
+    </nu-btn>
+  </nu-flex>
 {/if}
 
 <script context="module">
@@ -171,8 +171,10 @@ function decodeLocale(locale) {
   return locale.match(/^([a-zA-Z]{2,3})(?:[_-]+([a-zA-Z]{3})(?=$|[_-]+))?(?:[_-]+([a-zA-Z]{4})(?=$|[_-]+))?(?:[_-]+([a-zA-Z]{2}|\d{3})(?=$|[_-]+))?/);
 }
 
-let fromDate = value && startOfDay(new Date(value.split('|')[0]));
-let toDate = value && startOfDay(new Date(value.split('|')[1]));
+let fromDate = value && startOfDay(Array.isArray(value) ? value[0] : new Date(String(value).split('|')[0]));
+let toDate = value && startOfDay(Array.isArray(value)
+  ? (value[1] || value[0])
+  : new Date(String(value).split('|')[1] || String(value).split('|')[0]));
 
 if (!isValidDate(fromDate)) {
   fromDate = null;
@@ -387,8 +389,8 @@ function getDayModifiers(date, navMonthStartDate, navMonthEndDate, fromDate, toD
   }
 
   if (isSameDay(date, fromDate) && isSameDay(fromDate, toDate)) {
-      mods.push('selected');
-    }
+    mods.push('selected');
+  }
 
   if (fromDate && toDate
     && isAfter(date, fromDate)
@@ -404,14 +406,21 @@ function getDayModifiers(date, navMonthStartDate, navMonthEndDate, fromDate, toD
 }
 
 function selectRange(date) {
-  if (fromDate && !toDate && (isAfter(date, fromDate) || isSameDay(date, fromDate))) {
-    toDate = date;
+  if (mode === 'range') {
+    if (fromDate && !toDate && (isAfter(date, fromDate) || isSameDay(date, fromDate))) {
+      toDate = date;
 
-    dispatch('input', [fromDate, toDate]);
+      dispatch('input', [fromDate, toDate]);
+    } else {
+      fromDate = date;
+
+      toDate = null;
+    }
   } else {
     fromDate = date;
+    toDate = date;
 
-    toDate = null;
+    dispatch('input', date);
   }
 }
 

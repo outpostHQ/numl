@@ -31,11 +31,11 @@ export function disableFocus() {
 export function initFocus() {
   const win = window;
 
-  win.addEventListener('mousedown', disableFocus);
-  win.addEventListener('touchstart', disableFocus, { passive: true });
+  win.addEventListener('mousedown', disableFocus, { capture: true });
+  win.addEventListener('touchstart', disableFocus, { passive: true, capture: true });
   win.addEventListener('keydown', (event) => {
     if (!IGNORE_KEYS.includes(event.key)) {
       enableFocus();
     }
-  });
+  }, { capture: true });
 }

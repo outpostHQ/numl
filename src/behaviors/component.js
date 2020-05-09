@@ -24,6 +24,25 @@ export default class ComponentBehavior extends WidgetBehavior {
   init() {
     super.init();
 
+    this.linkContext('value', (val) => {
+      if (val != null) {
+        this.set({ value: val });
+      }
+    });
+
+    this.linkValue((val) => {
+      this.set({ value: val });
+      this.value = val;
+
+      return val;
+    }, () => {
+      if (this.component) {
+        return this.component.value;
+      } else {
+        return this.value;
+      }
+    });
+
     const { host } = this;
 
     if (!host.hasAttribute('type')) {
@@ -32,7 +51,7 @@ export default class ComponentBehavior extends WidgetBehavior {
 
     this.componentPromise
       .then(Component => {
-        const target = this.context.useShadow && host.constructor.nuAllowShadow
+        const target = this.isShadowAllowed
           ? host.attachShadow({ mode: 'open' }) : host;
 
         this.Component = Component;
@@ -44,6 +63,7 @@ export default class ComponentBehavior extends WidgetBehavior {
 
         this.component.$on('input', (event) => {
           host.nuEmitInput(event.detail);
+          this.doAction(event.detail);
         });
       });
   }
@@ -51,7 +71,7 @@ export default class ComponentBehavior extends WidgetBehavior {
   get componentProps() {
     const prototype = this.Component.prototype;
 
-    return [...this.propsList, 'host']
+    const props = [...this.propsList, 'host']
       .reduce((data, attr) => {
         if (attr === 'lang') {
           attr = 'locale';
@@ -63,6 +83,8 @@ export default class ComponentBehavior extends WidgetBehavior {
 
         return data;
       }, {});
+
+    return props;
   }
 
   changed(name, value) {

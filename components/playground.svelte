@@ -20,6 +20,10 @@
         Password is required
       </nu-check>
     </nu-flow>
+    <nu-flow>
+      <nu-label>Date of issue</nu-label>
+      <nu-dateinput id="date" width="min(10)"></nu-dateinput>
+    </nu-flow>
     <nu-card>
       <nu-form id="user" nx-debug="debugger1">
         <nu-heading level="5">User</nu-heading>
@@ -78,9 +82,14 @@
   <nu-tooltip place="outside-top">Show me something</nu-tooltip>
   <nu-heading level="3">Date picker</nu-heading>
 
-  <nu-card width="minmax(20, min-content)">
-    <nu-datepicker mode="range"></nu-datepicker>
-  </nu-card>
+<!--  <nu-card width="minmax(20, min-content)">-->
+<!--    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>-->
+<!--  </nu-card>-->
+<!--  <nu-dateinput width="min(10)" mode="range"></nu-dateinput>-->
+</nu-card>
+
+<nu-card>
+  <nu-debug id="debugger4"></nu-debug>
 </nu-card>
 
 <nu-card as="section">
@@ -187,6 +196,7 @@ let formData = {
   email: 'tenphi@gmail.com',
   user,
 };
+let dateRange = [new Date, new Date('2020-05-10')];
 
 function submit(event) {
   console.log('! form data submitted', event.detail);

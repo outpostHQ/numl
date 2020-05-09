@@ -1,5 +1,5 @@
 import Behavior from "./behavior";
-import { log, toCamelCase } from '../helpers';
+import { isValidDate, log, toCamelCase } from '../helpers';
 
 const LOCALE_VAR = 'locale';
 
@@ -108,6 +108,8 @@ export default class WidgetBehavior extends Behavior {
       const id = host.nuId;
 
       if (id) {
+        // reset form context for inner elements
+        this.context.form = null;
         this.linkContext('form', (form, oldForm) => {
           if (oldForm && form !== oldForm) {
             this.disconnectForm(oldForm, !!form);
@@ -122,6 +124,7 @@ export default class WidgetBehavior extends Behavior {
       this.linkContext('group', (group, oldGroup) => {
         if (oldGroup) {
           oldGroup.setMod('invalid', false);
+          oldGroup.setMod('valid', false);
         }
       });
     }
@@ -253,15 +256,17 @@ export default class WidgetBehavior extends Behavior {
 
         break;
       case 'date':
-        value = notNull ? new Date(value) : null;
+        if (!isValidDate(value)) {
+          value = null;
+        }
 
         break;
       case 'daterange':
         if (!Array.isArray(value)) {
           value = null;
+        } else {
+          value = [new Date(value[0]), new Date(value[1])];
         }
-
-        value = [new Date(value[0]), new Date(value[1])];
 
         break
       case 'array':
@@ -304,6 +309,22 @@ export default class WidgetBehavior extends Behavior {
       .then(Control => Control.apply(!!bool, value));
   }
 
+  doAction(value) {
+    const action = this.host.getAttribute('action');
+
+    if (action) {
+      const actionCallback = this.parentContext[action];
+
+      log('perform action', this.$$name, action, actionCallback);
+
+      if (actionCallback) {
+        value = value != null ? value : this.getTypedValue(this.emitValue);
+
+        actionCallback(value);
+      }
+    }
+  }
+
   transferAttr(name, ref, defaultValue) {
     if (!ref) return;
 
@@ -344,9 +365,11 @@ export default class WidgetBehavior extends Behavior {
 
   setValidity(bool) {
     this.setMod('invalid', !bool);
+    this.setMod('valid', bool);
 
     if (this.group) {
       this.group.setMod('invalid', !bool);
+      this.group.setMod('valid', bool);
     }
   }
 

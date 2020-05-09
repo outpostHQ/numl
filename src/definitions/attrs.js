@@ -44,7 +44,7 @@ export default class NuAttrs extends NuDefinition {
     const parent = this.parentNode;
     let id = this.getAttribute('for');
 
-    if (!this.nuContext.useShadow) {
+    if (!this.nuContext.allowShadow) {
       id = id.replace(/^\$+/, '');
     }
 

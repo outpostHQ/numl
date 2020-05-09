@@ -52,11 +52,6 @@ export default class PopupBehavior extends WidgetBehavior {
 
       this.button.host.style.removeProperty('--nu-local-hover-color');
     });
-
-    this.setContext('submit', (detail) => {
-      this.emit('input', detail);
-      this.button.set(false);
-    });
   }
 
   connected() {
@@ -73,11 +68,11 @@ export default class PopupBehavior extends WidgetBehavior {
 
     this.linkButton();
 
-    if (!host.hasAttribute(PLACE_ATTR)
-      && !host.hasAttribute(FIXATE_ATTR)
-      && host.nuParentContext.popup) {
-      host.setAttribute(PLACE_ATTR, 'outside-right top');
-    }
+    // if (!host.hasAttribute(PLACE_ATTR)
+    //   && !host.hasAttribute(FIXATE_ATTR)
+    //   && host.nuParentContext.popup) {
+    //   host.setAttribute(PLACE_ATTR, 'outside-right top');
+    // }
 
     this.close();
 

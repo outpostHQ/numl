@@ -49,12 +49,12 @@ export function reduceMotion(bool) {
   }
 }
 
-export const USE_SHADOW = DATASET.nuShadow != null && !!HTMLElement.prototype.attachShadow;
+export const USE_SHADOW = DATASET.nuShadow != null;
 
 setRootContext('scheme', scheme());
 setRootContext('contrast', contrast());
 setRootContext('reduceMotion', scheme());
-setRootContext('useShadow', USE_SHADOW);
+setRootContext('allowShadow', USE_SHADOW);
 
 if (requestIdleCallback) {
   if (!reduceMotion()) {
