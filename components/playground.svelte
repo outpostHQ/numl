@@ -84,9 +84,9 @@
 
   <nu-btn id="select" nx-debug="debugger4">
     <nu-value></nu-value>
-    <nu-popupmenu>
-      <nu-menuitem value="One">One</nu-menuitem>
-      <nu-menuitem value="Two">Two</nu-menuitem>
+    <nu-popupmenu type="date">
+      <nu-menuitem value="05.10.2020">One</nu-menuitem>
+      <nu-menuitem value="10.10.2020">Two</nu-menuitem>
     </nu-popupmenu>
   </nu-btn>
 
