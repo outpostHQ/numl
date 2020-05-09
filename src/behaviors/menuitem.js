@@ -1,18 +1,19 @@
-import Widget from './widget';
+import WidgetBehavior from './widget';
 
-export default class MenuItemBehavior extends Widget {
+export default class MenuItemBehavior extends WidgetBehavior {
   init() {
     super.init();
 
-    const { host } = this;
-
-    host.addEventListener('tap', (event) => {
-      const menu = host.nuContext.menu;
-
-      if (menu && this.role !== 'checkbox' && !host.nuHasAria('expanded')) {
-        menu.submit(event.detail);
+    this.on('tap', () => {
+      if (this.value != null) {
+        this.doAction(this.value, 'submit');
       }
     });
+
+    this.linkValue();
+    this.linkContext('value', (val) => {
+      this.setMod('current', val === this.value);
+    }, 'parentValue');
   }
 
   submit(value) {

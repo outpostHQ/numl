@@ -79,8 +79,16 @@
 </nu-card>
 
 <nu-card as="section">
-  <nu-tooltip place="outside-top">Show me something</nu-tooltip>
-  <nu-heading level="3">Date picker</nu-heading>
+<!--  <nu-tooltip place="outside-top">Show me something</nu-tooltip>-->
+  <nu-heading level="3">Select</nu-heading>
+
+  <nu-btn id="select" nx-debug="debugger4">
+    Select
+    <nu-popupmenu>
+      <nu-menuitem value="One">One</nu-menuitem>
+      <nu-menuitem value="Two">Two</nu-menuitem>
+    </nu-popupmenu>
+  </nu-btn>
 
 <!--  <nu-card width="minmax(20, min-content)">-->
 <!--    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>-->

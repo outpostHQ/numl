@@ -309,11 +309,9 @@ export default class WidgetBehavior extends Behavior {
       .then(Control => Control.apply(!!bool, value));
   }
 
-  doAction(value) {
-    const action = this.host.getAttribute('action');
-
+  doAction(value, action = this.host.getAttribute('action')) {
     if (action) {
-      const actionCallback = this.parentContext[action];
+      const actionCallback = this.parentContext[`action:${action}`];
 
       log('perform action', this.$$name, action, actionCallback);
 
@@ -387,5 +385,9 @@ export default class WidgetBehavior extends Behavior {
 
     host.nuSetValue = set;
     host.nuGetValue = get;
+  }
+
+  bindAction(name, cb) {
+    this.setContext(`action:${name}`, cb);
   }
 }
