@@ -3,8 +3,7 @@
     {#if fromDate}
       <nu-datetime
         value={fromDate}
-        date={date}
-        time={time}
+        date={date || ''}
         weekday={weekday}
         era={era}
         year={year}
@@ -21,8 +20,7 @@
         <nu-el>–</nu-el>
         <nu-datetime
           value={toDate}
-          date={date}
-          time={time}
+          date={date || ''}
           weekday={weekday}
           era={era}
           year={year}

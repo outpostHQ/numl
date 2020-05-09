@@ -28,6 +28,8 @@ export default class MenuBehavior extends WidgetBehavior {
       popup.close();
     }
 
+    console.log('!', this.getTypedValue(this.value), this.type);
+
     this.doAction(this.getTypedValue(this.value), 'submit');
   }
 }

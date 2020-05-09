@@ -258,6 +258,8 @@ export default class WidgetBehavior extends Behavior {
       case 'date':
         if (!isValidDate(value)) {
           value = null;
+        } else {
+          value = new Date(value);
         }
 
         break;
