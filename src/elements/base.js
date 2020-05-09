@@ -35,9 +35,9 @@ import {
   isVariableAttr,
   isResponsiveAttr,
   normalizeAttrStates,
-  isDefined,
   parseAttrStates,
-  deepQuery, deepQueryAll, queryChildren, setAttr,
+  deepQuery, deepQueryAll, queryChildren,
+  setImmediate,
 } from '../helpers';
 import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
@@ -80,7 +80,7 @@ const TAG_LIST = [];
 
 /**
  * @typedef NudeContext
- * @property useShadow {boolean}
+ * @property allowShadow {boolean}
  * @property $shadowRoot {HTMLFragment}
  * @property $parentShadowRoot {HTMLFragment}
  */
@@ -261,7 +261,10 @@ export default class NuBase extends HTMLElement {
         .reduce((list, entry) => {
           const name = entry[0];
 
-          if (!entry[1] && !name.startsWith('nu-') && !name.startsWith('nu-') && !(name in baseAttrs)) {
+          if (!entry[1]
+            && !name.startsWith('nu-')
+            && !name.startsWith('nx-')
+            && !(name in baseAttrs)) {
             list.push(name);
           }
 
@@ -1497,6 +1500,10 @@ export default class NuBase extends HTMLElement {
 
     this.setAttribute('shadow-root', '');
 
+    setImmediate(() => {
+      this.nuAttachShadowCSS();
+    });
+
     return shadow;
   }
 
@@ -1702,21 +1709,25 @@ export default class NuBase extends HTMLElement {
 
     if (!template) return;
 
-    const useShadow = this.nuContext.useShadow;
-
     let host = this;
 
-    if (useShadow && this.constructor.nuAllowShadow) {
+    if (this.nuIsShadowAllowed) {
       host = this.attachShadow({ mode: 'open' });
     } else {
       this.nuSetMod('host', true);
     }
 
     host.innerHTML = template;
+  }
 
-    if (useShadow) {
-      this.nuAttachShadowCSS();
-    }
+  get nuIsShadowAllowed() {
+    const allowGlobal = !!HTMLElement.prototype.attachShadow;
+    const allowContext = this.nuContext.allowShadow;
+    const allowOption = this.constructor.nuAllowShadow;
+    const shadowRootAttr = this.getAttribute('shadow-root');
+    const allowAttr = !['n', 'no'].includes(shadowRootAttr);
+
+    return allowGlobal && allowContext && (allowAttr || allowOption);
   }
 
   nuAttachShadowCSS() {

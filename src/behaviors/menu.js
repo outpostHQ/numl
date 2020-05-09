@@ -11,6 +11,11 @@ export default class MenuBehavior extends Widget {
     if (!parentMenu) {
       host.nuSetContext('menu', this, true);
     }
+
+    this.setContext('submit', (detail) => {
+      this.emit('input', detail);
+      this.button.set(false);
+    });
   }
 
   submit(value) {

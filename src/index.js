@@ -123,6 +123,11 @@ function define(el) {
     return;
   }
 
+  // For hidden elements generate styles immediately
+  if (el.nuAllStyles.display === 'none') {
+    el.nuInit();
+  }
+
   customElements.define(tag, el);
 }
 

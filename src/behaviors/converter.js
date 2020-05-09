@@ -22,7 +22,7 @@ export default class ConverterBehavior extends WidgetBehavior {
     const { host } = this;
     const ref = this.ref = host.querySelector('textarea, pre');
 
-    const useShadow = host.nuContext.useShadow;
+    const useShadow = host.nuIsShadowAllowed;
 
     if (useShadow) {
       host.attachShadow({ mode: 'open' });
@@ -41,8 +41,6 @@ export default class ConverterBehavior extends WidgetBehavior {
     const container = this.container = this.createContainer();
 
     (host.nuShadow || host).appendChild(container);
-
-    host.nuAttachShadowCSS();
 
     const observe = this.observe = this.createObserveListener(ref, container, this.constructor.converter);
 

@@ -27,15 +27,26 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     const { host } = this;
 
-    host.addEventListener('keydown', (event) => {
+    this.on('keydown', (event) => {
       if (event.key === 'Escape' && host.nuHasAria('expanded')) {
         this.set(false);
       }
     });
 
-    host.addEventListener('tap', (event) => {
+    this.on('tap', (event) => {
       if (!event.nuRole && this.role) {
         event.nuRole = this.role;
+      }
+    });
+
+    this.setContext('submit', (val) => {
+      this.setValue(val);
+
+      const innerPopup = host.nuDeepQuery('[nu-popup]');
+
+      if (innerPopup) {
+        innerPopup.nu('popup')
+          .then(Popup => Popup.close());
       }
     });
   }
@@ -212,31 +223,19 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     this.toggle();
     this.control(this.pressed, this.value);
-
-    // Actions
-    const action = host.getAttribute('action');
-
-    if (action) {
-      const actionCallback = this.parentContext[action];
-
-      if (actionCallback) {
-        actionCallback(this.getTypedValue(this.emitValue));
-      }
-    }
+    this.doAction();
   }
 
   get emitValue() {
-    if (this.pressed) {
+    if (this.isToggle()) {
       if (this.value != null) {
-        return this.value;
+        return this.pressed ? this.value : (this.offValue != null ? this.offValue : this.value);
       }
 
-      return true;
-    } else if (this.offValue != null) {
-      return this.offValue;
+      return this.pressed;
     }
 
-    return false;
+    return this.value;
   }
 
   toggle() {
@@ -304,6 +303,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     if (value === this.value) return;
 
     this.value = value;
+    this.setContext('value', value);
 
     setTimeout(() => {
       this.control(this.pressed, this.value);

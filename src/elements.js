@@ -63,6 +63,7 @@ export { default as NuForm } from './elements/form';
 export { default as NuCheck } from './elements/check';
 export { default as NuPopup } from './elements/popup';
 export { default as NuPopupMenu } from './elements/popupmenu';
+export { default as NuDateInput } from './elements/dateinput';
 
 /* Decorators */
 export { default as NuTheme } from './definitions/theme';

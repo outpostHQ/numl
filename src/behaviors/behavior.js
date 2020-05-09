@@ -53,12 +53,16 @@ export default class Behavior {
     return this.host.nuGetVar(name);
   }
 
-  linkContext(name, cb) {
+  linkContext(name, cb, localName) {
+    if (!localName) {
+      localName = name;
+    }
+
     if (!this.host.nuHasContextHook(name)) {
       this.host.nuSetContextHook(name, (data) => {
-        const oldValue = this[name];
+        const oldValue = this[localName];
 
-        this[name] = data;
+        this[localName] = data;
 
         cb(data, oldValue);
       });
@@ -67,7 +71,7 @@ export default class Behavior {
     const value = this.parentContext[name];
 
     if (value != null) {
-      this[name] = value || null;
+      this[localName] = value || null;
 
       cb(value);
     }
@@ -107,5 +111,9 @@ export default class Behavior {
 
   get isConnected() {
     return this.host.nuIsConnected;
+  }
+
+  get isShadowAllowed() {
+    return this.host.nuIsShadowAllowed;
   }
 }
