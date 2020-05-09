@@ -83,7 +83,7 @@
   <nu-heading level="3">Select</nu-heading>
 
   <nu-btn id="select" nx-debug="debugger4">
-    Select
+    <nu-value></nu-value>
     <nu-popupmenu>
       <nu-menuitem value="One">One</nu-menuitem>
       <nu-menuitem value="Two">Two</nu-menuitem>
