@@ -29,7 +29,8 @@ export default class FormBehavior extends WidgetBehavior {
     }
 
     this.setContext('form', this);
-    this.setContext('submit', () => {
+
+    this.bindAction('submit', () => {
       this.setDirty()
         .then(() => this.validate())
         .then(valid => {

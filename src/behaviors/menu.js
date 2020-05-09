@@ -1,30 +1,33 @@
-import Widget from './widget';
+import WidgetBehavior from './widget';
 
-export default class MenuBehavior extends Widget {
+export default class MenuBehavior extends WidgetBehavior {
   init() {
+    this.options = new Set;
+
     super.init();
 
-    const { host } = this;
-
-    const parentMenu = host.nuContext.menu;
+    const parentMenu = this.parentContext.menu;
 
     if (!parentMenu) {
-      host.nuSetContext('menu', this, true);
+      this.setContext('menu', this, true);
     }
 
-    this.setContext('submit', (detail) => {
-      this.emit('input', detail);
-      this.button.set(false);
-    });
+    this.bindAction('submit', (val) => this.submit(val));
+
+    this.linkValue();
   }
 
   submit(value) {
     this.emit('input', value);
 
-    const popup = this.host.nuContext.popup;
+    this.value = value;
+
+    const popup = this.context.popup;
 
     if (popup) {
       popup.close();
     }
+
+    this.doAction(this.getTypedValue(this.value), 'submit');
   }
 }

@@ -39,7 +39,7 @@ export default class ButtonBehavior extends WidgetBehavior {
       }
     });
 
-    this.setContext('submit', (val) => {
+    this.bindAction('submit', (val) => {
       this.setValue(val);
 
       const innerPopup = host.nuDeepQuery('[nu-popup]');

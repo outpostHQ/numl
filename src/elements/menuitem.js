@@ -12,7 +12,7 @@ export default class NuMenuitem extends NuBtn {
   static get nuStyles() {
     return {
       padding: '1x',
-      fill: 'transparent',
+      fill: 'transparent :current[hover]',
       width: '100%',
       flow: 'column',
       gap: '1x',
@@ -20,6 +20,7 @@ export default class NuMenuitem extends NuBtn {
       items: 'stretch',
       radius: '0',
       border: '0',
+      color: ':current[special]',
 
       '--local-focus-inset': 'inset 0 0',
     };
