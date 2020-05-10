@@ -45,6 +45,7 @@
 </nu-flex>
 <nu-popup width="minmax(18, min-content)" padding>
   <nu-datepicker
+    nx-debug="debugger0"
     value={value}
     mode={mode}
     begin={begin}

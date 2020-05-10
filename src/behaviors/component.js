@@ -8,18 +8,13 @@ export default class ComponentBehavior extends WidgetBehavior {
       input: true,
       localized: true,
       primary: true,
-      provider: false,
     };
   }
 
   constructor(host, params) {
-    // use first part of params (string) as name of component
-    const tmp = params.split(/\s+/);
-    const name = tmp[0];
+    super(host, params);
 
-    super(host, tmp[1]);
-
-    const loader = Components[name];
+    const loader = Components[this.params.component || params.split(/\s/)[0]];
 
     if (loader) {
       this.componentPromise = loader();

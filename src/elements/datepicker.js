@@ -14,7 +14,7 @@ export default class NuDatePicker extends NuElement {
 
   static get nuBehaviors() {
     return {
-      component: 'datepicker',
+      datepicker: true,
     };
   }
 }
