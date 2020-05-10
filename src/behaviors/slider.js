@@ -10,8 +10,10 @@ const EVENT_MAP = {
 };
 
 export default class SliderBehavior extends WidgetBehavior {
-  static get formField() {
-    return true;
+  static get params() {
+    return {
+      input: true,
+    };
   }
 
   init() {
@@ -33,8 +35,6 @@ export default class SliderBehavior extends WidgetBehavior {
     super.init();
 
     this.require('orient', 'active', 'focusable');
-
-    this.linkValue((val, silent) => this.setValue(val, silent));
 
     this.on('keydown', (evt) => {
       const step = this.step * (evt.shiftKey ? 10 : 1);

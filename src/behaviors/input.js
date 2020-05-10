@@ -2,27 +2,23 @@ import WidgetBehavior from './widget';
 import { h } from '../helpers';
 
 export default class InputBehavior extends WidgetBehavior {
-  static get localized() {
-    return true;
-  }
-
-  static get formField() {
-    return true;
-  }
-
-  static get tag() {
-    return 'input';
+  static get params() {
+    return {
+      input: true,
+      localized: true,
+      tag: 'input',
+    };
   }
 
   init() {
+    const tag = this.tagName = this.params.tag;
+
     this.setMod('input', true);
-    this.tagName = this.constructor.tag;
     this.value = null;
     this.props.disabled = () => {
       return this.transferAttr('disabled', this.ref) != null;
     };
     this.props.placeholder = () => this.transferAttr('placeholder', this.ref, '...');
-    this.props.value = (val) => this.setValue(val, true);
     this.props.mask = (val) => {
       val = val != null;
 
@@ -34,10 +30,6 @@ export default class InputBehavior extends WidgetBehavior {
     super.init();
 
     const { host } = this;
-
-    this.linkValue((val) => this.setValue(val, true));
-
-    const tag = this.constructor.tag;
 
     this.ref = host.querySelector(tag);
 

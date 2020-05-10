@@ -1,5 +1,5 @@
 import Behavior from "./behavior";
-import { isValidDate, log, toCamelCase } from '../helpers';
+import { devMode, isValidDate, log, toCamelCase } from '../helpers';
 
 const LOCALE_VAR = 'locale';
 
@@ -26,26 +26,50 @@ export const NUMBER_TYPE = (defaultValue) => {
 };
 
 export default class WidgetBehavior extends Behavior {
-  static get widget() {
-    return true;
+  static get params() {
+    return {
+      /**
+       * Tells that it's a widget.
+       */
+      widget: true,
+      /**
+       * Widget uses locale (lang attribute or context locale).
+       */
+      localized: false,
+      /**
+       * Widget has priority in value linking.
+       */
+      primary: null,
+      /**
+       * Widget can be part of a form.
+       */
+      input: false,
+      /**
+       * Widget provides input action to the context.
+       * So its children can manipulate its value if they have INJECTOR param.
+       */
+      provider: false,
+      /**
+       * Widget injects value from parent element with param PROVIDER.
+       */
+      injector: false,
+      /**
+       * Widget links host value to its own value.
+       */
+      link: true,
+    };
   }
 
-  static get localized() {
-    return false;
-  }
-
-  static get formField() {
-    return false;
-  }
-
-  constructor(host, options) {
-    super(host, options);
+  constructor(host, params) {
+    super(host, params);
 
     this.props = host.constructor.nuPropsList.reduce((props, name) => {
       props[name] = null;
 
       return props;
     }, {});
+
+    this.props.value = (val) => this.setValue(val, true);
 
     Object.assign(this.props, {
       type: 'text',
@@ -62,7 +86,7 @@ export default class WidgetBehavior extends Behavior {
 
   init() {
     const { host } = this;
-    const localized = this.constructor.localized;
+    const localized = this.params.localized;
 
     if (localized) {
       this.props.lang = (val) => {
@@ -81,7 +105,7 @@ export default class WidgetBehavior extends Behavior {
     }
 
     if (localized) {
-      host.nuSetContextHook(LOCALE_VAR, (locale) => {
+      this.linkContext('locale', (locale) => {
         if (this.locale !== locale && !host.hasAttribute('lang')) {
           this.setLocale();
 
@@ -95,16 +119,29 @@ export default class WidgetBehavior extends Behavior {
         }
       });
     }
+
+    if (this.params.link) {
+      this.linkValue();
+    }
+
+    if (this.params.injector) {
+      this.linkContext('value', (value) => {
+        if (value === undefined) return;
+
+        this.linkContextValue(value);
+      }, 'parentValue');
+    }
   }
 
   connected() {
-    if (this.constructor.localized) {
+    const { host } = this;
+
+    if (this.params.localized) {
       this.setLocale(this.lang);
     }
 
     // Form support
-    if (this.constructor.formField) {
-      const { host } = this;
+    if (this.params.input) {
       const id = host.nuId;
 
       if (id) {
@@ -128,10 +165,19 @@ export default class WidgetBehavior extends Behavior {
         }
       });
     }
+
+    // Nested widget support
+    // Bind public value setter to context
+    // if value link is active...
+    if (this.isValueLinked && this.params.provider) {
+      this.bindAction('input', (val) => {
+        this.setValue(val);
+      });
+    }
   }
 
   disconnected() {
-    if (this.constructor.formField) {
+    if (this.params.input) {
       this.disconnectForm();
     }
   }
@@ -209,9 +255,12 @@ export default class WidgetBehavior extends Behavior {
     if (name === 'input') {
       detail = this.getTypedValue(detail);
 
-      if (this.constructor.formField) {
+      if (this.params.input) {
         this.setFormValue(detail);
       }
+
+      this.nu('control')
+        .then(Control => Control.apply(true, detail));
     }
 
     log('emit', { element: this, name, detail, options });
@@ -311,18 +360,31 @@ export default class WidgetBehavior extends Behavior {
       .then(Control => Control.apply(!!bool, value));
   }
 
-  doAction(value, action = this.host.getAttribute('action')) {
+  doAction(value, action) {
+    // if action provided then check attribute action first
+    if (action) {
+      if (this.doAction(value)) {
+        // if attribute action is performed then skip requested action
+        return;
+      }
+    } else {
+      // if no action provided then just check attribute action
+      action = this.host.getAttribute('action');
+    }
+
     if (action) {
       const actionCallback = this.parentContext[`action:${action}`];
-
-      log('perform action', this.$$name, action, actionCallback);
 
       if (actionCallback) {
         value = value != null ? value : this.getTypedValue(this.emitValue);
 
         actionCallback(value);
+
+        return true;
       }
     }
+
+    return false;
   }
 
   transferAttr(name, ref, defaultValue) {
@@ -341,7 +403,19 @@ export default class WidgetBehavior extends Behavior {
     return value;
   }
 
-  setValue() {
+  setValue(value, silent) {
+    this.log('setValue()', value, silent);
+
+    if (this.value === value) return;
+
+    this.value = value;
+
+    this.setContext('value', value);
+
+    if (!silent) {
+      this.emit('input', value);
+      this.doAction(value);
+    }
   }
 
   setFormValue(detail = this.getTypedValue(this.emitValue), form = this.form) {
@@ -373,11 +447,13 @@ export default class WidgetBehavior extends Behavior {
     }
   }
 
-  linkValue(set, get) {
+  linkValue() {
     const { host } = this;
 
-    set = set || ((val) => { this.value = val; });
-    get = get || (() => this.value);
+    this.isValueLinked = true;
+
+    const set = this.fromHostValue.bind(this);
+    const get = this.toHostValue.bind(this);
 
     if (host._value != null) {
       set(host.value);
@@ -385,11 +461,58 @@ export default class WidgetBehavior extends Behavior {
       delete host._value;
     }
 
-    host.nuSetValue = set;
-    host.nuGetValue = get;
+    if (host.nuSetValue) {
+      const setValue = host.nuSetValue;
+
+      host.nuSetValue = (val) => {
+        setValue.call(host, val);
+        set(val, true);
+      };
+
+      if (this.params.primary) {
+        host.nuGetValue = get;
+      }
+    } else {
+      host.nuSetValue = (val) => set(val, true);
+      host.nuGetValue = get;
+    }
   }
 
+  /**
+   * Declare action in context so children can invoke it if needed.
+   * @param name {String} - name of action.
+   * @param cb {Function} - action logic.
+   */
   bindAction(name, cb) {
+    this.log('bindAction()', name);
+
     this.setContext(`action:${name}`, cb);
+  }
+
+  /**
+   * @abstract
+   */
+  linkContextValue() {}
+
+  fromHostValue(value, silent) {
+    this.setValue(value, silent);
+
+    if (!silent) {
+      this.emit('input', value);
+    }
+  }
+
+  toHostValue() {
+    return this.value;
+  }
+
+  /**
+   * Log anything to nu-debug element.
+   * @param args
+   */
+  log(...args) {
+    if (!devMode) return;
+
+    this.emit('log', args);
   }
 }

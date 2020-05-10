@@ -1,13 +1,19 @@
 import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
-import { h } from '../helpers';
+import { debugProp, h } from '../helpers';
 
 export default class ButtonBehavior extends WidgetBehavior {
-  static get formField() {
-    return true;
+  static get params() {
+    return {
+      input: true,
+      provider: true,
+      injector: true,
+    };
   }
 
   init() {
+    debugProp(this, 'value');
+
     this.value = null;
     this.offValue = null;
     // require mixins
@@ -19,9 +25,6 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.props.pressed = (bool) => this.set(bool != null, true);
     this.props.checked = pressedAttr;
     this.props.selected = pressedAttr;
-    this.props.value = (val) => {
-      this.setValue(val, true);
-    }
 
     super.init();
 
@@ -39,16 +42,10 @@ export default class ButtonBehavior extends WidgetBehavior {
       }
     });
 
-    this.bindAction('submit', (val) => {
-      this.setValue(val);
-
-      const innerPopup = host.nuDeepQuery('[nu-popup]');
-
-      if (innerPopup) {
-        innerPopup.nu('popup')
-          .then(Popup => Popup.close());
-      }
-    });
+    /**
+     * @type {RadioGroupBehavior}
+     */
+    this.radioGroup = null;
   }
 
   connected() {
@@ -56,9 +53,7 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     const { host } = this;
 
-    host.nuSetContextHook('radiogroup', () => this.verifyRadioGroup());
-
-    this.verifyRadioGroup();
+    this.linkContext('radiogroup', () => this.verifyRadioGroup(), 'radioGroup');
 
     if (this.role === 'button') {
       if (this.to) {
@@ -99,13 +94,11 @@ export default class ButtonBehavior extends WidgetBehavior {
   verifyRadioGroup() {
     const { host } = this;
 
-    this.radioGroup = this.context.radiogroup;
-
     const radioGroup = this.radioGroup;
 
     if (!radioGroup) return;
 
-    this.role = radioGroup.itemRole;
+    this.role = radioGroup.params.itemRole;
 
     if (this.value == null) {
       if (!radioGroup.counter) radioGroup.counter = 0;
@@ -223,7 +216,7 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     this.toggle();
     this.control(this.pressed, this.value);
-    this.doAction();
+    this.doAction(this.value, 'input');
   }
 
   get emitValue() {
@@ -264,7 +257,7 @@ export default class ButtonBehavior extends WidgetBehavior {
         .then(Focusable => Focusable.set(!pressed && !this.disabled));
     }
 
-    if (this.radioGroup) {
+    if (this.popup) {
       host.nuSetAria('expanded', pressed);
     } else if (this.isCheckbox()) {
       host.nuSetAria('checked', pressed);
@@ -284,33 +277,40 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.control(this.pressed, this.value);
 
     if (pressed) {
-      const radioGroup = this.context && this.context.radiogroup;
-
-      if (radioGroup) {
-        radioGroup.set(this.value);
-      }
+      this.doAction(this.value, 'input');
     }
 
-    const innerPopup = host.nuDeepQuery('[nu-popup]');
+    this.toggleInnerPopup();
+  }
+
+  toggleInnerPopup(bool) {
+    const innerPopup = this.host.nuDeepQuery('[nu-popup]');
+    const method = bool == null
+      ? (this.pressed ? 'open' : 'close')
+      : (bool ? 'open' : 'close');
 
     if (innerPopup) {
       innerPopup.nu('popup')
-        .then(Popup => Popup[this.pressed ? 'open' : 'close']());
+        .then(Popup => Popup[method]());
     }
   }
 
   setValue(value, silent) {
+    this.toggleInnerPopup(false);
+
     if (value === this.value) return;
 
     this.value = value;
+
     this.setContext('value', value);
+
+    if (!silent) {
+      this.emit('input', value);
+      this.doAction(value);
+    }
 
     setTimeout(() => {
       this.control(this.pressed, this.value);
-
-      if (!silent) {
-        this.emit('input', value);
-      }
     });
   }
 
@@ -363,5 +363,11 @@ export default class ButtonBehavior extends WidgetBehavior {
 
   isCheckbox() {
     return ['radio', 'checkbox', 'switch'].includes(this.role);
+  }
+
+  linkContextValue(value) {
+    if (!this.isToggle()) return;
+
+    this.set(this.value === value);
   }
 }

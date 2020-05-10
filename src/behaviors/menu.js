@@ -11,14 +11,10 @@ export default class MenuBehavior extends WidgetBehavior {
     if (!parentMenu) {
       this.setContext('menu', this, true);
     }
-
-    this.bindAction('submit', (val) => this.submit(val));
-
-    this.linkValue();
   }
 
-  submit(value) {
-    this.emit('input', value);
+  setValue(value, silent) {
+    console.log('! menu set value', value, silent);
 
     this.value = value;
 
@@ -28,8 +24,12 @@ export default class MenuBehavior extends WidgetBehavior {
       popup.close();
     }
 
+    if (silent) return;
+
+    this.emit('input', value);
+
     console.log('!', this.getTypedValue(this.value), this.type);
 
-    this.doAction(this.getTypedValue(this.value), 'submit');
+    this.doAction(this.getTypedValue(this.value), 'input');
   }
 }

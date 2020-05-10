@@ -1,9 +1,47 @@
-import { setAttr } from '../helpers';
+import { setAttr, toCamelCase } from '../helpers';
+
+const PARAMS_MAP = new Map;
 
 export default class Behavior {
-  constructor(host) {
+  static get params() {
+    return {};
+  }
+
+  static get allParams() {
+    const parent = Object.getPrototypeOf(this);
+
+    if (!PARAMS_MAP.get(this)) {
+      PARAMS_MAP.set(this, {
+        ...(parent && parent.allParams || {}),
+        ...(this.params || {}),
+      });
+    }
+
+    return PARAMS_MAP.get(this);
+  }
+
+  constructor(host, _params) {
     this.host = host;
     this.$ref = host.nuRef || host;
+    const params = Object.create(this.constructor.allParams);
+
+    if (_params && typeof _params === 'string') {
+      _params.split(/\s+/g).forEach(param => {
+        param = param.trim();
+
+        if (!param || params[param] === false) return;
+
+        if (param.includes(':')) {
+          const tmp = param.split(':');
+
+          params[toCamelCase(tmp[0])] = tmp[1];
+        } else {
+          params[toCamelCase(param)] = true;
+        }
+      });
+    }
+
+    this.params = params;
   }
 
   /**
@@ -15,7 +53,7 @@ export default class Behavior {
     return this.host.nu(name);
   }
 
-  has(name) {
+  is(name) {
     return !!this.host.nuBehaviors[name];
   }
 
@@ -99,6 +137,10 @@ export default class Behavior {
 
   off(eventName, cb) {
     this.host.removeEventListener(eventName, cb);
+  }
+
+  hasParam(param) {
+    return this._params.includes(param);
   }
 
   get context() {

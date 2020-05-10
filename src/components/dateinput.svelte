@@ -1,50 +1,50 @@
 <nu-flex gap>
-  <nu-flex gap grow="1">
-    {#if fromDate}
-      <nu-datetime
-        value={fromDate}
-        date={date || ''}
-        weekday={weekday}
-        era={era}
-        year={year}
-        month={month}
-        day={day}
-        zone={zone}
-        timezone={timezone}
-        dayperiod={dayperiod}
-        calendar={calendar}
-        system={system}
-        hourcycle={hourcycle}
-        format={format}></nu-datetime>
-      {#if isRange}
-        <nu-el>–</nu-el>
-        <nu-datetime
-          value={toDate}
-          date={date || ''}
-          weekday={weekday}
-          era={era}
-          year={year}
-          month={month}
-          day={day}
-          zone={zone}
-          timezone={timezone}
-          dayperiod={dayperiod}
-          calendar={calendar}
-          system={system}
-          hourcycle={hourcycle}
-          format={format}></nu-datetime>
-      {/if}
-    {:else}
-      ...
-    {/if}
-  </nu-flex>
+  <nu-value grow="1"></nu-value>
+<!--  <nu-flex gap grow="1">-->
+<!--    {#if fromDate}-->
+<!--      <nu-datetime-->
+<!--        value={fromDate}-->
+<!--        date={date || ''}-->
+<!--        weekday={weekday}-->
+<!--        era={era}-->
+<!--        year={year}-->
+<!--        month={month}-->
+<!--        day={day}-->
+<!--        zone={zone}-->
+<!--        timezone={timezone}-->
+<!--        dayperiod={dayperiod}-->
+<!--        calendar={calendar}-->
+<!--        system={system}-->
+<!--        hourcycle={hourcycle}-->
+<!--        format={format}></nu-datetime>-->
+<!--      {#if isRange}-->
+<!--        <nu-el>–</nu-el>-->
+<!--        <nu-datetime-->
+<!--          value={toDate}-->
+<!--          date={date || ''}-->
+<!--          weekday={weekday}-->
+<!--          era={era}-->
+<!--          year={year}-->
+<!--          month={month}-->
+<!--          day={day}-->
+<!--          zone={zone}-->
+<!--          timezone={timezone}-->
+<!--          dayperiod={dayperiod}-->
+<!--          calendar={calendar}-->
+<!--          system={system}-->
+<!--          hourcycle={hourcycle}-->
+<!--          format={format}></nu-datetime>-->
+<!--      {/if}-->
+<!--    {:else}-->
+<!--      ...-->
+<!--    {/if}-->
+<!--  </nu-flex>-->
   <nu-icon
     name="chevron-down" size="1.25em" transition="scale"
     scale="^host:pressed[flip-y]"></nu-icon>
 </nu-flex>
 <nu-popup width="minmax(18, min-content)" padding>
   <nu-datepicker
-    action="submit"
     value={value}
     mode={mode}
     begin={begin}
