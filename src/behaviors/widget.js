@@ -410,7 +410,7 @@ export default class WidgetBehavior extends Behavior {
 
     this.value = value;
 
-    this.setContext('value', this.value);
+    this.setValueToContext();
 
     if (!silent) {
       this.emit('input', value);
@@ -499,6 +499,11 @@ export default class WidgetBehavior extends Behavior {
 
   toHostValue() {
     return this.value;
+  }
+
+  setValueToContext() {
+    this.setContext('value', this.value);
+    this.setContext('typedValue', this.getTypedValue(this.emitValue));
   }
 
   /**
