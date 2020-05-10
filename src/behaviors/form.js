@@ -7,8 +7,11 @@ import { deepQueryAll } from '../helpers';
  * Value of the form is actually DATA and can only be set by element property.
  */
 export default class FormBehavior extends WidgetBehavior {
-  static get formField() {
-    return true;
+  static get params() {
+    return {
+      input: true,
+      primary: true,
+    };
   }
 
   init() {
@@ -22,13 +25,12 @@ export default class FormBehavior extends WidgetBehavior {
 
     host.nuSetMod('form', true);
 
-    this.linkValue((val) => this.setValue(val, true));
-
     if (!this.value) {
       this.value = {};
     }
 
     this.setContext('form', this);
+    this.context.value = null;
 
     this.bindAction('submit', () => {
       this.setDirty()

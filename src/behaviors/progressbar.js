@@ -7,11 +7,6 @@ export default class ProgressBarBehavior extends WidgetBehavior {
     this.props.max = NUMBER_TYPE(100);
 
     super.init();
-
-    this.linkValue((val) => {
-      this.value = val;
-      this.apply();
-    });
   }
 
   connected() {
@@ -44,5 +39,10 @@ export default class ProgressBarBehavior extends WidgetBehavior {
     const propValue = (value - min) / (max - min);
 
     host.style.setProperty('--nu-value', String(Number(propValue.toFixed(4))));
+  }
+
+  fromHostValue(value, silent) {
+    this.value = value;
+    this.apply();
   }
 }

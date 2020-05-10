@@ -8,11 +8,6 @@ export default class FormatterBehavior extends WidgetBehavior {
 
   init() {
     super.init();
-
-    this.linkValue((val) => {
-      this.value = val;
-      this.apply();
-    });
   }
 
   connected() {
@@ -37,5 +32,10 @@ export default class FormatterBehavior extends WidgetBehavior {
     }
 
     this.host.innerHTML = this.constructor.formatter(this.value, this.locale, this);
+  }
+
+  fromHostValue(value, silent) {
+    this.value = value;
+    this.apply();
   }
 }

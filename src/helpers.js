@@ -1253,3 +1253,22 @@ export function h(tag) {
 export function extractModule(promise) {
   return promise.then(module => module.default || module);
 }
+
+export function debugProp(instance, prop) {
+  Object.assign(instance, {
+    set [prop](val) {
+      try {
+        throw '!';
+      } catch (e) {
+        console.error('prop changed', instance, {
+          [prop]: value,
+        });
+      }
+
+      this[`_${prop}`] = val;
+    },
+    get [prop]() {
+      return this[`_${prop}`];
+    }
+  });
+}

@@ -2,15 +2,13 @@ import FormatDateTime from '../formatters/datetime';
 import WidgetBehavior from './widget';
 
 export default class ValueBehavior extends WidgetBehavior {
-  static get localized() {
-    return true;
+  static get params() {
+    return {
+      injector: true,
+    };
   }
 
   init() {
-    this.linkContext('value', (val) => {
-      this.setValue(val);
-    });
-
     if (!this.value) {
       this.setValue(null);
     }
@@ -26,5 +24,9 @@ export default class ValueBehavior extends WidgetBehavior {
     }
 
     this.host.innerHTML = value == null ? '...' : value;
+  }
+
+  linkContextValue(value) {
+    this.setValue(value);
   }
 }

@@ -3,18 +3,22 @@ import WidgetBehavior from './widget';
 import Components from '../components/index';
 
 export default class ComponentBehavior extends WidgetBehavior {
-  static get localized() {
-    return true;
+  static get params() {
+    return {
+      input: true,
+      localized: true,
+      primary: true,
+    };
   }
 
-  static get formField() {
-    return true;
-  }
+  constructor(host, params) {
+    // use first part of params (string) as name of component
+    const tmp = params.split(/\s+/);
+    const name = tmp[0];
 
-  constructor(host, value) {
-    super(host, value);
+    super(host, tmp[1]);
 
-    const loader = Components[value];
+    const loader = Components[name];
 
     if (loader) {
       this.componentPromise = loader();
@@ -23,25 +27,6 @@ export default class ComponentBehavior extends WidgetBehavior {
 
   init() {
     super.init();
-
-    this.linkContext('value', (val) => {
-      if (val != null) {
-        this.set({ value: val });
-      }
-    });
-
-    this.linkValue((val) => {
-      this.set({ value: val });
-      this.value = val;
-
-      return val;
-    }, () => {
-      if (this.component) {
-        return this.component.value;
-      } else {
-        return this.value;
-      }
-    });
 
     const { host } = this;
 
@@ -62,8 +47,9 @@ export default class ComponentBehavior extends WidgetBehavior {
         });
 
         this.component.$on('input', (event) => {
-          host.nuEmitInput(event.detail);
-          this.doAction(event.detail);
+          this.emit('input', event.detail);
+
+          this.doAction(event.detail, 'input');
         });
       });
   }
@@ -111,5 +97,19 @@ export default class ComponentBehavior extends WidgetBehavior {
     } else {
       return false;
     }
+  }
+
+  setValue(value, silent) {
+    this.set({ value });
+
+    if (!silent && this.component) {
+      this.emit('input', this.value);
+      this.doAction(value);
+    }
+  }
+
+  linkContextValue(value) {
+    this.set({ value });
+    this.value = value;
   }
 }

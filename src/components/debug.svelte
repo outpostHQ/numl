@@ -73,7 +73,7 @@ export function log(name, detail = undefined) {
   }, ...eventLog];
 }
 
-const eventList = ['input', 'tap'];
+const eventList = ['input', 'tap', 'log'];
 const ignoreProps = ['props', 'propsList', 'host', '$$name', 'component', '$ref'];
 
 function logBehaviorState(behavior) {
