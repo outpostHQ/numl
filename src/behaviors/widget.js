@@ -175,6 +175,8 @@ export default class WidgetBehavior extends Behavior {
       this.bindAction('input', (val) => {
         this.setValue(val);
       });
+    } else {
+      this.context['action:input'] = null;
     }
   }
 

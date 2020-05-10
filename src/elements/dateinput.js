@@ -15,7 +15,7 @@ export default class NuDateInput extends NuBtn {
   static get nuBehaviors() {
     return {
       button: true,
-      component: 'dateinput',
+      dateinput: true,
     };
   }
 }

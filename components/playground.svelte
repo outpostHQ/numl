@@ -1,7 +1,7 @@
 <nu-heading>Playground</nu-heading>
 
 <nu-card as="section">
-  <nu-form value={formData} on:input={submit} nx-debug="debugger0">
+  <nu-form value={formData} on:input={submit}>
     <nu-theme name="error" hue="1" mod="tone"></nu-theme>
     <nu-attrs for="nu-check" theme="error"></nu-attrs>
     <nu-attrs for="nu-input" theme=":invalid[error]"></nu-attrs>

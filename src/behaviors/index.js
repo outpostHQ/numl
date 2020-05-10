@@ -21,7 +21,6 @@ export const BEHAVIORS = {
   markdown: () => extract(import('./markdown.js')),
   datetime: () => extract(import('./datetime.js')),
   number: () => extract(import('./number.js')),
-  component: () => extract(import('./component.js')),
   slider: () => extract(import('./slider.js')),
   numinput: () => extract(import('./numinput.js')),
   input: () => extract(import('./input.js')),
@@ -30,12 +29,15 @@ export const BEHAVIORS = {
   svg: () => extract(import('./svg.js')),
   image: () => extract(import('./image.js')),
   debug: () => extract(import('./debug.js')),
+  debugger: () => extract(import('./debugger.js')),
   form: () => extract(import('./form.js')),
   validator: () => extract(import('./validator.js')),
   group: () => Promise.resolve(GroupBehavior),
   tooltip: () => extract(import('./tooltip.js')),
   progressbar: () => extract(import('./progressbar.js')),
   value: () => extract(import('./value.js')),
+  datepicker: () => extract(import('./datepicker.js')),
+  dateinput: () => extract(import('./dateinput.js')),
 };
 
 export function hasBehavior(el, name) {

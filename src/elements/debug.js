@@ -7,7 +7,7 @@ export default class NuDebug extends NuCard {
 
   static get nuBehaviors() {
     return {
-      component: 'debug',
+      debugger: true,
     };
   }
 
