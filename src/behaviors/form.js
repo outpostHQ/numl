@@ -34,9 +34,12 @@ export default class FormBehavior extends WidgetBehavior {
     this.setContext('form', this);
     this.context.value = null;
 
-    // this.on('nu-blur', (event) => {
-    //   console.log('! blur', event.detail);
-    // });
+    this.on('nu-blur', (event) => {
+      const field = event.detail;
+      if (this.fields[field]) {
+        this.verifyData(field);
+      }
+    });
 
     this.bindAction('submit', () => {
       this.verifyData()
@@ -48,11 +51,11 @@ export default class FormBehavior extends WidgetBehavior {
     });
   }
 
-  verifyData() {
-    return this.setDirty()
+  verifyData(field) {
+    return (!field ? this.setDirty() : Promise.resolve())
       .then(() => this.validate())
       .then(valid => {
-        this.setErrorProps();
+        this.setErrorProps(field);
 
         return valid;
       });
@@ -172,12 +175,14 @@ export default class FormBehavior extends WidgetBehavior {
    * Set custom properties to show active errors
    * @returns
    */
-  setErrorProps() {
+  setErrorProps(field) {
     const names = Object.keys(this.checks);
     const errors = this.value.$errors || {};
     const fields = this.fields;
 
     names.forEach(name => {
+      if (field && field !== name) return;
+
       const checks = Object.keys(this.checks[name]);
 
       let invalid = false;
