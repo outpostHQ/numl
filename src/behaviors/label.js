@@ -1,4 +1,5 @@
 import Behavior from './behavior';
+import { enableFocus } from '../focus';
 
 export default class LabelBehavior extends Behavior {
   init() {
@@ -12,6 +13,8 @@ export default class LabelBehavior extends Behavior {
       if (element) {
         element.click();
         element.focus();
+
+        enableFocus();
       }
     });
   }
