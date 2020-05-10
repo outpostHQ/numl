@@ -14,8 +14,6 @@ export default class MenuBehavior extends WidgetBehavior {
   }
 
   setValue(value, silent) {
-    console.log('! menu set value', value, silent);
-
     this.value = value;
 
     const popup = this.context.popup;
@@ -24,12 +22,9 @@ export default class MenuBehavior extends WidgetBehavior {
       popup.close();
     }
 
-    if (silent) return;
-
-    this.emit('input', value);
-
-    console.log('!', this.getTypedValue(this.value), this.type);
-
-    this.doAction(this.getTypedValue(this.value), 'input');
+    if (!silent) {
+      this.emit('input', value);
+      this.doAction(this.value, 'input');
+    }
   }
 }

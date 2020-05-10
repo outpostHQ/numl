@@ -1,6 +1,6 @@
 import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
-import { debugProp, h } from '../helpers';
+import { h } from '../helpers';
 
 export default class ButtonBehavior extends WidgetBehavior {
   static get params() {
@@ -12,8 +12,6 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   init() {
-    debugProp(this, 'value');
-
     this.value = null;
     this.offValue = null;
     // require mixins
@@ -298,16 +296,7 @@ export default class ButtonBehavior extends WidgetBehavior {
   setValue(value, silent) {
     this.toggleInnerPopup(false);
 
-    if (value === this.value) return;
-
-    this.value = value;
-
-    this.setContext('value', value);
-
-    if (!silent) {
-      this.emit('input', value);
-      this.doAction(value);
-    }
+    super.setValue(value, silent);
 
     setTimeout(() => {
       this.control(this.pressed, this.value);
