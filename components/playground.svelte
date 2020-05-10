@@ -81,7 +81,7 @@
 <nu-card as="section">
   <nu-heading level="3">Select</nu-heading>
 
-  <nu-btn id="select" nx-debug="debugger4">
+  <nu-btn id="select" nx-debug="debugger4" type="date">
     <nu-value></nu-value>
     <nu-popupmenu type="date" nx-debug="debugger5">
       <nu-menuitem value="05.10.2020" nx-debug="debugger6">One</nu-menuitem>
