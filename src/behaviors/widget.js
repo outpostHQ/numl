@@ -48,11 +48,11 @@ export default class WidgetBehavior extends Behavior {
        * Widget provides input action to the context.
        * So its children can manipulate its value if they have INJECTOR param.
        */
-      provider: false,
+      provider: true,
       /**
        * Widget injects value from parent element with param PROVIDER.
        */
-      injector: false,
+      injector: true,
       /**
        * Widget links host value to its own value.
        */
@@ -130,6 +130,8 @@ export default class WidgetBehavior extends Behavior {
 
         this.linkContextValue(value);
       }, 'parentValue');
+    } else {
+      this.context.value = null;
     }
   }
 
@@ -169,7 +171,7 @@ export default class WidgetBehavior extends Behavior {
     // Nested widget support
     // Bind public value setter to context
     // if value link is active...
-    if (this.isValueLinked && this.params.provider) {
+    if (this.params.provider) {
       this.bindAction('input', (val) => {
         this.setValue(val);
       });
@@ -404,13 +406,11 @@ export default class WidgetBehavior extends Behavior {
   }
 
   setValue(value, silent) {
-    this.log('setValue()', value, silent);
-
     if (this.value === value) return;
 
     this.value = value;
 
-    this.setContext('value', value);
+    this.setContext('value', this.value);
 
     if (!silent) {
       this.emit('input', value);
@@ -489,17 +489,12 @@ export default class WidgetBehavior extends Behavior {
     this.setContext(`action:${name}`, cb);
   }
 
-  /**
-   * @abstract
-   */
-  linkContextValue() {}
+  linkContextValue(value) {
+    this.setValue(value, true);
+  }
 
-  fromHostValue(value, silent) {
-    this.setValue(value, silent);
-
-    if (!silent) {
-      this.emit('input', value);
-    }
+  fromHostValue(value) {
+    this.setValue(value, true);
   }
 
   toHostValue() {

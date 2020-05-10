@@ -9,6 +9,7 @@ export default class ValueBehavior extends WidgetBehavior {
   }
 
   init() {
+    super.init();
     if (!this.value) {
       this.setValue(null);
     }

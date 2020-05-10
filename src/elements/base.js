@@ -1182,10 +1182,10 @@ export default class NuBase extends HTMLElement {
       this.nuContextHooks = {};
     }
 
-    const value = this.nuParentContext && this.nuParentContext[name];
+    const cache = this.nuParentContext && this.nuParentContext[name];
 
     if (runOnInit) {
-      hook(value);
+      hook(cache);
     }
 
     this.nuContextHooks[name] = hook;

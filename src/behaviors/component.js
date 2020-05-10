@@ -8,6 +8,7 @@ export default class ComponentBehavior extends WidgetBehavior {
       input: true,
       localized: true,
       primary: true,
+      provider: false,
     };
   }
 
@@ -48,7 +49,6 @@ export default class ComponentBehavior extends WidgetBehavior {
 
         this.component.$on('input', (event) => {
           this.emit('input', event.detail);
-
           this.doAction(event.detail, 'input');
         });
       });
@@ -100,16 +100,15 @@ export default class ComponentBehavior extends WidgetBehavior {
   }
 
   setValue(value, silent) {
+    if (this.value === value) return;
+
     this.set({ value });
+
+    this.value = value;
 
     if (!silent && this.component) {
       this.emit('input', this.value);
       this.doAction(value);
     }
-  }
-
-  linkContextValue(value) {
-    this.set({ value });
-    this.value = value;
   }
 }

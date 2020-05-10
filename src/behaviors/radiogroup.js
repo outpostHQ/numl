@@ -6,6 +6,7 @@ export default class RadioGroupBehavior extends WidgetBehavior {
       input: true,
       provider: true,
       itemRole: 'radio',
+      injector: true,
     };
   }
 
