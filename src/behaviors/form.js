@@ -11,6 +11,8 @@ export default class FormBehavior extends WidgetBehavior {
     return {
       input: true,
       primary: true,
+      provider: false,
+      injector: false,
     };
   }
 
@@ -32,17 +34,28 @@ export default class FormBehavior extends WidgetBehavior {
     this.setContext('form', this);
     this.context.value = null;
 
-    this.bindAction('submit', () => {
-      this.setDirty()
-        .then(() => this.validate())
-        .then(valid => {
-          this.setErrorProps();
+    // this.on('nu-blur', (event) => {
+    //   console.log('! blur', event.detail);
+    // });
 
+    this.bindAction('submit', () => {
+      this.verifyData()
+        .then(valid => {
           if (valid) {
             this.emit('input', this.value);
           }
         });
     });
+  }
+
+  verifyData() {
+    return this.setDirty()
+      .then(() => this.validate())
+      .then(valid => {
+        this.setErrorProps();
+
+        return valid;
+      });
   }
 
   connected() {

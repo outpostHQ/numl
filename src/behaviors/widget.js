@@ -147,8 +147,11 @@ export default class WidgetBehavior extends Behavior {
       const id = host.nuId;
 
       if (id) {
-        // reset form context for inner elements
-        this.context.form = null;
+        // reset form context for inner elements if this is a value provider
+        if (this.params.provider) {
+          this.context.form = null;
+        }
+
         this.linkContext('form', (form, oldForm) => {
           if (oldForm && form !== oldForm) {
             this.disconnectForm(oldForm, !!form);
@@ -492,8 +495,6 @@ export default class WidgetBehavior extends Behavior {
 
     const key = `action:${name}`;
     const context = this.context;
-
-    console.log('! bind action', key in context);
 
     // allow multiple bindings
     if (key in context && typeof context[key] === 'function') {

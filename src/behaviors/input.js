@@ -63,6 +63,13 @@ export default class InputBehavior extends WidgetBehavior {
       this.emit('change', this.value);
     });
 
+    // ref.addEventListener('blur', () => {
+    //   if (host.id) {
+    //     console.log('! blur', host.id);
+    //     this.emit('nu-blur', host.nuId);
+    //   }
+    // });
+
     host.nuRef = ref;
 
     if (host.hasAttribute('label')) {

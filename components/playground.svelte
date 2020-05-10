@@ -1,7 +1,7 @@
 <nu-heading>Playground</nu-heading>
 
 <nu-card as="section">
-  <nu-form value={formData} on:input={submit}>
+  <nu-form value={formData} on:input={submit} nx-debug="debugger0">
     <nu-theme name="error" hue="1" mod="tone"></nu-theme>
     <nu-attrs for="nu-check" theme="error"></nu-attrs>
     <nu-attrs for="nu-input" theme=":invalid[error]"></nu-attrs>
@@ -22,16 +22,17 @@
     </nu-flow>
     <nu-flow>
       <nu-label>Date of issue</nu-label>
-      <nu-dateinput id="date" width="min(10)"></nu-dateinput>
+      <nu-dateinput
+        id="date" labelledby=":prev" width="min(10)"></nu-dateinput>
     </nu-flow>
     <nu-card>
-      <nu-form id="user">
+      <nu-form id="user" nx-debug="debugger1">
         <nu-heading level="5">User</nu-heading>
         <nu-flow>
-          <nu-label>User name</nu-label>
+          <nu-label id="label">User name</nu-label>
           <nu-inputgroup>
             <nu-icon name="user" size="lg"></nu-icon>
-            <nu-input id="name" grow="1" nx-debug="debugger2"></nu-input>
+            <nu-input labelledby="label" id="name" grow="1" nx-debug="debugger2"></nu-input>
           </nu-inputgroup>
           <nu-check for="name" assert="required">
             Name is required
