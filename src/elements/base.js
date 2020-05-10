@@ -975,23 +975,6 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
-   * Emit custom event.
-   * @param {String} name
-   * @param {*} detail
-   */
-  nuEmit(name, detail = null, options = {}) {
-    log('emit', { element: this, name, detail, options });
-
-    this.dispatchEvent(
-      new CustomEvent(name, {
-        detail,
-        bubbles: true,
-        ...options,
-      }),
-    );
-  }
-
-  /**
    * Attribute change reaction.
    * @param {String} name
    * @param {*} oldValue
@@ -1360,69 +1343,6 @@ export default class NuBase extends HTMLElement {
     if (!this.nuApplyAttrs.includes(attrName)) {
       this.nuApplyAttrs.push(attrName);
     }
-  }
-
-  nuEmitInput(value) {
-    if (!this.nuIsConnected) return;
-
-    const notNull = value != null;
-
-    switch (this.getAttribute('type')) {
-      case 'int':
-        value = notNull ? parseInt(value, 10) : null;
-
-        break;
-      case 'float':
-        value = notNull ? parseFloat(value) : null;
-
-        const precision = parseInt(this.getAttribute('precision'));
-
-        if (value != null && precision === precision) {
-          value = parseFloat(value.toFixed(precision));
-        }
-
-        break;
-      case 'bool':
-        value = notNull;
-
-        break;
-      case 'date':
-        value = notNull ? new Date(value) : null;
-
-        break;
-      case 'daterange':
-        if (!Array.isArray(value)) {
-          value = null;
-        }
-
-        value = [new Date(value[0]), new Date(value[1])];
-
-        break
-      case 'array':
-        try {
-          value = JSON.parse(value);
-        } catch (e) {
-        }
-
-        if (!Array.isArray(value)) {
-          value = null;
-        }
-
-        break;
-      case 'object':
-        try {
-          value = JSON.parse(value);
-        } catch (e) {
-        }
-
-        if (typeof value !== 'object' && !Array.isArray(value)) {
-          value = null;
-        }
-
-        break;
-    }
-
-    this.nuEmit('input', value, { bubbles: false });
   }
 
   nuSetVar(name, value, definition) {

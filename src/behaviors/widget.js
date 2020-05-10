@@ -33,7 +33,7 @@ export default class WidgetBehavior extends Behavior {
        */
       widget: true,
       /**
-       * Widget uses locale (lang attribute or context locale).
+       * Widget uses locale (lang attribute or `locale` in context).
        */
       localized: false,
       /**
@@ -267,7 +267,9 @@ export default class WidgetBehavior extends Behavior {
         .then(Control => Control.apply(true, detail));
     }
 
-    log('emit', { element: this, name, detail, options });
+    if (name !== 'log') {
+      log('emit', { element: this, name, detail, options });
+    }
 
     const event = new CustomEvent(name, {
       detail,
@@ -283,7 +285,7 @@ export default class WidgetBehavior extends Behavior {
   getTypedValue(value) {
     const notNull = value != null;
 
-    switch (this.type || this.host.constructor.nuType) {
+    switch (this.type) {
       case 'int':
         if (value instanceof Date) {
           value = value.getTime();
@@ -408,6 +410,8 @@ export default class WidgetBehavior extends Behavior {
   }
 
   setValue(value, silent) {
+    this.log('set value', value, silent);
+
     if (this.value === value) return;
 
     this.value = value;
@@ -452,8 +456,6 @@ export default class WidgetBehavior extends Behavior {
   linkValue() {
     const { host } = this;
 
-    this.isValueLinked = true;
-
     const set = this.fromHostValue.bind(this);
     const get = this.toHostValue.bind(this);
 
@@ -488,10 +490,27 @@ export default class WidgetBehavior extends Behavior {
   bindAction(name, cb) {
     this.log('bindAction()', name);
 
-    this.setContext(`action:${name}`, cb);
+    const key = `action:${name}`;
+    const context = this.context;
+
+    console.log('! bind action', key in context);
+
+    // allow multiple bindings
+    if (key in context && typeof context[key] === 'function') {
+      const prevCb = context[key];
+      const currentCb = cb;
+
+      cb = (val) => {
+        prevCb(val);
+        currentCb(val);
+      };
+    }
+
+    context[`action:${name}`] = cb;
   }
 
   linkContextValue(value) {
+    this.log('link context value', value);
     this.setValue(value, true);
   }
 

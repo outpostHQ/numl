@@ -45,7 +45,6 @@
 </nu-flex>
 <nu-popup width="minmax(18, min-content)" padding>
   <nu-datepicker
-    nx-debug="debugger0"
     value={value}
     mode={mode}
     begin={begin}
@@ -91,8 +90,6 @@ let toDate = value && startOfDay(Array.isArray(value)
 
 function handleInput(event) {
   const detail = event.detail;
-
-  // dispatch('input', detail);
 
   if (isRange) {
     fromDate = detail[0];
