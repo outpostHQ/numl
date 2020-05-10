@@ -23,7 +23,7 @@
     <nu-flow>
       <nu-label>Date of issue</nu-label>
       <nu-dateinput
-        id="date" labelledby=":prev" width="min(10)"></nu-dateinput>
+        id="date" labelledby=":prev" mode="range" width="min(10)"></nu-dateinput>
     </nu-flow>
     <nu-card>
       <nu-form id="user" nx-debug="debugger1">
