@@ -6,8 +6,6 @@ export default class ButtonBehavior extends WidgetBehavior {
   static get params() {
     return {
       input: true,
-      provider: true,
-      injector: true,
     };
   }
 

@@ -5,8 +5,6 @@ import Components from '../components/index';
 export default class ComponentBehavior extends WidgetBehavior {
   static get params() {
     return {
-      input: true,
-      localized: true,
       primary: true,
     };
   }
@@ -22,13 +20,11 @@ export default class ComponentBehavior extends WidgetBehavior {
   }
 
   init() {
+    this.props.type = 'date';
+
     super.init();
 
     const { host } = this;
-
-    if (!host.hasAttribute('type')) {
-      host.setAttribute('type', 'date');
-    }
 
     this.componentPromise
       .then(Component => {
