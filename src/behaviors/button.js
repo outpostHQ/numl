@@ -203,7 +203,7 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     this.toggle();
     this.control(this.pressed, this.value);
-    this.doAction(this.value, 'input');
+    this.doActions(this.value);
   }
 
   get emitValue() {

@@ -46,6 +46,7 @@
 <nu-popup width="minmax(18, min-content)" padding>
   <nu-datepicker
     value={value}
+    link
     mode={mode}
     begin={begin}
     end={end}

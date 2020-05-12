@@ -14,17 +14,12 @@ export default class MenuBehavior extends WidgetBehavior {
   }
 
   setValue(value, silent) {
-    this.value = value;
+    super.setValue(value, silent);
 
     const popup = this.context.popup;
 
     if (popup) {
       popup.close();
-    }
-
-    if (!silent) {
-      this.emit('input', value);
-      this.doAction(this.value, 'input');
     }
   }
 }
