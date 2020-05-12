@@ -2,8 +2,6 @@
  * Required root element attribute.
  * @type {String}
  */
-import { attr } from 'svelte/internal';
-
 export const ROOT_CONTEXT = ':root';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
@@ -181,7 +179,13 @@ export function query(element, selector) {
 
   let prevElement = element;
 
+  const closest = element.closest(selector);
+
   do {
+    if (origElement !== element && closest === element) {
+      return closest;
+    }
+
     const found = [...element.querySelectorAll(selector)];
 
     if (found) {

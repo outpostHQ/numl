@@ -17,8 +17,6 @@ export default class SliderBehavior extends WidgetBehavior {
   }
 
   init() {
-    const { host } = this;
-
     this.props.value = (val) => {
       this.setValue(getFloatFromAttr(val, 0), true);
     };

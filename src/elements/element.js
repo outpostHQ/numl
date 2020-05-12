@@ -68,6 +68,7 @@ export default class NuElement extends NuBase {
       placeholder: '',
       min: '',
       max: '',
+      step: '',
       code: '',
       sign: '',
       unit: '',
