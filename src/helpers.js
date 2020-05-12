@@ -264,7 +264,7 @@ export function generateId(element) {
 
   let name = element.id;
 
-  name = name || 'nu';
+  name = name || element.constructor.nuTag.replace('nu-', '');
 
   if (name !== 'nu') {
     element.setAttribute('nu-id', name);
