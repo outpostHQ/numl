@@ -91,7 +91,7 @@ export default class ComponentBehavior extends WidgetBehavior {
   }
 
   setValue(value, silent) {
-    super.setValue(value, silent && this.component);
+    super.setValue(value, silent || !this.component);
 
     this.set({ value });
   }

@@ -57,7 +57,8 @@ Object.assign(BASE_PROPS, {
     setImmediate(() => this.linkContextValue());
 
     return bool;
-  }
+  },
+  placeholder: '...',
 });
 
 export const PROPS_LIST = Object.keys(BASE_PROPS).reverse();

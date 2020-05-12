@@ -42,6 +42,10 @@ export default class ValueBehavior extends WidgetBehavior {
       value = value ? '<nu-icon name="check"></nu-icon>' : '<nu-icon name="minus"></nu-icon>';
     }
 
-    this.host.innerHTML = value == null ? '...' : value;
+    const hasValue = value != null;
+
+    this.host.innerHTML = hasValue ? value : this.placeholder;
+
+    this.setMod('empty', !hasValue);
   }
 }
