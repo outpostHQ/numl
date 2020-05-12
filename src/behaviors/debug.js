@@ -53,9 +53,17 @@ export default class DebugBehavior extends Behavior {
 
   getDebugger() {
     const { host } = this;
-    const id = this.debuggerId;
+    let id = this.debuggerId;
 
-    if (!id) return;
+    if (!id) {
+      const debugEl = query(host, 'nu-debug');
+
+      if (debugEl) {
+        id = debugEl.nuId;
+      } else {
+        return;
+      }
+    }
 
     if (this.debugger && this.debugger.nuId === id) {
       return this.debugger;
