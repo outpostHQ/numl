@@ -401,6 +401,14 @@ export default class WidgetBehavior extends Behavior {
     return false;
   }
 
+  doActions(value) {
+    if (this.shouldValueBeLinked) {
+      this.doAction(value, 'input');
+    }
+
+    this.doAction(value);
+  }
+
   transferAttr(name, ref, defaultValue) {
     if (!ref) return;
 
@@ -431,10 +439,7 @@ export default class WidgetBehavior extends Behavior {
     if (!silent) {
       this.emit('input', value);
 
-      if (this.shouldValueBeLinked) {
-        this.doAction(value, 'input');
-      }
-      this.doAction(value);
+      this.doActions(value);
     }
   }
 
