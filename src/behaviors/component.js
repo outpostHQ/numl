@@ -6,6 +6,7 @@ export default class ComponentBehavior extends WidgetBehavior {
   static get params() {
     return {
       primary: true,
+      provideValue: false,
     };
   }
 
