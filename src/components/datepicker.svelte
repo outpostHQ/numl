@@ -1,4 +1,4 @@
-<nu-grid padding="0" gap columns="1fr 1fr" on:focusin={() => touched = true}>
+<nu-grid padding="0" gap columns="1fr 1fr" on:focusin={touch}>
   <nu-attrs
     for="arrow"
     padding="0.5x 0.25x" special border="color(special-bg)"></nu-attrs>
@@ -156,6 +156,12 @@ export let mode;
 export let host;
 
 const dispatch = createEventDispatcher();
+
+function touch() {
+  setTimeout(() => {
+    touched = true;
+  });
+}
 
 function weekStart(region) {
   if ('AEAFBHDJDZEGIQIRJOKWLYOMQASDSY'.match(/../g).includes(region)) {

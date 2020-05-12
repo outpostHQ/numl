@@ -1,5 +1,5 @@
 <nu-flex gap>
-  <nu-value grow="1"></nu-value>
+  <nu-value grow="1" placeholder={placeholder}></nu-value>
 <!--  <nu-flex gap grow="1">-->
 <!--    {#if fromDate}-->
 <!--      <nu-datetime-->
@@ -56,6 +56,7 @@
 <script>
 import { createEventDispatcher } from 'svelte';
 
+export let placeholder;
 export let mode;
 export let date;
 export let time;

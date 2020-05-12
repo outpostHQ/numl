@@ -10,4 +10,10 @@ export default class NuValue extends NuElement {
       value: true,
     };
   }
+
+  static get nuStyles() {
+    return {
+      color: ':empty[text 50%] text',
+    };
+  }
 }
