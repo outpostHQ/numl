@@ -94,7 +94,7 @@ export default class WidgetBehavior extends Behavior {
       /**
        * Widget links host value to its own value.
        */
-      hostLink: true,
+      linkHostValue: true,
     };
   }
 
@@ -135,7 +135,7 @@ export default class WidgetBehavior extends Behavior {
       });
     }
 
-    if (this.params.hostLink) {
+    if (this.params.linkHostValue) {
       this.linkHostValue();
     }
 

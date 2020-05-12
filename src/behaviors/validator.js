@@ -1,6 +1,14 @@
 import WidgetBehavior from './widget';
 
 export default class ValidatorBehavior extends WidgetBehavior {
+  static get params() {
+    return {
+      primary: true,
+      linkValue: false,
+      linkHostValue: false,
+    };
+  }
+
   init() {
     this.props.for = (val) => {
       this.fieldId = val;
@@ -9,12 +17,11 @@ export default class ValidatorBehavior extends WidgetBehavior {
       if (assert) {
         const tmp = assert.split(':');
         this.assert = tmp[0];
-        this.value = tmp[1];
+        this.assertValue = tmp[1];
       } else {
         this.assert = null;
       }
     };
-    delete this.props.value;
 
     super.init();
   }
@@ -46,13 +53,11 @@ export default class ValidatorBehavior extends WidgetBehavior {
   }
 
   connectForm() {
-    const { fieldId, assert, form, value } = this;
+    const { fieldId, assert, form, assertValue } = this;
 
     if (!fieldId || !assert || !form) return;
 
-    this.host.style.display = `var(--nu-check-${fieldId}-${assert}, none)`;
-
-    this.form.registerCheck(fieldId, assert, value);
+    this.form.registerCheck(fieldId, this, assert, assertValue);
   }
 
   disconnectForm(form = this.currentForm, dontDelete) {
@@ -60,7 +65,7 @@ export default class ValidatorBehavior extends WidgetBehavior {
 
     if (!fieldId || !assert) return;
 
-    form.unregisterCheck(fieldId, assert);
+    form.unregisterCheck(fieldId);
 
     if (!dontDelete) {
       delete this.form;

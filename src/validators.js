@@ -95,6 +95,4 @@ export function checkErrors(data, checks) {
   });
 }
 
-window.checkErrors = checkErrors;
-
 export default VALIDATORS;

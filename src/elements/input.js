@@ -33,6 +33,7 @@ export default class NuInput extends NuBlock {
       border: '1b',
       focus: 'inside input',
       opacity: '1 :disabled[.5]',
+      transition: 'theme',
     };
   }
 

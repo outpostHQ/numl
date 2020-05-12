@@ -39,10 +39,12 @@
             <nu-check for="name" assert="required">
               Name is required
             </nu-check>
-            <nu-check for="name" assert="minlength:5">
+            <nu-check for="name" assert="minlength:5" nx-debug>
               Name should contain at least 5 characters
             </nu-check>
           </nu-flow>
+
+          <nu-debug></nu-debug>
 
           <nu-flow>
             <nu-label>Period</nu-label>
