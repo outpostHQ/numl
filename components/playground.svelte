@@ -3,6 +3,7 @@
 {#if show(hash, 'form')}
   <nu-card as="section">
     <nu-form value={formData} on:input={submit} nx-debug="form-debugger0">
+      <nu-props transition-time="250ms"></nu-props>
       <nu-theme name="error" hue="1" mod="tone"></nu-theme>
       <nu-attrs for="nu-check" theme="error"></nu-attrs>
       <nu-attrs for="nu-input" theme=":invalid[error]"></nu-attrs>
@@ -31,7 +32,6 @@
         <nu-form id="user" nx-debug="form-debugger1">
           <nu-heading level="5">User</nu-heading>
           <nu-flow>
-            <nu-props transition-time="500ms"></nu-props>
             <nu-label id="label">User name</nu-label>
             <nu-inputgroup>
               <nu-icon name="user" size="lg"></nu-icon>

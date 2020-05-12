@@ -1280,19 +1280,42 @@ export function debugProp(instance, prop) {
 }
 
 const NO_VALUES = ['n', 'no'];
+const YES_VALUES = ['y', 'yes'];
 
 /**
- * No-value handler for attribute values.
- * @param attrValue - original attribute value.
- * @param noValue - attribute value for "no" modifier.
- * @return {*}
+ * Check for "no" value.
+ * @param value - original attribute value.
+ * @return {boolean}
  */
-export function noValue(attrValue, noValue) {
-  if (NO_VALUES.includes(attrValue)) {
-    return noValue;
-  }
+export function isNoValue(value) {
+  return NO_VALUES.includes(value);
+}
 
-  return attrValue;
+/**
+ * Check for "yes" value.
+ * @param value - original attribute value.
+ * @return {boolean}
+ */
+export function isYesValue(value) {
+  return YES_VALUES.includes(value);
+}
+
+/**
+ * Check for "no" value in modifiers.
+ * @param mods {Array<String>} - original attribute value.
+ * @return {boolean}
+ */
+export function hasNoValue(mods) {
+  return !!NO_VALUES.find(val => mods.includes(val));
+}
+
+/**
+ * Check for "yes" value in modifiers.
+ * @param mods {Array<String>} - original attribute value.
+ * @return {boolean}
+ */
+export function hasYesValue(mods) {
+  return !!YES_VALUES.find(val => mods.includes(val));
 }
 
 /**
