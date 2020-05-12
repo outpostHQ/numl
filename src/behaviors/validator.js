@@ -1,4 +1,5 @@
 import WidgetBehavior from './widget';
+import { getRealHeight, setTransitionTimeout, setImmediate } from '../helpers';
 
 export default class ValidatorBehavior extends WidgetBehavior {
   static get params() {
@@ -69,6 +70,30 @@ export default class ValidatorBehavior extends WidgetBehavior {
 
     if (!dontDelete) {
       delete this.form;
+    }
+  }
+
+  setValidity(bool) {
+    const { host } = this;
+
+    if (this.validity === bool) return;
+
+    super.setValidity(bool);
+
+    const realHeight = getRealHeight(host);
+
+    if (!bool) {
+      host.style.maxHeight = '0px';
+      host.offsetHeight;
+      host.style.maxHeight = `${realHeight}px`;
+
+      setTransitionTimeout(host, () => {
+        host.style.maxHeight = '';
+      });
+    } else {
+      host.style.maxHeight = `${realHeight}px`;
+      host.offsetHeight;
+      host.style.maxHeight = '0px';
     }
   }
 }
