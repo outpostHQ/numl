@@ -107,6 +107,7 @@ export default class WidgetBehavior extends Behavior {
      * @type {FormBehavior}
      */
     this.form = null;
+    this.validity = true; // valid by default
   }
 
   init() {
@@ -460,6 +461,7 @@ export default class WidgetBehavior extends Behavior {
   setValidity(bool) {
     this.setMod('invalid', !bool);
     this.setMod('valid', bool);
+    this.validity = bool;
 
     if (this.group) {
       this.group.setMod('invalid', !bool);

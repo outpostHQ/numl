@@ -31,6 +31,7 @@
         <nu-form id="user" nx-debug="form-debugger1">
           <nu-heading level="5">User</nu-heading>
           <nu-flow>
+            <nu-props transition-time="500ms"></nu-props>
             <nu-label id="label">User name</nu-label>
             <nu-inputgroup>
               <nu-icon name="user" size="lg"></nu-icon>

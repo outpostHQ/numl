@@ -1319,3 +1319,21 @@ export function parseTime(value) {
   const multiplier = value.match(/\ds$/) ? 1000 : 1;
   return parseFloat(value) * multiplier;
 }
+
+export function getRealHeight(el) {
+  Object.assign(el.style, {
+    position: 'absolute',
+    height: 'initial',
+    maxHeight: 'initial',
+  });
+
+  const height = el.offsetHeight;
+
+  Object.assign(el.style, {
+    position: '',
+    height: '',
+    maxHeight: '',
+  });
+
+  return height;
+}
