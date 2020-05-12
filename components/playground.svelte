@@ -39,12 +39,10 @@
             <nu-check for="name" assert="required">
               Name is required
             </nu-check>
-            <nu-check for="name" assert="minlength:5" nx-debug>
+            <nu-check for="name" assert="minlength:5">
               Name should contain at least 5 characters
             </nu-check>
           </nu-flow>
-
-          <nu-debug></nu-debug>
 
           <nu-flow>
             <nu-label>Period</nu-label>
@@ -66,7 +64,7 @@
     </nu-form>
   </nu-card>
 
-  <nu-grid columns="repeat(4, 1fr)" gap>
+  <nu-grid columns="repeat(4, 1fr)||1fr 1fr" gap>
     <nu-debug id="form-debugger0" as="section"></nu-debug>
     <nu-debug id="form-debugger1" as="section"></nu-debug>
     <nu-debug id="form-debugger2" as="section"></nu-debug>

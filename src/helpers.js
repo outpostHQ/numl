@@ -1264,7 +1264,7 @@ export function debugProp(instance, prop) {
   Object.assign(instance, {
     set [prop](val) {
       try {
-        throw '!';
+        throw '';
       } catch (e) {
         console.error('prop changed', instance, {
           [prop]: value,
@@ -1281,10 +1281,41 @@ export function debugProp(instance, prop) {
 
 const NO_VALUES = ['n', 'no'];
 
+/**
+ * No-value handler for attribute values.
+ * @param attrValue - original attribute value.
+ * @param noValue - attribute value for "no" modifier.
+ * @return {*}
+ */
 export function noValue(attrValue, noValue) {
   if (NO_VALUES.includes(attrValue)) {
     return noValue;
   }
 
   return attrValue;
+}
+
+/**
+ * Set timeout based on local transition time.
+ * @param host {HTMLElement}
+ * @param cb {Function}
+ * @param multiplier {Number}
+ */
+export function setTransitionTimeout(host, cb, multiplier = 1) {
+  const styleValue = getComputedStyle(host).getPropertyValue('--nu-transition-time').trim();
+  const time = parseTime(styleValue) * multiplier;
+
+  setTimeout(() => {
+    setTimeout(cb, time);
+  }, 0);
+}
+
+/**
+ * Parse time in milliseconds from style value.
+ * @param value {String}
+ * @return {Number}
+ */
+export function parseTime(value) {
+  const multiplier = value.match(/\ds$/) ? 1000 : 1;
+  return parseFloat(value) * multiplier;
 }
