@@ -50,15 +50,11 @@ Object.assign(BASE_PROPS, {
 
     return val;
   },
-  link(val) {
+  ['link-value'](val) {
     const bool = val != null;
 
     // postpone linking
-    setImmediate(() => {
-      if (this.link && this.shouldValueBeLinked) {
-        this.linkContextValue();
-      }
-    });
+    setImmediate(() => this.linkContextValue());
 
     return bool;
   }
@@ -87,13 +83,13 @@ export default class WidgetBehavior extends Behavior {
       input: false,
       /**
        * Widget provides input action to the context.
-       * So its children can manipulate its value if they have contextLink param.
+       * So its children can manipulate its value if they have linkValue param.
        */
       provideValue: true,
       /**
        * Widget links its own value with context element that has provideValue param.
        */
-      contextLink: true,
+      linkValue: true,
       /**
        * Widget links host value to its own value.
        */
@@ -139,7 +135,7 @@ export default class WidgetBehavior extends Behavior {
     }
 
     if (this.params.hostLink) {
-      this.linkValue();
+      this.linkHostValue();
     }
 
     if (this.shouldValueBeLinked) {
@@ -472,7 +468,7 @@ export default class WidgetBehavior extends Behavior {
     }
   }
 
-  linkValue() {
+  linkHostValue() {
     const { host } = this;
 
     const set = this.fromHostValue.bind(this);
@@ -557,7 +553,7 @@ export default class WidgetBehavior extends Behavior {
   }
 
   get shouldValueBeLinked() {
-    return this.params.contextLink && this.link;
+    return this.params.linkValue && this.linkValue;
   }
 
   /**

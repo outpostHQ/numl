@@ -11,7 +11,7 @@ export default class NuMenuitem extends NuBtn {
 
   static get nuAttrs() {
     return {
-      link: '',
+      'link-value': '',
     };
   }
 
