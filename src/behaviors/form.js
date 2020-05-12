@@ -197,8 +197,6 @@ export default class FormBehavior extends WidgetBehavior {
       let invalid = false;
 
       for (let validator of validators) {
-        const prop = `--nu-check-${name}-${validator}`;
-
         if (errors && errors[name] && errors[name][validator] && !invalid) {
           invalid = true;
           fieldChecks[validator].setValidity(false);
