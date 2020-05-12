@@ -565,7 +565,7 @@ export default class NuBase extends HTMLElement {
 
     this.nuAttrValues[name] = value;
 
-    if (devMode) {
+    if (devMode && !name.startsWith('nu-mirror-')) {
       if (value !== origValue || isVariableAttr(value) || isResponsiveAttr(value)) {
         this.setAttribute(`nu-mirror-${name}`, normalizeAttrStates(value));
       }

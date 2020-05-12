@@ -92,7 +92,7 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     if (!radioGroup) return;
 
-    this.setAttr('link', '');
+    this.setAttr('link-value', '');
     this.role = radioGroup.params.itemRole;
 
     if (this.value == null) {
