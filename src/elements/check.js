@@ -13,9 +13,11 @@ export default class NuCheck extends NuBlock {
 
   static get nuStyles() {
     return {
-      display: 'none',
+      opacity: ':invalid[1] 0',
       size: 'sm',
       text: 'w6',
+      height: ':invalid[max(1lh)] max(1px)',
+      transition: 'opacity, height',
     }
   }
 }

@@ -18,6 +18,7 @@ export default class FormBehavior extends WidgetBehavior {
 
   init() {
     this.value = {};
+    this.validators = {};
     this.checks = {};
     this.fields = {};
 
@@ -106,12 +107,17 @@ export default class FormBehavior extends WidgetBehavior {
     this.validate();
   }
 
-  registerCheck(field, name, options) {
+  registerCheck(field, element, name, value) {
+    if (!this.validators[field]) {
+      this.validators[field] = {};
+    }
+
     if (!this.checks[field]) {
       this.checks[field] = {};
     }
 
-    this.checks[field][name] = options;
+    this.validators[field][name] = value;
+    this.checks[field][name] = element;
   }
 
   registerField(name, el) {
@@ -119,6 +125,7 @@ export default class FormBehavior extends WidgetBehavior {
   }
 
   unregisterCheck(field, name) {
+    delete this.validators[field][name];
     delete this.checks[field][name];
   }
 
@@ -129,12 +136,12 @@ export default class FormBehavior extends WidgetBehavior {
   connectForm() {
     super.connectForm();
 
-    const checks = this.checks;
+    const validators = this.validators;
 
-    this.checks = Object.create(this.form.checks);
+    this.validators = Object.create(this.form.validators);
 
-    Object.keys(checks).forEach(check => {
-      this.checks[check] = checks[check];
+    Object.keys(validators).forEach(validator => {
+      this.validators[validator] = validators[validator];
     });
   }
 
@@ -143,7 +150,7 @@ export default class FormBehavior extends WidgetBehavior {
    * @return {Promise<boolean>}
    */
   validate(silent) {
-    return checkErrors(this.value, this.checks)
+    return checkErrors(this.value, this.validators)
       .then(errors => {
         if (errors) {
           this.value.$errors = errors;
@@ -176,25 +183,29 @@ export default class FormBehavior extends WidgetBehavior {
    * @returns
    */
   setErrorProps(field) {
-    const names = Object.keys(this.checks);
+    const names = Object.keys(this.validators);
     const errors = this.value.$errors || {};
     const fields = this.fields;
+    const checks = this.checks;
 
     names.forEach(name => {
       if (field && field !== name) return;
 
-      const checks = Object.keys(this.checks[name]);
+      const validators = Object.keys(this.validators[name]);
+      const fieldChecks = checks[name];
 
       let invalid = false;
 
-      for (let check of checks) {
-        const prop = `--nu-check-${name}-${check}`;
+      for (let validator of validators) {
+        const prop = `--nu-check-${name}-${validator}`;
 
-        if (errors && errors[name] && errors[name][check] && !invalid) {
+        if (errors && errors[name] && errors[name][validator] && !invalid) {
           invalid = true;
-          this.host.style.setProperty(prop, 'block');
+          fieldChecks[validator].setValidity(false);
+          // this.host.style.setProperty(prop, 'block');
         } else {
-          this.host.style.setProperty(prop, 'none');
+          fieldChecks[validator].setValidity(true);
+          // this.host.style.setProperty(prop, 'none');
         }
       }
 
@@ -206,9 +217,9 @@ export default class FormBehavior extends WidgetBehavior {
 
   resetFieldWarning(name) {
     const field = this.fields[name];
-    const checks = Object.keys(this.checks[name] || {});
+    const validators = Object.keys(this.validators[name] || {});
 
-    for (let check of checks) {
+    for (let check of validators) {
       const prop = `--nu-check-${name}-${check}`;
 
       this.host.style.setProperty(prop, 'none');

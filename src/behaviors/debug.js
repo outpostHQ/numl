@@ -1,5 +1,5 @@
 import Behavior from './behavior';
-import { query } from '../helpers';
+import { generateId, query } from '../helpers';
 
 let counter = 0;
 
@@ -55,18 +55,24 @@ export default class DebugBehavior extends Behavior {
     const { host } = this;
     let id = this.debuggerId;
 
+    if (this.debugger && this.debugger.nuId === id) {
+      return this.debugger;
+    }
+
     if (!id) {
       const debugEl = query(host, 'nu-debug');
 
       if (debugEl) {
-        id = debugEl.nuId;
+        generateId(debugEl);
+
+        this.debuggerId = debugEl.nuId;
+
+        this.debugger = debugEl;
+
+        return debugEl;
       } else {
         return;
       }
-    }
-
-    if (this.debugger && this.debugger.nuId === id) {
-      return this.debugger;
     }
 
     const debugEl = query(host, `#${id}`);

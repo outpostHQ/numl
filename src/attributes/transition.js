@@ -17,6 +17,8 @@ const MAP = {
   theme: ['color', 'background-color', 'box-shadow', 'border'],
   space: ['margin'],
   toggle: ['box-shadow'],
+  width: ['max-width', 'min-width', 'width'],
+  height: ['max-height', 'min-height', 'height'],
   z: ['z-index'],
 };
 
