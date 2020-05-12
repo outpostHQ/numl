@@ -11,8 +11,8 @@ export default class FormBehavior extends WidgetBehavior {
     return {
       input: true,
       primary: true,
-      provider: false,
-      injector: false,
+      provideValue: false,
+      contextValue: false,
     };
   }
 

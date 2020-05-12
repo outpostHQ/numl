@@ -1,5 +1,6 @@
 import Behavior from "./behavior";
-import { devMode, isValidDate, log, toCamelCase } from '../helpers';
+import { devMode, isValidDate, log, toCamelCase, setImmediate } from '../helpers';
+import NuElement from '../elements/element';
 
 const LOCALE_VAR = 'locale';
 
@@ -25,6 +26,46 @@ export const NUMBER_TYPE = (defaultValue) => {
   };
 };
 
+export const BASE_PROPS = NuElement.nuPropsList.reduce((props, name) => {
+  props[name] = null;
+
+  return props;
+}, {});
+
+Object.assign(BASE_PROPS, {
+  type: 'text',
+  value(val) {
+    return this.setValue(val, true);
+  },
+  disabled: BOOL_TYPE,
+  role(role) {
+    if (role !== this.role) {
+      this.role = role;
+    }
+  },
+  lang(val) {
+    if (!this.params.localized) return;
+
+    this.setLocale(val);
+
+    return val;
+  },
+  link(val) {
+    const bool = val != null;
+
+    // postpone linking
+    setImmediate(() => {
+      if (this.link && this.shouldValueBeLinked) {
+        this.linkContextValue();
+      }
+    });
+
+    return bool;
+  }
+});
+
+export const PROPS_LIST = Object.keys(BASE_PROPS).reverse();
+
 export default class WidgetBehavior extends Behavior {
   static get params() {
     return {
@@ -46,37 +87,24 @@ export default class WidgetBehavior extends Behavior {
       input: false,
       /**
        * Widget provides input action to the context.
-       * So its children can manipulate its value if they have INJECTOR param.
+       * So its children can manipulate its value if they have contextLink param.
        */
-      provider: true,
+      provideValue: true,
       /**
-       * Widget injects value from parent element with param PROVIDER.
+       * Widget links its own value with context element that has provideValue param.
        */
-      injector: true,
+      contextLink: true,
       /**
        * Widget links host value to its own value.
        */
-      link: true,
+      hostLink: true,
     };
   }
 
   constructor(host, params) {
     super(host, params);
 
-    this.props = host.constructor.nuPropsList.reduce((props, name) => {
-      props[name] = null;
-
-      return props;
-    }, {});
-
-    this.props.value = (val) => this.setValue(val, true);
-
-    Object.assign(this.props, {
-      type: 'text',
-      disabled: BOOL_TYPE,
-    });
-
-    delete this.props.role;
+    this.props = { ...BASE_PROPS };
 
     /**
      * @type {FormBehavior}
@@ -88,17 +116,7 @@ export default class WidgetBehavior extends Behavior {
     const { host } = this;
     const localized = this.params.localized;
 
-    if (localized) {
-      this.props.lang = (val) => {
-        this.setLocale(val);
-
-        return val;
-      };
-    }
-
-    this.propsList = Object.keys(this.props).reverse();
-
-    for (let prop of this.propsList) {
+    for (let prop of PROPS_LIST) {
       const value = host.getAttribute(prop);
 
       this.fromAttr(prop, value);
@@ -120,18 +138,12 @@ export default class WidgetBehavior extends Behavior {
       });
     }
 
-    if (this.params.link) {
+    if (this.params.hostLink) {
       this.linkValue();
     }
 
-    if (this.params.injector) {
-      this.linkContext('value', (value) => {
-        if (value === undefined) return;
-
-        this.linkContextValue(value);
-      }, 'parentValue');
-    } else {
-      this.context.value = null;
+    if (this.shouldValueBeLinked) {
+      this.linkContextValue();
     }
   }
 
@@ -148,7 +160,7 @@ export default class WidgetBehavior extends Behavior {
 
       if (id) {
         // reset form context for inner elements if this is a value provider
-        if (this.params.provider) {
+        if (this.params.provideValue) {
           this.context.form = null;
         }
 
@@ -174,7 +186,7 @@ export default class WidgetBehavior extends Behavior {
     // Nested widget support
     // Bind public value setter to context
     // if value link is active...
-    if (this.params.provider) {
+    if (this.params.provideValue) {
       this.bindAction('input', (val) => {
         this.setValue(val);
       });
@@ -228,7 +240,7 @@ export default class WidgetBehavior extends Behavior {
   }
 
   changed(name, value) {
-    for (let prop of this.propsList) {
+    for (let prop of PROPS_LIST) {
       if (prop === name) {
         this.fromAttr(name, value);
       }
@@ -240,7 +252,7 @@ export default class WidgetBehavior extends Behavior {
     const prop = toCamelCase(name);
 
     if (typeof defaults === 'function') {
-      const val = defaults(value);
+      const val = defaults.call(this, value);
 
       if (val != null) {
         this[prop] = val;
@@ -370,14 +382,7 @@ export default class WidgetBehavior extends Behavior {
   }
 
   doAction(value, action) {
-    // if action provided then check attribute action first
-    if (action) {
-      if (this.doAction(value)) {
-        // if attribute action is performed then skip requested action
-        return;
-      }
-    } else {
-      // if no action provided then just check attribute action
+    if (!action) {
       action = this.host.getAttribute('action');
     }
 
@@ -419,10 +424,16 @@ export default class WidgetBehavior extends Behavior {
 
     this.value = value;
 
-    this.setValueToContext();
+    if (this.params.provideValue) {
+      this.setValueToContext();
+    }
 
     if (!silent) {
       this.emit('input', value);
+
+      if (this.shouldValueBeLinked) {
+        this.doAction(value, 'input');
+      }
       this.doAction(value);
     }
   }
@@ -510,7 +521,19 @@ export default class WidgetBehavior extends Behavior {
     context[`action:${name}`] = cb;
   }
 
-  linkContextValue(value) {
+  linkContextValue() {
+    if (this.contextValueLinked) return;
+
+    this.contextValueLinked = true;
+
+    this.linkContext('value', (value) => {
+      if (value === undefined || !this.shouldValueBeLinked) return;
+
+      this.fromContextValue(value);
+    }, 'parentValue');
+  }
+
+  fromContextValue(value) {
     this.log('link context value', value);
     this.setValue(value, true);
   }
@@ -526,6 +549,10 @@ export default class WidgetBehavior extends Behavior {
   setValueToContext() {
     this.setContext('value', this.value);
     this.setContext('typedValue', this.getTypedValue(this.emitValue));
+  }
+
+  get shouldValueBeLinked() {
+    return this.params.contextLink && this.link;
   }
 
   /**

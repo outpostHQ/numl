@@ -9,6 +9,12 @@ export default class NuMenuitem extends NuBtn {
     return 'menuitem';
   }
 
+  static get nuAttrs() {
+    return {
+      link: '',
+    };
+  }
+
   static get nuStyles() {
     return {
       padding: '1x',

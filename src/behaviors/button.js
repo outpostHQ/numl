@@ -88,12 +88,11 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   verifyRadioGroup() {
-    const { host } = this;
-
     const radioGroup = this.radioGroup;
 
     if (!radioGroup) return;
 
+    this.setAttr('link', '');
     this.role = radioGroup.params.itemRole;
 
     if (this.value == null) {
@@ -102,15 +101,7 @@ export default class ButtonBehavior extends WidgetBehavior {
       this.setValue(String(radioGroup.counter++));
     }
 
-    if (radioGroup.value == null) {
-      if (this.pressed) {
-        radioGroup.set(this.value);
-      }
-    } else if (radioGroup.value === this.value) {
-      host.setAttribute('pressed', '');
-    } else {
-      host.removeAttribute('pressed');
-    }
+    this.fromContextValue(radioGroup.value);
   }
 
   linkPopup(popup) {
@@ -352,8 +343,8 @@ export default class ButtonBehavior extends WidgetBehavior {
     return ['radio', 'checkbox', 'switch'].includes(this.role);
   }
 
-  linkContextValue(value) {
-    if (!this.isToggle()) return;
+  fromContextValue(value) {
+    if (!this.isToggle() || value == null) return;
 
     this.set(this.value === value);
   }

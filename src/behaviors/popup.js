@@ -8,8 +8,8 @@ let POPUPS = new Set;
 export default class PopupBehavior extends WidgetBehavior {
   static get params() {
     return {
-      provider: false,
-      injector: false,
+      provideValue: false,
+      contextValue: false,
     };
   }
 

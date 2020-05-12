@@ -9,6 +9,7 @@ export default class NuDateInput extends NuBtn {
     return {
       padding: '1x .5x 1x 2x',
       content: 'stretch',
+      height: 'min(1lh + 2b + 2x)',
     };
   }
 
