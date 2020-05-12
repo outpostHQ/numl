@@ -4,9 +4,9 @@ export default class RadioGroupBehavior extends WidgetBehavior {
   static get params() {
     return {
       input: true,
-      provider: true,
+      provideValue: true,
       itemRole: 'radio',
-      injector: true,
+      contextValue: true,
     };
   }
 

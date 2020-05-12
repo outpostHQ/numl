@@ -1,5 +1,5 @@
 import { toCamelCase } from '../helpers';
-import WidgetBehavior from './widget';
+import WidgetBehavior, { PROPS_LIST } from './widget';
 import Components from '../components/index';
 
 export default class ComponentBehavior extends WidgetBehavior {
@@ -48,7 +48,7 @@ export default class ComponentBehavior extends WidgetBehavior {
   get componentProps() {
     const prototype = this.Component.prototype;
 
-    const props = [...this.propsList, 'host']
+    const props = [...PROPS_LIST, 'host']
       .reduce((data, attr) => {
         if (attr === 'lang') {
           attr = 'locale';

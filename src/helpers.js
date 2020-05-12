@@ -2,6 +2,8 @@
  * Required root element attribute.
  * @type {String}
  */
+import { attr } from 'svelte/internal';
+
 export const ROOT_CONTEXT = ':root';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
@@ -1271,4 +1273,14 @@ export function debugProp(instance, prop) {
       return this[`_${prop}`];
     }
   });
+}
+
+const NO_VALUES = ['n', 'no'];
+
+export function noValue(attrValue, noValue) {
+  if (NO_VALUES.includes(attrValue)) {
+    return noValue;
+  }
+
+  return attrValue;
 }

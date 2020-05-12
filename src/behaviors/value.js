@@ -4,8 +4,8 @@ import WidgetBehavior from './widget';
 export default class ValueBehavior extends WidgetBehavior {
   static get params() {
     return {
-      provider: false,
-      injector: false,
+      provideValue: false,
+      contextValue: false,
     };
   }
 
