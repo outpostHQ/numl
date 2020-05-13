@@ -4,6 +4,7 @@ export default class MenuItemBehavior extends WidgetBehavior {
   static get params() {
     return {
       contextValue: true,
+      linkHostValue: false,
     };
   }
 
