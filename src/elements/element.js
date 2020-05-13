@@ -109,6 +109,7 @@ export default class NuElement extends NuBase {
       autofocus: '',
       maxlength: '',
       mode: '',
+      mask: '',
     };
   }
 

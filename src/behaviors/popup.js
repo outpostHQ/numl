@@ -164,7 +164,7 @@ function findParentPopup(element) {
     if (element) {
       const nuButton = element.nuButton;
 
-      if (nuButton.popup) {
+      if (nuButton && nuButton.popup) {
         const popupEl = nuButton.popup.host;
 
         if (popupEl) {
