@@ -36,7 +36,9 @@ import {
   isResponsiveAttr,
   normalizeAttrStates,
   parseAttrStates,
-  deepQuery, deepQueryAll, queryChildren,
+  deepQuery,
+  deepQueryAll,
+  queryChildren,
   setImmediate,
 } from '../helpers';
 import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
@@ -402,11 +404,17 @@ export default class NuBase extends HTMLElement {
     );
   }
 
-  static nuGenerateDefaultStyle(root, dontInject) {
-    const tag = this.nuTag;
+  static nuGenerateDefaultStyle(isHost = false) {
+    let tag = this.nuTag;
+
+    const cssName = isHost ? `${tag}:host` : tag;
 
     // already declared
-    if (!root && STYLE_MAP[tag]) return;
+    if (STYLE_MAP[cssName]) return;
+
+    if (isHost) {
+      tag = ':host';
+    }
 
     log('default style generated', tag);
 
@@ -434,13 +442,15 @@ export default class NuBase extends HTMLElement {
 
     let defaultsCSS = '';
 
-    combinators.forEach(combinator => {
-      const styles = combine(combinator, allDefaults);
+    if (!isHost) {
+      combinators.forEach(combinator => {
+        const styles = combine(combinator, allDefaults);
 
-      if (styles.length) {
-        defaultsCSS += generateCSS(tag, styles);
-      }
-    });
+        if (styles.length) {
+          defaultsCSS += generateCSS(tag, styles);
+        }
+      });
+    }
 
     Object.keys(allDefaults)
       .forEach(name => {
@@ -463,9 +473,7 @@ export default class NuBase extends HTMLElement {
         defaultsCSS += generateCSS(query, styles, true);
       });
 
-    if (!dontInject) {
-      injectCSS(tag, tag, `${css}${defaultsCSS}`, root);
-    }
+    injectCSS(cssName, tag, `${css}${defaultsCSS}`);
 
     return `${css}${defaultsCSS}`;
   }
@@ -1657,14 +1665,23 @@ export default class NuBase extends HTMLElement {
     if (!this.nuShadow) return;
 
     const shadowCSS = this.constructor.nuExtractCSS(this.constructor, ':host');
+    const tag = this.constructor.nuTag;
 
     if (shadowCSS) {
       injectStyleTag(
         shadowCSS,
-        `shadow:${this.constructor.nuTag}`,
+        `shadow:${tag}`,
         this.nuShadow,
       );
     }
+
+    const hostCSSName = `${tag}:host`;
+
+    if (!hasCSS(hostCSSName)) {
+      this.constructor.nuGenerateDefaultStyle(true);
+    }
+
+    transferCSS(hostCSSName, this.nuShadow);
 
     const generators = this.constructor.nuAllGenerators;
 
