@@ -33,8 +33,9 @@ export default class Behavior {
 
         if (param.includes(':')) {
           const tmp = param.split(':');
+          const value = tmp[1] === 'no' ? false : tmp[1];
 
-          params[toCamelCase(tmp[0])] = tmp[1];
+          params[toCamelCase(tmp[0])] = value;
         } else {
           params[toCamelCase(param)] = true;
         }

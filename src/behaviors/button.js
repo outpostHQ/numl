@@ -201,9 +201,10 @@ export default class ButtonBehavior extends WidgetBehavior {
       this.emit('tap');
     }, 0);
 
-    this.toggle();
     this.control(this.pressed, this.value);
     this.doActions(this.value);
+
+    this.toggle();
   }
 
   get emitValue() {
@@ -264,7 +265,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.control(this.pressed, this.value);
 
     if (pressed) {
-      this.doAction(this.value, 'input');
+      this.doActions(this.value);
     }
 
     this.toggleInnerPopup();
