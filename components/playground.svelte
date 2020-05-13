@@ -26,6 +26,8 @@
         <nu-dateinput
           id="date" mode="range" width="min(10)"
           placeholder="Date range"></nu-dateinput>
+
+        <nu-debug id="debugger-picker"></nu-debug>
       </nu-flow>
       <nu-card>
         <nu-form id="user" nx-debug="form-debugger1">
@@ -102,12 +104,12 @@
 
   <nu-btn id="select" nx-debug="debugger4" type="date">
     <nu-value></nu-value>
-    <nu-popupmenu type="date" nx-debug="debugger5">
-      <nu-menuitem value="05.10.2020" nx-debug="debugger6">One</nu-menuitem>
+    <nu-popupmenu type="date" nx-debug="select-debugger" link-value>
+      <nu-menuitem value="05.10.2020">One</nu-menuitem>
       <nu-menuitem value="10.10.2020">Two</nu-menuitem>
-      <nu-menuitem nx-debug="select-debugger">
+      <nu-menuitem>
         Something else...
-        <nu-popupmenu place="outside-right -1x 0">
+        <nu-popupmenu place="outside-right -1x 0" link-value>
           <nu-menuitem value="05.11.2020">Three</nu-menuitem>
         </nu-popupmenu>
       </nu-menuitem>
@@ -116,8 +118,8 @@
 
   <nu-btn id="select" type="date">
     <nu-value></nu-value>
-    <nu-popupmenu type="date" nx-debug="debugger5">
-      <nu-menuitem value="05.10.2020" nx-debug="debugger6">One</nu-menuitem>
+    <nu-popupmenu type="date" link-value>
+      <nu-menuitem value="05.10.2020">One</nu-menuitem>
       <nu-menuitem value="10.10.2020">Two</nu-menuitem>
     </nu-popupmenu>
   </nu-btn>

@@ -199,7 +199,9 @@ export function query(element, selector) {
     }
 
     prevElement = element;
-  } while (element = element.parentNode);
+
+    element = element.parentNode || element.host
+  } while (element);
 }
 
 /**
