@@ -22,6 +22,8 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.props.checked = pressedAttr;
     this.props.selected = pressedAttr;
 
+    this.setMod('btn', true);
+
     super.init();
 
     const { host } = this;
