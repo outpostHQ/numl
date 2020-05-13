@@ -4,6 +4,7 @@ export default class MenuItemBehavior extends ButtonBehavior {
   static get params() {
     return {
       contextValue: true,
+      provideValue: false,
     };
   }
 
