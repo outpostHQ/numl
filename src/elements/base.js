@@ -775,9 +775,14 @@ export default class NuBase extends HTMLElement {
    * Create and apply CSS based on element's attributes.
    * @param {String} name - attribute name.
    * @param {*} [varAttr] - prepared value.
-   * @param {*} force - replace current CSS rule.
+   * @param {Boolean} force - replace current CSS rule.
+   * @param {Boolean} isHost
    */
-  nuApplyCSS(name, varAttr, force = false) {
+  nuApplyCSS(name, varAttr, force = false, isHost = false) {
+    if (!isHost && this.nuShadow) {
+      this.nuApplyCSS(name, varAttr, force, true);
+    }
+
     let attrValue = this.getAttribute(name);
 
     if (attrValue == null) return;
@@ -797,8 +802,8 @@ export default class NuBase extends HTMLElement {
       value = attrValue;
     }
 
-    const query = this.nuGetQuery(attrs);
-    const cssRoot = this.nuContext && this.nuContext.$shadowRoot; // or null
+    const query = this.nuGetQuery(attrs, isHost);
+    const cssRoot = isHost ? this.nuShadow : this.nuContext && this.nuContext.$shadowRoot;
 
     if (hasCSS(query, cssRoot)) {
       if (!force) return;
@@ -810,9 +815,9 @@ export default class NuBase extends HTMLElement {
       return;
     }
 
-    const css = this.nuGetCSS(query, name, value);
+    const css = this.nuGetCSS(query, name, value) || '';
 
-    injectCSS(query, query, css || '');
+    injectCSS(query, query, css);
 
     if (cssRoot) {
       transferCSS(query, cssRoot);
@@ -965,13 +970,11 @@ export default class NuBase extends HTMLElement {
   /**
    * Build a query with current tag name and provided attribute value.
    * @param {Object} attrs - dict of attributes with their values.
-   * @param {Boolean} useId - add ID to the query.
+   * @param {Boolean} isHost - host declaration for Shadow DOM.
    * @returns {string}
    */
-  nuGetQuery(attrs = {}, useId = false) {
-    return `${useId ? '' : this.constructor.nuTag}${useId ? `#${this.nuUniqId}` : ''}${attrsQuery(
-      attrs
-    )}`;
+  nuGetQuery(attrs = {}, isHost = false) {
+    return `${isHost ? ':host' : this.constructor.nuTag}${attrsQuery(attrs)}`;
   }
 
   /**
@@ -1662,6 +1665,14 @@ export default class NuBase extends HTMLElement {
         this.nuShadow,
       );
     }
+
+    const generators = this.constructor.nuAllGenerators;
+
+    [...this.attributes].forEach(({ name, value }) => {
+      if (!generators[name]) return;
+
+      this.nuApplyCSS(name, null, false, true);
+    });
   }
 
   nuControl(bool, value) {
