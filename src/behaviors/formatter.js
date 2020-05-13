@@ -2,8 +2,11 @@ import WidgetBehavior from './widget';
 
 export default class FormatterBehavior extends WidgetBehavior {
   static get formatter() {}
-  static get localized() {
-    return true;
+
+  static get params() {
+    return {
+      localized: true,
+    };
   }
 
   init() {

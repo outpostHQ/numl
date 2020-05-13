@@ -122,7 +122,7 @@ export default class WidgetBehavior extends Behavior {
 
     if (localized) {
       this.linkContext('locale', (locale) => {
-        if (this.locale !== locale && !host.hasAttribute('lang')) {
+        if (!host.hasAttribute('lang')) {
           this.setLocale();
 
           // reapply element (required for formatters and etc)

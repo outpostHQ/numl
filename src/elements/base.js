@@ -39,7 +39,7 @@ import {
   deepQuery, deepQueryAll, queryChildren,
   setImmediate,
 } from '../helpers';
-import { checkPropIsDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
+import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
 import themeAttr from '../attributes/theme';
 import propAttr from '../attributes/prop';
@@ -427,7 +427,7 @@ export default class NuBase extends HTMLElement {
     }
 
     Object.keys(allAttrs).forEach(attr => {
-      if (!NuBase.prototype.hasOwnProperty(attr) && checkPropIsDeclarable(attr)) {
+      if (!NuBase.prototype.hasOwnProperty(attr) && isPropDeclarable(attr)) {
         declareProp(NuBase, attr);
       }
     });

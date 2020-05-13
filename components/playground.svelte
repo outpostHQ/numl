@@ -3,7 +3,7 @@
 {#if show(hash, 'form')}
   <nu-card as="section">
     <nu-form value={formData} on:input={submit} nx-debug="form-debugger0">
-      <nu-props transition-time="250ms"></nu-props>
+<!--      <nu-props transition-time="250ms"></nu-props>-->
       <nu-theme name="error" hue="1" mod="tone"></nu-theme>
       <nu-attrs for="nu-check" theme="error"></nu-attrs>
       <nu-attrs for="nu-input" theme=":invalid[error]"></nu-attrs>
@@ -41,7 +41,7 @@
               Name is required
             </nu-check>
             <nu-check for="name" assert="minlength:5">
-              Name should contain at least 5 characters
+              Name should contain at least 5 characters asdfas dfasfasd fdsf asdf as
             </nu-check>
           </nu-flow>
 

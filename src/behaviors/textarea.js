@@ -6,8 +6,4 @@ export default class TextAreaBehavior extends InputBehavior {
       tag: 'textarea',
     };
   }
-
-  static get tag() {
-    return 'textarea';
-  }
 }
