@@ -73,11 +73,19 @@ const NON_TOUCH_REGEXP = /:hover(?=\))/;
 export function generateCSS(query, styles, universal = false) {
   if (!styles || !styles.length) return;
 
+  const isHost = query.startsWith(':host');
+
+  if (isHost) {
+    query = query.replace(':host', '');
+  }
+
   return styles.map(map => {
     let queries = [query];
 
     const $prefix = map.$prefix;
     const $suffix = map.$suffix;
+
+    if (isHost && ($prefix || !$suffix)) return '';
 
     // multiple suffixes and prefixes
     [$suffix, $prefix]
@@ -101,6 +109,22 @@ export function generateCSS(query, styles, universal = false) {
         });
       });
 
+    if (isHost) {
+      for (let i = 0; i < queries.length; i++) {
+        const qry = queries[i];
+
+        if (!qry) continue;
+
+        if (qry.includes('>')) {
+          const tmp = qry.split('>');
+
+          queries[i] = `:host(${tmp[0].trim()})>${tmp[1]}`;
+        } else {
+          queries[i] = `:host(${qry})`;
+        }
+      }
+    }
+
     if (universal) {
       return `${queries.join(',')}{${stylesString(map)}}`;
     }
@@ -120,6 +144,8 @@ export function generateCSS(query, styles, universal = false) {
     return [touchCSS, nonTouchCSS, otherCSS].join('\n');
   }).join('\n');
 }
+
+window.generateCSS = generateCSS;
 
 export function parseStyles(str) {
   return str
