@@ -74,7 +74,7 @@ export function log(name, detail = undefined) {
 }
 
 const eventList = ['input', 'tap', 'log'];
-const ignoreProps = ['props', 'propsList', 'host', '$$name', 'component', '$ref'];
+const ignoreProps = ['props', 'propsList', 'host', '$$name', 'component', 'ref'];
 
 function logBehaviorState(behavior) {
   return JSON.stringify(Object

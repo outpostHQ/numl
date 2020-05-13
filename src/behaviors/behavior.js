@@ -22,7 +22,7 @@ export default class Behavior {
 
   constructor(host, _params) {
     this.host = host;
-    this.$ref = host.nuRef || host;
+    this.ref = host.nuRef || host;
     const params = Object.create(this.constructor.allParams);
 
     if (_params && typeof _params === 'string') {

@@ -209,7 +209,7 @@ export function query(element, selector) {
  * @returns {undefined|Element}
  */
 export function queryById(element, id) {
-  return query(element, `[id^="${id}--"], [id="${id}"]`);
+  return query(element, `[nu-id="${id}"], [id="${id}"]`);
 }
 
 /**
