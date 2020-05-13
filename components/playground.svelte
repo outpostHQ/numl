@@ -25,16 +25,16 @@
         <nu-label>Date of issue</nu-label>
         <nu-dateinput
           id="date" mode="range" width="min(10)"
-          labelledby=":prev" placeholder="Date range"></nu-dateinput>
+          placeholder="Date range"></nu-dateinput>
       </nu-flow>
       <nu-card>
         <nu-form id="user" nx-debug="form-debugger1">
           <nu-heading level="5">User</nu-heading>
           <nu-flow>
-            <nu-label id="label">User name</nu-label>
+            <nu-label for="name">User name</nu-label>
             <nu-inputgroup>
               <nu-icon name="user" size="lg"></nu-icon>
-              <nu-input labelledby="label" id="name" grow="1" nx-debug="form-debugger2"></nu-input>
+              <nu-input id="name" grow="1" nx-debug="form-debugger2"></nu-input>
             </nu-inputgroup>
             <nu-check for="name" assert="required">
               Name is required
@@ -53,8 +53,8 @@
           </nu-flow>
 
           <nu-pane gap>
-            <nu-checkbox checked id="press" labelledby=":next" nx-debug="form-debugger3"></nu-checkbox>
-            <nu-label>Some checkbox</nu-label>
+            <nu-checkbox checked id="press" nx-debug="form-debugger3"></nu-checkbox>
+            <nu-label for="press">Some checkbox</nu-label>
           </nu-pane>
         </nu-form>
       </nu-card>

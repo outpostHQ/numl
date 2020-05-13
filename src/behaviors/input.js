@@ -12,8 +12,19 @@ export default class InputBehavior extends WidgetBehavior {
 
   init() {
     const tag = this.tagName = this.params.tag;
+    const { host } = this;
 
-    this.setMod('input', true);
+    this.ref = host.querySelector(tag);
+
+    if (!this.ref) {
+      const input = h(tag);
+
+      host.appendChild(input);
+
+      this.ref = input;
+    }
+
+    this.setMod('keyinput', true);
     this.value = null;
     this.props.disabled = () => {
       return this.transferAttr('disabled', this.ref) != null;
@@ -28,18 +39,6 @@ export default class InputBehavior extends WidgetBehavior {
     };
 
     super.init();
-
-    const { host } = this;
-
-    this.ref = host.querySelector(tag);
-
-    if (!this.ref) {
-      const input = h(tag);
-
-      host.appendChild(input);
-
-      this.ref = input;
-    }
 
     const { ref } = this;
 

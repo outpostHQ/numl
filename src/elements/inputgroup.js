@@ -16,7 +16,7 @@ export default class NuInputGroup extends NuGroup {
   static nuCSS({ css, tag }) {
     return `
       ${css}
-      ${tag} [nu-input]:not([border]) {
+      ${tag} [nu-keyinput]:not([border]) {
         border: 0 !important;
         --nu-local-stroke-shadow: ${DEFAULT_STROKE_SHADOW} !important;
       }

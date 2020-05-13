@@ -140,6 +140,10 @@ export default class WidgetBehavior extends Behavior {
       this.linkHostValue();
     }
 
+    if (this.params.input) {
+      this.setMod('input', true);
+    }
+
     if (this.shouldValueBeLinked) {
       this.linkContextValue();
     }

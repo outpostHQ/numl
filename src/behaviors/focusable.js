@@ -10,7 +10,7 @@ export default class FocusableBehavior extends Behavior {
   constructor(host) {
     super(host);
 
-    const ref = this.$ref;
+    const ref = this.ref;
 
     ref.addEventListener('focus', () => {
       this.setEffect(true);
@@ -43,9 +43,9 @@ export default class FocusableBehavior extends Behavior {
   set(bool) {
     // @TODO: replace nuTabIndex with more sane approach
     if (bool) {
-      this.$ref.setAttribute('tabindex', '0');
+      this.ref.setAttribute('tabindex', '0');
     } else {
-      this.$ref.setAttribute('tabindex', '-1');
+      this.ref.setAttribute('tabindex', '-1');
     }
 
     this.host.nuSetMod('focusable', bool || null);
