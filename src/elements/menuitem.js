@@ -34,7 +34,8 @@ export default class NuMenuitem extends NuBtn {
 
   static get nuBehaviors() {
     return {
-      menuitem: true
+      menuitem: true,
+      button: 'provide-value:no',
     };
   }
 }

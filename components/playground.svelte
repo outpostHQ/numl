@@ -96,6 +96,7 @@
 </nu-card>
 {/if}
 
+{#if show(hash, 'select')}
 <nu-card as="section">
   <nu-heading level="3">Select</nu-heading>
 
@@ -104,14 +105,31 @@
     <nu-popupmenu type="date" nx-debug="debugger5">
       <nu-menuitem value="05.10.2020" nx-debug="debugger6">One</nu-menuitem>
       <nu-menuitem value="10.10.2020">Two</nu-menuitem>
+      <nu-menuitem nx-debug="select-debugger">
+        Something else...
+        <nu-popupmenu place="outside-right -1x 0">
+          <nu-menuitem value="05.11.2020">Three</nu-menuitem>
+        </nu-popupmenu>
+      </nu-menuitem>
     </nu-popupmenu>
   </nu-btn>
+
+  <nu-btn id="select" type="date">
+    <nu-value></nu-value>
+    <nu-popupmenu type="date" nx-debug="debugger5">
+      <nu-menuitem value="05.10.2020" nx-debug="debugger6">One</nu-menuitem>
+      <nu-menuitem value="10.10.2020">Two</nu-menuitem>
+    </nu-popupmenu>
+  </nu-btn>
+
+  <nu-debug id="select-debugger"></nu-debug>
 
   <!--  <nu-card width="minmax(20, min-content)">-->
   <!--    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>-->
   <!--  </nu-card>-->
   <!--  <nu-dateinput width="min(10)" mode="range"></nu-dateinput>-->
 </nu-card>
+{/if}
 
 <!--<nu-card display="grid" columns="1fr 1fr 1fr" gap>-->
 <!--  <nu-debug id="debugger4"></nu-debug>-->

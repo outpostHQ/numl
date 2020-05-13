@@ -398,7 +398,7 @@ export default class WidgetBehavior extends Behavior {
   }
 
   doActions(value) {
-    if (this.shouldValueBeLinked) {
+    if (this.shouldValueBeLinked && this.hasValue) {
       this.doAction(value, 'input');
     }
 
@@ -555,6 +555,10 @@ export default class WidgetBehavior extends Behavior {
 
   get shouldValueBeLinked() {
     return this.params.linkValue && this.linkValue;
+  }
+
+  get hasValue() {
+    return this.value != null;
   }
 
   /**
