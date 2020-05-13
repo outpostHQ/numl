@@ -16,7 +16,17 @@
         </nu-check>
       </nu-flow>
       <nu-flow>
-        <nu-input id="password" placeholder="Password" grow="1" mask></nu-input>
+        <nu-inputgroup height="8x" padding="2.5x 1x 1x 1x">
+          <nu-label
+            place="top left 1x 2x" z="above" text="w5" origin="top left"
+            scale="^:focus[.75] :empty[1] :focus:empty[.75] .75"
+            move="^:focus[0] :empty[0 1.25x] :focus:empty[0] 0"
+            color="^:focus[text-soft] :empty[text 50%] :focus:empty[text-soft] text-soft"
+            transition="theme, transform">
+            Password
+          </nu-label>
+          <nu-input id="password" placeholder="" grow="1" mask></nu-input>
+        </nu-inputgroup>
         <nu-check for="password" assert="required">
           Password is required
         </nu-check>

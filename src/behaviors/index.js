@@ -38,6 +38,7 @@ export const BEHAVIORS = {
   value: () => extract(import('./value.js')),
   datepicker: () => extract(import('./datepicker.js')),
   dateinput: () => extract(import('./dateinput.js')),
+  inputgroup: () => extract(import(`./inputgroup.js`)),
 };
 
 export function hasBehavior(el, name) {

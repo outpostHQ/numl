@@ -14,6 +14,7 @@ export default class NuCheck extends NuBlock {
   static get nuStyles() {
     return {
       opacity: ':invalid[1] 0',
+      interactive: ':invalid[yes] no',
       size: 'sm',
       text: 'w6',
       // height: ':invalid[max(1lh)] max(1px)',

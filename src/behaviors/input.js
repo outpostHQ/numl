@@ -79,12 +79,29 @@ export default class InputBehavior extends WidgetBehavior {
       host.nuChanged('label', null);
       host.removeAttribute('aria-labelledby');
     }
+
+    this.inputGroup = null;
+
+    this.linkContext('inputgroup', (inputGroup) => {
+      inputGroup && inputGroup.setMod('empty', !this.ref.value);
+    }, 'inputGroup');
+
+    // recheck for autocomplete
+    setTimeout(() => {
+      this.setEmpty();
+    }, 500);
   }
 
   setEmpty() {
     if (!this.ref) return;
 
-    this.host.nuSetMod('empty', !this.ref.value);
+    this.setMod('empty', !this.ref.value);
+
+    const inputGroup = this.inputGroup;
+
+    if (inputGroup) {
+      inputGroup.setMod('empty', !this.ref.value);
+    }
   }
 
   setValue(value, silent) {

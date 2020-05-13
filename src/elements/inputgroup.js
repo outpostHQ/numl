@@ -6,10 +6,17 @@ export default class NuInputGroup extends NuGroup {
     return 'nu-inputgroup';
   }
 
+  static get nuBehaviors() {
+    return {
+      inputgroup: true,
+    };
+  }
+
   static get nuStyles() {
     return {
       fill: 'input',
       focus: 'inside input',
+      cursor: 'text',
     };
   }
 
@@ -19,6 +26,9 @@ export default class NuInputGroup extends NuGroup {
       ${tag} [nu-keyinput]:not([border]) {
         border: 0 !important;
         --nu-local-stroke-shadow: ${DEFAULT_STROKE_SHADOW} !important;
+      }
+      ${tag} [nu-keyinput]:not([border]) {
+        background-color: transparent !important;
       }
       ${tag} [nu-icon]:not([padding]) {
         padding-left: var(--nu-gap);
