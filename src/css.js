@@ -79,6 +79,7 @@ export function generateCSS(query, styles, universal = false) {
     const $prefix = map.$prefix;
     const $suffix = map.$suffix;
 
+    // multiple suffixes and prefixes
     [$suffix, $prefix]
       .forEach((add, addIndex) => {
         if (!add) return;

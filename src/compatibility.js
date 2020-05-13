@@ -1,3 +1,7 @@
+/**
+ * Compatibility layer for frameworks like Svelte.
+ */
+
 import { log } from './helpers';
 
 const ALL_ELEMENT_PROPS = Object.keys(window.HTMLElement.prototype).concat(Object.keys(window.Element.prototype));
@@ -6,7 +10,7 @@ export const GLOBAL_ATTRS = ['accesskey', 'autocapitalize', 'class', 'contentedi
 
 const MAP = {};
 
-export function checkPropIsDeclarable(name) {
+export function isPropDeclarable(name) {
   if (MAP[name] != null) return MAP[name];
 
   let result = true;

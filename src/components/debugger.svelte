@@ -22,7 +22,7 @@
     {/each}
   </nu-tablist>
 
-  <nu-block height="clamp(initial, 15, 15)" scrollbar overflow="scroll">
+  <nu-block height="clamp(initial, 15, 15)" scrollbar overflow="auto">
     <nu-block id="eventlog">
       {#each eventLog as log}
         <nu-flex gap>
