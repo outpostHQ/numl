@@ -45,10 +45,12 @@
     <nu-btn id="dropdown" on:tap={toggle}>
       <nu-datetime month="short" value={navDate}></nu-datetime>
       <nu-icon id="dropdown-icon"></nu-icon>
-      <nu-popupmenu height="28x" overflow="auto" scrollbar bind:this={monthPopup}>
+      <nu-popupmenu
+        height="28x" overflow="auto" scrollbar bind:this={monthPopup}
+        type="date" on:input={(event) => navDate = event.detail} value={navDate}>
         {#each months as month}
           <nu-menuitem
-            on:tap={() => navDate = month}
+            value={month}
             disabled={!isMonthInRange(month, beginDate, endDate) ? '' : undefined}
               nu-current={isSameDay(navDate, month) ? '' : undefined}
               color=":current[special]"
@@ -444,7 +446,7 @@ function toggle() {
   setTimeout(() => {
     yearPopup.querySelector('[nu-current]').scrollIntoView({ block: 'center' });
     monthPopup.querySelector('[nu-current]').scrollIntoView({ block: 'center' });
-  });
+  }, 100);
 }
 
 function setRange(range) {

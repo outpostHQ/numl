@@ -89,6 +89,7 @@ export default class WidgetBehavior extends Behavior {
       provideValue: true,
       /**
        * Widget links its own value with context element that has provideValue param.
+       * Requires explicit "link-value" to be set.
        */
       linkValue: true,
       /**
@@ -514,7 +515,7 @@ export default class WidgetBehavior extends Behavior {
     const context = this.context;
 
     // allow multiple bindings
-    if (key in context && typeof context[key] === 'function') {
+    if (context.hasOwnProperty(key) && typeof context[key] === 'function') {
       const prevCb = context[key];
       const currentCb = cb;
 

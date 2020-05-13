@@ -1,10 +1,9 @@
-import WidgetBehavior from './widget';
+import ButtonBehavior from './button';
 
-export default class MenuItemBehavior extends WidgetBehavior {
+export default class MenuItemBehavior extends ButtonBehavior {
   static get params() {
     return {
       contextValue: true,
-      linkHostValue: false,
     };
   }
 

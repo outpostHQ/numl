@@ -13,8 +13,6 @@ export default class LabelBehavior extends Behavior {
         element.click();
         element.focus();
         enableFocus();
-
-        console.log('!', element, document.activeElement);
       }
     });
   }

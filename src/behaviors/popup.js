@@ -1,6 +1,4 @@
-import { PLACE_ATTR } from '../attributes/place';
 import { deepQueryAll, fixPosition, resetScroll } from '../helpers';
-import { FIXATE_ATTR } from './fixate';
 import WidgetBehavior from './widget';
 
 let POPUPS = new Set;
@@ -10,13 +8,15 @@ export default class PopupBehavior extends WidgetBehavior {
     return {
       provideValue: false,
       contextValue: false,
+      linkValue: false,
+      linkHostValue: false,
     };
   }
 
   init() {
-    super.init();
+    this.host.nuPopup = this;
 
-    const { host } = this;
+    super.init();
 
     if (!this.hasAttr('theme')) {
       this.setAttr('theme', 'main');
@@ -37,8 +37,7 @@ export default class PopupBehavior extends WidgetBehavior {
 
       if (event.key === 'Escape') {
         if (button) {
-          button.set(false);
-          button.focus();
+          this.close();
         }
         event.stopPropagation();
       }
@@ -82,8 +81,6 @@ export default class PopupBehavior extends WidgetBehavior {
     // }
 
     this.close();
-
-    POPUPS.add(host);
   }
 
   linkButton() {
@@ -101,8 +98,6 @@ export default class PopupBehavior extends WidgetBehavior {
     this.button.unlinkPopup(this);
 
     delete this.button;
-
-    POPUPS.remove(host);
   }
 
   open() {
@@ -144,6 +139,7 @@ export default class PopupBehavior extends WidgetBehavior {
 
     if (this.button) {
       this.button.set(false);
+      this.button.host.focus();
     }
 
     host.style.removeProperty('--nu-transform');
@@ -156,20 +152,20 @@ export default class PopupBehavior extends WidgetBehavior {
     const childPopup = host.nuDeepQuery('[nu-popup]');
 
     if (childPopup) {
-      childPopup.nu('popup').then(Popup => Popup.close());
+      childPopup.nuPopup.close();
     }
   }
 }
 
-function findParentPopup(element, current) {
-  const elements = []
+function findParentPopup(element) {
+  const elements = [];
 
   do {
     if (element) {
-      const behaviors = element.nuBehaviors;
+      const nuButton = element.nuButton;
 
-      if (behaviors && behaviors.button && behaviors.button.popup) {
-        const popupEl = behaviors.button.popup.host;
+      if (nuButton.popup) {
+        const popupEl = nuButton.popup.host;
 
         if (popupEl) {
           elements.push(popupEl);
@@ -180,20 +176,19 @@ function findParentPopup(element, current) {
     }
 
     element = element.parentNode || element.host;
-  } while (element || !current.has(element));
+  } while (element);
 
   return elements;
 }
 
 function handleOutside(event) {
   if (event.nuPopupHandled) return;
-
-  const popups = findParentPopup(event.target, POPUPS);
+  const popups = findParentPopup(event.target);
 
   deepQueryAll(this === window ? document : this, '[nu-popup]')
     .forEach((currentPopup) => {
       if (!popups.includes(currentPopup)) {
-        currentPopup.nu('popup').then(popup => popup.close());
+        currentPopup.nuPopup.close();
         event.nuPopupHandled = true;
       }
     });

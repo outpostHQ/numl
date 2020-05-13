@@ -28,6 +28,8 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     const { host } = this;
 
+    host.nuButton = this;
+
     this.on('keydown', (event) => {
       if (event.key === 'Escape' && host.nuHasAria('expanded')) {
         this.set(false);
@@ -280,8 +282,7 @@ export default class ButtonBehavior extends WidgetBehavior {
       : (bool ? 'open' : 'close');
 
     if (innerPopup) {
-      innerPopup.nu('popup')
-        .then(Popup => Popup[method]());
+      innerPopup.nuPopup[method]();
     }
   }
 
