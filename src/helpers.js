@@ -1183,12 +1183,16 @@ export function deepQuery(element, selector) {
 
   if (el) return el;
 
+  let foundEl;
+
   return [...element.querySelectorAll('[shadow-root]')]
     .find(shadowEl => {
       const root = shadowEl.nuShadow;
 
-      return root && deepQuery(root, selector);
-    });
+      foundEl = deepQuery(root, selector);
+
+      return root && foundEl;
+    }) && foundEl;
 }
 
 export function deepQueryAll(element, selector) {
