@@ -40,6 +40,7 @@ export default class ComponentBehavior extends WidgetBehavior {
         });
 
         this.component.$on('input', (event) => {
+          this.setValue(event.detail, true);
           this.emit('input', event.detail);
           this.doActions(event.detail);
         });
@@ -92,6 +93,8 @@ export default class ComponentBehavior extends WidgetBehavior {
   }
 
   setValue(value, silent) {
+    if (value === this.value) return;
+
     super.setValue(value, silent || !this.component);
 
     this.set({ value });
