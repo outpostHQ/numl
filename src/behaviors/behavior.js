@@ -96,7 +96,7 @@ export default class Behavior {
   }
 
   linkContext(name, cb, localName) {
-    if (!localName) {
+    if (!localName && localName !== false) {
       localName = name;
     }
 
@@ -104,7 +104,9 @@ export default class Behavior {
       this.host.nuSetContextHook(name, (data) => {
         const oldValue = this[localName];
 
-        this[localName] = data;
+        if (localName) {
+          this[localName] = data;
+        }
 
         cb(data, oldValue);
       });
@@ -113,7 +115,9 @@ export default class Behavior {
     const value = this.parentContext[name];
 
     if (value != null) {
-      this[localName] = value || null;
+      if (localName) {
+        this[localName] = value || null;
+      }
 
       cb(value);
     }
