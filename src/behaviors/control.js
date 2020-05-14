@@ -1,6 +1,6 @@
 import { asyncDebounce } from "../helpers";
 
-const CONTROL_REGEXP = /([a-z][a-z0-9-]+)([\s]|$|\[([a-z-]+)(\]|=([^\]]+)\]))/g;
+const CONTROL_REGEXP = /([a-z][a-z0-9-]+)([\s]|$|\[(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
 
 export const CONTROL_ATTR = 'controls';
 
@@ -11,7 +11,7 @@ export default class ControlBehavior {
     this.apply = asyncDebounce(this.apply, this);
   }
 
-  apply(bool, applyValue) {
+  apply(bool, applyValue, applyOffValue) {
     const { host } = this;
     const value = host.getAttribute(CONTROL_ATTR);
 
@@ -22,7 +22,7 @@ export default class ControlBehavior {
     const elements = [];
 
     while (token = CONTROL_REGEXP.exec(value)) {
-      let [s, id, s1, attr, s2, val] = token;
+      let [s, id, s2, dot, attr, s4, units, s6, val] = token;
 
       // find controlled node
       const element = host.nuQueryById(id);
@@ -43,28 +43,48 @@ export default class ControlBehavior {
         val = '@value';
       }
 
+      let varFlag = false;
       let values = val.split('|')
         .map(vl => {
           if (val.startsWith('@')) {
             vl = vl.slice(1);
 
-            return vl === 'value' ? applyValue : host.nuGetVar(vl);
+            varFlag = true;
+
+            return vl === 'value' || !vl ? applyValue : host.nuGetVar(vl);
           }
 
           return vl;
         });
 
-      if (!bool) {
-        if (values.length > 1) {
-          element.setAttribute(attr, values[1]);
-        } else {
-          element.removeAttribute(attr);
-        }
-
-        continue;
+      if (!values[1] && varFlag) {
+        values[1] = values[0];
       }
 
-      element.setAttribute(attr, values[0]);
+      let setValue = `${values[0]}${units ? units : ''}`;
+      const isProp = attr.startsWith('--');
+
+      if (!bool) {
+        setValue = values[1] == null ? null : `${values[1]}${units ? units : ''}`;
+      }
+
+      if (dot) {
+        element[attr] = setValue;
+      } else {
+        if (setValue != null) {
+          if (isProp) {
+            element.style.setProperty(attr, String(setValue));
+          } else {
+            element.setAttribute(attr, String(setValue));
+          }
+        } else {
+          if (isProp) {
+            element.style.removeProperty(attr);
+          } else {
+            element.removeAttribute(attr);
+          }
+        }
+      }
     }
 
     if (elements.length) {

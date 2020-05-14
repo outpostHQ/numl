@@ -163,6 +163,8 @@ export default class SliderBehavior extends WidgetBehavior {
     if (!silent) {
       this.emit('input', value);
     }
+
+    this.control();
   }
 
   getOffset(value) {
