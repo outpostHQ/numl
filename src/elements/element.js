@@ -110,6 +110,7 @@ export default class NuElement extends NuBase {
       maxlength: '',
       mode: '',
       mask: '',
+      list: '',
     };
   }
 

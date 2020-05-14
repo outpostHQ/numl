@@ -1,5 +1,6 @@
 import FormatDateTime from '../formatters/datetime';
 import WidgetBehavior from './widget';
+import { queryById } from '../helpers';
 
 export default class ValueBehavior extends WidgetBehavior {
   static get params() {
@@ -27,6 +28,34 @@ export default class ValueBehavior extends WidgetBehavior {
     if (isEqual(this.value, value)) return;
 
     this.value = value;
+
+    this.apply();
+  }
+
+  apply() {
+    let { list, value } = this;
+
+    if (list) {
+      const listEl = queryById(this.host, list);
+
+      if (listEl && listEl.nuMenu) {
+        const menu = listEl.nuMenu;
+
+        const option = menu.getOptionByValue(this.value);
+
+        if (option) {
+          this.host.innerHTML = option.item.host.innerHTML;
+
+          return;
+        }
+      } else {
+        setTimeout(() => {
+          if (this.list) {
+            this.apply();
+          }
+        });
+      }
+    }
 
     if (value instanceof Date) {
       value = `<nu-datetime value="${String(value)}" date></nu-datetime>`;

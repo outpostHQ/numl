@@ -2,7 +2,8 @@ import WidgetBehavior from './widget';
 
 export default class MenuBehavior extends WidgetBehavior {
   init() {
-    this.options = new Set;
+    this.host.nuMenu = this;
+    this.options = [];
 
     super.init();
 
@@ -24,10 +25,16 @@ export default class MenuBehavior extends WidgetBehavior {
   }
 
   addOption(option) {
-    this.options.add(option);
+    this.options.push(option);
   }
 
   removeOption(option) {
-    this.options.delete(option);
+    if (!this.options.includes(option)) {
+      this.options.splice(this.options.indexOf(option), 1);
+    }
+  }
+
+  getOptionByValue(value) {
+    return this.options.find(option => option.value === value);
   }
 }

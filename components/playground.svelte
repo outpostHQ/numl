@@ -44,8 +44,8 @@
       </nu-btn>
 
       <nu-btn value="stretch" controls="layout[content=@]">
-        <nu-value></nu-value>
-        <nu-popupmenu link-value>
+        <nu-value list="options"></nu-value>
+        <nu-popupmenu id="options" link-value>
           <nu-menuitem value="stretch">Stretch</nu-menuitem>
           <nu-menuitem value="space-between">Space between</nu-menuitem>
           <nu-menuitem value="start">Start</nu-menuitem>
