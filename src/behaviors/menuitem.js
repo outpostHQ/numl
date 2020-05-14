@@ -10,6 +10,10 @@ export default class MenuItemBehavior extends ButtonBehavior {
   }
 
   init() {
+    delete this.props['link-value'];
+
+    this.linkValue = true;
+
     super.init();
 
     this.linkContext('menu', (menu) => {
