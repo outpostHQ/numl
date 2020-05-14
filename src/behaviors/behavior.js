@@ -75,6 +75,10 @@ export default class Behavior {
     this.host.nuSetMod(name, value);
   }
 
+  hasMod(name) {
+    return this.host.nuHasMod(name);
+  }
+
   setAria(name, value) {
     this.host.nuSetAria(name, value);
   }

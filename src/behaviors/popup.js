@@ -114,22 +114,24 @@ export default class PopupBehavior extends WidgetBehavior {
       this.button.host.nuSetAria('expanded', true);
     }
 
-    // Select first focusable element
-    const activeElement = host.nuDeepQuery('input, [tabindex]:not([tabindex="-1"]):not([disabled])');
-
     fixPosition(host);
-
-    if (activeElement) activeElement.focus();
 
     this.emit('open', null);
     this.emit('toggle', null);
 
     resetScroll(host, true);
 
+    // Select element with current value (for menus)
     const currentEl = deepQuery(host, '[nu-current]');
 
     if (currentEl) {
       currentEl.scrollIntoView({ block: 'center' });
+      currentEl.focus();
+    } else {
+      // Select first focusable element
+      const activeElement = host.nuDeepQuery('input, [tabindex]:not([tabindex="-1"]):not([disabled])');
+
+      if (activeElement) activeElement.focus();
     }
   }
 
@@ -164,14 +166,16 @@ export default class PopupBehavior extends WidgetBehavior {
 
   openEffect(bool) {
     if (bool) {
-      this.host.hidden = false;
+      this.setMod('closed', false);
+      // this.host.hidden = false;
     } else {
-      this.host.hidden = true;
+      this.setMod('closed', true);
+      // this.host.hidden = true;
     }
   }
 
   get isOpen() {
-    return !this.host.hidden;
+    return !this.hasMod('closed');
   }
 }
 
