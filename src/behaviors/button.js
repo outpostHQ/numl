@@ -61,7 +61,7 @@ export default class ButtonBehavior extends WidgetBehavior {
       }
     }
 
-    this.control(this.pressed, this.value);
+    this.control();
     this.createLink();
 
     host.nuSetContext('button', this);
@@ -205,10 +205,12 @@ export default class ButtonBehavior extends WidgetBehavior {
       this.emit('tap');
     }, 0);
 
-    this.control(this.pressed, this.value);
-    this.doActions(this.value);
-
-    this.toggle();
+    if (this.isToggle()) {
+      this.toggle();
+    } else {
+      this.control();
+      this.doActions(this.value);
+    }
   }
 
   get emitValue() {
@@ -264,9 +266,9 @@ export default class ButtonBehavior extends WidgetBehavior {
       this.emit('input', this.emitValue);
     }
 
-    host.nuSetMod('pressed', pressed);
+    this.control();
 
-    this.control(this.pressed, this.value);
+    host.nuSetMod('pressed', pressed);
 
     if (pressed) {
       this.doActions(this.value);
@@ -290,10 +292,6 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.toggleInnerPopup(false);
 
     super.setValue(value, silent);
-
-    setTimeout(() => {
-      this.control(this.pressed, this.value);
-    });
   }
 
   setByValue(val) {
@@ -351,5 +349,10 @@ export default class ButtonBehavior extends WidgetBehavior {
     if (!this.isToggle() || value == null) return;
 
     this.set(isEqual(this.value, value));
+  }
+
+  control() {
+    this.nu('control')
+      .then(Control => Control.apply(!!this.pressed, this.getTypedValue(this.emitValue)));
   }
 }

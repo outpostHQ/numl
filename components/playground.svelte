@@ -1,5 +1,78 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'control')}
+  <nu-card as="section">
+    <nu-heading>Toggle icon styles</nu-heading>
+    <nu-block>
+      <nu-btn
+        role="checkbox" pressed clear
+        controls="light[color=text|special] light[size=3x|2x]">
+        Toggle
+      </nu-btn>
+      <nu-icon id="light" name="sun"></nu-icon>
+    </nu-block>
+  </nu-card>
+
+  <nu-card as="section">
+    <nu-heading>Slider value</nu-heading>
+
+    <nu-block id="block"></nu-block>
+
+    <nu-slider value="50" controls="block[.innerText]"></nu-slider>
+  </nu-card>
+
+  <nu-card as="section">
+    <nu-heading>Toggle icon name</nu-heading>
+    <nu-block>
+      <nu-btn
+        role="checkbox" clear
+        value="sun" off-value="moon"
+        controls="light[name=@]">
+        Toggle
+      </nu-btn>
+      <nu-icon id="light" name="sun"></nu-icon>
+    </nu-block>
+  </nu-card>
+
+  <nu-card as="section">
+    <nu-heading>Toggle layout</nu-heading>
+    <nu-flex gap>
+      <nu-btn
+        role="checkbox"
+        controls="layout[columns=auto auto|repeat(4, auto)]">
+        Toggle Layout
+      </nu-btn>
+
+      <nu-btn value="stretch" controls="layout[content=@]">
+        <nu-value></nu-value>
+        <nu-popupmenu link-value>
+          <nu-menuitem value="stretch">Stretch</nu-menuitem>
+          <nu-menuitem value="space-between">Space between</nu-menuitem>
+          <nu-menuitem value="start">Start</nu-menuitem>
+          <nu-menuitem value="end">End</nu-menuitem>
+        </nu-popupmenu>
+      </nu-btn>
+    </nu-flex>
+    <nu-block id="layout" display="grid" gap>
+      <nu-card>
+        First card
+      </nu-card>
+
+      <nu-card>
+        Second card
+      </nu-card>
+
+      <nu-card>
+        Third card
+      </nu-card>
+
+      <nu-card>
+        Fourth card
+      </nu-card>
+    </nu-block>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'form')}
   <nu-card as="section">
     <nu-form value={formData} on:input={submit} nx-debug="form-debugger0">
@@ -89,61 +162,61 @@
 <!--</nu-card>-->
 
 {#if show(hash, 'progressbar')}
-<nu-card as="section">
-  <nu-heading level="2">Progressbar</nu-heading>
-  <nu-progressbar value="50"></nu-progressbar>
-</nu-card>
+  <nu-card as="section">
+    <nu-heading level="2">Progressbar</nu-heading>
+    <nu-progressbar value="50"></nu-progressbar>
+  </nu-card>
 {/if}
 
 {#if show(hash, 'slider')}
-<nu-card as="section">
-  <nu-heading level="2">Slider</nu-heading>
-  <nu-slider value="50" nx-debug="slider-debug-h"></nu-slider>
-  <nu-slider value="50" orient="v" nx-debug="slider-debug-v"></nu-slider>
+  <nu-card as="section">
+    <nu-heading level="2">Slider</nu-heading>
+    <nu-slider value="50" nx-debug="slider-debug-h"></nu-slider>
+    <nu-slider value="50" orient="v" nx-debug="slider-debug-v"></nu-slider>
 
-  <nu-grid gap columns="1fr 1fr">
-    <nu-debug id="slider-debug-h"></nu-debug>
-    <nu-debug id="slider-debug-v"></nu-debug>
-  </nu-grid>
-</nu-card>
+    <nu-grid gap columns="1fr 1fr">
+      <nu-debug id="slider-debug-h"></nu-debug>
+      <nu-debug id="slider-debug-v"></nu-debug>
+    </nu-grid>
+  </nu-card>
 {/if}
 
 {#if show(hash, 'select')}
-<nu-card as="section">
-  <nu-heading level="3">Select</nu-heading>
+  <nu-card as="section">
+    <nu-heading level="3">Select</nu-heading>
 
-  <nu-btn id="select" nx-debug="debugger4" type="date">
-    <nu-value></nu-value>
-    <nu-popupmenu type="date" nx-debug="select-debugger" link-value>
-      <nu-menuitem value="05.10.2020">One</nu-menuitem>
-      <nu-menuitem value="10.10.2020">Two</nu-menuitem>
-      <nu-menuitem>
-        Something else...
-        <nu-popupmenu place="outside-right -1x 0" link-value>
-          <nu-menuitem value="05.11.2020">Three</nu-menuitem>
-        </nu-popupmenu>
-      </nu-menuitem>
-    </nu-popupmenu>
-  </nu-btn>
+    <nu-btn id="select" nx-debug="debugger4" type="date">
+      <nu-value></nu-value>
+      <nu-popupmenu type="date" nx-debug="select-debugger" link-value>
+        <nu-menuitem value="05.10.2020">One</nu-menuitem>
+        <nu-menuitem value="10.10.2020">Two</nu-menuitem>
+        <nu-menuitem>
+          Something else...
+          <nu-popupmenu place="outside-right -1x 0" link-value>
+            <nu-menuitem value="05.11.2020">Three</nu-menuitem>
+          </nu-popupmenu>
+        </nu-menuitem>
+      </nu-popupmenu>
+    </nu-btn>
 
-  <nu-btn id="select" type="date">
-    <nu-value></nu-value>
-    <nu-popupmenu type="date" link-value>
-      <nu-menuitem value="05.10.2020">One</nu-menuitem>
-      <nu-menuitem value="10.10.2020">Two</nu-menuitem>
-    </nu-popupmenu>
-  </nu-btn>
+    <nu-btn id="select" type="date">
+      <nu-value></nu-value>
+      <nu-popupmenu type="date" link-value>
+        <nu-menuitem value="05.10.2020">One</nu-menuitem>
+        <nu-menuitem value="10.10.2020">Two</nu-menuitem>
+      </nu-popupmenu>
+    </nu-btn>
 
-  <nu-debug id="select-debugger"></nu-debug>
+    <nu-debug id="select-debugger"></nu-debug>
 
-  <!--  <nu-card width="minmax(20, min-content)">-->
-  <!--    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>-->
-  <!--  </nu-card>-->
-  <!--  <nu-dateinput width="min(10)" mode="range"></nu-dateinput>-->
-</nu-card>
+    <!--  <nu-card width="minmax(20, min-content)">-->
+    <!--    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>-->
+    <!--  </nu-card>-->
+    <!--  <nu-dateinput width="min(10)" mode="range"></nu-dateinput>-->
+  </nu-card>
 {/if}
 
-<!--<nu-card display="grid" columns="1fr 1fr 1fr" gap>-->
+  <!--<nu-card display="grid" columns="1fr 1fr 1fr" gap>-->
 <!--  <nu-debug id="debugger4"></nu-debug>-->
 <!--  <nu-debug id="debugger5"></nu-debug>-->
 <!--  <nu-debug id="debugger6"></nu-debug>-->

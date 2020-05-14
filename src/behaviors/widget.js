@@ -168,6 +168,8 @@ export default class WidgetBehavior extends Behavior {
         }
 
         this.linkContext('form', (form, oldForm) => {
+          this.oldForm = oldForm;
+
           if (oldForm && form !== oldForm) {
             this.disconnectForm(oldForm, !!form);
           }
@@ -229,11 +231,14 @@ export default class WidgetBehavior extends Behavior {
     this.setValue(val, silent);
   }
 
-  disconnectForm(form = this.form, dontDelete) {
+  disconnectForm(form = this.oldForm, dontDelete) {
     const id = this.host.nuId;
 
     this.setFormValue(null, form);
-    form.unregisterField(id);
+
+    if (form) {
+      form.unregisterField(id);
+    }
 
     if (!dontDelete) {
       delete this.form;
@@ -278,9 +283,6 @@ export default class WidgetBehavior extends Behavior {
       if (this.params.input) {
         this.setFormValue(detail);
       }
-
-      this.nu('control')
-        .then(Control => Control.apply(true, detail));
     }
 
     if (name !== 'log') {
@@ -377,9 +379,9 @@ export default class WidgetBehavior extends Behavior {
     return this.host.getAttribute('role');
   }
 
-  control(bool, value) {
+  control() {
     this.nu('control')
-      .then(Control => Control.apply(!!bool, value));
+      .then(Control => Control.apply(true, this.getTypedValue(this.emitValue)));
   }
 
   doAction(value, action) {
@@ -439,9 +441,10 @@ export default class WidgetBehavior extends Behavior {
 
     if (!silent) {
       this.emit('input', value);
-
       this.doActions(value);
     }
+
+    this.control();
   }
 
   setFormValue(detail = this.getTypedValue(this.emitValue), form = this.form) {
