@@ -672,23 +672,25 @@ export default class NuBase extends HTMLElement {
     this.nuFirstConnect = false;
     this.nuIsConnectionComplete = true;
 
-    const allAttrs = this.constructor.nuAllAttrs;
-
-    if (allAttrs) {
-      Object.entries(allAttrs)
-        .forEach(([attr, value]) => {
-          if (value != null && !this.hasAttribute(attr)) {
-            this.setAttribute(attr, String(value));
-          }
-        });
-    }
-
     const behaviorList = this.constructor.nuBehaviorList;
 
     if (behaviorList.length) {
       for (let name of behaviorList) {
         this.nu(name);
       }
+    }
+
+    const allAttrs = this.constructor.nuAllAttrs;
+
+    if (allAttrs) {
+      setTimeout(() => {
+        Object.entries(allAttrs)
+        .forEach(([attr, value]) => {
+          if (value != null && !this.hasAttribute(attr)) {
+            this.setAttribute(attr, String(value));
+          }
+        });
+      });
     }
   }
 
