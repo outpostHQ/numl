@@ -1433,3 +1433,10 @@ export function scrollParentToChild(parent, child) {
   }
 }
 
+export function getHost(element) {
+  const root = element.getRootNode();
+
+  if (root !== document) {
+    return root.host;
+  }
+}

@@ -26,6 +26,8 @@ export default class ConverterBehavior extends WidgetBehavior {
 
     if (useShadow) {
       host.attachShadow({ mode: 'open' });
+    } else {
+      this.setMod('host', true);
     }
 
     if (!ref) {
