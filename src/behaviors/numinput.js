@@ -5,7 +5,11 @@ import { getFloatFromAttr, isEqual } from '../helpers';
 export default class NumInputBehavior extends InputBehavior {
   init() {
     this.props.value = (val) => {
-      this.setValue(getFloatFromAttr(val, 0), true);
+      if (val == null) {
+        this.setValue(null);
+      } else {
+        this.setValue(getFloatFromAttr(val, 0), true);
+      }
     };
     this.props.min = (val) => {
       return getFloatFromAttr(val, Number.MIN_SAFE_INTEGER);
@@ -26,7 +30,8 @@ export default class NumInputBehavior extends InputBehavior {
     ref.addEventListener('focus', (event) => {
       try {
         ref.select();
-      } catch(e) {}
+      } catch (e) {
+      }
     });
   }
 
@@ -37,12 +42,16 @@ export default class NumInputBehavior extends InputBehavior {
   }
 
   setValue(value, silent) {
-    value = getFloatFromAttr(value);
+    if (value != null) {
+      value = getFloatFromAttr(value);
+    }
 
-    if (this.value > this.max) {
-      value = this.max;
-    } else if (this.value < this.min) {
-      value = this.min;
+    if (value != null) {
+      if (this.value > this.max) {
+        value = this.max;
+      } else if (this.value < this.min) {
+        value = this.min;
+      }
     }
 
     if (isEqual(this.value, value)) return;
@@ -50,7 +59,11 @@ export default class NumInputBehavior extends InputBehavior {
     this.value = value;
 
     if (this.ref) {
-      this.ref.value = value;
+      if (value == null) {
+        this.ref.value = '';
+      } else {
+        this.ref.value = value;
+      }
     }
 
     if (!silent) {
@@ -61,6 +74,8 @@ export default class NumInputBehavior extends InputBehavior {
   }
 
   declareProps() {
-    this.host.style.setProperty('--nu-value', `"${NumberFormat(this.value, this.locale, this)}"`);
+    let visibleValue = this.value != null ? `"${NumberFormat(this.value, this.locale, this)}"` : `"${this.placeholder}"`;
+
+    this.host.style.setProperty('--nu-value', visibleValue);
   }
 }
