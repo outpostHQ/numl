@@ -6,7 +6,7 @@
     <nu-block>
       <nu-btn
         role="checkbox" pressed clear
-        controls="light[color=text|special] light[size=3x|2x]">
+        control="light[color=text|special] light[size=3x|2x]">
         Toggle
       </nu-btn>
       <nu-icon id="light" name="sun"></nu-icon>
@@ -18,7 +18,7 @@
 
     <nu-block id="block"></nu-block>
 
-    <nu-slider value="50" controls="block[.innerText]"></nu-slider>
+    <nu-slider value="50" control="block[.innerText]"></nu-slider>
   </nu-card>
 
   <nu-card as="section">
@@ -27,7 +27,7 @@
       <nu-btn
         role="checkbox" clear
         value="sun" off-value="moon"
-        controls="light[name=@]">
+        control="light[name=@]">
         Toggle
       </nu-btn>
       <nu-icon id="light" name="sun"></nu-icon>
@@ -39,11 +39,11 @@
     <nu-flex gap>
       <nu-btn
         role="checkbox"
-        controls="layout[columns=auto auto|repeat(4, auto)]">
+        control="layout[columns=auto auto|repeat(4, auto)]">
         Toggle Layout
       </nu-btn>
 
-      <nu-btn value="stretch" controls="layout[content=@]">
+      <nu-btn value="stretch" control="layout[content=@]">
         <nu-value list="options"></nu-value>
         <nu-popupmenu id="options" link-value>
           <nu-menuitem value="stretch">Stretch</nu-menuitem>
@@ -73,7 +73,7 @@
   </nu-card>
 
   <nu-card as="section">
-    <nu-btngroup value="auto" controls=":root[data-nu-scheme=@]">
+    <nu-btngroup value="auto" control=":root[data-nu-scheme=@]">
       <nu-btn value="auto">Auto</nu-btn>
       <nu-btn value="dark">Dark</nu-btn>
       <nu-btn value="light">Light</nu-btn>

@@ -3,7 +3,7 @@ import { ROOT } from '../context';
 
 const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
 
-export const CONTROL_ATTR = 'controls';
+export const CONTROL_ATTR = 'control';
 
 export default class ControlBehavior {
   constructor(host) {
@@ -12,7 +12,16 @@ export default class ControlBehavior {
     this.apply = asyncDebounce(this.apply, this);
   }
 
-  apply(bool, applyValue, applyOffValue) {
+  changed(name, value) {
+    if (name === CONTROL_ATTR && value) {
+      this.apply(this.bool, this.applyValue);
+    }
+  }
+
+  apply(bool, applyValue) {
+    this.bool = bool;
+    this.applyValue = applyValue;
+
     const { host } = this;
     const value = host.getAttribute(CONTROL_ATTR);
 
@@ -99,7 +108,7 @@ export default class ControlBehavior {
     }
 
     if (elements.length) {
-      host.nuSetAria('controls', elements.map(el => el.nuUniqId));
+      host.nuSetAria('controls', elements.map(el => el.nuUniqId).filter(id => id).join(' '));
     } else {
       host.nuSetAria('controls', null);
     }
