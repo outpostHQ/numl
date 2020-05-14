@@ -105,7 +105,7 @@ export default class InputBehavior extends WidgetBehavior {
   }
 
   setValue(value, silent) {
-    if (this.value === value) return;
+    if (isEqual(this.value, value)) return;
 
     this.value = value;
 

@@ -1366,3 +1366,35 @@ export function getRealHeight(el) {
 
   return height;
 }
+
+export function getType(value) {
+  if (typeof value === 'boolean') {
+    return 'bool';
+  } else if (typeof value === 'string') {
+    return 'text';
+  } else if (typeof value === 'number') {
+    return 'num';
+  } else if (value instanceof Date) {
+    return 'date';
+  } else if (Array.isArray(value) && value[0] instanceof Date && value[1] instanceof Date) {
+    return 'daterange';
+  }
+}
+
+export function isEqual(val1, val2) {
+  const type1 = getType(val1);
+  const type2 = getType(val2);
+
+  if (type1 !== type2) {
+    return false;
+  } else if (type1 === 'date') {
+    return val1.getTime() === val2.getTime();
+  } else if (type1 === 'daterange') {
+    return val1[0].getTime() === val2[0].getTime()
+      && val1[1].getTime() === val2[1].getTime();
+  } else {
+    return val1 === val2;
+  }
+}
+
+window.isEqual = isEqual;

@@ -24,7 +24,7 @@ export default class ValueBehavior extends WidgetBehavior {
   }
 
   setValue(value) {
-    if (this.value === value) return;
+    if (isEqual(this.value, value)) return;
 
     this.value = value;
 

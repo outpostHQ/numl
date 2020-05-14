@@ -20,10 +20,12 @@
     <nu-btn id="dropdown" on:tap={toggle}>
       <nu-datetime year value={navDate}></nu-datetime>
       <nu-icon id="dropdown-icon"></nu-icon>
-      <nu-popupmenu height="28x" overflow="auto" scrollbar bind:this={yearPopup}>
+      <nu-popupmenu
+        height="28x" overflow="auto" scrollbar bind:this={yearPopup}
+        on:input={(event) => navDate = event.detail} value={navDate}>
         {#each years as year}
           <nu-menuitem
-            on:tap={() => navDate = year}
+            value={year}
             disabled={!isMonthInRange(year, beginDate, endDate) ? '' : undefined}
               nu-current={isSameDay(navDate, year) ? '' : undefined}
               color=":current[special]"
@@ -147,6 +149,7 @@ import {
   endOfQuarter,
   max as maxDate,
   min as minDate,
+  setYear,
 } from 'date-fns';
 import { isNan, isValidDate } from '../helpers';
 
@@ -204,6 +207,7 @@ let yearPopup;
 let monthPopup;
 let touched = false;
 
+$: navDateCurrentYear = setYear(new Date(navDate), todayDate.getFullYear());
 $: host.setAttribute('type', mode === 'range' ? 'daterange' : 'date');
 $: navQuater = getQuarter(navDate);
 $: navMonthStartDate = navDate;
@@ -232,7 +236,7 @@ $: beginDate = (() => {
     return date;
   }
 
-  return new Date(`${parseInt(currentYear) - 100}-01-01`);
+  return addYears(todayDate, -100);
 })();
 $: endDate = (() => {
   let date;
@@ -247,7 +251,7 @@ $: endDate = (() => {
     return date;
   }
 
-  return new Date(`${parseInt(currentYear) + 100}-01-01`);
+  return addYears(todayDate, 100);
 })();
 $: monthDays = (() => {
   let arr = [];
@@ -277,31 +281,18 @@ $: startOfYearDate = startOfYear(navDate);
 $: months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(i => {
   if (!touched) return [];
 
-  return addMonths(startOfYearDate, i);
+  return addMonths(startOfYear(navDate), i);
 });
 $: years = (() => {
   if (!touched) return [];
 
-  const list = [navDate];
+  const list = [];
 
-  let date = navDate;
+  const startYear = beginDate.getFullYear();
+  const endYear = endDate.getFullYear();
 
-  while (isMonthInRange(date, beginDate, endDate)) {
-    date = addYears(date, -1);
-
-    list.unshift(date);
-
-    if (list.length > 100) break;
-  }
-
-  date = addYears(navDate, 1);
-
-  while (isMonthInRange(date, beginDate, endDate) && !isNan(date.getTime())) {
-    list.push(date);
-
-    date = addYears(date, 1);
-
-    if (list.length > 200) break;
+  for (let i = 0; i <= endYear - startYear; i++) {
+    list.push(setYear(navDate, startYear + i));
   }
 
   return list;
@@ -442,11 +433,6 @@ function toLowerCase(date) {
 
 function toggle() {
   touched = true;
-
-  setTimeout(() => {
-    yearPopup.querySelector('[nu-current]').scrollIntoView({ block: 'center' });
-    monthPopup.querySelector('[nu-current]').scrollIntoView({ block: 'center' });
-  }, 100);
 }
 
 function setRange(range) {

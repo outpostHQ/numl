@@ -150,7 +150,7 @@ export default class SliderBehavior extends WidgetBehavior {
     if (value < min) value = min;
     if (value > max) value = max;
 
-    if (value === this.value) return;
+    if (isEqual(value, this.value)) return;
 
     this.value = value;
 
