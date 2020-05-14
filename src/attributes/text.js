@@ -14,7 +14,7 @@ set('no-decoration', { 'text-decoration': 'none' });
 [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => set(`w${index}`, { '--nu-text-font-weight': `${index}00` }));
 ['uppercase', 'lowercase', 'capitalize'].forEach(name => set(name, { 'text-transform': name }));
 
-['baseline', 'sub', 'super', 'text-top', 'text-bottom', 'middle', 'top', 'bottom'].forEach(name => set(name, { 'vertical-align': name }));
+['baseline', 'sub', 'sup', 'text-top', 'text-bottom', 'middle', 'top', 'bottom'].forEach(name => set(name, { 'vertical-align': name === 'sup' ? 'super' : name }));
 
 set('v-middle', { 'vertical-align': 'var(--nu-inline-offset)' });
 
