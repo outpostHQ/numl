@@ -1,4 +1,4 @@
-import { deepQuery, deepQueryAll, fixPosition, resetScroll } from '../helpers';
+import { deepQuery, deepQueryAll, fixPosition, resetScroll, scrollParentToChild } from '../helpers';
 import WidgetBehavior from './widget';
 
 let POPUPS = new Set;
@@ -125,7 +125,8 @@ export default class PopupBehavior extends WidgetBehavior {
     const currentEl = deepQuery(host, '[nu-current]');
 
     if (currentEl) {
-      currentEl.scrollIntoView({ block: 'center' });
+      // currentEl.scrollIntoView({ block: 'center' });
+      scrollParentToChild(host, currentEl);
       currentEl.focus();
     } else {
       // Select first focusable element
