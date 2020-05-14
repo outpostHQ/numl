@@ -1,6 +1,6 @@
 import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
-import { h, isEqual } from '../helpers';
+import { h, isEqual, queryById } from '../helpers';
 
 export default class ButtonBehavior extends WidgetBehavior {
   static get params() {
@@ -184,6 +184,22 @@ export default class ButtonBehavior extends WidgetBehavior {
       this.$link.click();
 
       return;
+    }
+
+    if (this.to && evt.target === this.$link) {
+      if (this.href.startsWith('#')) {
+        const id = this.href.slice(1);
+        const elm = queryById(host, id);
+
+        if (elm) {
+          console.log('!', elm);
+          elm.scrollIntoView();
+
+          evt.preventDefault();
+
+          return;
+        }
+      }
     }
 
     if (this.disabled
