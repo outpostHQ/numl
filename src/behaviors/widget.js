@@ -61,6 +61,8 @@ Object.assign(BASE_PROPS, {
   placeholder: '...',
 });
 
+delete BASE_PROPS.control;
+
 export const PROPS_LIST = Object.keys(BASE_PROPS).reverse();
 
 export default class WidgetBehavior extends Behavior {

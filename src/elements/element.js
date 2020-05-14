@@ -28,7 +28,7 @@ export default class NuElement extends NuBase {
       ...BaseAttributes,
       role: '',
       direction: '',
-      controls: '',
+      control: '',
       label: '',
       level: '',
       labelledby: '',

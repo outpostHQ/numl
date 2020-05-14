@@ -8,15 +8,15 @@
   <nu-block>
     <nu-el text="w6">el{target.nuDebugId}</nu-el> in console
   </nu-block>
-  <nu-tablist value="eventlog" border="inside bottom" controls="tabs-header[padding]">
-    <nu-tab controls="eventlog" value="eventlog">
+  <nu-tablist value="eventlog" border="inside bottom" control="tabs-header[padding]">
+    <nu-tab control="eventlog" value="eventlog">
       event log
     </nu-tab>
-    <nu-tab controls="attributes" value="attributes">
+    <nu-tab control="attributes" value="attributes">
       attributes
     </nu-tab>
     {#each behaviors as behavior}
-      <nu-tab controls={behavior.$$name} value={behavior.$$name}>
+      <nu-tab control={behavior.$$name} value={behavior.$$name}>
         {behavior.$$name}
       </nu-tab>
     {/each}
