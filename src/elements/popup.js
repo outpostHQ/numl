@@ -25,8 +25,12 @@ export default class NuPopup extends NuCard {
       display: 'block',
       shadow: '',
       z: 'front',
-      opacity: '^ 0 :pressed[1]',
-      transition: 'opacity',
+      opacity: ':closed[0] 1',
+      interactive: 'yes :closed[no]',
+      // scale: '1 :closed[1 .5]',
+      move: '0 0 :closed[0 4x]',
+      transition: 'opacity, transform',
+      origin: 'top',
       border: '1b outside',
       width: 'minmax(100%, 100vw) :drop[clamp(--fixate-width, min-content, 100vw)]',
       text: 'wrap w4',
@@ -41,6 +45,10 @@ export default class NuPopup extends NuCard {
       ${css}
       ${tag} {
         user-select: initial;
+      }
+
+      ${tag}:not([nu-popup]) {
+        display: none;
       }
     `;
   }
