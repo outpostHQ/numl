@@ -49,6 +49,7 @@ export default class MenuItemBehavior extends ButtonBehavior {
 
     if (this.menu && this.hasValue) {
       this.addOption();
+      this.setMod('current', isEqual(this.menu.value, this.value));
     }
   }
 

@@ -1,4 +1,5 @@
 import WidgetBehavior from './widget';
+import { isEqual } from '../helpers';
 
 export default class MenuBehavior extends WidgetBehavior {
   init() {
@@ -35,6 +36,6 @@ export default class MenuBehavior extends WidgetBehavior {
   }
 
   getOptionByValue(value) {
-    return this.options.find(option => option.value === value);
+    return this.options.find(option => isEqual(option.value, value));
   }
 }
