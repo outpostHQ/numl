@@ -1,6 +1,7 @@
 import { asyncDebounce } from "../helpers";
+import { ROOT } from '../context';
 
-const CONTROL_REGEXP = /([a-z][a-z0-9-]+)([\s]|$|\[(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
+const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
 
 export const CONTROL_ATTR = 'controls';
 
@@ -22,10 +23,20 @@ export default class ControlBehavior {
     const elements = [];
 
     while (token = CONTROL_REGEXP.exec(value)) {
-      let [s, id, s2, dot, attr, s4, units, s6, val] = token;
+      let [s, id, special, s3, dot, attr, s7, units, s9, val] = token;
+      let element;
 
       // find controlled node
-      const element = host.nuQueryById(id);
+
+      if (special) {
+        if (id === ':root') {
+          element = ROOT;
+        } else {
+          continue;
+        }
+      } else {
+        element = host.nuQueryById(id);
+      }
 
       if (!element) continue;
 

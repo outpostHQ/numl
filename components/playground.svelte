@@ -71,6 +71,14 @@
       </nu-card>
     </nu-block>
   </nu-card>
+
+  <nu-card as="section">
+    <nu-btngroup value="auto" controls=":root[data-nu-scheme=@]">
+      <nu-btn value="auto">Auto</nu-btn>
+      <nu-btn value="dark">Dark</nu-btn>
+      <nu-btn value="light">Light</nu-btn>
+    </nu-btngroup>
+  </nu-card>
 {/if}
 
 {#if show(hash, 'form')}
