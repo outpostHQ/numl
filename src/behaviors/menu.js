@@ -22,4 +22,12 @@ export default class MenuBehavior extends WidgetBehavior {
       popup.close();
     }
   }
+
+  addOption(option) {
+    this.options.add(option);
+  }
+
+  removeOption(option) {
+    this.options.delete(option);
+  }
 }
