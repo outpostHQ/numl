@@ -43,7 +43,11 @@ export default class InputBehavior extends WidgetBehavior {
     const { ref } = this;
 
     if (this.value == null) {
-      this.setValue(tag === 'textarea' ? ref.textContent : ref.value, true);
+      const elementValue = tag === 'textarea' ? ref.textContent : ref.value;
+
+      if (elementValue) {
+        this.setValue(elementValue, true);
+      }
     }
 
     this.setFormValue();
