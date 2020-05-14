@@ -1397,4 +1397,18 @@ export function isEqual(val1, val2) {
   }
 }
 
+export function getContextOwner(element, name) {
+  let context = element.nuContext;
+
+  while (!context.hasOwnProperty(name)) {
+    context = Object.getPrototypeOf(context);
+  }
+
+  while(element.nuContext !== context) {
+    element = element.parentNode || element.host;
+  }
+
+  return element;
+}
+
 window.isEqual = isEqual;

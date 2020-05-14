@@ -27,8 +27,7 @@
           <nu-menuitem
             value={year}
             disabled={!isMonthInRange(year, beginDate, endDate) ? '' : undefined}
-              nu-current={isSameDay(navDate, year) ? '' : undefined}
-              color=":current[special]"
+            color=":current[special]"
             fill=":current[subtle]">
             <nu-datetime year value={year}></nu-datetime>
           </nu-menuitem>
@@ -54,8 +53,7 @@
           <nu-menuitem
             value={month}
             disabled={!isMonthInRange(month, beginDate, endDate) ? '' : undefined}
-              nu-current={isSameDay(navDate, month) ? '' : undefined}
-              color=":current[special]"
+            color=":current[special]"
             fill=":current[subtle]">
             <nu-datetime month value={month}></nu-datetime>
           </nu-menuitem>
@@ -93,7 +91,6 @@
     <nu-btn
       as={day.modifiers}
       padding=".5x 1x"
-      nu-current={isSameDay(day.date, todayDate)}
       on:tap={() => selectRange(day.date)}
       on:mouseover={() => setHover(day.date)}>
       {day.date.getDate()}
