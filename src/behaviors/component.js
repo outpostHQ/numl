@@ -32,6 +32,10 @@ export default class ComponentBehavior extends WidgetBehavior {
         const target = this.isShadowAllowed
           ? host.attachShadow({ mode: 'open' }) : host;
 
+        if (target === host) {
+          this.setMod('host', true);
+        }
+
         this.Component = Component;
 
         this.component = new Component({

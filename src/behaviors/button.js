@@ -46,6 +46,10 @@ export default class ButtonBehavior extends WidgetBehavior {
      * @type {RadioGroupBehavior}
      */
     this.radioGroup = null;
+
+    if (this.to) {
+      this.changed('to', this.to);
+    }
   }
 
   connected() {
