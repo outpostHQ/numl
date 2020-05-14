@@ -93,6 +93,7 @@
     <nu-btn
       as={day.modifiers}
       padding=".5x 1x"
+      nu-current={isSameDay(day.date, todayDate)}
       on:tap={() => selectRange(day.date)}
       on:mouseover={() => setHover(day.date)}>
       {day.date.getDate()}
@@ -126,7 +127,6 @@ export const props = ['value', 'locale', 'begin', 'end', 'mode'];
 
 <script>
 import { createEventDispatcher } from 'svelte';
-
 import {
   addDays,
   addMonths,
@@ -151,7 +151,7 @@ import {
   min as minDate,
   setYear,
 } from 'date-fns';
-import { isNan, isValidDate } from '../helpers';
+import { isValidDate, setTransitionTimeout } from '../helpers';
 
 export let value;
 export let locale;
@@ -163,7 +163,7 @@ export let host;
 const dispatch = createEventDispatcher();
 
 function touch() {
-  setTimeout(() => {
+  setTransitionTimeout(host, () => {
     touched = true;
   });
 }
