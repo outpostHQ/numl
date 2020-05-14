@@ -1411,6 +1411,7 @@ export function getContextOwner(element, name) {
   return element;
 }
 
+// @see https://stackoverflow.com/questions/45408920/plain-javascript-scrollintoview-inside-div
 export function scrollParentToChild(parent, child) {
   // Where is the parent on page
   const parentRect = parent.getBoundingClientRect();
@@ -1432,4 +1433,3 @@ export function scrollParentToChild(parent, child) {
   }
 }
 
-window.isEqual = isEqual;

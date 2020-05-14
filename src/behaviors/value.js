@@ -1,6 +1,5 @@
-import FormatDateTime from '../formatters/datetime';
 import WidgetBehavior from './widget';
-import { queryById } from '../helpers';
+import { isEqual, queryById } from '../helpers';
 
 export default class ValueBehavior extends WidgetBehavior {
   static get params() {

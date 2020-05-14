@@ -1,5 +1,5 @@
 import Behavior from "./behavior";
-import { devMode, isValidDate, log, toCamelCase, setImmediate } from '../helpers';
+import { devMode, isValidDate, log, toCamelCase, setImmediate, isEqual } from '../helpers';
 import NuElement from '../elements/element';
 
 const LOCALE_VAR = 'locale';

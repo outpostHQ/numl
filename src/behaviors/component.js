@@ -1,4 +1,4 @@
-import { toCamelCase } from '../helpers';
+import { isEqual, toCamelCase } from '../helpers';
 import WidgetBehavior, { PROPS_LIST } from './widget';
 import Components from '../components/index';
 

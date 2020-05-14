@@ -1,6 +1,6 @@
 import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
-import { h } from '../helpers';
+import { h, isEqual } from '../helpers';
 
 export default class ButtonBehavior extends WidgetBehavior {
   static get params() {

@@ -1,6 +1,6 @@
 import InputBehavior from './input';
 import NumberFormat from '../formatters/number';
-import { getFloatFromAttr } from '../helpers';
+import { getFloatFromAttr, isEqual } from '../helpers';
 
 export default class NumInputBehavior extends InputBehavior {
   init() {
