@@ -46,7 +46,7 @@
             <nu-label for="name">User name</nu-label>
             <nu-inputgroup>
               <nu-icon name="user" size="lg"></nu-icon>
-              <nu-input id="name" grow="1" nx-debug="form-debugger2"></nu-input>
+              <nu-input id="name" grow="1"></nu-input>
             </nu-inputgroup>
             <nu-check for="name" assert="required">
               Name is required

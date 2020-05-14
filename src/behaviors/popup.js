@@ -1,4 +1,4 @@
-import { deepQueryAll, fixPosition, resetScroll } from '../helpers';
+import { deepQuery, deepQueryAll, fixPosition, resetScroll } from '../helpers';
 import WidgetBehavior from './widget';
 
 let POPUPS = new Set;
@@ -125,6 +125,12 @@ export default class PopupBehavior extends WidgetBehavior {
     this.emit('toggle', null);
 
     resetScroll(host, true);
+
+    const currentEl = deepQuery(host, '[nu-current]');
+
+    if (currentEl) {
+      currentEl.scrollIntoView({ block: 'center' });
+    }
   }
 
   close() {

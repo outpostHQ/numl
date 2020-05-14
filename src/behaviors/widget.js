@@ -429,7 +429,7 @@ export default class WidgetBehavior extends Behavior {
   setValue(value, silent) {
     this.log('set value', value, silent);
 
-    if (this.value === value) return;
+    if (isEqual(this.value, value)) return;
 
     this.value = value;
 

@@ -9,6 +9,6 @@ export default class MenuItemBehavior extends ButtonBehavior {
   }
 
   fromContextValue(value) {
-    this.setMod('current', value === this.value);
+    this.setMod('current', isEqual(value, this.value));
   }
 }

@@ -303,7 +303,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     if (value != null) {
       value = this.getTypedValue(value);
 
-      if (value === val) {
+      if (isEqual(value, val)) {
         return this.set(true);
       }
 
@@ -350,6 +350,6 @@ export default class ButtonBehavior extends WidgetBehavior {
   fromContextValue(value) {
     if (!this.isToggle() || value == null) return;
 
-    this.set(this.value === value);
+    this.set(isEqual(this.value, value));
   }
 }

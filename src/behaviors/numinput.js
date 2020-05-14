@@ -45,7 +45,7 @@ export default class NumInputBehavior extends InputBehavior {
       value = this.min;
     }
 
-    if (this.value === value) return;
+    if (isEqual(this.value, value)) return;
 
     this.value = value;
 
