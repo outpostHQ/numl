@@ -12,7 +12,7 @@ __Advertisement :)__
 - __[babelfish](https://github.com/nodeca/babelfish/)__ - developer friendly
   i18n with plurals support and easy syntax.
 
-You will like those projects!
+You will ==like== those projects!
 
 ---
 

@@ -11,7 +11,8 @@
     "date-fns": "^2.11.1",
     "email-validator": "^2.0.4",
     "feather-icons": "^4.28.0",
-    "numl-markdown": "^2.0.4",
+    "numl-markdown": "^2.0.6",
+    "remarkable": "^2.0.0",
     "src": "^1.1.2",
     "svelte": "^3.20.1"
   },
