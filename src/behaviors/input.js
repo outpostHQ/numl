@@ -1,5 +1,5 @@
 import WidgetBehavior from './widget';
-import { h } from '../helpers';
+import { h, isEqual } from '../helpers';
 
 export default class InputBehavior extends WidgetBehavior {
   static get params() {

@@ -1,4 +1,5 @@
 import ButtonBehavior from './button';
+import { isEqual } from '../helpers';
 
 export default class MenuItemBehavior extends ButtonBehavior {
   static get params() {

@@ -39,7 +39,7 @@ import {
   deepQuery,
   deepQueryAll,
   queryChildren,
-  setImmediate,
+  setImmediate, isEqual,
 } from '../helpers';
 import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
