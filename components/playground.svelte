@@ -1,5 +1,80 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'markdown')}
+  <nu-card as="section">
+    <nu-markdown>
+      <pre>
+---
+title: CommonMark Spec
+author:
+- John MacFarlane
+version: 0.7
+date: 2014-10-28
+...
+
+# Introduction
+
+## What is Markdown?
+
+Markdown is a plain text format for writing structured documents,
+based on conventions used for indicating formatting in email and
+usenet posts.  It was developed in 2004 by John Gruber, who wrote
+the first Markdown-to-HTML converter in perl, and it soon became
+widely used in websites.  By 2014 there were dozens of
+implementations in many languages.  Some of them extended basic
+Markdown syntax with conventions for footnotes, definition lists,
+tables, and other constructs, and some allowed output not just in
+HTML but in LaTeX and many other formats.
+
+## Why is a spec needed?
+
+First Header | Second Header
+------------ | -------------
+Content cell 1 | Content cell 2
+Content column 1 | Content column 2
+      </pre>
+    </nu-markdown>
+
+    <nu-markdown>
+      <pre>
+#### My awesome markdown header
+
+And markdown **TEXT**. What do you _think_? `var a = '123'`. Also here is a [link](https://github.com/tenphi/nude).
+
+----
+
+```enumerate
+var a = '123';
+var b = /wow?/;
+```
+      </pre>
+    </nu-markdown>
+
+    <nu-markdown>
+      <pre>
+#### Markdown in Shadow DOM
+
+And markdown **TEXT**. What do you _think_? `var a = '123'`. Also here is a [link](https://github.com/tenphi/nude).
+
+```enumerate
+var a = '123';
+var b = /wow?/;
+```
+      </pre>
+    </nu-markdown>
+
+    <nu-heading level="4">Inline markdown</nu-heading>
+
+    <nu-block>
+      It's a fragment of "
+      <nu-md>
+        <pre>**inlined** markdown _content_</pre>
+      </nu-md>
+      ".
+    </nu-block>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'control')}
   <nu-card as="section">
     <nu-heading>Toggle icon styles</nu-heading>

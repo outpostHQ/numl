@@ -17,7 +17,7 @@ export default class ConverterBehavior extends WidgetBehavior {
   }
 
   initConverter() {
-    if (this.ref) return;
+    if (this.ref !== this.host) return;
 
     const { host } = this;
     const ref = this.ref = host.querySelector('textarea, pre');
