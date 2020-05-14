@@ -103,12 +103,12 @@ export default class PopupBehavior extends WidgetBehavior {
   open() {
     const { host } = this;
 
-    if (!host.hidden) return;
+    if (this.isOpen) return;
 
     host.nu('fixate')
       .then(Fixate => Fixate.start());
 
-    host.hidden = false;
+    this.openEffect(true);
 
     if (this.button) {
       this.button.host.nuSetAria('expanded', true);
@@ -136,12 +136,12 @@ export default class PopupBehavior extends WidgetBehavior {
   close() {
     const { host } = this;
 
-    if (host.hidden) return;
+    if (!this.isOpen) return;
 
     host.nu('fixate')
       .then(Fixate => Fixate.end());
 
-    host.hidden = true;
+    this.openEffect(false);
 
     if (this.button) {
       this.button.set(false);
@@ -160,6 +160,18 @@ export default class PopupBehavior extends WidgetBehavior {
     if (childPopup) {
       childPopup.nuPopup.close();
     }
+  }
+
+  openEffect(bool) {
+    if (bool) {
+      this.host.hidden = false;
+    } else {
+      this.host.hidden = true;
+    }
+  }
+
+  get isOpen() {
+    return !this.host.hidden;
   }
 }
 
