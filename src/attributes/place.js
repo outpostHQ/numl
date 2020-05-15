@@ -94,6 +94,11 @@ function getEmptyTransform(defaults) {
   return SECONDARY_DEFAULT_STYLES.map(styles => ({ ...styles }));
 }
 
+const SIDE_SPACE = {
+  'margin-left': 'auto',
+  'margin-right': 'auto',
+};
+
 export default function placeAttr(val, defaults) {
   if (!val) return getEmptyTransform(defaults);
 
@@ -103,6 +108,10 @@ export default function placeAttr(val, defaults) {
   const offsetX = values[1] || values[0] || '0';
 
   let pos = '';
+
+  if (mods.includes('side-space')) {
+    return [SIDE_SPACE, ...getEmptyTransform(defaults)];
+  }
 
   if (mods.includes('sticky')) {
     return [{
