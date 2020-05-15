@@ -192,7 +192,6 @@ export default class ButtonBehavior extends WidgetBehavior {
         const elm = queryById(host, id);
 
         if (elm) {
-          console.log('!', elm);
           elm.scrollIntoView();
 
           evt.preventDefault();

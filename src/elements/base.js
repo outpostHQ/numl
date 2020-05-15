@@ -1507,10 +1507,6 @@ export default class NuBase extends HTMLElement {
 
     const attrSets = keys.map(key => this.nuContext[key]).filter(set => set);
 
-    if (names.includes('icon')) {
-      console.log('!', names, attrSets, this.nuContext['attrs:icon']);
-    }
-
     const attrs = {};
 
     attrSets.forEach(set => {
