@@ -63,7 +63,11 @@ Object.assign(BASE_PROPS, {
 
 delete BASE_PROPS.control;
 
-export const PROPS_LIST = Object.keys(BASE_PROPS).reverse();
+export let PROPS_LIST;
+
+export function registerProp(name, cb) {
+  BASE_PROPS[name] = cb;
+}
 
 export default class WidgetBehavior extends Behavior {
   static get params() {
@@ -117,12 +121,19 @@ export default class WidgetBehavior extends Behavior {
     const { host } = this;
     const localized = this.params.localized;
 
+    // generate cache of props list
+    if (!PROPS_LIST) {
+      PROPS_LIST = Object.keys(BASE_PROPS).reverse();
+    }
+
+    // get current values of attributes and handle them
     for (let prop of PROPS_LIST) {
       const value = host.getAttribute(prop);
 
       this.fromAttr(prop, value);
     }
 
+    // link context locale to the element
     if (localized) {
       this.linkContext('locale', (locale) => {
         if (!host.hasAttribute('lang')) {
@@ -139,14 +150,17 @@ export default class WidgetBehavior extends Behavior {
       });
     }
 
+    // link host value with widget's value
     if (this.params.linkHostValue) {
       this.linkHostValue();
     }
 
+    // set input modifier
     if (this.params.input) {
       this.setMod('input', true);
     }
 
+    // link context value with widget's value
     if (this.shouldValueBeLinked) {
       this.linkContextValue();
     }
@@ -155,11 +169,12 @@ export default class WidgetBehavior extends Behavior {
   connected() {
     const { host } = this;
 
+    // set current locale based on current lang attribute
     if (this.params.localized) {
       this.setLocale(this.lang);
     }
 
-    // Form support
+    // link widget with form
     if (this.params.input) {
       const id = host.nuId;
 
@@ -173,15 +188,19 @@ export default class WidgetBehavior extends Behavior {
           this.oldForm = oldForm;
 
           if (oldForm && form !== oldForm) {
+            // disconnect the old form
             this.disconnectForm(oldForm, !!form);
           }
 
           if (!form) return;
 
+          // connect a new form
           this.connectForm();
         });
       }
 
+      // link widget with outside group
+      // group will inherit widget's validation state
       this.linkContext('group', (group, oldGroup) => {
         if (oldGroup) {
           oldGroup.setMod('invalid', false);
