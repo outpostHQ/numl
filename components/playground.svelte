@@ -1,4 +1,5 @@
 <nu-heading>Playground</nu-heading>
+<nu-attrs for="btn" padding="2x"></nu-attrs>
 
 {#if show(hash, 'markdown')}
   <nu-card as="section">
