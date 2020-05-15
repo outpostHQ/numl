@@ -6,7 +6,7 @@ export default class NuMenu extends NuFlow {
   }
 
   static get nuRole() {
-    return 'menu';
+    return 'list';
   }
 
   static get nuBehaviors() {

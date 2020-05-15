@@ -1,9 +1,12 @@
 import NuElement from './element';
-import NuBadge from './badge';
 
 export default class NuMark extends NuElement {
   static get nuTag() {
     return 'nu-mark';
+  }
+
+  static get nuRole() {
+    return 'mark';
   }
 
   static get nuStyles() {

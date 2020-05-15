@@ -5,6 +5,10 @@ export default class NuForm extends NuFlow {
     return 'nu-form';
   }
 
+  static get nuRole() {
+    return 'role';
+  }
+
   static get nuBehaviors() {
     return {
       form: true,

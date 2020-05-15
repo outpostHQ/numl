@@ -6,7 +6,7 @@ export default class NuMenuitem extends NuBtn {
   }
 
   static get nuRole() {
-    return 'menuitem';
+    return 'option';
   }
 
   static get nuBehaviors() {
