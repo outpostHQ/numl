@@ -195,12 +195,18 @@ export function cleanCSSByPart(selectorPart) {
   const keys = Object.keys(STYLE_MAP).filter(selector => isRegexp
     ? selector.match(selectorPart) : selector.includes(selectorPart));
 
-  requestIdleCallback(() => {
+  function clean() {
     keys.forEach(key => {
       removeCSS(key);
       log('css removed:', key);
     });
-  });
+  }
+
+  if (selectorPart.startsWith('#')) {
+    requestIdleCallback(clean);
+  } else {
+    clean();
+  }
 }
 
 export function removeCSS(name, root) {
