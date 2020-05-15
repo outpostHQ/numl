@@ -10,8 +10,8 @@ export default class LabelBehavior extends Behavior {
       const element = this.link();
 
       if (element) {
-        element.click();
         element.focus();
+        element.click();
         enableFocus();
       }
     });
