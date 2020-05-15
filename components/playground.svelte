@@ -1,5 +1,32 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'switch')}
+  <nu-card as="section">
+    <nu-heading>Switches</nu-heading>
+
+    <nu-block>
+      <nu-switch></nu-switch>
+      <nu-switch checked></nu-switch>
+    </nu-block>
+
+    <nu-block size="xs">
+      <nu-switch></nu-switch>
+      <nu-switch checked></nu-switch>
+    </nu-block>
+
+    <nu-block size="xl">
+      <nu-switch></nu-switch>
+      <nu-switch checked></nu-switch>
+    </nu-block>
+
+    <nu-block>
+      <nu-switch checked disabled></nu-switch>
+      <nu-switch disabled></nu-switch>
+      - Disabled.
+    </nu-block>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'markdown')}
   <nu-card as="section">
     <nu-markdown linkify>

@@ -33,7 +33,7 @@ export default class NuSwitch extends NuActiveElement {
         :active[.5em]
         :active:pressed[.5em]`,
       transition: 'shadow',
-      width: '(--size * 2 + --circle-gap * 2)',
+      width: '(--size * 2)',
       fill: `bg
         :pressed[special-bg]
         :pressed:disabled[text 50%]`,
