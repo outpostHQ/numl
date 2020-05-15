@@ -5,6 +5,10 @@ export default class NuGrid extends NuBlock {
     return 'nu-grid';
   }
 
+  static get nuName() {
+    return '';
+  }
+
   static get nuStyles() {
     return {
       display: 'grid',
