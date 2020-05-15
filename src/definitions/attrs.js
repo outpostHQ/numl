@@ -5,10 +5,10 @@ function getSelector(id, oldId) {
   id = id.replace(/^\$+/, '');
   oldId = oldId ? oldId.replace(/^\$+/, '') : null;
 
-  return `* > nu-attrs[for="${id}"], ${(!ELEMENTS_MAP[id] ? `[as*="${id}"], [id="${id}"], [id^="${id}--"]` : id)}${
+  return `* > nu-attrs[for="${id}"], ${(!ELEMENTS_MAP[id] ? `[as*="${id}"], [id="${id}"], [id^="${id}--"], [nu-${id}]` : id)}${
     oldId
       ? `, * > nu-attrs[for="${oldId}"]${(!ELEMENTS_MAP[oldId]
-        ? `, [as*="${oldId}"], [id="${oldId}"], [id^="${oldId}--"]`
+        ? `, [as*="${oldId}"], [id="${oldId}"], [id^="${oldId}--"], [nu-${oldId}]`
         : `, ${oldId}`)}`
       : ''}`;
 }
@@ -124,6 +124,8 @@ export default class NuAttrs extends NuDefinition {
     const id = this.getAttribute('for');
     const selector = getSelector(id);
     const shadow = id.startsWith('$');
+
+    console.log('!', selector);
 
     parent.nuSetContext(`attrs:${id}`, null);
 

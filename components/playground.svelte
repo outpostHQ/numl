@@ -1,5 +1,39 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'image')}
+  <nu-card id="section">
+    <nu-heading>Images</nu-heading>
+
+    <nu-grid columns="1fr 1fr||1fr" gap="2x">
+      <nu-heading level="4">Raster image</nu-heading>
+      <nu-heading level="4">Vector image</nu-heading>
+      <nu-block>
+        <nu-img
+          class="nu-dark-invert"
+          id="logo-raster"
+          width="100%"
+          label="NUDE Elements Design System Playground">
+        </nu-img>
+      </nu-block>
+      <nu-block>
+        <nu-svg
+          id="logo-vector"
+          color="text-soft"
+          width="100%"
+          height="min(3)"
+          label="NUDE Elements Design System Playground">
+        </nu-svg>
+      </nu-block>
+    </nu-grid>
+    <nu-heading level="4">Background image</nu-heading>
+    <nu-block
+      class="nu-dark-invert"
+      id="logo-background"
+      height="4">
+    </nu-block>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'switch')}
   <nu-card as="section">
     <nu-heading>Switches</nu-heading>
@@ -341,6 +375,7 @@ var b = /wow?/;
   </nu-card>
 
   <nu-card as="section">
+    <nu-attrs for="icon" size="2x"></nu-attrs>
     <nu-heading>Toggle icon name</nu-heading>
     <nu-block>
       <nu-btn

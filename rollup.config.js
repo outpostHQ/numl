@@ -5,7 +5,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
 import pkg from './package.json';
 
-const DEV = !!process.env.ROLLUP_WATCH;
+const DEV = false;
+// const DEV = !!process.env.ROLLUP_WATCH;
 const VERSION = `"${pkg.version}"`;
 // const moduleName = pkg.module;
 

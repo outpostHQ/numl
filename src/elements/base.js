@@ -588,7 +588,7 @@ export default class NuBase extends HTMLElement {
 
     this.nuAttrValues[name] = value;
 
-    if (devMode && !name.startsWith('nu-mirror-')) {
+    if (devMode && !name.startsWith('nu-mirror-') && name !== 'control') {
       if (value !== origValue || isVariableAttr(value) || isResponsiveAttr(value)) {
         this.setAttribute(`nu-mirror-${name}`, normalizeAttrStates(value));
       }
@@ -673,6 +673,12 @@ export default class NuBase extends HTMLElement {
     if (this.nuFirstConnect) {
       this.nuRender();
       this.nuInit();
+
+      const names = this.constructor.nuNames;
+
+      names.forEach(name => {
+        this.nuSetMod(name, true);
+      });
 
       const behaviorList = this.constructor.nuBehaviorList;
 
@@ -1500,6 +1506,10 @@ export default class NuBase extends HTMLElement {
     }
 
     const attrSets = keys.map(key => this.nuContext[key]).filter(set => set);
+
+    if (names.includes('icon')) {
+      console.log('!', names, attrSets, this.nuContext['attrs:icon']);
+    }
 
     const attrs = {};
 
