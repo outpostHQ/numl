@@ -1,4 +1,5 @@
 import { devMode, log, warn, requestIdleCallback, h } from "./helpers";
+import scrollbarAttr from './attributes/scrollbar';
 
 export const STYLE_MAP = {};
 const testEl = h('div');
@@ -365,6 +366,8 @@ const globalCSS = `
 [nu-hidden] {
   display: none !important;
 }
+
+${generateCSS('body', scrollbarAttr('yes'))}
 `;
 
 injectStyleTag(globalCSS, 'nu-defaults');
