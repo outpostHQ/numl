@@ -266,10 +266,10 @@ export default class WidgetBehavior extends Behavior {
     }
   }
 
-  changed(name, value) {
+  changed(some, value) {
     for (let prop of PROPS_LIST) {
-      if (prop === name) {
-        this.fromAttr(name, value);
+      if (prop === some) {
+        this.fromAttr(some, value);
       }
     }
   }
@@ -548,6 +548,8 @@ export default class WidgetBehavior extends Behavior {
         currentCb(val);
       };
     }
+
+    cb.nuOwner = this;
 
     context[`action:${name}`] = cb;
   }

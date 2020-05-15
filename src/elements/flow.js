@@ -5,6 +5,10 @@ export default class NuFlow extends NuBlock {
     return 'nu-flow';
   }
 
+  static get nuName() {
+    return '';
+  }
+
   static get nuStyles() {
     return {
       flow: 'column',

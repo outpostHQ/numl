@@ -5,6 +5,10 @@ export default class NuBlock extends NuElement {
     return 'nu-block';
   }
 
+  static get nuName() {
+    return '';
+  }
+
   static get nuStyles() {
     return {
       display: 'block',

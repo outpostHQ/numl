@@ -1063,14 +1063,14 @@ export default class NuBase extends HTMLElement {
    * @param {String} method
    * @param {Array} args
    */
-  nuBehaviorCall(method, args = []) {
+  nuBehaviorCall(method, args) {
     const behaviors = this.nuBehaviors;
 
     if (!behaviors) return;
 
     Object.values(behaviors).forEach(behavior => {
       if (behavior[method]) {
-        behavior[method].apply(behavior, args);
+        behavior[method](...args);
       }
     });
   }

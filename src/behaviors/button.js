@@ -74,24 +74,15 @@ export default class ButtonBehavior extends WidgetBehavior {
   changed(name, value) {
     super.changed(name, value);
 
-    switch (name) {
-      case 'to':
-        if (value && value.length) {
-          this.newTab = value.startsWith('!');
-          this.href = value.replace(/^!/, '');
-        } else {
-          this.newTab = false;
-          this.href = '';
-        }
+    if (name === 'to') {
+      this.createLink();
 
-        this.createLink();
+      const { $link } = this;
 
-        const { $link } = this;
-
-        if ($link) {
-          $link.href = this.href;
-          $link.target = this.newTab ? '_blank' : '_self';
-        }
+      if ($link) {
+        $link.href = this.href;
+        $link.target = this.newTab ? '_blank' : '_self';
+      }
     }
   }
 
@@ -172,9 +163,14 @@ export default class ButtonBehavior extends WidgetBehavior {
 
         evt.stopPropagation();
       });
+    } else {
+      $link = this.$link;
     }
 
-    if (($link && $link.href || this.href || '').includes('//')) {
+    $link.href = this.href;
+    $link.target = this.newTab ? '_blank' : '_self';
+
+    if (($link && $link.href).includes('//')) {
       this.$link.setAttribute('rel', 'noreferrer');
     } else {
       this.$link.removeAttribute('rel');
@@ -378,5 +374,17 @@ export default class ButtonBehavior extends WidgetBehavior {
   control() {
     this.nu('control')
       .then(Control => Control.apply(!!this.pressed, this.getTypedValue(this.emitValue)));
+  }
+
+  get href() {
+    const { to = '' } = this;
+
+    return to.replace(/^!/, '');
+  }
+
+  get newTab() {
+    const { to = '' } = this;
+
+    return to.startsWith('!');
   }
 }

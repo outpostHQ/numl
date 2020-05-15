@@ -80,7 +80,6 @@ export default class NuElement extends NuBase {
       pressed: '',
       checked: '',
       selected: '',
-      href: '',
       target: '',
       to: '',
       begin: '',
