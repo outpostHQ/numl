@@ -1,6 +1,7 @@
 import ConverterBehavior from './converter';
 import markdownConverter from '../converters/markdown';
 import { h } from '../helpers';
+import { BOOL_TYPE } from './widget';
 
 export default class MarkdownBehavior extends ConverterBehavior {
   static get converter() {
@@ -27,6 +28,8 @@ export default class MarkdownBehavior extends ConverterBehavior {
         setTimeout(() => this.observe());
       }
     };
+    this.props.typographer = BOOL_TYPE;
+    this.props.linkify = BOOL_TYPE;
 
     super.init();
   }
@@ -34,12 +37,15 @@ export default class MarkdownBehavior extends ConverterBehavior {
   apply(container, content, converter) {
     if (!converter) return;
 
+    const { inline, typographer, linkify } = this;
+
     container.setAttribute('gap', this.host.getAttribute('gap') || '2x');
 
-    container.innerHTML = converter(
-      content,
-      this.inline,
-    );
+    container.innerHTML = converter(content, {
+      inline,
+      typographer,
+      linkify,
+    });
   }
 
   createContainer() {

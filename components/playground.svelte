@@ -2,7 +2,7 @@
 
 {#if show(hash, 'markdown')}
   <nu-card as="section">
-    <nu-markdown>
+    <nu-markdown linkify>
       <pre>
 ---
 __Advertisement :)__
