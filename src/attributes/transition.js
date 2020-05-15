@@ -25,6 +25,10 @@ const MAP = {
 export const DEFAULT_TIMING = 'calc(var(--nu-transition-enabler) * var(--nu-transition-time))';
 const DEFAULT_EASING = 'linear';
 
+function getTiming(name) {
+  return `calc(var(--nu-transition-enabler) * var(--nu-${name}-transition-time, var(--nu-transition-time)))`;
+}
+
 const tmp = h('div').style;
 
 function isStyle(style) {
@@ -52,13 +56,13 @@ export default function transitionAttr(val) {
     }
 
     styles.forEach(style => {
-      map[style] = [timing, easing];
+      map[style] = [timing, easing, name];
     });
   });
 
   const result = Object.entries(map)
-    .map(([style, [timing, easing]]) => {
-      return `${style} ${timing || DEFAULT_TIMING} ${easing || DEFAULT_EASING}`;
+    .map(([style, [timing, easing, name]]) => {
+      return `${style} ${timing || getTiming(name)} ${easing || DEFAULT_EASING}`;
     }).join(', ');
 
   return { transition: result };

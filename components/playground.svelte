@@ -392,9 +392,9 @@ var b = /wow?/;
         <nu-inputgroup height="8x" padding="2.5x 1x 1x 1x">
           <nu-label
             place="top left 1x 2x" z="above" text="w5" origin="top left"
-            scale="^:focus[.75] :empty[1] :focus:empty[.75] .75"
-            move="^:focus[0] :empty[0 1.25x] :focus:empty[0] 0"
-            color="^:focus[text-soft] :empty[text 50%] :focus:empty[text-soft] text-soft"
+            scale="^:focus[.75] :empty[1] .75"
+            move="^:focus[0] :empty[0 1.25x] 0"
+            color="^:focus[text-soft] :empty[text 50%] text-soft"
             transition="theme, transform">
             Password
           </nu-label>
@@ -409,8 +409,6 @@ var b = /wow?/;
         <nu-dateinput
           id="date" mode="range" width="min(10)"
           placeholder="Date range"></nu-dateinput>
-
-        <nu-debug id="debugger-picker"></nu-debug>
       </nu-flow>
       <nu-card>
         <nu-form id="user" nx-debug="form-debugger1">

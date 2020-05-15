@@ -23,6 +23,12 @@ export default class NuBtn extends NuActiveElement {
     };
   }
 
+  static get nuAttrs() {
+    return {
+      as: 'btn',
+    };
+  }
+
   static nuCSS({ tag, css }) {
     return `
       ${css}
