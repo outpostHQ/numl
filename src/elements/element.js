@@ -117,6 +117,10 @@ export default class NuElement extends NuBase {
     };
   }
 
+  static get nuName() {
+    return '';
+  }
+
   /**
    * Element default attribute values.
    * They are used only to generate initial CSS for elements.

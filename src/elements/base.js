@@ -188,12 +188,16 @@ export default class NuBase extends HTMLElement {
   }
 
   static get nuNames() {
+    let name = this.hasOwnProperty('nuName') ? this.nuName : this.nuTag.replace(/^nu-/, '');
+
+    if (name.startsWith('abstract-')) {
+      name = '';
+    }
+
     return (
       NAMES_MAP[this.nuTag]
       || (NAMES_MAP[this.nuTag]
-        = `${this.nuName || this.nuTag.replace(/^nu-/, '')} ${this.nuParentClass && this.nuParentClass.nuNames || ''}`
-        .replace(/ abstract-[^\s]+/g, '')
-        .replace(/ el $/, ''))
+        = [...(name ? [name] : []), ...(this.nuParentClass && this.nuParentClass.nuNames || [])])
     );
   }
 
@@ -669,10 +673,6 @@ export default class NuBase extends HTMLElement {
     if (this.nuFirstConnect) {
       this.nuRender();
       this.nuInit();
-
-      if (!this.hasAttribute('as')) {
-        this.setAttribute('as', this.constructor.nuNames);
-      }
 
       const behaviorList = this.constructor.nuBehaviorList;
 
@@ -1481,9 +1481,16 @@ export default class NuBase extends HTMLElement {
     const keys = [`attrs:${this.constructor.nuTag}`];
     const $shadowRoot = this.nuContext.$shadowRoot;
     const $parentShadowRoot = this.nuContext.$parentShadowRoot;
+    const names = this.constructor.nuNames;
 
     if (as) {
       as.split(/\s+/g).forEach(name => {
+        keys.push(`attrs:${name}`);
+      });
+    }
+
+    if (names.length) {
+      names.forEach(name => {
         keys.push(`attrs:${name}`);
       });
     }
