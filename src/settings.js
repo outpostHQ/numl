@@ -4,6 +4,7 @@ import { requestIdleCallback } from './helpers';
 const DATASET = ROOT.dataset;
 const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
 const CONTRAST_OPTIONS = ['auto', 'low', 'high'];
+const ICONS_OPTIONS = ['feather', 'eva'];
 
 export const preventInit = DATASET.nuPrevent != null;
 
@@ -50,11 +51,13 @@ export function reduceMotion(bool) {
 }
 
 export const USE_SHADOW = DATASET.nuShadow != null;
+export const ICONS_PROVIDER = ICONS_OPTIONS.includes(DATASET.nuIcons) ? DATASET.nuIcons : 'feather';
 
 setRootContext('scheme', scheme());
 setRootContext('contrast', contrast());
 setRootContext('reduceMotion', scheme());
 setRootContext('allowShadow', USE_SHADOW);
+setRootContext('iconsProvider', ICONS_PROVIDER);
 
 if (requestIdleCallback) {
   if (!reduceMotion()) {
