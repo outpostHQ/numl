@@ -125,8 +125,6 @@ export default class NuAttrs extends NuDefinition {
     const selector = getSelector(id);
     const shadow = id.startsWith('$');
 
-    console.log('!', selector);
-
     parent.nuSetContext(`attrs:${id}`, null);
 
     parent.nuVerifyChildren({ attrs: selector, shadow });
