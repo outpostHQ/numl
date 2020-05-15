@@ -69,6 +69,7 @@ export default class ConverterBehavior extends WidgetBehavior {
         : ref.innerHTML);
 
       this.apply(container, content, converter);
+      this.postHandler(container);
     }
   }
 
@@ -77,4 +78,6 @@ export default class ConverterBehavior extends WidgetBehavior {
   prepareContent(content) {
     return content || '';
   }
+
+  postHandler(container) {}
 }
