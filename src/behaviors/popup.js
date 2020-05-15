@@ -70,32 +70,27 @@ export default class PopupBehavior extends WidgetBehavior {
     }
 
     this.setContext('popup', this);
-    host.nuSetContextHook('button', () => this.linkButton());
 
-    this.linkButton();
 
-    // if (!host.hasAttribute(PLACE_ATTR)
-    //   && !host.hasAttribute(FIXATE_ATTR)
-    //   && host.nuParentContext.popup) {
-    //   host.setAttribute(PLACE_ATTR, 'outside-right top');
-    // }
+    this.linkContext('button', (button, oldButton) => {
+      if (oldButton) {
+        oldButton.unlinkPopup(this);
+      }
+
+      if (button) {
+        button.linkPopup(this);
+      }
+    });
 
     this.close();
-  }
-
-  linkButton() {
-    const { host } = this;
-
-    const button = this.button = host.nuContext.button;
-
-    if (button) {
-      button.linkPopup(this);
-    }
   }
 
   disconnected() {
     this.close();
-    this.button.unlinkPopup(this);
+
+    if (this.button) {
+      this.button.unlinkPopup(this);
+    }
 
     delete this.button;
   }
@@ -183,29 +178,26 @@ export default class PopupBehavior extends WidgetBehavior {
 function findParentPopup(element) {
   const elements = [];
 
-  do {
-    if (element) {
-      const nuButton = element.nuButton;
+  while (element) {
+    const nuButton = element.nuButton;
 
-      if (nuButton && nuButton.popup) {
-        const popupEl = nuButton.popup.host;
+    if (nuButton && nuButton.popup) {
+      const popupEl = nuButton.popup.host;
 
-        if (popupEl) {
-          elements.push(popupEl);
-        }
+      if (popupEl) {
+        elements.push(popupEl);
       }
-    } else {
-      break;
     }
 
     element = element.parentNode || element.host;
-  } while (element);
+  }
 
   return elements;
 }
 
 function handleOutside(event) {
   if (event.nuPopupHandled) return;
+
   const popups = findParentPopup(event.target);
 
   deepQueryAll(this === window ? document : this, '[nu-popup]')

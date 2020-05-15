@@ -113,6 +113,8 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   linkPopup(popup) {
+    if (this.popup) return;
+
     const { host } = this;
 
     this.popup = popup;
@@ -121,7 +123,9 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.role = 'button';
   }
 
-  unlinkPopup() {
+  unlinkPopup(popup) {
+    if (this.popup !== popup) return;
+
     const { host } = this;
 
     delete this.popup;
