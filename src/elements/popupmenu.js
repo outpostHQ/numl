@@ -1,5 +1,4 @@
 import NuPopup from './popup';
-import NuMenu from './menu';
 
 export default class NuPopupMenu extends NuPopup {
   static get nuTag() {
@@ -8,6 +7,10 @@ export default class NuPopupMenu extends NuPopup {
 
   static get nuRole() {
     return 'menu';
+  }
+
+  static get nuName() {
+    return 'menu'; // popup name is inherited
   }
 
   static get nuStyles() {

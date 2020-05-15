@@ -1,6 +1,6 @@
-import NuBlock from './block';
+import NuElement from './element';
 
-export default class NuCard extends NuBlock {
+export default class NuCard extends NuElement {
   static get nuTag() {
     return 'nu-card';
   }
@@ -11,6 +11,7 @@ export default class NuCard extends NuBlock {
 
   static get nuStyles() {
     return {
+      display: 'block',
       padding: '2x',
       fill: 'bg',
       color: 'text',

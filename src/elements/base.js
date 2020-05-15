@@ -39,7 +39,7 @@ import {
   deepQuery,
   deepQueryAll,
   queryChildren,
-  setImmediate, isEqual,
+  setImmediate, isEqual, asyncDebounce,
 } from '../helpers';
 import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
@@ -50,6 +50,7 @@ import { BEHAVIORS, getBehavior } from '../behaviors/index';
 
 export const ELEMENTS_MAP = {};
 
+const NAMES_MAP = {};
 const GENERATORS_MAP = {};
 const STYLES_MAP = {};
 const MIXINS_MAP = {};
@@ -186,13 +187,23 @@ export default class NuBase extends HTMLElement {
     return '';
   }
 
+  static get nuNames() {
+    return (
+      NAMES_MAP[this.nuTag]
+      || (NAMES_MAP[this.nuTag]
+        = `${this.nuName || this.nuTag.replace(/^nu-/, '')} ${this.nuParentClass && this.nuParentClass.nuNames || ''}`
+        .replace(/ abstract-[^\s]+/g, '')
+        .replace(/ el $/, ''))
+    );
+  }
+
   /**
    * @private
    */
   static get nuAllGenerators() {
     return (
-      GENERATORS_MAP[this.nuTag] ||
-      (GENERATORS_MAP[this.nuTag] = {
+      GENERATORS_MAP[this.nuTag]
+      || (GENERATORS_MAP[this.nuTag] = {
         ...(this.nuParentClass && this.nuParentClass.nuAllGenerators || {}),
         ...this.nuGenerators
       })
@@ -652,12 +663,38 @@ export default class NuBase extends HTMLElement {
       this.attributeChangedCallback(RESPONSIVE_ATTR, null, this.getAttribute(RESPONSIVE_ATTR), true);
     }
 
+    this.setAttribute('nu', '');
+
+    // on first connect (init)
     if (this.nuFirstConnect) {
       this.nuRender();
       this.nuInit();
-    }
 
-    this.setAttribute('nu', '');
+      if (!this.hasAttribute('as')) {
+        this.setAttribute('as', this.constructor.nuNames);
+      }
+
+      const behaviorList = this.constructor.nuBehaviorList;
+
+      if (behaviorList.length) {
+        for (let name of behaviorList) {
+          this.nu(name);
+        }
+      }
+
+      const allAttrs = this.constructor.nuAllAttrs;
+
+      if (allAttrs) {
+        setTimeout(() => {
+          Object.entries(allAttrs)
+            .forEach(([attr, value]) => {
+              if (value != null && !this.hasAttribute(attr)) {
+                this.setAttribute(attr, String(value));
+              }
+            });
+        });
+      }
+    }
 
     if (this.hasAttribute(THEME_ATTR)) {
       setTimeout(() => {
@@ -671,27 +708,6 @@ export default class NuBase extends HTMLElement {
 
     this.nuFirstConnect = false;
     this.nuIsConnectionComplete = true;
-
-    const behaviorList = this.constructor.nuBehaviorList;
-
-    if (behaviorList.length) {
-      for (let name of behaviorList) {
-        this.nu(name);
-      }
-    }
-
-    const allAttrs = this.constructor.nuAllAttrs;
-
-    if (allAttrs) {
-      setTimeout(() => {
-        Object.entries(allAttrs)
-        .forEach(([attr, value]) => {
-          if (value != null && !this.hasAttribute(attr)) {
-            this.setAttribute(attr, String(value));
-          }
-        });
-      });
-    }
   }
 
   /**
@@ -957,10 +973,20 @@ export default class NuBase extends HTMLElement {
   nuSetMod(name, value) {
     const mod = `nu-${name}`;
 
+    if (!this.nuMods) {
+      this.nuMods = {};
+    }
+
+    const nuMods = this.nuMods;
+
     if (value === false || value == null) {
       this.removeAttribute(mod);
+
+      delete nuMods[name];
     } else {
       this.setAttribute(mod, value === true ? '' : value);
+
+      nuMods[name] = value;
     }
   }
 
@@ -1490,6 +1516,8 @@ export default class NuBase extends HTMLElement {
       }
     }
 
+    delete attrs.$shadowRoot;
+
     if (!Object.keys(attrs).length && !contextAttrs.size) {
       return;
     }
@@ -1739,5 +1767,46 @@ export default class NuBase extends HTMLElement {
 
   get selected() {
     return this.pressed;
+  }
+
+  get asList() {
+    if (!this._asList) {
+      const host = this;
+
+      this._asList = {
+        values() {
+          let attr = host.getAttribute('as');
+
+          if (attr) {
+            attr = attr.trim();
+          }
+
+          return attr ? attr.split(/\s+/g) : [];
+        },
+        contains(name) {
+          return this.values().includes(name);
+        },
+        add(name) {
+          const names = this.values();
+
+          if (!names.includes(name)) {
+            names.push(name);
+
+            host.setAttribute('as', names.join(' '));
+          }
+        },
+        remove(name) {
+          const names = this.values();
+
+          if (names.includes(name)) {
+            names.splice(names.indexOf(name), 1);
+
+            host.setAttribute('as', names.join(' '));
+          }
+        },
+      };
+    }
+
+    return this._asList;
   }
 }

@@ -9,6 +9,13 @@ export default class NuMenuitem extends NuBtn {
     return 'menuitem';
   }
 
+  static get nuBehaviors() {
+    return {
+      menuitem: true,
+      button: null,
+    };
+  }
+
   static get nuStyles() {
     return {
       padding: '1x',
@@ -23,13 +30,6 @@ export default class NuMenuitem extends NuBtn {
       color: ':current[special]',
 
       '--local-focus-inset': 'inset 0 0',
-    };
-  }
-
-  static get nuBehaviors() {
-    return {
-      menuitem: true,
-      button: null,
     };
   }
 }
