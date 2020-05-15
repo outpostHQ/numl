@@ -10,7 +10,7 @@
   "dependencies": {
     "date-fns": "^2.11.1",
     "email-validator": "^2.0.4",
-    "eva-icons": "^1.0.2",
+    "eva-icons": "^1.1.3",
     "feather-icons": "^4.28.0",
     "numl-markdown": "^2.0.6",
     "remarkable": "^2.0.0",

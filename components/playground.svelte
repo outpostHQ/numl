@@ -384,7 +384,7 @@ var b = /wow?/;
         control="light[name=@]">
         Toggle
       </nu-btn>
-      <nu-icon id="light" name="sun"></nu-icon>
+      <nu-icon id="light" name="sun" type="fill"></nu-icon>
     </nu-block>
   </nu-card>
 
