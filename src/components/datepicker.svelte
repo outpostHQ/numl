@@ -78,14 +78,15 @@
 <nu-grid
   columns="repeat(7, 1fr)" content="start stretch"
   text="center">
-  <nu-attrs for="day" text="w5" border="color(bg)" focus="inset"></nu-attrs>
+  <nu-attrs for="day" radius=":hover[1r 0r 0r 1r]" text="w5" border="color(bg)" focus="inset"></nu-attrs>
   <nu-attrs for="today" text="w7" color="special" border></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
-  <nu-attrs for="start" radius="1r 0r 0r 1r" special color></nu-attrs>
-  <nu-attrs for="end" radius="0r 1r 1r 0r" special color></nu-attrs>
+  <nu-attrs for="start" special color></nu-attrs>
+  <nu-attrs for="end" radius="0r 1r 1r 0r :hover[1r 0 0 1r]" special color></nu-attrs>
   <nu-attrs for="selected" radius special color></nu-attrs>
   <nu-attrs for="range" radius="0 :hover[0 1r 1r 0]" fill="special-bg 25%" color="text"></nu-attrs>
+  <nu-attrs for="range-inside" radius="0 :hover[1r 0 0 1r]" fill="special-bg 25%" color="text"></nu-attrs>
 
   {#each monthDays as day}
     <nu-btn
@@ -358,6 +359,7 @@ function prevYear() {
 
 function getDayModifiers(date, navMonthStartDate, navMonthEndDate, fromDate, toDate, hoverDate, beginDate, endDate) {
   const mods = ['day'];
+  const rangeMod = fromDate && toDate ? 'range-inside' : 'range';
 
   if (isBefore(date, navMonthStartDate) || isAfter(date, navMonthEndDate)) {
     mods.push('other-month');
@@ -391,11 +393,11 @@ function getDayModifiers(date, navMonthStartDate, navMonthEndDate, fromDate, toD
   if (fromDate && toDate
     && isAfter(date, fromDate)
     && isBefore(date, toDate)) {
-    mods.push('range');
+    mods.push(rangeMod);
   } else if (fromDate && !toDate
     && isAfter(date, fromDate)
     && (isBefore(date, hoverDate) || isSameDay(date, hoverDate))) {
-    mods.push('range');
+    mods.push(rangeMod);
   }
 
   return mods.join(' ');
