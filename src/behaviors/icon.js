@@ -36,7 +36,7 @@ export default class IconBehavior extends Behavior {
     names.forEach(name => {
       if (host.querySelector(`svg[name="${name}"]`)) return;
 
-      Icons.load(name).then(svg => {
+      Icons.load(name, this.type).then(svg => {
         if (!svg) return;
 
         const svgNode = svgElement(svg);

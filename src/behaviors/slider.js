@@ -40,11 +40,11 @@ export default class SliderBehavior extends WidgetBehavior {
       switch (evt.key) {
         case 'ArrowUp':
         case 'ArrowRight':
-          this.setValue(this.value + step, true);
+          this.setValue(this.value + step);
           break;
         case 'ArrowDown':
         case 'ArrowLeft':
-          this.setValue(this.value - step, true);
+          this.setValue(this.value - step);
           break;
         default:
           return;

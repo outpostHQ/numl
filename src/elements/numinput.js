@@ -1,5 +1,4 @@
 import NuInput from './input';
-import NuNum from './num';
 import { DEFAULT_TIMING } from '../attributes/transition';
 
 export default class NuNumInput extends NuInput {
