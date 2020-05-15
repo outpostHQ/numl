@@ -303,7 +303,7 @@ export default class ButtonBehavior extends WidgetBehavior {
       ? (this.pressed ? 'open' : 'close')
       : (bool ? 'open' : 'close');
 
-    if (innerPopup) {
+    if (innerPopup && innerPopup.nuPopup) {
       innerPopup.nuPopup[method]();
     }
   }
