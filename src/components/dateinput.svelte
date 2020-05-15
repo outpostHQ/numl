@@ -1,45 +1,6 @@
 <nu-flex gap>
   <nu-icon name="calendar" size="1.125em" move="0 (1x / -4)"></nu-icon>
   <nu-value grow="1" placeholder={placeholder}></nu-value>
-<!--  <nu-flex gap grow="1">-->
-<!--    {#if fromDate}-->
-<!--      <nu-datetime-->
-<!--        value={fromDate}-->
-<!--        date={date || ''}-->
-<!--        weekday={weekday}-->
-<!--        era={era}-->
-<!--        year={year}-->
-<!--        month={month}-->
-<!--        day={day}-->
-<!--        zone={zone}-->
-<!--        timezone={timezone}-->
-<!--        dayperiod={dayperiod}-->
-<!--        calendar={calendar}-->
-<!--        system={system}-->
-<!--        hourcycle={hourcycle}-->
-<!--        format={format}></nu-datetime>-->
-<!--      {#if isRange}-->
-<!--        <nu-el>–</nu-el>-->
-<!--        <nu-datetime-->
-<!--          value={toDate}-->
-<!--          date={date || ''}-->
-<!--          weekday={weekday}-->
-<!--          era={era}-->
-<!--          year={year}-->
-<!--          month={month}-->
-<!--          day={day}-->
-<!--          zone={zone}-->
-<!--          timezone={timezone}-->
-<!--          dayperiod={dayperiod}-->
-<!--          calendar={calendar}-->
-<!--          system={system}-->
-<!--          hourcycle={hourcycle}-->
-<!--          format={format}></nu-datetime>-->
-<!--      {/if}-->
-<!--    {:else}-->
-<!--      ...-->
-<!--    {/if}-->
-<!--  </nu-flex>-->
   <nu-icon
     name="chevron-down" size="1.25em" transition="scale"
     scale="^host:pressed[flip-y]"></nu-icon>
@@ -59,23 +20,6 @@ import { createEventDispatcher } from 'svelte';
 
 export let placeholder;
 export let mode;
-export let date;
-export let time;
-export let weekday;
-export let era;
-export let year;
-export let month;
-export let day;
-export let hour;
-export let minute;
-export let second;
-export let zone;
-export let timezone;
-export let dayperiod;
-export let calendar;
-export let system;
-export let hourcycle;
-export let format;
 export let value;
 export let begin;
 export let end;

@@ -2,6 +2,7 @@ import { terser } from 'rollup-plugin-terser';
 import replace from 'rollup-plugin-replace';
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
 import pkg from './package.json';
 
 const DEV = !!process.env.ROLLUP_WATCH;
@@ -26,6 +27,7 @@ function partConfig(url) {
       DEV ? undefined : terser(),
       svelte(),
       resolve(),
+      json(),
     ],
   };
 }
@@ -49,6 +51,7 @@ export default {
     DEV ? undefined : terser(),
     svelte(),
     resolve(),
+    json(),
   ]
 }
   // partConfig('components/datepicker.svelte'),
