@@ -3,7 +3,9 @@ import { h, warn } from '../helpers';
 
 export default class ImageBehavior extends WidgetBehavior {
   init() {
-    this.props.src = (src) => this.load(src);
+    this.props.src = (src) => {
+      this.load(src);
+    };
 
     super.init();
   }
@@ -11,11 +13,11 @@ export default class ImageBehavior extends WidgetBehavior {
   load(src) {
     const { host } = this;
 
+    if (!src || !src.trim()) return;
+
     if (host.querySelector('img')) {
       host.innerHTML = '';
     }
-
-    if (!src || !src.trim()) return;
 
     const img = h('img');
 
