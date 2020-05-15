@@ -26,16 +26,22 @@ import icons from './icons';
 import routing from './routing';
 import themeAttr from './attributes/theme';
 import { initFocus } from './focus';
+import props from './props';
+import generators from './generators';
 import { scheme, contrast, reduceMotion, preventInit } from './settings';
 import CONTEXT from './context';
 import { applyTheme, BASE_THEME } from './themes';
 import { cleanCSSByPart, generateCSS, injectCSS } from './css';
+import { NuElement } from './elements';
+import Behavior from './behaviors/behavior';
+import WidgetBehavior from './behaviors/widget';
 
 const behaviors = {
   define: defineBehavior,
   has: hasBehavior,
   get: getBehavior,
 };
+
 // const helpers = import('./helpers');
 // const color = import('./color');
 // const themes = import('./themes');
@@ -54,9 +60,9 @@ setTimeout(() => {
   applyTheme(BODY, BASE_THEME, 'main');
 });
 
-const styles = themeAttr('main');
+const themeStyles = themeAttr('main');
 
-injectCSS('theme:base', 'body', generateCSS('body', [...styles, {
+injectCSS('theme:base', 'body', generateCSS('body', [...themeStyles, {
   '--nu-diff-color': 'var(--nu-bg-color)',
 }]));
 
@@ -96,6 +102,8 @@ const Nude = {
   contrast,
   reduceMotion,
   behaviors,
+  props,
+  generators,
   CONTEXT,
   routing,
   icons,
@@ -105,6 +113,9 @@ const Nude = {
   deepQueryAll,
   deepQuery,
   requestIdleCallback,
+  NuElement,
+  Behavior,
+  WidgetBehavior,
   // helpers,
   // color,
   // themes,
@@ -222,6 +233,9 @@ export {
   deepQueryAll,
   deepQuery,
   requestIdleCallback,
+  NuElement,
+  Behavior,
+  WidgetBehavior,
   // helpers,
   // themes,
   // css,
