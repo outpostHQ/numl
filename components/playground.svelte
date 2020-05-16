@@ -1,5 +1,9 @@
 <nu-heading>Playground</nu-heading>
 
+<nu-topbar color=":sticky[special]">
+  SOmething
+</nu-topbar>
+
 {#if show(hash, 'image')}
   <nu-card id="section">
     <nu-heading>Images</nu-heading>
