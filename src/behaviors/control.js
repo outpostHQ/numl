@@ -77,7 +77,7 @@ export default class ControlBehavior {
           return vl;
         });
 
-      if (!values[1] && varFlag) {
+      if (values[1] == null && varFlag) {
         values[1] = values[0];
       }
 
