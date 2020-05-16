@@ -8,6 +8,7 @@ export { default as NuFlex } from './elements/flex';
 export { default as NuCard } from './elements/card';
 export { default as NuPane } from './elements/pane';
 export { default as NuLine } from './elements/line';
+export { default as NuTopBar } from './elements/topbar';
 export { default as NuHeading } from './elements/heading';
 export { default as NuSpacer } from './elements/spacer';
 export { default as NuIcon } from './elements/icon';
