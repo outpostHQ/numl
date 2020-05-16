@@ -81,11 +81,20 @@ export default class ControlBehavior {
         values[1] = values[0];
       }
 
-      let setValue = `${values[0]}${units ? units : ''}`;
+      let setValue = values[0];
+
       const isProp = attr.startsWith('--');
 
       if (!bool) {
-        setValue = values[1] == null ? null : `${values[1]}${units ? units : ''}`;
+        if (values[1] == null) {
+          setValue = null;
+        } else if (units) {
+          setValue = `${values[1]}${units ? units : ''}`;
+        } else {
+          setValue = values[1];
+        }
+      } else if (units) {
+        setValue = `${values[0]}${units ? units : ''}`;
       }
 
       if (dot) {

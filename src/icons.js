@@ -1,19 +1,27 @@
 import { ICONS_PROVIDER } from './settings';
 import { extractModule } from './helpers';
 
-let loader = (name, type = 'outline', provider) => {
-  switch (provider || ICONS_PROVIDER) {
+let loader = (name) => {
+  switch (ICONS_PROVIDER) {
     case 'feather':
       return import('feather-icons')
         .then(feather => feather.icons[name].toSvg());
     case 'eva':
       return extractModule(import('eva-icons/eva-icons.json'))
         .then(icons => {
-          const isOutline = type === 'outline';
+          let contents = icons[name];
 
-          name = isOutline ? `${name}-outline` : name;
+          if (!contents) {
+            name = name.replace('-outline', '');
 
-          const contents = icons[name];
+            contents = icons[name];
+
+            if (!contents) {
+              name = `${name}-outline`;
+
+              contents = icons[name];
+            }
+          }
 
           if (contents) {
             return `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${contents}</svg>`

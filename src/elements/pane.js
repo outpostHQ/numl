@@ -12,6 +12,11 @@ export default class NuPane extends NuFlex {
   static get nuStyles() {
     return {
       items: 'center',
+    };
+  }
+
+  static get nuAttrs() {
+    return {
       gap: '',
     };
   }

@@ -47,6 +47,7 @@ export default class FormBehavior extends WidgetBehavior {
         .then(valid => {
           if (valid) {
             this.emit('input', this.value);
+            this.control();
           }
         });
     });
@@ -73,7 +74,7 @@ export default class FormBehavior extends WidgetBehavior {
 
     const serializedValue = JSON.stringify(value);
 
-    if (JSON.stringify(value) === this._serializedValue) return;
+    if (JSON.stringify(value) === this._serializedValue || !value) return;
 
     this._serializedValue = serializedValue;
     this.value = value;
@@ -86,6 +87,8 @@ export default class FormBehavior extends WidgetBehavior {
           }
         });
     }
+
+    this.control();
   }
 
   setFieldValue(name, value) {
