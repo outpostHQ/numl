@@ -9,6 +9,7 @@ export default class NuLabel extends NuBlock {
     return {
       text: 'w6',
       cursor: 'default',
+      transition: 'theme, transform',
     };
   }
 

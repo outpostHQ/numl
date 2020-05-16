@@ -16,8 +16,6 @@ export default function () {
       const scrollLeft = ROOT.scrollLeft;
       const elements = deepQueryAll(ROOT, '[place*="sticky"], [nu-topbar]');
 
-      console.log('!', elements);
-
       elements.forEach(el => {
         if (!el.nuSetMod) return;
 

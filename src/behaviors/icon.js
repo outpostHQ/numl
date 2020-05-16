@@ -16,7 +16,7 @@ export default class IconBehavior extends Behavior {
   changed(name) {
     if (!this.isConnected) return;
 
-    if (name === 'name' || name === 'type') {
+    if (name === 'name') {
       this.apply();
     }
   }
@@ -25,7 +25,6 @@ export default class IconBehavior extends Behavior {
     const { host } = this;
 
     const value = this.host.nuGetAttr('name');
-    const type = this.host.getAttribute('type') || 'outline';
 
     // empty tag
     this.innerHTML = '';
@@ -37,7 +36,7 @@ export default class IconBehavior extends Behavior {
     names.forEach(name => {
       if (host.querySelector(`svg[name="${name}"]`)) return;
 
-      Icons.load(name, type).then(svg => {
+      Icons.load(name).then(svg => {
         if (!svg) return;
 
         const svgNode = svgElement(svg);

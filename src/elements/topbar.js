@@ -12,10 +12,9 @@ export default class NuTopBar extends NuElement {
       fill: 'bg',
       shadow: '0 :sticky[1]',
       width: '100%',
-      padding: '2x',
-      z: 'above',
+      z: 'front',
       border: 'bottom',
-      transition: 'theme',
+      transition: 'all',
     };
   }
 }

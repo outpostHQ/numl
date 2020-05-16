@@ -1,8 +1,46 @@
 <nu-heading>Playground</nu-heading>
 
-<nu-topbar color=":sticky[special]">
-  SOmething
-</nu-topbar>
+<nu-card>
+  <nu-block>
+    <nu-theme hue="250"></nu-theme>
+    <nu-theme name="error" hue="1" mod="tint"></nu-theme>
+    <nu-attrs for="check" theme=":invalid[error]"></nu-attrs>
+    <nu-attrs for="inputgroup" theme=":invalid[error]"></nu-attrs>
+    <nu-attrs
+      for="label"
+      place="top left 1x 2x" z="above" text="w5" origin="top left"
+      scale="^:focus[.75] :empty[1] .75"
+      move="^:focus[0] :empty[0 1.25x] 0"
+      color="^:focus[text-soft] :empty[text 50%] text-soft"
+      transition="theme, transform"></nu-attrs>
+    <nu-form control="output[.value]" nx-debug="nux">
+      <nu-flow>
+        <nu-inputgroup height="8x" padding="2.5x 1x 1x 1x">
+          <nu-label>Username</nu-label>
+          <nu-input id="username" placeholder="" grow="1"></nu-input>
+        </nu-inputgroup>
+        <nu-check for="username" assert="required">
+          Username is required
+        </nu-check>
+      </nu-flow>
+      <nu-flow>
+        <nu-inputgroup height="8x" padding="2.5x 1x 1x 1x">
+          <nu-label>Password</nu-label>
+          <nu-input id="password" placeholder="" grow="1"></nu-input>
+        </nu-inputgroup>
+        <nu-check for="password" assert="required">
+          Password is required
+        </nu-check>
+      </nu-flow>
+      <nu-btn special action="submit">Submit</nu-btn>
+    </nu-form>
+    <nu-block>
+      <nu-value id="output"></nu-value>
+    </nu-block>
+  </nu-block>
+
+  <nu-debug id="nux"></nu-debug>
+</nu-card>
 
 {#if show(hash, 'image')}
   <nu-card id="section">

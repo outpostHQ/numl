@@ -31,6 +31,12 @@ export default class ValueBehavior extends WidgetBehavior {
     this.apply();
   }
 
+  fromHostValue(value) {
+    super.fromHostValue(value);
+
+    this.apply();
+  }
+
   apply() {
     let { list, value } = this;
 
@@ -56,7 +62,9 @@ export default class ValueBehavior extends WidgetBehavior {
       }
     }
 
-    if (value instanceof Date) {
+    if (value == null) {
+      value = '';
+    } else if (value instanceof Date) {
       value = `<nu-datetime value="${String(value)}" date></nu-datetime>`;
     } else if (Array.isArray(value) && value[0] instanceof Date) {
       value = `
@@ -68,6 +76,8 @@ export default class ValueBehavior extends WidgetBehavior {
       `;
     } else if (typeof value === 'boolean') {
       value = value ? '<nu-icon name="check"></nu-icon>' : '<nu-icon name="minus"></nu-icon>';
+    } else if (typeof value === 'object') {
+      value = `<pre>${JSON.stringify(value, null, 2)}</pre>`;
     }
 
     const hasValue = value != null;
