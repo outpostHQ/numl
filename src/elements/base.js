@@ -588,9 +588,9 @@ export default class NuBase extends HTMLElement {
 
     this.nuAttrValues[name] = value;
 
-    if (devMode && !name.startsWith('nu-mirror-') && name !== 'control') {
+    if (devMode && !name.startsWith('attr-') && name !== 'control') {
       if (value !== origValue || isVariableAttr(value) || isResponsiveAttr(value)) {
-        this.setAttribute(`nu-mirror-${name}`, normalizeAttrStates(value));
+        this.setAttribute(`attr-${name}`, normalizeAttrStates(value));
       }
 
       if (this.hasAttribute('debug')) {
@@ -677,7 +677,7 @@ export default class NuBase extends HTMLElement {
       const names = this.constructor.nuNames;
 
       names.forEach(name => {
-        this.nuSetMod(name, true);
+        this.setAttribute(`nu-${name}`, '');
       });
 
       const behaviorList = this.constructor.nuBehaviorList;
@@ -892,7 +892,7 @@ export default class NuBase extends HTMLElement {
       this.nuApplyAttr(attr);
 
       if (value.includes('|')) {
-        context[`nu-${RESPONSIVE_MOD}`] = null; // :not(...
+        context[`is-${RESPONSIVE_MOD}`] = null; // :not(...
 
         if (!value.includes('@')) {
           value = normalizeAttrStates(value, true);
@@ -900,7 +900,7 @@ export default class NuBase extends HTMLElement {
       }
 
       if (value.includes('@')) {
-        context[`nu-${VAR_MOD}`] = null; // :not(...
+        context[`is-${VAR_MOD}`] = null; // :not(...
         value = '';
       }
 
@@ -917,7 +917,7 @@ export default class NuBase extends HTMLElement {
     const varsList = getVarsList(value);
     const contextIds = new Set;
     const contextMod = `${attr}-ctx`;
-    const contextModAttr = `nu-${contextMod}`;
+    const contextModAttr = `is-${contextMod}`;
     const oldValue = this.nuAttrValues && this.nuAttrValues[attr];
 
     varsList.forEach(varName => {
@@ -933,7 +933,7 @@ export default class NuBase extends HTMLElement {
     value = composeVarsValue(normalizeAttrStates(value), this.nuContext, responsive ? responsive.zones.length + 1 : 1);
 
     if (responsive && value.includes('|')) {
-      context[`nu-${RESPONSIVE_MOD}`] = responsive.context.nuUniqId;
+      context[`is-${RESPONSIVE_MOD}`] = responsive.context.nuUniqId;
 
       this.nuSetMod(RESPONSIVE_MOD, responsive.context.nuUniqId);
     }
@@ -977,7 +977,7 @@ export default class NuBase extends HTMLElement {
    * @param {String|boolean|*} value - TRUE sets attribute without false, FALSE = removes attribute.
    */
   nuSetMod(name, value) {
-    const mod = `nu-${name}`;
+    const mod = `is-${name}`;
 
     if (!this.nuMods) {
       this.nuMods = {};
@@ -1002,7 +1002,7 @@ export default class NuBase extends HTMLElement {
    * @returns {boolean}
    */
   nuHasMod(name) {
-    const mod = `nu-${name}`;
+    const mod = `is-${name}`;
 
     return this.hasAttribute(mod);
   }
@@ -1257,11 +1257,11 @@ export default class NuBase extends HTMLElement {
       selectors.push('[nu]', '[shadow-root]');
     } else {
       if (vars) {
-        selectors.push(`[nu-${VAR_MOD}]`);
+        selectors.push(`[is-${VAR_MOD}]`);
       }
 
       if (responsive) {
-        selectors.push(`[nu-${RESPONSIVE_MOD}="${this.nuUniqId}"]`);
+        selectors.push(`[is-${RESPONSIVE_MOD}="${this.nuUniqId}"]`);
       }
 
       if (attrs) {

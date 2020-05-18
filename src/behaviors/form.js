@@ -166,7 +166,7 @@ export default class FormBehavior extends WidgetBehavior {
   }
 
   setDirty() {
-    const forms = deepQueryAll(this.host, '[nu-form]');
+    const forms = deepQueryAll(this.host, '[is-form]');
 
     this.dirty = true;
 

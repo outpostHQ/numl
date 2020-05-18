@@ -91,7 +91,7 @@ const verifyDOM = asyncDebounce(() => {
     }
   });
 
-  [...document.querySelectorAll('[nu-root]')]
+  [...document.querySelectorAll('[is-root]')]
     .forEach(el => {
       el.nuVerifyChildren(true);
     });
@@ -148,7 +148,7 @@ function define(el) {
 }
 
 Nude.init = () => {
-  const rootEls = document.querySelectorAll('nu-root');
+  const rootEls = document.querySelectorAll('is-root');
 
   rootEls.forEach(el => {
     el.nuParent = el.parentNode;

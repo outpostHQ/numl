@@ -30,13 +30,13 @@ export default function focusAttr(val) {
       'z-index': '9',
     },
     {
-      $prefix: outside ? '[nu-focus]:not([disabled]), :host([nu-focus]:not([disabled]))' : '',
-      $suffix: `${outside ? '' : (inside ? ':focus-within' : '[nu-focus]')}`,
+      $prefix: outside ? '[is-focus]:not([disabled]), :host([is-focus]:not([disabled]))' : '',
+      $suffix: `${outside ? '' : (inside ? ':focus-within' : '[is-focus]')}`,
       '--nu-local-focus-color': 'var(--nu-focus-color)',
     },
     {
-      $prefix: outside ? '[nu-focus]:not([disabled]), :host([nu-focus]:not([disabled]))' : '',
-      $suffix: `${outside ? '' : (inside ? ':focus-within' : '[nu-focus]')}::before`,
+      $prefix: outside ? '[is-focus]:not([disabled]), :host([is-focus]:not([disabled]))' : '',
+      $suffix: `${outside ? '' : (inside ? ':focus-within' : '[is-focus]')}::before`,
     },
   ] : []).concat(inside ? [{
     $suffix: '>*',

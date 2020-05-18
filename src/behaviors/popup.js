@@ -22,7 +22,7 @@ export default class PopupBehavior extends WidgetBehavior {
       this.setAttr('theme', 'main');
     }
 
-    this.setMod('active', true);
+    this.setMod('popup', true);
 
     this.on('mousedown', (event) => {
       event.stopPropagation();
@@ -117,7 +117,7 @@ export default class PopupBehavior extends WidgetBehavior {
     resetScroll(host, true);
 
     // Select element with current value (for menus)
-    const currentEl = deepQuery(host, '[nu-current]');
+    const currentEl = deepQuery(host, '[is-current]');
 
     if (currentEl) {
       // currentEl.scrollIntoView({ block: 'center' });
@@ -153,9 +153,9 @@ export default class PopupBehavior extends WidgetBehavior {
 
     resetScroll(host, true);
 
-    const childPopup = host.nuDeepQuery('[nu-popup]');
+    const childPopup = host.nuDeepQuery('[is-popup]');
 
-    if (childPopup && childPopup.nuPopup) {
+    if (childPopup) {
       childPopup.nuPopup.close();
     }
   }
@@ -200,7 +200,7 @@ function handleOutside(event) {
 
   const popups = findParentPopup(event.target);
 
-  deepQueryAll(this === window ? document : this, '[nu-popup]')
+  deepQueryAll(this === window ? document : this, '[is-popup]')
     .forEach((currentPopup) => {
       if (!popups.includes(currentPopup)) {
         if (currentPopup.nuPopup) {

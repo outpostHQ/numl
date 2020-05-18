@@ -23,11 +23,11 @@ export default class NuInputGroup extends NuGroup {
   static nuCSS({ css, tag }) {
     return `
       ${css}
-      ${tag} [nu-keyinput]:not([border]) {
+      ${tag} [nu-input]:not([border]) {
         border: 0 !important;
         --nu-local-stroke-shadow: ${DEFAULT_STROKE_SHADOW} !important;
       }
-      ${tag} [nu-keyinput]:not([border]) {
+      ${tag} [nu-input]:not([border]) {
         background-color: transparent !important;
       }
       ${tag} [nu-icon]:not([padding]) {
