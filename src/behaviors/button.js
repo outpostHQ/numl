@@ -297,12 +297,12 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   toggleInnerPopup(bool) {
-    const innerPopup = this.host.nuDeepQuery('[nu-popup]');
+    const innerPopup = this.host.nuDeepQuery('[is-popup]');
     const method = bool == null
       ? (this.pressed ? 'open' : 'close')
       : (bool ? 'open' : 'close');
 
-    if (innerPopup && innerPopup.nuPopup) {
+    if (innerPopup) {
       innerPopup.nuPopup[method]();
     }
   }

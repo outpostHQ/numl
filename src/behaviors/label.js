@@ -37,7 +37,7 @@ export default class LabelBehavior extends Behavior {
     }
 
     if (!id) {
-      el = query(host, '[nu-input]');
+      el = query(host, '[is-input]');
     } else {
       el = queryById(host, id);
     }

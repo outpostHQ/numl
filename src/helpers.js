@@ -339,8 +339,8 @@ export const STATES_MAP = {
   even: ':nth-child(even)',
   odd: ':nth-child(odd)',
   autofill: ':-webkit-autofill',
-  checked: '[nu-pressed]',
-  selected: '[nu-pressed]',
+  checked: '[is-pressed]',
+  selected: '[is-pressed]',
 };
 
 function getStateSelector(name) {
@@ -348,7 +348,7 @@ function getStateSelector(name) {
     return `[role="${name.slice(5)}"]`;
   }
 
-  return STATES_MAP[name] || `[nu-${name}]`;
+  return STATES_MAP[name] || `[is-${name}]`;
 }
 
 export function getCombinations(array) {
@@ -369,7 +369,7 @@ const CONTEXT_START_MAP = {
   'parent': '[nu]',
   'any': '[nu]',
   'root': ':root',
-  'host': USE_SHADOW ? ':host(' : '[nu-host]',
+  'host': USE_SHADOW ? ':host(' : '[is-host]',
 };
 const CONTEXT_END_MAP = {
   'parent': '>',
@@ -381,7 +381,7 @@ const CONTEXT_END_MAP = {
 /**
  * Extract state values from single value.
  * Example: color="blue :active[red]"
- * Example output: [{ value: 'blue' }, { $suffix: '[nu-active]', value: 'red' }}]
+ * Example output: [{ value: 'blue' }, { $suffix: '[is-active]', value: 'red' }}]
  * @param {String} attrValue
  * @returns {Object[]}
  */

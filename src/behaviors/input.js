@@ -1,6 +1,5 @@
 import WidgetBehavior from './widget';
 import { h, isEqual } from '../helpers';
-import field from '../elements/field';
 
 export default class InputBehavior extends WidgetBehavior {
   static get params() {
@@ -25,7 +24,6 @@ export default class InputBehavior extends WidgetBehavior {
       this.ref = input;
     }
 
-    this.setMod('keyinput', true);
     this.value = null;
     this.props.disabled = () => {
       return this.transferAttr('disabled', this.ref) != null;

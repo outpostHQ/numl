@@ -2,13 +2,13 @@
   <nu-attrs
     for="arrow"
     padding="0.5x 0.25x" special border="color(special-bg)"></nu-attrs>
-  <nu-attrs for="arrow-left-icon" name="chevron-left" size="3x" move="-.125x 0"></nu-attrs>
-  <nu-attrs for="arrow-right-icon" name="chevron-right" size="3x" move=".125x 0"></nu-attrs>
+  <nu-attrs for="arrow-left-icon" name="chevron-left" size="1em" move="-.125x 0"></nu-attrs>
+  <nu-attrs for="arrow-right-icon" name="chevron-right" size="1em" move=".125x 0"></nu-attrs>
   <nu-attrs
     for="dropdown-icon"
     name="chevron-down"
     opacity="^:hover[1] :pressed[1] :hover:pressed[1] 0"
-    scale="^:pressed[flip-y]" place="right" height="100%"></nu-attrs>
+    scale="^:pressed[flip-y]" place="right" height="100%" size="1em"></nu-attrs>
   <nu-attrs
     for="dropdown"
     text="w5 center" content="stretch" columns="1fr auto"
@@ -82,7 +82,7 @@
   <nu-attrs for="today" text="w7" color="special" border></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
-  <nu-attrs for="start" special color></nu-attrs>
+  <nu-attrs for="start" special color radius="1r 0 0 1r"></nu-attrs>
   <nu-attrs for="end" radius="0r 1r 1r 0r :hover[1r 0 0 1r]" special color></nu-attrs>
   <nu-attrs for="selected" radius special color></nu-attrs>
   <nu-attrs for="range" radius="0 :hover[0 1r 1r 0]" fill="special-bg 25%" color="text"></nu-attrs>
