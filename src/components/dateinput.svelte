@@ -1,5 +1,5 @@
 <nu-flex gap>
-  <nu-icon name="calendar" size="1.125em" move="0 (1x / -4)"></nu-icon>
+  <nu-icon name="calendar-outline" move="0 (1x / -4)"></nu-icon>
   <nu-value grow="1" placeholder={placeholder}></nu-value>
   <nu-icon
     name="chevron-down" size="1.25em" transition="scale"

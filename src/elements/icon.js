@@ -1,4 +1,5 @@
 import NuBlock from './block';
+import combinedAttr from '../attributes/combined';
 
 export default class NuIcon extends NuBlock {
   static get nuTag() {
@@ -24,6 +25,17 @@ export default class NuIcon extends NuBlock {
             opacity: `1 !important`,
           } : null;
       },
+      size(val) {
+        if (!val) val = '1em';
+
+        const size = `minmax(${val}, ${val})`;
+
+        return combinedAttr([{
+          width: size,
+          height: 'min(1lh)',
+          '--font-size': val,
+        }], NuIcon);
+      },
     };
   }
 
@@ -33,6 +45,7 @@ export default class NuIcon extends NuBlock {
       width: 'min(1fs)',
       height: 'min(1fs)',
       sizing: 'content',
+      size: '1.5em',
       transition: 'transform',
     };
   }

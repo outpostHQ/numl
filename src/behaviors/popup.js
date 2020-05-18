@@ -22,7 +22,7 @@ export default class PopupBehavior extends WidgetBehavior {
       this.setAttr('theme', 'main');
     }
 
-    this.setMod('popup', true);
+    this.setMod('active', true);
 
     this.on('mousedown', (event) => {
       event.stopPropagation();
@@ -155,7 +155,7 @@ export default class PopupBehavior extends WidgetBehavior {
 
     const childPopup = host.nuDeepQuery('[nu-popup]');
 
-    if (childPopup) {
+    if (childPopup && childPopup.nuPopup) {
       childPopup.nuPopup.close();
     }
   }
@@ -203,7 +203,10 @@ function handleOutside(event) {
   deepQueryAll(this === window ? document : this, '[nu-popup]')
     .forEach((currentPopup) => {
       if (!popups.includes(currentPopup)) {
-        currentPopup.nuPopup.close();
+        if (currentPopup.nuPopup) {
+          currentPopup.nuPopup.close();
+        }
+
         event.nuPopupHandled = true;
       }
     });

@@ -5,10 +5,16 @@ let loader = (name) => {
   switch (ICONS_PROVIDER) {
     case 'feather':
       return import('feather-icons')
-        .then(feather => feather.icons[name].toSvg());
+        .then(feather => {
+          name = name.replace('-outline', '');
+
+          return feather.icons[name].toSvg();
+        });
     case 'eva':
       return extractModule(import('eva-icons/eva-icons.json'))
         .then(icons => {
+          name = name;
+
           let contents = icons[name];
 
           if (!contents) {
