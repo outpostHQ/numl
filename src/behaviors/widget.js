@@ -439,7 +439,7 @@ export default class WidgetBehavior extends Behavior {
 
   doActions(value) {
     if (this.shouldValueBeLinked && this.hasValue) {
-      this.doAction(value, 'input');
+      this.doAction('input', value);
     }
 
     const baseAction = this.host.getAttribute('action');

@@ -203,7 +203,7 @@ export function cleanCSSByPart(selectorPart) {
     });
   }
 
-  if (selectorPart.startsWith('#')) {
+  if (!isRegexp && selectorPart.startsWith('#')) {
     requestIdleCallback(clean);
   } else {
     clean();
