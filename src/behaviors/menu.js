@@ -10,6 +10,8 @@ export default class MenuBehavior extends WidgetBehavior {
 
     const parentMenu = this.parentContext.menu;
 
+    this.setName('menu');
+
     if (!parentMenu) {
       this.setContext('menu', this, true);
     }

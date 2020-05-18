@@ -62,8 +62,10 @@ export default class ValueBehavior extends WidgetBehavior {
       }
     }
 
+    const hasValue = value != null;
+
     if (value == null) {
-      value = '';
+      value = '&nbsp;';
     } else if (value instanceof Date) {
       value = `<nu-datetime value="${String(value)}" date></nu-datetime>`;
     } else if (Array.isArray(value) && value[0] instanceof Date) {
@@ -80,9 +82,7 @@ export default class ValueBehavior extends WidgetBehavior {
       value = `<pre>${JSON.stringify(value, null, 2)}</pre>`;
     }
 
-    const hasValue = value != null;
-
-    this.host.innerHTML = hasValue ? value : this.placeholder;
+    this.host.innerHTML = (hasValue ? value : this.placeholder) || '&nbsp;';
 
     this.setMod('empty', !hasValue);
   }

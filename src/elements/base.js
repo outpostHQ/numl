@@ -1007,6 +1007,10 @@ export default class NuBase extends HTMLElement {
     return this.hasAttribute(mod);
   }
 
+  nuSetName(name) {
+    return this.setAttribute(`nu-${name}`, '');
+  }
+
   nuHasName(name) {
     const mod = `nu-${name}`;
 
@@ -1075,7 +1079,7 @@ export default class NuBase extends HTMLElement {
    * @param {String} method
    * @param {Array} args
    */
-  nuBehaviorCall(method, args) {
+  nuBehaviorCall(method, args= []) {
     const behaviors = this.nuBehaviors;
 
     if (!behaviors) return;
