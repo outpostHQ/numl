@@ -51,6 +51,8 @@ export default class ValueBehavior extends WidgetBehavior {
         if (option) {
           this.host.innerHTML = option.item.host.innerHTML;
 
+          this.setMod('empty', false);
+
           return;
         }
       } else {

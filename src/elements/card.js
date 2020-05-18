@@ -13,12 +13,13 @@ export default class NuCard extends NuElement {
     return {
       display: 'block',
       padding: '2x',
-      fill: 'bg',
+      fill: 'bg :clear[clear]',
       color: 'text',
-      border: '1b',
+      border: '1b :clear[hidden]',
       radius: '1r',
       flow: 'column',
       transition: 'theme, radius',
+      shadow: '0 :clear[1.5]',
     };
   }
 
