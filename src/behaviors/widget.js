@@ -1,6 +1,15 @@
 import Behavior from "./behavior";
-import { devMode, isValidDate, log, toCamelCase, setImmediate, isEqual } from '../helpers';
+import {
+  devMode,
+  isValidDate,
+  log,
+  toCamelCase,
+  setImmediate,
+  isEqual,
+  getContextOwner
+} from '../helpers';
 import NuElement from '../elements/element';
+import base from '../attributes/base';
 
 const LOCALE_VAR = 'locale';
 
@@ -213,7 +222,7 @@ export default class WidgetBehavior extends Behavior {
     // Bind public value setter to context
     // if value link is active...
     if (this.params.provideValue) {
-      this.bindAction('input', (val) => {
+      this.provideAction('input', (val) => {
         this.setValue(val);
       });
     }
@@ -405,13 +414,16 @@ export default class WidgetBehavior extends Behavior {
       .then(Control => Control.apply(true, this.getTypedValue(this.emitValue)));
   }
 
-  doAction(value, action) {
+  doAction(action, value) {
     if (!action) {
       action = this.host.getAttribute('action');
     }
 
     if (action) {
       const actionCallback = this.parentContext[`action:${action}`];
+
+      //getContextOwner(this.host, `action:${action}`)
+      log('trigger action', this.host, action, value, actionCallback);
 
       if (actionCallback) {
         value = value != null ? value : this.getTypedValue(this.emitValue);
@@ -430,7 +442,11 @@ export default class WidgetBehavior extends Behavior {
       this.doAction(value, 'input');
     }
 
-    this.doAction(value);
+    const baseAction = this.host.getAttribute('action');
+
+    if (baseAction) {
+      this.doAction(baseAction, value);
+    }
   }
 
   transferAttr(name, ref, defaultValue) {
@@ -539,8 +555,8 @@ export default class WidgetBehavior extends Behavior {
    * @param name {String} - name of action.
    * @param cb {Function} - action logic.
    */
-  bindAction(name, cb) {
-    this.log('bindAction()', name);
+  provideAction(name, cb) {
+    this.log('provideAction()', name);
 
     const key = `action:${name}`;
     const context = this.context;

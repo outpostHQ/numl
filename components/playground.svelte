@@ -1,5 +1,16 @@
 <nu-heading>Playground</nu-heading>
 
+<nu-btn special padding="1x .5x 1x 1x">
+  <nu-icon name="message-circle-outline"></nu-icon>
+  <nu-el show="y|||n">Join chat</nu-el>
+  <nu-icon name="chevron-down" scale="^:pressed[flip-y]"></nu-icon>
+  <nu-popupmenu to="!https://tele.click/telegram">
+    <nu-props opacity-transition-time=".08s"></nu-props>
+    <nu-menuitem to="!https://tele.click/numldesign">Telegram</nu-menuitem>
+    <nu-menuitem action="close">Gitter</nu-menuitem>
+  </nu-popupmenu>
+</nu-btn>
+
 {#if show(hash, 'image')}
   <nu-card id="section">
     <nu-heading>Images</nu-heading>
@@ -439,7 +450,7 @@ var b = /wow?/;
   <nu-card as="section">
     <nu-form value={formData} on:input={submit} nx-debug="form-debugger0">
       <nu-theme name="error" hue="1" mod="tone"></nu-theme>
-<!--      <nu-attrs for="nu-check" theme="error"></nu-attrs>-->
+      <!--      <nu-attrs for="nu-check" theme="error"></nu-attrs>-->
       <nu-attrs for="nu-field" theme=":invalid[error]"></nu-attrs>
 
       <nu-heading level="4">Form</nu-heading>

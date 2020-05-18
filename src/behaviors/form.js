@@ -42,7 +42,7 @@ export default class FormBehavior extends WidgetBehavior {
       }
     });
 
-    this.bindAction('submit', () => {
+    this.provideAction('submit', () => {
       this.verifyData()
         .then(valid => {
           if (valid) {

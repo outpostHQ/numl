@@ -218,6 +218,8 @@ export default class ButtonBehavior extends WidgetBehavior {
         evt.preventDefault();
         evt.stopPropagation();
       }
+
+      this.doAction('close', true);
     }
 
     setTimeout(() => {
