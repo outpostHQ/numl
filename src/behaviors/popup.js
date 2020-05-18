@@ -71,6 +71,13 @@ export default class PopupBehavior extends WidgetBehavior {
 
     this.setContext('popup', this);
 
+    this.provideAction('close', (bool) => {
+      this.close();
+
+      if (bool) {
+        this.doAction('close');
+      }
+    });
 
     this.linkContext('button', (button, oldButton) => {
       if (oldButton) {
