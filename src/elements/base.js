@@ -1007,6 +1007,12 @@ export default class NuBase extends HTMLElement {
     return this.hasAttribute(mod);
   }
 
+  nuHasName(name) {
+    const mod = `nu-${name}`;
+
+    return this.hasAttribute(mod);
+  }
+
   /**
    * Build a query with current tag name and provided attribute value.
    * @param {Object} attrs - dict of attributes with their values.

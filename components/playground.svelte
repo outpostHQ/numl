@@ -439,9 +439,9 @@ var b = /wow?/;
   <nu-card as="section">
     <nu-form value={formData} on:input={submit} nx-debug="form-debugger0">
       <nu-theme name="error" hue="1" mod="tone"></nu-theme>
-      <nu-attrs for="nu-check" theme="error"></nu-attrs>
-      <nu-attrs for="nu-input" theme=":invalid[error]"></nu-attrs>
-      <nu-attrs for="nu-inputgroup" theme=":invalid[error]"></nu-attrs>
+<!--      <nu-attrs for="nu-check" theme="error"></nu-attrs>-->
+      <nu-attrs for="nu-field" theme=":invalid[error]"></nu-attrs>
+
       <nu-heading level="4">Form</nu-heading>
       <nu-flow>
         <nu-input
@@ -466,16 +466,17 @@ var b = /wow?/;
           Password is required
         </nu-check>
       </nu-field>
-      <nu-flow>
+      <nu-field>
         <nu-label>Date of issue</nu-label>
         <nu-dateinput
           id="date" mode="range" width="min(10)"
           placeholder="Date range"></nu-dateinput>
-      </nu-flow>
+      </nu-field>
       <nu-card>
         <nu-form id="user" nx-debug="form-debugger1">
           <nu-heading level="5">User</nu-heading>
-          <nu-flow>
+
+          <nu-field>
             <nu-label for="name">User name</nu-label>
             <nu-inputgroup>
               <nu-icon name="user"></nu-icon>
@@ -487,15 +488,15 @@ var b = /wow?/;
             <nu-check for="name" assert="minlength:5">
               Name should contain at least 5 characters
             </nu-check>
-          </nu-flow>
+          </nu-field>
 
-          <nu-flow>
+          <nu-field>
             <nu-label>Period</nu-label>
             <nu-inputgroup>
               <nu-icon name="hash"></nu-icon>
               <nu-numinput id="period" unit="day" grow="1"></nu-numinput>
             </nu-inputgroup>
-          </nu-flow>
+          </nu-field>
 
           <nu-pane gap>
             <nu-checkbox checked id="press" nx-debug="form-debugger3"></nu-checkbox>
