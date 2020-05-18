@@ -1,5 +1,6 @@
 import WidgetBehavior from './widget';
 import { h, isEqual } from '../helpers';
+import field from '../elements/field';
 
 export default class InputBehavior extends WidgetBehavior {
   static get params() {
@@ -87,7 +88,7 @@ export default class InputBehavior extends WidgetBehavior {
     this.inputGroup = null;
 
     this.linkContext('inputgroup', (inputGroup) => {
-      inputGroup && inputGroup.setMod('empty', !this.ref.value);
+      this.setEmpty();
     }, 'inputGroup');
 
     // recheck for autocomplete

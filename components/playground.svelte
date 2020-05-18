@@ -450,7 +450,7 @@ var b = /wow?/;
           Should be a valid email address
         </nu-check>
       </nu-flow>
-      <nu-flow>
+      <nu-field>
         <nu-inputgroup height="8x" padding="2.5x 1x 1x 1x">
           <nu-label
             place="top left 1x 2x" z="above" text="w5" origin="top left"
@@ -465,7 +465,7 @@ var b = /wow?/;
         <nu-check for="password" assert="required">
           Password is required
         </nu-check>
-      </nu-flow>
+      </nu-field>
       <nu-flow>
         <nu-label>Date of issue</nu-label>
         <nu-dateinput
