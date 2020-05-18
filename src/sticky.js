@@ -21,7 +21,7 @@ export default function () {
 
         const style = getComputedStyle(el);
         const rect = el.getBoundingClientRect();
-        const sticky = (STICKY_POSITION.includes(style.position) || el.nuHasMod('topbar'))
+        const sticky = (STICKY_POSITION.includes(style.position) || el.nuHasName('topbar'))
           && !!(scrollTop && rect.y === 0 || scrollLeft && rect.x === 0);
 
         el.nuSetMod('sticky', sticky);
