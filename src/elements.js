@@ -19,6 +19,7 @@ export { default as NuRowGroup } from './elements/rowgroup';
 export { default as NuCell } from './elements/cell';
 export { default as NuColumnHeader } from './elements/columnheader';
 export { default as NuRowHeader } from './elements/rowheader';
+export { default as NuField } from './elements/field';
 export { default as NuGroup } from './elements/group';
 export { default as NuInputGroup } from './elements/inputgroup';
 export { default as NuBtnGroup } from './elements/btngroup';

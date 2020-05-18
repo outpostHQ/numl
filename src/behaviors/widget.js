@@ -496,6 +496,13 @@ export default class WidgetBehavior extends Behavior {
       this.group.setMod('invalid', !bool);
       this.group.setMod('valid', bool);
     }
+
+    const fieldEl = this.host.closest('[nu-field]');
+
+    if (fieldEl) {
+      fieldEl.nuSetMod('invalid', !bool);
+      fieldEl.nuSetMod('valid', bool);
+    }
   }
 
   linkHostValue() {
