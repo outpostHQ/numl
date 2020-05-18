@@ -22,7 +22,7 @@ export default class NuPopup extends NuCard {
 
   static get nuStyles() {
     return {
-      display: 'none :popup[block]',
+      display: 'none :active[block]',
       shadow: '',
       z: 'front',
       opacity: ':closed[0] 1',
