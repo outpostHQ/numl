@@ -8,6 +8,11 @@ export { default as NuFlex } from './elements/flex';
 export { default as NuCard } from './elements/card';
 export { default as NuPane } from './elements/pane';
 export { default as NuLine } from './elements/line';
+export { default as NuInline } from './elements/inline';
+export { default as NuBold } from './elements/bold';
+export { default as NuItalic } from './elements/italic';
+export { default as NuStrike } from './elements/strike';
+export { default as NuUnderLine } from './elements/underline';
 export { default as NuTopBar } from './elements/topbar';
 export { default as NuHeading } from './elements/heading';
 export { default as NuSpacer } from './elements/spacer';
@@ -34,6 +39,7 @@ export { default as NuList } from './elements/list';
 export { default as NuListItem } from './elements/listitem';
 export { default as NuTab } from './elements/tab';
 export { default as NuBtn } from './elements/btn';
+export { default as NuCardBtn } from './elements/cardbtn';
 export { default as NuBlockQuote } from './elements/blockquote';
 
 // can be lazy-loaded

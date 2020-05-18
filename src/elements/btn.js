@@ -16,7 +16,7 @@ export default class NuBtn extends NuActiveElement {
       content: 'center',
       items: 'center stretch',
       hoverable: 'n :focusable[y]',
-      fill: 'bg :special[special-bg] :themed[bg] :special:themed[special-bg] :clear[clear] :clear:themed[special-bg]',
+      fill: 'bg :special[special-bg] :themed[bg] :special:themed[special-bg] :clear[clear] :clear:themed[bg]',
       text: 'nowrap :special[w5 nowrap]',
       toggle: '0 :active:focusable[.75em] :pressed:focusable[.75em] :pressed[.75em] :pressed:active[.75em]',
       color: 'text :clear[special] :special[special-text] :special:clear[special-text]',
