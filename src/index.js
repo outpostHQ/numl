@@ -162,16 +162,20 @@ Nude.init = () => {
     }
   });
 
+  // init all nude elements
   Object.values(elements)
     .forEach(define);
 
-  rootEls.forEach(el => {
-    el.nuParent && el.nuParent.appendChild(el);
-  });
+  // show all nu-root elements back
+  setTimeout(() => {
+    rootEls.forEach(el => {
+      el.nuParent && el.nuParent.appendChild(el);
+    });
 
-  if (styleEl) {
-    styleEl.parentNode.removeChild(styleEl);
-  }
+    if (styleEl) {
+      styleEl.parentNode.removeChild(styleEl);
+    }
+  }, 50);
 };
 
 Nude.getElementById = function (id) {

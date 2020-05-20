@@ -223,6 +223,7 @@ export default class WidgetBehavior extends Behavior {
     // if value link is active...
     if (this.params.provideValue) {
       this.provideAction('input', (val) => {
+        this.valueBubbled = true;
         this.setValue(val);
       });
     }
