@@ -65,7 +65,6 @@ export default class ButtonBehavior extends WidgetBehavior {
       }
     }
 
-    this.control();
     this.createLink();
 
     host.nuSetContext('button', this);
@@ -229,7 +228,10 @@ export default class ButtonBehavior extends WidgetBehavior {
     if (this.isToggle()) {
       this.toggle();
     } else {
-      this.control();
+      if (!this.popup) {
+        this.control();
+      }
+
       this.doActions(this.value);
     }
   }
@@ -287,7 +289,9 @@ export default class ButtonBehavior extends WidgetBehavior {
       this.emit('input', this.emitValue);
     }
 
-    this.control();
+    if (!this.popup) {
+      this.control();
+    }
 
     host.nuSetMod('pressed', pressed);
 
@@ -373,8 +377,14 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   control() {
+    let value = true;
+
+    if (this.isToggle() && !this.valueBubbled) {
+      value = !!this.pressed;
+    }
+
     this.nu('control')
-      .then(Control => Control.apply(!!this.pressed, this.getTypedValue(this.emitValue)));
+      .then(Control => Control.apply(value, this.getTypedValue(this.emitValue)));
   }
 
   get href() {

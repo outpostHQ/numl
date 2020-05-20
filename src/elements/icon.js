@@ -58,7 +58,7 @@ export default class NuIcon extends NuBlock {
       ${css}
       ${tag} {
         position: relative;
-        vertical-align: var(--nu-inline-offset);
+        vertical-align: text-bottom;
       }
 
       ${tag} svg {

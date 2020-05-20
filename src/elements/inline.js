@@ -1,4 +1,4 @@
-import { NuElement } from '../index';
+import NuElement from './element';
 
 export default class NuInline extends NuElement {
   static get nuTag() {
