@@ -1,9 +1,25 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'weight')}
+  <nu-card>
+    <nu-heading level="3">Font <nu-u>weight</nu-u></nu-heading>
+
+    <nu-heading level="4" text="w6">Redefined</nu-heading>
+
+    <nu-heading level="4" text="u">Styled</nu-heading>
+
+    <nu-link>Simple link</nu-link>
+
+    <nu-link text="i">Styled link</nu-link>
+
+    <nu-link text="w7">Redefined link</nu-link>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'place')}
   <nu-block padding="4">
     <nu-card width="20" height="20">
-      <nu-block place="outside-top 1x 5x">Something</nu-block>
+      <nu-block place="outside-top 1x">Something</nu-block>
     </nu-card>
   </nu-block>
 {/if}

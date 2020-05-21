@@ -6,12 +6,13 @@ function set(name, styles) {
   MAP[name] = styles;
 }
 
+['inherit'].forEach(name => set(name, { 'font-style': 'inherit' }));
 ['i', 'italic'].forEach(name => set(name, { 'font-style': 'italic' }));
 ['ni', 'non-italic'].forEach(name => set(name, { 'font-style': 'normal' }));
 ['u', 'underline'].forEach(name => set(name, { 'text-decoration': 'underline' }));
 ['s', 'line-through'].forEach(name => set(name, { 'text-decoration': 'line-through' }));
 set('no-decoration', { 'text-decoration': 'none' });
-[1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => set(`w${index}`, { '--nu-text-font-weight': `${index}00` }));
+[1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => set(`w${index}`, { '--nu-font-weight': `${index}00` }));
 ['uppercase', 'lowercase', 'capitalize'].forEach(name => set(name, { 'text-transform': name }));
 
 ['baseline', 'sub', 'sup', 'middle', 'top', 'bottom'].forEach(name => set(name, { 'vertical-align': name === 'sup' ? 'super' : name }));
@@ -67,8 +68,8 @@ export default function textAttr(val) {
     });
   });
 
-  if (!mods['--nu-text-font-weight']) {
-    mods['--nu-text-font-weight'] = 'var(--nu-font-weight, inherit)';
+  if (!styles['font-weight'] && styles['--nu-font-weight']) {
+    styles['font-weight'] = 'var(--nu-font-weight, inherit)';
   }
 
   return styles;
