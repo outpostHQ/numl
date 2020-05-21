@@ -19,6 +19,7 @@ const MAP = {
   toggle: ['box-shadow'],
   width: ['max-width', 'min-width', 'width'],
   height: ['max-height', 'min-height', 'height'],
+  gap: ['gap', 'margin'],
   z: ['z-index'],
 };
 
