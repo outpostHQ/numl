@@ -192,7 +192,7 @@ export default class ButtonBehavior extends WidgetBehavior {
         const elm = queryById(host, id);
 
         if (elm) {
-          elm.scrollIntoView();
+          elm.scrollIntoView({ behavior: 'smooth' });
 
           evt.preventDefault();
 
