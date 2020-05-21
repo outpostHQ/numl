@@ -22,7 +22,7 @@ export default function () {
         const style = getComputedStyle(el);
         const rect = el.getBoundingClientRect();
         const sticky = (STICKY_POSITION.includes(style.position) || el.nuHasName('topbar'))
-          && !!(scrollTop && rect.y === 0 || scrollLeft && rect.x === 0);
+          && !!(scrollTop && rect.y < 1 || scrollLeft && rect.x < 1);
 
         el.nuSetMod('sticky', sticky);
       });
