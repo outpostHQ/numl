@@ -391,7 +391,7 @@ export function splitStates(attrValue) {
   let contextStart, contextEnd;
 
   if (context) {
-    contextStart = CONTEXT_START_MAP[context] || `[nu-id="${context.replace('#', '')}"]`;
+    contextStart = CONTEXT_START_MAP[context] || (context.startsWith('#') ? `[nu-id="${context.replace('#', '')}"]` : `[nu-${context}]`);
     contextEnd = CONTEXT_END_MAP[context] || '';
   }
 
@@ -917,7 +917,7 @@ export function filterMods(mods, allowedMods) {
 }
 
 // const STATE_TYPE_REGEXP = /\[[^\]]*\|/;
-const STATE_REGEXP = /(\|)|(\[)|(])|(\^(#[a-z][a-z0-9-]*|root|host|any|))|:([a-z0-9:-]+)(?=\[)|('[^']*'|[#a-z0-9\.-][^'\]\[\|:]*(?!:))/gi;
+const STATE_REGEXP = /(\|)|(\[)|(])|(\^((#|)[a-z][a-z0-9-]*|))|:([a-z0-9:-]+)(?=\[)|('[^']*'|[#a-z0-9\.-][^'\]\[\|:]*(?!:))/gi;
 
 function requireZone(zones, index, parent = '') {
   while (zones[index] == null) {
@@ -951,7 +951,7 @@ export function parseAttrStates(val) {
   STATE_REGEXP.lastIndex = 0;
 
   while (token = STATE_REGEXP.exec(val)) {
-    let [s, delimiter, open, close, rawContext, context, state, value] = token;
+    let [s, delimiter, open, close, rawContext, context, hash, state, value] = token;
 
     zone = requireZone(zones, zoneIndex);
     currentContext = zone.context;

@@ -35,7 +35,7 @@ export default class NuIcon extends NuBlock {
 
         return combinedAttr([{
           width: size,
-          height: 'min(1fs)',
+          height: 'min(1lh)',
           '--font-size': val,
         }], NuIcon);
       },

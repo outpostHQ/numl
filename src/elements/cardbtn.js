@@ -5,6 +5,10 @@ export default class NuCardBtn extends NuBtn {
     return 'nu-cardbtn';
   }
 
+  static get nuName() {
+    return 'card';
+  }
+
   static get nuStyles() {
     return {
       display: 'block',
