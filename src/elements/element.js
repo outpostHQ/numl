@@ -7,7 +7,7 @@ import NuBase from './base';
 import BaseAttributes from '../attributes/base';
 import TransformCombinator from '../combinators/transform';
 import ShadowCombinator from '../combinators/shadow';
-import WeightCombinator from '../combinators/weight';
+// import WeightCombinator from '../combinators/weight';
 import { BEHAVIORS } from '../behaviors/index';
 
 /**
@@ -135,7 +135,7 @@ export default class NuElement extends NuBase {
     return {
       transform: TransformCombinator(),
       shadow: ShadowCombinator(),
-      weight: WeightCombinator(),
+      // weight: WeightCombinator(),
     };
   }
 

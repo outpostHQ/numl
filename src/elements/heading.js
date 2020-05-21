@@ -27,8 +27,6 @@ export default class NuHeading extends NuBlock {
           'line-height': lineHeight,
           '--nu-font-size': fontSize,
           '--nu-line-height': lineHeight,
-        }, {
-          '--nu-level-font-weight': 700,
         }];
       },
     };
@@ -44,6 +42,7 @@ export default class NuHeading extends NuBlock {
     return {
       level: this.nuAttrs.level,
       color: 'text-soft',
+      text: 'w7',
     };
   }
 
