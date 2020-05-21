@@ -152,6 +152,7 @@ export default function placeAttr(val, defaults) {
   if (abs) {
     const styles = {
       position: mods.includes('fixed') ? 'fixed' : 'absolute',
+      margin: '0 !important',
     };
     let transX = 0;
     let transY = 0;
