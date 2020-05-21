@@ -47,12 +47,6 @@ const behaviors = {
   get: getBehavior,
 };
 
-// const helpers = import('./helpers');
-// const color = import('./color');
-// const themes = import('./themes');
-// const css = import('./css');
-// const variables = import('./variables');
-
 const BODY = document.body;
 
 if (window.Nude) {

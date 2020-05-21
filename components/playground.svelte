@@ -1,15 +1,23 @@
 <nu-heading>Playground</nu-heading>
 
-<nu-btn special padding="1x .5x 1x 1x">
-  <nu-icon name="message-circle-outline"></nu-icon>
-  <nu-el show="y|||n">Join chat</nu-el>
-  <nu-icon name="chevron-down" scale="^:pressed[flip-y]"></nu-icon>
-  <nu-popupmenu to="!https://tele.click/telegram">
-    <nu-props opacity-transition-time=".08s"></nu-props>
-    <nu-menuitem to="!https://tele.click/numldesign">Telegram</nu-menuitem>
-    <nu-menuitem action="close">Gitter</nu-menuitem>
-  </nu-popupmenu>
-</nu-btn>
+{#if show(hash, 'place')}
+  <nu-block padding="4">
+    <nu-card width="20" height="20">
+      <nu-block place="outside-top 1x 5x">Something</nu-block>
+    </nu-card>
+  </nu-block>
+{/if}
+
+<!--<nu-btn special padding="1x .5x 1x 1x">-->
+<!--  <nu-icon name="message-circle-outline"></nu-icon>-->
+<!--  <nu-el show="y|||n">Join chat</nu-el>-->
+<!--  <nu-icon name="chevron-down" scale="^:pressed[flip-y]"></nu-icon>-->
+<!--  <nu-popupmenu to="!https://tele.click/telegram">-->
+<!--    <nu-props opacity-transition-time=".08s"></nu-props>-->
+<!--    <nu-menuitem to="!https://tele.click/numldesign">Telegram</nu-menuitem>-->
+<!--    <nu-menuitem action="close">Gitter</nu-menuitem>-->
+<!--  </nu-popupmenu>-->
+<!--</nu-btn>-->
 
 {#if show(hash, 'image')}
   <nu-card id="section">
