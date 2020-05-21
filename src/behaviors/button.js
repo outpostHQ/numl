@@ -1,6 +1,7 @@
 import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
 import { h, isEqual, queryById } from '../helpers';
+import { handleLinksState } from '../links';
 
 export default class ButtonBehavior extends WidgetBehavior {
   static get params() {
@@ -194,6 +195,8 @@ export default class ButtonBehavior extends WidgetBehavior {
           elm.scrollIntoView();
 
           evt.preventDefault();
+
+          handleLinksState(true);
 
           return;
         }

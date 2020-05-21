@@ -11,9 +11,9 @@ import {
 
 export * from './elements';
 export { FLEX_GAP_SUPPORTED } from './attributes/gap';
-import sticky from './sticky';
+import initSticky from './sticky';
+import initLinks from './links';
 
-'./sticky';
 import * as elements from './elements';
 import NuBase from './elements/base';
 import NuActiveElement from './elements/activeelement';
@@ -39,7 +39,8 @@ import { NuElement } from './elements';
 import Behavior from './behaviors/behavior';
 import WidgetBehavior from './behaviors/widget';
 
-sticky(); // enable sticky detection
+initSticky(); // enable sticky detection
+initLinks(); // enable link current state detection
 
 const behaviors = {
   define: defineBehavior,
