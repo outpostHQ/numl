@@ -1,9 +1,11 @@
 import { deepQueryAll, requestIdleCallback, log, asyncDebounce } from './helpers';
+import { injectStyleTag } from './css';
 
 export const ROOT = document.querySelector(':root');
 
 function observeContext() {
   setLocale();
+  setOutline();
 }
 
 const observer = new MutationObserver(() => observeContext());
@@ -26,6 +28,22 @@ function setLocale() {
   const value = ROOT.getAttribute('lang') || navigator.language || navigator.languages[0];
 
   setRootContext('locale', value);
+}
+
+let outlineStyleTag;
+
+function setOutline() {
+  if (outlineStyleTag && outlineStyleTag.parentNode) {
+    outlineStyleTag.parentNode.removeChild(outlineStyleTag);
+  }
+
+  const showOutline = ROOT.dataset.nuOutline != null;
+
+  if (showOutline) {
+    outlineStyleTag = injectStyleTag('* { outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important', 'outline');
+  }
+
+  setRootContext('outline', showOutline);
 }
 
 export function setRootContext(name, value) {
@@ -69,3 +87,4 @@ export function getRootContext(name) {
 }
 
 setLocale();
+setOutline();
