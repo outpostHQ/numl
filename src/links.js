@@ -21,8 +21,6 @@ export function handleLinksState(force = false) {
 
       const target = link.nuQueryById(id);
 
-      // console.log('!', target);
-
       if (!target) return;
 
       const rect = target.getBoundingClientRect();
@@ -40,7 +38,7 @@ export function handleLinksState(force = false) {
 
       link.nuSetMod('current', isCurrent);
     });
-  }, force ? 0 : 150);
+  }, force ? 0 : 100);
 }
 
 export default function () {
