@@ -63,7 +63,6 @@ export default class ControlBehavior {
           element.hidden = !element.hidden;
         }
 
-
         continue;
       }
 
