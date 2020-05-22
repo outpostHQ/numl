@@ -296,7 +296,8 @@ export default class ButtonBehavior extends WidgetBehavior {
       this.control();
     }
 
-    host.nuSetMod('pressed', pressed);
+    this.setMod('pressed', pressed);
+    this.setContext('disabled', !pressed);
 
     if (pressed) {
       this.doActions(this.value);

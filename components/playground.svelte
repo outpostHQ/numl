@@ -452,12 +452,12 @@ var b = /wow?/;
     <nu-heading>Toggle layout</nu-heading>
     <nu-flex gap>
       <nu-btn
-        role="checkbox"
+        role="checkbox" trigger
         control="layout[columns=auto auto|repeat(4, auto)]">
         Toggle Layout
       </nu-btn>
 
-      <nu-btn value="stretch" control="layout[content=@]">
+      <nu-btn value="stretch" control="layout[content=@]" trigger>
         <nu-value list="options"></nu-value>
         <nu-popup padding="1x 0">
           <nu-listbox id="options" link-value>

@@ -23,10 +23,22 @@ export default class FocusableBehavior extends Behavior {
     if (document.activeElement === ref) {
       this.setEffect(true);
     }
+
+    this.linkContext('disabled', (bool) => {
+      const contextDisabled = bool === true;
+
+      this.contextDisabled = contextDisabled;
+
+      this.set(contextDisabled ? false : !this.disabled);
+    }, false);
   }
 
   init() {
-    this.set(this.host.getAttribute(DISABLED_ATTR) == null);
+    this.set(!this.disabled);
+  }
+
+  get disabled() {
+    return this.host.hasAttribute(DISABLED_ATTR);
   }
 
   changed(name, value) {
