@@ -2,8 +2,6 @@
  * Required root element attribute.
  * @type {String}
  */
-import clamp from './elements/clamp';
-
 export const ROOT_CONTEXT = ':root';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
