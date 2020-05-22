@@ -12,7 +12,9 @@ export default class NuCheckbox extends NuActiveElement {
   static get nuTemplate() {
     return `
       <nu-icon
-        name="check"
+        name="check checkmark"
+        size="1em"
+        height="1em"
         opacity="--icon-opacity"
         transition="opacity"></nu-icon>
     `;

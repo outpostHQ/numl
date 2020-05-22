@@ -36,8 +36,8 @@
 <!--  <nu-icon name="chevron-down" scale="^:pressed[flip-y]"></nu-icon>-->
 <!--  <nu-popupmenu to="!https://tele.click/telegram">-->
 <!--    <nu-props opacity-transition-time=".08s"></nu-props>-->
-<!--    <nu-menuitem to="!https://tele.click/numldesign">Telegram</nu-menuitem>-->
-<!--    <nu-menuitem action="close">Gitter</nu-menuitem>-->
+<!--    <nu-option to="!https://tele.click/numldesign">Telegram</nu-option>-->
+<!--    <nu-option action="close">Gitter</nu-option>-->
 <!--  </nu-popupmenu>-->
 <!--</nu-btn>-->
 
@@ -450,10 +450,10 @@ var b = /wow?/;
       <nu-btn value="stretch" control="layout[content=@]">
         <nu-value list="options"></nu-value>
         <nu-popupmenu id="options" link-value>
-          <nu-menuitem value="stretch">Stretch</nu-menuitem>
-          <nu-menuitem value="space-between">Space between</nu-menuitem>
-          <nu-menuitem value="start">Start</nu-menuitem>
-          <nu-menuitem value="end">End</nu-menuitem>
+          <nu-option value="stretch">Stretch</nu-option>
+          <nu-option value="space-between">Space between</nu-option>
+          <nu-option value="start">Start</nu-option>
+          <nu-option value="end">End</nu-option>
         </nu-popupmenu>
       </nu-btn>
     </nu-flex>
@@ -599,22 +599,22 @@ var b = /wow?/;
     <nu-btn id="select" nx-debug="debugger4" type="date">
       <nu-value></nu-value>
       <nu-popupmenu type="date" nx-debug="select-debugger" link-value>
-        <nu-menuitem value="05.10.2020">One</nu-menuitem>
-        <nu-menuitem value="10.10.2020">Two</nu-menuitem>
-        <nu-menuitem>
+        <nu-option value="05.10.2020">One</nu-option>
+        <nu-option value="10.10.2020">Two</nu-option>
+        <nu-option>
           Something else...
           <nu-popupmenu place="outside-right -1x 0" link-value>
-            <nu-menuitem value="05.11.2020">Three</nu-menuitem>
+            <nu-option value="05.11.2020">Three</nu-option>
           </nu-popupmenu>
-        </nu-menuitem>
+        </nu-option>
       </nu-popupmenu>
     </nu-btn>
 
     <nu-btn id="select" type="date">
       <nu-value></nu-value>
       <nu-popupmenu type="date" link-value>
-        <nu-menuitem value="05.10.2020">One</nu-menuitem>
-        <nu-menuitem value="10.10.2020">Two</nu-menuitem>
+        <nu-option value="05.10.2020">One</nu-option>
+        <nu-option value="10.10.2020">Two</nu-option>
       </nu-popupmenu>
     </nu-btn>
 
