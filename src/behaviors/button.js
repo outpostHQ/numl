@@ -380,14 +380,14 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   control() {
-    let value = true;
+    let state = null;
 
     if (this.isToggle() && !this.valueBubbled) {
-      value = !!this.pressed;
+      state = !!this.pressed;
     }
 
     this.nu('control')
-      .then(Control => Control.apply(value, this.getTypedValue(this.emitValue)));
+      .then(Control => Control.apply(state, this.getTypedValue(this.emitValue)));
   }
 
   get href() {

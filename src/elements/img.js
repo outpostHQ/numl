@@ -46,7 +46,7 @@ export default class NuImg extends NuBlock {
 
         return combinedAttr({
           display: !isAuto ? 'inline-grid' : 'block',
-          width: isAuto ? 'max(100%)' : '',
+          width: isAuto ? 'max 100%' : '',
         }, NuImg).concat(sizing);
       }
     };

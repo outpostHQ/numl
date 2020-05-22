@@ -1743,11 +1743,6 @@ export default class NuBase extends HTMLElement {
     });
   }
 
-  nuControl(bool, value) {
-    this.nu('control')
-      .then(Control => Control.apply(!!bool, value));
-  }
-
   get nuDisabled() {
     return this.hasAttribute('disabled') || this.getAttribute('tabindex') === '-1';
   }

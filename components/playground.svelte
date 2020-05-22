@@ -396,15 +396,24 @@ var b = /wow?/;
 
 {#if show(hash, 'control')}
   <nu-card as="section">
-    <nu-heading>Toggle icon styles</nu-heading>
+    <nu-heading>Hide self</nu-heading>
     <nu-block>
+      <nu-btn control=":self" role="checkbox">
+        Hide myself
+      </nu-btn>
+    </nu-block>
+  </nu-card>
+
+  <nu-card as="section">
+    <nu-heading>Toggle icon styles</nu-heading>
+    <nu-pane>
       <nu-btn
         role="checkbox" pressed clear
         control="light[color=text|special] light[size=3x|2x]">
         Toggle
       </nu-btn>
       <nu-icon id="light" name="sun"></nu-icon>
-    </nu-block>
+    </nu-pane>
   </nu-card>
 
   <nu-card as="section">
@@ -418,7 +427,7 @@ var b = /wow?/;
   <nu-card as="section">
     <nu-attrs for="icon" size="2x"></nu-attrs>
     <nu-heading>Toggle icon name</nu-heading>
-    <nu-block>
+    <nu-pane>
       <nu-btn
         role="checkbox" clear
         value="sun" off-value="moon"
@@ -426,7 +435,7 @@ var b = /wow?/;
         Toggle
       </nu-btn>
       <nu-icon id="light" name="sun" type="fill"></nu-icon>
-    </nu-block>
+    </nu-pane>
   </nu-card>
 
   <nu-card as="section">

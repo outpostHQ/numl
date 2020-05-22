@@ -32,7 +32,7 @@ export default class NuPopup extends NuCard {
       transition: 'opacity, transform',
       origin: 'top',
       border: '1b outside',
-      width: 'minmax(100%, 100vw) :drop[clamp(--fixate-width, min-content, 100vw)]',
+      width: '100% 100vw :drop[--fixate-width min-content 100vw]',
       text: 'wrap w4',
       cursor: 'default',
       place: 'outside-bottom',

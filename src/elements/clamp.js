@@ -18,7 +18,7 @@ export default class NuClamp extends NuElement {
 
   static get nuStyles() {
     return {
-      width: 'max(100%)',
+      width: 'max 100%',
       lines: '1',
     };
   }

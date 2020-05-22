@@ -412,7 +412,7 @@ export default class WidgetBehavior extends Behavior {
 
   control() {
     this.nu('control')
-      .then(Control => Control.apply(true, this.getTypedValue(this.emitValue)));
+      .then(Control => Control.apply(null, this.getTypedValue(this.emitValue)));
   }
 
   doAction(action, value) {
