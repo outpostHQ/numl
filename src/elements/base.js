@@ -39,7 +39,7 @@ import {
   deepQuery,
   deepQueryAll,
   queryChildren,
-  setImmediate, isEqual, asyncDebounce,
+  setImmediate, isEqual, asyncDebounce, setAttr,
 } from '../helpers';
 import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
@@ -1047,6 +1047,13 @@ export default class NuBase extends HTMLElement {
         break;
       case 'lang':
         this.nuSetVar('locale', value);
+        break;
+      case 'checkbox':
+        console.log('!', name, value);
+        if (value != null) {
+          this.setAttribute('role', 'checkbox');
+        }
+        break;
     }
   }
 
@@ -1763,6 +1770,14 @@ export default class NuBase extends HTMLElement {
 
   get value() {
     return this.nuGetValue ? this.nuGetValue() : this._value;
+  }
+
+  set checkbox(bool) {
+    setAttr(this, 'checkbox', typeof bool === 'string' ? true : !!bool);
+  }
+
+  get checkbox() {
+    return this.hasAttribute('checkbox');
   }
 
   set pressed(val) {
