@@ -398,7 +398,7 @@ var b = /wow?/;
   <nu-card as="section">
     <nu-heading>Hide self</nu-heading>
     <nu-block>
-      <nu-btn control=":self" role="checkbox">
+      <nu-btn control=":self">
         Hide myself
       </nu-btn>
     </nu-block>
@@ -408,7 +408,7 @@ var b = /wow?/;
     <nu-heading>Toggle icon styles</nu-heading>
     <nu-pane>
       <nu-btn
-        role="checkbox" pressed clear
+        checkbox pressed clear
         control="light[color=text|special] light[size=3x|2x]">
         Toggle
       </nu-btn>
