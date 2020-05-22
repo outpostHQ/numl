@@ -174,4 +174,8 @@ export default class Behavior {
   get isShadowAllowed() {
     return this.host.nuIsShadowAllowed;
   }
+
+  get uniqId() {
+    return this.host.nuUniqId;
+  }
 }

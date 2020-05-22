@@ -1,5 +1,5 @@
 import WidgetBehavior from './widget';
-import { isEqual } from '../helpers';
+import { deepQueryAll, isEqual } from '../helpers';
 
 export default class MenuBehavior extends WidgetBehavior {
   init() {
@@ -15,6 +15,47 @@ export default class MenuBehavior extends WidgetBehavior {
     if (!parentMenu) {
       this.setContext('listbox', this, true);
     }
+
+    this.on('blur', () => {
+      // Clear active descendant
+      this.setActiveDescendant();
+    });
+
+    this.on('keydown', (evt) => {
+      const optionHosts = this.optionHosts;
+      const activeOption = document.activeElement;
+
+      if (!optionHosts.length || !optionHosts.includes(activeOption)) return;
+
+      const index = optionHosts.indexOf(activeOption);
+
+      switch (evt.key) {
+        case 'Home':
+          optionHosts[0].focus();
+
+          break;
+        case 'End':
+          optionHosts.slice(-1)[0].focus();
+
+          break;
+        case 'ArrowUp':
+          if (index > 0) {
+            optionHosts[index - 1].focus();
+          }
+
+          break;
+        case 'ArrowDown':
+          if (index < optionHosts.length - 1) {
+            optionHosts[index + 1].focus();
+          }
+
+          break;
+        default:
+          return;
+      }
+
+      evt.preventDefault();
+    });
   }
 
   setValue(value, silent) {
@@ -27,8 +68,19 @@ export default class MenuBehavior extends WidgetBehavior {
     }
   }
 
+  setActiveDescendant(option) {
+    this.setAria('activedescendant', option ? option.uniqId : null);
+  }
+
   addOption(option) {
     this.options.push(option);
+  }
+
+  get optionHosts() {
+    const ownHosts = this.options.map(option => option.item.host);
+
+    return deepQueryAll(this.host, '[nu-option]')
+      .filter(host => ownHosts.includes(host));
   }
 
   removeOption(option) {

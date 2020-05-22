@@ -16,33 +16,39 @@ export default class MenuItemBehavior extends ButtonBehavior {
 
     super.init();
 
-    this.linkContext('listbox', (menu) => {
+    this.linkContext('listbox', (listbox) => {
       if (this.hasValue) {
         if (this.listbox) {
           this.removeOption();
         }
 
-        if (menu) {
-          this.addOption(menu);
+        if (listbox) {
+          this.addOption(listbox);
         }
       }
 
-      this.listbox = menu;
+      this.listbox = listbox;
     }, false);
+
+    this.on('focus', () => {
+      if (!this.listbox) return;
+
+      this.listbox.setActiveDescendant(this);
+    });
   }
 
   disconnected() {
     super.disconnected();
 
-    const menu = this.listbox;
+    const listbox = this.listbox;
 
-    if (menu && this.hasValue) {
+    if (listbox && this.hasValue) {
       this.removeOption();
     }
   }
 
   fromContextValue(value) {
-    this.setMod('current', isEqual(value, this.value));
+    this.setCurrent(isEqual(value, this.value));
   }
 
   setValue(value, silent) {
@@ -54,17 +60,22 @@ export default class MenuItemBehavior extends ButtonBehavior {
 
     if (this.listbox && this.hasValue) {
       this.addOption();
-      this.setMod('current', isEqual(this.listbox.value, this.value));
+      this.setCurrent(isEqual(this.listbox.value, this.value))
     }
   }
 
-  addOption(menu = this.listbox) {
+  setCurrent(bool) {
+    this.setMod('current', bool);
+    this.setAria('aria-selected', bool);
+  }
+
+  addOption(listbox = this.listbox) {
     this.option = {
       value: this.value,
       item: this,
     };
 
-    menu.addOption(this.option);
+    listbox.addOption(this.option);
   }
 
   removeOption() {
