@@ -1,5 +1,5 @@
 import { ROOT, setRootContext } from './context';
-import { requestIdleCallback } from './helpers';
+import { devMode, requestIdleCallback } from './helpers';
 
 const DATASET = ROOT.dataset;
 const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
@@ -67,4 +67,8 @@ if (requestIdleCallback) {
       reduceMotion(false);
     });
   }
+}
+
+if (devMode) {
+  DATASET.nuDev = '';
 }

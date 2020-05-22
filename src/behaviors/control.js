@@ -1,4 +1,4 @@
-import { asyncDebounce } from "../helpers";
+import { asyncDebounce, setAttr } from "../helpers";
 import { ROOT } from '../context';
 
 const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
@@ -108,18 +108,14 @@ export default class ControlBehavior {
       if (dot) {
         element[attr] = setValue;
       } else {
-        if (setValue != null) {
-          if (isProp) {
+        if (isProp) {
+          if (setValue != null && setValue !== false) {
             element.style.setProperty(attr, String(setValue));
           } else {
-            element.setAttribute(attr, String(setValue));
+            element.style.removeProperty(attr);
           }
         } else {
-          if (isProp) {
-            element.style.removeProperty(attr);
-          } else {
-            element.removeAttribute(attr);
-          }
+          setAttr(element, attr, setValue);
         }
       }
     }

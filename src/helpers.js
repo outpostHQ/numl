@@ -361,6 +361,7 @@ export const STATES_MAP = {
   autofill: ':-webkit-autofill',
   checked: '[is-pressed]',
   selected: '[is-pressed]',
+  dev: '[data-nu-dev]',
 };
 
 function getStateSelector(name) {
