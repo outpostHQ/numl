@@ -292,7 +292,7 @@ export default class ButtonBehavior extends WidgetBehavior {
       this.emit('input', this.emitValue);
     }
 
-    if (!this.popup) {
+    if (!this.popup && (!silent || this.trigger)) {
       this.control();
     }
 

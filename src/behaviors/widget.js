@@ -6,10 +6,9 @@ import {
   toCamelCase,
   setImmediate,
   isEqual,
-  getContextOwner
 } from '../helpers';
 import NuElement from '../elements/element';
-import base from '../attributes/base';
+
 
 const LOCALE_VAR = 'locale';
 
@@ -47,6 +46,10 @@ Object.assign(BASE_PROPS, {
     return this.setValue(val, true);
   },
   disabled: BOOL_TYPE,
+  /**
+   * If TRUE then trigger control on init.
+   */
+  trigger: BOOL_TYPE,
   role(role) {
     if (role !== this.role) {
       this.role = role;
@@ -482,7 +485,9 @@ export default class WidgetBehavior extends Behavior {
       this.doActions(value);
     }
 
-    this.control();
+    if (!silent || this.trigger) {
+      this.control();
+    }
   }
 
   setFormValue(detail = this.getTypedValue(this.emitValue), form = this.form) {
