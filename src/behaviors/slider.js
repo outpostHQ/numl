@@ -65,7 +65,7 @@ export default class SliderBehavior extends WidgetBehavior {
 
     host.nuSetContext('disabled', this.disabled);
 
-    this.on('touchmove', (evt) => evt.preventDefault(), { passive: true });
+    this.on('touchmove', (evt) => evt.preventDefault());
 
     ['mousedown', 'touchstart']
       .forEach(eventName => {
@@ -101,7 +101,8 @@ export default class SliderBehavior extends WidgetBehavior {
 
   onDragEnd(evt) {
     if (this.dragging) {
-      this.setValueByEvent(evt);
+      // skip, it causes a bug on touch devices where no point information presented on such event
+      // this.setValueByEvent(evt);
       this.dragging = false;
       Object.entries(EVENT_MAP)
         .forEach(([event, handler]) => {
