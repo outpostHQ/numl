@@ -11,7 +11,7 @@ export default class NuSpacer extends NuBlock {
       size(val) {
         if (!val) val = '1x';
 
-        val = `min(${val})`;
+        val = `min ${val}`;
 
         return combinedAttr([{
           width: val,

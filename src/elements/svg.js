@@ -19,8 +19,8 @@ export default class NuSvg extends NuBlock {
     return {
       display: 'inline-block',
       sizing: 'content',
-      width: 'min(1fs)',
-      height: 'min(1fs)',
+      width: 'min 1fs',
+      height: 'min 1fs',
     };
   }
 

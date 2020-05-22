@@ -5,7 +5,7 @@
     name="chevron-down" size="1.25em" transition="scale"
     scale="^host:pressed[flip-y]"></nu-icon>
 </nu-flex>
-<nu-popup width="minmax(18, min-content)" padding>
+<nu-popup width="18 min-content" padding>
   <nu-datepicker
     value={value}
     link-value

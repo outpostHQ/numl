@@ -29,14 +29,10 @@ export default class NuIcon extends NuBlock {
       size(val) {
         if (!val) val = '1em';
 
-        val = convertUnit(val);
-
-        const size = `minmax(${val}, ${val})`;
-
         return combinedAttr([{
-          width: size,
-          height: 'min(1lh)',
-          '--font-size': val,
+          width: val,
+          height: 'min 1lh',
+          '--font-size': convertUnit(val),
         }], NuIcon);
       },
     };
@@ -45,8 +41,8 @@ export default class NuIcon extends NuBlock {
   static get nuStyles() {
     return {
       display: 'inline-block',
-      width: 'min(1fs)',
-      height: 'min(1fs)',
+      width: 'min 1fs',
+      height: 'min 1fs',
       sizing: 'content',
       size: '1.5em',
       transition: 'transform',

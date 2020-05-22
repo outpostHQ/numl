@@ -33,7 +33,7 @@ export default class NuTooltip extends NuBlock {
       size: 'xs',
       interactive: 'no',
       text: 'w6 wrap',
-      width: 'clamp(min-content, initial, 20rem)',
+      width: 'min-content initial 20rem',
     };
   }
 

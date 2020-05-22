@@ -11,7 +11,7 @@ export default class NuCircle extends NuElement {
       size(val) {
         if (!val) val = '1em';
 
-        val = `minmax(${val}, ${val})`;
+        val = `${val} ${val}`;
 
         return combinedAttr([{
           width: val,

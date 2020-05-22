@@ -14,13 +14,15 @@ export default class ControlBehavior {
 
   changed(name, value) {
     if (name === CONTROL_ATTR && value) {
-      this.apply(this.bool, this.applyValue);
+      this.apply(this.state, this.applyValue);
     }
   }
 
-  apply(bool, applyValue) {
-    this.bool = bool;
+  apply(state, applyValue) {
+    this.state = state;
     this.applyValue = applyValue;
+
+    const isBool = typeof state === 'boolean';
 
     const { host } = this;
     const value = host.getAttribute(CONTROL_ATTR);
@@ -40,6 +42,8 @@ export default class ControlBehavior {
       if (special) {
         if (id === ':root') {
           element = ROOT;
+        } else if (id === ':self') {
+          element = host;
         } else {
           continue;
         }
@@ -53,7 +57,12 @@ export default class ControlBehavior {
 
       // if no attribute specified then just toggle element
       if (!attr) {
-        element.hidden = !bool;
+        if (isBool) {
+          element.hidden = !state;
+        } else {
+          element.hidden = !element.hidden;
+        }
+
 
         continue;
       }
@@ -85,7 +94,7 @@ export default class ControlBehavior {
 
       const isProp = attr.startsWith('--');
 
-      if (!bool) {
+      if (state === false) {
         if (values[1] == null) {
           setValue = null;
         } else if (units) {
