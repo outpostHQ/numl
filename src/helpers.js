@@ -2,6 +2,8 @@
  * Required root element attribute.
  * @type {String}
  */
+import clamp from './elements/clamp';
+
 export const ROOT_CONTEXT = ':root';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
@@ -114,6 +116,9 @@ export function unit(name, { suffix, empty, property, convert } = {}) {
   };
 }
 
+const DEFAULT_MIN_SIZE = 'var(--nu-gap)';
+const DEFAULT_MAX_SIZE = '100%';
+
 /**
  * Returns unit handler for dimensional attributes.
  * @param {String} name - Attribute name.
@@ -121,44 +126,60 @@ export function unit(name, { suffix, empty, property, convert } = {}) {
  * @returns {null|Object}
  */
 export function sizeUnit(name, $suffix) {
+  const minStyle = `min-${name}`;
+  const maxStyle = `max-${name}`;
+
   return val => {
-    if (val) {
-      if (val.startsWith('clamp(')) {
-        const values = val.slice(6, -1).split(',');
+    const styles = {
+      [name]: 'auto',
+      [minStyle]: 'auto',
+      [maxStyle]: 'initial',
+    };
 
-        return {
-          $suffix,
-          [name]: convertUnit(values[1]),
-          [`min-${name}`]: convertUnit(values[0]),
-          [`max-${name}`]: convertUnit(values[2])
-        };
-      } else if (val.startsWith('minmax(')) {
-        const values = val.slice(7, -1).split(',');
+    val.split(',').forEach(value => {
+      const { mods, values } = parseAttr(value, 1);
+      const mainValue = values[0];
 
-        return {
-          $suffix,
-          [`min-${name}`]: convertUnit(values[0]),
-          [`max-${name}`]: convertUnit(values[1])
-        };
-      } else if (val.startsWith('min(')) {
-        return {
-          $suffix,
-          [`min-${name}`]: convertUnit(val.slice(4, -1))
-        };
-      } else if (val.startsWith('max(')) {
-        return {
-          $suffix,
-          [`max-${name}`]: convertUnit(val.slice(4, -1))
-        };
+      if (mainValue) {
+        if (mainValue.startsWith('clamp(')) {
+          const clampValues = parseAttr(val.slice(6, -1), 1).values;
+
+          styles[minStyle] = clampValues[0];
+          styles[name] = clampValues[1] || 'auto';
+          styles[maxStyle] = clampValues[2] || 'auto';
+
+          return;
+        } else if (mainValue.startsWith('minmax(')) {
+          const minmaxValues = parseAttr(val.slice(7, -1).split(','), 1).values;
+
+          styles[minStyle] = minmaxValues[0];
+          styles[maxStyle] = minmaxValues[1] || minmaxValues[0];
+
+          return;
+        }
       }
 
-      return {
-        $suffix,
-        [name]: convertUnit(val)
-      };
-    }
+      let flag = false;
 
-    return val;
+      for (let mod of mods) {
+        switch (mod) {
+          case 'min':
+            styles[minStyle] = values[0] || DEFAULT_MIN_SIZE;
+            flag = true;
+            break;
+          case 'max':
+            styles[maxStyle] = values[0] || DEFAULT_MAX_SIZE;
+            flag = true;
+            break;
+        }
+      }
+
+      if (!flag || !mods.length) {
+        styles[name] = values[0] || 'auto';
+      }
+    });
+
+    return styles;
   };
 }
 
@@ -887,8 +908,11 @@ export function parseAttr(value, mode = 0) {
 
           color = parseColor(prepared).color;
         } else {
-          values.push(prepared);
-          all.push(prepared);
+          if (prepared !== ',') {
+            values.push(prepared);
+            all.push(prepared);
+          }
+
           parsedValue += `${prepared} `;
         }
 
@@ -904,8 +928,11 @@ export function parseAttr(value, mode = 0) {
 
         color = parseColor(prepared).color;
       } else {
-        values.push(prepared);
-        all.push(prepared);
+        if (prepared !== ',') {
+          values.push(prepared);
+          all.push(prepared);
+        }
+
         parsedValue += prepared;
       }
     }
