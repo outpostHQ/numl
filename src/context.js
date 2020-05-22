@@ -40,7 +40,7 @@ function setOutline() {
   const showOutline = ROOT.dataset.nuOutline != null;
 
   if (showOutline) {
-    outlineStyleTag = injectStyleTag('* { outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important', 'outline');
+    outlineStyleTag = injectStyleTag('[nu] { outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important', 'outline');
   }
 
   setRootContext('outline', showOutline);

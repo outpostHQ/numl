@@ -1,6 +1,6 @@
 import {
   unit,
-  sizeUnit,
+  sizeUnit, gridUnit,
 } from '../helpers';
 import textAttr from '../attributes/text';
 import placeAttr, { PLACE_VALUES } from '../attributes/place';
@@ -77,8 +77,8 @@ export default {
   'auto-flow': 'grid-auto-flow',
   'template-columns': unit('grid-template-columns', { convert: true }),
   'template-rows': unit('grid-template-rows', { convert: true }),
-  columns: unit('grid-template-columns', { convert: true }),
-  rows: unit('grid-template-rows', { convert: true }),
+  columns: gridUnit('grid-template-columns'),
+  rows: gridUnit('grid-template-rows'),
   column: 'grid-column',
   row: 'grid-row',
   area: 'grid-area',
