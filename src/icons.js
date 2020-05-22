@@ -8,13 +8,13 @@ let loader = (name) => {
         .then(feather => {
           name = name.replace('-outline', '');
 
-          return feather.icons[name].toSvg();
+          const icon = feather.icons[name];
+
+          return icon ? icon.toSvg() : '';
         });
     case 'eva':
       return extractModule(import('eva-icons/eva-icons.json'))
         .then(icons => {
-          name = name;
-
           let contents = icons[name];
 
           if (!contents) {
@@ -40,11 +40,15 @@ let loader = (name) => {
   return Promise.resolve('');
 }
 
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon" name="moon" style="opacity: 0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-
 const Icons = {
-  load(name, type) {
-    return loader(name, type);
+  load(names, type) {
+    return Promise
+      .all(names.split(/\s+/g)
+      .map(name => {
+        return loader(name, type);
+      })).then(list => {
+        return list.find(iconData => iconData);
+      }).catch(e => console.error('!', e));
   },
   setLoader(_loader) {
     loader = _loader;

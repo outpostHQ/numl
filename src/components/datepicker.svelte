@@ -24,13 +24,13 @@
         height="28x" overflow="auto" scrollbar bind:this={yearPopup}
         on:input={(event) => navDate = event.detail} value={navDate}>
         {#each years as year}
-          <nu-menuitem
+          <nu-option
             value={year}
             disabled={!isMonthInRange(year, beginDate, endDate) ? '' : undefined}
             color=":current[special]"
             fill=":current[subtle]">
             <nu-datetime year value={year}></nu-datetime>
-          </nu-menuitem>
+          </nu-option>
         {/each}
       </nu-popupmenu>
     </nu-btn>
@@ -50,13 +50,13 @@
         height="28x" overflow="auto" scrollbar bind:this={monthPopup}
         type="date" on:input={(event) => navDate = event.detail} value={navDate}>
         {#each months as month}
-          <nu-menuitem
+          <nu-option
             value={month}
             disabled={!isMonthInRange(month, beginDate, endDate) ? '' : undefined}
             color=":current[special]"
             fill=":current[subtle]">
             <nu-datetime month value={month}></nu-datetime>
-          </nu-menuitem>
+          </nu-option>
         {/each}
       </nu-popupmenu>
     </nu-btn>

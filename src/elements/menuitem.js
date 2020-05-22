@@ -1,8 +1,8 @@
 import NuBtn from './btn';
 
-export default class NuMenuitem extends NuBtn {
+export default class NuOption extends NuBtn {
   static get nuTag() {
-    return 'nu-menuitem';
+    return 'nu-option';
   }
 
   static get nuRole() {
@@ -11,7 +11,7 @@ export default class NuMenuitem extends NuBtn {
 
   static get nuBehaviors() {
     return {
-      menuitem: true,
+      option: true,
       button: null,
     };
   }
