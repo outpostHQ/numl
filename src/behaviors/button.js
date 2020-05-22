@@ -56,8 +56,6 @@ export default class ButtonBehavior extends WidgetBehavior {
   connected() {
     super.connected();
 
-    const { host } = this;
-
     this.linkContext('radiogroup', () => this.verifyRadioGroup(), 'radioGroup');
 
     if (this.role === 'button') {
@@ -67,8 +65,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     }
 
     this.createLink();
-
-    host.nuSetContext('button', this);
+    this.setContext('button', this);
   }
 
   changed(name, value) {
@@ -261,10 +258,10 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.set(!this.pressed);
   }
 
-  set(pressed, silent) {
+  set(pressed, silent, force) {
     if (pressed === this.pressed) return;
 
-    if (!this.isToggle()) return;
+    if (!this.isToggle() && !force) return;
 
     const { host } = this;
 
@@ -292,7 +289,7 @@ export default class ButtonBehavior extends WidgetBehavior {
       this.emit('input', this.emitValue);
     }
 
-    if (!this.popup && (!silent || this.trigger)) {
+    if (!this.popup && (!silent || this.hasAttr('trigger'))) {
       this.control();
     }
 

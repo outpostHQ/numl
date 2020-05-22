@@ -450,9 +450,12 @@ var b = /wow?/;
 
   <nu-card as="section">
     <nu-heading>Toggle layout</nu-heading>
+
+    <nu-debug id="debugger"></nu-debug>
+
     <nu-flex gap>
       <nu-btn
-        role="checkbox" trigger
+        role="checkbox" trigger nx-debug
         control="layout[columns=auto auto|repeat(4, auto)]">
         Toggle Layout
       </nu-btn>
