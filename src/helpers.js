@@ -946,11 +946,22 @@ const STATE_REGEXP = /(\|)|(\[)|(])|(\^((#|)[a-z][a-z0-9-]*|))|:([a-z0-9:-]+)(?=
 
 function requireZone(zones, index, parent = '') {
   while (zones[index] == null) {
+    const prevZone = zones[index - 1];
+
+    if (prevZone && !zones[index - 1].touched) {
+      const prevPrevZone = zones[index - 2];
+
+      if (prevPrevZone) {
+        zones[index - 1] = prevPrevZone;
+      }
+    }
+
     zones.push({
       parent,
       states: {
         '': '', // base state is always presented
       },
+      touched: false,
     });
   }
 
@@ -992,6 +1003,7 @@ export function parseAttrStates(val) {
     if (rawContext) {
       zone.context = context || 'parent';
       zone.rawContext = rawContext;
+      zone.touched = true;
     } else if (delimiter) {
       if (opened) {
         if (zoneIndex) {
@@ -1018,6 +1030,7 @@ export function parseAttrStates(val) {
       } else {
         zone.states[currentState] = value.trim();
       }
+      zone.touched = true;
     }
   }
 
