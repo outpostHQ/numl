@@ -16,9 +16,9 @@ export default class MenuItemBehavior extends ButtonBehavior {
 
     super.init();
 
-    this.linkContext('menu', (menu) => {
+    this.linkContext('listbox', (menu) => {
       if (this.hasValue) {
-        if (this.menu) {
+        if (this.listbox) {
           this.removeOption();
         }
 
@@ -27,14 +27,14 @@ export default class MenuItemBehavior extends ButtonBehavior {
         }
       }
 
-      this.menu = menu;
+      this.listbox = menu;
     }, false);
   }
 
   disconnected() {
     super.disconnected();
 
-    const menu = this.menu;
+    const menu = this.listbox;
 
     if (menu && this.hasValue) {
       this.removeOption();
@@ -46,19 +46,19 @@ export default class MenuItemBehavior extends ButtonBehavior {
   }
 
   setValue(value, silent) {
-    if (this.menu && this.hasValue) {
+    if (this.listbox && this.hasValue) {
       this.removeOption();
     }
 
     super.setValue(value, silent);
 
-    if (this.menu && this.hasValue) {
+    if (this.listbox && this.hasValue) {
       this.addOption();
-      this.setMod('current', isEqual(this.menu.value, this.value));
+      this.setMod('current', isEqual(this.listbox.value, this.value));
     }
   }
 
-  addOption(menu = this.menu) {
+  addOption(menu = this.listbox) {
     this.option = {
       value: this.value,
       item: this,
@@ -69,7 +69,7 @@ export default class MenuItemBehavior extends ButtonBehavior {
 
   removeOption() {
     if (this.option) {
-      this.menu.removeOption(this.option);
+      this.listbox.removeOption(this.option);
     }
   }
 }

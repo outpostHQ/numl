@@ -37,6 +37,7 @@ export default class NuPopup extends NuCard {
       cursor: 'default',
       place: 'outside-bottom',
       drop: '',
+      padding: '',
     };
   }
 

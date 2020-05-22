@@ -1,17 +1,17 @@
 import NuFlow from './flow';
 
-export default class NuMenu extends NuFlow {
+export default class NuListBox extends NuFlow {
   static get nuTag() {
-    return 'nu-menu';
+    return 'nu-listbox';
   }
 
   static get nuRole() {
-    return 'list';
+    return 'listbox';
   }
 
   static get nuBehaviors() {
     return {
-      menu: true
+      listbox: true
     };
   }
 }
