@@ -1049,7 +1049,6 @@ export default class NuBase extends HTMLElement {
         this.nuSetVar('locale', value);
         break;
       case 'checkbox':
-        console.log('!', name, value);
         if (value != null) {
           this.setAttribute('role', 'checkbox');
         }

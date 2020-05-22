@@ -17,6 +17,7 @@ export { default as NuTopBar } from './elements/topbar';
 export { default as NuHeading } from './elements/heading';
 export { default as NuSpacer } from './elements/spacer';
 export { default as NuIcon } from './elements/icon';
+export { default as NuDropdownIcon } from './elements/dropdownicon';
 export { default as NuTable } from './elements/table';
 export { default as NuGridTable } from './elements/gridtable';
 export { default as NuRow } from './elements/row';
