@@ -35,7 +35,9 @@ export default class NuProps extends NuDefinition {
     const context = this.nuParentSelector;
     const props = this.nuOwnAttrs;
 
-    if (JSON.stringify(this.nuProps) === JSON.stringify(props)) return;
+    if (JSON.stringify(this.nuProps) === JSON.stringify(props)
+      || !parent
+      || !parent.nuGetCSS) return;
 
     this.nuProps = props;
 
