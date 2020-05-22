@@ -1726,6 +1726,12 @@ export default class NuBase extends HTMLElement {
       );
     }
 
+    injectStyleTag(
+      `:host([is-outline]) [nu] { outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important; }`,
+      `shadow:${tag}:outline`,
+      this.nuShadow,
+    );
+
     const hostCSSName = `${tag}:host`;
 
     if (!hasCSS(hostCSSName)) {
