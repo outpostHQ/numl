@@ -7,7 +7,7 @@ const DICT = {};
 
 export const BEHAVIORS = {
   focusable: () => extract(import(`./focusable.js`)),
-  menu: () => extract(import(`./menu.js`)),
+  listbox: () => extract(import(`./listbox.js`)),
   option: () => extract(import(`./option.js`)),
   active: () => extract(import(`./active.js`)),
   fixate: () => extract(import(`./fixate.js`)),

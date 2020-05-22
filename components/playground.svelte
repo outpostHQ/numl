@@ -449,12 +449,14 @@ var b = /wow?/;
 
       <nu-btn value="stretch" control="layout[content=@]">
         <nu-value list="options"></nu-value>
-        <nu-popupmenu id="options" link-value>
-          <nu-option value="stretch">Stretch</nu-option>
-          <nu-option value="space-between">Space between</nu-option>
-          <nu-option value="start">Start</nu-option>
-          <nu-option value="end">End</nu-option>
-        </nu-popupmenu>
+        <nu-popup padding="1x 0">
+          <nu-listbox id="options" link-value>
+            <nu-option value="stretch">Stretch</nu-option>
+            <nu-option value="space-between">Space between</nu-option>
+            <nu-option value="start">Start</nu-option>
+            <nu-option value="end">End</nu-option>
+          </nu-listbox>
+        </nu-popup>
       </nu-btn>
     </nu-flex>
     <nu-block id="layout" display="grid" gap>
@@ -598,24 +600,24 @@ var b = /wow?/;
 
     <nu-btn id="select" nx-debug="debugger4" type="date">
       <nu-value></nu-value>
-      <nu-popupmenu type="date" nx-debug="select-debugger" link-value>
+      <nu-popup nx-listbox type="date" nx-debug="select-debugger" link-value padding="1x 0">
         <nu-option value="05.10.2020">One</nu-option>
         <nu-option value="10.10.2020">Two</nu-option>
         <nu-option>
           Something else...
-          <nu-popupmenu place="outside-right -1x 0" link-value>
+          <nu-popup nx-listbox place="outside-right -1x 0" link-value padding="1x 0">
             <nu-option value="05.11.2020">Three</nu-option>
-          </nu-popupmenu>
+          </nu-popup>
         </nu-option>
-      </nu-popupmenu>
+      </nu-popup>
     </nu-btn>
 
     <nu-btn id="select" type="date">
       <nu-value></nu-value>
-      <nu-popupmenu type="date" link-value>
+      <nu-popup nx-listbox type="date" link-value padding="1x 0">
         <nu-option value="05.10.2020">One</nu-option>
         <nu-option value="10.10.2020">Two</nu-option>
-      </nu-popupmenu>
+      </nu-popup>
     </nu-btn>
 
     <nu-debug id="select-debugger"></nu-debug>

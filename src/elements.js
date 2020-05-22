@@ -33,7 +33,7 @@ export { default as NuRadioGroup } from './elements/radiogroup';
 export { default as NuTablist } from './elements/tablist';
 export { default as NuLink } from './elements/link';
 export { default as NuBlockLink } from './elements/blocklink';
-export { default as NuMenu } from './elements/menu';
+export { default as NuListBox } from './elements/listbox';
 export { default as NuOption } from './elements/menuitem';
 export { default as NuClamp } from './elements/clamp';
 export { default as NuList } from './elements/list';
@@ -71,7 +71,6 @@ export { default as NuLabel } from './elements/label';
 export { default as NuForm } from './elements/form';
 export { default as NuCheck } from './elements/check';
 export { default as NuPopup } from './elements/popup';
-export { default as NuPopupMenu } from './elements/popupmenu';
 export { default as NuDateInput } from './elements/dateinput';
 export { default as NuValue } from './elements/value';
 
