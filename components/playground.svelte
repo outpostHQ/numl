@@ -1,5 +1,11 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'width') || show(hash, 'height')}
+  <nu-card width="max 20">
+    Something
+  </nu-card>
+{/if}
+
 {#if show(hash, 'weight')}
   <nu-card>
     <nu-heading level="3">Font <nu-u>weight</nu-u></nu-heading>
