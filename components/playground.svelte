@@ -436,6 +436,16 @@ var b = /wow?/;
       </nu-btn>
       <nu-icon id="light" name="sun" type="fill"></nu-icon>
     </nu-pane>
+
+    <nu-pane>
+      <nu-btn
+        role="checkbox" clear
+        value="sun" off-value="moon"
+        control="light[name=@]" trigger>
+        Toggle with trigger
+      </nu-btn>
+      <nu-icon id="light" name="sun" type="fill"></nu-icon>
+    </nu-pane>
   </nu-card>
 
   <nu-card as="section">

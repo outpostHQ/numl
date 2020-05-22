@@ -30,6 +30,7 @@ export default class NuElement extends NuBase {
       direction: '',
       control: '',
       checkbox: '',
+      trigger: '',
       label: '',
       level: '',
       labelledby: '',
