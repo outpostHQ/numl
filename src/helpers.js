@@ -33,6 +33,16 @@ export function convertUnit(unit) {
   return parseAttr(unit, 1).value;
 }
 
+export function gridUnit(name) {
+  const converter = unit(name, { convert: true });
+
+  return (val) => {
+    val = val.replace(/[\d.]+cl/g, (s) => `minmax(0, ${s.replace('cl', 'fr')})`);
+
+    return converter(val);
+  };
+}
+
 /**
  * Returns simple unit handler for the attribute.
  * @param {String} name - Attribute name.
@@ -41,7 +51,7 @@ export function convertUnit(unit) {
  * @param {String} [empty] - Default value if empty value is provided.
  * @param {Boolean|String} [property] - Duplicate style as custom property.
  * @param {Boolean} [convert] - Do unit conversion for value or not.
- * @returns {null|Object}
+ * @returns {null|Function}
  */
 export function unit(name, { suffix, empty, property, convert } = {}) {
   const propertyName = !property
