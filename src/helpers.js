@@ -138,26 +138,6 @@ export function sizeUnit(name, $suffix) {
 
     val.split(',').forEach(value => {
       const { mods, values } = parseAttr(value, 1);
-      const mainValue = values[0];
-
-      if (mainValue) {
-        if (mainValue.startsWith('clamp(')) {
-          const clampValues = parseAttr(val.slice(6, -1), 1).values;
-
-          styles[minStyle] = clampValues[0];
-          styles[name] = clampValues[1] || 'auto';
-          styles[maxStyle] = clampValues[2] || 'auto';
-
-          return;
-        } else if (mainValue.startsWith('minmax(')) {
-          const minmaxValues = parseAttr(val.slice(7, -1).split(','), 1).values;
-
-          styles[minStyle] = minmaxValues[0];
-          styles[maxStyle] = minmaxValues[1] || minmaxValues[0];
-
-          return;
-        }
-      }
 
       let flag = false;
 
@@ -175,7 +155,16 @@ export function sizeUnit(name, $suffix) {
       }
 
       if (!flag || !mods.length) {
-        styles[name] = values[0] || 'auto';
+        if (values.length === 2) {
+          styles[minStyle] = values[0];
+          styles[maxStyle] = values[1];
+        } else if (values.length === 3) {
+          styles[minStyle] = values[0];
+          styles[name] = values[1];
+          styles[maxStyle] = values[2];
+        } else {
+          styles[name] = values[0] || 'auto';
+        }
       }
     });
 
