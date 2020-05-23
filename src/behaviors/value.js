@@ -43,7 +43,7 @@ export default class ValueBehavior extends WidgetBehavior {
     if (list != null) {
       const listEl = list ? queryById(this.host, list) : query(this.host, '[nu-listbox]');
 
-      if (listEl && listEl.nuListBox) {
+      if (listEl && listEl.nuListBox && listEl.nuListBox.options.length) {
         const listbox = listEl.nuListBox;
         const option = listbox.getOptionByValue(this.value);
 
@@ -56,7 +56,7 @@ export default class ValueBehavior extends WidgetBehavior {
         }
       } else {
         setTimeout(() => {
-          if (this.list) {
+          if (this.list != null) {
             this.apply();
           }
         });
