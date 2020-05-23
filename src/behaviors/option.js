@@ -10,6 +10,18 @@ export default class OptionBehavior extends WidgetBehavior {
   }
 
   init() {
+    this.props.disabled = (val) => {
+      const bool = val != null;
+
+      if (bool) {
+        this.unlinkListBox();
+      } else {
+        this.linkListBox();
+      }
+
+      return bool;
+    };
+
     this.forceLinkValue();
     this.host.nuOption = this;
 
@@ -52,15 +64,23 @@ export default class OptionBehavior extends WidgetBehavior {
   }
 
   setValue(value, silent) {
-    if (this.listbox && this.hasValue) {
-      this.removeOption();
-    }
+    this.unlinkListBox();
 
     super.setValue(value, silent);
 
-    if (this.listbox && this.hasValue) {
+    this.linkListBox();
+  }
+
+  linkListBox() {
+    if (this.listbox && this.hasValue && !this.disabled) {
       this.addOption();
       this.setCurrent();
+    }
+  }
+
+  unlinkListBox() {
+    if (this.listbox && this.hasValue) {
+      this.removeOption();
     }
   }
 

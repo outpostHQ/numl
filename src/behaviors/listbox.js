@@ -155,7 +155,7 @@ export default class ListBoxBehavior extends WidgetBehavior {
   get orderedOptions() {
     const ownHosts = this.options.map(option => option.host);
 
-    return deepQueryAll(this.host, '[nu-option]')
+    return deepQueryAll(this.host, '[nu-option]:not([disabled])')
       .filter(host => ownHosts.includes(host))
       .map(host => this.options.find(option => option.host === host))
       .filter(option => option);
