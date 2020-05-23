@@ -29,9 +29,7 @@ export default class OptionBehavior extends WidgetBehavior {
     }, false);
 
     this.on('click', () => {
-      if (this.listbox) {
-        this.listbox.setValue(this.value);
-      }
+      this.doAction('input', this.value);
     });
   }
 
