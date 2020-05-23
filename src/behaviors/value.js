@@ -1,5 +1,5 @@
 import WidgetBehavior from './widget';
-import { isEqual, queryById } from '../helpers';
+import { isEqual, query, queryById } from '../helpers';
 
 export default class ValueBehavior extends WidgetBehavior {
   static get params() {
@@ -40,8 +40,8 @@ export default class ValueBehavior extends WidgetBehavior {
   apply() {
     let { list, value } = this;
 
-    if (list) {
-      const listEl = queryById(this.host, list);
+    if (list != null) {
+      const listEl = list ? queryById(this.host, list) : query(this.host, '[nu-listbox]');
 
       if (listEl && listEl.nuListBox) {
         const listbox = listEl.nuListBox;
