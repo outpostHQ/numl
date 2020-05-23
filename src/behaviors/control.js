@@ -1,7 +1,7 @@
 import { asyncDebounce, setAttr } from "../helpers";
 import { ROOT } from '../context';
 
-const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
+const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(!|)(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
 
 export const CONTROL_ATTR = 'control';
 
@@ -34,8 +34,16 @@ export default class ControlBehavior {
     const elements = [];
 
     while (token = CONTROL_REGEXP.exec(value)) {
-      let [s, id, special, s3, dot, attr, s7, units, s9, val] = token;
+      let [s, id, special, s3, invert, dot, attr, s7, units, s9, val] = token;
       let element;
+
+      invert = !!invert;
+
+      // console.log('!', this.host.nuUniqId, invert, isBool, state);
+
+      if (invert && isBool) {
+        state = !state;
+      }
 
       // find controlled node
 
@@ -66,56 +74,58 @@ export default class ControlBehavior {
         continue;
       }
 
-      // if no value specified then use default value
-      if (val == null) {
-        val = '@value';
-      }
-
-      let varFlag = false;
-      let values = val.split('|')
-        .map(vl => {
-          if (val.startsWith('@')) {
-            vl = vl.slice(1);
-
-            varFlag = true;
-
-            return vl === 'value' || !vl ? applyValue : host.nuGetVar(vl);
-          }
-
-          return vl;
-        });
-
-      if (values[1] == null && varFlag) {
-        values[1] = values[0];
-      }
-
-      let setValue = values[0];
-
-      const isProp = attr.startsWith('--');
-
-      if (state === false) {
-        if (values[1] == null) {
-          setValue = null;
-        } else if (units) {
-          setValue = `${values[1]}${units ? units : ''}`;
-        } else {
-          setValue = values[1];
-        }
-      } else if (units) {
-        setValue = `${values[0]}${units ? units : ''}`;
-      }
-
-      if (dot) {
-        element[attr] = setValue;
+      // if no value specified
+      if (val == null && !applyValue) {
+        setAttr(element, attr, state);
       } else {
-        if (isProp) {
-          if (setValue != null && setValue !== false) {
-            element.style.setProperty(attr, String(setValue));
-          } else {
-            element.style.removeProperty(attr);
-          }
+        let firstValue, secondValue;
+
+        if (val == null) {
+          firstValue = secondValue = applyValue;
         } else {
-          setAttr(element, attr, setValue);
+          // if no value specified then use default value
+          [firstValue, secondValue] = val.split('|')
+            .map(vl => {
+              if (vl.startsWith('@')) {
+                vl = vl.slice(1);
+
+                return vl === 'value' || !vl ? applyValue : host.nuGetVar(vl);
+              }
+
+              return vl;
+            });
+
+          secondValue = secondValue != null ? secondValue : firstValue;
+        }
+
+        let setValue = firstValue;
+
+        const isProp = attr.startsWith('--');
+
+        if (state === false) {
+          if (firstValue == null) {
+            setValue = null;
+          } else if (units) {
+            setValue = `${secondValue}${units ? units : ''}`;
+          } else {
+            setValue = secondValue;
+          }
+        } else if (units) {
+          setValue = `${firstValue}${units ? units : ''}`;
+        }
+
+        if (dot) {
+          element[attr] = setValue;
+        } else {
+          if (isProp) {
+            if (setValue != null && setValue !== false) {
+              element.style.setProperty(attr, String(setValue));
+            } else {
+              element.style.removeProperty(attr);
+            }
+          } else {
+            setAttr(element, attr, setValue);
+          }
         }
       }
     }
