@@ -43,13 +43,12 @@ export default class ValueBehavior extends WidgetBehavior {
     if (list) {
       const listEl = queryById(this.host, list);
 
-      if (listEl && listEl.nuMenu) {
-        const menu = listEl.nuMenu;
-
-        const option = menu.getOptionByValue(this.value);
+      if (listEl && listEl.nuListBox) {
+        const listbox = listEl.nuListBox;
+        const option = listbox.getOptionByValue(this.value);
 
         if (option) {
-          this.host.innerHTML = option.item.host.innerHTML;
+          this.host.innerHTML = option.host.innerHTML;
 
           this.setMod('empty', false);
 

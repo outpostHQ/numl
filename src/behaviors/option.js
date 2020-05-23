@@ -77,8 +77,6 @@ export default class OptionBehavior extends WidgetBehavior {
   setCurrent() {
     const bool = this.listbox ? isEqual(this.value, this.listbox.value) : false;
 
-    console.log('! current', this.uniqId, bool, !!this.listbox);
-
     this.setMod('current', bool);
     this.setAria('selected', bool);
 

@@ -34,6 +34,7 @@ export { default as NuTablist } from './elements/tablist';
 export { default as NuLink } from './elements/link';
 export { default as NuBlockLink } from './elements/blocklink';
 export { default as NuListBox } from './elements/listbox';
+export { default as NuPopupListBox } from './elements/popuplistbox';
 export { default as NuOption } from './elements/option';
 export { default as NuClamp } from './elements/clamp';
 export { default as NuList } from './elements/list';

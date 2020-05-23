@@ -5,14 +5,11 @@ export default class NuDropdownIcon extends NuIcon {
     return 'nu-dropdownicon';
   }
 
-  static get nuStyles() {
-
-  }
-
   static get nuAttrs() {
     return {
       name: 'chevron-down',
       scale: '^btn:pressed[flip-y]',
+      space: '1x right',
     };
   }
 }

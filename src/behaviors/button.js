@@ -35,6 +35,10 @@ export default class ButtonBehavior extends WidgetBehavior {
       if (event.key === 'Escape' && host.nuHasAria('expanded')) {
         this.set(false);
       }
+
+      if (this.listbox) {
+        this.listbox.onKeyDown(event);
+      }
     });
 
     this.on('tap', (event) => {
@@ -109,6 +113,10 @@ export default class ButtonBehavior extends WidgetBehavior {
     host.nuSetAria('haspopup', true);
     host.nuSetAria('expanded', this.pressed || false);
     this.role = 'button';
+
+    if (this.listbox) {
+      this.setAria('haspopup', 'listbox');
+    }
   }
 
   unlinkPopup(popup) {
@@ -315,7 +323,7 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   setValue(value, silent) {
-    this.toggleInnerPopup(false);
+    // this.toggleInnerPopup(false);
 
     super.setValue(value, silent);
   }
