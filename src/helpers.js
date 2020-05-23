@@ -352,6 +352,7 @@ export const STATES_MAP = {
   themed: '[theme]',
   special: '[special]',
   clear: '[clear]',
+  collapsed: '[collapsed]',
   disabled: '[disabled]',
   inline: '[inline]',
   even: ':nth-child(even)',

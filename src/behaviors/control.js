@@ -58,9 +58,9 @@ export default class ControlBehavior {
       // if no attribute specified then just toggle element
       if (!attr) {
         if (isBool) {
-          element.hidden = !state;
+          element.collapsed = !state;
         } else {
-          element.hidden = !element.hidden;
+          element.collapsed = !element.collapsed;
         }
 
         continue;

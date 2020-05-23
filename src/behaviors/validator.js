@@ -1,5 +1,6 @@
 import WidgetBehavior from './widget';
 import { getRealHeight, setTransitionTimeout, setImmediate } from '../helpers';
+import { collapse } from '../effects/collapse';
 
 export default class ValidatorBehavior extends WidgetBehavior {
   static get params() {
@@ -80,20 +81,6 @@ export default class ValidatorBehavior extends WidgetBehavior {
 
     super.setValidity(bool);
 
-    const realHeight = getRealHeight(host);
-
-    if (!bool) {
-      host.style.maxHeight = '0px';
-      host.offsetHeight;
-      host.style.maxHeight = `${realHeight}px`;
-
-      setTransitionTimeout(host, () => {
-        host.style.maxHeight = '';
-      });
-    } else {
-      host.style.maxHeight = `${realHeight}px`;
-      host.offsetHeight;
-      host.style.maxHeight = '0px';
-    }
+    collapse(host, bool);
   }
 }
