@@ -162,7 +162,7 @@ export default class ListBoxBehavior extends WidgetBehavior {
   }
 
   get activeOption() {
-    return this.options.find(option => option.value === this.value);
+    return this.options.find(option => isEqual(option.value, this.value));
   }
 
   removeOption(option) {
