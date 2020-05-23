@@ -1304,24 +1304,24 @@ export function extractModule(promise) {
   return promise.then(module => module.default || module);
 }
 
-export function debugProp(instance, prop) {
-  Object.assign(instance, {
-    set [prop](val) {
-      try {
-        throw '';
-      } catch (e) {
-        console.error('prop changed', instance, {
-          [prop]: value,
-        });
-      }
-
-      this[`_${prop}`] = val;
-    },
-    get [prop]() {
-      return this[`_${prop}`];
-    }
-  });
-}
+// export function debugProp(instance, prop) {
+//   Object.assign(instance, {
+//     set [prop](val) {
+//       try {
+//         throw '';
+//       } catch (e) {
+//         console.error('prop changed', instance, {
+//           [prop]: value,
+//         });
+//       }
+//
+//       this[`_${prop}`] = val;
+//     },
+//     get [prop]() {
+//       return this[`_${prop}`];
+//     }
+//   });
+// }
 
 const NO_VALUES = ['n', 'no'];
 const YES_VALUES = ['y', 'yes'];
@@ -1462,7 +1462,7 @@ export function scrollParentToChild(parent, child) {
   // Where is the child
   const childRect = child.getBoundingClientRect();
   // Is the child viewable?
-  const isViewable = (childRect.top >= parentRect.top) && (childRect.top <= parentRect.top + parentViewableArea.height);
+  const isViewable = (childRect.top >= parentRect.top) && (childRect.top <= parentRect.top + parentViewableArea.height - childRect.height);
 
   // if you can't see the child try to scroll parent
   if (!isViewable) {
@@ -1476,5 +1476,13 @@ export function getHost(element) {
 
   if (root !== document) {
     return root.host;
+  }
+}
+
+export function stackTrace(...args) {
+  try {
+    throw '';
+  } catch (e) {
+    console.error(...args, e);
   }
 }

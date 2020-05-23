@@ -611,8 +611,8 @@ var b = /wow?/;
   <nu-card as="section">
     <nu-heading level="4">Plain listbox</nu-heading>
 
-    <nu-listbox value="one" nx-debug="debug-1">
-      <nu-option value="one" nx-debug="debug-2">One</nu-option>
+    <nu-listbox value="one">
+      <nu-option value="one">One</nu-option>
       <nu-option value="two">Two</nu-option>
       <nu-option value="three">Three</nu-option>
     </nu-listbox>
@@ -620,11 +620,16 @@ var b = /wow?/;
     <nu-heading level="4">Select</nu-heading>
 
     <nu-btn>
-      <nu-value></nu-value>
-      <nu-popuplistbox value="one" nx-debug="debug-1">
+      <nu-value list="list"></nu-value>
+      <nu-dropdownicon></nu-dropdownicon>
+      <nu-popuplistbox id="list" value="one" nx-debug="debug-1">
         <nu-option value="one" nx-debug="debug-2">One</nu-option>
         <nu-option value="two">Two</nu-option>
         <nu-option value="three">Three</nu-option>
+        <nu-option value="four">Four</nu-option>
+        <nu-option value="five">Five</nu-option>
+        <nu-option value="six">Six</nu-option>
+        <nu-option value="seven">Seven</nu-option>
       </nu-popuplistbox>
     </nu-btn>
 

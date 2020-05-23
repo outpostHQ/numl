@@ -1,5 +1,5 @@
 import WidgetBehavior from './widget';
-import { deepQueryAll, isEqual } from '../helpers';
+import { deepQueryAll, isEqual, scrollParentToChild } from '../helpers';
 
 export default class ListBoxBehavior extends WidgetBehavior {
   static get params() {
@@ -10,10 +10,13 @@ export default class ListBoxBehavior extends WidgetBehavior {
   }
 
   init() {
-    // delete this.props['link-value'];
+    if (this.host.hasAttribute('nu-popup')) {
+      delete this.props['link-value'];
 
-    // this.linkValue = true;
-    this.host.nuMenu = this;
+      this.linkValue = true;
+    }
+
+    this.host.nuListBox = this;
     this.options = [];
 
     super.init();
@@ -22,53 +25,21 @@ export default class ListBoxBehavior extends WidgetBehavior {
     this.setContext('listbox', this, true);
 
     // this.on('blur', () => {
-      // Clear active descendant
-      // this.setActive();
+    // Clear active descendant
+    // this.setActive();
     // });
 
-    this.on('keydown', (evt) => {
-      const options = this.orderedOptions;
-      const activeOption = this.activeOption;
+    this.linkContext('button', (button) => {
+      if (button && this.linkValue) {
+        button.listbox = this;
 
-      if (!options.length || !options.includes(activeOption)) return;
-
-      const index = options.indexOf(activeOption);
-
-      let newValue;
-
-      switch (evt.key) {
-        case 'Home':
-          newValue = options[0].value;
-
-          break;
-        case 'End':
-          newValue = options.slice(-1)[0].value;
-
-          break;
-        case 'ArrowUp':
-          if (index > 0) {
-            newValue = options[index - 1].value;
-          } else {
-            return;
-          }
-
-          break;
-        case 'ArrowDown':
-          if (index < options.length - 1) {
-            newValue = options[index + 1].value;
-          } else {
-            return;
-          }
-
-          break;
-        default:
-          return;
+        if (button.popup) {
+          button.setAria('haspopup', 'listbox');
+        }
       }
-
-      this.setValue(newValue);
-
-      evt.preventDefault();
     });
+
+    this.on('keydown', (evt) => this.onKeyDown(evt));
   }
 
   setValue(value, silent) {
@@ -76,11 +47,63 @@ export default class ListBoxBehavior extends WidgetBehavior {
 
     super.setValue(value, silent);
 
-    const popup = this.context.popup;
+    setTimeout(() => {
+      const activeOption = this.activeOption;
 
-    if (popup) {
-      popup.close();
+      if (activeOption) {
+        scrollParentToChild(this.host, activeOption.host);
+      }
+    });
+
+    // const popup = this.context.popup;
+    //
+    // if (popup) {
+    //   popup.close();
+    // }
+  }
+
+  onKeyDown(evt) {
+    const options = this.orderedOptions;
+    const activeOption = this.activeOption;
+
+    if (!options.length || !options.includes(activeOption)) return;
+
+    const index = options.indexOf(activeOption);
+
+    let newValue;
+
+    switch (evt.key) {
+      case 'Home':
+        newValue = options[0].value;
+
+        break;
+      case 'End':
+        newValue = options.slice(-1)[0].value;
+
+        break;
+      case 'ArrowUp':
+        if (index > 0) {
+          newValue = options[index - 1].value;
+        } else {
+          return;
+        }
+
+        break;
+      case 'ArrowDown':
+        if (index < options.length - 1) {
+          newValue = options[index + 1].value;
+        } else {
+          return;
+        }
+
+        break;
+      default:
+        return;
     }
+
+    this.setValue(newValue);
+
+    evt.preventDefault();
   }
 
   addOption(option) {

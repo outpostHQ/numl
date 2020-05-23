@@ -1,4 +1,11 @@
-import { deepQuery, deepQueryAll, fixPosition, resetScroll, scrollParentToChild } from '../helpers';
+import {
+  deepQuery,
+  deepQueryAll,
+  fixPosition,
+  resetScroll,
+  scrollParentToChild,
+  stackTrace
+} from '../helpers';
 import WidgetBehavior from './widget';
 
 let POPUPS = new Set;
