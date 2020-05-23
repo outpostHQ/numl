@@ -5,6 +5,10 @@ export default class NuPopupListBox extends NuPopup {
     return 'nu-popuplistbox';
   }
 
+  static get nuRole() {
+    return 'listbox';
+  }
+
   static get nuName() {
     return 'listbox';
   }

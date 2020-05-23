@@ -10,10 +10,10 @@ export default class ListBoxBehavior extends WidgetBehavior {
   }
 
   init() {
-    if (this.host.hasAttribute('nu-popup')) {
-      delete this.props['link-value'];
+    this.isPopup = this.host.hasAttribute('nu-popup');
 
-      this.linkValue = true;
+    if (this.isPopup) {
+      this.forceLinkValue();
     }
 
     this.host.nuListBox = this;
@@ -66,7 +66,7 @@ export default class ListBoxBehavior extends WidgetBehavior {
     const options = this.orderedOptions;
     const activeOption = this.activeOption;
 
-    if (!options.length || !options.includes(activeOption)) return;
+    if (!options.length || (activeOption && !options.includes(activeOption))) return;
 
     const index = options.indexOf(activeOption);
 
@@ -84,6 +84,8 @@ export default class ListBoxBehavior extends WidgetBehavior {
       case 'ArrowUp':
         if (index > 0) {
           newValue = options[index - 1].value;
+        } else if (index === -1) {
+          newValue = options.slice(-1)[0].value;
         } else {
           return;
         }
@@ -92,6 +94,8 @@ export default class ListBoxBehavior extends WidgetBehavior {
       case 'ArrowDown':
         if (index < options.length - 1) {
           newValue = options[index + 1].value;
+        } else if (index === -1) {
+          newValue = options[0].value;
         } else {
           return;
         }

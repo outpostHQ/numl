@@ -613,6 +613,12 @@ export default class WidgetBehavior extends Behavior {
     this.setContext('typedValue', this.getTypedValue(this.emitValue));
   }
 
+  forceLinkValue() {
+    delete this.props['link-value'];
+
+    this.linkValue = true;
+  }
+
   get shouldValueBeLinked() {
     return this.params.linkValue && this.linkValue;
   }
