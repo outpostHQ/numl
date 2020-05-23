@@ -14,6 +14,10 @@ export default function focusAttr(val) {
     }
   ].concat(focusable ? [
     {
+      $suffix: '[is-pressed]:not([disabled])::before',
+      opacity: '.5',
+    },
+    {
       $suffix: ':not([disabled])::before',
       content: '""',
       display: 'block',
