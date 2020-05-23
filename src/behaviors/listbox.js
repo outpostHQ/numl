@@ -1,3 +1,7 @@
+/**
+ * @see https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html
+ */
+
 import WidgetBehavior from './widget';
 import { deepQueryAll, isEqual, scrollParentToChild } from '../helpers';
 
@@ -74,10 +78,14 @@ export default class ListBoxBehavior extends WidgetBehavior {
 
     switch (evt.key) {
       case 'Home':
+        if (!this.isEdgeMoveAllowed()) return;
+
         newValue = options[0].value;
 
         break;
       case 'End':
+        if (!this.isEdgeMoveAllowed()) return;
+
         newValue = options.slice(-1)[0].value;
 
         break;
@@ -90,6 +98,8 @@ export default class ListBoxBehavior extends WidgetBehavior {
           return;
         }
 
+        this.openPopup();
+
         break;
       case 'ArrowDown':
         if (index < options.length - 1) {
@@ -100,6 +110,8 @@ export default class ListBoxBehavior extends WidgetBehavior {
           return;
         }
 
+        this.openPopup();
+
         break;
       default:
         return;
@@ -108,6 +120,30 @@ export default class ListBoxBehavior extends WidgetBehavior {
     this.setValue(newValue);
 
     evt.preventDefault();
+  }
+
+  isEdgeMoveAllowed() {
+    if (!this.isPopup) return true;
+
+    const popup = this.host.nuPopup;
+
+    if (popup) {
+      return popup.isOpen;
+    }
+
+    return true;
+  }
+
+  openPopup() {
+    if (!this.isPopup) return;
+
+    const popup = this.host.nuPopup;
+
+    if (!popup || popup.isOpen) return;
+
+    if (this.button) {
+      this.button.set(true, true);
+    }
   }
 
   addOption(option) {

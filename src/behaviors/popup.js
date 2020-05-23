@@ -96,7 +96,7 @@ export default class PopupBehavior extends WidgetBehavior {
       }
     });
 
-    this.close();
+    this.close(true);
   }
 
   disconnected() {
@@ -145,7 +145,7 @@ export default class PopupBehavior extends WidgetBehavior {
     }
   }
 
-  close() {
+  close(silent = false) {
     const { host } = this;
 
     if (!this.isOpen) return;
@@ -154,6 +154,8 @@ export default class PopupBehavior extends WidgetBehavior {
       .then(Fixate => Fixate.end());
 
     this.openEffect(false);
+
+    if (silent) return;
 
     if (this.button) {
       this.button.set(false);
