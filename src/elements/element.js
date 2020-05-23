@@ -9,6 +9,7 @@ import TransformCombinator from '../combinators/transform';
 import ShadowCombinator from '../combinators/shadow';
 // import WeightCombinator from '../combinators/weight';
 import { BEHAVIORS } from '../behaviors/index';
+import { collapse } from '../effects/collapse';
 
 /**
  * @class
@@ -31,6 +32,7 @@ export default class NuElement extends NuBase {
       control: '',
       checkbox: '',
       trigger: '',
+      collapsed: '',
       label: '',
       level: '',
       labelledby: '',
@@ -223,6 +225,9 @@ export default class NuElement extends NuBase {
 
           this.appendChild(el);
         });
+        break;
+      case 'collapsed':
+        collapse(this, value != null);
         break;
     }
   }
