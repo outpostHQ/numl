@@ -1,6 +1,6 @@
-import NuFlow from './flow';
+import NuCard from './card';
 
-export default class NuListBox extends NuFlow {
+export default class NuListBox extends NuCard {
   static get nuTag() {
     return 'nu-listbox';
   }
@@ -11,7 +11,15 @@ export default class NuListBox extends NuFlow {
 
   static get nuBehaviors() {
     return {
-      listbox: true
+      listbox: true,
+      focusable: true,
+    };
+  }
+
+  static get nuStyles() {
+    return {
+      padding: '1x 0',
+      focus: 'y',
     };
   }
 }

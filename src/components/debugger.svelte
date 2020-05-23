@@ -9,14 +9,14 @@
     <nu-el text="w6">el{target.nuDebugId}</nu-el> in console
   </nu-block>
   <nu-tablist value="eventlog" border="inside bottom" control="tabs-header[padding]">
-    <nu-tab control="eventlog" value="eventlog">
+    <nu-tab control="eventlog" value="eventlog" trigger>
       event log
     </nu-tab>
-    <nu-tab control="attributes" value="attributes">
+    <nu-tab control="attributes" value="attributes" trigger>
       attributes
     </nu-tab>
     {#each behaviors as behavior}
-      <nu-tab control={behavior.$$name} value={behavior.$$name}>
+      <nu-tab control={behavior.$$name} value={behavior.$$name} trigger>
         {behavior.$$name}
       </nu-tab>
     {/each}

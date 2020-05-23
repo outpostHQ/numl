@@ -1,6 +1,6 @@
-import NuBtn from './btn';
+import NuElement from './element';
 
-export default class NuOption extends NuBtn {
+export default class NuOption extends NuElement {
   static get nuTag() {
     return 'nu-option';
   }
@@ -12,12 +12,13 @@ export default class NuOption extends NuBtn {
   static get nuBehaviors() {
     return {
       option: true,
-      button: null,
+      active: true,
     };
   }
 
   static get nuStyles() {
     return {
+      display: 'grid',
       padding: '1x',
       fill: 'transparent :current[hover]',
       width: '100%',
@@ -26,8 +27,12 @@ export default class NuOption extends NuBtn {
       content: 'center start',
       items: 'stretch',
       radius: '0',
-      border: '0',
+      border: ':current[3b left inside color(special)] 0',
       color: ':current[special]',
+      transition: 'theme',
+      hoverable: 'y :current[n]',
+      opacity: '1 :disabled[.5]',
+      cursor: 'pointer :disabled[default]',
 
       '--local-focus-inset': 'inset 0 0',
     };

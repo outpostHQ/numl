@@ -14,7 +14,7 @@ const MAP = {
   shadow: ['box-shadow'],
   size: ['font-size', 'line-height'],
   text: ['font-weight'],
-  theme: ['color', 'background-color', 'box-shadow', 'border'],
+  theme: ['color', 'background-color', 'box-shadow', 'border', 'border-radius'],
   space: ['margin'],
   toggle: ['box-shadow'],
   width: ['max-width', 'min-width', 'width'],

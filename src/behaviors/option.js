@@ -1,7 +1,7 @@
-import ButtonBehavior from './button';
+import WidgetBehavior from './widget';
 import { isEqual } from '../helpers';
 
-export default class MenuItemBehavior extends ButtonBehavior {
+export default class OptionBehavior extends WidgetBehavior {
   static get params() {
     return {
       contextValue: true,
@@ -10,30 +10,32 @@ export default class MenuItemBehavior extends ButtonBehavior {
   }
 
   init() {
+    // delete this.props.value;
     delete this.props['link-value'];
 
     this.linkValue = true;
+    this.host.nuOption = this;
+    // this.setMod('active');
 
     super.init();
 
     this.linkContext('listbox', (listbox) => {
-      if (this.hasValue) {
-        if (this.listbox) {
-          this.removeOption();
-        }
-
-        if (listbox) {
-          this.addOption(listbox);
-        }
+      if (this.listbox) {
+        this.removeOption();
       }
 
       this.listbox = listbox;
+
+      if (listbox && this.hasValue) {
+        this.addOption(listbox);
+        this.setCurrent();
+      }
     }, false);
 
-    this.on('focus', () => {
-      if (!this.listbox) return;
-
-      this.listbox.setActiveDescendant(this);
+    this.on('click', () => {
+      if (this.listbox) {
+        this.listbox.setValue(this.value);
+      }
     });
   }
 
@@ -48,7 +50,11 @@ export default class MenuItemBehavior extends ButtonBehavior {
   }
 
   fromContextValue(value) {
-    this.setCurrent(isEqual(value, this.value));
+    this.log('link context value', value);
+    if (this.listbox) {
+      this.addOption();
+      this.setCurrent();
+    }
   }
 
   setValue(value, silent) {
@@ -60,27 +66,30 @@ export default class MenuItemBehavior extends ButtonBehavior {
 
     if (this.listbox && this.hasValue) {
       this.addOption();
-      this.setCurrent(isEqual(this.listbox.value, this.value))
+      this.setCurrent();
     }
   }
 
-  setCurrent(bool) {
-    this.setMod('current', bool);
-    this.setAria('aria-selected', bool);
+  addOption(listbox = this.listbox) {
+    listbox.addOption(this);
   }
 
-  addOption(listbox = this.listbox) {
-    this.option = {
-      value: this.value,
-      item: this,
-    };
+  setCurrent() {
+    const bool = this.listbox ? isEqual(this.value, this.listbox.value) : false;
 
-    listbox.addOption(this.option);
+    console.log('! current', this.uniqId, bool, !!this.listbox);
+
+    this.setMod('current', bool);
+    this.setAria('selected', bool);
+
+    if (this.listbox && bool) {
+      this.listbox.setAria('activedescendant', this.uniqId);
+    }
   }
 
   removeOption() {
-    if (this.option) {
-      this.listbox.removeOption(this.option);
+    if (this.listbox) {
+      this.listbox.removeOption(this);
     }
   }
 }

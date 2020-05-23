@@ -51,7 +51,9 @@ export default class ActiveBehavior extends Behavior {
     this.on('blur', () => this.setMod('active', false));
 
     this.on(['mousedown', 'touchstart'], () => {
-      if (!host.nuDisabled && host.nuHasMod('focusable')) {
+      // checking for focusable also && host.nuHasMod('focusable')
+      // doesn't for nu-option
+      if (!host.nuDisabled) {
         this.setMod('active', true);
       }
     }, { passive: true });
