@@ -1,5 +1,19 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'tabs')}
+  <nu-card as="section">
+    <nu-tablist>
+      <nu-tab>One</nu-tab>
+      <nu-tab>Two</nu-tab>
+      <nu-tab>Three</nu-tab>
+    </nu-tablist>
+
+    <nu-router>
+      <nu-block id=""></nu-block>
+    </nu-router>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'width') || show(hash, 'height')}
   <nu-card width="max 20">
     Something

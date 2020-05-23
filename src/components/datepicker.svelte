@@ -20,8 +20,7 @@
     <nu-btn id="dropdown" on:tap={toggle}>
       <nu-datetime year value={navDate}></nu-datetime>
       <nu-icon id="dropdown-icon"></nu-icon>
-      <nu-popup
-        nx-listbox padding="1x 0"
+      <nu-popuplistbox
         height="28x" overflow="auto" scrollbar bind:this={yearPopup}
         on:input={(event) => navDate = event.detail} value={navDate}>
         {#each years as year}
@@ -33,7 +32,7 @@
             <nu-datetime year value={year}></nu-datetime>
           </nu-option>
         {/each}
-      </nu-popup>
+      </nu-popuplistbox>
     </nu-btn>
     <nu-btn id="arrow" on:tap={nextYear} disabled={haveNextYear ? undefined : ''}>
       <nu-icon id="arrow-right-icon"></nu-icon>
@@ -47,8 +46,7 @@
     <nu-btn id="dropdown" on:tap={toggle}>
       <nu-datetime month="short" value={navDate}></nu-datetime>
       <nu-icon id="dropdown-icon"></nu-icon>
-      <nu-popup
-        nx-listbox padding="1x 0"
+      <nu-popuplistbox
         height="28x" overflow="auto" scrollbar bind:this={monthPopup}
         type="date" on:input={(event) => navDate = event.detail} value={navDate}>
         {#each months as month}
@@ -60,7 +58,7 @@
             <nu-datetime month value={month}></nu-datetime>
           </nu-option>
         {/each}
-      </nu-popup>
+      </nu-popuplistbox>
     </nu-btn>
     <nu-btn id="arrow" on:tap={nextMonth} disabled={haveNextMonth ? undefined : ''}>
       <nu-icon id="arrow-right-icon"></nu-icon>
