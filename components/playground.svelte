@@ -607,6 +607,34 @@ var b = /wow?/;
   </nu-card>
 {/if}
 
+{#if show(hash, 'listbox')}
+  <nu-card as="section">
+    <nu-heading level="4">Plain listbox</nu-heading>
+
+    <nu-listbox value="one" nx-debug="debug-1">
+      <nu-option value="one" nx-debug="debug-2">One</nu-option>
+      <nu-option value="two">Two</nu-option>
+      <nu-option value="three">Three</nu-option>
+    </nu-listbox>
+
+    <nu-heading level="4">Select</nu-heading>
+
+    <nu-btn>
+      <nu-value></nu-value>
+      <nu-popuplistbox value="one" nx-debug="debug-1">
+        <nu-option value="one" nx-debug="debug-2">One</nu-option>
+        <nu-option value="two">Two</nu-option>
+        <nu-option value="three">Three</nu-option>
+      </nu-popuplistbox>
+    </nu-btn>
+
+    <nu-grid columns="1cl 1cl" gap>
+      <nu-debug id="debug-1"></nu-debug>
+      <nu-debug id="debug-2"></nu-debug>
+    </nu-grid>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'select')}
   <nu-card as="section">
     <nu-heading level="3">Select</nu-heading>

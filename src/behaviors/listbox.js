@@ -1,52 +1,63 @@
 import WidgetBehavior from './widget';
 import { deepQueryAll, isEqual } from '../helpers';
 
-export default class MenuBehavior extends WidgetBehavior {
+export default class ListBoxBehavior extends WidgetBehavior {
+  static get params() {
+    return {
+      input: true,
+      provideValue: true,
+    };
+  }
+
   init() {
+    // delete this.props['link-value'];
+
+    // this.linkValue = true;
     this.host.nuMenu = this;
     this.options = [];
 
     super.init();
 
-    const parentMenu = this.parentContext.menu;
-
     this.setName('listbox');
+    this.setContext('listbox', this, true);
 
-    if (!parentMenu) {
-      this.setContext('listbox', this, true);
-    }
-
-    this.on('blur', () => {
+    // this.on('blur', () => {
       // Clear active descendant
-      this.setActiveDescendant();
-    });
+      // this.setActive();
+    // });
 
     this.on('keydown', (evt) => {
-      const optionHosts = this.optionHosts;
-      const activeOption = document.activeElement;
+      const options = this.orderedOptions;
+      const activeOption = this.activeOption;
 
-      if (!optionHosts.length || !optionHosts.includes(activeOption)) return;
+      if (!options.length || !options.includes(activeOption)) return;
 
-      const index = optionHosts.indexOf(activeOption);
+      const index = options.indexOf(activeOption);
+
+      let newValue;
 
       switch (evt.key) {
         case 'Home':
-          optionHosts[0].focus();
+          newValue = options[0].value;
 
           break;
         case 'End':
-          optionHosts.slice(-1)[0].focus();
+          newValue = options.slice(-1)[0].value;
 
           break;
         case 'ArrowUp':
           if (index > 0) {
-            optionHosts[index - 1].focus();
+            newValue = options[index - 1].value;
+          } else {
+            return;
           }
 
           break;
         case 'ArrowDown':
-          if (index < optionHosts.length - 1) {
-            optionHosts[index + 1].focus();
+          if (index < options.length - 1) {
+            newValue = options[index + 1].value;
+          } else {
+            return;
           }
 
           break;
@@ -54,11 +65,15 @@ export default class MenuBehavior extends WidgetBehavior {
           return;
       }
 
+      this.setValue(newValue);
+
       evt.preventDefault();
     });
   }
 
   setValue(value, silent) {
+    if (value === this.value) return;
+
     super.setValue(value, silent);
 
     const popup = this.context.popup;
@@ -68,19 +83,23 @@ export default class MenuBehavior extends WidgetBehavior {
     }
   }
 
-  setActiveDescendant(option) {
-    this.setAria('activedescendant', option ? option.uniqId : null);
-  }
-
   addOption(option) {
-    this.options.push(option);
+    if (!this.options.includes(option)) {
+      this.options.push(option);
+    }
   }
 
-  get optionHosts() {
-    const ownHosts = this.options.map(option => option.item.host);
+  get orderedOptions() {
+    const ownHosts = this.options.map(option => option.host);
 
     return deepQueryAll(this.host, '[nu-option]')
-      .filter(host => ownHosts.includes(host));
+      .filter(host => ownHosts.includes(host))
+      .map(host => this.options.find(option => option.host === host))
+      .filter(option => option);
+  }
+
+  get activeOption() {
+    return this.options.find(option => option.value === this.value);
   }
 
   removeOption(option) {
