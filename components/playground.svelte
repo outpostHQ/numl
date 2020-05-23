@@ -619,7 +619,7 @@ var b = /wow?/;
 
     <nu-heading level="4">Select</nu-heading>
 
-    <nu-btn width="10" columns="1fr auto">
+    <nu-btn width="10" columns="1fr auto" value="six">
       <nu-value list></nu-value>
       <nu-dropdownicon></nu-dropdownicon>
       <nu-popuplistbox nx-debug="debug-1">
