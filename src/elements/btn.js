@@ -13,7 +13,7 @@ export default class NuBtn extends NuActiveElement {
       radius: '1r',
       flow: 'column',
       gap: '1x',
-      content: 'center',
+      content: 'center :dropdown[stretch]',
       items: 'center stretch',
       hoverable: 'n :focusable[y]',
       fill: 'bg :special[special-bg] :themed[bg] :special:themed[special-bg] :clear[clear] :clear:themed[bg]',

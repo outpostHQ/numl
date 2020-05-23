@@ -10,12 +10,8 @@ export default class OptionBehavior extends WidgetBehavior {
   }
 
   init() {
-    // delete this.props.value;
-    delete this.props['link-value'];
-
-    this.linkValue = true;
+    this.forceLinkValue();
     this.host.nuOption = this;
-    // this.setMod('active');
 
     super.init();
 

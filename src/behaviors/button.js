@@ -37,7 +37,9 @@ export default class ButtonBehavior extends WidgetBehavior {
       }
 
       if (this.listbox) {
+        this.ignorePopup = true;
         this.listbox.onKeyDown(event);
+        this.ignorePopup = false;
       }
     });
 
@@ -107,12 +109,12 @@ export default class ButtonBehavior extends WidgetBehavior {
   linkPopup(popup) {
     if (this.popup) return;
 
-    const { host } = this;
-
     this.popup = popup;
-    host.nuSetAria('haspopup', true);
-    host.nuSetAria('expanded', this.pressed || false);
+    this.setAria('haspopup', true);
+    this.setAria('expanded', this.pressed || false);
     this.role = 'button';
+
+    this.setMod('dropdown', true);
 
     if (this.listbox) {
       this.setAria('haspopup', 'listbox');
@@ -128,6 +130,8 @@ export default class ButtonBehavior extends WidgetBehavior {
     host.nuSetAria('haspopup', null);
     host.nuSetAria('expanded', null);
     this.role = this.host.constructor.nuRole;
+
+    this.setMod('dropdown', false);
   }
 
   createLink() {
@@ -323,7 +327,9 @@ export default class ButtonBehavior extends WidgetBehavior {
   }
 
   setValue(value, silent) {
-    // this.toggleInnerPopup(false);
+    if (!this.ignorePopup) {
+      this.toggleInnerPopup(false);
+    }
 
     super.setValue(value, silent);
   }
