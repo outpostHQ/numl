@@ -1,7 +1,7 @@
 import {
   generateId,
   setImmediate,
-  parseAllValues, h,
+  parseAllValues, h, setBoolAttr,
 } from '../helpers';
 import NuBase from './base';
 import BaseAttributes from '../attributes/base';
@@ -168,6 +168,10 @@ export default class NuElement extends NuBase {
     super.nuChanged(name, oldValue, value);
 
     switch (name) {
+      case 'checked':
+      case 'selected':
+        setBoolAttr(this, 'pressed', value);
+        break;
       // ARIA
       case 'label':
       case 'level':

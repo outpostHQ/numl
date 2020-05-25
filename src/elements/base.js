@@ -39,7 +39,7 @@ import {
   deepQuery,
   deepQueryAll,
   queryChildren,
-  setImmediate, isEqual, asyncDebounce, setAttr,
+  setImmediate, isEqual, asyncDebounce, setAttr, setBoolAttr,
 } from '../helpers';
 import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
@@ -1771,16 +1771,16 @@ export default class NuBase extends HTMLElement {
     return this.nuGetValue ? this.nuGetValue() : this._value;
   }
 
-  set checkbox(bool) {
-    setAttr(this, 'checkbox', typeof bool === 'string' ? true : !!bool);
+  set checkbox(val) {
+    setBoolAttr(this, 'checkbox', val);
   }
 
   get checkbox() {
     return this.hasAttribute('checkbox');
   }
 
-  set collapsed(bool) {
-    setAttr(this, 'collapsed', typeof bool === 'string' ? true : !!bool);
+  set collapsed(val) {
+    setBoolAttr(this, 'collapsed', val);
   }
 
   get collapsed() {
@@ -1788,11 +1788,7 @@ export default class NuBase extends HTMLElement {
   }
 
   set pressed(val) {
-    if (val != null) {
-      this.setAttribute('pressed', val);
-    } else {
-      this.removeAttribute('pressed');
-    }
+    setBoolAttr(this, 'pressed', val);
   }
 
   get pressed() {

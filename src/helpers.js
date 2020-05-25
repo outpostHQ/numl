@@ -1108,6 +1108,14 @@ export function setAttrs(el, attrs) {
   });
 }
 
+export function setBoolAttr(el, name, val) {
+  if (val != null && val !== false) {
+    el.setAttribute(name, '');
+  } else {
+    el.removeAttribute(name);
+  }
+}
+
 export function setAttr(el, name, value) {
   if (value != null && value !== false) {
     el.setAttribute(name, value === true ? '' : value);
