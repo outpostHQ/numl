@@ -12,7 +12,7 @@ export default class NuRowHeader extends NuCell {
   static get nuStyles() {
     return {
       text: 'w6 middle',
-      border: '1b right',
+      border: '1bw right',
     };
   }
 }

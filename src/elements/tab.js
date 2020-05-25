@@ -23,11 +23,11 @@ export default class NuTab extends NuActiveElement {
       hoverable: null,
 
       '--local-line-width': `0
-        :focusable:hover[1b]
-        :pressed[3b]
-        :hover:pressed[3b]
-        :focusable:active[2b]
-        :focusable:active:hover[2b]`,
+        :focusable:hover[1bw]
+        :pressed[1sw]
+        :hover:pressed[1sw]
+        :focusable:active[1sw - 1bw]
+        :focusable:active:hover[1sw - 1bw]`,
     };
   }
 }

@@ -7,6 +7,7 @@ import {
   deepQueryAll,
   deepQuery,
   requestIdleCallback,
+  resetScroll,
 } from './helpers';
 
 export * from './elements';
@@ -46,6 +47,10 @@ const behaviors = {
   define: defineBehavior,
   has: hasBehavior,
   get: getBehavior,
+};
+
+const helpers = {
+  resetScroll,
 };
 
 const BODY = document.body;
@@ -116,6 +121,7 @@ const Nude = {
   NuElement,
   Behavior,
   WidgetBehavior,
+  helpers,
   // helpers,
   // color,
   // themes,
@@ -167,7 +173,7 @@ Nude.init = () => {
       el.nuParent && el.nuParent.appendChild(el);
     });
 
-    if (styleEl) {
+    if (styleEl && styleEl.parentNode) {
       styleEl.parentNode.removeChild(styleEl);
     }
   }, 50);
@@ -240,7 +246,7 @@ export {
   NuElement,
   Behavior,
   WidgetBehavior,
-  // helpers,
+  helpers,
   // themes,
   // css,
   // color,

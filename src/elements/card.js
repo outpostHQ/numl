@@ -15,7 +15,7 @@ export default class NuCard extends NuElement {
       padding: '2x',
       fill: 'bg :clear[clear]',
       color: 'text',
-      border: '1b :clear[hidden]',
+      border: '1bw :clear[hidden]',
       radius: '1r',
       flow: 'column',
       transition: 'theme, radius',

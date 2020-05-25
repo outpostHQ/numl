@@ -16,7 +16,8 @@ const USE_SHADOW = document.querySelector(':root').dataset.nuShadow != null;
  */
 export const CUSTOM_UNITS = {
   'r': 'var(--nu-radius)',
-  'b': 'var(--nu-border-width)',
+  'bw': 'var(--nu-border-width)',
+  'sw': 'var(--nu-selected-width)',
   'x': 'var(--nu-gap)',
   'fs': 'var(--nu-font-size)',
   'lh': 'var(--nu-line-height)',

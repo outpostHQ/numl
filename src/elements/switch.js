@@ -25,7 +25,7 @@ export default class NuSwitch extends NuActiveElement {
   static get nuStyles() {
     return {
       display: 'inline-block',
-      border: '1b',
+      border: '1bw',
       sizing: 'content',
       radius: 'round',
       focus: 'y',
@@ -42,10 +42,10 @@ export default class NuSwitch extends NuActiveElement {
       padding: '--circle-gap',
 
       '--size': '1em + --circle-gap',
-      '--circle-gap': '.125em + 1b',
+      '--circle-gap': '.125em + 1bw',
       '--circle-size': '--size',
       '--circle-offset': `0
-        :pressed[--size - 1b]`,
+        :pressed[--size - 1bw]`,
       '--circle-bg-color': `--special-bg-color
         :disabled[rgba(--text-color-rgb, .66)]
         :pressed[--special-text-color]

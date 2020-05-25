@@ -31,7 +31,7 @@ export default class NuPopup extends NuCard {
       move: '0 0 :closed[0 4x]',
       transition: 'opacity, transform',
       origin: 'top',
-      border: '1b outside',
+      border: '1bw outside',
       width: '100% 100vw :drop[--fixate-width min-content 100vw]',
       text: 'wrap w4',
       cursor: 'default',

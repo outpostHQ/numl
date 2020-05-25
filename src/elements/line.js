@@ -35,7 +35,7 @@ export default class NuLine extends NuBlock {
     return {
       place: 'stretch',
       orient: 'h',
-      size: '1b',
+      size: '1bw',
       fill: 'var(--nu-local-border-color, var(--nu-border-color)) :special[special]',
       text: 'v-middle',
     };
