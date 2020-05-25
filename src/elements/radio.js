@@ -23,7 +23,7 @@ export default class NuRadio extends NuActiveElement {
       display: 'inline-block',
       width: '1em',
       height: '1em',
-      border: '1b color(text) :disabled[1b color(text 50%)]',
+      border: '1bw color(text) :disabled[1bw color(text 50%)]',
       radius: 'round',
       content: 'stretch',
       items: 'center',

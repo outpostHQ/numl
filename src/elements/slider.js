@@ -24,8 +24,8 @@ export default class NuSlider extends NuElement {
         size="1.25em"
         radius="round"
         fill="special-text"
-        border="1b color(text)"
-        space=".375em + 1b"
+        border="1bw color(text)"
+        space=".375em + 1bw"
         text="v-middle"
         move="--local-rail-move-v --local-rail-move-h"
         orient="h"
@@ -59,7 +59,7 @@ export default class NuSlider extends NuElement {
       radius: 'round',
       fill: 'special-bg :disabled[text 50%]',
       opacity: '1 :disabled[.5]',
-      border: '1b',
+      border: '1bw',
       text: 'v-middle',
       cursor: 'pointer :disabled[default]',
       hoverable: '.5em :disabled[n]',

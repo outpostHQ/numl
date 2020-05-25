@@ -447,7 +447,7 @@ var b = /wow?/;
 
     <nu-block id="block"></nu-block>
 
-    <nu-slider value="50" control="block[.innerText]"></nu-slider>
+    <nu-slider value="50" control="block[.innerText: units]"></nu-slider>
   </nu-card>
 
   <nu-card as="section">

@@ -20,7 +20,7 @@ export default class NuGridTable extends NuGrid {
 
   static get nuStyles() {
     return {
-      gap: '1b',
+      gap: '1bw',
       color: '',
       overflow: 'auto',
       fill: 'border',

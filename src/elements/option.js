@@ -27,7 +27,7 @@ export default class NuOption extends NuElement {
       content: 'center start',
       items: 'stretch',
       radius: '0',
-      border: ':current[3b left inside color(special)] 0',
+      border: ':current[1sw left inside color(special)] 0',
       color: ':current[special]',
       transition: 'theme',
       hoverable: 'y :current[n]',

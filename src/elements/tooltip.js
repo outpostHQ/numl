@@ -29,7 +29,7 @@ export default class NuTooltip extends NuBlock {
       fill: 'bg',
       color: 'text',
       radius: '1r',
-      border: '1b outside',
+      border: '1bw outside',
       size: 'xs',
       interactive: 'no',
       text: 'w6 wrap',
