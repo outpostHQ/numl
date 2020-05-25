@@ -254,7 +254,7 @@ export default class ButtonBehavior extends WidgetBehavior {
         return this.pressed ? this.value : (this.offValue != null ? this.offValue : this.value);
       }
 
-      return null;
+      return this.pressed;
     }
 
     return this.value;
