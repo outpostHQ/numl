@@ -1,16 +1,71 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'icon')}
+  <nu-card as="section">
+    <nu-heading level="4">Icons</nu-heading>
+
+    Uses Feather Icons library by default. (lazy-loading)
+
+    <nu-block size="xl">
+      <nu-icon name="user"></nu-icon>
+      <nu-icon name="dollar-sign"></nu-icon>
+      <nu-icon name="message-square"></nu-icon>
+      <nu-icon name="package"></nu-icon>
+      Text to align
+    </nu-block>
+
+    <nu-heading level="5">Various sizes (Context definition)</nu-heading>
+    <nu-block>
+      <nu-el>
+        <nu-icon name="hash"></nu-icon>
+      </nu-el>
+
+      <nu-el>
+        <nu-props icon-size="1em"></nu-props>
+        <nu-icon name="hash"></nu-icon>
+      </nu-el>
+
+      <nu-el>
+        <nu-props icon-size="2em"></nu-props>
+        <nu-icon name="hash"></nu-icon>
+      </nu-el>
+    </nu-block>
+
+    <nu-heading level="5">Various stroke width</nu-heading>
+    <nu-block>
+      <nu-el>
+        <nu-props icon-stroke-width=".5x / 3"></nu-props>
+        <nu-icon name="hash"></nu-icon>
+      </nu-el>
+
+      <nu-el>
+        <nu-props icon-stroke-width=".5x"></nu-props>
+        <nu-icon name="hash"></nu-icon>
+      </nu-el>
+    </nu-block>
+
+  </nu-card>
+{/if}
+
 {#if show(hash, 'tabs')}
   <nu-card as="section">
-    <nu-tablist>
-      <nu-tab>One</nu-tab>
-      <nu-tab>Two</nu-tab>
-      <nu-tab>Three</nu-tab>
+    <nu-props icon-stroke-width=".5x / 3"></nu-props>
+
+    <nu-tablist value="one" border="bottom">
+      <nu-tab control="one" value="one" trigger>
+        One
+      </nu-tab>
+      <nu-tab control="two" value="two" trigger>Two</nu-tab>
+      <nu-tab control="three" value="three" trigger>Three</nu-tab>
     </nu-tablist>
 
-    <nu-router>
-      <nu-block id=""></nu-block>
-    </nu-router>
+    <nu-block id="one">One</nu-block>
+    <nu-block id="two">Two</nu-block>
+    <nu-block id="three">Three</nu-block>
+
+<!--    <nu-router>-->
+<!--      <nu-block id=""></nu-block>-->
+<!--    </nu-router>-->
   </nu-card>
 {/if}
 

@@ -4,13 +4,17 @@ import { extractModule } from './helpers';
 let loader = (name) => {
   switch (ICONS_PROVIDER) {
     case 'feather':
-      return import('feather-icons')
-        .then(feather => {
+      return extractModule(import('feather-icons/dist/icons.json'))
+        .then(icons => {
           name = name.replace('-outline', '');
 
-          const icon = feather.icons[name];
+          const contents = icons[name];
 
-          return icon ? icon.toSvg() : '';
+          if (contents) {
+            return `<svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" style="stroke-width: var(--nu-icon-stroke-width, calc(1rem / 8))" fill="none" stroke-linecap="round" stroke-linejoin="round">${contents}</svg>`;
+          }
+
+          return '';
         });
     case 'eva':
       return extractModule(import('eva-icons/eva-icons.json'))
@@ -30,7 +34,7 @@ let loader = (name) => {
           }
 
           if (contents) {
-            return `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${contents}</svg>`
+            return `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${contents}</svg>`;
           }
 
           return '';

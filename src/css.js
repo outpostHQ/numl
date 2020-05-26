@@ -300,6 +300,7 @@ const globalCSS = `
   --nu-transition-time: 0.08s;
   --nu-inline-offset: -.15em;
   --nu-transition-enabler: 1;
+  --nu-icon-size: 1.5em;
 
   --nu-font-size: 1rem;
   --nu-line-height: 1.5rem;

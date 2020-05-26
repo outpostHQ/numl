@@ -1,4 +1,4 @@
-import { asyncDebounce, setAttr } from "../helpers";
+import { asyncDebounce, log, setAttr } from "../helpers";
 import { ROOT } from '../context';
 
 const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(!|)(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
@@ -26,6 +26,8 @@ export default class ControlBehavior {
 
     const { host } = this;
     const value = host.getAttribute(CONTROL_ATTR);
+
+    log('control triggered', state, applyValue, value);
 
     if (!value) return;
 
