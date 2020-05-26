@@ -38,7 +38,7 @@ export function gridUnit(name) {
   const converter = unit(name, { convert: true });
 
   return (val) => {
-    val = val.replace(/[\d.]+pr/g, (s) => `minmax(0, ${s.replace('cl', 'fr')})`);
+    val = val.replace(/[\d]+pr/g, (s) => `minmax(0, ${s.replace('pr', 'fr')})`);
 
     return converter(val);
   };
