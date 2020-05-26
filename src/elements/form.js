@@ -6,7 +6,7 @@ export default class NuForm extends NuFlow {
   }
 
   static get nuRole() {
-    return 'role';
+    return 'form';
   }
 
   static get nuBehaviors() {
