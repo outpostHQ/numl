@@ -7,6 +7,7 @@ export { default as NuBlock } from './elements/block';
 export { default as NuFlex } from './elements/flex';
 export { default as NuCard } from './elements/card';
 export { default as NuPane } from './elements/pane';
+export { default as NuNavigation } from './elements/navigation';
 export { default as NuLine } from './elements/line';
 export { default as NuInline } from './elements/inline';
 export { default as NuBold } from './elements/bold';
