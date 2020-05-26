@@ -419,13 +419,13 @@ export default class NuBase extends HTMLElement {
     );
   }
 
-  static nuGenerateDefaultStyle(isHost = false) {
+  static nuGenerateDefaultStyle(isHost = false, dontInject = false) {
     let tag = this.nuTag;
 
     const cssName = isHost ? `${tag}:host` : tag;
 
     // already declared
-    if (STYLE_MAP[cssName]) return;
+    if (STYLE_MAP[cssName] && !dontInject) return;
 
     if (isHost) {
       tag = ':host';
@@ -488,9 +488,13 @@ export default class NuBase extends HTMLElement {
         defaultsCSS += generateCSS(query, styles, true);
       });
 
-    injectCSS(cssName, tag, `${css}${defaultsCSS}`);
+    const fullCSS = `${css}${defaultsCSS}`;
 
-    return `${css}${defaultsCSS}`;
+    if (!dontInject) {
+      injectCSS(cssName, tag, fullCSS);
+    }
+
+    return fullCSS;
   }
 
   constructor() {

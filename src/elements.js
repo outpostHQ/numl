@@ -42,6 +42,7 @@ export { default as NuListItem } from './elements/listitem';
 export { default as NuTab } from './elements/tab';
 export { default as NuBtn } from './elements/btn';
 export { default as NuCardBtn } from './elements/cardbtn';
+export { default as NuItemBtn } from './elements/itembtn';
 export { default as NuBlockQuote } from './elements/blockquote';
 
 // can be lazy-loaded
