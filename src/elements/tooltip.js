@@ -16,6 +16,12 @@ export default class NuTooltip extends NuBlock {
     };
   }
 
+  static get nuAttrs() {
+    return {
+      theme: '',
+    };
+  }
+
   static get nuStyles() {
     return {
       display: 'block',

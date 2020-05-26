@@ -14,7 +14,7 @@
       Text to align
     </nu-block>
 
-    <nu-heading level="5">Various sizes (Context definition)</nu-heading>
+    <nu-heading level="5">Change default size (Context definition)</nu-heading>
     <nu-block>
       <nu-el>
         <nu-icon name="hash"></nu-icon>
@@ -31,7 +31,7 @@
       </nu-el>
     </nu-block>
 
-    <nu-heading level="5">Various stroke width</nu-heading>
+    <nu-heading level="5">Change default stroke width</nu-heading>
     <nu-block>
       <nu-el>
         <nu-props icon-stroke-width=".5x / 3"></nu-props>
