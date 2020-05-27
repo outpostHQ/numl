@@ -1,13 +1,6 @@
 import NuElement from './element';
 import combinedAttr from '../attributes/combined';
 
-const CIRCLE_CSS = (tag = '') => `${tag} nu-circle {
-  position: absolute;
-  top: var(--nu-local-rail-top);
-  left: var(--nu-local-rail-left);
-  bottom: var(--nu-local-rail-bottom);
-}`;
-
 export default class NuSlider extends NuElement {
   static get nuTag() {
     return 'nu-slider';
@@ -20,6 +13,7 @@ export default class NuSlider extends NuElement {
   static get nuTemplate() {
     return `
       <nu-circle
+        id="slider-cap"
         place="absolute"
         size="1.25em"
         radius="round"
