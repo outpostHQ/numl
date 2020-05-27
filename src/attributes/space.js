@@ -4,6 +4,8 @@ import {
   filterMods
 } from '../helpers';
 
+const DEFAULT_SPACE = 'var(--nu-gap)';
+
 function prepareValue(value) {
   if (value.startsWith('calc(')) {
     value = value.slice(5, -1);
@@ -22,7 +24,7 @@ export default function spaceAttr(val) {
   if (mods.length) {
     return mods.reduce((styles, mod) => {
       const index = DIRECTIONS.indexOf(mod);
-      let value = values[index] || values[index % 2] || values[0];
+      let value = values[index] || values[index % 2] || values[0] || DEFAULT_SPACE;
 
       styles[`margin-${mod}`] = prepareValue(value);
 

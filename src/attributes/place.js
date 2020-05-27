@@ -94,9 +94,8 @@ function getEmptyTransform(defaults) {
   return SECONDARY_DEFAULT_STYLES.map(styles => ({ ...styles }));
 }
 
-const SIDE_SPACE = {
-  'margin-left': 'auto',
-  'margin-right': 'auto',
+const SPACE_AROUND = {
+  'margin': 'auto',
 };
 
 export default function placeAttr(val, defaults) {
@@ -109,8 +108,8 @@ export default function placeAttr(val, defaults) {
 
   let pos = '';
 
-  if (mods.includes('side-space')) {
-    return [SIDE_SPACE, ...getEmptyTransform(defaults)];
+  if (mods.includes('space-around')) {
+    return [SPACE_AROUND, ...getEmptyTransform(defaults)];
   }
 
   if (mods.includes('sticky')) {
