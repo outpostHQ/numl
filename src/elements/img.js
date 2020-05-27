@@ -70,7 +70,6 @@ export default class NuImg extends NuBlock {
       display: null,
       fit: 'none',
       sizing: 'content',
-      overflow: 'no',
     };
   }
 
