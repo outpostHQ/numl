@@ -353,7 +353,6 @@ export const STATES_MAP = {
   themed: '[theme]',
   special: '[special]',
   clear: '[clear]',
-  collapsed: '[collapsed]',
   disabled: '[disabled]',
   inline: '[inline]',
   even: ':nth-child(even)',
@@ -1379,8 +1378,10 @@ export function hasYesValue(mods) {
  * @param multiplier {Number}
  */
 export function setTransitionTimeout(host, cb, multiplier = 1) {
-  const styleValue = getComputedStyle(host).getPropertyValue('--nu-transition-time').trim();
-  const time = parseTime(styleValue) * multiplier;
+  const style = getComputedStyle(host);
+  const styleValue = style.getPropertyValue('--nu-transition-time').trim();
+  const transition = style.transition;
+  const time = transition ? parseTime(styleValue) * multiplier : 0;
 
   setTimeout(() => {
     setTimeout(cb, time);
