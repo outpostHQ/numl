@@ -112,6 +112,14 @@ export default function placeAttr(val, defaults) {
     return [SPACE_AROUND, ...getEmptyTransform(defaults)];
   }
 
+  if (mods.includes('float-left')) {
+    return [{ float: 'left' }, ...getEmptyTransform(defaults)];
+  }
+
+  if (mods.includes('float-right')) {
+    return [{ float: 'right' }, ...getEmptyTransform(defaults)];
+  }
+
   if (mods.includes('sticky')) {
     return [{
       position: 'sticky',

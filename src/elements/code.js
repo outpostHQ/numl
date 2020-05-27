@@ -5,6 +5,10 @@ export default class NuCode extends NuElement {
     return 'nu-code';
   }
 
+  static get nuRole() {
+    return 'figure';
+  }
+
   static get nuStyles() {
     return {
       display: 'block',

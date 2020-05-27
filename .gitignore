@@ -6,4 +6,5 @@ test
 .cache
 generate/*
 playground/*
-
+src/elements/view.js
+src/behaviors/view.js
