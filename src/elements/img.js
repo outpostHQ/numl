@@ -1,5 +1,5 @@
 import NuBlock from './block';
-import { devMode, warn } from '../helpers';
+import { devMode, parseAttr, warn } from '../helpers';
 import combinedAttr from '../attributes/combined';
 
 export default class NuImg extends NuBlock {
@@ -19,8 +19,15 @@ export default class NuImg extends NuBlock {
 
   static get nuGenerators() {
     return {
+      display: null,
       fit(val) {
-        val = val || 'contain';
+        const { values, mods } = parseAttr(val);
+
+        if (!mods.length) {
+          val = 'contain';
+        } else {
+          val = mods[0];
+        }
 
         const isAuto = val === 'none';
 
@@ -30,9 +37,12 @@ export default class NuImg extends NuBlock {
           val = 'none';
         }
 
-        const sizing = !isAuto ? [{
-          'object-fit': val,
+        values[0] = values[0] || mods[1];
+        values[1] = values[1] || mods[2];
+
+        const sizing = (!isAuto ? [{
           $suffix: '>img',
+          'object-fit': val,
           'max-width': '100%',
           'min-width': '100%',
           'max-height': '100%',
@@ -42,7 +52,10 @@ export default class NuImg extends NuBlock {
         }, {
           $suffix: '>img',
           'max-width': '100%',
-        }];
+        }]).concat(values.length > 0 ? [{
+          $suffix: '>img',
+          'object-position': `${values[0]} ${values[1] || ''}`,
+        }] : []);
 
         return combinedAttr({
           display: !isAuto ? 'inline-grid' : 'block',
@@ -57,6 +70,7 @@ export default class NuImg extends NuBlock {
       display: null,
       fit: 'none',
       sizing: 'content',
+      overflow: 'no',
     };
   }
 

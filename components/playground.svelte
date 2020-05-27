@@ -690,6 +690,16 @@ var b = /wow?/;
 
 {#if show(hash, 'slider')}
   <nu-card as="section">
+    <nu-card padding="0" overflow="no">
+      <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/after.jpg"></nu-img>
+      <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/before.jpg"
+              id="overlay" place="cover" height="100%" fit="cover left"></nu-img>
+    </nu-card>
+
+    <nu-slider control="overlay[width:%=@]" value="50"></nu-slider>
+  </nu-card>
+
+  <nu-card as="section">
     <nu-heading level="2">Slider</nu-heading>
     <nu-slider value="50" nx-debug="slider-debug-h"></nu-slider>
     <nu-slider value="50" orient="v" nx-debug="slider-debug-v"></nu-slider>
@@ -699,6 +709,7 @@ var b = /wow?/;
       <nu-debug id="slider-debug-v"></nu-debug>
     </nu-grid>
   </nu-card>
+
 {/if}
 
 {#if show(hash, 'listbox')}
