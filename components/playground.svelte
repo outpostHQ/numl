@@ -1,5 +1,15 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'space-around')}
+  <nu-card as="section" gap>
+    <nu-block>
+      There should be a gap between cards
+    </nu-block>
+    <nu-card place="space-around" width="20">Space around</nu-card>
+    <nu-card place="space-around" width="20">Space around</nu-card>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'icon')}
   <nu-card as="section">
     <nu-heading level="4">Icons</nu-heading>
@@ -59,9 +69,11 @@
       <nu-tab control="three" value="three" trigger>Three</nu-tab>
     </nu-tablist>
 
-    <nu-block id="one">One</nu-block>
-    <nu-block id="two">Two</nu-block>
-    <nu-block id="three">Three</nu-block>
+    <nu-block>
+      <nu-block id="one">One</nu-block>
+      <nu-block id="two">Two</nu-block>
+      <nu-block id="three">Three</nu-block>
+    </nu-block>
 
 <!--    <nu-router>-->
 <!--      <nu-block id=""></nu-block>-->
