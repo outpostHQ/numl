@@ -15,7 +15,13 @@ export default function displayAttr(val) {
       $suffix: ':not([inline])',
       display: val,
     }, {
+      $suffix: ':not([inline])[hidden]',
+      display: val,
+    }, {
       $suffix: '[inline]',
+      display: `inline-${val}`,
+    }, {
+      $suffix: '[inline][hidden]',
       display: `inline-${val}`,
     }]
     : [{ display: val }])

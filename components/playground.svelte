@@ -478,13 +478,13 @@ var b = /wow?/;
 
 {#if show(hash, 'control')}
   <nu-card as="section">
-    <nu-props transition-time=".2s"></nu-props>
+    <nu-props transition-time=".4s"></nu-props>
     <nu-heading>Collapsing</nu-heading>
     <nu-btn
       checkbox trigger
-      control="collapsing[!collapsed]"
+      control="collapsing[!hidden]"
       t="'Show the block' :pressed['Collapse the block']"></nu-btn>
-    <nu-block width="max 20" id="collapsing">
+    <nu-block id="collapsing" effect="collapse">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </nu-block>
   </nu-card>

@@ -1783,12 +1783,12 @@ export default class NuBase extends HTMLElement {
     return this.hasAttribute('checkbox');
   }
 
-  set collapsed(val) {
-    setBoolAttr(this, 'collapsed', val);
+  set hidden(val) {
+    setBoolAttr(this, 'hidden', val);
   }
 
-  get collapsed() {
-    return this.hasAttribute('collapsed');
+  get hidden() {
+    return this.hasAttribute('hidden');
   }
 
   set pressed(val) {

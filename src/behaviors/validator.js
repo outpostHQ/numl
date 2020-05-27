@@ -1,6 +1,6 @@
 import WidgetBehavior from './widget';
 import { getRealHeight, setTransitionTimeout, setImmediate } from '../helpers';
-import { collapse } from '../effects/collapse';
+import { hideEffect } from '../effects/hide';
 
 export default class ValidatorBehavior extends WidgetBehavior {
   static get params() {
@@ -81,6 +81,6 @@ export default class ValidatorBehavior extends WidgetBehavior {
 
     super.setValidity(bool);
 
-    collapse(host, bool);
+    hideEffect(host, bool, 'collapse');
   }
 }

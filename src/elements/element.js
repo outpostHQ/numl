@@ -9,7 +9,7 @@ import TransformCombinator from '../combinators/transform';
 import ShadowCombinator from '../combinators/shadow';
 // import WeightCombinator from '../combinators/weight';
 import { BEHAVIORS } from '../behaviors/index';
-import { collapse } from '../effects/collapse';
+import { hideEffect } from '../effects/hide';
 
 /**
  * @class
@@ -32,7 +32,7 @@ export default class NuElement extends NuBase {
       control: '',
       checkbox: '',
       trigger: '',
-      collapsed: '',
+      hidden: '',
       label: '',
       level: '',
       labelledby: '',
@@ -149,9 +149,6 @@ export default class NuElement extends NuBase {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag}[hidden] {
-        display: none !important;
-      }
       ${tag}::selection {
         background-color: rgba(var(--nu-main-special-bg-color-rgb, var(--nu-special-bg-color-rgb)), .33) !important;
       }
@@ -230,8 +227,8 @@ export default class NuElement extends NuBase {
           this.appendChild(el);
         });
         break;
-      case 'collapsed':
-        collapse(this, value != null);
+      case 'hidden':
+        hideEffect(this, value != null);
         break;
     }
   }

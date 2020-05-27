@@ -177,17 +177,11 @@ export default class PopupBehavior extends WidgetBehavior {
   }
 
   openEffect(bool) {
-    if (bool) {
-      this.setMod('closed', false);
-      // this.host.hidden = false;
-    } else {
-      this.setMod('closed', true);
-      // this.host.hidden = true;
-    }
+    this.host.hidden = !bool;
   }
 
   get isOpen() {
-    return !this.hasMod('closed');
+    return !this.host.hidden;
   }
 }
 

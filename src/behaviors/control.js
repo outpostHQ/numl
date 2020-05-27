@@ -41,8 +41,6 @@ export default class ControlBehavior {
 
       invert = !!invert;
 
-      // console.log('!', this.host.nuUniqId, invert, isBool, state);
-
       if (invert && isBool) {
         state = !state;
       }
@@ -77,8 +75,8 @@ export default class ControlBehavior {
       }
 
       // if no value specified
-      if (val == null && !applyValue) {
-        setAttr(element, attr, state);
+      if (val == null && typeof applyValue === 'boolean') {
+        setAttr(element, attr, applyValue != null ? state : applyValue);
       } else {
         let firstValue, secondValue;
 
