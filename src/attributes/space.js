@@ -19,20 +19,26 @@ export default function spaceAttr(val) {
 
   let { values, mods } = parseAttr(val, 1);
 
+  let around = mods.includes('around');
+
   mods = filterMods(mods, DIRECTIONS);
 
   if (mods.length) {
     return mods.reduce((styles, mod) => {
       const index = DIRECTIONS.indexOf(mod);
-      let value = values[index] || values[index % 2] || values[0] || DEFAULT_SPACE;
+      let value = values[index] || values[index % 2] || values[0] || (around ? 'auto' : DEFAULT_SPACE);
 
-      styles[`margin-${mod}`] = prepareValue(value);
+      styles[`margin-${mod}`] = around ? value : prepareValue(value);
 
       return styles;
     }, {});
   }
 
-  values = values.map(prepareValue);
+  if (!around) {
+    values = values.map(prepareValue);
+  } else if (!values.length) {
+    return { margin: 'auto' };
+  }
 
   return {
     'margin-top': values[0],

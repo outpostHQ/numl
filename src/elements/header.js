@@ -1,14 +1,16 @@
-import NuElement from './element';
+import NuRegion from './region';
 
-export default class NuTopBar extends NuElement {
+export default class NuHeader extends NuRegion {
   static get nuTag() {
-    return 'nu-topbar';
+    return 'nu-header';
+  }
+
+  static get nuRole() {
+    return 'banner';
   }
 
   static get nuStyles() {
     return {
-      display: 'block',
-      place: 'fixed top',
       fill: 'bg',
       shadow: '0 :sticky[1]',
       width: '100%',

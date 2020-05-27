@@ -6,6 +6,7 @@
       There should be a gap between cards
     </nu-block>
     <nu-card place="space-around" width="20">Space around</nu-card>
+    <nu-card space="around" width="20">Space around</nu-card>
     <nu-card place="space-around" width="20">Space around</nu-card>
   </nu-card>
 {/if}
