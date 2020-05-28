@@ -4,11 +4,9 @@ import {
   fixPosition,
   resetScroll,
   scrollParentToChild,
-  stackTrace
 } from '../helpers';
 import WidgetBehavior from './widget';
 
-let POPUPS = new Set;
 
 export default class PopupBehavior extends WidgetBehavior {
   static get params() {

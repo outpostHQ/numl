@@ -158,9 +158,9 @@
     </nu-tablist>
 
     <nu-block>
-      <nu-block id="one">One</nu-block>
-      <nu-block id="two">Two</nu-block>
-      <nu-block id="three">Three</nu-block>
+      <nu-block id="one" effect="collapse">One</nu-block>
+      <nu-block id="two" effect="collapse">Two</nu-block>
+      <nu-block id="three" effect="collapse">Three</nu-block>
     </nu-block>
 
 <!--    <nu-router>-->

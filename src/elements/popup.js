@@ -20,6 +20,12 @@ export default class NuPopup extends NuCard {
     };
   }
 
+  static get nuAttrs() {
+    return {
+      effect: '',
+    };
+  }
+
   static get nuStyles() {
     return {
       display: 'none :popup[block]',

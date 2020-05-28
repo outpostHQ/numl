@@ -1383,9 +1383,13 @@ export function setTransitionTimeout(host, cb, multiplier = 1) {
   const transition = style.transition;
   const time = transition ? parseTime(styleValue) * multiplier : 0;
 
-  setTimeout(() => {
-    setTimeout(cb, time);
-  }, 0);
+  if (!time) {
+    cb();
+  } else {
+    setTimeout(() => {
+      setTimeout(cb, time);
+    }, 0);
+  }
 }
 
 /**
