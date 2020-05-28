@@ -6,10 +6,10 @@
     <nu-block></nu-block>
     <nu-heading level="4">Toggle buttons</nu-heading>
     <nu-flex gap flow="row wrap">
-      <nu-btn toggle>Toggle button</nu-btn>
-      <nu-btn toggle pressed>Toggle button</nu-btn>
-      <nu-btn toggle disabled>Toggle button</nu-btn>
-      <nu-btn toggle disabled pressed>Toggle button</nu-btn>
+      <nu-btn toggle>Non-pressed toggle button</nu-btn>
+      <nu-btn toggle pressed>Pressed toggle button</nu-btn>
+      <nu-btn toggle disabled>Disabled toggle button</nu-btn>
+      <nu-btn toggle disabled pressed>Disabled pressed toggle button</nu-btn>
     </nu-flex>
   </nu-card>
 {/if}

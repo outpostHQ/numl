@@ -1,13 +1,13 @@
 import { hasNoMod, hasYesMod, parseAttr } from '../helpers';
 
 export default function pressingAttr(val) {
-  const { values, mods } = parseAttr(val, 1);
+  let { values, mods } = parseAttr(val, 1);
 
   if (!values.length) {
     if (hasYesMod(mods)) {
-      values.push('.75rem');
+      values = ['.75em'];
     } else if (hasNoMod(mods)) {
-      values.push('0');
+      values = ['0'];
     }
   }
 

@@ -1,4 +1,4 @@
-import { parseAttr } from '../helpers';
+import { hasNoMod, parseAttr } from '../helpers';
 
 export default function hoverableAttr(val) {
   const { values, mods, color } = parseAttr(val, 1);
@@ -11,7 +11,7 @@ export default function hoverableAttr(val) {
 
   const hoverColor = color || 'var(--nu-local-hover-color, var(--nu-hover-color))';
 
-  if (!mods.includes('n') && !mods.includes('no')) {
+  if (!hasNoMod(mods)) {
     styles[0].$suffix = ':not(:hover)';
     styles.push({
       $suffix: ':hover',
