@@ -32,7 +32,7 @@ export default class NuRadio extends NuActiveElement {
       cursor: 'default',
       text: 'v-middle',
       hoverable: 'n :focusable[.5em]',
-      toggle: '0 :active[.5em] :pressed[0]',
+      pressing: '0 :active[.5em] :pressed[0]',
       fill: 'bg',
       expand: '.5em',
     };

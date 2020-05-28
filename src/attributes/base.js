@@ -2,41 +2,41 @@ import {
   unit,
   sizeUnit, gridUnit,
 } from '../helpers';
-import textAttr from '../attributes/text';
-import placeAttr, { PLACE_VALUES } from '../attributes/place';
-import borderAttr from '../attributes/border';
-import shadowAttr from '../attributes/shadow';
-import flowAttr from '../attributes/flow';
-import gapAttr from '../attributes/gap';
-import zAttr from '../attributes/z';
-import interactiveAttr from '../attributes/interactive';
-import sizingAttr from '../attributes/sizing';
-import sizeAttr from '../attributes/size';
-import transitionAttr from '../attributes/transition';
-import colorAttr from '../attributes/color';
-import fillAttr from '../attributes/fill';
-import transformAttr from '../attributes/transform';
-import spaceAttr from '../attributes/space';
-import radiusAttr from '../attributes/radius';
-import overflowAttr from '../attributes/overflow';
-import hideAttr from '../attributes/hide';
-import imageAttr from '../attributes/image';
-import paddingAttr from '../attributes/padding';
-import beforeAttr from '../attributes/before';
-import afterAttr from '../attributes/after';
-import scrollbarAttr from '../attributes/scrollbar';
-import filterAttr from '../attributes/filter';
-import scaleAttr from '../attributes/scale';
-import rotateAttr from '../attributes/rotate';
-import moveAttr from '../attributes/move';
-import showAttr from '../attributes/show';
-import fadeAttr from '../attributes/fade';
-import toggleAttr from '../attributes/toggle';
-import focusAttr from '../attributes/focus';
-import hoverableAttr from '../attributes/hoverable';
-import dropAttr from '../attributes/drop';
-import expandAttr from '../attributes/expand';
-import opacityAttr from '../attributes/opacity';
+import textAttr from './text';
+import placeAttr, { PLACE_VALUES } from './place';
+import borderAttr from './border';
+import shadowAttr from './shadow';
+import flowAttr from './flow';
+import gapAttr from './gap';
+import zAttr from './z';
+import interactiveAttr from './interactive';
+import sizingAttr from './sizing';
+import sizeAttr from './size';
+import transitionAttr from './transition';
+import colorAttr from './color';
+import fillAttr from './fill';
+import transformAttr from './transform';
+import spaceAttr from './space';
+import radiusAttr from './radius';
+import overflowAttr from './overflow';
+import hideAttr from './hide';
+import imageAttr from './image';
+import paddingAttr from './padding';
+import beforeAttr from './before';
+import afterAttr from './after';
+import scrollbarAttr from './scrollbar';
+import filterAttr from './filter';
+import scaleAttr from './scale';
+import rotateAttr from './rotate';
+import moveAttr from './move';
+import showAttr from './show';
+import fadeAttr from './fade';
+import pressingAttr from './pressing';
+import focusAttr from './focus';
+import hoverableAttr from './hoverable';
+import dropAttr from './drop';
+import expandAttr from './expand';
+import opacityAttr from './opacity';
 
 export default {
   width: sizeUnit('width'),
@@ -104,7 +104,7 @@ export default {
   scrollbar: scrollbarAttr,
   before: beforeAttr,
   after: afterAttr,
-  toggle: toggleAttr,
+  pressing: pressingAttr,
   focus: focusAttr,
   hoverable: hoverableAttr,
   expand: expandAttr,

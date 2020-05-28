@@ -16,7 +16,7 @@ const MAP = {
   text: ['font-weight'],
   theme: ['color', 'background-color', 'box-shadow', 'border', 'border-radius'],
   space: ['margin'],
-  toggle: ['box-shadow'],
+  pressing: ['box-shadow'],
   width: ['max-width', 'min-width', 'width'],
   height: ['max-height', 'min-height', 'height'],
   gap: ['gap', 'margin'],

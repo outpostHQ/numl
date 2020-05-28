@@ -273,6 +273,8 @@ export default class ButtonBehavior extends WidgetBehavior {
   set(pressed, silent, force) {
     if (pressed === this.pressed) return;
 
+    console.log('!', pressed);
+
     if (!this.isToggle() && !force) return;
 
     const { host } = this;
@@ -296,7 +298,7 @@ export default class ButtonBehavior extends WidgetBehavior {
       host.nuSetAria('pressed', pressed);
     }
 
-    if (!silent && this.isCheckbox()) {
+    if (!silent && this.isToggle()) {
       this.emit('pressed', this.pressed);
       this.emit('input', this.emitValue);
     }
@@ -362,7 +364,8 @@ export default class ButtonBehavior extends WidgetBehavior {
   isToggle() {
     const { host } = this;
 
-    return host.nuHasAria('pressed')
+    return host.hasAttribute('toggle')
+      || host.nuHasAria('pressed')
       || host.nuHasAria('expanded')
       || host.nuHasAria('checked')
       || host.nuHasAria('selected')
