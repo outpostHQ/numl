@@ -1,6 +1,6 @@
-import NuSection from './section';
+import NuRegion from './region';
 
-export default class NuArticle extends NuSection {
+export default class NuArticle extends NuRegion {
   static get nuTag() {
     return 'nu-article';
   }

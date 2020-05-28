@@ -1,22 +1,7 @@
-import NuElement from './element';
+import NuRegion from './region';
 
-export default class NuSection extends NuElement {
+export default class NuSection extends NuRegion {
   static get nuTag() {
     return 'nu-section';
-  }
-
-  static get nuRole() {
-    return 'region';
-  }
-
-  static get nuName() {
-    return 'section region';
-  }
-
-  static get nuStyles() {
-    return {
-      display: 'block',
-      flow: 'column',
-    };
   }
 }
