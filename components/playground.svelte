@@ -1,5 +1,78 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'collapse')}
+  <nu-block>
+    <nu-attrs for="btn" clear="" control="description" padding="" text="wrap" pressing=":active[1]" width="100%" content="start"></nu-attrs>
+    <nu-attrs for="container" gap="" padding="0 0 3x 6x||0 0 2x 5x"></nu-attrs>
+
+    <nu-flow gap="">
+      <nu-btn toggle>
+        <nu-dropdownicon></nu-dropdownicon>
+        <nu-heading>You probably <nu-u>need</nu-u> a&nbsp;design&nbsp;system</nu-heading>
+      </nu-btn>
+
+      <nu-flow id="description" as="container" hidden>
+        <nu-block>
+          Modern web development is complex. To&nbsp;grow fast you have to&nbsp;iterate fast. Design&nbsp;system allows&nbsp;you to&nbsp;have control over your&nbsp;design and&nbsp;code increasing quality of code base and minimizing tech debt.
+        </nu-block>
+
+        <nu-block>
+          <nu-b>NuML</nu-b> gives you insane level of <nu-b>consistency</nu-b> and <nu-b>controllability</nu-b>. This will make it easier for you to scale your application as it grows.
+        </nu-block>
+      </nu-flow>
+    </nu-flow>
+
+<!--    <nu-flow gap="">-->
+<!--      <nu-btn toggle="">-->
+<!--        <nu-dropdownicon></nu-dropdownicon>-->
+<!--        <nu-heading>Creating and maintaining a&nbsp;design&nbsp;system on your own is&nbsp;tough</nu-heading>-->
+<!--      </nu-btn>-->
+
+<!--      <nu-flow id="description" as="container" hidden>-->
+<!--        <nu-block>-->
+<!--          It consumes a lot of time and requires high&nbsp;level of&nbsp;expertise in your team.-->
+<!--        </nu-block>-->
+
+<!--        <nu-block>-->
+<!--          With <nu-b>NuML</nu-b> you'll get full-featured Design&nbsp;System with a <nu-b>bunch of elements and components</nu-b> <nu-link to="!/guide/getting-started">in seconds</nu-link>.-->
+<!--        </nu-block>-->
+<!--      </nu-flow>-->
+<!--    </nu-flow>-->
+
+<!--    <nu-flow gap="">-->
+<!--      <nu-btn toggle="">-->
+<!--        <nu-dropdownicon></nu-dropdownicon>-->
+<!--        <nu-heading>Customization & future-proof are requirements</nu-heading>-->
+<!--      </nu-btn>-->
+
+<!--      <nu-block id="description" as="container" hidden="">-->
+<!--        In <nu-b>NuML</nu-b> everything is <nu-b>customizable</nu-b> to&nbsp;the&nbsp;core and uses generation techniques to&nbsp;give you the&nbsp;newest features of&nbsp;the&nbsp;platform (like <nu-b>Flex gap</nu-b>). It means the&nbsp;markup of&nbsp;your project will&nbsp;be up-to-date with <nu-b>the&nbsp;latest web&nbsp;standards</nu-b> and <nu-b>best&nbsp;practices</nu-b> for at least the <nu-b>next decade</nu-b>.-->
+<!--      </nu-block>-->
+<!--    </nu-flow>-->
+
+<!--    <nu-flow gap="">-->
+<!--      <nu-btn toggle="">-->
+<!--        <nu-dropdownicon></nu-dropdownicon>-->
+<!--        <nu-heading>There is <nu-u>no</nu-u> time to wait</nu-heading>-->
+<!--      </nu-btn>-->
+
+<!--      <nu-flow id="description" as="container" hidden="">-->
+<!--        <nu-block>-->
+<!--          <nu-b>NuML</nu-b> don't require a build step. Everything is happening in runtime.-->
+<!--        </nu-block>-->
+
+<!--        <nu-block>-->
+<!--          Simply <nu-link>add NuML script</nu-link> to your page and <nu-b>start prototyping</nu-b>.-->
+<!--        </nu-block>-->
+
+<!--        <nu-block>-->
+<!--          All the <nu-b>CSS</nu-b> will be generated <nu-b>instantly</nu-b> as needed. All the <nu-b>JS</nu-b> for behaviors will be loaded <nu-b>dynamically</nu-b>.-->
+<!--        </nu-block>-->
+<!--      </nu-flow>-->
+<!--    </nu-flow>-->
+  </nu-block>
+{/if}
+
 {#if show(hash, 'button')}
   <nu-card as="section" gap>
     <nu-heading level="4">Buttons</nu-heading>

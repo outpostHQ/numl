@@ -18,7 +18,7 @@ export default class ControlBehavior {
     }
   }
 
-  apply(state, applyValue) {
+  apply(state, applyValue, dryRun = false) {
     this.state = state;
     this.applyValue = applyValue;
 
@@ -63,10 +63,12 @@ export default class ControlBehavior {
 
       // if no attribute specified then just toggle element
       if (!attr) {
-        if (isBool) {
-          element.hidden = !state;
-        } else {
-          element.hidden = !element.hidden;
+        if (!dryRun) {
+          if (isBool) {
+            element.hidden = !state;
+          } else {
+            element.hidden = !element.hidden;
+          }
         }
 
         elements.push(element);
@@ -76,10 +78,12 @@ export default class ControlBehavior {
 
       // if no value specified
       if (val == null && typeof applyValue === 'boolean') {
-        setAttr(element, attr, state);
+        if (!dryRun) {
+          setAttr(element, attr, state);
+        }
 
         elements.push(element);
-      } else {
+      } else if (!dryRun) {
         let firstValue, secondValue;
 
         if (val == null) {
