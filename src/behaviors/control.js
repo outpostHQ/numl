@@ -142,7 +142,8 @@ export default class ControlBehavior {
       host.nuSetAria('controls', elements.map(el => {
         if (!isLabelled && !host.nuHasAria('labelledby') && !host.hasAttribute('labelledby')) {
           host.nuSetAria('describedby', el.nuUniqId);
-          el.nuSetAria('labelledby', host.nuUniqId);
+          // dont replace with nuSetAria, it can happen before target element init!
+          el.setAttribute('aria-labelledby', host.nuUniqId);
         }
 
         return el.nuUniqId;
