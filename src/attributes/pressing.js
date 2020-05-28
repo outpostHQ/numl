@@ -1,7 +1,16 @@
-import { parseAttr } from '../helpers';
+import { hasNoMod, hasYesMod, parseAttr } from '../helpers';
 
 export default function pressingAttr(val) {
-  const { values } = parseAttr(val, 1);
+  const { values, mods } = parseAttr(val, 1);
+
+  if (!values.length) {
+    if (hasYesMod(mods)) {
+      values.push('.75rem');
+    } else if (hasNoMod(mods)) {
+      values.push('0');
+    }
+  }
+
   const size = values[0] || '0';
   const intensity = values[1] || 'var(--nu-local-intensity, var(--nu-intensity))';
 

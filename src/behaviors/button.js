@@ -273,8 +273,6 @@ export default class ButtonBehavior extends WidgetBehavior {
   set(pressed, silent, force) {
     if (pressed === this.pressed) return;
 
-    console.log('!', pressed);
-
     if (!this.isToggle() && !force) return;
 
     const { host } = this;
