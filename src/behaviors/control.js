@@ -61,8 +61,6 @@ export default class ControlBehavior {
 
       if (!element) continue;
 
-      elements.push(element);
-
       // if no attribute specified then just toggle element
       if (!attr) {
         if (isBool) {
@@ -71,12 +69,16 @@ export default class ControlBehavior {
           element.hidden = !element.hidden;
         }
 
+        elements.push(element);
+
         continue;
       }
 
       // if no value specified
       if (val == null && typeof applyValue === 'boolean') {
-        setAttr(element, attr, applyValue != null ? state : applyValue);
+        setAttr(element, attr, state);
+
+        elements.push(element);
       } else {
         let firstValue, secondValue;
 
@@ -131,7 +133,16 @@ export default class ControlBehavior {
     }
 
     if (elements.length) {
-      host.nuSetAria('controls', elements.map(el => el.nuUniqId).filter(id => id).join(' '));
+      const isLabelled = host.nuHasAria('labelledby');
+
+      host.nuSetAria('controls', elements.map(el => {
+        if (!isLabelled && !host.nuHasAria('labelledby') && !host.hasAttribute('labelledby')) {
+          host.nuSetAria('describedby', el.nuUniqId);
+          el.nuSetAria('labelledby', host.nuUniqId);
+        }
+
+        return el.nuUniqId;
+      }).filter(id => id).join(' '));
     } else {
       host.nuSetAria('controls', null);
     }
