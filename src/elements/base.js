@@ -699,7 +699,7 @@ export default class NuBase extends HTMLElement {
           Object.entries(allAttrs)
             .forEach(([attr, value]) => {
               if (value != null && !this.hasAttribute(attr)) {
-                this.setAttribute(attr, String(value));
+                this.setAttribute(attr, String(value) || this.constructor.nuStyles[attr] || '');
               }
             });
         });

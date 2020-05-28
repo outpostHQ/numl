@@ -1,18 +1,11 @@
-import NuElement from './element';
+import NuRegion from './region';
 
-export default class NuAside extends NuElement {
+export default class NuAside extends NuRegion {
   static get nuTag() {
     return 'nu-aside';
   }
 
   static get nuRole() {
     return 'complementary';
-  }
-
-  static get nuStyles() {
-    return {
-      display: 'block',
-      flow: 'column',
-    };
   }
 }
