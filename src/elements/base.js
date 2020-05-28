@@ -197,7 +197,7 @@ export default class NuBase extends HTMLElement {
     return (
       NAMES_MAP[this.nuTag]
       || (NAMES_MAP[this.nuTag]
-        = [...(name ? [name] : []), ...(this.nuParentClass && this.nuParentClass.nuNames || [])])
+        = [...(name ? name.split(/\s+/g) : []), ...(this.nuParentClass && this.nuParentClass.nuNames || [])])
     );
   }
 

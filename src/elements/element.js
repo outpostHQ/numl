@@ -187,7 +187,7 @@ export default class NuElement extends NuBase {
       case 'owns':
       case 'flowto':
       case 'activedescendant':
-        setImmediate(() => {
+        setTimeout(() => {
           value = this.nuGetAttr(name, true);
 
           const ariaValue = value.split(/\s+/g).map((id) => {

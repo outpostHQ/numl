@@ -9,6 +9,10 @@ export default class NuSection extends NuElement {
     return 'region';
   }
 
+  static get nuName() {
+    return 'section region';
+  }
+
   static get nuStyles() {
     return {
       display: 'block',
