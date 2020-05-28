@@ -82,6 +82,8 @@ export function hideEffect(host, bool, effectName) {
     }
   }
 
+  const multiplier = (effectName != null && host.hasAttribute('nu')) ? 1 : 0;
+
   if (!bool) {
     setStyles(host, hiddenStyles);
 
@@ -97,7 +99,7 @@ export function hideEffect(host, bool, effectName) {
       if (id !== host.nuCollapseId) return;
 
       clear(host, effect);
-    });
+    }, multiplier);
   } else {
     setStyles(host, visibleStyles);
 
@@ -115,6 +117,6 @@ export function hideEffect(host, bool, effectName) {
       host.style.display = 'none';
 
       clear(host, effect);
-    });
+    }, multiplier);
   }
 }
