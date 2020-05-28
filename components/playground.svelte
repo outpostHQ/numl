@@ -703,6 +703,15 @@ var b = /wow?/;
     </nu-card>
   </nu-card>
 
+  <nu-card as="section" gap>
+    <nu-card padding="0" overflow="no">
+      <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/after.jpg"></nu-img>
+      <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/before.jpg"
+              id="overlay" place="cover" height="100%" fit="cover left" border="2bw right color(special)"></nu-img>
+    </nu-card>
+    <nu-slider control="overlay[width:%]" value="50"></nu-slider>
+  </nu-card>
+
   <nu-card as="section">
     <nu-heading level="2">Slider</nu-heading>
     <nu-slider value="50" nx-debug="slider-debug-h"></nu-slider>
