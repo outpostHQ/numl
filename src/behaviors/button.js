@@ -301,8 +301,9 @@ export default class ButtonBehavior extends WidgetBehavior {
       this.emit('input', this.emitValue);
     }
 
-    if (!this.popup && (!silent || this.hasAttr('trigger'))) {
-      this.control();
+    if (!this.popup) {
+      // run dry control system if silent mode is active or trigger option is not set
+      this.control(!this.hasAttr('trigger') || silent);
     }
 
     this.setMod('pressed', pressed);
@@ -392,7 +393,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.set(isEqual(this.value, value));
   }
 
-  control() {
+  control(dryRun) {
     let state = null;
 
     if (this.isToggle() && !this.valueBubbled) {
@@ -400,7 +401,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     }
 
     this.nu('control')
-      .then(Control => Control.apply(state, this.getTypedValue(this.emitValue)));
+      .then(Control => Control.apply(state, this.getTypedValue(this.emitValue)), dryRun);
   }
 
   get href() {
