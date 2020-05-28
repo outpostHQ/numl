@@ -1,5 +1,19 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'button')}
+  <nu-card as="section" gap>
+    <nu-heading level="4">Buttons</nu-heading>
+    <nu-block></nu-block>
+    <nu-heading level="4">Toggle buttons</nu-heading>
+    <nu-flex gap flow="row wrap">
+      <nu-btn toggle>Toggle button</nu-btn>
+      <nu-btn toggle pressed>Toggle button</nu-btn>
+      <nu-btn toggle disabled>Toggle button</nu-btn>
+      <nu-btn toggle disabled pressed>Toggle button</nu-btn>
+    </nu-flex>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'space-around')}
   <nu-card as="section" gap>
     <nu-block>
@@ -481,7 +495,7 @@ var b = /wow?/;
     <nu-props transition-time=".4s"></nu-props>
     <nu-heading>Collapsing</nu-heading>
     <nu-btn
-      checkbox trigger
+      toggle trigger
       control="collapsing[!hidden]"
       t="'Show the block' :pressed['Collapse the block']"></nu-btn>
     <nu-block id="collapsing" effect="collapse">
@@ -502,7 +516,7 @@ var b = /wow?/;
     <nu-heading>Toggle icon styles</nu-heading>
     <nu-pane>
       <nu-btn
-        checkbox pressed clear
+        toggle pressed clear
         control="light[color=text|special] light[size=3x|2x]">
         Toggle
       </nu-btn>
@@ -523,7 +537,7 @@ var b = /wow?/;
     <nu-heading>Toggle icon name</nu-heading>
     <nu-pane>
       <nu-btn
-        role="checkbox" clear
+        toggle clear
         value="sun" off-value="moon"
         control="light[name=@]">
         Toggle
@@ -533,7 +547,7 @@ var b = /wow?/;
 
     <nu-pane>
       <nu-btn
-        role="checkbox" clear
+        toggle clear
         value="sun" off-value="moon"
         control="light[name=@]" trigger>
         Toggle with trigger
@@ -549,7 +563,7 @@ var b = /wow?/;
 
     <nu-flex gap>
       <nu-btn
-        role="checkbox" trigger nx-debug
+        toggle trigger nx-debug
         control="layout[columns=auto auto|repeat(4, auto)]">
         Toggle Layout
       </nu-btn>
@@ -729,7 +743,7 @@ var b = /wow?/;
   <nu-card as="section">
     <nu-heading level="4">Plain listbox</nu-heading>
 
-    <nu-listbox value="one">
+    <nu-listbox value="one" label="Choose a number:">
       <nu-option value="one">One</nu-option>
       <nu-option value="two">Two</nu-option>
       <nu-option value="three">Three</nu-option>

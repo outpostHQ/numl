@@ -1,6 +1,6 @@
 import { parseAttr } from '../helpers';
 
-export default function toggleAttr(val) {
+export default function pressingAttr(val) {
   const { values } = parseAttr(val, 1);
   const size = values[0] || '0';
   const intensity = values[1] || 'var(--nu-local-intensity, var(--nu-intensity))';

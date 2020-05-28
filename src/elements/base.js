@@ -1052,11 +1052,6 @@ export default class NuBase extends HTMLElement {
       case 'lang':
         this.nuSetVar('locale', value);
         break;
-      case 'checkbox':
-        if (value != null) {
-          this.setAttribute('role', 'checkbox');
-        }
-        break;
     }
   }
 
@@ -1773,14 +1768,6 @@ export default class NuBase extends HTMLElement {
 
   get value() {
     return this.nuGetValue ? this.nuGetValue() : this._value;
-  }
-
-  set checkbox(val) {
-    setBoolAttr(this, 'checkbox', val);
-  }
-
-  get checkbox() {
-    return this.hasAttribute('checkbox');
   }
 
   set hidden(val) {
