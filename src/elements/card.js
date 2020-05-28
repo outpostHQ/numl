@@ -1,6 +1,6 @@
-import NuElement from './element';
+import NuSection from './section';
 
-export default class NuCard extends NuElement {
+export default class NuCard extends NuSection {
   static get nuTag() {
     return 'nu-card';
   }
@@ -11,13 +11,11 @@ export default class NuCard extends NuElement {
 
   static get nuStyles() {
     return {
-      display: 'block',
       padding: '2x',
       fill: 'bg :clear[clear]',
       color: 'text',
       border: '1bw :clear[hidden]',
       radius: '1r',
-      flow: 'column',
       transition: 'theme, radius',
       shadow: '0 :clear[1.5]',
     };

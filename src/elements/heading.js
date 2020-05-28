@@ -61,4 +61,14 @@ export default class NuHeading extends NuBlock {
         break;
     }
   }
+
+  nuConnected() {
+    super.nuConnected();
+
+    const region = this.closest('[nu-region]');
+
+    if (region && !region.nuHasAria('labelledby') && !region.hasAttribute('labelledby')) {
+      region.nuSetAria('labelledby', this.nuUniqId);
+    }
+  }
 }
