@@ -1,5 +1,11 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'datepicker')}
+  <nu-card>
+    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'collapse')}
   <nu-block>
     <nu-attrs for="btn" clear="" control="description" padding="" text="wrap" pressing=":active[1]" width="100%" content="start"></nu-attrs>
@@ -683,6 +689,10 @@ var b = /wow?/;
 {/if}
 
 {#if show(hash, 'form')}
+  <nu-card>
+    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>
+  </nu-card>
+
   <nu-card as="section">
     <nu-form value={formData} on:input={submit} nx-debug="form-debugger0">
       <nu-theme name="error" hue="1" mod="tone"></nu-theme>
@@ -873,11 +883,6 @@ var b = /wow?/;
     </nu-btn>
 
     <nu-debug id="select-debugger"></nu-debug>
-
-    <!--  <nu-card width="minmax(20, min-content)">-->
-    <!--    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>-->
-    <!--  </nu-card>-->
-    <!--  <nu-dateinput width="min(10)" mode="range"></nu-dateinput>-->
   </nu-card>
 {/if}
 
@@ -992,7 +997,7 @@ let formData = {
   email: 'tenphi@gmail.com',
   user,
 };
-let dateRange = [new Date, new Date('2020-05-10')];
+let dateRange = [new Date('2020-05-10'), new Date('2020-05-20')];
 
 function submit(event) {
   console.log('! form data submitted', event.detail);

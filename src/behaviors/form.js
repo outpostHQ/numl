@@ -1,6 +1,6 @@
 import WidgetBehavior from './widget';
 import { checkErrors } from '../validators';
-import { deepQueryAll } from '../helpers';
+import { deepQueryAll, isEqual } from '../helpers';
 
 /**
  * Behavior to handle form logic.
@@ -94,7 +94,7 @@ export default class FormBehavior extends WidgetBehavior {
   setFieldValue(name, value) {
     const { fields } = this;
 
-    if (this.value[name] === value) return;
+    if (isEqual(this.value[name], value)) return;
 
     if (value != null) {
       this.value[name] = value;

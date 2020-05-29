@@ -1,6 +1,6 @@
 import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
-import { h, isEqual, queryById } from '../helpers';
+import { h, isEqual, queryById, stackTrace } from '../helpers';
 import { handleLinksState } from '../links';
 
 export default class ButtonBehavior extends WidgetBehavior {
@@ -39,7 +39,10 @@ export default class ButtonBehavior extends WidgetBehavior {
       if (this.listbox) {
         this.ignorePopup = true;
         this.listbox.onKeyDown(event);
-        this.ignorePopup = false;
+
+        setTimeout(() => {
+          this.ignorePopup = false;
+        });
       }
     });
 
@@ -298,7 +301,10 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     if (!silent && this.isToggle()) {
       this.emit('pressed', this.pressed);
-      this.emit('input', this.emitValue);
+
+      if (!this.popup) {
+        this.emit('input', this.emitValue);
+      }
     }
 
     if (!this.popup) {

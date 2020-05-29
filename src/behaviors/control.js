@@ -125,7 +125,7 @@ export default class ControlBehavior {
         } else {
           if (isProp) {
             if (setValue != null && setValue !== false) {
-              element.style.setProperty(attr, String(setValue));
+              element.style.setProperty(attr.replace('--', '--nu-'), String(setValue));
             } else {
               element.style.removeProperty(attr);
             }

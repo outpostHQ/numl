@@ -25,7 +25,7 @@ const CONTEXT = {
 export default CONTEXT;
 
 function setLocale() {
-  const value = ROOT.getAttribute('lang') || navigator.language || navigator.languages[0];
+  const value = ROOT.getAttribute('lang') || navigator.language || navigator.languages[0] || 'en';
 
   setRootContext('locale', value);
 }

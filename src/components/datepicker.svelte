@@ -17,12 +17,13 @@
     <nu-btn id="arrow" on:tap={prevYear} disabled={havePrevYear ? undefined : ''}>
       <nu-icon id="arrow-left-icon"></nu-icon>
     </nu-btn>
-    <nu-btn id="dropdown" on:tap={toggle}>
+    <nu-btn
+      id="dropdown" type="date"
+      value={navDate} on:input={(event) => navDate = event.detail}>
       <nu-datetime year value={navDate}></nu-datetime>
       <nu-icon id="dropdown-icon"></nu-icon>
       <nu-popuplistbox
-        height="28x" overflow="auto" scrollbar bind:this={yearPopup}
-        on:input={(event) => navDate = event.detail} value={navDate}>
+        height="28x" bind:this={yearPopup}>
         {#each years as year}
           <nu-option
             value={year}
@@ -43,12 +44,13 @@
     <nu-btn id="arrow" on:tap={prevMonth} disabled={havePrevMonth ? undefined : ''}>
       <nu-icon id="arrow-left-icon"></nu-icon>
     </nu-btn>
-    <nu-btn id="dropdown" on:tap={toggle}>
+    <nu-btn
+      id="dropdown" on:tap={toggle} type="date"
+      on:input={(event) => navDate = event.detail} value={navDate}>
       <nu-datetime month="short" value={navDate}></nu-datetime>
       <nu-icon id="dropdown-icon"></nu-icon>
       <nu-popuplistbox
-        height="28x" overflow="auto" scrollbar bind:this={monthPopup}
-        type="date" on:input={(event) => navDate = event.detail} value={navDate}>
+        height="28x" overflow="auto" scrollbar bind:this={monthPopup}>
         {#each months as month}
           <nu-option
             value={month}
@@ -78,14 +80,16 @@
 <nu-grid
   columns="repeat(7, 1fr)" content="start stretch"
   text="center">
-  <nu-attrs for="day" radius=":hover[1r 0r 0r 1r]" text="w5" border="color(bg)" focus="inset"></nu-attrs>
+  <nu-attrs for="day" radius={isRange ? '1r :hover[1r 0 0 1r]' : '1r :hover[1r]'} text="w5" border="color(bg)" focus="inset"></nu-attrs>
   <nu-attrs for="today" text="w7" color="special" border></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
   <nu-attrs for="start" special color radius="1r 0 0 1r"></nu-attrs>
   <nu-attrs for="end" radius="0r 1r 1r 0r :hover[1r 0 0 1r]" special color></nu-attrs>
   <nu-attrs for="selected" radius special color></nu-attrs>
-  <nu-attrs for="range" radius="0 :hover[0 1r 1r 0]" fill="special-bg 25%" color="text"></nu-attrs>
+  <nu-attrs for="range"
+            radius={isRange ? '0 :hover[0 1r 1r 0]' : '1r'}
+            fill="special-bg 25%" color="text"></nu-attrs>
   <nu-attrs for="range-inside" radius="0 :hover[1r 0 0 1r]" fill="special-bg 25%" color="text"></nu-attrs>
 
   {#each monthDays as day}
@@ -100,7 +104,7 @@
 
 </nu-grid>
 
-{#if mode === 'range'}
+{#if isRange}
   <nu-flex gap size="xs">
     <nu-attrs for="nu-btn" special padding></nu-attrs>
 
@@ -193,6 +197,8 @@ if (!isValidDate(toDate)) {
   toDate = null;
 }
 
+$: isRange = mode === 'range';
+
 if (mode === 'range' && (fromDate && !toDate) || (toDate && !fromDate)) {
   fromDate = null;
   toDate = null;
@@ -206,7 +212,7 @@ let monthPopup;
 let touched = false;
 
 $: navDateCurrentYear = setYear(new Date(navDate), todayDate.getFullYear());
-$: host.setAttribute('type', mode === 'range' ? 'daterange' : 'date');
+$: host.setAttribute('type', isRange ? 'daterange' : 'date');
 $: navQuater = getQuarter(navDate);
 $: navMonthStartDate = navDate;
 $: navMonthEndDate = endOfMonth(navDate);
@@ -276,11 +282,9 @@ $: monthDays = (() => {
   return arr;
 })();
 $: startOfYearDate = startOfYear(navDate);
-$: months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(i => {
-  if (!touched) return [];
-
+$: months = touched ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(i => {
   return addMonths(startOfYear(navDate), i);
-});
+}) : [];
 $: years = (() => {
   if (!touched) return [];
 
@@ -404,7 +408,7 @@ function getDayModifiers(date, navMonthStartDate, navMonthEndDate, fromDate, toD
 }
 
 function selectRange(date) {
-  if (mode === 'range') {
+  if (isRange) {
     if (fromDate && !toDate && (isAfter(date, fromDate) || isSameDay(date, fromDate))) {
       toDate = date;
 

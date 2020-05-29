@@ -3,7 +3,7 @@ import {
   deepQueryAll,
   fixPosition,
   resetScroll,
-  scrollParentToChild,
+  scrollParentToChild, stackTrace,
 } from '../helpers';
 import WidgetBehavior from './widget';
 
@@ -129,17 +129,25 @@ export default class PopupBehavior extends WidgetBehavior {
     resetScroll(host, true);
 
     // Select element with current value (for menus)
-    const currentEl = deepQuery(host, '[is-current]');
+    function setCurrent() {
+      const currentEl = deepQuery(host, '[is-current]');
 
-    if (currentEl) {
-      // currentEl.scrollIntoView({ block: 'center' });
-      scrollParentToChild(host, currentEl);
-      currentEl.focus();
-    } else {
-      // Select first focusable element
-      const activeElement = host.nuDeepQuery('input, [tabindex]:not([tabindex="-1"]):not([disabled])');
+      if (currentEl) {
+        scrollParentToChild(host, currentEl);
 
-      if (activeElement) activeElement.focus();
+        currentEl.focus();
+
+        return true;
+      } else {
+        // Select first focusable element
+        const activeElement = host.nuDeepQuery('input, [tabindex]:not([tabindex="-1"]):not([disabled])');
+
+        if (activeElement) activeElement.focus();
+      }
+    }
+
+    if (!setCurrent()) {
+      setTimeout(setCurrent, 100);
     }
   }
 

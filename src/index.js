@@ -8,6 +8,7 @@ import {
   deepQuery,
   requestIdleCallback,
   resetScroll,
+  isEqual,
 } from './helpers';
 
 export * from './elements';
@@ -122,6 +123,7 @@ const Nude = {
   Behavior,
   WidgetBehavior,
   helpers,
+  isEqual,
   // helpers,
   // color,
   // themes,
@@ -247,6 +249,7 @@ export {
   Behavior,
   WidgetBehavior,
   helpers,
+  isEqual,
   // themes,
   // css,
   // color,

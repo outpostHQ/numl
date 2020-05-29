@@ -60,12 +60,14 @@ export default class ComponentBehavior extends WidgetBehavior {
           attr = 'locale';
         }
 
-        if (attr in prototype) {
+        if (attr in prototype || attr === 'host') {
           data[toCamelCase(attr)] = this[attr];
         }
 
         return data;
       }, {});
+
+    props.locale = props.locale || 'en';
 
     return props;
   }

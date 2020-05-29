@@ -1,8 +1,6 @@
 import Nude, { requestIdleCallback } from './src/index';
 import Playground from './components/playground.svelte';
 
-
-
 Nude.init();
 
 const playground = new Playground({
