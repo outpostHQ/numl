@@ -1,4 +1,4 @@
-import { asyncDebounce, log, setAttr } from "../helpers";
+import { asyncDebounce, log, setAttr, stackTrace } from "../helpers";
 import { ROOT } from '../context';
 
 const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(!|)(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;

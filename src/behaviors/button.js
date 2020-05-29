@@ -303,7 +303,7 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     if (!this.popup) {
       // run dry control system if silent mode is active or trigger option is not set
-      this.control(!this.hasAttr('trigger') || silent);
+      this.control(silent & !this.hasAttr('trigger'));
     }
 
     this.setMod('pressed', pressed);
@@ -401,7 +401,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     }
 
     this.nu('control')
-      .then(Control => Control.apply(state, this.getTypedValue(this.emitValue)), dryRun);
+      .then(Control => Control.apply(state, this.getTypedValue(this.emitValue), dryRun));
   }
 
   get href() {

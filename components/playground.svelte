@@ -610,9 +610,10 @@ var b = /wow?/;
     <nu-heading>Toggle icon name</nu-heading>
     <nu-pane>
       <nu-btn
+        id="test"
         toggle clear
         value="sun" off-value="moon"
-        control="light[name=@]">
+        control="light[name]">
         Toggle
       </nu-btn>
       <nu-icon id="light" name="sun" type="fill"></nu-icon>
@@ -622,7 +623,7 @@ var b = /wow?/;
       <nu-btn
         toggle clear
         value="sun" off-value="moon"
-        control="light[name=@]" trigger>
+        control="light[name]" trigger>
         Toggle with trigger
       </nu-btn>
       <nu-icon id="light" name="sun" type="fill"></nu-icon>

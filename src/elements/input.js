@@ -75,6 +75,9 @@ export default class NuInput extends NuBlock {
         -webkit-text-fill-color: var(--nu-special-color);
         -webkit-box-shadow: 0 0 0px 9999rem var(--nu-input-color) inset;
         box-shadow: 0 0 0px 9999rem var(--nu-input-color) inset;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
       }
 
       ${tag} input[disabled] {
