@@ -7,6 +7,7 @@ export default class DatePickerBehaviour extends ComponentBehavior {
       localized: true,
       component: 'datepicker',
       provideValue: false,
+      props: ['value', 'begin', 'end', 'mode', 'lang', 'host'],
     };
   }
 }

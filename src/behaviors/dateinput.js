@@ -6,6 +6,7 @@ export default class DateInputBehaviour extends ComponentBehavior {
       input: true,
       localized: true,
       component: 'dateinput',
+      props: ['value', 'begin', 'end', 'mode', 'host', 'placeholder'],
     };
   }
 }

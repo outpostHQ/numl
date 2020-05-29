@@ -80,13 +80,13 @@
 <nu-grid
   columns="repeat(7, 1fr)" content="start stretch"
   text="center">
-  <nu-attrs for="day" radius={isRange ? '1r :hover[1r 0 0 1r]' : '1r :hover[1r]'} text="w5" border="color(bg)" focus="inset"></nu-attrs>
+  <nu-attrs for="day" fill="clear" radius={isRange ? '1r :hover[1r 0 0 1r]' : '1r :hover[1r]'} text="w5" border="color(clear)" focus="inset"></nu-attrs>
   <nu-attrs for="today" text="w7" color="special" border></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
-  <nu-attrs for="start" special color radius="1r 0 0 1r"></nu-attrs>
-  <nu-attrs for="end" radius="0r 1r 1r 0r :hover[1r 0 0 1r]" special color></nu-attrs>
-  <nu-attrs for="selected" radius special color></nu-attrs>
+  <nu-attrs for="start" special fill="special-bg" color radius="1r 0 0 1r"></nu-attrs>
+  <nu-attrs for="end" radius="0r 1r 1r 0r :hover[1r 0 0 1r]" special fill="special-bg" color></nu-attrs>
+  <nu-attrs for="selected" radius special fill="special-bg" color></nu-attrs>
   <nu-attrs for="range"
             radius={isRange ? '0 :hover[0 1r 1r 0]' : '1r'}
             fill="special-bg 25%" color="text"></nu-attrs>
@@ -184,10 +184,10 @@ function decodeLocale(locale) {
   return locale.match(/^([a-zA-Z]{2,3})(?:[_-]+([a-zA-Z]{3})(?=$|[_-]+))?(?:[_-]+([a-zA-Z]{4})(?=$|[_-]+))?(?:[_-]+([a-zA-Z]{2}|\d{3})(?=$|[_-]+))?/);
 }
 
-let fromDate = value && startOfDay(Array.isArray(value) ? value[0] : new Date(String(value).split('|')[0]));
+let fromDate = value && startOfDay(Array.isArray(value) ? value[0] : new Date(String(value).split(',')[0]));
 let toDate = value && startOfDay(Array.isArray(value)
   ? (value[1] || value[0])
-  : new Date(String(value).split('|')[1] || String(value).split('|')[0]));
+  : new Date(String(value).split(',')[1] || String(value).split(',')[0]));
 
 if (!isValidDate(fromDate)) {
   fromDate = null;

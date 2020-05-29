@@ -725,8 +725,7 @@ var b = /wow?/;
       </nu-field>
       <nu-field>
         <nu-label>Date of issue</nu-label>
-        <nu-dateinput
-          id="date" mode="range" width="min(10)"
+        <nu-dateinput mode="range" width="min(10)"
           placeholder="Date range"></nu-dateinput>
       </nu-field>
       <nu-card>

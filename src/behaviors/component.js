@@ -1,4 +1,4 @@
-import { isEqual, toCamelCase } from '../helpers';
+import { devMode, isEqual, log, toCamelCase } from '../helpers';
 import WidgetBehavior, { PROPS_LIST } from './widget';
 import Components from '../components/index';
 
@@ -7,6 +7,7 @@ export default class ComponentBehavior extends WidgetBehavior {
     return {
       primary: true,
       provideValue: false,
+      props: ['host'],
     };
   }
 
@@ -38,6 +39,10 @@ export default class ComponentBehavior extends WidgetBehavior {
 
         this.Component = Component;
 
+        if (devMode) {
+          log('create component with state', this.componentProps);
+        }
+
         this.component = new Component({
           target,
           props: this.componentProps,
@@ -52,22 +57,20 @@ export default class ComponentBehavior extends WidgetBehavior {
   }
 
   get componentProps() {
-    const prototype = this.Component.prototype;
-
-    const props = [...PROPS_LIST, 'host']
+    const props = [...this.params.props]
       .reduce((data, attr) => {
         if (attr === 'lang') {
           attr = 'locale';
         }
 
-        if (attr in prototype || attr === 'host') {
-          data[toCamelCase(attr)] = this[attr];
-        }
+        data[toCamelCase(attr)] = this[attr];
 
         return data;
       }, {});
 
-    props.locale = props.locale || 'en';
+    if (this.params.props.includes('lang')) {
+      props.locale = props.locale || 'en';
+    }
 
     return props;
   }
@@ -89,6 +92,7 @@ export default class ComponentBehavior extends WidgetBehavior {
   }
 
   set(data) {
+    log('set component state', data);
     if (typeof data === 'object' && this.component) {
       this.component.$set(data);
 
