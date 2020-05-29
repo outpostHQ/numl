@@ -89,8 +89,8 @@
   <nu-attrs for="selected" radius special fill="special-bg" color></nu-attrs>
   <nu-attrs for="range"
             radius={isRange ? '0 :hover[0 1r 1r 0]' : '1r'}
-            fill="special-bg 25%" color="text"></nu-attrs>
-  <nu-attrs for="range-inside" radius="0 :hover[1r 0 0 1r]" fill="special-bg 25%" color="text"></nu-attrs>
+            fill="special-bg 25%" color="text" border="color(bg)"></nu-attrs>
+  <nu-attrs for="range-inside" radius="0 :hover[1r 0 0 1r]" fill="special-bg 25%" color="text" border="color(bg)"></nu-attrs>
 
   {#each monthDays as day}
     <nu-btn
