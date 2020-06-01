@@ -37,6 +37,7 @@ export default function gapAttr(val) {
 
   const { values } = parseAttr(val, 1);
 
+  const isZero = values[0] === '0' && (values[0] || values[1] === '0');
   const vGap = values[0] || BASE;
   const hGap = values[1] || vGap;
 
@@ -48,6 +49,8 @@ export default function gapAttr(val) {
     '--nu-local-v-gap': vGap,
     '--nu-local-h-gap': hGap,
     '--nu-local-gap': vGap === hGap ? vGap : null,
+    'border-collapse': isZero ? 'collapse' :'separate',
+    'border-spacing': `${vGap} ${hGap}`,
   }, {
     $suffix: '>*',
     '--nu-v-gap': vGap,

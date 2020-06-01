@@ -41,6 +41,7 @@ const PLACE_ABS_INSIDE = [
 ];
 
 const PLACE_ABS = [
+  'absolute',
   'inside',
   'cover',
   'fixed',
@@ -122,7 +123,7 @@ export default function placeAttr(val, defaults) {
 
   if (mods.includes('sticky')) {
     return [{
-      position: 'sticky',
+      '--nu-place-position': 'sticky',
       ...DIRECTIONS.reduce((map, dir, i) => {
         if (mods.includes(dir)) {
           map[dir] = (i % 2) ? offsetX : offsetY;
@@ -134,13 +135,6 @@ export default function placeAttr(val, defaults) {
   }
 
   const abs = PLACE_ABS.find(place => mods.includes(place));
-
-
-  if (mods.includes('relative')) {
-    pos = 'relative';
-
-    mods = mods.filter(mod => mod !== 'relative');
-  }
 
   if (mods.includes('fill')) {
     if (devMode && mods.length > 1) {
@@ -158,7 +152,7 @@ export default function placeAttr(val, defaults) {
 
   if (abs) {
     const styles = {
-      position: mods.includes('fixed') ? 'fixed' : 'absolute',
+      '--nu-place-position': mods.includes('fixed') ? 'fixed' : 'absolute',
       margin: '0 !important',
     };
     let transX = 0;
@@ -258,7 +252,7 @@ export default function placeAttr(val, defaults) {
 
   if (pos) {
     styles.push({
-      position: pos,
+      '--nu-place-position': pos,
     });
   }
 

@@ -42,7 +42,7 @@ export default class NuHeading extends NuBlock {
     return {
       level: this.nuAttrs.level,
       color: 'text-soft',
-      text: 'w7',
+      text: 'heading',
     };
   }
 

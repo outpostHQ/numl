@@ -19,6 +19,7 @@ export default class NuActiveElement extends NuElement {
       opacity: '1 :disabled[.5]',
       cursor: 'pointer :disabled[default]',
       selectable: 'y',
+      box: 'y',
     };
   }
 
@@ -33,7 +34,6 @@ export default class NuActiveElement extends NuElement {
     return `
       ${css}
       ${tag} {
-        position: relative;
         touch-action: manipulation;
         -webkit-tap-highlight-color: var(--nu-mark-color);
       }

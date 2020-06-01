@@ -21,16 +21,14 @@ export default class NuSvg extends NuBlock {
       sizing: 'content',
       width: 'min 1fs',
       height: 'min 1fs',
+      box: 'y',
+      text: 'v-middle',
     };
   }
 
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag} {
-        position: relative;
-        vertical-align: var(--nu-inline-offset);
-      }
 
       ${tag}[width] svg {
         min-width: 100%;

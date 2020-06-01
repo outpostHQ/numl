@@ -33,7 +33,6 @@ export default class NuPopup extends NuCard {
       z: 'front',
       opacity: ':hidden[0] 1',
       interactive: 'yes :hidden[no]',
-      // scale: '1 :hidden[1 .5]',
       move: '0 0 :hidden[0 4x]',
       transition: 'opacity, transform',
       origin: 'top',

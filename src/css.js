@@ -306,6 +306,11 @@ const globalCSS = `
   --nu-line-height: 1.5rem;
   --nu-font-weight: 400;
   --nu-text-font-weight: var(--nu-font-weight);
+  --nu-light-font-weight: 200;
+  --nu-normal-font-weight: 400;
+  --nu-bold-font-weight: 600;
+  --nu-heading-font-weight: 700;
+  --nu-font-weight-step: 200;
 }
 
 :root:not([data-nu-prevent-reset]) body {

@@ -38,6 +38,8 @@ import dropAttr from './drop';
 import expandAttr from './expand';
 import opacityAttr from './opacity';
 import selectableAttr from './selectable';
+import boxAttr from './box';
+import clampAttr from './clamp';
 
 export default {
   width: sizeUnit('width'),
@@ -113,4 +115,6 @@ export default {
   drop: dropAttr,
   origin: 'transform-origin',
   selectable: selectableAttr,
+  box: boxAttr,
+  'line-clamp': clampAttr,
 };

@@ -17,6 +17,7 @@ export default class NuBadge extends NuElement {
       border: '1bw',
       fill: 'bg :special[special-bg]',
       color: 'text :special[special-text]',
+      box: 'y',
     };
   }
 
@@ -24,7 +25,6 @@ export default class NuBadge extends NuElement {
     return `
       ${css}
       ${tag} {
-        position: relative;
         line-height: calc(var(--nu-line-height) - 1px);
       }
     `;

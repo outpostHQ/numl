@@ -22,20 +22,12 @@ export default class NuNumInput extends NuInput {
   static nuCSS({ tag, css, shadow }) {
     return `
       ${css}
-      ${tag} input::-webkit-inner-spin-button, ${tag} input::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
 
-      ${tag} input {
-        transition: opacity ${DEFAULT_TIMING} linear;
-      }
-
-      ${tag}:not(:focus-within) input {
+      ${tag}:not(:focus-within) > input {
         opacity: 0;
       }
 
-      ${tag}:focus-within input {
+      ${tag}:focus-within > input {
         opacity: 1;
       }
 

@@ -48,6 +48,7 @@ export default class NuGroup extends NuElement {
       gap: '0',
       radius: '',
       border: '',
+      box: 'y',
     };
   }
 
@@ -57,7 +58,6 @@ export default class NuGroup extends NuElement {
       ${tag} {
         --nu-item-radius: var(--nu-local-radius);
 
-        position: relative;
         border-radius: calc(var(--nu-local-radius, 0) + 1px) !important;
       }
       ${tag}:not([gap]) > :not(:last-child):not(:first-child) {

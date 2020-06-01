@@ -18,14 +18,8 @@ export default class NuCard extends NuRegion {
       radius: '1r',
       transition: 'theme, radius',
       shadow: '0 :clear[1.5]',
+      box: 'y',
     };
-  }
-
-  static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} { position: relative; }
-    `;
   }
 
   nuConnected() {

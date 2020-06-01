@@ -18,6 +18,7 @@ import initLinks from './links';
 
 import * as elements from './elements';
 import NuBase from './elements/base';
+import styles from './attributes/base';
 import NuActiveElement from './elements/activeelement';
 // export * from './behaviors/widget';
 // export * from './helpers';
@@ -123,8 +124,8 @@ const Nude = {
   Behavior,
   WidgetBehavior,
   helpers,
+  styles,
   isEqual,
-  // helpers,
   // color,
   // themes,
   // css,
@@ -250,6 +251,7 @@ export {
   WidgetBehavior,
   helpers,
   isEqual,
+  styles,
   // themes,
   // css,
   // color,

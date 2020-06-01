@@ -2,6 +2,7 @@ import {
   unit,
 } from '../helpers';
 import NuBlock from './block';
+import { DEFAULT_TIMING } from '../attributes/transition';
 
 export default class NuInput extends NuBlock {
   static get nuTag() {
@@ -35,17 +36,21 @@ export default class NuInput extends NuBlock {
       opacity: '1 :disabled[.5]',
       transition: 'theme',
       selectable: 'n',
+      box: 'y',
+      cursor: 'text',
     };
   }
 
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag} {
-        position: relative;
+
+      ${tag} > input::-webkit-inner-spin-button, ${tag} > input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
 
-      ${tag} input, ${tag} textarea {
+      ${tag} > input, ${tag} > textarea {
         padding: var(--nu-local-padding);
         width: 100%;
         max-width: 100%;
@@ -67,6 +72,7 @@ export default class NuInput extends NuBlock {
         user-select: all;
         text-align: inherit;
         resize: none;
+        transition: opacity ${DEFAULT_TIMING} linear;
       }
 
       ${tag} input:-webkit-autofill, ${tag} input:-webkit-autofill:hover, ${tag} input:-webkit-autofill:focus {

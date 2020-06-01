@@ -18,17 +18,15 @@ export default class NuProgressBar extends NuElement {
       radius: '.5r',
       border: '',
       fill: 'bg',
+      box: 'y',
+      height: 'min .5em',
+      overflow: 'no',
     };
   }
 
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag} {
-        position: relative;
-        min-height: .5em;
-        overflow: hidden;
-      }
 
       ${tag}::before {
         content: '';

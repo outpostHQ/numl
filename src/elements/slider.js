@@ -14,7 +14,7 @@ export default class NuSlider extends NuElement {
     return `
       <nu-circle
         id="slider-cap"
-        place="absolute"
+        place="top left --nu-local-rail-top --nu-local-rail-left"
         size="1.25em"
         radius="round"
         fill="special-text"
@@ -36,9 +36,9 @@ export default class NuSlider extends NuElement {
         return combinedAttr([{
           width: vertical ? '.5em' : '100%',
           height: vertical ? '10x' : '.5em',
-          '--local-rail-move-h': vertical ? '.25em' : '0',
-          '--local-rail-move-v': vertical ? '0' : '-.25em',
-          '--local-rail-top': vertical ? 'initial' : '0',
+          '--local-rail-move-h': vertical ? '-.5em - 1bw' : '-.5em + 1bw',
+          '--local-rail-move-v': vertical ? '-.5em + 1bw' : '-.5em - 1bw',
+          '--local-rail-top': vertical ? '(100% - --local-offset)' : '0',
           '--local-rail-left': vertical ? 'initial' : '--local-offset',
           '--local-rail-bottom': vertical ? '--local-offset' : 'initial',
           '--orient': vertical ? 'v' : 'h',
@@ -61,6 +61,7 @@ export default class NuSlider extends NuElement {
       expand: '.5em',
       orient: 'h',
       outline: 'n',
+      box: 'y',
     };
   }
 
@@ -69,21 +70,5 @@ export default class NuSlider extends NuElement {
       orient: 'dynamic',
       slider: true,
     };
-  }
-
-  static nuCSS({ css, tag, shadow }) {
-    return `
-      ${css}
-      ${!shadow ? `${tag} {
-        position: relative;
-      }` : ''}
-
-      ${tag} nu-circle {
-        position: absolute;
-        top: var(--nu-local-rail-top);
-        left: var(--nu-local-rail-left);
-        bottom: var(--nu-local-rail-bottom);
-      }
-    `;
   }
 }

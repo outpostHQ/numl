@@ -12,18 +12,10 @@ export default class NuCell extends NuElement {
   static get nuStyles() {
     return {
       display: '^ block :role-row[table-cell]',
-      padding: '--nu-cell-padding',
+      padding: '--nu-gap',
       text: 'middle',
       fill: '^ bg :role-row[]',
+      box: 'y',
     };
-  }
-
-  static nuCSS({ tag, css}) {
-    return `
-      ${css}
-      ${tag} {
-        position: relative;
-      }
-    `;
   }
 }

@@ -178,6 +178,6 @@ export default class SliderBehavior extends WidgetBehavior {
 
     let offset = (value - min) / (max - min) * 100;
 
-    return offset ? `${offset.toFixed(2)}%` : '0';
+    return `${offset.toFixed(2)}%`;
   }
 }

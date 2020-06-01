@@ -1127,7 +1127,7 @@ const COLOR_NAME_LIST = [
   'text',
   'bg',
   'border',
-  'hover',
+  'mark',
   'focus',
   'subtle',
   'text-soft',

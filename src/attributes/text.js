@@ -41,8 +41,12 @@ set('pre-wrap', { 'white-space': 'pre-wrap' });
 set('pre-line', { 'white-space': 'pre-line' });
 set('break-spaces', { 'white-space': 'break-spaces' });
 
-set('bolder', { 'font-weight': 'calc(var(--nu-font-weight) + 200)' });
-set('lighter', { 'font-weight': 'calc(var(--nu-font-weight) - 200)' });
+set('heading', { 'font-weight': 'var(--nu-heading-font-weight)' });
+set('normal', { 'font-weight': 'var(--nu-normal-font-weight)' });
+set('bold', { 'font-weight': 'var(--nu-bold-font-weight)' });
+set('light', { 'font-weight': 'var(--nu-light-font-weight)' });
+set('bolder', { 'font-weight': 'calc(var(--nu-font-weight) + var(--nu-font-weight-step))' });
+set('lighter', { 'font-weight': 'calc(var(--nu-font-weight) - var(--nu-font-weight-step))' });
 
 const LIST = Object.keys(MAP);
 

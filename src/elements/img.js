@@ -70,16 +70,14 @@ export default class NuImg extends NuBlock {
       display: null,
       fit: 'none',
       sizing: 'content',
+      box: 'y',
+      text: 'v-middle',
     };
   }
 
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag} {
-        position: relative;
-        vertical-align: var(--nu-inline-offset);
-      }
 
       ${tag} > img {
         display: block;

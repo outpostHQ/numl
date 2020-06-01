@@ -13,21 +13,13 @@ export default class NuLink extends NuActiveElement {
     return {
       display: 'inline-block',
       color: 'special',
-      text: 'nowrap u bolder',
+      text: 'nowrap u bold',
       cursor: 'pointer',
       radius: '.5r',
       transition: 'shadow, fill, color',
       mark: '.25em hover',
       selectable: 'y',
+      box: 'y',
     };
-  }
-
-  static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
-        position: relative;
-      }
-    `;
   }
 }

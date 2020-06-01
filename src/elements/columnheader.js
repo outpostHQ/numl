@@ -1,6 +1,6 @@
-import NuRowHeader from './rowheader';
+import NuTableHeader from './tableheader';
 
-export default class NuColumnHeader extends NuRowHeader {
+export default class NuColumnHeader extends NuTableHeader {
   static get nuTag() {
     return 'nu-columnheader';
   }
@@ -14,14 +14,8 @@ export default class NuColumnHeader extends NuRowHeader {
 
     const parentGroup = this.parentNode && this.parentNode.parentNode;
 
-    if (parentGroup && parentGroup.constructor.nuRole === 'rowgroup') {
+    if (parentGroup && parentGroup.getAttribute('role') === 'rowgroup') {
       parentGroup.setAttribute('display', 'table-header-group');
     }
-  }
-
-  static get nuStyles() {
-    return {
-      border: null,
-    };
   }
 }

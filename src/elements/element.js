@@ -10,6 +10,7 @@ import ShadowCombinator from '../combinators/shadow';
 // import WeightCombinator from '../combinators/weight';
 import { BEHAVIORS } from '../behaviors/index';
 import { hideEffect } from '../effects/hide';
+import PositionCombinator from '../combinators/position';
 
 /**
  * @class
@@ -139,6 +140,7 @@ export default class NuElement extends NuBase {
     return {
       transform: TransformCombinator(),
       shadow: ShadowCombinator(),
+      position: PositionCombinator(),
       // weight: WeightCombinator(),
     };
   }

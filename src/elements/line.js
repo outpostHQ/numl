@@ -38,6 +38,7 @@ export default class NuLine extends NuBlock {
       size: '1bw',
       fill: 'var(--nu-local-border-color, var(--nu-border-color)) :special[special]',
       text: 'v-middle',
+      box: 'y',
     };
   }
 
@@ -45,7 +46,6 @@ export default class NuLine extends NuBlock {
     return `
       ${css}
       ${tag} {
-        position: relative;
         line-height: 0 !important;
       }
     `;

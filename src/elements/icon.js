@@ -46,16 +46,14 @@ export default class NuIcon extends NuBlock {
       sizing: 'content',
       size: '--icon-size',
       transition: 'transform',
+      box: 'y',
+      text: 'bottom',
     };
   }
 
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag} {
-        position: relative;
-        vertical-align: text-bottom;
-      }
 
       ${tag} svg {
         position: absolute;

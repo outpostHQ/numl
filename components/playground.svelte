@@ -1,5 +1,32 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show(hash, 'clamp')}
+  <nu-card>
+    <nu-block line-clamp="2" width="max 10">
+      sdfasdf af sadg asdigaso ifasoifsadoiu asdfiuosf sdos sf sdof asoif sadf
+    </nu-block>
+  </nu-card>
+{/if}
+
+{#if show(hash, 'table')}
+  <nu-card>
+    <nu-table>
+      <nu-rowgroup>
+        <nu-row>
+          <nu-tableheader fill="mark"></nu-tableheader>
+          <nu-columnheader>Two</nu-columnheader>
+        </nu-row>
+      </nu-rowgroup>
+      <nu-rowgroup>
+        <nu-row>
+          <nu-rowheader>One</nu-rowheader>
+          <nu-cell>Two</nu-cell>
+        </nu-row>
+      </nu-rowgroup>
+    </nu-table>
+  </nu-card>
+{/if}
+
 {#if show(hash, 'datepicker')}
   <nu-card>
     <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>

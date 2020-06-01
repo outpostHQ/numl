@@ -16,7 +16,7 @@ const NAME_STOP_LIST = [
   'text',
   'bg',
   'border',
-  'hover',
+  'mark',
   'focus',
   'subtle',
   'text',
