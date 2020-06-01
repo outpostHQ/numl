@@ -5,6 +5,10 @@ export default class NuInline extends NuElement {
     return 'nu-inline';
   }
 
+  static get nuName() {
+    return '';
+  }
+
   static get nuStyles() {
     return {
       display: 'inline',

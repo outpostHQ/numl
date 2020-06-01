@@ -1,8 +1,8 @@
 import NuInline from './inline';
 
-export default class NuStrike extends NuInline {
+export default class NuSup extends NuInline {
   static get nuTag() {
-    return 'nu-s';
+    return 'nu-sup';
   }
 
   static get nuName() {
@@ -11,7 +11,8 @@ export default class NuStrike extends NuInline {
 
   static get nuStyles() {
     return {
-      text: 's',
+      text: 'sup bold',
+      size: '.75em 1em',
     };
   }
 }

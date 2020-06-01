@@ -5,6 +5,10 @@ export default class NuItalic extends NuInline {
     return 'nu-i';
   }
 
+  static get nuName() {
+    return '';
+  }
+
   static get nuStyles() {
     return {
       text: 'i',

@@ -20,6 +20,8 @@ export { default as NuBold } from './elements/bold';
 export { default as NuItalic } from './elements/italic';
 export { default as NuStrike } from './elements/strike';
 export { default as NuUnderLine } from './elements/underline';
+export { default as NuSup } from './elements/sup';
+export { default as NuSub } from './elements/sub';
 export { default as NuTopBar } from './elements/header';
 export { default as NuHeading } from './elements/heading';
 export { default as NuSpacer } from './elements/spacer';

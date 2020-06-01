@@ -5,6 +5,10 @@ export default class NuBold extends NuInline {
     return 'nu-b';
   }
 
+  static get nuName() {
+    return '';
+  }
+
   static get nuStyles() {
     return {
       text: 'bolder',
