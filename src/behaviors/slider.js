@@ -148,6 +148,10 @@ export default class SliderBehavior extends WidgetBehavior {
     const min = this.min;
     const max = this.max;
 
+    if (value !== value) {
+      value = min;
+    }
+
     if (value < min) value = min;
     if (value > max) value = max;
 
@@ -172,8 +176,8 @@ export default class SliderBehavior extends WidgetBehavior {
     let min = this.min;
     let max = this.max;
 
-    const offset = (value - min) / (max - min) * 100;
+    let offset = (value - min) / (max - min) * 100;
 
-    return `${offset.toFixed(2)}%`;
+    return offset ? `${offset.toFixed(2)}%` : '0';
   }
 }
