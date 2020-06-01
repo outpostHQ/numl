@@ -31,12 +31,13 @@ import rotateAttr from './rotate';
 import moveAttr from './move';
 import showAttr from './show';
 import fadeAttr from './fade';
-import pressingAttr from './pressing';
-import focusAttr from './focus';
-import hoverableAttr from './hoverable';
+import insetAttr from './inset';
+import outlineAttr from './outline';
+import markAttr from './mark';
 import dropAttr from './drop';
 import expandAttr from './expand';
 import opacityAttr from './opacity';
+import selectableAttr from './selectable';
 
 export default {
   width: sizeUnit('width'),
@@ -104,11 +105,12 @@ export default {
   scrollbar: scrollbarAttr,
   before: beforeAttr,
   after: afterAttr,
-  pressing: pressingAttr,
-  focus: focusAttr,
-  hoverable: hoverableAttr,
+  inset: insetAttr,
+  outline: outlineAttr,
+  mark: markAttr,
   expand: expandAttr,
   fade: fadeAttr,
   drop: dropAttr,
   origin: 'transform-origin',
+  selectable: selectableAttr,
 };

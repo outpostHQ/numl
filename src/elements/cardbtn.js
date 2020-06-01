@@ -13,7 +13,7 @@ export default class NuCardBtn extends NuBtn {
     return {
       display: 'block',
       padding: '2x',
-      border: '1bw :clear[hidden] :hover[1bw] :clear:hover[color(hover)]',
+      border: '1bw :clear[hidden] :hover[1bw] :clear:hover[color(mark)]',
       flow: 'column',
       text: 'wrap :special[w5 wrap]',
       transition: 'theme, radius',

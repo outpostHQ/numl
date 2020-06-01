@@ -9,16 +9,16 @@ export default class NuBtn extends NuActiveElement {
     return {
       display: 'inline-grid',
       padding: '1x 2x',
-      border: '1bw :clear[hidden] :hover[1bw] :clear:hover[color(hover)]',
+      border: '1bw :clear[hidden] :hover[1bw] :clear:hover[color(mark)]',
       radius: '1r',
       flow: 'column',
       gap: '1x',
       content: 'center :dropdown[stretch]',
       items: 'center stretch',
-      hoverable: 'n :focusable[y]',
+      mark: ':focusable[hover]',
       fill: 'bg :special[special-bg] :themed[bg] :special:themed[special-bg] :clear[clear] :clear:themed[bg]',
       text: 'nowrap :special[w5 nowrap]',
-      pressing: 'n :active:focusable[y] :pressed:focusable[y] :pressed[y] :pressed:active[y]',
+      inset: 'n :active:focusable[y] :pressed:focusable[y] :pressed[y] :pressed:active[y]',
       color: 'text :clear[special] :special[special-text] :special:clear[special-text]',
     };
   }
@@ -37,7 +37,7 @@ export default class NuBtn extends NuActiveElement {
         --nu-text-contrast-color: var(--nu-special-text-color);
         --nu-text-color: var(--nu-special-text-color);
         --nu-special-color: var(--nu-special-text-color);
-        --nu-hover-color: var(--nu-special-hover-color);
+        --nu-mark-color: var(--nu-special-mark-color);
       }
     `;
   }

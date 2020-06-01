@@ -20,7 +20,7 @@ export const THEME_PROPS_LIST = [
   'text-color',
   'bg-color',
   'border-color',
-  'hover-color',
+  'mark-color',
   'focus-color',
   'subtle-color',
   'text-soft-color',
@@ -30,7 +30,7 @@ export const THEME_PROPS_LIST = [
   'special-text-color',
   'special-bg-color',
   'special-intensity',
-  'special-hover-color',
+  'special-mark-color',
   'input-color',
 ];
 const normalBaseTextColor = [0, 0, 19.87];
@@ -223,8 +223,8 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
     theme['text-soft'] = contrastLightness ? setSaturation([hue, saturation, contrastLightness], saturation, pastel) : [...theme.text];
   }
 
-  theme.hover = setOpacity([...theme.special], highContrast ? 0.16 : .08);
-  theme['special-hover'] = setOpacity([...theme['special-text']], highContrast ? 0.16 : .08);
+  theme.mark = setOpacity([...theme.special], highContrast ? 0.16 : .08);
+  theme['special-mark'] = setOpacity([...theme['special-text']], highContrast ? 0.16 : .08);
   theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity, darkScheme);
   theme['special-intensity'] = getShadowIntensity(theme['special-bg'][2], shadowIntensity, darkScheme);
 

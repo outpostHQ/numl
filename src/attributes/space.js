@@ -19,6 +19,12 @@ export default function spaceAttr(val) {
 
   let { values, mods } = parseAttr(val, 1);
 
+  if (mods.includes('remove')) {
+    return {
+      margin: '0 !important',
+    };
+  }
+
   let around = mods.includes('around');
 
   mods = filterMods(mods, DIRECTIONS);

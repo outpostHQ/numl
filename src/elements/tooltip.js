@@ -40,15 +40,7 @@ export default class NuTooltip extends NuBlock {
       interactive: 'no',
       text: 'w6 wrap',
       width: 'min-content initial 20rem',
+      space: 'remove',
     };
-  }
-
-  static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
-        margin: 0 !important;
-      }
-    `
   }
 }

@@ -37,7 +37,6 @@ export default class NuBtnGroup extends NuGroup {
     return {
       gap: '--nu-border-width * -1',
       radius: '1r',
-      focus: 'n',
     };
   }
 

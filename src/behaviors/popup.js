@@ -55,13 +55,13 @@ export default class PopupBehavior extends WidgetBehavior {
     this.on('mouseenter', () => {
       if (!this.button) return;
 
-      this.button.host.style.setProperty('--nu-local-hover-color', 'transparent');
+      this.button.host.style.setProperty('--nu-local-mark-color', 'transparent');
     });
 
     this.on('mouseleave', () => {
       if (!this.button) return;
 
-      this.button.host.style.removeProperty('--nu-local-hover-color');
+      this.button.host.style.removeProperty('--nu-local-mark-color');
     });
   }
 

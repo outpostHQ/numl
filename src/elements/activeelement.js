@@ -14,10 +14,11 @@ export default class NuActiveElement extends NuElement {
       radius: '',
       text: 'nowrap',
       transition: 'theme, radius',
-      focus: 'y',
-      hoverable: 'n :focusable[y]',
+      outline: 'focus',
+      mark: 'n :focusable[hover]',
       opacity: '1 :disabled[.5]',
       cursor: 'pointer :disabled[default]',
+      selectable: 'y',
     };
   }
 
@@ -33,9 +34,8 @@ export default class NuActiveElement extends NuElement {
       ${css}
       ${tag} {
         position: relative;
-        user-select: none;
         touch-action: manipulation;
-        -webkit-tap-highlight-color: var(--nu-hover-color);
+        -webkit-tap-highlight-color: var(--nu-mark-color);
       }
 
       ${tag} > a {

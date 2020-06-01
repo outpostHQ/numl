@@ -20,7 +20,7 @@ export default class NuTab extends NuActiveElement {
       padding: '--local-tab-padding-v --local-tab-padding-h',
       border: '0',
       expand: '--local-tab-expand-v --local-tab-expand-h',
-      hoverable: null,
+      mark: null,
 
       '--local-line-width': `0
         :focusable:hover[1bw]

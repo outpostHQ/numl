@@ -1,13 +1,13 @@
 const STYLE_MAP = {
   shadow: 'depth',
   border: 'stroke',
-  pressing: 'toggle',
-  hoverable: 'hover',
+  inset: 'inset',
+  mark: 'mark',
 };
 
 export default function ShadowCombinator() {
   return {
-    attrs: ['pressing', 'hoverable', 'shadow', 'border'],
+    attrs: ['inset', 'mark', 'shadow', 'border'],
     generator(attrs, allAttrs) {
       if (!attrs.length) return;
 

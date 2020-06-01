@@ -21,10 +21,6 @@ export default class NuTriangle extends NuElement {
   static nuCSS({ tag, css }) {
     return `
       ${css}
-      ${tag} {
-        font-size: inherit;
-        line-height: inherit;
-      }
       ${tag}:not([border]):not([border]) {
         border-top: 0;
         border-bottom-color: currentColor;

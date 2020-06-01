@@ -44,15 +44,7 @@ export default class NuPopup extends NuCard {
       place: 'outside-bottom',
       drop: '',
       padding: '',
+      selectable: 'y',
     };
-  }
-
-  static nuCSS({ css, tag }) {
-    return `
-      ${css}
-      ${tag} {
-        user-select: initial;
-      }
-    `;
   }
 }

@@ -5,15 +5,15 @@ const LOCAL_PROP = '--nu-local-bg-color';
 const LOCAL_VALUE = `var(${LOCAL_PROP}, var(--nu-bg-color))`;
 const DIFF_PROP = '--nu-diff-color';
 const INTENSITY_PROP = '--nu-local-intensity';
-const HOVER_PROP = '--nu-local-hover-color';
+const MARK_PROP = '--nu-local-mark-color';
 const BORDER_PROP = '--nu-local-border-color';
 const TEXT_PROP = '--nu-local-text-color';
 const INTENSITY_VALUE = 'var(--nu-intensity)';
 const SPECIAL_INTENSITY_VALUE = 'var(--nu-special-intensity)';
 const BORDER_VALUE = 'var(--nu-border-color)';
 const SPECIAL_BORDER_VALUE = 'var(--nu-special-text-color)';
-const HOVER_VALUE = 'var(--nu-hover-color)';
-const SPECIAL_HOVER_VALUE = 'var(--nu-special-hover-color)';
+const MARK_VALUE = 'var(--nu-mark-color)';
+const SPECIAL_MARK_VALUE = 'var(--nu-special-mark-color)';
 const BG_VALUE = 'var(--nu-bg-color)';
 const SUBTLE_VALUE = 'var(--nu-subtle-color)';
 const TEXT_VALUE = ''; // make it invalid
@@ -83,7 +83,7 @@ export default function fillAttr(val) {
       [`--nu-local-bg-color-rgb`]: `var(--nu-${name}-color-rgb, var(--nu-bg-color-rgb))`,
       [TEXT_PROP]: TEXT_VALUE,
       [BG_STYLE]: LOCAL_VALUE,
-      [HOVER_PROP]: HOVER_VALUE,
+      [MARK_PROP]: MARK_VALUE,
     }];
   } else {
     styles = [{
@@ -94,7 +94,7 @@ export default function fillAttr(val) {
     if (name === 'special-bg') {
       styles[0][INTENSITY_PROP] = SPECIAL_INTENSITY_VALUE;
       styles[0][TEXT_PROP] = SPECIAL_TEXT_VALUE;
-      styles[0][HOVER_PROP] = SPECIAL_HOVER_VALUE;
+      styles[0][MARK_PROP] = SPECIAL_MARK_VALUE;
       styles.push({
         $suffix: '>:not([fill]):not([nu-popup])',
         [BORDER_PROP]: SPECIAL_BORDER_VALUE,

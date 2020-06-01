@@ -23,7 +23,7 @@ export default function themeAttr(val, defaults = {}) {
     return map;
   }, {
     '--nu-local-border-color': 'var(--nu-border-color)',
-    '--nu-local-hover-color': 'var(--nu-hover-color)',
+    '--nu-local-mark-color': 'var(--nu-mark-color)',
     '--nu-local-intensity': 'var(--nu-intensity)',
   })];
 

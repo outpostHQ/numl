@@ -28,8 +28,8 @@ export default class NuSwitch extends NuActiveElement {
       border: '1bw',
       sizing: 'content',
       radius: 'round',
-      focus: 'y',
-      pressing: `0
+      outline: 'focus',
+      inset: `0
         :active[.5em]
         :active:pressed[.5em]`,
       transition: 'shadow',
@@ -38,7 +38,7 @@ export default class NuSwitch extends NuActiveElement {
         :pressed[special-bg]
         :pressed:disabled[text 50%]`,
       text: 'v-middle',
-      hoverable: 'n :focusable[y]',
+      mark: ':focusable[hover]',
       padding: '--circle-gap',
 
       '--size': '1em + --circle-gap',

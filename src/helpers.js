@@ -1337,7 +1337,7 @@ const YES_VALUES = ['y', 'yes'];
 
 /**
  * Check for "no" value.
- * @param value - original attribute value.
+ * @param {string} value - original attribute value.
  * @return {boolean}
  */
 export function isNoValue(value) {
@@ -1346,7 +1346,7 @@ export function isNoValue(value) {
 
 /**
  * Check for "yes" value.
- * @param value - original attribute value.
+ * @param {string} value - original attribute value.
  * @return {boolean}
  */
 export function isYesValue(value) {

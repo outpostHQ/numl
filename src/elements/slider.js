@@ -24,7 +24,7 @@ export default class NuSlider extends NuElement {
         move="--local-rail-move-v --local-rail-move-h"
         orient="h"
         opacity="1"
-        focus="outside"></nu-circle>
+        outline="focus-outside"></nu-circle>
     `;
   }
 
@@ -56,11 +56,11 @@ export default class NuSlider extends NuElement {
       border: '1bw',
       text: 'v-middle',
       cursor: 'pointer :disabled[default]',
-      hoverable: '.5em :disabled[n]',
+      mark: '.5em hover :disabled[n]',
       transition: 'shadow',
       expand: '.5em',
       orient: 'h',
-      focus: 'n',
+      outline: 'n',
     };
   }
 

@@ -20,7 +20,7 @@ export default class NuOption extends NuElement {
     return {
       display: 'grid',
       padding: '1x',
-      fill: 'transparent :current[hover]',
+      fill: 'transparent :current[mark]',
       width: '100%',
       flow: 'column',
       gap: '1x',
@@ -30,7 +30,7 @@ export default class NuOption extends NuElement {
       border: ':current[1sw left inside color(special)] 0',
       color: ':current[special]',
       transition: 'theme',
-      hoverable: 'y :current[n]',
+      mark: 'hover :current[n]',
       opacity: '1 :disabled[.5]',
       cursor: 'pointer :disabled[default]',
 

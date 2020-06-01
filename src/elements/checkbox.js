@@ -35,8 +35,8 @@ export default class NuCheckbox extends NuActiveElement {
       fill: 'bg',
       cursor: 'default',
       text: 'v-middle',
-      pressing: '0 :active[.5em] :pressed[0] :active:pressed[.5em]',
-      hoverable: 'n :focusable[.5em]',
+      inset: '0 :active[.5em] :pressed[0] :active:pressed[.5em]',
+      mark: ':focusable[.5em hover]',
       expand: '.5em',
 
       '--icon-opacity': ':pressed[1] 0',

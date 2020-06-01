@@ -17,8 +17,8 @@ export default class NuLink extends NuActiveElement {
       cursor: 'pointer',
       radius: '.5r',
       transition: 'shadow, fill, color',
-      focus: 'y',
-      hoverable: 'y .25em',
+      mark: '.25em hover',
+      selectable: 'y',
     };
   }
 
@@ -26,7 +26,6 @@ export default class NuLink extends NuActiveElement {
     return `
       ${css}
       ${tag} {
-        user-select: text;
         position: relative;
       }
     `;

@@ -31,9 +31,10 @@ export default class NuInput extends NuBlock {
       padding: '1x',
       fill: 'input :disabled[special-bg 20%]',
       border: '1bw',
-      focus: 'inside input',
+      outline: 'focus-inside intrusive',
       opacity: '1 :disabled[.5]',
       transition: 'theme',
+      selectable: 'n',
     };
   }
 
@@ -41,8 +42,6 @@ export default class NuInput extends NuBlock {
     return `
       ${css}
       ${tag} {
-        outline: none;
-        user-select: none;
         position: relative;
       }
 
