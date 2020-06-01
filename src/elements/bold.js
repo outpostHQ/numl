@@ -11,7 +11,7 @@ export default class NuBold extends NuInline {
 
   static get nuStyles() {
     return {
-      text: 'bolder',
+      text: 'bold',
     };
   }
 }
