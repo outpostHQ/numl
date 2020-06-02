@@ -7,6 +7,7 @@ export default class ButtonBehavior extends WidgetBehavior {
   static get params() {
     return {
       input: true,
+      role: 'button',
     };
   }
 

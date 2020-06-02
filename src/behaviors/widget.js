@@ -89,6 +89,10 @@ export default class WidgetBehavior extends Behavior {
        */
       widget: true,
       /**
+       * Default role for the element.
+       */
+      role: '',
+      /**
        * Widget uses locale (lang attribute or `locale` in context).
        */
       localized: false,
@@ -132,6 +136,10 @@ export default class WidgetBehavior extends Behavior {
   init() {
     const { host } = this;
     const localized = this.params.localized;
+
+    if (!this.hasAttr('role') && this.params.role) {
+      this.setAttr('role', this.params.role);
+    }
 
     // generate cache of props list
     if (!PROPS_LIST) {

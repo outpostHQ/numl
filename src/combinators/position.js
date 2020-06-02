@@ -1,12 +1,20 @@
-export default function PositionCombinator() {
+export default function ShadowCombinator() {
   return {
-    attrs: ['place', 'box'],
-    generator(attrs) {
+    attrs: ['mark', 'box', 'place'],
+    generator(attrs, allAttrs) {
       if (!attrs.length) return;
 
-      const position = attrs.length === 1
-        ? `var(--nu-${attrs[0]}-position)`
-        : `var(--nu-place-position, var(--nu-box-position, static))`;
+      let position = '';
+
+      allAttrs.forEach((attr) => {
+        if (!attrs.includes(attr)) return;
+
+        if (attr === 'mark') {
+          position = 'relative';
+        } else {
+          position = `var(--nu-${attr}-position, ${position})`;
+        }
+      });
 
       return { position };
     },

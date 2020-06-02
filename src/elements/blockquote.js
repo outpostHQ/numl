@@ -18,4 +18,16 @@ export default class NuBlockQuote extends NuBlock {
       size: 'lg',
     };
   }
+
+  nuConnected() {
+    super.nuConnected();
+
+    this.nuSetContext('attrs:code', {
+      fill: 'bg',
+    });
+
+    this.nuSetContext('attrs:mark', {
+      fill: 'bg',
+    });
+  }
 }

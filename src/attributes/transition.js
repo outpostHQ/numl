@@ -17,6 +17,7 @@ const MAP = {
   theme: ['color', 'background-color', 'box-shadow', 'border', 'border-radius'],
   space: ['margin'],
   inset: ['box-shadow'],
+  mark: ['box-shadow'],
   width: ['max-width', 'min-width', 'width'],
   height: ['max-height', 'min-height', 'height'],
   gap: ['gap', 'margin'],
