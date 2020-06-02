@@ -73,7 +73,8 @@ const COVER_STYLES = {
 };
 
 const OTHER_ATTRS = TransformCombinator().attrs.filter(attr => attr !== PLACE_ATTR);
-const DEFAULT_STYLES = { '--nu-transform-place': 'translate(0, 0)' };
+const DEFAULT_TRANSFORM = { '--nu-transform-place': 'translate(0, 0)' };
+const DEFAULT_POSITION = { '--nu-place-position': 'static' };
 const NOT_OTHER_SELECTOR = OTHER_ATTRS.map(attr => `:not([${attr}])`).join('');
 const SECONDARY_DEFAULT_STYLES = [{
   $suffix: NOT_OTHER_SELECTOR,
@@ -81,18 +82,25 @@ const SECONDARY_DEFAULT_STYLES = [{
 }, ...OTHER_ATTRS.map(attr => {
   return {
     $suffix: `[${attr}]`,
-    ...DEFAULT_STYLES,
+    ...DEFAULT_TRANSFORM,
   };
 })];
 
-function getEmptyTransform(defaults) {
+function getEmptyStyles(defaults) {
   const defaultAttr = OTHER_ATTRS.find(attr => defaults[attr] != null);
 
   if (defaultAttr) {
-    return [DEFAULT_STYLES];
+    return [DEFAULT_TRANSFORM, DEFAULT_POSITION];
   }
 
-  return SECONDARY_DEFAULT_STYLES.map(styles => ({ ...styles }));
+  /**
+   * @type {Array<Object>}
+   */
+  const styles =  SECONDARY_DEFAULT_STYLES.map(styles => ({ ...styles }));
+
+  styles.push(DEFAULT_POSITION);
+
+  return styles;
 }
 
 const SPACE_AROUND = {
@@ -100,7 +108,7 @@ const SPACE_AROUND = {
 };
 
 export default function placeAttr(val, defaults) {
-  if (!val) return getEmptyTransform(defaults);
+  if (!val) return getEmptyStyles(defaults);
 
   let { mods, values } = parseAttr(val, 1);
 
@@ -110,15 +118,15 @@ export default function placeAttr(val, defaults) {
   let pos = '';
 
   if (mods.includes('space-around')) {
-    return [SPACE_AROUND, ...getEmptyTransform(defaults)];
+    return [SPACE_AROUND, ...getEmptyStyles(defaults)];
   }
 
   if (mods.includes('float-left')) {
-    return [{ float: 'left' }, ...getEmptyTransform(defaults)];
+    return [{ float: 'left' }, ...getEmptyStyles(defaults)];
   }
 
   if (mods.includes('float-right')) {
-    return [{ float: 'right' }, ...getEmptyTransform(defaults)];
+    return [{ float: 'right' }, ...getEmptyStyles(defaults)];
   }
 
   if (mods.includes('sticky')) {
@@ -131,7 +139,7 @@ export default function placeAttr(val, defaults) {
 
         return map;
       }, {}),
-    }, ...getEmptyTransform(defaults)];
+    }, ...getEmptyStyles(defaults)];
   }
 
   const abs = PLACE_ABS.find(place => mods.includes(place));
@@ -146,7 +154,7 @@ export default function placeAttr(val, defaults) {
       FILL_STYLES[0],
       { ...FILL_STYLES[1] },
       { ...FILL_STYLES[2] },
-      ...getEmptyTransform(defaults),
+      ...getEmptyStyles(defaults),
     ];
   }
 
@@ -162,7 +170,7 @@ export default function placeAttr(val, defaults) {
       return [{
         ...styles,
         ...COVER_STYLES,
-      }, ...getEmptyTransform(defaults)];
+      }, ...getEmptyStyles(defaults)];
     }
 
     PLACE_ABS_INSIDE.forEach((place, i) => {
@@ -256,7 +264,7 @@ export default function placeAttr(val, defaults) {
     });
   }
 
-  styles.push(...getEmptyTransform(defaults));
+  styles.push(...getEmptyStyles(defaults));
 
   return styles;
 };
