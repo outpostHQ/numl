@@ -74,7 +74,7 @@ const COVER_STYLES = {
 
 const OTHER_ATTRS = TransformCombinator().attrs.filter(attr => attr !== PLACE_ATTR);
 const DEFAULT_TRANSFORM = { '--nu-transform-place': 'translate(0, 0)' };
-const DEFAULT_POSITION = { '--nu-place-position': 'static' };
+const DEFAULT_POSITION = { '--nu-place-position': 'initial' };
 const NOT_OTHER_SELECTOR = OTHER_ATTRS.map(attr => `:not([${attr}])`).join('');
 const SECONDARY_DEFAULT_STYLES = [{
   $suffix: NOT_OTHER_SELECTOR,
