@@ -51,7 +51,7 @@ export default class NuHeading extends NuBlock {
 
     switch (name) {
       case 'level':
-        if (!value) value = 2;
+        if (!value) value = this.constructor.nuAttrs.level;
 
         if (devMode && !LEVELS.includes(Number(value))) {
           return warn('invalid heading level', value);

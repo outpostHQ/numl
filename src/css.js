@@ -309,8 +309,12 @@ const globalCSS = `
   --nu-light-font-weight: 200;
   --nu-normal-font-weight: 400;
   --nu-bold-font-weight: 600;
+  --nu-semi-bold-font-weight: 500;
   --nu-heading-font-weight: 700;
   --nu-font-weight-step: 200;
+
+  --nu-font: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
+  --nu-monospace-font: monospace;
 }
 
 :root:not([data-nu-prevent-reset]) body {
@@ -324,11 +328,11 @@ const globalCSS = `
 .nu-defaults, :root:not([data-nu-prevent-reset]) body {
   margin: 0;
   padding: 0;
-  font-family: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
+  font-family: var(--nu-font);
   font-size: var(--nu-base);
   color: var(--nu-text-color);
   background-color: var(--nu-subtle-color);
-  font-weight: 400;
+  font-weight: var(--nu-normal-font-weight);
   word-spacing: calc(1rem / 8);
   min-height: 100vh;
   text-align: left;
