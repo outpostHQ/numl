@@ -41,6 +41,7 @@ export default class NuTooltip extends NuBlock {
       text: 'w6 wrap',
       width: 'min-content initial 20rem',
       space: 'remove',
+      sizing: 'content',
     };
   }
 }

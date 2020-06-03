@@ -43,6 +43,7 @@ export default class NuPopup extends NuCard {
       drop: '',
       padding: '',
       selectable: 'y',
+      sizing: 'content',
     };
   }
 }
