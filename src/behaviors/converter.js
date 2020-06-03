@@ -42,6 +42,12 @@ export default class ConverterBehavior extends WidgetBehavior {
 
     const container = this.container = this.createContainer();
 
+    const toRemove = host.nuQueryChildren('*:not(pre):not(textarea)');
+
+    toRemove.forEach(el => {
+      el.parentNode.removeChild(el);
+    });
+
     (host.nuShadow || host).appendChild(container);
 
     const observe = this.observe = this.createObserveListener(ref, container, this.constructor.converter);

@@ -15,6 +15,7 @@ export const SIZES = {
   h4: [1.4, 2],
   h5: [1.2, 1.5],
   h6: [1, 1.5],
+  hero: [4, 5],
 };
 
 let PROPS = '';

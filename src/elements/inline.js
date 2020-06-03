@@ -2,7 +2,7 @@ import NuElement from './element';
 
 export default class NuInline extends NuElement {
   static get nuTag() {
-    return 'nu-inline';
+    return 'nu-in';
   }
 
   static get nuName() {

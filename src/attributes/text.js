@@ -11,7 +11,7 @@ function set(name, styles) {
 ['ni', 'non-italic'].forEach(name => set(name, { 'font-style': 'normal' }));
 ['u', 'underline'].forEach(name => set(name, { 'text-decoration': 'underline' }));
 ['s', 'line-through'].forEach(name => set(name, { 'text-decoration': 'line-through' }));
-set('no-decoration', { 'text-decoration': 'none' });
+['nd', 'no-decoration'].forEach(name => set(name, { 'text-decoration': 'none' }));
 [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => set(`w${index}`, { '--nu-font-weight': `${index}00` }));
 ['uppercase', 'lowercase', 'capitalize'].forEach(name => set(name, { 'text-transform': name }));
 
@@ -41,10 +41,15 @@ set('pre-wrap', { 'white-space': 'pre-wrap' });
 set('pre-line', { 'white-space': 'pre-line' });
 set('break-spaces', { 'white-space': 'break-spaces' });
 
-set('heading', { 'font-weight': 'var(--nu-heading-font-weight)' });
-set('normal', { 'font-weight': 'var(--nu-normal-font-weight)' });
-set('bold', { 'font-weight': 'var(--nu-bold-font-weight)' });
-set('light', { 'font-weight': 'var(--nu-light-font-weight)' });
+['normal', 'n'].forEach(name => set(name, {
+  'font-weight': 'var(--nu-normal-font-weight)',
+  'font-style': 'initial',
+  'white-space': 'normal',
+  'text-decoration': 'none',
+}));
+['bold', 'b'].forEach(name => set(name, { 'font-weight': 'var(--nu-bold-font-weight)' }));
+['light', 'l'].forEach(name => set(name, { 'font-weight': 'var(--nu-light-font-weight)' }));
+['heading', 'h'].forEach(name => set(name, { 'font-weight': 'var(--nu-heading-font-weight)' }));
 set('bolder', { 'font-weight': 'calc(var(--nu-font-weight) + var(--nu-font-weight-step))' });
 set('lighter', { 'font-weight': 'calc(var(--nu-font-weight) - var(--nu-font-weight-step))' });
 

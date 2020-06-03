@@ -14,7 +14,7 @@ export default class NuCell extends NuElement {
       display: '^ block :role-row[table-cell]',
       padding: '--nu-gap',
       text: 'middle',
-      fill: '^ bg :role-row[]',
+      fill: 'bg',
       box: 'y',
     };
   }

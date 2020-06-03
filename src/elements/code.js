@@ -1,4 +1,5 @@
 import NuElement from './element';
+import { h } from '../helpers';
 
 export default class NuCode extends NuElement {
   static get nuTag() {
@@ -59,5 +60,22 @@ export default class NuCode extends NuElement {
     return {
       code: true,
     };
+  }
+
+  nuConnected() {
+    super.nuConnected();
+
+    const ref = this.querySelector('textarea, pre');
+
+    if (!ref) return;
+
+    const container = h('nu-block');
+
+    container.innerHTML = (ref.tagName === 'TEXTAREA' ? ref.textContent : ref.innerHTML)
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/#\[\[|!\[\[|]]#|]]!/g, '');
+
+    this.appendChild(container);
   }
 }
