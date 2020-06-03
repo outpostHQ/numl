@@ -21,6 +21,8 @@ export const CUSTOM_UNITS = {
   'x': 'var(--nu-gap)',
   'fs': 'var(--nu-font-size)',
   'lh': 'var(--nu-line-height)',
+  // global setting
+  'wh': 'var(--nu-window-height)',
 };
 
 /**

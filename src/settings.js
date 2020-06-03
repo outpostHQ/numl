@@ -72,3 +72,14 @@ if (requestIdleCallback) {
 if (devMode) {
   DATASET.nuDev = '';
 }
+
+/**
+ * Workaround over non-consistent 100vh value on mobile devices.
+ */
+function setWindowHeight() {
+  ROOT.style.setProperty('--nu-window-height', `${window.innerHeight / 100}px`);
+}
+
+window.addEventListener('resize', setWindowHeight, { passive: true });
+
+setWindowHeight();

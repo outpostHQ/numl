@@ -86,11 +86,17 @@ const SECONDARY_DEFAULT_STYLES = [{
   };
 })];
 
-function getEmptyStyles(defaults) {
+function getEmptyStyles(defaults, skipPosition) {
   const defaultAttr = OTHER_ATTRS.find(attr => defaults[attr] != null);
 
   if (defaultAttr) {
-    return [DEFAULT_TRANSFORM, DEFAULT_POSITION];
+    const styles = [DEFAULT_TRANSFORM];
+
+    if (!skipPosition) {
+      styles.push(DEFAULT_POSITION);
+    }
+
+    return styles;
   }
 
   /**
@@ -98,7 +104,9 @@ function getEmptyStyles(defaults) {
    */
   const styles =  SECONDARY_DEFAULT_STYLES.map(styles => ({ ...styles }));
 
-  styles.push(DEFAULT_POSITION);
+  if (!skipPosition) {
+    styles.push(DEFAULT_POSITION);
+  }
 
   return styles;
 }
@@ -139,7 +147,7 @@ export default function placeAttr(val, defaults) {
 
         return map;
       }, {}),
-    }, ...getEmptyStyles(defaults)];
+    }, ...getEmptyStyles(defaults, true)];
   }
 
   const abs = PLACE_ABS.find(place => mods.includes(place));
@@ -170,7 +178,7 @@ export default function placeAttr(val, defaults) {
       return [{
         ...styles,
         ...COVER_STYLES,
-      }, ...getEmptyStyles(defaults)];
+      }, ...getEmptyStyles(defaults, true)];
     }
 
     PLACE_ABS_INSIDE.forEach((place, i) => {
@@ -264,7 +272,7 @@ export default function placeAttr(val, defaults) {
     });
   }
 
-  styles.push(...getEmptyStyles(defaults));
+  styles.push(...getEmptyStyles(defaults, !!pos));
 
   return styles;
 };

@@ -21,8 +21,11 @@ const SPECIAL_TEXT_VALUE = 'var(--nu-special-text-color)';
 
 const BLUR_REGEXP = /backdrop-blur([^(]|$|\((.*)\))/;
 
-const BLUR_SUPPORT = CSS.supports('backdrop-filter', 'blur(1rem)')
-  || CSS.supports('-webkit-backdrop-filter', 'blur(1rem)');
+const BLUR_SUPPORT_PROP =
+  CSS.supports('backdrop-filter', 'blur(1rem)')
+  ? 'backdrop-filter'
+  : (CSS.supports('-webkit-backdrop-filter', 'blur(1rem)')
+    ? '-webkit-backdrop-filter' : false);
 const DEFAULT_BLUR_OPACITY = 70;
 
 export default function fillAttr(val) {
@@ -35,15 +38,14 @@ export default function fillAttr(val) {
   let { color, name, opacity } = parseColor(val);
 
   if (blur) {
-    if (BLUR_SUPPORT) {
+    if (BLUR_SUPPORT_PROP) {
       if (name && !opacity) {
         color = parseColor(`${name} ${DEFAULT_BLUR_OPACITY}%`).color;
       }
 
       blurStyles = {
         $suffix: ':not([filter*="backdrop"])',
-        'backdrop-filter': blur,
-        '-webkit-backdrop-filter': blur,
+        [BLUR_SUPPORT_PROP]: blur,
       };
     } else if (name) {
       color = parseColor(`${name}`).color;

@@ -24,11 +24,11 @@ export default class NuTooltip extends NuBlock {
 
   static get nuStyles() {
     return {
-      display: 'block',
+      display: 'none :tooltip[block]',
       shadow: '',
       padding: '.5x 1x',
       z: 'front',
-      opacity: '0 :show[1]',
+      opacity: '1 :hidden[0]',
       transition: 'opacity',
       place: 'outside-top',
       drop: '',

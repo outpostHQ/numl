@@ -10,10 +10,12 @@ export default class TooltipBehavior extends Behavior {
       parent.setAttribute('describedby', this.nuId);
     }
 
-    this.setAria('hidden', true);
-
     let hover = false;
     let focus = false;
+
+    host.hidden = true;
+
+    this.setMod('tooltip', true);
 
     const onMouseEnter = () => {
       hover = true;
@@ -23,7 +25,7 @@ export default class TooltipBehavior extends Behavior {
       this.nu('fixate')
         .then(Fixate => Fixate.start());
 
-      this.setMod('show', true);
+      host.hidden = false;
       parent.nuSetMod('tooltip-shown', true);
 
       setTimeout(() => {
@@ -38,7 +40,7 @@ export default class TooltipBehavior extends Behavior {
       this.nu('fixate')
         .then(Fixate => Fixate.end());
 
-      this.setMod('show', false);
+      host.hidden = true;
       parent.nuSetMod('tooltip-shown', false);
     };
 
@@ -50,7 +52,7 @@ export default class TooltipBehavior extends Behavior {
       this.nu('fixate')
         .then(Fixate => Fixate.start());
 
-      this.setMod('show', true);
+      host.hidden = false;
       parent.nuSetMod('tooltip-shown', true);
     };
 
@@ -62,7 +64,7 @@ export default class TooltipBehavior extends Behavior {
       this.nu('fixate')
         .then(Fixate => Fixate.end());
 
-      this.setMod('show', false);
+      host.hidden = true;
       parent.nuSetMod('tooltip-shown', false);
     };
 
