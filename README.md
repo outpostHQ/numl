@@ -7,7 +7,7 @@ Markup language to create modern **high-quality** interfaces with any look.
 
 **BETA VERSION, UNDER RAPID DEVELOPMENT**
 
-**NuML** is: 
+**Numl** is: 
 
 * Customizable **Design System** for any project and scale
 * Accessible production-ready **Prototyping Solution**
@@ -25,7 +25,7 @@ And also... it's **just a single js-file** that you can include into your websit
 * **No** confusing classes to style
 * **No** frustration in usage
 
-With **NuML** you can: 
+With **Numl** you can: 
 
 * Create virtually **any interface** you want
 * Make your interface **accessible** without fighting IDs and specifications
@@ -40,7 +40,7 @@ With **NuML** you can:
 
 ## Getting started
 
-To start prototyping with **NuML** just add a single module to the page:
+To start prototyping with **Numl** just add a single module to the page:
 
 ```html
 <script type="module" src="https://cdn.jsdelivr.net/npm/numl@0.11/dist/index.js"></script>
@@ -60,7 +60,7 @@ Make sure you are using `nu-root` tags on the top-level of your app:
 <body>
   <nu-root>
     <nu-card>
-      My first NuML application!
+      My first <nu-mark>Numl</nu-mark> application!
     </nu-card>
   </nu-root>
 </body>
@@ -80,10 +80,10 @@ Import the module to your application:
 import 'numl';
 ```
 
-## Projects that uses NuML 
+## Projects that use Numl 
 
-* [NuML Landing Page](https://numl.design). [Repo Link](https://github.com/tenphi/numl.design) built with Parcel.
-* [NuML](https://numl.design/storybook). [Repo Link](https://github.com/tenphi/numl-storybook) built with Vue.js and Webpack.
+* [Numl Landing Page](https://numl.design). [Repo Link](https://github.com/tenphi/numl.design) built with Parcel.
+* [Numl](https://numl.design/storybook). [Repo Link](https://github.com/tenphi/numl-storybook) built with Vue.js and Webpack.
 * [Sellerscale](https://sellerscale.com) – [Project Screenshot Light](https://github.com/tenphi/nude/blob/master/images/example-app-light.png?raw=true) | [Project Screenshot Dark](https://github.com/tenphi/nude/blob/master/images/example-app-dark.png?raw=true) | [Project Screenshot Light Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-light-contrast.png?raw=true) | [Project Screenshot Dark Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-dark-contrast.png?raw=true)
 * [Web Standards Calendar](https://frontend-events-numl.now.sh/) by [@KatrinLuna](https://github.com/katrinLuna). [Repo Link](https://github.com/katrinLuna/frontend-events-numl).
 
@@ -128,7 +128,7 @@ See our [Changlelog](http://localhost:8080/guide/changelog).
 
 ## Contribution
 
-There is no contribution guideline just yet but we would love to hear any feedback from you. Feel free to leave a note at [tenphi@gmail.com](mailto:tenphi@gmail.com?subject=NuML%20Feeback).
+There is no contribution guideline just yet but we would love to hear any feedback from you. Feel free to leave a note at [tenphi@gmail.com](mailto:tenphi@gmail.com?subject=Numl%20Feeback).
 
 ## License
 
