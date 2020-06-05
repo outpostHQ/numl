@@ -70,5 +70,11 @@ export default class NuHeading extends NuBlock {
     if (region && !region.nuHasAria('labelledby') && !region.hasAttribute('labelledby')) {
       region.nuSetAria('labelledby', this.nuUniqId);
     }
+
+    const previous = this.previousElementSibling;
+
+    if (!this.hasAttribute('padding') && previous && !previous.nuDefinition) {
+      this.setAttribute('padding', '1em top');
+    }
   }
 }

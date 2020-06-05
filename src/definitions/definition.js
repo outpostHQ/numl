@@ -50,4 +50,10 @@ export default class NuDefinition extends NuBase {
       return map;
     }, {});
   }
+
+  nuConnected() {
+    super.nuConnected();
+
+    this.nuDefinition = true;
+  }
 }

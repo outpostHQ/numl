@@ -18,15 +18,6 @@ export default class NuMarkdown extends NuElement {
       ${tag} pre, ${tag} textarea {
         display: none;
       }
-      ${tag} [nu-id="bold"]:not([text]) {
-        font-weight: bold;
-      }
-      ${tag} [nu-id="italic"]:not([text]) {
-        font-style: italic;
-      }
-      ${tag} nu-heading:not([padding]) {
-        padding-top: .5em;
-      }
     `;
   }
 
