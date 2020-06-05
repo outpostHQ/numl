@@ -103,8 +103,8 @@ export default class CodeBehavior extends ConverterBehavior {
     return str
       .replace(/&lt;/g, '<')
       .replace(/&gt;/g, '>')
-      .replace(/(^|\n)\s*(?=\n)/g, '')
-      .replace(/\n\s*(?=(\n|$))/g, '')
+      .replace(/(^|\n)\s*(?=\n$)/g, '')
+      .replace(/\n\s*(?=(\n$|$))/g, '')
       .replace(/^\n/, '')
       .replace(/\n$/, '');
   }

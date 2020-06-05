@@ -2,6 +2,14 @@ import { asyncDebounce, log, setAttr, stackTrace } from "../helpers";
 import { ROOT } from '../context';
 
 const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(!|)(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
+const BOOL_ATTRS = [
+  'disabled',
+  'hidden',
+  'checked',
+  'pressed',
+  'selected',
+  'special',
+];
 
 export const CONTROL_ATTR = 'control';
 
@@ -74,6 +82,10 @@ export default class ControlBehavior {
         elements.push(element);
 
         continue;
+      }
+
+      if (BOOL_ATTRS.includes(attr)) {
+        applyValue = true;
       }
 
       // if no value specified
