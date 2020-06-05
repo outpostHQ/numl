@@ -11,7 +11,7 @@ export default class NuSup extends NuInline {
 
   static get nuStyles() {
     return {
-      text: 'sup bold',
+      text: 'sup',
       size: '.75em 1em',
     };
   }

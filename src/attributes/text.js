@@ -10,7 +10,9 @@ function set(name, styles) {
 ['i', 'italic'].forEach(name => set(name, { 'font-style': 'italic' }));
 ['ni', 'non-italic'].forEach(name => set(name, { 'font-style': 'normal' }));
 ['u', 'underline'].forEach(name => set(name, { 'text-decoration': 'underline' }));
-['s', 'line-through'].forEach(name => set(name, { 'text-decoration': 'line-through' }));
+['del'].forEach(name => set(name, { 'text-decoration': 'line-through' }));
+['dotted', 'wavy', 'dashed']
+  .forEach(name => set(name, { 'text-decoration': `underline ${name}` }));
 ['nd', 'no-decoration'].forEach(name => set(name, { 'text-decoration': 'none' }));
 [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => set(`w${index}`, { '--nu-font-weight': `${index}00` }));
 ['up', 'uppercase'].forEach(name => set(name, { 'text-transform': 'uppercase' }));

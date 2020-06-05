@@ -1,8 +1,8 @@
 import NuInline from './inline';
 
-export default class NuBold extends NuInline {
+export default class NuEm extends NuInline {
   static get nuTag() {
-    return 'nu-b';
+    return 'nu-em';
   }
 
   static get nuName() {
@@ -11,7 +11,7 @@ export default class NuBold extends NuInline {
 
   static get nuStyles() {
     return {
-      text: 'bold',
+      text: 'i',
     };
   }
 }

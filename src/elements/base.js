@@ -1492,6 +1492,7 @@ export default class NuBase extends HTMLElement {
       this.nuContextAttrs = new Set;
     }
 
+    const context = this.nuParentContext;
     const as = this.getAttribute('as');
     const id = this.getAttribute('nu-id');
 
@@ -1500,8 +1501,8 @@ export default class NuBase extends HTMLElement {
      */
     const contextAttrs = this.nuContextAttrs;
     const keys = [`attrs:${this.constructor.nuTag}`];
-    const $shadowRoot = this.nuContext.$shadowRoot;
-    const $parentShadowRoot = this.nuContext.$parentShadowRoot;
+    const $shadowRoot = context.$shadowRoot;
+    const $parentShadowRoot = context.$parentShadowRoot;
     const names = this.constructor.nuNames;
 
     if (as) {
@@ -1520,7 +1521,7 @@ export default class NuBase extends HTMLElement {
       keys.push(`attrs:${id}`);
     }
 
-    const attrSets = keys.map(key => this.nuContext[key]).filter(set => set);
+    const attrSets = keys.map(key => context[key]).filter(set => set);
 
     const attrs = {};
 
@@ -1531,13 +1532,13 @@ export default class NuBase extends HTMLElement {
     });
 
     if ($shadowRoot && id) {
-      const shadowAttrs = this.nuContext[`attrs:$${id}`];
+      const shadowAttrs = context[`attrs:$${id}`];
 
       if (shadowAttrs && shadowAttrs.$shadowRoot === $parentShadowRoot) {
         Object.assign(attrs, shadowAttrs);
       }
 
-      const deepShadowAttrs = this.nuContext[`attrs:$$${id}`];
+      const deepShadowAttrs = context[`attrs:$$${id}`];
 
       if (deepShadowAttrs && deepShadowAttrs.$shadowRoot !== $shadowRoot) {
         Object.assign(attrs, deepShadowAttrs);

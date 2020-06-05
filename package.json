@@ -1,6 +1,6 @@
 {
   "name": "numl",
-  "version": "0.11.11",
+  "version": "0.11.12",
   "module": "dist/index.js",
   "homepage": "https://github.com/tenphi/numl#readme",
   "repository": {
@@ -12,7 +12,7 @@
     "email-validator": "^2.0.4",
     "eva-icons": "^1.1.3",
     "feather-icons": "^4.28.0",
-    "numl-markdown": "^2.0.12",
+    "numl-markdown": "^2.0.13",
     "remarkable": "^2.0.1",
     "src": "^1.1.2",
     "svelte": "^3.23.0"

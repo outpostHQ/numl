@@ -11,7 +11,7 @@ export default class NuSub extends NuInline {
 
   static get nuStyles() {
     return {
-      text: 'sub bold',
+      text: 'sub',
       size: '.75em 1em',
     };
   }
