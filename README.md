@@ -4,9 +4,7 @@
 [![](https://img.shields.io/npm/dt/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
 [![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Your **code** is your **design system**.
-
-**Numl** is a markup language to create modern **high-quality** web-interfaces with any look. It's based on Custom Elements and creates all the CSS needed right in runtime that makes it much more flexible than any other solution. **Numl** allows you to take all the benefits of the utility-first approach without its drawbacks.
+**Numl** is a markup language to create modern **high-quality** web-interfaces with any look using HTML-based syntax. It's based on Custom Elements and creates all the CSS needed right in runtime as it requires, which makes it much more flexible than any other markup solution. Built-in elements will allow you to make gorgeous interfaces without need to invent your own Design System or UI library.
 
 **PRE-BETA VERSION, UNDER RAPID DEVELOPMENT**
 
