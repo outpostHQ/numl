@@ -18,7 +18,6 @@ export { default as NuLine } from './elements/line';
 export { default as NuInline } from './elements/inline';
 export { default as NuStrong } from './elements/strong';
 export { default as NuEm } from './elements/em';
-export { default as NuStrike } from './elements/strike';
 export { default as NuSup } from './elements/sup';
 export { default as NuSub } from './elements/sub';
 export { default as NuTopBar } from './elements/header';
