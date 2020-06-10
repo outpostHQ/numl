@@ -1150,6 +1150,7 @@ export default class NuBase extends HTMLElement {
   /**
    * Get closest element that satisfies specified selector
    * @param {String} id
+   * @param {String} includeNames
    */
   nuQueryById(id, includeNames) {
     if (id === ':prev') {

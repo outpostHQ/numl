@@ -26,7 +26,7 @@ set('v-middle', { 'vertical-align': 'var(--nu-inline-offset)' });
 ['left', 'right', 'center', 'justify'].forEach(name => set(name, { 'text-align': name }));
 
 set('monospace', { 'font-family': 'var(--nu-monospace-font)', 'word-spacing': 'normal' });
-set('spacing', { 'letter-spacing': 'var(--nu-border-width)' });
+set('spacing', { 'letter-spacing': 'calc(1em / 16)' });
 set('ellipsis', {
   'max-width': '100%',
   'overflow': 'hidden',
