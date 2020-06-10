@@ -1,6 +1,6 @@
 import Behavior from './behavior';
 import { enableFocus } from '../focus';
-import { generateId, query, queryById } from '../helpers';
+import { generateId, query, queryById, removeInnerRef, setAriaRef, setInnerRef } from '../helpers';
 
 export default class LabelBehavior extends Behavior {
   init() {
@@ -46,15 +46,17 @@ export default class LabelBehavior extends Behavior {
 
     if (this.linkedEl === el) return el;
 
-    if (this.linkedEl && this.linkedEl.getAttribute('aria-labelledby') === host.id) {
-      this.linkedEl.setAttribute('aria-labelledby', '');
+    if (this.linkedEl) {
+      removeInnerRef(el, 'labelledby');
     }
 
     this.linkedEl = el;
 
     if (el) {
-      el.setAttribute('aria-labelledby', host.id);
+      setInnerRef(el, 'labelledby', host.id);
     }
+
+    setAriaRef(el, 'labelledby');
 
     return el;
   }

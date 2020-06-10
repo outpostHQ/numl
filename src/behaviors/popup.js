@@ -1,7 +1,7 @@
 import {
   deepQuery,
   deepQueryAll,
-  fixPosition,
+  fixPosition, isFocusable,
   resetScroll,
   scrollParentToChild, stackTrace,
 } from '../helpers';
@@ -135,14 +135,26 @@ export default class PopupBehavior extends WidgetBehavior {
       if (currentEl) {
         scrollParentToChild(host, currentEl);
 
-        currentEl.focus();
+        if (isFocusable(currentEl)) {
+          currentEl.focus();
+
+          return true;
+        }
+      }
+
+      // Select first focusable element
+      let activeElement;
+
+      if (isFocusable(host)) {
+        activeElement = host;
+      } else {
+        activeElement = host.nuDeepQuery('input, [tabindex]:not([tabindex="-1"]):not([disabled])');
+      }
+
+      if (activeElement && isFocusable(activeElement)) {
+        activeElement.focus();
 
         return true;
-      } else {
-        // Select first focusable element
-        const activeElement = host.nuDeepQuery('input, [tabindex]:not([tabindex="-1"]):not([disabled])');
-
-        if (activeElement) activeElement.focus();
       }
     }
 

@@ -292,6 +292,7 @@ const globalCSS = `
 :root {
   --nu-base: 16px;
   --nu-pixel: 1px;
+  --nu-rem-pixel: calc(1rem / 16);
 
   --nu-radius: 0.5rem;
   --nu-gap: 0.5rem;

@@ -21,6 +21,7 @@ export const CUSTOM_UNITS = {
   'x': 'var(--nu-gap)',
   'fs': 'var(--nu-font-size)',
   'lh': 'var(--nu-line-height)',
+  'rp': 'var(--nu-rem-pixel)',
   // global setting
   'wh': 'var(--nu-window-height)',
 };
@@ -231,8 +232,8 @@ export function query(element, selector) {
  * @param {String} id
  * @returns {undefined|Element}
  */
-export function queryById(element, id) {
-  return query(element, `[nu-id="${id}"], [id="${id}"]`);
+export function queryById(element, id, includeNames) {
+  return query(element, `[nu-id="${id}"], [id="${id}"]${includeNames && !id.includes('-') ? `, [nu-${id}]` : ''}`);
 }
 
 /**
@@ -1501,5 +1502,66 @@ export function stackTrace(...args) {
     throw '';
   } catch (e) {
     console.error(...args, e);
+  }
+}
+
+export function isFocusable(el) {
+  const tabindex = el.getAttribute('tabindex');
+
+  return tabindex && !el.hasAttribute('disabled');
+}
+
+/**
+ * Set ARIA reference to other elements.
+ * @param el
+ * @param attr {String}
+ */
+export function setAriaRef(el, attr) {
+  let value = el.nuGetAttr(attr, true) || '';
+
+  const innerRef = getInnerRef(el, attr);
+
+  if (innerRef) {
+    value = `${innerRef} ${value}`;
+  }
+
+  log('set aria ref', attr, value, innerRef);
+
+  const ariaValue = value.split(/\s+/g).map((id) => {
+    let link;
+
+    link = el.nuQueryById(id, true);
+
+    if (!link) return '';
+
+    return generateId(link);
+  }).join(' ');
+
+  if (ariaValue.trim()) {
+    el.nuSetAria(attr, ariaValue);
+  }
+}
+
+export function getInnerRef(el, name) {
+  return el.nuRefs && el.nuRefs[name];
+}
+
+/**
+ * Set inner ref.
+ * @param el
+ * @param name {String}
+ * @param value {String}
+ */
+export function setInnerRef(el, name, value) {
+  if (!el.nuRefs) {
+    el.nuRefs = {};
+  }
+
+  el.nuRefs[name] = value;
+}
+
+export function removeInnerRef(el, name) {
+  if (el.nuRefs) {
+    delete el.nuRefs[name];
   }
 }

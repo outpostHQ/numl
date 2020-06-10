@@ -38,12 +38,20 @@ export default class ButtonBehavior extends WidgetBehavior {
       }
 
       if (this.listbox) {
+        // don't toggle popup while event is handled
         this.ignorePopup = true;
-        this.listbox.onKeyDown(event);
+
+        if (!event.nuListBoxHandled) {
+          // delegate focus to the listbox
+          this.listbox.host.focus();
+          // delegate event handling to the listbox
+          this.listbox.onKeyDown(event);
+        }
 
         setTimeout(() => {
+          // remove toggle prevention
           this.ignorePopup = false;
-        });
+        }, 100);
       }
     });
 
@@ -116,7 +124,6 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.popup = popup;
     this.setAria('haspopup', true);
     this.setAria('expanded', this.pressed || false);
-    this.role = 'button';
 
     this.setMod('dropdown', true);
 
@@ -311,6 +318,10 @@ export default class ButtonBehavior extends WidgetBehavior {
     if (!this.popup) {
       // run dry control system if silent mode is active or trigger option is not set
       this.control(silent & !this.hasAttr('trigger'));
+    }
+
+    if (pressed && this.listbox) {
+      this.listbox.host.focus();
     }
 
     this.setMod('pressed', pressed);

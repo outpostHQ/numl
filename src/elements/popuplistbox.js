@@ -16,13 +16,14 @@ export default class NuPopupListBox extends NuPopup {
   static get nuBehaviors() {
     return {
       listbox: true,
+      focusable: 'manual',
     };
   }
 
   static get nuStyles() {
     return {
       padding: '1x 0',
-      focusable: 'n',
+      outline: 'focus',
       height: 'max 16',
       scrollbar: '',
       overflow: 'auto',

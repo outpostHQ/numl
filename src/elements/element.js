@@ -1,7 +1,7 @@
 import {
   generateId,
   setImmediate,
-  parseAllValues, h, setBoolAttr,
+  parseAllValues, h, setBoolAttr, setAriaRef,
 } from '../helpers';
 import NuBase from './base';
 import BaseAttributes from '../attributes/base';
@@ -190,21 +190,7 @@ export default class NuElement extends NuBase {
       case 'flowto':
       case 'activedescendant':
         setTimeout(() => {
-          value = this.nuGetAttr(name, true);
-
-          const ariaValue = value.split(/\s+/g).map((id) => {
-            let link;
-
-            link = this.nuQueryById(id);
-
-            if (!link) return '';
-
-            return generateId(link);
-          }).join(' ');
-
-          if (ariaValue.trim()) {
-            this.nuSetAria(name, ariaValue);
-          }
+          setAriaRef(this, name, value);
         });
         break;
       case 't':

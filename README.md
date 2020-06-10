@@ -38,6 +38,12 @@ With **Numl** you can:
 
 [Learn more](https://numl.design/)
 
+## Examples
+
+[Flex playground](https://numl.design/storybook/layouts/flex-playground)
+[Grid playground](https://numl.design/storybook/layouts/grid-playground)
+[Markdown converter](https://numl.design/storybook/converters/markdown)
+
 ## Getting started
 
 To start prototyping with **Numl** just add a single module to the page:
@@ -67,6 +73,8 @@ Make sure you are using `nu-root` tags on the top-level of your app:
 ```
 
 Now it's time to have fun!... Try to write some HTML and build awesome interfaces.
+
+[Check out the Guide](https://numl.design/guide/basics/base-syntax) (Work in progress)
 
 ### NPM installation
 

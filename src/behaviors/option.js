@@ -42,6 +42,7 @@ export default class OptionBehavior extends WidgetBehavior {
 
     this.on('click', () => {
       this.doAction('input', this.value);
+      this.doAction('close');
     });
   }
 
@@ -92,7 +93,7 @@ export default class OptionBehavior extends WidgetBehavior {
     const bool = this.listbox ? isEqual(this.value, this.listbox.value) : false;
 
     this.setMod('current', bool);
-    this.setAria('selected', bool);
+    this.setAria('selected', bool || null);
 
     if (this.listbox && bool) {
       this.listbox.setAria('activedescendant', this.uniqId);

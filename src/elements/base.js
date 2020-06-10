@@ -1050,7 +1050,7 @@ export default class NuBase extends HTMLElement {
         this.nuSetContextAttrs();
         break;
       case 'lang':
-        this.nuSetVar('locale', value);
+        this.nuSetContext('locale', value);
         break;
     }
   }
@@ -1151,14 +1151,14 @@ export default class NuBase extends HTMLElement {
    * Get closest element that satisfies specified selector
    * @param {String} id
    */
-  nuQueryById(id) {
+  nuQueryById(id, includeNames) {
     if (id === ':prev') {
       return this.previousElementSibling;
     } else if (id === ':next') {
       return this.nextElementSibling;
     }
 
-    return queryById(this, id);
+    return queryById(this, id, includeNames);
   }
 
   /**
@@ -1756,7 +1756,7 @@ export default class NuBase extends HTMLElement {
   }
 
   get nuDisabled() {
-    return this.hasAttribute('disabled') || this.getAttribute('tabindex') === '-1';
+    return this.hasAttribute('disabled') || !this.hasAttribute('tabindex');
   }
 
   set value(val) {

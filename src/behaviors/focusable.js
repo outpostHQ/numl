@@ -7,8 +7,12 @@ import Behavior from "./behavior";
 export const DISABLED_ATTR = 'disabled';
 
 export default class FocusableBehavior extends Behavior {
-  constructor(host) {
+  constructor(host, option) {
     super(host);
+
+    if (option === 'manual') {
+      this.isManual = true;
+    }
 
     const ref = this.ref;
 
@@ -54,10 +58,12 @@ export default class FocusableBehavior extends Behavior {
 
   set(bool) {
     // @TODO: replace nuTabIndex with more sane approach
-    if (bool) {
+    if (bool && !this.isManual) {
       this.ref.setAttribute('tabindex', '0');
-    } else {
+    } else if (this.isManual) {
       this.ref.setAttribute('tabindex', '-1');
+    } else  {
+      this.ref.removeAttribute('tabindex');
     }
 
     this.host.nuSetMod('focusable', bool || null);

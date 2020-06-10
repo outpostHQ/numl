@@ -35,74 +35,85 @@
 
 {#if show(hash, 'collapse')}
   <nu-block>
-    <nu-attrs for="btn" clear="" control="description" padding="" text="wrap" pressing=":active[1]" width="100%" content="start"></nu-attrs>
+    <nu-attrs for="btn" clear="" control="description" padding="" text="wrap" pressing=":active[1]"
+              width="100%" content="start"></nu-attrs>
     <nu-attrs for="container" gap="" padding="0 0 3x 6x||0 0 2x 5x"></nu-attrs>
 
     <nu-flow gap="">
       <nu-btn toggle>
         <nu-dropdownicon></nu-dropdownicon>
-        <nu-heading>You probably <nu-u>need</nu-u> a&nbsp;design&nbsp;system</nu-heading>
+        <nu-heading>You probably
+          <nu-u>need</nu-u>
+          a&nbsp;design&nbsp;system
+        </nu-heading>
       </nu-btn>
 
       <nu-flow id="description" as="container" hidden>
         <nu-block>
-          Modern web development is complex. To&nbsp;grow fast you have to&nbsp;iterate fast. Design&nbsp;system allows&nbsp;you to&nbsp;have control over your&nbsp;design and&nbsp;code increasing quality of code base and minimizing tech debt.
+          Modern web development is complex. To&nbsp;grow fast you have to&nbsp;iterate fast. Design&nbsp;system
+          allows&nbsp;you to&nbsp;have control over your&nbsp;design and&nbsp;code increasing
+          quality of code base and minimizing tech debt.
         </nu-block>
 
         <nu-block>
-          <nu-b>NuML</nu-b> gives you insane level of <nu-b>consistency</nu-b> and <nu-b>controllability</nu-b>. This will make it easier for you to scale your application as it grows.
+          <nu-b>NuML</nu-b>
+          gives you insane level of
+          <nu-b>consistency</nu-b>
+          and
+          <nu-b>controllability</nu-b>
+          . This will make it easier for you to scale your application as it grows.
         </nu-block>
       </nu-flow>
     </nu-flow>
 
-<!--    <nu-flow gap="">-->
-<!--      <nu-btn toggle="">-->
-<!--        <nu-dropdownicon></nu-dropdownicon>-->
-<!--        <nu-heading>Creating and maintaining a&nbsp;design&nbsp;system on your own is&nbsp;tough</nu-heading>-->
-<!--      </nu-btn>-->
+    <!--    <nu-flow gap="">-->
+    <!--      <nu-btn toggle="">-->
+    <!--        <nu-dropdownicon></nu-dropdownicon>-->
+    <!--        <nu-heading>Creating and maintaining a&nbsp;design&nbsp;system on your own is&nbsp;tough</nu-heading>-->
+    <!--      </nu-btn>-->
 
-<!--      <nu-flow id="description" as="container" hidden>-->
-<!--        <nu-block>-->
-<!--          It consumes a lot of time and requires high&nbsp;level of&nbsp;expertise in your team.-->
-<!--        </nu-block>-->
+    <!--      <nu-flow id="description" as="container" hidden>-->
+    <!--        <nu-block>-->
+    <!--          It consumes a lot of time and requires high&nbsp;level of&nbsp;expertise in your team.-->
+    <!--        </nu-block>-->
 
-<!--        <nu-block>-->
-<!--          With <nu-b>NuML</nu-b> you'll get full-featured Design&nbsp;System with a <nu-b>bunch of elements and components</nu-b> <nu-link to="!/guide/getting-started">in seconds</nu-link>.-->
-<!--        </nu-block>-->
-<!--      </nu-flow>-->
-<!--    </nu-flow>-->
+    <!--        <nu-block>-->
+    <!--          With <nu-b>NuML</nu-b> you'll get full-featured Design&nbsp;System with a <nu-b>bunch of elements and components</nu-b> <nu-link to="!/guide/getting-started">in seconds</nu-link>.-->
+    <!--        </nu-block>-->
+    <!--      </nu-flow>-->
+    <!--    </nu-flow>-->
 
-<!--    <nu-flow gap="">-->
-<!--      <nu-btn toggle="">-->
-<!--        <nu-dropdownicon></nu-dropdownicon>-->
-<!--        <nu-heading>Customization & future-proof are requirements</nu-heading>-->
-<!--      </nu-btn>-->
+    <!--    <nu-flow gap="">-->
+    <!--      <nu-btn toggle="">-->
+    <!--        <nu-dropdownicon></nu-dropdownicon>-->
+    <!--        <nu-heading>Customization & future-proof are requirements</nu-heading>-->
+    <!--      </nu-btn>-->
 
-<!--      <nu-block id="description" as="container" hidden="">-->
-<!--        In <nu-b>NuML</nu-b> everything is <nu-b>customizable</nu-b> to&nbsp;the&nbsp;core and uses generation techniques to&nbsp;give you the&nbsp;newest features of&nbsp;the&nbsp;platform (like <nu-b>Flex gap</nu-b>). It means the&nbsp;markup of&nbsp;your project will&nbsp;be up-to-date with <nu-b>the&nbsp;latest web&nbsp;standards</nu-b> and <nu-b>best&nbsp;practices</nu-b> for at least the <nu-b>next decade</nu-b>.-->
-<!--      </nu-block>-->
-<!--    </nu-flow>-->
+    <!--      <nu-block id="description" as="container" hidden="">-->
+    <!--        In <nu-b>NuML</nu-b> everything is <nu-b>customizable</nu-b> to&nbsp;the&nbsp;core and uses generation techniques to&nbsp;give you the&nbsp;newest features of&nbsp;the&nbsp;platform (like <nu-b>Flex gap</nu-b>). It means the&nbsp;markup of&nbsp;your project will&nbsp;be up-to-date with <nu-b>the&nbsp;latest web&nbsp;standards</nu-b> and <nu-b>best&nbsp;practices</nu-b> for at least the <nu-b>next decade</nu-b>.-->
+    <!--      </nu-block>-->
+    <!--    </nu-flow>-->
 
-<!--    <nu-flow gap="">-->
-<!--      <nu-btn toggle="">-->
-<!--        <nu-dropdownicon></nu-dropdownicon>-->
-<!--        <nu-heading>There is <nu-u>no</nu-u> time to wait</nu-heading>-->
-<!--      </nu-btn>-->
+    <!--    <nu-flow gap="">-->
+    <!--      <nu-btn toggle="">-->
+    <!--        <nu-dropdownicon></nu-dropdownicon>-->
+    <!--        <nu-heading>There is <nu-u>no</nu-u> time to wait</nu-heading>-->
+    <!--      </nu-btn>-->
 
-<!--      <nu-flow id="description" as="container" hidden="">-->
-<!--        <nu-block>-->
-<!--          <nu-b>NuML</nu-b> don't require a build step. Everything is happening in runtime.-->
-<!--        </nu-block>-->
+    <!--      <nu-flow id="description" as="container" hidden="">-->
+    <!--        <nu-block>-->
+    <!--          <nu-b>NuML</nu-b> don't require a build step. Everything is happening in runtime.-->
+    <!--        </nu-block>-->
 
-<!--        <nu-block>-->
-<!--          Simply <nu-link>add NuML script</nu-link> to your page and <nu-b>start prototyping</nu-b>.-->
-<!--        </nu-block>-->
+    <!--        <nu-block>-->
+    <!--          Simply <nu-link>add NuML script</nu-link> to your page and <nu-b>start prototyping</nu-b>.-->
+    <!--        </nu-block>-->
 
-<!--        <nu-block>-->
-<!--          All the <nu-b>CSS</nu-b> will be generated <nu-b>instantly</nu-b> as needed. All the <nu-b>JS</nu-b> for behaviors will be loaded <nu-b>dynamically</nu-b>.-->
-<!--        </nu-block>-->
-<!--      </nu-flow>-->
-<!--    </nu-flow>-->
+    <!--        <nu-block>-->
+    <!--          All the <nu-b>CSS</nu-b> will be generated <nu-b>instantly</nu-b> as needed. All the <nu-b>JS</nu-b> for behaviors will be loaded <nu-b>dynamically</nu-b>.-->
+    <!--        </nu-block>-->
+    <!--      </nu-flow>-->
+    <!--    </nu-flow>-->
   </nu-block>
 {/if}
 
@@ -196,9 +207,9 @@
       <nu-block id="three" effect="collapse">Three</nu-block>
     </nu-block>
 
-<!--    <nu-router>-->
-<!--      <nu-block id=""></nu-block>-->
-<!--    </nu-router>-->
+    <!--    <nu-router>-->
+    <!--      <nu-block id=""></nu-block>-->
+    <!--    </nu-router>-->
   </nu-card>
 {/if}
 
@@ -210,7 +221,9 @@
 
 {#if show(hash, 'weight')}
   <nu-card>
-    <nu-heading level="3">Font <nu-u>weight</nu-u></nu-heading>
+    <nu-heading level="3">Font
+      <nu-u>weight</nu-u>
+    </nu-heading>
 
     <nu-heading level="4" text="w6">Redefined</nu-heading>
 
@@ -232,7 +245,7 @@
   </nu-block>
 {/if}
 
-<!--<nu-btn special padding="1x .5x 1x 1x">-->
+  <!--<nu-btn special padding="1x .5x 1x 1x">-->
 <!--  <nu-icon name="message-circle-outline"></nu-icon>-->
 <!--  <nu-el show="y|||n">Join chat</nu-el>-->
 <!--  <nu-icon name="chevron-down" scale="^:pressed[flip-y]"></nu-icon>-->
@@ -605,7 +618,11 @@ var b = /wow?/;
       control="collapsing[!hidden]"
       t="'Show the block' :pressed['Collapse the block']"></nu-btn>
     <nu-block id="collapsing" effect="collapse">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </nu-block>
   </nu-card>
 
@@ -716,8 +733,28 @@ var b = /wow?/;
 {/if}
 
 {#if show(hash, 'form')}
-  <nu-card>
-    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>
+  <!--  <nu-card>-->
+  <!--    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>-->
+  <!--  </nu-card>-->
+
+  <nu-card as="section">
+    <nu-card gap>
+      <nu-h3>Basic login form</nu-h3>
+      <nu-form control="output[.value]" gap="1x">
+        <nu-field>
+          <nu-label>Username</nu-label>
+          <nu-input id="username" grow="1"></nu-input>
+        </nu-field>
+        <nu-field>
+          <nu-label>Password</nu-label>
+          <nu-input id="password" grow="1" mask></nu-input>
+        </nu-field>
+        <nu-btn special action="submit">Submit</nu-btn>
+      </nu-form>
+      <nu-block overflow="auto" scrollbar width="max 16">
+        <nu-value id="output"></nu-value>
+      </nu-block>
+    </nu-card>
   </nu-card>
 
   <nu-card as="section">
@@ -753,7 +790,7 @@ var b = /wow?/;
       <nu-field>
         <nu-label>Date of issue</nu-label>
         <nu-dateinput mode="range" width="min(10)"
-          placeholder="Date range"></nu-dateinput>
+                      placeholder="Date range"></nu-dateinput>
       </nu-field>
       <nu-card>
         <nu-form id="user" nx-debug="form-debugger1">
@@ -818,9 +855,12 @@ var b = /wow?/;
       <nu-attrs for="$slider-cap" show="n"></nu-attrs>
       <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/after.jpg"></nu-img>
       <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/before.jpg"
-              id="overlay" place="cover" height="100%" fit="cover left" border="2bw right color(special)"></nu-img>
-      <nu-slider control="overlay[width:%] cap[--percent:%]" value="50" place="cover" height="100%" fill="clear" border="0" mark="n"></nu-slider>
-      <nu-circle id="cap" fill="special-bg" color="special-text" size="2" place="left top 50% --percent" move="(-50% + 1bw) 0" interactive="no">
+              id="overlay" place="cover" height="100%" fit="cover left"
+              border="2bw right color(special)"></nu-img>
+      <nu-slider control="overlay[width:%] cap[--percent:%]" value="50" place="cover" height="100%"
+                 fill="clear" border="0" mark="n"></nu-slider>
+      <nu-circle id="cap" fill="special-bg" color="special-text" size="2"
+                 place="left top 50% --percent" move="(-50% + 1bw) 0" interactive="no">
         <nu-icon name="chevron-left" place="left" move="-.5x"></nu-icon>
         <nu-icon name="chevron-right" place="right" move=".5x"></nu-icon>
       </nu-circle>
@@ -831,7 +871,8 @@ var b = /wow?/;
     <nu-card padding="0" overflow="no">
       <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/after.jpg"></nu-img>
       <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/before.jpg"
-              id="overlay" place="cover" height="100%" fit="cover left" border="2bw right color(special)"></nu-img>
+              id="overlay" place="cover" height="100%" fit="cover left"
+              border="2bw right color(special)"></nu-img>
     </nu-card>
     <nu-slider control="overlay[width:%]" value="50"></nu-slider>
   </nu-card>
@@ -859,21 +900,26 @@ var b = /wow?/;
       <nu-option value="three">Three</nu-option>
     </nu-listbox>
 
-    <nu-heading level="4">Select</nu-heading>
+    <nu-flow gap>
+      <nu-heading level="4">Select</nu-heading>
 
-    <nu-btn width="10" columns="1fr auto" value="six">
-      <nu-value list></nu-value>
-      <nu-dropdownicon></nu-dropdownicon>
-      <nu-popuplistbox nx-debug="debug-1">
-        <nu-option value="one" nx-debug="debug-2">One</nu-option>
-        <nu-option value="two">Two</nu-option>
-        <nu-option value="three">Three</nu-option>
-        <nu-option value="four">Four</nu-option>
-        <nu-option value="five">Five</nu-option>
-        <nu-option value="six">Six</nu-option>
-        <nu-option value="seven">Seven</nu-option>
-      </nu-popuplistbox>
-    </nu-btn>
+      <nu-label for="comboxbox">
+        Choose a number:
+      </nu-label>
+      <nu-btn id="comboxbox" width="10" columns="1fr auto" value="six" labelledby="value">
+        <nu-value list></nu-value>
+        <nu-dropdownicon></nu-dropdownicon>
+        <nu-popuplistbox nx-debug="debug-1" labelledby="label">
+          <nu-option value="one" nx-debug="debug-2">One</nu-option>
+          <nu-option value="two">Two</nu-option>
+          <nu-option value="three">Three</nu-option>
+          <nu-option value="four">Four</nu-option>
+          <nu-option value="five">Five</nu-option>
+          <nu-option value="six">Six</nu-option>
+          <nu-option value="seven">Seven</nu-option>
+        </nu-popuplistbox>
+      </nu-btn>
+    </nu-flow>
 
     <nu-grid columns="1cl 1cl" gap>
       <nu-debug id="debug-1"></nu-debug>

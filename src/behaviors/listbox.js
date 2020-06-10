@@ -43,7 +43,9 @@ export default class ListBoxBehavior extends WidgetBehavior {
       }
     });
 
-    this.on('keydown', (evt) => this.onKeyDown(evt));
+    this.on('keydown', (evt) => {
+      this.onKeyDown(evt);
+    });
   }
 
   setValue(value, silent) {
@@ -58,12 +60,6 @@ export default class ListBoxBehavior extends WidgetBehavior {
         scrollParentToChild(this.host, activeOption.host);
       }
     });
-
-    // const popup = this.context.popup;
-    //
-    // if (popup) {
-    //   popup.close();
-    // }
   }
 
   onKeyDown(evt) {
@@ -113,13 +109,23 @@ export default class ListBoxBehavior extends WidgetBehavior {
         this.openPopup();
 
         break;
+      case 'Enter':
+        if (evt.target === this.host && this.isPopup) {
+          this.nu('popup')
+            .then(Popup => Popup.close());
+        }
       default:
         return;
     }
 
-    this.setValue(newValue);
+    evt.nuListBoxHandled = true;
+
+    setTimeout(() => {
+      this.setValue(newValue);
+    });
 
     evt.preventDefault();
+    // evt.stopPropagation();
   }
 
   isEdgeMoveAllowed() {
