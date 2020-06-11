@@ -6,13 +6,14 @@ function set(name, styles) {
   MAP[name] = styles;
 }
 
-['inherit'].forEach(name => set(name, { 'font-style': 'inherit' }));
 ['i', 'italic'].forEach(name => set(name, { 'font-style': 'italic' }));
 ['ni', 'non-italic'].forEach(name => set(name, { 'font-style': 'normal' }));
-['u', 'underline'].forEach(name => set(name, { 'text-decoration': 'underline' }));
-['del'].forEach(name => set(name, { 'text-decoration': 'line-through' }));
+['u', 'underline'].forEach(name => set(name, { 'text-decoration-line': 'underline' }));
+set('overline', { 'text-decoration-line': 'overline' });
+set('underover', { 'text-decoration-line': 'underline overline' });
+['del', 'line-through'].forEach(name => set(name, { 'text-decoration-line': 'line-through' }));
 ['dotted', 'wavy', 'dashed']
-  .forEach(name => set(name, { 'text-decoration': `underline ${name}` }));
+  .forEach(name => set(name, { 'text-decoration-style': name }));
 ['nd', 'no-decoration'].forEach(name => set(name, { 'text-decoration': 'none' }));
 [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => set(`w${index}`, { '--nu-font-weight': `${index}00` }));
 ['up', 'uppercase'].forEach(name => set(name, { 'text-transform': 'uppercase' }));
@@ -44,6 +45,15 @@ set('pre-wrap', { 'white-space': 'pre-wrap' });
 set('pre-line', { 'white-space': 'pre-line' });
 set('break-spaces', { 'white-space': 'break-spaces' });
 
+['inherit'].forEach(name => set(name, {
+  'font-family': 'inherit',
+  'font-weight': 'inherit',
+  'font-style': 'inherit',
+  'white-space': 'inherit',
+  'text-decoration': 'inherit',
+  'letter-spacing': 'inherit',
+  'text-transform': 'inherit',
+}));
 ['normal', 'n'].forEach(name => set(name, {
   'font-family': 'var(--nu-font)',
   'font-weight': 'var(--nu-normal-font-weight)',
@@ -86,6 +96,10 @@ export default function textAttr(val) {
 
   if (!styles['font-weight'] && styles['--nu-font-weight']) {
     styles['font-weight'] = 'var(--nu-font-weight, inherit)';
+  }
+
+  if (styles['text-decoration-style'] && !styles['text-decoration-line']) {
+    styles['text-decoration-line'] = 'underline';
   }
 
   if (!styles['--nu-font-weight'] && styles['font-weight'] && !styles['font-weight'].includes('--nu-font-weight')) {
