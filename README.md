@@ -8,7 +8,7 @@
 
 **PRE-BETA VERSION, UNDER RAPID DEVELOPMENT**
 
-**Numl** is: 
+**Numl** is:
 
 * Customizable **Design System** for any project and scale
 * Accessible production-ready **Prototyping Solution**
@@ -25,7 +25,7 @@ And also... it's **just a single js-file** that you can include into your websit
 * **No** confusing classes to style
 * **No** frustration in usage
 
-With **Numl** you can: 
+With **Numl** you can:
 
 * Create virtually **any interface** you want
 * Make your interface **accessible** without fighting IDs and specifications
@@ -40,9 +40,9 @@ With **Numl** you can:
 
 ## Examples
 
-[Flex playground](https://numl.design/storybook/layouts/flex-playground)
-[Grid playground](https://numl.design/storybook/layouts/grid-playground)
-[Markdown converter](https://numl.design/storybook/converters/markdown)
+* [Flex playground](https://numl.design/storybook/layouts/flex-playground)
+* [Grid playground](https://numl.design/storybook/layouts/grid-playground)
+* [Markdown converter](https://numl.design/storybook/converters/markdown)
 
 ## Getting started
 
@@ -88,7 +88,7 @@ Import the module to your application:
 import 'numl';
 ```
 
-## Projects that use Numl 
+## Projects that use Numl
 
 * [Numl Landing Page](https://numl.design) ([Repo Link](https://github.com/tenphi/numl.design)) built with Parcel.
 * [Numl Storybook](https://numl.design/storybook) ([Repo Link](https://github.com/tenphi/numl-storybook)) built with Vue.js and Webpack.
@@ -132,7 +132,7 @@ Run `npm start` to view test page with few examples.
 * More examples
 * TRL Support
 
-See our [Changlelog](http://localhost:8080/guide/changelog).
+See our [Changlelog](https://numl.design/guide/changelog).
 
 ## Contribution
 
