@@ -225,7 +225,7 @@ export function generateCSS(query, styles, universal = false, returnArray = fals
       @media (hover: none){${nonTouchQueries.join(',').replace(':not(:hover)', '')}{${stylesString(map)}}}
     ` : '';
     const otherQueries = queries.filter(query => !touchQueries.includes(query) && !nonTouchQueries.includes(query));
-    const otherCSS = `${otherQueries.join(',')}{${stylesString(map)}}`;
+    const otherCSS = otherQueries.length ? `${otherQueries.join(',')}{${stylesString(map)}}` : '';
 
     [touchCSS, nonTouchCSS, otherCSS].forEach(rule => {
       if (rule) {

@@ -7,7 +7,7 @@ import {
   generateCSS,
   cleanCSSByPart,
   transferCSS,
-  STYLE_MAP, injectStyleTag,
+  STYLE_MAP, injectStyleTag, splitIntoRules, insertRuleSet,
 } from '../css';
 import {
   parseThemeAttr,
@@ -140,12 +140,12 @@ export default class NuBase extends HTMLElement {
   static nuExtractCSS(Element, tag) {
     const _this = this;
 
-    return this.nuCSS({
+    return splitIntoRules(this.nuCSS({
       tag: tag || Element.nuTag,
       get css() {
-        return _this.nuGetParentCSS(Element, tag);
+        return _this.nuGetParentCSS(Element, tag).join('\n');
       },
-    });
+    }));
   }
 
   /**
@@ -174,7 +174,7 @@ export default class NuBase extends HTMLElement {
       return parent.nuExtractCSS(Element, tag);
     }
 
-    return '';
+    return [];
   }
 
   /**
@@ -437,6 +437,8 @@ export default class NuBase extends HTMLElement {
 
     let css = el.nuExtractCSS(el);
 
+    console.log('!', tag, JSON.stringify(css, null, 2));
+
     const allAttrs = this.nuAllGenerators;
     const allDefaults = this.nuAllStyles;
     const combinators = Object.values(this.nuAllCombinators);
@@ -455,14 +457,12 @@ export default class NuBase extends HTMLElement {
       }
     });
 
-    let defaultsCSS = '';
-
     if (!isHost) {
       combinators.forEach(combinator => {
         const styles = combine(combinator, allDefaults);
 
         if (styles.length) {
-          defaultsCSS += generateCSS(tag, styles);
+          css.push(...generateCSS(tag, styles, false, true));
         }
       });
     }
@@ -485,16 +485,19 @@ export default class NuBase extends HTMLElement {
 
         const query = `${tag}${name !== 'text' && !isProp ? `:not([${name}])` : ''}`;
 
-        defaultsCSS += generateCSS(query, styles, true);
+        css.push(...generateCSS(query, styles, true, true));
       });
 
-    const fullCSS = `${css}${defaultsCSS}`;
+    // const fullCSS = `${css}${defaultsCSS}`;
+
+    // console.log('!', tag, css);
 
     if (!dontInject) {
-      injectCSS(cssName, tag, fullCSS);
+      // injectCSS(cssName, tag, fullCSS);
+      insertRuleSet(css, tag);
+    } else {
+      return css.join('\n');
     }
-
-    return fullCSS;
   }
 
   constructor() {
