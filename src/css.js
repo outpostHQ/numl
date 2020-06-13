@@ -48,7 +48,11 @@ export function injectStyleTag(css, name, root) {
   css = css || '';
 
   if (Array.isArray(css)) {
-    css = css.join('\n');
+    //css = css.join('\n');
+
+    insertRuleSet(css, name);
+
+    return;
   }
 
   if (devMode) {
@@ -298,11 +302,7 @@ export function cleanCSSByPart(selectorPart) {
     });
   }
 
-  if (!isRegexp && selectorPart.startsWith('#')) {
-    requestIdleCallback(clean);
-  } else {
-    clean();
-  }
+  clean();
 }
 
 export function removeCSS(name, root) {

@@ -805,7 +805,7 @@ export default class NuBase extends HTMLElement {
 
     let styles = computeStyles(name, value, this.constructor.nuAllGenerators, this.constructor.nuAllStyles);
 
-    return generateCSS(query, styles, true);
+    return generateCSS(query, styles, true, true);
   }
 
   /**
@@ -1364,14 +1364,19 @@ export default class NuBase extends HTMLElement {
 
     return (this.nuResponsiveDecorator = styles => {
       return mediaPoints
-        .map((point, i) => {
+        .reduce((arr, point, i) => {
           const stls = styles[i];
 
-          if (!stls) return;
+          if (!stls) return arr;
 
-          return `${point}{\n${stls || ''}\n}\n`;
-        })
-        .join('');
+          stls.forEach(rule => {
+            if (rule) {
+              arr.push(`${point}{\n${rule || ''}\n}\n`);
+            }
+          });
+
+          return arr;
+        }, []);
     });
   }
 
