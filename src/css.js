@@ -3,22 +3,53 @@ import scrollbarAttr from './attributes/scrollbar';
 
 export const STYLE_MAP = {};
 const testEl = h('div');
+const HEAD = document.head;
+const STYLE = h('style');
+const RULE_SETS = {};
 
-[...document.querySelectorAll('style[data-nu-name]')]
-  .forEach(element => {
-    const name = element.dataset.nuName.replace(/&quot;/g, '"');
+STYLE.dataset.numl = '';
 
-    if (!name.includes('#')) {
-      STYLE_MAP[name] = {
-        element: element,
-        css: element.textContent,
-        selector: name,
-      };
-    }
-  });
+HEAD.appendChild(STYLE);
+
+const SHEET = STYLE.sheet;
+
+// [...document.querySelectorAll('style[data-nu-name]')]
+//   .forEach(element => {
+//     const name = element.dataset.nuName.replace(/&quot;/g, '"');
+//
+//     if (!name.includes('#')) {
+//       STYLE_MAP[name] = {
+//         element: element,
+//         css: element.textContent,
+//         selector: name,
+//       };
+//     }
+//   });
+
+function getSheet(root) {
+  if (!root) return SHEET;
+
+  if (root.nuSheet) {
+    root.nuSheet;
+  }
+
+  const style = h('style');
+
+  root.appendChild(style);
+
+  style.dataset.numl = '';
+
+  root.nuSheet = style.sheet;
+
+  return root.nuSheet;
+}
 
 export function injectStyleTag(css, name, root) {
   css = css || '';
+
+  if (Array.isArray(css)) {
+    css = css.join('\n');
+  }
 
   if (devMode) {
     css = beautifyCSS(css);
@@ -35,6 +66,58 @@ export function injectStyleTag(css, name, root) {
   (root || document.head).appendChild(style);
 
   return style;
+}
+
+export function insertRule(id, css, root) {
+  css = css || '';
+
+  if (devMode) {
+    css = beautifyCSS(css);
+  }
+
+  const sheet = getSheet(root);
+  const index = sheet.insertRule(css);
+  const rule = sheet.cssRules[index];
+
+  rule.nuId = id;
+
+  return rule;
+}
+
+export function insertRuleSet(arr, id) {
+  if (id) {
+    removeRuleSet(id);
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    const rule = arr[i];
+
+    const cssRule = insertRule(id, rule);
+
+    if (id) {
+      cssRule.nuId = id;
+    }
+  }
+}
+
+export function removeRuleSet(id) {
+  while (removeRule(id)) {}
+
+  delete RULE_SETS[name];
+}
+
+export function removeRule(id) {
+  const rules = SHEET.cssRules;
+
+  for (let i = 0; i < rules.length; i++) {
+    const rule = rules[i];
+
+    if (rule.nuId === id) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 export function attrsQuery(attrs) {
@@ -71,7 +154,7 @@ export function stylesString(styles) {
 const TOUCH_REGEXP = /:hover(?!\))/; // |\[nu-active](?!\))
 const NON_TOUCH_REGEXP = /:hover(?=\))/;
 
-export function generateCSS(query, styles, universal = false) {
+export function generateCSS(query, styles, universal = false, returnArray = false) {
   if (!styles || !styles.length) return;
 
   const isHost = query.startsWith(':host');
@@ -80,13 +163,13 @@ export function generateCSS(query, styles, universal = false) {
     query = query.replace(':host', '');
   }
 
-  return styles.map(map => {
+  const arr = styles.reduce((arr, map) => {
     let queries = [query];
 
     const $prefix = map.$prefix;
     const $suffix = map.$suffix;
 
-    if (isHost && ($prefix || !$suffix)) return '';
+    if (isHost && ($prefix || !$suffix)) return arr;
 
     // multiple suffixes and prefixes
     [$suffix, $prefix]
@@ -127,7 +210,9 @@ export function generateCSS(query, styles, universal = false) {
     }
 
     if (universal) {
-      return `${queries.join(',')}{${stylesString(map)}}`;
+      arr.push(`${queries.join(',')}{${stylesString(map)}}`);
+
+      return arr;
     }
 
     const touchQueries = queries.filter(query => query.match(TOUCH_REGEXP));
@@ -142,11 +227,21 @@ export function generateCSS(query, styles, universal = false) {
     const otherQueries = queries.filter(query => !touchQueries.includes(query) && !nonTouchQueries.includes(query));
     const otherCSS = `${otherQueries.join(',')}{${stylesString(map)}}`;
 
-    return [touchCSS, nonTouchCSS, otherCSS].join('\n');
-  }).join('\n');
-}
+    [touchCSS, nonTouchCSS, otherCSS].forEach(rule => {
+      if (rule) {
+        arr.push(rule);
+      }
+    });
 
-window.generateCSS = generateCSS;
+    return arr;
+  }, []);
+
+  if (returnArray) {
+    return arr;
+  }
+
+  return arr.join('\n');
+}
 
 export function parseStyles(str) {
   return str
@@ -288,7 +383,13 @@ export function beautifyCSS(css) {
     }).join('\n');
 }
 
-const globalCSS = `
+export function splitIntoRules(css) {
+  const arr = css.split('}').map(s => `${s}}`);
+
+  return arr.slice(0, -1);
+}
+
+const globalRules = [`
 :root {
   --nu-base: 16px;
   --nu-pixel: 1px;
@@ -316,17 +417,17 @@ const globalCSS = `
 
   --nu-font: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
   --nu-monospace-font: monospace;
-}
+}`,
 
-:root:not([data-nu-prevent-reset]) body {
+`:root:not([data-nu-prevent-reset]) body {
   line-height: 1rem;
-}
+}`,
 
-:root:not([data-nu-prevent-reset]) body > *:not([size]) {
+`:root:not([data-nu-prevent-reset]) body > *:not([size]) {
   line-height: 1.5rem;
-}
+}`,
 
-.nu-defaults, :root:not([data-nu-prevent-reset]) body {
+`.nu-defaults, :root:not([data-nu-prevent-reset]) body {
   margin: 0;
   padding: 0;
   font-family: var(--nu-font);
@@ -341,49 +442,50 @@ const globalCSS = `
   -webkit-text-size-adjust: none;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color calc(var(--nu-transition-enabler) * var(--nu-transition-time)) linear;
-}
+}`,
 
-.nu-defaults:not(body) {
+`.nu-defaults:not(body) {
   line-height: 1.5rem;
-}
+}`,
 
-@media (prefers-color-scheme: dark) {
+`@media (prefers-color-scheme: dark) {
   :root:not([data-nu-scheme="light"]) .nu-dark-invert {
     filter: invert(100%) hue-rotate(180deg);
   }
+}`,
 
+`@media (prefers-color-scheme: dark) {
   :root:not([data-nu-scheme="light"]) .nu-dark-dim, :root:not([data-nu-scheme="light"]) nu-img {
     filter: brightness(0.95);
   }
-}
+}`,
 
-:root[data-nu-scheme="dark"] .nu-dark-invert {
+`:root[data-nu-scheme="dark"] .nu-dark-invert {
   filter: invert(95%) hue-rotate(180deg);
-}
+}`,
 
-:root[data-nu-scheme="dark"] .nu-dark-dim, :root[data-nu-scheme="dark"] nu-img {
+`:root[data-nu-scheme="dark"] .nu-dark-dim, :root[data-nu-scheme="dark"] nu-img {
   filter: brightness(0.95);
-}
+}`,
 
-@media (prefers-reduced-motion: reduce) {
+`@media (prefers-reduced-motion: reduce) {
   :root {
     --nu-transition-enabler: 0;
   }
-}
+}`,
 
-:root[data-nu-reduce-motion] {
+`:root[data-nu-reduce-motion] {
   --nu-transition-enabler: 0;
-}
+}`,
 
-:root[data-nu-outline] [nu] {
-  outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important;
-}
+`:root[data-nu-outline] [nu] {
+  outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5) !important;
+}`,
 
-[nu-hidden] {
+`[nu-hidden] {
   display: none !important;
-}
+}`,
 
-${generateCSS('body', scrollbarAttr('yes'))}
-`;
+...generateCSS('body', scrollbarAttr('yes'), false, true)];
 
-injectStyleTag(globalCSS, 'nu-defaults');
+insertRuleSet(globalRules);
