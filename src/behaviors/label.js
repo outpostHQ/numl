@@ -54,9 +54,8 @@ export default class LabelBehavior extends Behavior {
 
     if (el) {
       setInnerRef(el, 'labelledby', host.id);
+      setAriaRef(el, 'labelledby');
     }
-
-    setAriaRef(el, 'labelledby');
 
     return el;
   }

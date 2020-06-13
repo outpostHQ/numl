@@ -39,7 +39,7 @@ import {
   deepQuery,
   deepQueryAll,
   queryChildren,
-  setImmediate, isEqual, asyncDebounce, setAttr, setBoolAttr,
+  setImmediate, isEqual, asyncDebounce, setAttr, setBoolAttr, setAria,
 } from '../helpers';
 import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
@@ -960,15 +960,7 @@ export default class NuBase extends HTMLElement {
    * @param {Boolean|String|Number} value
    */
   nuSetAria(name, value) {
-    if (typeof value === 'boolean') {
-      value = value ? 'true' : 'false';
-    }
-
-    if (value == null) {
-      (this.nuRef || this).removeAttribute(`aria-${name}`);
-    } else {
-      (this.nuRef || this).setAttribute(`aria-${name}`, value);
-    }
+    setAria(this, name, value);
   }
 
   nuHasAria(name) {

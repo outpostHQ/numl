@@ -1517,7 +1517,7 @@ export function isFocusable(el) {
  * @param attr {String}
  */
 export function setAriaRef(el, attr) {
-  let value = el.nuGetAttr(attr, true) || '';
+  let value = el.getAttribute(attr) || '';
 
   const innerRef = getInnerRef(el, attr);
 
@@ -1530,7 +1530,7 @@ export function setAriaRef(el, attr) {
   const ariaValue = value.split(/\s+/g).map((id) => {
     let link;
 
-    link = el.nuQueryById(id, true);
+    link = queryById(el, id, true);
 
     if (!link) return '';
 
@@ -1538,7 +1538,7 @@ export function setAriaRef(el, attr) {
   }).join(' ');
 
   if (ariaValue.trim()) {
-    el.nuSetAria(attr, ariaValue);
+    setAria(el, attr, ariaValue);
   }
 }
 
@@ -1563,5 +1563,23 @@ export function setInnerRef(el, name, value) {
 export function removeInnerRef(el, name) {
   if (el.nuRefs) {
     delete el.nuRefs[name];
+  }
+}
+
+/**
+ * Set aria attribute.
+ * @param el
+ * @param {String} name
+ * @param {Boolean|String|Number} value
+ */
+export function setAria(el, name, value) {
+  if (typeof value === 'boolean') {
+    value = value ? 'true' : 'false';
+  }
+
+  if (value == null) {
+    (el.nuRef || el).removeAttribute(`aria-${name}`);
+  } else {
+    (el.nuRef || el).setAttribute(`aria-${name}`, value);
   }
 }

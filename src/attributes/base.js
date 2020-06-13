@@ -40,6 +40,7 @@ import opacityAttr from './opacity';
 import selectableAttr from './selectable';
 import boxAttr from './box';
 import clampAttr from './clamp';
+import { flexAttr } from './flex';
 
 export default {
   width: sizeUnit('width'),
@@ -65,6 +66,7 @@ export default {
   flow: flowAttr,
   gap: gapAttr,
   order: 'order',
+  flex: flexAttr,
   grow: 'flex-grow',
   shrink: 'flex-shrink',
   basis: unit('flex-basis', { convert: true }),
