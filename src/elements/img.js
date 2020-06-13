@@ -76,12 +76,12 @@ export default class NuImg extends NuBlock {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
+    return [
+      ...css,
 
-      ${tag} > img {
+      `${tag} > img {
         display: block;
-      }
-    `;
+      }`,
+    ];
   }
 }

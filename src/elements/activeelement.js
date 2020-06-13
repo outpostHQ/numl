@@ -31,14 +31,15 @@ export default class NuActiveElement extends NuElement {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
+    return [
+      ...css,
+
+      `${tag} {
         touch-action: manipulation;
         -webkit-tap-highlight-color: var(--nu-mark-color);
-      }
+      }`,
 
-      ${tag} > a {
+      `${tag} > a {
         display: block;
         position: absolute;
         top: 0;
@@ -49,11 +50,11 @@ export default class NuActiveElement extends NuElement {
         cursor: inherit;
         color: inherit;
         text-decoration: inherit;
-      }
+      }`,
 
-      ${tag} > a:focus {
+      `${tag} > a:focus {
         outline: none;
-      }
-    `;
+      }`,
+    ];
   }
 }

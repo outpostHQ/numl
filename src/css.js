@@ -384,6 +384,8 @@ export function beautifyCSS(css) {
 }
 
 export function splitIntoRules(css) {
+  if (Array.isArray(css)) return css;
+
   const arr = css.split('}').map(s => `${s}}`);
 
   return arr.slice(0, -1);

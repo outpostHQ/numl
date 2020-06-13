@@ -41,12 +41,12 @@ export default class NuBtnGroup extends NuGroup {
   }
 
   static nuCSS({ css, tag }) {
-    return `
-      ${NuGroup.nuExtractCSS(this)}
+    return [
+      ...NuGroup.nuExtractCSS(this, tag),
 
-      ${tag} > *:not([grow]) {
+      `${tag} > *:not([grow]) {
         flex-grow:1;
-      }
-    `;
+      }`,
+    ];
   }
 }

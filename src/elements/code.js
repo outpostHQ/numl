@@ -20,40 +20,49 @@ export default class NuCode extends NuElement {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} nu-block {
+    return [
+      ...css,
+
+      `${tag} nu-block {
         white-space: pre;
-      }
-      ${tag} > pre, ${tag} > textarea {
+      }`,
+
+      `${tag} > pre, ${tag} > textarea {
         display: none;
-      }
-      ${tag} nu-el {
+      }`,
+
+      `${tag} nu-el {
         display: inline !important;
-      }
-      ${tag}[inline]:not([fill]) {
+      }`,
+
+      `${tag}[inline]:not([fill]) {
         background-color: var(--nu-subtle-color);
-      }
-      ${tag}[inline]:not([padding]) {
+      }`,
+
+      `${tag}[inline]:not([padding]) {
         padding: .125rem .25em;
-      }
-      ${tag} nu-el[plus]::before {
+      }`,
+
+      `${tag} nu-el[plus]::before {
         content: '+ ';
         display: inline-block;
-      }
-      ${tag} nu-el[minus]::before {
+      }`,
+
+      `${tag} nu-el[minus]::before {
         content: '- ';
         display: inline-block;
-      }
-      ${tag} nu-el[number]::before {
+      }`,
+
+      `${tag} nu-el[number]::before {
         content: '1. ';
         display: inline-block;
-      }
-      ${tag} nu-el[fill] {
+      }`,
+
+      `${tag} nu-el[fill] {
         border-radius: var(--nu-radius);
         padding: .25em;
-      }
-    `;
+      }`,
+    ];
   }
 
   static get nuBehaviors() {

@@ -27,20 +27,20 @@ export default class NuSvg extends NuBlock {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
+    return [
+      ...css,
 
-      ${tag}[width] svg {
+      `${tag}[width] svg {
         min-width: 100%;
         max-width: 100%;
         width: auto;
-      }
+      }`,
 
-      ${tag}[height] svg {
+      `${tag}[height] svg {
         min-height: 100%;
         max-height: 100%;
         height: auto;
-      }
-    `;
+      }`,
+    ];
   }
 }

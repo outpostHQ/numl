@@ -53,18 +53,22 @@ export default class NuGroup extends NuElement {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
+    return [
+      ...css,
+
+      `${tag} {
         --nu-item-radius: var(--nu-local-radius);
 
         border-radius: calc(var(--nu-local-radius, 0) + 1px) !important;
-      }
-      ${tag}:not([gap]) > :not(:last-child):not(:first-child) {
+      }`,
+
+      `${tag}:not([gap]) > :not(:last-child):not(:first-child) {
         --nu-local-radius: 0 !important;
-      }
-      ${tag}:not([gap]) > :last-child:first-child {
+      }`,
+
+      `${tag}:not([gap]) > :last-child:first-child {
         --nu-local-radius: inherit !important;
-      }`;
+      }`,
+    ];
   }
 }

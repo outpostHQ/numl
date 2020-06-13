@@ -22,11 +22,12 @@ export default class NuBadge extends NuElement {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
+    return [
+      ...css,
+
+      `${tag} {
         line-height: calc(var(--nu-line-height) - 1px);
-      }
-    `;
+      }`,
+    ];
   }
 }

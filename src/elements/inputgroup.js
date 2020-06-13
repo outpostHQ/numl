@@ -21,22 +21,26 @@ export default class NuInputGroup extends NuGroup {
   }
 
   static nuCSS({ css, tag }) {
-    return `
-      ${css}
-      ${tag} [nu-input]:not([border]) {
+    return [
+      ...css,
+
+      `${tag} [nu-input]:not([border]) {
         border: 0 !important;
         --nu-local-stroke-shadow: ${DEFAULT_STROKE_SHADOW} !important;
-      }
-      ${tag} [nu-input]:not([border]) {
+      }`,
+
+      `${tag} [nu-input]:not([border]) {
         background-color: transparent !important;
-      }
-      ${tag} [nu-icon]:not([padding]) {
+      }`,
+
+      `${tag} [nu-icon]:not([padding]) {
         padding-left: var(--nu-gap);
         padding-right: var(--nu-gap);
-      }
-      ${tag} [nu-icon]:not([grow]) {
+      }`,
+
+      `${tag} [nu-icon]:not([grow]) {
         flex-grow: 0;
-      }
-    `;
+      }`,
+    ];
   }
 }

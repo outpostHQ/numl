@@ -7,7 +7,7 @@ import {
   generateCSS,
   cleanCSSByPart,
   transferCSS,
-  STYLE_MAP, injectStyleTag, splitIntoRules, insertRuleSet,
+  STYLE_MAP, injectStyleTag, insertRuleSet,
 } from '../css';
 import {
   parseThemeAttr,
@@ -140,12 +140,12 @@ export default class NuBase extends HTMLElement {
   static nuExtractCSS(Element, tag) {
     const _this = this;
 
-    return splitIntoRules(this.nuCSS({
+    return this.nuCSS({
       tag: tag || Element.nuTag,
       get css() {
-        return _this.nuGetParentCSS(Element, tag).join('\n');
+        return _this.nuGetParentCSS(Element, tag);
       },
-    }));
+    });
   }
 
   /**
@@ -181,7 +181,7 @@ export default class NuBase extends HTMLElement {
    * Static css generation method for an element.
    * @param tag - current tag name
    * @param css - current css
-   * @returns {string}
+   * @returns {Array}
    */
   static nuCSS({ tag, css }) {
     return '';
