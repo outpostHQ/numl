@@ -727,11 +727,13 @@ const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-z0-9.-]{2,}(?![a-f0-9\[-]))|(--[
 const ATTR_CACHE = new Map;
 const ATTR_CACHE_AUTOCALC = new Map;
 const ATTR_CACHE_REM = new Map;
+const ATTR_CACHE_IGNORE_COLOR = new Map;
 const MAX_CACHE = 10000;
 const ATTR_CACHE_MODE_MAP = [
   ATTR_CACHE_AUTOCALC,
   ATTR_CACHE_REM,
   ATTR_CACHE,
+  ATTR_CACHE_IGNORE_COLOR,
 ];
 
 function prepareNuVar(name) {
@@ -796,7 +798,11 @@ export function parseAttr(value, mode = 0) {
         counter++;
       } else if (hashColor) {
         // currentValue += `${hashColor} `;
-        color = parseColor(hashColor).color;
+        if (mode === 3) {
+          color = hashColor;
+        } else {
+          color = parseColor(hashColor, false, true).color;
+        }
       } else if (mod) {
         // ignore mods inside brackets
         if (counter || IGNORE_MODS.includes(mod)) {
@@ -1150,12 +1156,19 @@ const COLOR_NAME_LIST = [
   'local', // additional
 ];
 
-export function parseColor(val, ignoreError) {
+/**
+ *
+ * @param {String} val
+ * @param {Boolean} ignoreError
+ * @param {Boolean} [shortSyntax]
+ * @return {{color}|{color: string, name: *, opacity: *}|{}|{color: string, name: string, opacity: (number|number)}|{color: string, name: *}}
+ */
+export function parseColor(val, ignoreError = false, shortSyntax = false) {
   val = val.trim();
 
   if (!val) return {};
 
-  if (val.startsWith('#')) {
+  if (shortSyntax && val.startsWith('#')) {
     val = val.slice(1);
 
     const tmp = val.split('.');
@@ -1175,7 +1188,7 @@ export function parseColor(val, ignoreError) {
     const name = tmp[0];
     const color = opacity !== 100
       ? `rgba(var(--nu-${name}-color-rgb), ${opacity / 100})`
-      : `var(--nu-${name}-color, var(--${name}-color, ${name}))`;
+      : `var(--nu-${name}-color, var(--${name}-color, #${name}))`;
 
     return {
       color,
@@ -1184,7 +1197,7 @@ export function parseColor(val, ignoreError) {
     };
   }
 
-  let { values, mods, color } = parseAttr(val);
+  let { values, mods, color } = parseAttr(val, 3);
 
   let name, opacity;
 
