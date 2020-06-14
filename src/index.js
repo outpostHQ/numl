@@ -11,7 +11,7 @@ import {
   isEqual,
 } from './helpers';
 
-import { create } from './create';
+import { define } from './define';
 export * from './elements';
 export { FLEX_GAP_SUPPORTED } from './attributes/gap';
 import initSticky from './sticky';
@@ -127,14 +127,14 @@ const Nude = {
   helpers,
   styles,
   isEqual,
-  create,
+  define,
   // color,
   // themes,
   // css,
   // variables,
 };
 
-function define(el) {
+function defineElement(el) {
   const tag = el.nuTag;
 
   if (isDefined(tag)) {
@@ -170,7 +170,7 @@ Nude.init = () => {
 
   // init all nude elements
   Object.values(elements)
-    .forEach(define);
+    .forEach(defineElement);
 
   // show all nu-root elements back
   setTimeout(() => {
@@ -254,7 +254,7 @@ export {
   helpers,
   isEqual,
   styles,
-  create,
+  define,
   // themes,
   // css,
   // color,

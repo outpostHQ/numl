@@ -20,7 +20,7 @@ const prototypeBind = {
   changed: 'nuChanged',
 };
 
-export function create(options) {
+export function define(options, skipDefine) {
   const Parent = options.parent || NuElement;
 
   const Element = class Element extends Parent {};
@@ -42,6 +42,10 @@ export function create(options) {
       Element.prototype[prototypeBind[key]] = val;
     }
   });
+
+  if (!skipDefine) {
+    customElements.define(options.tag, Element);
+  }
 
   return Element;
 }
