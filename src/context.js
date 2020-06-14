@@ -1,5 +1,4 @@
 import { deepQueryAll, requestIdleCallback, log, asyncDebounce } from './helpers';
-import { injectStyleTag } from './css';
 
 export const ROOT = document.querySelector(':root');
 

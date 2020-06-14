@@ -5,7 +5,7 @@ import {
   generateCSS,
   removeRulesByPart,
   transferCSS,
-  STYLE_MAP, injectStyleTag, insertRuleSet, removeRuleSet,
+  STYLE_MAP, injectStyleTag, insertRuleSet, removeRuleSet, insertRule,
 } from '../css';
 import {
   parseThemeAttr,
@@ -1729,16 +1729,16 @@ export default class NuBase extends HTMLElement {
     const tag = this.constructor.nuTag;
 
     if (shadowCSS) {
-      injectStyleTag(
-        shadowCSS,
+      insertRuleSet(
         `shadow:${tag}`,
+        shadowCSS,
         this.nuShadow,
       );
     }
 
-    injectStyleTag(
-      `:host([is-outline]) [nu] { outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important; }`,
+    insertRuleSet(
       `shadow:${tag}:outline`,
+      [`:host([is-outline]) [nu] { outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important; }`],
       this.nuShadow,
     );
 

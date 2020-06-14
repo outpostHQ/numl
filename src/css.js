@@ -1,8 +1,8 @@
-import { devMode, log, warn, requestIdleCallback, h, stackTrace } from "./helpers";
+import { devMode, log, warn, h } from "./helpers";
 import scrollbarAttr from './attributes/scrollbar';
+import { USE_HIDDEN_STYLES } from './settings';
 
 export const STYLE_MAP = {};
-const testEl = h('div');
 const HEAD = document.head;
 const STYLE = h('style');
 const RULE_SETS = {};
@@ -25,6 +25,10 @@ const SHEET = STYLE.sheet;
 //       };
 //     }
 //   });
+
+function getRootNode(root) {
+  return root || HEAD;
+}
 
 function getSheet(root) {
   if (!root) return SHEET;
@@ -98,19 +102,18 @@ export function insertRule(css, sheet, id) {
  * Insert CSS Rule Set.
  * @param {String} id
  * @param {Array<String>} arr
- * @param {Undefined|HTMLElement} [root]
+ * @param {Undefined|ShadowRoot} [root]
  * @param {Boolean} [force]
  */
 export function insertRuleSet(id, arr, root, force = false) {
   if (id && hasRuleSet(id, root)) {
     if (force) {
-      removeRuleSet(id);
+      removeRuleSet(id, root);
     } else {
       return;
     }
   }
 
-  const sheet = getSheet(root);
   const ruleMap = getRuleMap(root);
 
   const ruleSet = ruleMap[id] = {
@@ -122,20 +125,49 @@ export function insertRuleSet(id, arr, root, force = false) {
     RULE_SETS[id] = ruleSet;
   }
 
-  for (let i = 0; i < arr.length; i++) {
-    const rule = arr[i];
+  if (USE_HIDDEN_STYLES) {
+    const sheet = getSheet(root);
 
-    const cssRule = insertRule(rule, sheet, id);
+    for (let i = 0; i < arr.length; i++) {
+      const rule = arr[i];
 
-    ruleSet.rules.push(cssRule);
+      const cssRule = insertRule(rule, sheet, id);
+
+      ruleSet.rules.push(cssRule);
+    }
+  } else {
+    const rootNode = getRootNode(root);
+    const style = h('style');
+
+    style.dataset.numl = id || '';
+
+    ruleSet.element = style;
+
+    style.appendChild(document.createTextNode(arr.join('\n')));
+
+    rootNode.appendChild(style);
   }
 }
 
 export function removeRuleSet(id, root) {
-  const sheet = getSheet(root);
   const ruleMap = getRuleMap(root);
 
-  while (removeRule(id, sheet)) {}
+  if (USE_HIDDEN_STYLES) {
+    const sheet = getSheet(root);
+
+    while (removeRule(id, sheet)) {}
+  } else {
+    const ruleSet = ruleMap[name];
+
+    if (ruleSet) {
+      const element = ruleSet.element;
+
+      if (element && element.parentNode) {
+        element.parentNode.removeChild(element);
+      }
+    }
+  }
+
 
   if (!root) {
     delete ruleMap[name];
@@ -401,7 +433,7 @@ export function splitIntoRules(css) {
  * @return {string}
  */
 export function withMediaQuery(mediaQuery, rule, styles) {
-  return `@media ${mediaQuery} {${styles != null ? `${rule}{${styles}` : rule}}`;
+  return `@media ${mediaQuery} {${styles != null ? `${rule}{${styles}}` : rule}}`;
 }
 
 
