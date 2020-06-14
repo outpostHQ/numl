@@ -603,7 +603,7 @@ export default class NuBase extends HTMLElement {
 
     if (value == null || !this.constructor.nuAllGenerators[name]) return;
 
-    this.nuApplyCSS(name, varAttr, force);
+    this.nuApplyCSS(name, varAttr);
   }
 
   /**
@@ -1082,10 +1082,20 @@ export default class NuBase extends HTMLElement {
     });
   }
 
-  nuEnsureThemes(force) {
+  /**
+   *
+   * @param {Boolean} force
+   * @param {Array<String>} [ignoreList]
+   * @return {*}
+   */
+  nuEnsureThemes(force, ignoreList = []) {
     const values = parseAllValues(this.nuGetAttr(THEME_ATTR, true) || '');
 
     values.forEach((val) => {
+      if (ignoreList.includes(val)) return;
+
+      ignoreList.push(val);
+
       let theme = parseThemeAttr(val);
       const themeName = composeThemeName(theme);
       const key = `theme:${themeName}`;
@@ -1115,6 +1125,8 @@ export default class NuBase extends HTMLElement {
         }, themeName);
       }
     });
+
+    return values;
   }
 
   /**

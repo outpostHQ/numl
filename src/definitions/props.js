@@ -6,7 +6,7 @@ import {
   parseAttrStates,
   parseColor
 } from '../helpers';
-import { injectCSS, insertRule, insertRuleSet } from '../css';
+import { insertRuleSet } from '../css';
 
 export default class NuProps extends NuDefinition {
   static get nuTag() {

@@ -1,4 +1,4 @@
-import { devMode, log, warn, requestIdleCallback, h } from "./helpers";
+import { devMode, log, warn, requestIdleCallback, h, stackTrace } from "./helpers";
 import scrollbarAttr from './attributes/scrollbar';
 
 export const STYLE_MAP = {};

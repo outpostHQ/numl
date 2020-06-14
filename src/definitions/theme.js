@@ -91,6 +91,12 @@ export default class NuTheme extends NuDefinition {
 
     let { name = '', hue, saturation, pastel, from, mod } = attrs;
 
+    const cache = JSON.stringify({ name, hue, saturation, pastel, from, mod });
+
+    if (this.nuCache === cache) return;
+
+    this.nuCache= cache;
+
     if (hue && !parseInt(hue) && hue !== '0') {
       hue = hueFromString(hue);
     }
@@ -178,10 +184,12 @@ export default class NuTheme extends NuDefinition {
 
     if (!VERIFY_MAP.has(parent)) {
       VERIFY_MAP.set(parent, setTimeout(() => {
+        const values = [];
+
         VERIFY_MAP.delete(parent);
         [...parent.querySelectorAll(SELECTOR)]
           .forEach(el => {
-            el.nuEnsureThemes(true);
+            values.push(...el.nuEnsureThemes(true, values));
           });
       }));
     }

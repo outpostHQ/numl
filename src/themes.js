@@ -11,7 +11,7 @@ import {
   hslToRgb,
   findContrastLightness, setSaturation, strToHsl, getSaturationRatio,
 } from './color';
-import { cleanCSSByPart, injectCSS, insertRuleSet, stylesString, withMediaQuery } from './css';
+import { cleanCSSByPart, insertRuleSet, stylesString, withMediaQuery } from './css';
 
 export const THEME_ATTR = 'theme';
 
