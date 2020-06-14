@@ -230,9 +230,16 @@ export function query(element, selector) {
  * Return a closest element that has provided id.
  * @param {Element} element
  * @param {String} id
+ * @param {Boolean} includeNames
  * @returns {undefined|Element}
  */
 export function queryById(element, id, includeNames) {
+  if (id === ':prev') {
+    return element.previousElementSibling;
+  } else if (id === ':next') {
+    return element.nextElementSibling;
+  }
+
   return query(element, `[nu-id="${id}"], [id="${id}"]${includeNames && !id.includes('-') ? `, [nu-${id}]` : ''}`);
 }
 

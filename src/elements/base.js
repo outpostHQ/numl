@@ -182,7 +182,7 @@ export default class NuBase extends HTMLElement {
    * @returns {Array}
    */
   static nuCSS({ tag, css }) {
-    return '';
+    return [];
   }
 
   static get nuNames() {
@@ -433,7 +433,7 @@ export default class NuBase extends HTMLElement {
 
     let el = this;
 
-    let css = el.nuExtractCSS(el);
+    let css = el.nuExtractCSS(el) || [];
 
     const allAttrs = this.nuAllGenerators;
     const allDefaults = this.nuAllStyles;
@@ -1151,12 +1151,6 @@ export default class NuBase extends HTMLElement {
    * @param {String} includeNames
    */
   nuQueryById(id, includeNames) {
-    if (id === ':prev') {
-      return this.previousElementSibling;
-    } else if (id === ':next') {
-      return this.nextElementSibling;
-    }
-
     return queryById(this, id, includeNames);
   }
 
