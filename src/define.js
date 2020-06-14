@@ -20,10 +20,12 @@ const prototypeBind = {
   changed: 'nuChanged',
 };
 
-export function define(options, skipDefine) {
+export function define(tag, options, skipDefine) {
   const Parent = options.parent || NuElement;
 
   const Element = class Element extends Parent {};
+
+  options.tag = tag;
 
   Object.keys(staticBind).forEach(key => {
     const val = options[key];
@@ -44,7 +46,7 @@ export function define(options, skipDefine) {
   });
 
   if (!skipDefine) {
-    customElements.define(options.tag, Element);
+    customElements.define(tag, Element);
   }
 
   return Element;
