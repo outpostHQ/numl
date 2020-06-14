@@ -11,6 +11,7 @@ import {
   isEqual,
 } from './helpers';
 
+import { create } from './create';
 export * from './elements';
 export { FLEX_GAP_SUPPORTED } from './attributes/gap';
 import initSticky from './sticky';
@@ -126,6 +127,7 @@ const Nude = {
   helpers,
   styles,
   isEqual,
+  create,
   // color,
   // themes,
   // css,
@@ -252,6 +254,7 @@ export {
   helpers,
   isEqual,
   styles,
+  create,
   // themes,
   // css,
   // color,
