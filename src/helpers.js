@@ -722,7 +722,7 @@ export function isResponsiveAttr(value) {
   return value.includes('|');
 }
 
-const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-f0-9]{3,8}(?![a-f0-9\[-]))|(--[a-z-]+)|([a-z][a-z0-9-]*)|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
+const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-z0-9.-]{2,}(?![a-f0-9\[-]))|(--[a-z-]+)|([a-z][a-z0-9-]*)|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
 
 const ATTR_CACHE = new Map;
 const ATTR_CACHE_AUTOCALC = new Map;
@@ -796,7 +796,7 @@ export function parseAttr(value, mode = 0) {
         counter++;
       } else if (hashColor) {
         // currentValue += `${hashColor} `;
-        color = hashColor;
+        color = parseColor(hashColor).color;
       } else if (mod) {
         // ignore mods inside brackets
         if (counter || IGNORE_MODS.includes(mod)) {
@@ -1155,7 +1155,36 @@ export function parseColor(val, ignoreError) {
 
   if (!val) return {};
 
-  let { values, mods, color, value } = parseAttr(val);
+  if (val.startsWith('#')) {
+    val = val.slice(1);
+
+    const tmp = val.split('.');
+
+    let opacity = 100;
+
+    if (tmp.length > 0) {
+      opacity = Number(tmp[1]);
+
+      if (opacity !== opacity || opacity > 100) {
+        opacity = 100;
+      } else if (opacity < 0) {
+        opacity = 0;
+      }
+    }
+
+    const name = tmp[0];
+    const color = opacity !== 100
+      ? `rgba(var(--nu-${name}-color-rgb), ${opacity / 100})`
+      : `var(--nu-${name}-color, var(--${name}-color, ${name}))`;
+
+    return {
+      color,
+      name,
+      opacity: opacity != null ? opacity : 100,
+    };
+  }
+
+  let { values, mods, color } = parseAttr(val);
 
   let name, opacity;
 
