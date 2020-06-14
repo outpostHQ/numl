@@ -52,10 +52,10 @@ export default class NuIcon extends NuBlock {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
+    return [
+      ...css,
 
-      ${tag} svg {
+      `${tag} svg {
         position: absolute;
         left: 50%;
         top: 50%;
@@ -63,7 +63,7 @@ export default class NuIcon extends NuBlock {
         height: var(--nu-font-size);
         transform: translate(-50%, -50%);
         transition: opacity calc(var(--nu-transition-enabler) * var(--nu-opacity-transition-time, var(--nu-transition-time))) linear;
-      }
-    `;
+      }`
+    ];
   }
 }

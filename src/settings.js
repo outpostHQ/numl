@@ -51,6 +51,7 @@ export function reduceMotion(bool) {
 }
 
 export const USE_SHADOW = DATASET.nuShadow != null;
+export const USE_HIDDEN_STYLES = DATASET.nuStyles === 'hidden';
 export const ICONS_PROVIDER = ICONS_OPTIONS.includes(DATASET.nuIcons) ? DATASET.nuIcons : 'feather';
 
 setRootContext('scheme', scheme());

@@ -25,10 +25,10 @@ export default class NuProgressBar extends NuElement {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
+    return [
+      ...css,
 
-      ${tag}::before {
+      `${tag}::before {
         content: '';
         position: absolute;
         left: 0;
@@ -37,9 +37,9 @@ export default class NuProgressBar extends NuElement {
         bottom: 0;
         background: var(--nu-special-color);
         border-radius: var(--nu-border-width);
-      }
+      }`,
 
-      ${tag}::after {
+      `${tag}::after {
         content: '';
         position: absolute;
         left: 0;
@@ -53,16 +53,16 @@ export default class NuProgressBar extends NuElement {
         background-repeat: repeat;
         background-size: 3em;
         animation: nu-progressbar-animation calc(var(--nu-transition-time) * 10 - 0.01s) linear infinite;
-      }
+      }`,
 
-      @keyframes nu-progressbar-animation {
+      `@keyframes nu-progressbar-animation {
         0% {
           background-position: 0 0;
         }
         100% {
           background-position: 3em 0;
         }
-      }
-    `;
+      }`,
+    ];
   }
 }

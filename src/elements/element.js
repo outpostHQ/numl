@@ -149,12 +149,13 @@ export default class NuElement extends NuBase {
    * Element initialization logic
    */
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag}::selection {
+    return [
+      ...css,
+
+      `${tag}::selection {
         background-color: rgba(var(--nu-main-special-bg-color-rgb, var(--nu-special-bg-color-rgb)), .33) !important;
-      }
-    `;
+      }`
+    ];
   }
 
   /**

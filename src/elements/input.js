@@ -42,15 +42,15 @@ export default class NuInput extends NuBlock {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
+    return [
+      ...css,
 
-      ${tag} > input::-webkit-inner-spin-button, ${tag} > input::-webkit-outer-spin-button {
+      `${tag} > input::-webkit-inner-spin-button, ${tag} > input::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
-      }
+      }`,
 
-      ${tag} > input, ${tag} > textarea {
+      `${tag} > input, ${tag} > textarea {
         padding: var(--nu-local-padding);
         width: 100%;
         max-width: 100%;
@@ -73,9 +73,9 @@ export default class NuInput extends NuBlock {
         text-align: inherit;
         resize: none;
         transition: opacity ${DEFAULT_TIMING} linear;
-      }
+      }`,
 
-      ${tag} input:-webkit-autofill, ${tag} input:-webkit-autofill:hover, ${tag} input:-webkit-autofill:focus {
+      `${tag} input:-webkit-autofill, ${tag} input:-webkit-autofill:hover, ${tag} input:-webkit-autofill:focus {
         caret-color: var(--nu-special-color);
         -webkit-text-fill-color: var(--nu-special-color);
         -webkit-box-shadow: 0 0 0px 9999rem var(--nu-input-color) inset;
@@ -83,22 +83,22 @@ export default class NuInput extends NuBlock {
         font-family: inherit;
         font-size: inherit;
         line-height: inherit;
-      }
+      }`,
 
-      ${tag} input[disabled] {
+      `${tag} input[disabled] {
         color: inherit;
         background: transparent;
         -webkit-opacity: 1;
-      }
+      }`,
 
-      ${tag} input::placeholder {
+      `${tag} input::placeholder {
         color: rgb(var(--nu-text-color-rgb), .6);
         -webkit-text-fill-color: currentColor;
-      }
+      }`,
 
-      ${tag} nu-icon:not([width]) {
+      `${tag} nu-icon:not([width]) {
         width: calc(var(--nu-local-padding) * 2 + 1em);
-      }
-    `;
+      }`,
+    ];
   }
 }

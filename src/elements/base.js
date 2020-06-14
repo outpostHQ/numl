@@ -1,13 +1,11 @@
 import CONTEXT from '../context';
 import {
-  hasCSS,
-  injectCSS,
-  removeCSS,
+  hasRuleSet,
   attrsQuery,
   generateCSS,
-  cleanCSSByPart,
+  removeRulesByPart,
   transferCSS,
-  STYLE_MAP, injectStyleTag,
+  STYLE_MAP, insertRuleSet, removeRuleSet, insertRule,
 } from '../css';
 import {
   parseThemeAttr,
@@ -135,7 +133,7 @@ export default class NuBase extends HTMLElement {
    * @protected
    * @param Element {Object} - NuBase (HTMLElement)
    * @param tag {String} - tag name
-   * @returns {string}
+   * @returns {Array<String>}
    */
   static nuExtractCSS(Element, tag) {
     const _this = this;
@@ -161,7 +159,7 @@ export default class NuBase extends HTMLElement {
    * Method to generate parent CSS with current element context.
    * @param Element
    * @param tag {String}
-   * @returns {String}
+   * @returns {Array<String>}
    */
   static nuGetParentCSS(Element, tag) {
     let parent = this;
@@ -174,14 +172,14 @@ export default class NuBase extends HTMLElement {
       return parent.nuExtractCSS(Element, tag);
     }
 
-    return '';
+    return [];
   }
 
   /**
    * Static css generation method for an element.
    * @param tag - current tag name
    * @param css - current css
-   * @returns {string}
+   * @returns {Array}
    */
   static nuCSS({ tag, css }) {
     return '';
@@ -197,7 +195,7 @@ export default class NuBase extends HTMLElement {
     return (
       NAMES_MAP[this.nuTag]
       || (NAMES_MAP[this.nuTag]
-        = [...(name ? name.split(/\s+/g) : []), ...(this.nuParentClass && this.nuParentClass.nuNames || [])])
+        = [...(name ? name.split(/\s+/g) : []), ...(this.nuParentClass && this.nuParentClass.nuNames || [])].reverse())
     );
   }
 
@@ -455,14 +453,12 @@ export default class NuBase extends HTMLElement {
       }
     });
 
-    let defaultsCSS = '';
-
     if (!isHost) {
       combinators.forEach(combinator => {
         const styles = combine(combinator, allDefaults);
 
         if (styles.length) {
-          defaultsCSS += generateCSS(tag, styles);
+          css.push(...generateCSS(tag, styles, false));
         }
       });
     }
@@ -485,16 +481,14 @@ export default class NuBase extends HTMLElement {
 
         const query = `${tag}${name !== 'text' && !isProp ? `:not([${name}])` : ''}`;
 
-        defaultsCSS += generateCSS(query, styles, true);
+        css.push(...generateCSS(query, styles, true));
       });
 
-    const fullCSS = `${css}${defaultsCSS}`;
-
     if (!dontInject) {
-      injectCSS(cssName, tag, fullCSS);
+      insertRuleSet(tag, css);
+    } else {
+      return css.join('\n');
     }
-
-    return fullCSS;
   }
 
   constructor() {
@@ -609,7 +603,7 @@ export default class NuBase extends HTMLElement {
 
     if (value == null || !this.constructor.nuAllGenerators[name]) return;
 
-    this.nuApplyCSS(name, varAttr, force);
+    this.nuApplyCSS(name, varAttr);
   }
 
   /**
@@ -648,8 +642,8 @@ export default class NuBase extends HTMLElement {
     this.nuSetContextAttrs();
 
     if (this.nuContext.$shadowRoot) {
-      if (!hasCSS(this.constructor.nuTag, this.nuContext.$shadowRoot)) {
-        if (!hasCSS(this.constructor.nuTag)) {
+      if (!hasRuleSet(this.constructor.nuTag, this.nuContext.$shadowRoot)) {
+        if (!hasRuleSet(this.constructor.nuTag)) {
           this.constructor.nuGenerateDefaultStyle();
         }
 
@@ -737,7 +731,7 @@ export default class NuBase extends HTMLElement {
 
     if (this.id) {
       setTimeout(() => {
-        cleanCSSByPart(new RegExp(`#${this.id}(?![a-z0-9_-])`, 'g'));
+        removeRulesByPart(new RegExp(`#${this.id}(?![a-z0-9_-])`, 'g'));
       });
     }
   }
@@ -782,7 +776,7 @@ export default class NuBase extends HTMLElement {
    * @param {String} query - CSS query to apply styles.
    * @param {String} name - attribute (handler) name.
    * @param {String} value - attribute exact value (handler argument).
-   * @returns {undefined|String} - output css
+   * @returns {undefined|Array} - output css
    */
   nuGetCSS(query, name, value) {
     const isResponsive = value.includes('|');
@@ -839,19 +833,19 @@ export default class NuBase extends HTMLElement {
     const query = this.nuGetQuery(attrs, isHost);
     const cssRoot = isHost ? this.nuShadow : this.nuContext && this.nuContext.$shadowRoot;
 
-    if (hasCSS(query, cssRoot)) {
+    if (hasRuleSet(query, cssRoot)) {
       if (!force) return;
 
-      removeCSS(query, cssRoot);
-    } else if (hasCSS(query)) {
+      removeRuleSet(query, cssRoot);
+    } else if (hasRuleSet(query)) {
       transferCSS(query, cssRoot);
 
       return;
     }
 
-    const css = this.nuGetCSS(query, name, value) || '';
+    const css = this.nuGetCSS(query, name, value) || [''];
 
-    injectCSS(query, query, css);
+    insertRuleSet(query, css);
 
     if (cssRoot) {
       transferCSS(query, cssRoot);
@@ -1088,10 +1082,20 @@ export default class NuBase extends HTMLElement {
     });
   }
 
-  nuEnsureThemes(force) {
+  /**
+   *
+   * @param {Boolean} force
+   * @param {Array<String>} [ignoreList]
+   * @return {*}
+   */
+  nuEnsureThemes(force, ignoreList = []) {
     const values = parseAllValues(this.nuGetAttr(THEME_ATTR, true) || '');
 
     values.forEach((val) => {
+      if (ignoreList.includes(val)) return;
+
+      ignoreList.push(val);
+
       let theme = parseThemeAttr(val);
       const themeName = composeThemeName(theme);
       const key = `theme:${themeName}`;
@@ -1121,6 +1125,8 @@ export default class NuBase extends HTMLElement {
         }, themeName);
       }
     });
+
+    return values;
   }
 
   /**
@@ -1361,14 +1367,19 @@ export default class NuBase extends HTMLElement {
 
     return (this.nuResponsiveDecorator = styles => {
       return mediaPoints
-        .map((point, i) => {
+        .reduce((arr, point, i) => {
           const stls = styles[i];
 
-          if (!stls) return;
+          if (!stls) return arr;
 
-          return `${point}{\n${stls || ''}\n}\n`;
-        })
-        .join('');
+          stls.forEach(rule => {
+            if (rule) {
+              arr.push(`${point}{\n${rule || ''}\n}\n`);
+            }
+          });
+
+          return arr;
+        }, []);
     });
   }
 
@@ -1718,22 +1729,22 @@ export default class NuBase extends HTMLElement {
     const tag = this.constructor.nuTag;
 
     if (shadowCSS) {
-      injectStyleTag(
-        shadowCSS,
+      insertRuleSet(
         `shadow:${tag}`,
+        shadowCSS,
         this.nuShadow,
       );
     }
 
-    injectStyleTag(
-      `:host([is-outline]) [nu] { outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important; }`,
+    insertRuleSet(
       `shadow:${tag}:outline`,
+      [`:host([is-outline]) [nu] { outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important; }`],
       this.nuShadow,
     );
 
     const hostCSSName = `${tag}:host`;
 
-    if (!hasCSS(hostCSSName)) {
+    if (!hasRuleSet(hostCSSName)) {
       this.constructor.nuGenerateDefaultStyle(true);
     }
 

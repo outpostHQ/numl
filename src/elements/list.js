@@ -33,17 +33,20 @@ export default class NuList extends NuBlock {
   }
 
   static nuCSS({ css, tag }) {
-    return `
-      ${css}
-      ${tag}:not([enumerate]):not([type]) {
+    return [
+      ...css,
+
+      `${tag}:not([enumerate]):not([type]) {
         list-style-type: disc;
-      }
-      ${tag}[enumerate]:not([type]) {
+      }`,
+
+      `${tag}[enumerate]:not([type]) {
         list-style-type: decimal;
-      }
-      ${tag} ${tag}:not([padding]) {
+      }`,
+
+      `${tag} ${tag}:not([padding]) {
         padding-left: calc(var(--nu-gap) * 4);
-      }
-    `;
+      }`,
+    ];
   }
 }

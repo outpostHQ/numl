@@ -1,6 +1,12 @@
 <nu-heading>Playground</nu-heading>
 
-{#if show(hash, 'clamp')}
+{#if show('theme')}
+  <nu-card theme="special">
+    Special card
+  </nu-card>
+{/if}
+
+{#if show('clamp')}
   <nu-card>
     <nu-block line-clamp="2" width="max 10">
       sdfasdf af sadg asdigaso ifasoifsadoiu asdfiuosf sdos sf sdof asoif sadf
@@ -8,7 +14,7 @@
   </nu-card>
 {/if}
 
-{#if show(hash, 'table')}
+{#if show('table')}
   <nu-card>
     <nu-table>
       <nu-rowgroup>
@@ -27,13 +33,13 @@
   </nu-card>
 {/if}
 
-{#if show(hash, 'datepicker')}
+{#if show('datepicker')}
   <nu-card>
     <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>
   </nu-card>
 {/if}
 
-{#if show(hash, 'collapse')}
+{#if show('collapse')}
   <nu-block>
     <nu-attrs for="btn" clear="" control="description" padding="" text="wrap" pressing=":active[1]"
               width="100%" content="start"></nu-attrs>
@@ -42,10 +48,10 @@
     <nu-flow gap="">
       <nu-btn toggle>
         <nu-dropdownicon></nu-dropdownicon>
-        <nu-heading>You probably
-          <nu-u>need</nu-u>
+        <nu-el text="h" size="h4">You probably
+          <nu-el text="u">need</nu-el>
           a&nbsp;design&nbsp;system
-        </nu-heading>
+        </nu-el>
       </nu-btn>
 
       <nu-flow id="description" as="container" hidden>
@@ -56,11 +62,11 @@
         </nu-block>
 
         <nu-block>
-          <nu-b>NuML</nu-b>
+          <nu-strong>NuML</nu-strong>
           gives you insane level of
-          <nu-b>consistency</nu-b>
+          <nu-strong>consistency</nu-strong>
           and
-          <nu-b>controllability</nu-b>
+          <nu-strong>controllability</nu-strong>
           . This will make it easier for you to scale your application as it grows.
         </nu-block>
       </nu-flow>
@@ -117,7 +123,7 @@
   </nu-block>
 {/if}
 
-{#if show(hash, 'button')}
+{#if show('button')}
   <nu-card as="section" gap>
     <nu-heading level="4">Buttons</nu-heading>
     <nu-block></nu-block>
@@ -131,7 +137,7 @@
   </nu-card>
 {/if}
 
-{#if show(hash, 'space-around')}
+{#if show('space-around')}
   <nu-card as="section" gap>
     <nu-block>
       There should be a gap between cards
@@ -142,7 +148,7 @@
   </nu-card>
 {/if}
 
-{#if show(hash, 'icon')}
+{#if show('icon')}
   <nu-card as="section">
     <nu-heading level="4">Icons</nu-heading>
 
@@ -189,7 +195,7 @@
   </nu-card>
 {/if}
 
-{#if show(hash, 'tabs')}
+{#if show('tabs')}
   <nu-card as="section">
     <nu-props icon-stroke-width=".5x / 3"></nu-props>
 
@@ -213,13 +219,13 @@
   </nu-card>
 {/if}
 
-{#if show(hash, 'width') || show(hash, 'height')}
+{#if show('width') || show('height')}
   <nu-card width="max 20">
     Something
   </nu-card>
 {/if}
 
-{#if show(hash, 'weight')}
+{#if show('weight')}
   <nu-card>
     <nu-heading level="3">Font
       <nu-u>weight</nu-u>
@@ -237,7 +243,7 @@
   </nu-card>
 {/if}
 
-{#if show(hash, 'place')}
+{#if show('place')}
   <nu-block padding="4">
     <nu-card width="20" height="20">
       <nu-block place="outside-top 1x">Something</nu-block>
@@ -256,7 +262,7 @@
 <!--  </nu-popupmenu>-->
 <!--</nu-btn>-->
 
-{#if show(hash, 'image')}
+{#if show('image')}
   <nu-card id="section">
     <nu-heading>Images</nu-heading>
 
@@ -276,7 +282,7 @@
           id="logo-vector"
           color="text-soft"
           width="100%"
-          height="min(3)"
+          height="min 3"
           label="NUDE Elements Design System Playground">
         </nu-svg>
       </nu-block>
@@ -290,7 +296,7 @@
   </nu-card>
 {/if}
 
-{#if show(hash, 'switch')}
+{#if show('switch')}
   <nu-card as="section">
     <nu-heading>Switches</nu-heading>
 
@@ -317,7 +323,7 @@
   </nu-card>
 {/if}
 
-{#if show(hash, 'markdown')}
+{#if show('markdown')}
   <nu-card as="section">
     <nu-markdown linkify>
       <pre>
@@ -609,7 +615,7 @@ var b = /wow?/;
   </nu-card>
 {/if}
 
-{#if show(hash, 'control')}
+{#if show('control')}
   <nu-card as="section">
     <nu-props transition-time=".4s"></nu-props>
     <nu-heading>Collapsing</nu-heading>
@@ -732,7 +738,7 @@ var b = /wow?/;
   </nu-card>
 {/if}
 
-{#if show(hash, 'form')}
+{#if show('form')}
   <!--  <nu-card>-->
   <!--    <nu-datepicker mode="range" shadow-root="y" value={dateRange}></nu-datepicker>-->
   <!--  </nu-card>-->
@@ -789,7 +795,7 @@ var b = /wow?/;
       </nu-field>
       <nu-field>
         <nu-label>Date of issue</nu-label>
-        <nu-dateinput mode="range" width="min(10)"
+        <nu-dateinput mode="range" width="min 10"
                       placeholder="Date range"></nu-dateinput>
       </nu-field>
       <nu-card>
@@ -842,14 +848,14 @@ var b = /wow?/;
 <!--  <nu-numinput value="15" code="USD"></nu-numinput>-->
 <!--</nu-card>-->
 
-{#if show(hash, 'progressbar')}
+{#if show('progressbar')}
   <nu-card as="section">
     <nu-heading level="2">Progressbar</nu-heading>
     <nu-progressbar value="50"></nu-progressbar>
   </nu-card>
 {/if}
 
-{#if show(hash, 'slider')}
+{#if show('slider')}
   <nu-card as="section">
     <nu-card padding="0" overflow="no" selectable="n">
       <nu-attrs for="$slider-cap" show="n"></nu-attrs>
@@ -890,7 +896,7 @@ var b = /wow?/;
 
 {/if}
 
-{#if show(hash, 'listbox')}
+{#if show('listbox')}
   <nu-card as="section">
     <nu-heading level="4">Plain listbox</nu-heading>
 
@@ -921,14 +927,14 @@ var b = /wow?/;
       </nu-btn>
     </nu-flow>
 
-    <nu-grid columns="1cl 1cl" gap>
+    <nu-grid columns="1pr 1pr" gap>
       <nu-debug id="debug-1"></nu-debug>
       <nu-debug id="debug-2"></nu-debug>
     </nu-grid>
   </nu-card>
 {/if}
 
-{#if show(hash, 'select')}
+{#if show('select')}
   <nu-card as="section">
     <nu-heading level="3">Select</nu-heading>
 
@@ -1079,7 +1085,7 @@ window.addEventListener('hashchange', () => {
   hash = location.hash;
 });
 
-function show(hash, name) {
+$: show = (name) => {
   return hash ? hash.includes(name) : true;
 }
 </script>

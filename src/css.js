@@ -1,40 +1,172 @@
-import { devMode, log, warn, requestIdleCallback, h } from "./helpers";
+import { devMode, log, warn, h } from "./helpers";
 import scrollbarAttr from './attributes/scrollbar';
+import { USE_HIDDEN_STYLES } from './settings';
 
 export const STYLE_MAP = {};
-const testEl = h('div');
+const HEAD = document.head;
+const STYLE = h('style');
+const RULE_SETS = {};
 
-[...document.querySelectorAll('style[data-nu-name]')]
-  .forEach(element => {
-    const name = element.dataset.nuName.replace(/&quot;/g, '"');
+STYLE.dataset.numl = '';
 
-    if (!name.includes('#')) {
-      STYLE_MAP[name] = {
-        element: element,
-        css: element.textContent,
-        selector: name,
-      };
-    }
-  });
+HEAD.appendChild(STYLE);
 
-export function injectStyleTag(css, name, root) {
+const SHEET = STYLE.sheet;
+
+// [...document.querySelectorAll('style[data-nu-name]')]
+//   .forEach(element => {
+//     const name = element.dataset.nuName.replace(/&quot;/g, '"');
+//
+//     if (!name.includes('#')) {
+//       STYLE_MAP[name] = {
+//         element: element,
+//         css: element.textContent,
+//         selector: name,
+//       };
+//     }
+//   });
+
+function getRootNode(root) {
+  return root || HEAD;
+}
+
+function getSheet(root) {
+  if (!root) return SHEET;
+
+  if (root.nuSheet) {
+    return root.nuSheet;
+  }
+
+  const style = h('style');
+
+  root.appendChild(style);
+
+  style.dataset.numl = '';
+
+  root.nuSheet = style.sheet;
+
+  return root.nuSheet;
+}
+
+/**
+ * Insert a set of rules into style sheet.
+ * @param {String} css
+ * @param {CSSStyleSheet} sheet
+ * @param {String} id
+ * @return {CSSRule}
+ */
+export function insertRule(css, sheet, id) {
   css = css || '';
 
   if (devMode) {
     css = beautifyCSS(css);
   }
 
-  const style = h('style');
+  const index = sheet.insertRule(css);
+  const rule = sheet.cssRules[index];
 
-  if (name) {
-    style.dataset.nuName = name;
+  if (id) {
+    rule.nuId = id;
   }
 
-  style.appendChild(document.createTextNode(css));
+  return rule;
+}
 
-  (root || document.head).appendChild(style);
+/**
+ * Insert CSS Rule Set.
+ * @param {String} id
+ * @param {Array<String>} arr
+ * @param {Undefined|ShadowRoot} [root]
+ * @param {Boolean} [force]
+ */
+export function insertRuleSet(id, arr, root, force = false) {
+  if (id && hasRuleSet(id, root)) {
+    if (force) {
+      removeRuleSet(id, root);
+    } else {
+      return;
+    }
+  }
 
-  return style;
+  const ruleMap = getRuleMap(root);
+
+  const ruleSet = ruleMap[id] = {
+    raw: arr,
+    rules: [],
+  };
+
+  if (!root) {
+    RULE_SETS[id] = ruleSet;
+  }
+
+  if (USE_HIDDEN_STYLES) {
+    const sheet = getSheet(root);
+
+    for (let i = 0; i < arr.length; i++) {
+      const rule = arr[i];
+
+      const cssRule = insertRule(rule, sheet, id);
+
+      ruleSet.rules.push(cssRule);
+    }
+  } else {
+    const rootNode = getRootNode(root);
+    const style = h('style');
+
+    style.dataset.numl = id || '';
+
+    ruleSet.element = style;
+
+    style.appendChild(document.createTextNode(arr.join('\n')));
+
+    rootNode.appendChild(style);
+  }
+}
+
+export function removeRuleSet(id, root) {
+  const ruleMap = getRuleMap(root);
+
+  if (USE_HIDDEN_STYLES) {
+    const sheet = getSheet(root);
+
+    while (removeRule(id, sheet)) {}
+  } else {
+    const ruleSet = ruleMap[name];
+
+    if (ruleSet) {
+      const element = ruleSet.element;
+
+      if (element && element.parentNode) {
+        element.parentNode.removeChild(element);
+      }
+    }
+  }
+
+
+  if (!root) {
+    delete ruleMap[name];
+  }
+}
+
+/**
+ * Remove the CSS rule from a style sheet.
+ * @param {String} id
+ * @param {CSSStyleSheet} sheet
+ * @return {boolean}
+ */
+export function removeRule(id, sheet) {
+  const rules = sheet.cssRules;
+
+  for (let i = 0; i < rules.length; i++) {
+    const rule = rules[i];
+
+    if (rule.nuId === id) {
+      sheet.deleteRule(i);
+      return true;
+    }
+  }
+
+  return false;
 }
 
 export function attrsQuery(attrs) {
@@ -72,7 +204,7 @@ const TOUCH_REGEXP = /:hover(?!\))/; // |\[nu-active](?!\))
 const NON_TOUCH_REGEXP = /:hover(?=\))/;
 
 export function generateCSS(query, styles, universal = false) {
-  if (!styles || !styles.length) return;
+  if (!styles || !styles.length) return [];
 
   const isHost = query.startsWith(':host');
 
@@ -80,13 +212,13 @@ export function generateCSS(query, styles, universal = false) {
     query = query.replace(':host', '');
   }
 
-  return styles.map(map => {
+  return styles.reduce((arr, map) => {
     let queries = [query];
 
     const $prefix = map.$prefix;
     const $suffix = map.$suffix;
 
-    if (isHost && ($prefix || !$suffix)) return '';
+    if (isHost && ($prefix || !$suffix)) return arr;
 
     // multiple suffixes and prefixes
     [$suffix, $prefix]
@@ -127,7 +259,9 @@ export function generateCSS(query, styles, universal = false) {
     }
 
     if (universal) {
-      return `${queries.join(',')}{${stylesString(map)}}`;
+      arr.push(`${queries.join(',')}{${stylesString(map)}}`);
+
+      return arr;
     }
 
     const touchQueries = queries.filter(query => query.match(TOUCH_REGEXP));
@@ -140,13 +274,17 @@ export function generateCSS(query, styles, universal = false) {
       @media (hover: none){${nonTouchQueries.join(',').replace(':not(:hover)', '')}{${stylesString(map)}}}
     ` : '';
     const otherQueries = queries.filter(query => !touchQueries.includes(query) && !nonTouchQueries.includes(query));
-    const otherCSS = `${otherQueries.join(',')}{${stylesString(map)}}`;
+    const otherCSS = otherQueries.length ? `${otherQueries.join(',')}{${stylesString(map)}}` : '';
 
-    return [touchCSS, nonTouchCSS, otherCSS].join('\n');
-  }).join('\n');
+    [touchCSS, nonTouchCSS, otherCSS].forEach(rule => {
+      if (rule) {
+        arr.push(rule);
+      }
+    });
+
+    return arr;
+  }, []);
 }
-
-window.generateCSS = generateCSS;
 
 export function parseStyles(str) {
   return str
@@ -160,108 +298,63 @@ export function parseStyles(str) {
     }, {});
 }
 
-export function injectCSS(name, selector, css, root) {
-  const element = injectStyleTag(css, name, root);
-
-  const styleMap = getRootStyleMap(root);
-
-  if (devMode) {
-    try {
-      testEl.querySelector(selector);
-    } catch (e) {
-      warn('invalid selector detected', selector, css);
-    }
-  }
-
-  if (styleMap[name]) {
-    const el = styleMap[name].element;
-
-    if (el.parentNode) {
-      el.parentNode.removeChild(el);
-    }
-  }
-
-  styleMap[name] = {
-    selector,
-    css,
-    element,
-  };
-
-  return styleMap[name];
-}
-
-export function cleanCSSByPart(selectorPart) {
+export function removeRulesByPart(selectorPart) {
   log('clean css by part', selectorPart);
   const isRegexp = selectorPart instanceof RegExp;
-  const keys = Object.keys(STYLE_MAP).filter(selector => isRegexp
-    ? selector.match(selectorPart) : selector.includes(selectorPart));
+  const keys = Object.keys(RULE_SETS).filter(id => isRegexp
+    ? id.match(selectorPart) : id.includes(selectorPart));
 
-  function clean() {
-    keys.forEach(key => {
-      removeCSS(key);
-      log('css removed:', key);
-    });
-  }
-
-  if (!isRegexp && selectorPart.startsWith('#')) {
-    requestIdleCallback(clean);
-  } else {
-    clean();
-  }
+  keys.forEach(key => {
+    removeRuleSet(key);
+    log('css removed:', key);
+  });
 }
 
-export function removeCSS(name, root) {
-  let styleMap = getRootStyleMap(root);
-
-  if (!styleMap[name]) return;
-
-  const el = styleMap[name].element;
-
-  if (el.parentNode) {
-    el.parentNode.removeChild(el);
-  }
-
-  delete styleMap[name];
-}
-
-function getRootStyleMap(root) {
-  let styleMap = STYLE_MAP;
+function getRuleMap(root) {
+  let styleMap = RULE_SETS;
 
   if (root) {
-    if (!root.nuStyleMap) {
-      root.nuStyleMap = {};
+    if (!root.nuRuleMap) {
+      root.nuRuleMap = {};
     }
 
-    styleMap = root.nuStyleMap;
+    styleMap = root.nuRuleMap;
   }
 
   return styleMap;
 }
 
-export function hasCSS(name, root) {
-  let styleMap = getRootStyleMap(root);
+export function hasRuleSet(id, root) {
+  let ruleMap = getRuleMap(root);
 
-  return !!styleMap[name];
+  return !!ruleMap[id];
 }
 
-export function transferCSS(name, root) {
-  const cssMap = STYLE_MAP[name];
+export function transferCSS(id, root) {
+  const ruleMap = getRuleMap(); // get document rule map
+  const ruleSet = ruleMap[id];
 
-  const content = cssMap.element.textContent;
+  if (!ruleSet) return;
 
-  log('transfer styles to the shadow root:', JSON.stringify(name), root);
+  const css = ruleSet.raw;
 
-  return injectCSS(name, cssMap.selector, content, root);
+  log('transfer styles to the shadow root:', JSON.stringify(id), root);
+
+  return insertRuleSet(id, css, root);
 }
 
 /**
  * Very fast css beautification without parsing.
  * Do not support media queries
  * Use in Dev Mode only!
- * @param css
- * @returns {string}
+ * @param {Array|String} css
+ * @returns {Array|String}
  */
 export function beautifyCSS(css) {
+  if (Array.isArray(css)) {
+    return css.map(beautifyCSS);
+  }
+
   let flag = false;
 
   return css.replace(/[{;}](?!$)/g, s => s + '\n')
@@ -288,7 +381,27 @@ export function beautifyCSS(css) {
     }).join('\n');
 }
 
-const globalCSS = `
+export function splitIntoRules(css) {
+  if (Array.isArray(css)) return css;
+
+  const arr = css.split('}').map(s => `${s}}`);
+
+  return arr.slice(0, -1);
+}
+
+/**
+ *
+ * @param mediaQuery - CSS media query for the rule
+ * @param {String} rule - a full rule or just a selector
+ * @param {String} [styles]
+ * @return {string}
+ */
+export function withMediaQuery(mediaQuery, rule, styles) {
+  return `@media ${mediaQuery} {${styles != null ? `${rule}{${styles}}` : rule}}`;
+}
+
+
+const globalRules = [`
 :root {
   --nu-base: 16px;
   --nu-pixel: 1px;
@@ -316,17 +429,17 @@ const globalCSS = `
 
   --nu-font: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
   --nu-monospace-font: monospace;
-}
+}`,
 
-:root:not([data-nu-prevent-reset]) body {
+`:root:not([data-nu-prevent-reset]) body {
   line-height: 1rem;
-}
+}`,
 
-:root:not([data-nu-prevent-reset]) body > *:not([size]) {
+`:root:not([data-nu-prevent-reset]) body > *:not([size]) {
   line-height: 1.5rem;
-}
+}`,
 
-.nu-defaults, :root:not([data-nu-prevent-reset]) body {
+`.nu-defaults, :root:not([data-nu-prevent-reset]) body {
   margin: 0;
   padding: 0;
   font-family: var(--nu-font);
@@ -341,49 +454,50 @@ const globalCSS = `
   -webkit-text-size-adjust: none;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color calc(var(--nu-transition-enabler) * var(--nu-transition-time)) linear;
-}
+}`,
 
-.nu-defaults:not(body) {
+`.nu-defaults:not(body) {
   line-height: 1.5rem;
-}
+}`,
 
-@media (prefers-color-scheme: dark) {
+`@media (prefers-color-scheme: dark) {
   :root:not([data-nu-scheme="light"]) .nu-dark-invert {
     filter: invert(100%) hue-rotate(180deg);
   }
+}`,
 
+`@media (prefers-color-scheme: dark) {
   :root:not([data-nu-scheme="light"]) .nu-dark-dim, :root:not([data-nu-scheme="light"]) nu-img {
     filter: brightness(0.95);
   }
-}
+}`,
 
-:root[data-nu-scheme="dark"] .nu-dark-invert {
+`:root[data-nu-scheme="dark"] .nu-dark-invert {
   filter: invert(95%) hue-rotate(180deg);
-}
+}`,
 
-:root[data-nu-scheme="dark"] .nu-dark-dim, :root[data-nu-scheme="dark"] nu-img {
+`:root[data-nu-scheme="dark"] .nu-dark-dim, :root[data-nu-scheme="dark"] nu-img {
   filter: brightness(0.95);
-}
+}`,
 
-@media (prefers-reduced-motion: reduce) {
+`@media (prefers-reduced-motion: reduce) {
   :root {
     --nu-transition-enabler: 0;
   }
-}
+}`,
 
-:root[data-nu-reduce-motion] {
+`:root[data-nu-reduce-motion] {
   --nu-transition-enabler: 0;
-}
+}`,
 
-:root[data-nu-outline] [nu] {
-  outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important;
-}
+`:root[data-nu-outline] [nu] {
+  outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5) !important;
+}`,
 
-[nu-hidden] {
+`[nu-hidden] {
   display: none !important;
-}
+}`,
 
-${generateCSS('body', scrollbarAttr('yes'))}
-`;
+...generateCSS('body', scrollbarAttr('yes'), false)];
 
-injectStyleTag(globalCSS, 'nu-defaults');
+insertRuleSet('global', globalRules);

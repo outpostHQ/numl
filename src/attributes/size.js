@@ -1,5 +1,5 @@
 import { parseAttr } from '../helpers';
-import { injectStyleTag } from '../css';
+import { insertRuleSet } from '../css';
 
 export const SIZES = {
   xxs: [.666, 1],
@@ -27,7 +27,7 @@ Object.keys(SIZES).forEach(size => {
 --nu-${size}-line-height: ${arr[1]}rem;`;
 });
 
-injectStyleTag(`:root{${PROPS}`, 'nu-sizes');
+insertRuleSet('nu-sizes', [`:root{${PROPS}`]);
 
 const BASE_STYLES = {
   'font-size': 'var(--nu-font-size)',

@@ -28,7 +28,7 @@ export default class NuDefinition extends NuBase {
   }
 
   static nuCSS({ tag, css }) {
-    return `${tag} { display: none !important; }`;
+    return [`${tag} { display: none !important; }`];
   }
 
   get nuParentSelector() {

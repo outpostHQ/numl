@@ -30,15 +30,16 @@ export default class NuBtn extends NuActiveElement {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag}[special] > :not([theme]) {
+    return [
+      ...css,
+
+      `${tag}[special] > :not([theme]) {
         --nu-text-soft-color: var(--nu-special-text-color);
         --nu-text-contrast-color: var(--nu-special-text-color);
         --nu-text-color: var(--nu-special-text-color);
         --nu-special-color: var(--nu-special-text-color);
         --nu-mark-color: var(--nu-special-mark-color);
-      }
-    `;
+      }`,
+    ];
   }
 }

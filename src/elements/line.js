@@ -43,11 +43,12 @@ export default class NuLine extends NuBlock {
   }
 
   static nuCSS({ tag, css }) {
-    return `
-      ${css}
-      ${tag} {
+    return [
+      ...css,
+
+      `${tag} {
         line-height: 0 !important;
-      }
-    `;
+      }`,
+    ];
   }
 }
