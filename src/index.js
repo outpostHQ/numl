@@ -37,7 +37,7 @@ import generators from './generators';
 import { scheme, contrast, reduceMotion, preventInit } from './settings';
 import CONTEXT from './context';
 import { applyTheme, BASE_THEME } from './themes';
-import { cleanCSSByPart, generateCSS, insertRuleSet } from './css';
+import { removeRulesByPart, generateCSS, insertRuleSet } from './css';
 import { NuElement } from './elements';
 import Behavior from './behaviors/behavior';
 import WidgetBehavior from './behaviors/widget';
@@ -98,7 +98,7 @@ const verifyDOM = asyncDebounce(() => {
       el.nuVerifyChildren(true);
     });
 
-  cleanCSSByPart('attrs:all');
+  removeRulesByPart('attrs:all');
 });
 
 const Nude = {

@@ -11,7 +11,7 @@ import {
   hslToRgb,
   findContrastLightness, setSaturation, strToHsl, getSaturationRatio,
 } from './color';
-import { cleanCSSByPart, insertRuleSet, stylesString, withMediaQuery } from './css';
+import { removeRulesByPart, insertRuleSet, stylesString, withMediaQuery } from './css';
 
 export const THEME_ATTR = 'theme';
 
@@ -477,7 +477,7 @@ export function removeTheme(el, name, customProps) {
     .forEach(prop => {
       if (prop.startsWith(key)) {
         delete el.nuContext[prop];
-        cleanCSSByPart(`${prop}:#${el.nuUniqId}`);
+        removeRulesByPart(`${prop}:#${el.nuUniqId}`);
       }
     });
 }

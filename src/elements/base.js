@@ -3,7 +3,7 @@ import {
   hasRuleSet,
   attrsQuery,
   generateCSS,
-  cleanCSSByPart,
+  removeRulesByPart,
   transferCSS,
   STYLE_MAP, injectStyleTag, insertRuleSet, removeRuleSet,
 } from '../css';
@@ -731,7 +731,7 @@ export default class NuBase extends HTMLElement {
 
     if (this.id) {
       setTimeout(() => {
-        cleanCSSByPart(new RegExp(`#${this.id}(?![a-z0-9_-])`, 'g'));
+        removeRulesByPart(new RegExp(`#${this.id}(?![a-z0-9_-])`, 'g'));
       });
     }
   }

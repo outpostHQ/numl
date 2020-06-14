@@ -298,20 +298,16 @@ export function parseStyles(str) {
     }, {});
 }
 
-export function cleanCSSByPart(selectorPart) {
+export function removeRulesByPart(selectorPart) {
   log('clean css by part', selectorPart);
   const isRegexp = selectorPart instanceof RegExp;
-  const keys = Object.keys(STYLE_MAP).filter(selector => isRegexp
-    ? selector.match(selectorPart) : selector.includes(selectorPart));
+  const keys = Object.keys(RULE_SETS).filter(id => isRegexp
+    ? id.match(selectorPart) : id.includes(selectorPart));
 
-  function clean() {
-    keys.forEach(key => {
-      removeRuleSet(key);
-      log('css removed:', key);
-    });
-  }
-
-  clean();
+  keys.forEach(key => {
+    removeRuleSet(key);
+    log('css removed:', key);
+  });
 }
 
 function getRuleMap(root) {
