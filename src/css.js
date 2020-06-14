@@ -30,7 +30,7 @@ function getSheet(root) {
   if (!root) return SHEET;
 
   if (root.nuSheet) {
-    root.nuSheet;
+    return root.nuSheet;
   }
 
   const style = h('style');
@@ -48,9 +48,7 @@ export function injectStyleTag(css, name, root) {
   css = css || '';
 
   if (Array.isArray(css)) {
-    //css = css.join('\n');
-
-    insertRuleSet(css, name);
+    insertRuleSet(name, css);
 
     return;
   }
@@ -72,51 +70,92 @@ export function injectStyleTag(css, name, root) {
   return style;
 }
 
-export function insertRule(id, css, root) {
+/**
+ * Insert a set of rules into style sheet.
+ * @param {String} css
+ * @param {CSSStyleSheet} sheet
+ * @param {String} id
+ * @return {CSSRule}
+ */
+export function insertRule(css, sheet, id) {
   css = css || '';
 
   if (devMode) {
     css = beautifyCSS(css);
   }
 
-  const sheet = getSheet(root);
   const index = sheet.insertRule(css);
   const rule = sheet.cssRules[index];
 
-  rule.nuId = id;
+  if (id) {
+    rule.nuId = id;
+  }
 
   return rule;
 }
 
-export function insertRuleSet(arr, id) {
-  if (id) {
-    removeRuleSet(id);
+/**
+ * Insert CSS Rule Set.
+ * @param {String} id
+ * @param {Array<String>} arr
+ * @param {Undefined|HTMLElement} [root]
+ * @param {Boolean} [force]
+ */
+export function insertRuleSet(id, arr, root, force = false) {
+  if (id && hasRuleSet(id, root)) {
+    if (force) {
+      removeRuleSet(id);
+    } else {
+      return;
+    }
+  }
+
+  const sheet = getSheet(root);
+  const ruleMap = getRuleMap(root);
+
+  const ruleSet = ruleMap[id] = {
+    raw: arr,
+    rules: [],
+  };
+
+  if (!root) {
+    RULE_SETS[id] = ruleSet;
   }
 
   for (let i = 0; i < arr.length; i++) {
     const rule = arr[i];
 
-    const cssRule = insertRule(id, rule);
+    const cssRule = insertRule(rule, sheet, id);
 
-    if (id) {
-      cssRule.nuId = id;
-    }
+    ruleSet.rules.push(cssRule);
   }
 }
 
-export function removeRuleSet(id) {
-  while (removeRule(id)) {}
+export function removeRuleSet(id, root) {
+  const sheet = getSheet(root);
+  const ruleMap = getRuleMap(root);
 
-  delete RULE_SETS[name];
+  while (removeRule(id, sheet)) {}
+
+  if (!root) {
+    delete ruleMap[name];
+  }
 }
 
-export function removeRule(id) {
-  const rules = SHEET.cssRules;
+/**
+ * Remove the CSS rule from a style sheet.
+ * @param {String} id
+ * @param {CSSStyleSheet} sheet
+ * @return {boolean}
+ */
+export function removeRule(id, sheet) {
+  const rules = sheet.cssRules;
 
   for (let i = 0; i < rules.length; i++) {
     const rule = rules[i];
 
     if (rule.nuId === id) {
+      sheet.deleteRule(i);
       return true;
     }
   }
@@ -259,36 +298,6 @@ export function parseStyles(str) {
     }, {});
 }
 
-export function injectCSS(name, selector, css, root) {
-  const element = injectStyleTag(css, name, root);
-
-  const styleMap = getRootStyleMap(root);
-
-  if (devMode) {
-    try {
-      testEl.querySelector(selector);
-    } catch (e) {
-      warn('invalid selector detected', selector, css);
-    }
-  }
-
-  if (styleMap[name]) {
-    const el = styleMap[name].element;
-
-    if (el.parentNode) {
-      el.parentNode.removeChild(el);
-    }
-  }
-
-  styleMap[name] = {
-    selector,
-    css,
-    element,
-  };
-
-  return styleMap[name];
-}
-
 export function cleanCSSByPart(selectorPart) {
   log('clean css by part', selectorPart);
   const isRegexp = selectorPart instanceof RegExp;
@@ -297,7 +306,7 @@ export function cleanCSSByPart(selectorPart) {
 
   function clean() {
     keys.forEach(key => {
-      removeCSS(key);
+      removeRuleSet(key);
       log('css removed:', key);
     });
   }
@@ -305,58 +314,55 @@ export function cleanCSSByPart(selectorPart) {
   clean();
 }
 
-export function removeCSS(name, root) {
-  let styleMap = getRootStyleMap(root);
-
-  if (!styleMap[name]) return;
-
-  const el = styleMap[name].element;
-
-  if (el.parentNode) {
-    el.parentNode.removeChild(el);
-  }
-
-  delete styleMap[name];
-}
-
-function getRootStyleMap(root) {
-  let styleMap = STYLE_MAP;
+function getRuleMap(root) {
+  let styleMap = RULE_SETS;
 
   if (root) {
-    if (!root.nuStyleMap) {
-      root.nuStyleMap = {};
+    if (!root.nuRuleMap) {
+      root.nuRuleMap = {};
     }
 
-    styleMap = root.nuStyleMap;
+    styleMap = root.nuRuleMap;
   }
 
   return styleMap;
 }
 
-export function hasCSS(name, root) {
-  let styleMap = getRootStyleMap(root);
+export function hasRuleSet(id, root) {
+  let ruleMap = getRuleMap(root);
 
-  return !!styleMap[name];
+  return !!ruleMap[id];
 }
 
-export function transferCSS(name, root) {
-  const cssMap = STYLE_MAP[name];
+export function transferCSS(id, root) {
+  const ruleMap = getRuleMap(); // get document rule map
+  const ruleSet = ruleMap[id];
 
-  const content = cssMap.element.textContent;
+  if (!ruleSet) return;
 
-  log('transfer styles to the shadow root:', JSON.stringify(name), root);
+  const css = ruleSet.raw;
 
-  return injectCSS(name, cssMap.selector, content, root);
+  // const cssMap = STYLE_MAP[id];
+  //
+  // const content = cssMap.element.textContent;
+
+  log('transfer styles to the shadow root:', JSON.stringify(id), root);
+
+  return insertRuleSet(id, css, root);
 }
 
 /**
  * Very fast css beautification without parsing.
  * Do not support media queries
  * Use in Dev Mode only!
- * @param css
- * @returns {string}
+ * @param {Array|String} css
+ * @returns {Array|String}
  */
 export function beautifyCSS(css) {
+  if (Array.isArray(css)) {
+    return css.map(beautifyCSS);
+  }
+
   let flag = false;
 
   return css.replace(/[{;}](?!$)/g, s => s + '\n')
@@ -390,6 +396,18 @@ export function splitIntoRules(css) {
 
   return arr.slice(0, -1);
 }
+
+/**
+ *
+ * @param mediaQuery - CSS media query for the rule
+ * @param {String} rule - a full rule or just a selector
+ * @param {String} [styles]
+ * @return {string}
+ */
+export function withMediaQuery(mediaQuery, rule, styles) {
+  return `@media ${mediaQuery} {${styles != null ? `${rule}{${styles}` : rule}}`;
+}
+
 
 const globalRules = [`
 :root {
@@ -490,4 +508,4 @@ const globalRules = [`
 
 ...generateCSS('body', scrollbarAttr('yes'), false, true)];
 
-insertRuleSet(globalRules);
+insertRuleSet('global', globalRules);

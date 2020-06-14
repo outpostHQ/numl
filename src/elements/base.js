@@ -1,13 +1,11 @@
 import CONTEXT from '../context';
 import {
-  hasCSS,
-  injectCSS,
-  removeCSS,
+  hasRuleSet,
   attrsQuery,
   generateCSS,
   cleanCSSByPart,
   transferCSS,
-  STYLE_MAP, injectStyleTag, insertRuleSet,
+  STYLE_MAP, injectStyleTag, insertRuleSet, removeRuleSet,
 } from '../css';
 import {
   parseThemeAttr,
@@ -135,7 +133,7 @@ export default class NuBase extends HTMLElement {
    * @protected
    * @param Element {Object} - NuBase (HTMLElement)
    * @param tag {String} - tag name
-   * @returns {string}
+   * @returns {Array<String>}
    */
   static nuExtractCSS(Element, tag) {
     const _this = this;
@@ -161,7 +159,7 @@ export default class NuBase extends HTMLElement {
    * Method to generate parent CSS with current element context.
    * @param Element
    * @param tag {String}
-   * @returns {String}
+   * @returns {Array<String>}
    */
   static nuGetParentCSS(Element, tag) {
     let parent = this;
@@ -437,8 +435,6 @@ export default class NuBase extends HTMLElement {
 
     let css = el.nuExtractCSS(el);
 
-    console.log('!', tag, JSON.stringify(css, null, 2));
-
     const allAttrs = this.nuAllGenerators;
     const allDefaults = this.nuAllStyles;
     const combinators = Object.values(this.nuAllCombinators);
@@ -488,13 +484,8 @@ export default class NuBase extends HTMLElement {
         css.push(...generateCSS(query, styles, true, true));
       });
 
-    // const fullCSS = `${css}${defaultsCSS}`;
-
-    // console.log('!', tag, css);
-
     if (!dontInject) {
-      // injectCSS(cssName, tag, fullCSS);
-      insertRuleSet(css, tag);
+      insertRuleSet(tag, css);
     } else {
       return css.join('\n');
     }
@@ -651,8 +642,8 @@ export default class NuBase extends HTMLElement {
     this.nuSetContextAttrs();
 
     if (this.nuContext.$shadowRoot) {
-      if (!hasCSS(this.constructor.nuTag, this.nuContext.$shadowRoot)) {
-        if (!hasCSS(this.constructor.nuTag)) {
+      if (!hasRuleSet(this.constructor.nuTag, this.nuContext.$shadowRoot)) {
+        if (!hasRuleSet(this.constructor.nuTag)) {
           this.constructor.nuGenerateDefaultStyle();
         }
 
@@ -842,11 +833,11 @@ export default class NuBase extends HTMLElement {
     const query = this.nuGetQuery(attrs, isHost);
     const cssRoot = isHost ? this.nuShadow : this.nuContext && this.nuContext.$shadowRoot;
 
-    if (hasCSS(query, cssRoot)) {
+    if (hasRuleSet(query, cssRoot)) {
       if (!force) return;
 
-      removeCSS(query, cssRoot);
-    } else if (hasCSS(query)) {
+      removeRuleSet(query, cssRoot);
+    } else if (hasRuleSet(query)) {
       transferCSS(query, cssRoot);
 
       return;
@@ -854,7 +845,7 @@ export default class NuBase extends HTMLElement {
 
     const css = this.nuGetCSS(query, name, value) || '';
 
-    injectCSS(query, query, css);
+    insertRuleSet(query, css);
 
     if (cssRoot) {
       transferCSS(query, cssRoot);
@@ -1741,7 +1732,7 @@ export default class NuBase extends HTMLElement {
 
     const hostCSSName = `${tag}:host`;
 
-    if (!hasCSS(hostCSSName)) {
+    if (!hasRuleSet(hostCSSName)) {
       this.constructor.nuGenerateDefaultStyle(true);
     }
 

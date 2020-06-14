@@ -11,7 +11,7 @@ import {
   hslToRgb,
   findContrastLightness, setSaturation, strToHsl, getSaturationRatio,
 } from './color';
-import { cleanCSSByPart, injectCSS, stylesString } from './css';
+import { cleanCSSByPart, injectCSS, insertRuleSet, stylesString, withMediaQuery } from './css';
 
 export const THEME_ATTR = 'theme';
 
@@ -505,71 +505,48 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
   log('apply theme', { element, themeName, hue, saturation, pastel, type, contrast, lightness });
 
   const baseQuery = element === document.body ? 'body' : `#${element.nuUniqId}`;
-  const styleTagName = `theme:${themeName}:${baseQuery}`;
+  const ruleSetId = `theme:${themeName}:${baseQuery}`;
 
-  const prefersContrastSupport = matchMedia('(prefers-contrast)').matches;
+  // const prefersContrastSupport = matchMedia('(prefers-contrast)').matches;
   const prefersColorSchemeSupport = matchMedia('(prefers-color-scheme)').matches;
 
-  let finalCSS = '';
+  let cssRules = [];
 
-  if (prefersContrastSupport && prefersColorSchemeSupport) {
-    finalCSS += `
-      @media (prefers-color-scheme: dark) {
-        @media (prefers-contrast: high) and (prefers-contrast: low), (prefers-contrast: high) and (prefers-contrast: no-reference) {
-          ${generateThemeQuery(baseQuery, 'light', 'no')}{${lightContrastProps}}
-          ${generateThemeQuery(baseQuery, 'no', 'no')}
-          , ${generateThemeQuery(baseQuery, 'dark', 'no')}{${darkContrastProps}}
-        }
+  const noNoQuery = generateThemeQuery(baseQuery, 'no', 'no');
 
-        ${generateThemeQuery(baseQuery, 'no', 'high')}{${darkContrastProps}}
-        ${generateThemeQuery(baseQuery, 'no', 'low')}{${darkNormalProps}}
-      }
+  // if (prefersContrastSupport && prefersColorSchemeSupport) {
+  // @TODO
+  // } else
+  if (prefersColorSchemeSupport) {
+    const noHighQuery = generateThemeQuery(baseQuery, 'no', 'high');
+    const noLowQuery = generateThemeQuery(baseQuery, 'no', 'low');
+    const lightNoQuery = generateThemeQuery(baseQuery, 'light', 'no');
+    const darkNoQuery = generateThemeQuery(baseQuery, 'dark', 'no');
 
-      @media (prefers-color-scheme: light), (prefers-color-scheme: no-reference) {
-        @media (prefers-contrast: high) and (prefers-contrast: low), (prefers-contrast: high) and (prefers-contrast: no-reference) {
-          ${generateThemeQuery(baseQuery, 'dark', 'no')}{${darkContrastProps}}
-          ${generateThemeQuery(baseQuery, 'no', 'no')}
-          , ${generateThemeQuery(baseQuery, 'light', 'no')}{${lightContrastProps}}
-        }
-
-        ${generateThemeQuery(baseQuery, 'no', 'high')}{${lightContrastProps}}
-        ${generateThemeQuery(baseQuery, 'no', 'low')}{${lightNormalProps}}
-      }
-    `;
-  } else if (prefersColorSchemeSupport) {
-    finalCSS += `
-      @media (prefers-color-scheme: dark) {
-        ${generateThemeQuery(baseQuery, 'no', 'high')}{${darkContrastProps}}
-        ${generateThemeQuery(baseQuery, 'no', 'low')}
-        , ${generateThemeQuery(baseQuery, 'no', 'no')}{${darkNormalProps}}
-      }
-
-      @media (prefers-color-scheme: light), (prefers-color-scheme: no-reference) {
-        ${generateThemeQuery(baseQuery, 'no', 'high')}{${lightContrastProps}}
-        ${generateThemeQuery(baseQuery, 'no', 'low')}
-        , ${generateThemeQuery(baseQuery, 'no', 'no')}{${lightNormalProps}}
-      }
-
-      ${generateThemeQuery(baseQuery, 'light', 'no')}{${lightNormalProps}}
-      ${generateThemeQuery(baseQuery, 'dark', 'no')}{${darkNormalProps}}
-    `;
+    cssRules.push(
+      withMediaQuery('(prefers-color-scheme: dark)', noHighQuery, darkContrastProps),
+      withMediaQuery('(prefers-color-scheme: dark)', [noLowQuery, noNoQuery].join(), darkNormalProps),
+      withMediaQuery('(prefers-color-scheme: light), (prefers-color-scheme: no-reference)', noHighQuery, lightContrastProps),
+      withMediaQuery('(prefers-color-scheme: light), (prefers-color-scheme: no-reference)', [noLowQuery, noNoQuery].join(), lightNormalProps),
+      `${lightNoQuery}{${lightNormalProps}}`,
+      `${darkNoQuery}{${darkNormalProps}}`,
+    );
   } else {
-    finalCSS += `
-      ${generateThemeQuery(baseQuery, 'no', 'no')} {${lightNormalProps}}
-    `;
+    cssRules.push(`${noNoQuery}{${lightNormalProps}}`);
   }
 
-  finalCSS += `
-    ${generateThemeQuery(baseQuery, 'light', 'low')}{${lightNormalProps}}
-    ${generateThemeQuery(baseQuery, 'light', 'high')}{${lightContrastProps}}
-    ${generateThemeQuery(baseQuery, 'dark', 'low')}{${darkNormalProps}}
-    ${generateThemeQuery(baseQuery, 'dark', 'high')}{${darkContrastProps}}
-  `;
+  cssRules.push(
+    `${generateThemeQuery(baseQuery, 'light', 'low')}{${lightNormalProps}}`,
+    `${generateThemeQuery(baseQuery, 'light', 'high')}{${lightContrastProps}}`,
+    `${generateThemeQuery(baseQuery, 'dark', 'low')}{${darkNormalProps}}`,
+    `${generateThemeQuery(baseQuery, 'dark', 'high')}{${darkContrastProps}}`,
+  );
 
-  injectCSS(
-    styleTagName,
-    baseQuery,
-    finalCSS,
+  insertRuleSet(
+    ruleSetId,
+    cssRules,
+    null,
+    true,
   );
 
   if (themeName === name) return;

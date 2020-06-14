@@ -6,7 +6,7 @@ import {
   parseAttrStates,
   parseColor
 } from '../helpers';
-import { injectCSS } from '../css';
+import { injectCSS, insertRule, insertRuleSet } from '../css';
 
 export default class NuProps extends NuDefinition {
   static get nuTag() {
@@ -62,7 +62,7 @@ export default class NuProps extends NuDefinition {
 
       const css = parent.nuGetCSS(context, 'prop', value);
 
-      injectCSS(`prop:${varName}:${context}`, context, css);
+      insertRuleSet(`prop:${varName}:${context}`, css);
 
       log('apply property', { context: parent, name: varName, value: value });
     });

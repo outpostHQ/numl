@@ -42,10 +42,10 @@
     <nu-flow gap="">
       <nu-btn toggle>
         <nu-dropdownicon></nu-dropdownicon>
-        <nu-heading>You probably
-          <nu-u>need</nu-u>
+        <nu-el text="h" size="h4">You probably
+          <nu-el text="u">need</nu-el>
           a&nbsp;design&nbsp;system
-        </nu-heading>
+        </nu-el>
       </nu-btn>
 
       <nu-flow id="description" as="container" hidden>
@@ -56,11 +56,11 @@
         </nu-block>
 
         <nu-block>
-          <nu-b>NuML</nu-b>
+          <nu-strong>NuML</nu-strong>
           gives you insane level of
-          <nu-b>consistency</nu-b>
+          <nu-strong>consistency</nu-strong>
           and
-          <nu-b>controllability</nu-b>
+          <nu-strong>controllability</nu-strong>
           . This will make it easier for you to scale your application as it grows.
         </nu-block>
       </nu-flow>
@@ -276,7 +276,7 @@
           id="logo-vector"
           color="text-soft"
           width="100%"
-          height="min(3)"
+          height="min 3"
           label="NUDE Elements Design System Playground">
         </nu-svg>
       </nu-block>
@@ -789,7 +789,7 @@ var b = /wow?/;
       </nu-field>
       <nu-field>
         <nu-label>Date of issue</nu-label>
-        <nu-dateinput mode="range" width="min(10)"
+        <nu-dateinput mode="range" width="min 10"
                       placeholder="Date range"></nu-dateinput>
       </nu-field>
       <nu-card>
@@ -921,7 +921,7 @@ var b = /wow?/;
       </nu-btn>
     </nu-flow>
 
-    <nu-grid columns="1cl 1cl" gap>
+    <nu-grid columns="1pr 1pr" gap>
       <nu-debug id="debug-1"></nu-debug>
       <nu-debug id="debug-2"></nu-debug>
     </nu-grid>
