@@ -48,32 +48,6 @@ function getSheet(root) {
   return root.nuSheet;
 }
 
-export function injectStyleTag(css, name, root) {
-  css = css || '';
-
-  if (Array.isArray(css)) {
-    insertRuleSet(name, css);
-
-    return;
-  }
-
-  if (devMode) {
-    css = beautifyCSS(css);
-  }
-
-  const style = h('style');
-
-  if (name) {
-    style.dataset.nuName = name;
-  }
-
-  style.appendChild(document.createTextNode(css));
-
-  (root || document.head).appendChild(style);
-
-  return style;
-}
-
 /**
  * Insert a set of rules into style sheet.
  * @param {String} css
@@ -229,8 +203,8 @@ export function stylesString(styles) {
 const TOUCH_REGEXP = /:hover(?!\))/; // |\[nu-active](?!\))
 const NON_TOUCH_REGEXP = /:hover(?=\))/;
 
-export function generateCSS(query, styles, universal = false, returnArray = false) {
-  if (!styles || !styles.length) return;
+export function generateCSS(query, styles, universal = false) {
+  if (!styles || !styles.length) return [];
 
   const isHost = query.startsWith(':host');
 
@@ -238,7 +212,7 @@ export function generateCSS(query, styles, universal = false, returnArray = fals
     query = query.replace(':host', '');
   }
 
-  const arr = styles.reduce((arr, map) => {
+  return styles.reduce((arr, map) => {
     let queries = [query];
 
     const $prefix = map.$prefix;
@@ -310,12 +284,6 @@ export function generateCSS(query, styles, universal = false, returnArray = fals
 
     return arr;
   }, []);
-
-  if (returnArray) {
-    return arr;
-  }
-
-  return arr.join('\n');
 }
 
 export function parseStyles(str) {
@@ -369,10 +337,6 @@ export function transferCSS(id, root) {
   if (!ruleSet) return;
 
   const css = ruleSet.raw;
-
-  // const cssMap = STYLE_MAP[id];
-  //
-  // const content = cssMap.element.textContent;
 
   log('transfer styles to the shadow root:', JSON.stringify(id), root);
 
@@ -534,6 +498,6 @@ const globalRules = [`
   display: none !important;
 }`,
 
-...generateCSS('body', scrollbarAttr('yes'), false, true)];
+...generateCSS('body', scrollbarAttr('yes'), false)];
 
 insertRuleSet('global', globalRules);

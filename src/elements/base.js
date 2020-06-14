@@ -5,7 +5,7 @@ import {
   generateCSS,
   removeRulesByPart,
   transferCSS,
-  STYLE_MAP, injectStyleTag, insertRuleSet, removeRuleSet, insertRule,
+  STYLE_MAP, insertRuleSet, removeRuleSet, insertRule,
 } from '../css';
 import {
   parseThemeAttr,
@@ -458,7 +458,7 @@ export default class NuBase extends HTMLElement {
         const styles = combine(combinator, allDefaults);
 
         if (styles.length) {
-          css.push(...generateCSS(tag, styles, false, true));
+          css.push(...generateCSS(tag, styles, false));
         }
       });
     }
@@ -481,7 +481,7 @@ export default class NuBase extends HTMLElement {
 
         const query = `${tag}${name !== 'text' && !isProp ? `:not([${name}])` : ''}`;
 
-        css.push(...generateCSS(query, styles, true, true));
+        css.push(...generateCSS(query, styles, true));
       });
 
     if (!dontInject) {
@@ -776,7 +776,7 @@ export default class NuBase extends HTMLElement {
    * @param {String} query - CSS query to apply styles.
    * @param {String} name - attribute (handler) name.
    * @param {String} value - attribute exact value (handler argument).
-   * @returns {undefined|String} - output css
+   * @returns {undefined|Array} - output css
    */
   nuGetCSS(query, name, value) {
     const isResponsive = value.includes('|');
@@ -796,7 +796,7 @@ export default class NuBase extends HTMLElement {
 
     let styles = computeStyles(name, value, this.constructor.nuAllGenerators, this.constructor.nuAllStyles);
 
-    return generateCSS(query, styles, true, true);
+    return generateCSS(query, styles, true);
   }
 
   /**
@@ -843,7 +843,7 @@ export default class NuBase extends HTMLElement {
       return;
     }
 
-    const css = this.nuGetCSS(query, name, value) || '';
+    const css = this.nuGetCSS(query, name, value) || [''];
 
     insertRuleSet(query, css);
 

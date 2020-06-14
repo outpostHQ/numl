@@ -1,5 +1,5 @@
 import { parseAttr } from '../helpers';
-import { injectStyleTag, insertRuleSet } from '../css';
+import { insertRuleSet } from '../css';
 
 export const SIZES = {
   xxs: [.666, 1],
