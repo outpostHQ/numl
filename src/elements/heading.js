@@ -74,7 +74,7 @@ export default class NuHeading extends NuBlock {
     const previous = this.previousElementSibling;
     const parent = this.parentNode;
 
-    if (!this.hasAttribute('padding') && previous && !previous.nuDefinition && parent && parent.nuHasName('nu-flow')) {
+    if (!this.hasAttribute('padding') && previous && !previous.nuDefinition && parent && parent.nuHasName('flow')) {
       this.setAttribute('padding', '1em top');
     }
   }

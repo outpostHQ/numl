@@ -15,10 +15,6 @@
 {/if}
 
 {#if show('table')}
-  <nu-card overflow="scroll" width="max 5">
-    Very long text of something
-  </nu-card>
-
   <nu-card>
     <nu-table>
       <nu-rowgroup>

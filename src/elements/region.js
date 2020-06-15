@@ -1,6 +1,6 @@
-import NuElement from './element';
+import NuFlow from './flow';
 
-export default class NuRegion extends NuElement {
+export default class NuRegion extends NuFlow {
   static get nuTag() {
     return 'nu-region';
   }

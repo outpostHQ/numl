@@ -53,7 +53,7 @@ export const BASE_THEME = {
   lightness: 'normal',
 };
 
-export const RGB_COLORS = ['text', 'bg', 'subtle', 'special-text', 'special-bg'];
+export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg'];
 
 /**
  * Get minimal possible contrast ratio between text and foreground.
