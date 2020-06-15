@@ -43,6 +43,8 @@ With **Numl** you can:
 * [Flex playground](https://numl.design/storybook/layouts/flex-playground)
 * [Grid playground](https://numl.design/storybook/layouts/grid-playground)
 * [Markdown converter](https://numl.design/storybook/converters/markdown)
+* [Before/After slider](https://numl.design/storybook/complex/before-after-slider)
+* [Login form validation](https://numl.design/storybook/complex/login-form)
 
 ## Getting started
 
