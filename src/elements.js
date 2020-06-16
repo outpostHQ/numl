@@ -71,6 +71,7 @@ export { default as NuTextArea } from './elements/textarea';
 export { default as NuSvg } from './elements/svg';
 export { default as NuImg } from './elements/img';
 export { default as NuCode } from './elements/code';
+export { default as NuCd } from './elements/cd';
 export { default as NuDebug } from './elements/debug';
 export { default as NuProgressBar } from './elements/progressbar';
 export { default as NuDatePicker } from './elements/datepicker';

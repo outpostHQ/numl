@@ -35,14 +35,6 @@ export default class NuCode extends NuElement {
         display: inline !important;
       }`,
 
-      `${tag}[inline]:not([fill]) {
-        background-color: var(--nu-subtle-color);
-      }`,
-
-      `${tag}[inline]:not([padding]) {
-        padding: .125rem .25em;
-      }`,
-
       `${tag} nu-el[plus]::before {
         content: '+ ';
         display: inline-block;

@@ -192,11 +192,17 @@ export default class NuBase extends HTMLElement {
       name = '';
     }
 
-    return (
+    const ignoreNames = name.split(/\s+/g).filter((nm) => {
+      return nm.startsWith('-');
+    }).map(nm => nm.replace('-', ''));
+
+    const names = (
       NAMES_MAP[this.nuTag]
       || (NAMES_MAP[this.nuTag]
         = [...(name ? name.split(/\s+/g) : []), ...(this.nuParentClass && this.nuParentClass.nuNames || [])].reverse())
     );
+
+    return names.filter(nm => !ignoreNames.includes(nm));
   }
 
   /**
