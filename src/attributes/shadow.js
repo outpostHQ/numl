@@ -34,13 +34,7 @@ export default function shadowAttr(val) {
     };
   }
 
-  let intensityModifier = (parseFloat(size).toFixed(2) || 1) * 2;
-
-  if (intensityModifier !== intensityModifier) {
-    intensityModifier = 2;
-  }
-
   return {
-    '--nu-local-depth-shadow': `${x} ${y} ${size} ${spread} ${size === '0rem' ? 'rgba(0, 0, 0, 0)' : `rgba(0, 0, 0, calc(${baseIntensity} / ${intensityModifier}))`}`,
+    '--nu-local-depth-shadow': `${x} ${y} ${size} ${spread} ${size === '0rem' ? 'rgba(0, 0, 0, 0)' : `rgba(0, 0, 0, calc(${baseIntensity} / 2))`}`,
   };
 }

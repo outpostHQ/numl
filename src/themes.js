@@ -249,7 +249,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
  * @returns {Number} – 0 to 1
  */
 export function getShadowIntensity(bgLightness, shadowIntensity = .2, darkScheme) {
-  return (1 - Math.pow(bgLightness / 100, 1)) * ((darkScheme ? .9 : .8) - shadowIntensity) + shadowIntensity;
+  return (1 - bgLightness / 100) * ((darkScheme ? .9 : .8) - shadowIntensity) + shadowIntensity;
 }
 
 export function themeToProps(name, theme) {

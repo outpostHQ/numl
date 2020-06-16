@@ -8,11 +8,7 @@ export default function fadeAttr(val) {
   if (!val) return;
 
   const { values, mods: allMods } = parseAttr(val, 1);
-
-  // if (!values.length) return;
-
   const size = values[0] || 'calc(var(--nu-gap) * 2)';
-
   const mods = filterMods(allMods, ALLOWED_MODS);
 
   const direction = mods[0] || 'bottom';

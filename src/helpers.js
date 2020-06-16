@@ -1178,17 +1178,28 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
     if (tmp.length > 0) {
       opacity = Number(tmp[1]);
 
-      if (opacity !== opacity || opacity > 100) {
+      if (opacity !== opacity) {
         opacity = 100;
-      } else if (opacity < 0) {
-        opacity = 0;
       }
     }
 
     const name = tmp[0];
-    const color = opacity !== 100
-      ? `rgba(var(--nu-${name}-color-rgb), ${opacity / 100})`
-      : `var(--nu-${name}-color, var(--${name}-color, #${name}))`;
+
+    let color;
+
+    if (name === 'shadow') {
+      color = `rgba(0, 0, 0, calc(var(--nu-local-intensity) * ${opacity} / 100 / 2))`;
+    } else {
+      if (opacity > 100) {
+        opacity = 100;
+      } else if (opacity < 0) {
+        opacity = 0;
+      }
+
+      color = opacity !== 100
+        ? `rgba(var(--nu-${name}-color-rgb), ${opacity / 100})`
+        : `var(--nu-${name}-color, var(--${name}-color, #${name}))`;
+    }
 
     return {
       color,

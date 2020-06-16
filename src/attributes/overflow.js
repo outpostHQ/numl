@@ -21,8 +21,10 @@ const MAP = {
   },
   'scroll-x': {
     'overflow-x': 'scroll',
+    'overflow-y': 'hidden',
   },
   'scroll-y': {
+    'overflow-x': 'hidden',
     'overflow-y': 'scroll',
   },
 };

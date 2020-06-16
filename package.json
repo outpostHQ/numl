@@ -1,6 +1,6 @@
 {
   "name": "numl",
-  "version": "0.11.15",
+  "version": "0.11.16",
   "module": "dist/index.js",
   "homepage": "https://github.com/tenphi/numl#readme",
   "repository": {
@@ -38,8 +38,8 @@
     "build": "mkdir -p dist && rm -vrf dist/* && rollup -c && size-limit",
     "build-only": "mkdir -p dist && rm -vrf dist/* && rollup -c",
     "dev": "rollup -c -w",
-    "play-test": "mkdir -p test && rm -vrf test/* && parcel --out-dir test test.html --open",
-    "play": "mkdir -p test && rm -vrf test/* && parcel --out-dir test index.html --open",
+    "play-test": "mkdir -p test && rm -vrf test/* && parcel --out-dir test test.html",
+    "play": "mkdir -p test && rm -vrf test/* && parcel --out-dir test index.html",
     "build-play": "mkdir -p playground && rm -vrf playground/* && parcel build --out-dir playground index.html",
     "now": "npm run build-play && now --prod playground --name numl",
     "size": "size-limit",

@@ -1,5 +1,21 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('shadow')}
+  <nu-card gap="2x">
+    <nu-card shadow=".25">CARD</nu-card>
+    <nu-card shadow=".5">CARD</nu-card>
+    <nu-card shadow="1">CARD</nu-card>
+    <nu-card shadow="2">CARD</nu-card>
+  </nu-card>
+
+  <nu-card gap="2x">
+    <nu-cardbtn shadow=".25" special>CARD</nu-cardbtn>
+    <nu-cardbtn shadow=".5" special>CARD</nu-cardbtn>
+    <nu-cardbtn shadow="1" special>CARD</nu-cardbtn>
+    <nu-cardbtn shadow="2" special>CARD</nu-cardbtn>
+  </nu-card>
+{/if}
+
 {#if show('theme')}
   <nu-card theme="special">
     Special card
@@ -21,6 +37,30 @@
         <nu-row>
           <nu-tableheader fill="mark"></nu-tableheader>
           <nu-columnheader>Two</nu-columnheader>
+        </nu-row>
+      </nu-rowgroup>
+      <nu-rowgroup>
+        <nu-row>
+          <nu-rowheader>One</nu-rowheader>
+          <nu-cell>Two</nu-cell>
+        </nu-row>
+      </nu-rowgroup>
+    </nu-table>
+  </nu-card>
+
+  <nu-card height="100vh + 4x" padding="1x 0">
+    <nu-attrs
+      for="columnheader"
+      place="sticky top" z="above" fade="0 :sticky[bottom #shadow]"></nu-attrs>
+    <nu-attrs for="content" width="30vw"></nu-attrs>
+    <nu-table box="y" overflow="scroll-x">
+      <nu-rowgroup>
+        <nu-row>
+          <nu-tableheader fill="mark"></nu-tableheader>
+          <nu-columnheader><nu-el as="content">Two</nu-el></nu-columnheader>
+          <nu-columnheader><nu-el as="content">Two</nu-el></nu-columnheader>
+          <nu-columnheader><nu-el as="content">Two</nu-el></nu-columnheader>
+          <nu-columnheader><nu-el as="content">Two</nu-el></nu-columnheader>
         </nu-row>
       </nu-rowgroup>
       <nu-rowgroup>
