@@ -764,7 +764,7 @@ function convertCustomColor(func, color) {
     case 'hp':
       return hplToRgbaStr([values[0], values[1] != null ? values[1] : 100, 56]);
     case 'hsluv':
-      return hplToRgbaStr([...values]);
+      return hslToRgbaStr([...values]);
     case 'hpluv':
       return hplToRgbaStr([...values]);
   }

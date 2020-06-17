@@ -2,7 +2,7 @@
 
 {#if show('fancy')}
   <nu-block>
-    <nu-card height="10" width="6" radius="2x" fill="hpluv(1,) blur">
+    <nu-card height="10" width="6" radius="2x" fill="hsluv(1, 100, 50) blur">
 
     </nu-card>
   </nu-block>
