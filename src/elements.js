@@ -91,6 +91,5 @@ export { default as NuValue } from './elements/value';
 
 /* Decorators */
 export { default as NuTheme } from './definitions/theme';
-export { default as NuVars } from './definitions/vars';
 export { default as NuAttrs } from './definitions/attrs';
 export { default as NuProps } from './definitions/props';

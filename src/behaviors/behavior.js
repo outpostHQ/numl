@@ -99,10 +99,6 @@ export default class Behavior {
     return this.host.hasAttribute(name);
   }
 
-  getVar(name) {
-    return this.host.nuGetVar(name);
-  }
-
   linkContext(name, cb, localName) {
     if (!localName && localName !== false) {
       localName = name;

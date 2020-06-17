@@ -100,20 +100,6 @@ export default class ControlBehavior {
 
         if (val == null) {
           firstValue = secondValue = applyValue;
-        } else {
-          // if no value specified then use default value
-          [firstValue, secondValue] = val.split('|')
-            .map(vl => {
-              if (vl.startsWith('@')) {
-                vl = vl.slice(1);
-
-                return vl === 'value' || !vl ? applyValue : host.nuGetVar(vl);
-              }
-
-              return vl;
-            });
-
-          secondValue = secondValue != null ? secondValue : firstValue;
         }
 
         let setValue = firstValue;

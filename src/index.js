@@ -12,7 +12,6 @@ import {
 } from './helpers';
 
 import { define } from './define';
-export * from './elements';
 export { FLEX_GAP_SUPPORTED } from './attributes/gap';
 import initSticky from './sticky';
 import initLinks from './links';
@@ -191,31 +190,6 @@ Nude.getElementById = function (id) {
 Nude.getElementsById = function (id) {
   return document.querySelectorAll(`[nu-id="${id}"]`);
 };
-
-// Get critical css
-// Nude.getCriticalCSS = function () {
-//   const baseCSS = [...document.querySelectorAll('[data-nu-name]')]
-//     .reduce((html, el) => {
-//       const name = el.dataset.nuName.replace(/&quot;/g, '"');
-//
-//       if ((!name.includes('#nu--') && !name.startsWith('theme:') && !name.includes('theme='))
-//         || name === 'theme:base' || name === 'theme:main:body') {
-//         html += el.outerHTML;
-//         html += '\n';
-//       }
-//
-//       return html;
-//     }, '');
-//
-//   const attrsCSS = `<style data-nu-name="attrs:all">${[...document.querySelectorAll('nu-attrs')]
-//     .reduce((css, el) => {
-//       css += el.nuGetCriticalCSS();
-//
-//       return css;
-//     }, '')}</style>`;
-//
-//   return `${baseCSS}\n${attrsCSS}`;
-// };
 
 window.Nude = Nude;
 

@@ -17,7 +17,7 @@ import {
   THEME_TYPE_MODS, THEME_ATTR
 } from '../themes';
 import { generateCSSByZones, RESPONSIVE_ATTR, RESPONSIVE_MOD } from '../responsive';
-import { composeVarsValue, getVarsList, VAR_MOD } from '../variables';
+import { composeVarsValue, getVarsList } from '../variables';
 import {
   getParent,
   query,
@@ -557,7 +557,6 @@ export default class NuBase extends HTMLElement {
         });
 
         this.nuVerifyChildren({
-          vars: true,
           responsive: true,
           shadow: true,
         });
@@ -903,11 +902,6 @@ export default class NuBase extends HTMLElement {
         }
       }
 
-      if (value.includes('@')) {
-        context[`is-${VAR_MOD}`] = null; // :not(...
-        value = '';
-      }
-
       return {
         oldValue: this.nuAttrValues[attr],
         value,
@@ -946,7 +940,6 @@ export default class NuBase extends HTMLElement {
       context[contextModAttr] = Array.from(contextIds).join(' ');
 
       this.nuSetMod(contextMod, context[contextModAttr]);
-      this.nuSetMod(VAR_MOD, true);
     }
 
     return {
@@ -1270,10 +1263,6 @@ export default class NuBase extends HTMLElement {
     if (force) {
       selectors.push('[nu]', '[shadow-root]');
     } else {
-      if (vars) {
-        selectors.push(`[is-${VAR_MOD}]`);
-      }
-
       if (responsive) {
         selectors.push(`[is-${RESPONSIVE_MOD}="${this.nuUniqId}"]`);
       }
@@ -1405,49 +1394,6 @@ export default class NuBase extends HTMLElement {
     if (!this.nuApplyAttrs.includes(attrName)) {
       this.nuApplyAttrs.push(attrName);
     }
-  }
-
-  nuSetVar(name, value, definition) {
-    if (this.nuHasVar(name) && this.nuGetVar(name) === value) {
-      return;
-    }
-
-    this.nuSetContext(
-      `var:${name}`,
-      value == null
-        ? null
-        : {
-          context: this,
-          definition,
-          value: value,
-        }
-    );
-
-    this.nuVerifyChildren({ vars: true, shadow: true });
-
-    log('set variable', { context: this, name, value });
-  }
-
-  nuHasVar(name) {
-    return this.nuContext && `var:${name}` in this.nuContext;
-  }
-
-  nuGetVar(name) {
-    const data = this.nuContext[`var:${name}`];
-
-    return data && data.value;
-  }
-
-  nuRemoveVar(name) {
-    delete this.nuContext[`var:${name}`];
-
-    setTimeout(() => {
-      if (!this.nuContext.hasOwnProperty(`var:${name}`)) {
-        this.nuVerifyChildren({ vars: true, shadow: true });
-      }
-    });
-
-    log('remove variable', { context: this, name });
   }
 
   nuReapplyCSS() {
@@ -1807,44 +1753,44 @@ export default class NuBase extends HTMLElement {
     return this.pressed;
   }
 
-  get asList() {
-    if (!this._asList) {
-      const host = this;
-
-      this._asList = {
-        values() {
-          let attr = host.getAttribute('as');
-
-          if (attr) {
-            attr = attr.trim();
-          }
-
-          return attr ? attr.split(/\s+/g) : [];
-        },
-        contains(name) {
-          return this.values().includes(name);
-        },
-        add(name) {
-          const names = this.values();
-
-          if (!names.includes(name)) {
-            names.push(name);
-
-            host.setAttribute('as', names.join(' '));
-          }
-        },
-        remove(name) {
-          const names = this.values();
-
-          if (names.includes(name)) {
-            names.splice(names.indexOf(name), 1);
-
-            host.setAttribute('as', names.join(' '));
-          }
-        },
-      };
-    }
-
-    return this._asList;
-  }
+  // get asList() {
+  //   if (!this._asList) {
+  //     const host = this;
+  //
+  //     this._asList = {
+  //       values() {
+  //         let attr = host.getAttribute('as');
+  //
+  //         if (attr) {
+  //           attr = attr.trim();
+  //         }
+  //
+  //         return attr ? attr.split(/\s+/g) : [];
+  //       },
+  //       contains(name) {
+  //         return this.values().includes(name);
+  //       },
+  //       add(name) {
+  //         const names = this.values();
+  //
+  //         if (!names.includes(name)) {
+  //           names.push(name);
+  //
+  //           host.setAttribute('as', names.join(' '));
+  //         }
+  //       },
+  //       remove(name) {
+  //         const names = this.values();
+  //
+  //         if (names.includes(name)) {
+  //           names.splice(names.indexOf(name), 1);
+  //
+  //           host.setAttribute('as', names.join(' '));
+  //         }
+  //       },
+  //     };
+  //   }
+  //
+  //   return this._asList;
+  // }
 }
