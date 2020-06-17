@@ -1,8 +1,12 @@
-import { hsluvToRgb, rgbToHsluv, hpluvToHsluv } from './hsluv';
+import { hsluvToRgb, rgbToHsluv, hpluvToHsluv, hpluvToRgb } from './hsluv';
 import { h } from './helpers';
 
 export function hslToRgb(hsl) {
   return hsluvToRgb(hsl).map(n => Math.round(n));
+}
+
+export function hplToRgb(hpl) {
+  return hpluvToRgb(hpl).map(n => Math.round(n));
 }
 
 export function rgbToHsl(rgb) {
@@ -11,6 +15,10 @@ export function rgbToHsl(rgb) {
 
 export function hslToRgbaStr(hsl) {
   return `rgba(${hslToRgb(hsl).join(',')}, ${hsl[3] || 1})`;
+}
+
+export function hplToRgbaStr(hsl) {
+  return `rgba(${hplToRgb(hsl).join(',')}, ${hsl[3] || 1})`;
 }
 
 function setPrecision(num, fixed = 2) {

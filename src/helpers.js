@@ -2,6 +2,8 @@
  * Required root element attribute.
  * @type {String}
  */
+import { hplToRgbaStr, hslToRgbaStr } from './color';
+
 export const ROOT_CONTEXT = ':root';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
@@ -751,6 +753,18 @@ function prepareNuVar(name) {
 const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid', 'initial'];
 const PREPARE_REGEXP = /calc\((\d*)\)/g;
 const COLOR_FUNCS = ['rgb', 'rgba', 'hsl', 'hsla'];
+const CUSTOM_COLOR_FUNCS = ['hs', 'hp'];
+
+function convertCustomColor(func, color) {
+  const values = color.split(',').map(n => parseFloat(n));
+
+  switch (func) {
+    case 'hs':
+      return hslToRgbaStr([values[0], values[1] != null ? values[1] : 70, 40]);
+    case 'hp':
+      return hplToRgbaStr([values[0], values[1] != null ? values[1] : 100, 40]);
+  }
+}
 
 function prepareParsedValue(val) {
   return val.trim().replace(PREPARE_REGEXP, (s, inner) => inner);
@@ -908,6 +922,8 @@ export function parseAttr(value, mode = 0) {
 
         if (COLOR_FUNCS.includes(usedFunc)) {
           color = prepared;
+        } else if (CUSTOM_COLOR_FUNCS.includes(usedFunc)) {
+          color = convertCustomColor(usedFunc, prepared.slice(usedFunc.length + 1, -1));
         } else if (prepared.startsWith('color(')) {
           prepared = prepared.slice(6, -1);
 
@@ -1217,7 +1233,13 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
   }
 
   values.forEach(token => {
-    if (token.match(/^((var|rgb|rgba|hsl|hsla)\(|#[0-9a-f]{3,6})/)) {
+    if (token.startsWith('hs(')) {
+      token = token.slice(3, -1);
+
+      const [hue, saturation = 100] = token.split(',');
+
+      return hslToRgbaStr([hue, saturation, 40]);
+    } else if (token.match(/^((var|rgb|rgba|hsl|hsla)\(|#[0-9a-f]{3,6})/)) {
       color = token;
     } else if (token.endsWith('%')) {
       opacity = parseInt(token);
