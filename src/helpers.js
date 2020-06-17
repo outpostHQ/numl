@@ -753,16 +753,20 @@ function prepareNuVar(name) {
 const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid', 'initial'];
 const PREPARE_REGEXP = /calc\((\d*)\)/g;
 const COLOR_FUNCS = ['rgb', 'rgba', 'hsl', 'hsla'];
-const CUSTOM_COLOR_FUNCS = ['hs', 'hp'];
+const CUSTOM_COLOR_FUNCS = ['hs', 'hp', 'hsluv', 'hpluv'];
 
 function convertCustomColor(func, color) {
   const values = color.split(',').map(n => parseFloat(n));
 
   switch (func) {
     case 'hs':
-      return hslToRgbaStr([values[0], values[1] != null ? values[1] : 70, 40]);
+      return hslToRgbaStr([values[0], values[1] != null ? values[1] : 70, 56]);
     case 'hp':
-      return hplToRgbaStr([values[0], values[1] != null ? values[1] : 100, 40]);
+      return hplToRgbaStr([values[0], values[1] != null ? values[1] : 100, 56]);
+    case 'hsluv':
+      return hplToRgbaStr([...values]);
+    case 'hpluv':
+      return hplToRgbaStr([...values]);
   }
 }
 

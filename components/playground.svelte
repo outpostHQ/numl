@@ -1,7 +1,15 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('fancy')}
+  <nu-block>
+    <nu-card height="10" width="6" radius="2x" fill="hpluv(1,) blur">
+
+    </nu-card>
+  </nu-block>
+{/if}
+
 {#if show('shadow')}
-  <nu-card gap="2x">
+  <nu-card gap="2x" text="b">
     <nu-card shadow=".25">CARD</nu-card>
     <nu-card shadow=".5">CARD</nu-card>
     <nu-card shadow="1">CARD</nu-card>
