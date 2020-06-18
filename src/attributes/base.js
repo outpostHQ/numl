@@ -41,6 +41,7 @@ import selectableAttr from './selectable';
 import boxAttr from './box';
 import clampAttr from './clamp';
 import { flexAttr } from './flex';
+import backdropAttr from './backdrop';
 
 export default {
   width: sizeUnit('width'),
@@ -94,6 +95,7 @@ export default {
   color: colorAttr,
   fill: fillAttr,
   filter: filterAttr,
+  backdrop: backdropAttr,
   image: imageAttr,
   transform: transformAttr,
   scale: scaleAttr,

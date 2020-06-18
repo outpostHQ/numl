@@ -5,7 +5,7 @@
     <nu-block color="hs(280)">Heading</nu-block>
     <nu-card
       clear height="15" width="15" radius="3x" shadow="1 special"
-      image="linear(-15deg, !hs(280, 50%), !hs(320, 50%))">
+      image="linear(-15deg, !hs(280), !hs(320))" filter="drop-shadow(0 0 2rem #special-shadow)">
       Heading
     </nu-card>
   </nu-flow>

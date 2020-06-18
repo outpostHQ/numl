@@ -679,7 +679,7 @@ export function stripCalc(val) {
   return val.replace(/calc\(([^)]+)\)/g, (s, s1) => s1);
 }
 
-export function splitStyleValue(val) {
+export function extractStyleFuncs(val) {
   return val.split(/\s+(?![^(.]+\))/);
 }
 
@@ -1206,7 +1206,9 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
     let color;
 
     if (name === 'shadow') {
-      color = `rgba(0, 0, 0, calc(var(--nu-local-intensity) * ${opacity} / 100 / 2))`;
+      color = `rgba(0, 0, 0, calc(var(--nu-intensity) * ${opacity} / 100 / 2))`;
+    } else if (name === 'special-shadow') {
+      color = `rgba(0, 0, 0, calc(var(--nu-special-intensity) * ${opacity} / 100 / 2))`;
     } else {
       if (opacity > 100) {
         opacity = 100;
