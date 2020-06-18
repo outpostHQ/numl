@@ -624,7 +624,7 @@ export function requireColor(hue, saturation, alpha, pastel, invertContrast) {
     alpha = 1;
   }
 
-  const prop = `--nu-h${hue}-s${saturation}-a${String(alpha).replace(/(0|)./, '')}${pastel ? '-p' : ''}${invertContrast ? '-i' : ''}`;
+  const prop = `--nu-h${hue}-s${saturation}-a${(alpha * 100)}${pastel ? '-p' : ''}${invertContrast ? '-i' : ''}`;
 
   if (!COLORS[prop]) {
     const lightValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], 4.5), alpha]);
@@ -690,10 +690,10 @@ Object.assign(CUSTOM_FUNCS, {
 
     return `var(${requireColor(hue, saturation, alpha, true, invert)})`;
   },
-  ['!hs'](val) {
+  hsi(val) {
     return this.hs(val, true);
   },
-  ['!hp'](val) {
+  hpi(val) {
     return this.hp(val, true);
   },
   hsluv(val) {

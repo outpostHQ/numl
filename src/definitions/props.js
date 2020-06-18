@@ -62,7 +62,7 @@ export default class NuProps extends NuDefinition {
 
       const css = parent.nuGetCSS(context, 'prop', value);
 
-      insertRuleSet(`prop:${varName}:${context}`, css);
+      insertRuleSet(`prop:${varName}:${context}`, css, null, true);
 
       log('apply property', { context: parent, name: varName, value: value });
     });

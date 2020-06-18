@@ -51,7 +51,7 @@ export default class NuSlider extends NuElement {
     return {
       display: 'inline-block',
       radius: 'round',
-      fill: 'special-bg :disabled[text 50%]',
+      fill: 'special :disabled[text 50%]',
       opacity: '1 :disabled[.5]',
       border: '1bw',
       text: 'v-middle',

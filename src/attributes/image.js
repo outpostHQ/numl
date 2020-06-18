@@ -1,9 +1,9 @@
-import { convertCustomFuncs } from '../helpers';
+import { convertCustomFuncs, convertCustomProperties } from '../helpers';
 
 const REGEX = /(linear|conic)(?=\()/g;
 
 export default function imageAttr(val) {
-  val = convertCustomFuncs(val);
+  val = convertCustomProperties(convertCustomFuncs(val));
 
   val = val.replace(REGEX, (s) => `${s}-gradient`);
 

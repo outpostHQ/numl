@@ -22,6 +22,7 @@ const MAP = {
   height: ['max-height', 'min-height', 'height'],
   gap: ['gap', 'margin'],
   z: ['z-index'],
+  image: ['background-image', 'background-position', 'background-size'],
 };
 
 export const DEFAULT_TIMING = 'calc(var(--nu-transition-enabler) * var(--nu-transition-time))';

@@ -128,7 +128,7 @@ export default class ControlBehavior {
               element.style.removeProperty(attr);
             }
           } else {
-            setAttr(element, attr, setValue);
+            setAttr(element, attr, val.includes('@') ? val.replace(/@/g, () => applyValue) : applyValue);
           }
         }
       }

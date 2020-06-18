@@ -2,11 +2,17 @@
 
 {#if show('fancy')}
   <nu-flow color="special-text" size="xl" text="h" gap="2x">
+    <nu-slider fill="--from" width="20" min="0" max="359" value="280" control="props[from=hsi(@)]"></nu-slider>
+    <nu-slider fill="--to" width="20" min="0" max="359" value="320" control="props[to=hsi(@)]"></nu-slider>
     <nu-block color="hs(280)">Heading</nu-block>
+    <nu-props id="props" from="hsi(280)" to="hsi(320)"></nu-props>
     <nu-card
-      clear height="15" width="15" radius="3x" shadow="1 special"
-      image="linear(-15deg, !hs(280), !hs(320))" filter="drop-shadow(0 0 2rem #special-shadow)">
-      Heading
+      clear radius="3x" width="15" height="15" shadow="special :hover[2 special]"
+      fill="hsi(280) :hover[hsi(320)]" transition="fill .15s, shadow"
+      image="linear(-15deg, --from, --to)">
+      <nu-el
+        move="^:hover[0 .5x]" opacity="^:hover[1] .9"
+        transition="move, opacity">Heading</nu-el>
     </nu-card>
   </nu-flow>
 {/if}

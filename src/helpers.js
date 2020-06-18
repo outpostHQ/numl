@@ -752,18 +752,23 @@ function prepareNuVar(name) {
 
 const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid', 'initial'];
 const PREPARE_REGEXP = /calc\((\d*)\)/g;
+const CUSTOM_PROPS_REGEX = /(^|[^(])--([a-z0-9-]+)/g;
 const COLOR_FUNCS = ['rgb', 'rgba', 'hsl', 'hsla'];
 
 export const CUSTOM_FUNCS = {};
 
 let CUSTOM_FUNCS_REGEX;
 
+export function convertCustomProperties(val) {
+  return val.replace(CUSTOM_PROPS_REGEX, (s, s1, s2) => `${s1}var(--nu-${s2}, var(--${s2}))`);
+}
+
 export function convertCustomFuncs(str) {
   if (!CUSTOM_FUNCS_REGEX) {
-    CUSTOM_FUNCS_REGEX = new RegExp(`(${Object.keys(CUSTOM_FUNCS).join('|')})\\(([^)]+)\\)`, 'g');
+    CUSTOM_FUNCS_REGEX = new RegExp(`(^|[\\s])(${Object.keys(CUSTOM_FUNCS).join('|')})\\(([^)]+)\\)`, 'g');
   }
 
-  return str.replace(CUSTOM_FUNCS_REGEX, (s, s1, s2) => `${CUSTOM_FUNCS[s1](s2)}`);
+  return str.replace(CUSTOM_FUNCS_REGEX, (s, s1, s2, s3) => `${s1}${CUSTOM_FUNCS[s2](s3)}`);
 }
 
 function prepareParsedValue(val) {

@@ -19,40 +19,12 @@ const SUBTLE_VALUE = 'var(--nu-subtle-color)';
 const TEXT_VALUE = ''; // make it invalid
 const SPECIAL_TEXT_VALUE = 'var(--nu-special-text-color)';
 
-const BLUR_REGEXP = /backdrop-blur([^(]|$|\((.*)\))/;
-
-const BLUR_SUPPORT_PROP =
-  CSS.supports('backdrop-filter', 'blur(1rem)')
-  ? 'backdrop-filter'
-  : (CSS.supports('-webkit-backdrop-filter', 'blur(1rem)')
-    ? '-webkit-backdrop-filter' : false);
-const DEFAULT_BLUR_OPACITY = 70;
-
 export default function fillAttr(val) {
   let blur, blurStyles;
-
-  val = val.replace(BLUR_REGEXP, (s, s2, blurSize) => {
-    blur = `blur(${blurSize ? parseAttr(blurSize, 1).value : '1rem'})`;
-  }, '').trim();
 
   val = convertCustomFuncs(val);
 
   let { color, name, opacity } = parseColor(val);
-
-  if (blur) {
-    if (BLUR_SUPPORT_PROP) {
-      if (name && !opacity) {
-        color = parseColor(`${name} ${DEFAULT_BLUR_OPACITY}%`).color;
-      }
-
-      blurStyles = {
-        $suffix: ':not([filter*="backdrop"])',
-        [BLUR_SUPPORT_PROP]: blur,
-      };
-    } else if (name) {
-      color = parseColor(`${name}`).color;
-    }
-  }
 
   if (!val || !color || name === 'local') {
     return [{
@@ -106,5 +78,5 @@ export default function fillAttr(val) {
     }
   }
 
-  return blurStyles ? styles.concat([blurStyles]) : styles;
+  return styles;
 }
