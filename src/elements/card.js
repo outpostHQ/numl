@@ -13,7 +13,7 @@ export default class NuCard extends NuRegion {
     return {
       padding: '2x',
       fill: 'bg :clear[clear]',
-      color: 'text',
+      color: 'text :clear[current]',
       border: '1bw :clear[hidden]',
       radius: '1r',
       transition: 'theme, radius',

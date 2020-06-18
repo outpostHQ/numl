@@ -1,11 +1,14 @@
 <nu-heading>Playground</nu-heading>
 
 {#if show('fancy')}
-  <nu-block>
-    <nu-card height="10" width="6" radius="2x" fill="hsluv(1, 100, 50) blur">
-
+  <nu-flow color="special-text" size="xl" text="h" gap="2x">
+    <nu-block color="hs(280)">Heading</nu-block>
+    <nu-card
+      clear height="15" width="15" radius="3x" shadow="1 special"
+      image="linear(-15deg, !hs(280, 50%), !hs(320, 50%))">
+      Heading
     </nu-card>
-  </nu-block>
+  </nu-flow>
 {/if}
 
 {#if show('shadow')}

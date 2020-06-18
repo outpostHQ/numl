@@ -1,5 +1,5 @@
 import {
-  log, extractMods, intersection, devMode, generateId, parseColor
+  log, extractMods, intersection, devMode, generateId, parseColor, CUSTOM_FUNCS
 } from "./helpers";
 import {
   findContrastColor,
@@ -9,7 +9,7 @@ import {
   hslToRgbaStr,
   getTheBrightest,
   hslToRgb,
-  findContrastLightness, setSaturation, strToHsl, getSaturationRatio,
+  findContrastLightness, setSaturation, strToHsl, getSaturationRatio, hplToRgbaStr,
 } from './color';
 import { removeRulesByPart, insertRuleSet, stylesString, withMediaQuery } from './css';
 
@@ -508,39 +508,8 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
   const ruleSetId = `theme:${themeName}:${baseQuery}`;
 
   // const prefersContrastSupport = matchMedia('(prefers-contrast)').matches;
-  const prefersColorSchemeSupport = matchMedia('(prefers-color-scheme)').matches;
 
-  let cssRules = [];
-
-  const noNoQuery = generateThemeQuery(baseQuery, 'no', 'no');
-
-  // if (prefersContrastSupport && prefersColorSchemeSupport) {
-  // @TODO
-  // } else
-  if (prefersColorSchemeSupport) {
-    const noHighQuery = generateThemeQuery(baseQuery, 'no', 'high');
-    const noLowQuery = generateThemeQuery(baseQuery, 'no', 'low');
-    const lightNoQuery = generateThemeQuery(baseQuery, 'light', 'no');
-    const darkNoQuery = generateThemeQuery(baseQuery, 'dark', 'no');
-
-    cssRules.push(
-      withMediaQuery('(prefers-color-scheme: dark)', noHighQuery, darkContrastProps),
-      withMediaQuery('(prefers-color-scheme: dark)', [noLowQuery, noNoQuery].join(), darkNormalProps),
-      withMediaQuery('(prefers-color-scheme: light), (prefers-color-scheme: no-reference)', noHighQuery, lightContrastProps),
-      withMediaQuery('(prefers-color-scheme: light), (prefers-color-scheme: no-reference)', [noLowQuery, noNoQuery].join(), lightNormalProps),
-      `${lightNoQuery}{${lightNormalProps}}`,
-      `${darkNoQuery}{${darkNormalProps}}`,
-    );
-  } else {
-    cssRules.push(`${noNoQuery}{${lightNormalProps}}`);
-  }
-
-  cssRules.push(
-    `${generateThemeQuery(baseQuery, 'light', 'low')}{${lightNormalProps}}`,
-    `${generateThemeQuery(baseQuery, 'light', 'high')}{${lightContrastProps}}`,
-    `${generateThemeQuery(baseQuery, 'dark', 'low')}{${darkNormalProps}}`,
-    `${generateThemeQuery(baseQuery, 'dark', 'high')}{${darkContrastProps}}`,
-  );
+  const cssRules = generateMediaCSS(baseQuery, [lightNormalProps, lightContrastProps, darkNormalProps, darkContrastProps]);
 
   insertRuleSet(
     ruleSetId,
@@ -561,6 +530,42 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
     lightness,
     $context: element
   });
+}
+
+export function generateMediaCSS(query, [lightNormalProps, lightContrastProps, darkNormalProps, darkContrastProps]) {
+  const prefersColorSchemeSupport = matchMedia('(prefers-color-scheme)').matches;
+  const cssRules = [];
+  const noNoQuery = generateThemeQuery(query, 'no', 'no');
+
+  // if (prefersContrastSupport && prefersColorSchemeSupport) {
+  // @TODO
+  // } else
+  if (prefersColorSchemeSupport) {
+    const noHighQuery = generateThemeQuery(query, 'no', 'high');
+    const noLowQuery = generateThemeQuery(query, 'no', 'low');
+    const lightNoQuery = generateThemeQuery(query, 'light', 'no');
+    const darkNoQuery = generateThemeQuery(query, 'dark', 'no');
+
+    cssRules.push(
+      withMediaQuery('(prefers-color-scheme: dark)', noHighQuery, darkContrastProps),
+      withMediaQuery('(prefers-color-scheme: dark)', [noLowQuery, noNoQuery].join(), darkNormalProps),
+      withMediaQuery('(prefers-color-scheme: light), (prefers-color-scheme: no-reference)', noHighQuery, lightContrastProps),
+      withMediaQuery('(prefers-color-scheme: light), (prefers-color-scheme: no-reference)', [noLowQuery, noNoQuery].join(), lightNormalProps),
+      `${lightNoQuery}{${lightNormalProps}}`,
+      `${darkNoQuery}{${darkNormalProps}}`,
+    );
+  } else {
+    cssRules.push(`${noNoQuery}{${lightNormalProps}}`);
+  }
+
+  cssRules.push(
+    `${generateThemeQuery(query, 'light', 'low')}{${lightNormalProps}}`,
+    `${generateThemeQuery(query, 'light', 'high')}{${lightContrastProps}}`,
+    `${generateThemeQuery(query, 'dark', 'low')}{${darkNormalProps}}`,
+    `${generateThemeQuery(query, 'dark', 'high')}{${darkContrastProps}}`,
+  );
+
+  return cssRules;
 }
 
 const notContrastClass = ':not([data-nu-contrast="low"]):not([data-nu-contrast="high"])';
@@ -603,3 +608,98 @@ export function hueFromString(str) {
 
   return str.split('').reduce((sum, ch) => sum + ch.charCodeAt(0) * 69, 0) % 360;
 }
+
+const COLORS = {};
+
+/**
+ *
+ * @param {Number} hue
+ * @param {Number} saturation
+ * @param {Number} alpha
+ * @param {Boolean} [pastel]
+ * @param {Boolean} [invertContrast]
+ */
+export function requireColor(hue, saturation, alpha, pastel, invertContrast) {
+  if (alpha == null) {
+    alpha = 1;
+  }
+
+  const prop = `--nu-h${hue}-s${saturation}-a${String(alpha).replace(/(0|)./, '')}${pastel ? '-p' : ''}${invertContrast ? '-i' : ''}`;
+
+  if (!COLORS[prop]) {
+    const lightValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], 4.5), alpha]);
+    const lightContrastValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], 6), alpha]);
+    const darkValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness((!invertContrast ? darkNormanBaseBgColor : darkNormalBaseTextColor)[2], 4.5), alpha]);
+    const darkContrastValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness((!invertContrast ? darkContrastBaseBgColor : darkContrastBaseTextColor)[2], 6), alpha]);
+
+    const props = [lightValue, lightContrastValue, darkValue, darkContrastValue]
+      .map(value => `${prop}: ${value};`);
+
+    COLORS[prop] = props;
+
+    const cssRules = generateMediaCSS('body', props);
+
+    insertRuleSet(prop, cssRules);
+  }
+
+  return prop;
+}
+
+function parseCustomColor(val, defaultSaturation) {
+  const isShort = !!defaultSaturation;
+  const values = val.split(',');
+
+  const hue = parseInt(values[0]);
+
+  if (isNaN(hue)) return;
+
+  let saturation, alpha;
+
+  if (isShort && values[1] && values[1].includes('%')) {
+    saturation = defaultSaturation;
+    alpha = parseInt(values[1]) / 100;
+  } else {
+    saturation = parseInt(values[1]);
+
+    if (isNaN(saturation)) {
+      if (defaultSaturation) {
+        saturation = defaultSaturation;
+      } else {
+        return;
+      }
+    }
+
+    alpha = parseFloat(isShort ?  values[2] : values[3]).toFixed(2);
+  }
+
+  if (isNaN(alpha)) {
+    alpha = 1;
+  }
+
+  return isShort ? [hue, saturation, alpha] : [hue, saturation, parseInt(values[2]), alpha];
+}
+
+Object.assign(CUSTOM_FUNCS, {
+  hs(val, invert) {
+    const [hue, saturation, alpha] = parseCustomColor(val, 70);
+
+    return `var(${requireColor(hue, saturation, alpha, false, invert)})`;
+  },
+  hp(val, invert) {
+    const [hue, saturation, alpha] = parseCustomColor(val, 100);
+
+    return `var(${requireColor(hue, saturation, alpha, true, invert)})`;
+  },
+  ['!hs'](val) {
+    return this.hs(val, true);
+  },
+  ['!hp'](val) {
+    return this.hp(val, true);
+  },
+  hsluv(val) {
+    return hslToRgbaStr(parseCustomColor(val));
+  },
+  hpluv(val) {
+    return hplToRgbaStr(parseCustomColor(val));
+  },
+});

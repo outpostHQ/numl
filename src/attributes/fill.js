@@ -1,4 +1,4 @@
-import { parseAttr, parseColor } from '../helpers';
+import { convertCustomFuncs, parseAttr, parseColor } from '../helpers';
 
 const BG_STYLE = 'background-color';
 const LOCAL_PROP = '--nu-local-bg-color';
@@ -34,6 +34,8 @@ export default function fillAttr(val) {
   val = val.replace(BLUR_REGEXP, (s, s2, blurSize) => {
     blur = `blur(${blurSize ? parseAttr(blurSize, 1).value : '1rem'})`;
   }, '').trim();
+
+  val = convertCustomFuncs(val);
 
   let { color, name, opacity } = parseColor(val);
 

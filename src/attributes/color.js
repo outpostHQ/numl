@@ -1,7 +1,7 @@
-import { parseColor } from '../helpers';
+import { convertCustomFuncs, parseColor } from '../helpers';
 
 export const BASE_COLOR = 'var(--nu-local-text-color, var(--nu-text-color))';
 
 export default function colorAttr(val) {
-  return { color: val ? parseColor(val).color : BASE_COLOR };
+  return { color: val ? parseColor(convertCustomFuncs(val)).color : BASE_COLOR };
 }

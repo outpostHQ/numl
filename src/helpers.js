@@ -724,7 +724,7 @@ export function isResponsiveAttr(value) {
   return value.includes('|');
 }
 
-const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-z0-9.-]{2,}(?![a-f0-9\[-]))|(--[a-z-]+)|([a-z][a-z0-9-]*)|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
+const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-z0-9.-]{2,}(?![a-f0-9\[-]))|(--[a-z0-9-]+)|([a-z][a-z0-9-]*)|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
 
 const ATTR_CACHE = new Map;
 const ATTR_CACHE_AUTOCALC = new Map;
@@ -753,21 +753,17 @@ function prepareNuVar(name) {
 const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid', 'initial'];
 const PREPARE_REGEXP = /calc\((\d*)\)/g;
 const COLOR_FUNCS = ['rgb', 'rgba', 'hsl', 'hsla'];
-const CUSTOM_COLOR_FUNCS = ['hs', 'hp', 'hsluv', 'hpluv'];
 
-function convertCustomColor(func, color) {
-  const values = color.split(',').map(n => parseFloat(n));
+export const CUSTOM_FUNCS = {};
 
-  switch (func) {
-    case 'hs':
-      return hslToRgbaStr([values[0], values[1] != null ? values[1] : 70, 56]);
-    case 'hp':
-      return hplToRgbaStr([values[0], values[1] != null ? values[1] : 100, 56]);
-    case 'hsluv':
-      return hslToRgbaStr([...values]);
-    case 'hpluv':
-      return hplToRgbaStr([...values]);
+let CUSTOM_FUNCS_REGEX;
+
+export function convertCustomFuncs(str) {
+  if (!CUSTOM_FUNCS_REGEX) {
+    CUSTOM_FUNCS_REGEX = new RegExp(`(${Object.keys(CUSTOM_FUNCS).join('|')})\\(([^)]+)\\)`, 'g');
   }
+
+  return str.replace(CUSTOM_FUNCS_REGEX, (s, s1, s2) => `${CUSTOM_FUNCS[s1](s2)}`);
 }
 
 function prepareParsedValue(val) {
@@ -804,6 +800,8 @@ export function parseAttr(value, mode = 0) {
     let token;
 
     ATTR_REGEXP.lastIndex = 0;
+
+    value = convertCustomFuncs(value);
 
     while (token = ATTR_REGEXP.exec(value)) {
       let [s, quoted, func, hashColor, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma] = token;
@@ -926,8 +924,6 @@ export function parseAttr(value, mode = 0) {
 
         if (COLOR_FUNCS.includes(usedFunc)) {
           color = prepared;
-        } else if (CUSTOM_COLOR_FUNCS.includes(usedFunc)) {
-          color = convertCustomColor(usedFunc, prepared.slice(usedFunc.length + 1, -1));
         } else if (prepared.startsWith('color(')) {
           prepared = prepared.slice(6, -1);
 
@@ -1174,6 +1170,8 @@ const COLOR_NAME_LIST = [
   'input',
   'diff', // additional
   'local', // additional
+  'inherit', // inherit color from parent
+  'current', // current color
 ];
 
 /**
@@ -1228,7 +1226,7 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
     };
   }
 
-  let { values, mods, color } = parseAttr(val, 3);
+  let { values, mods, color } = parseAttr(val, 0);
 
   let name, opacity;
 
@@ -1237,13 +1235,7 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
   }
 
   values.forEach(token => {
-    if (token.startsWith('hs(')) {
-      token = token.slice(3, -1);
-
-      const [hue, saturation = 100] = token.split(',');
-
-      return hslToRgbaStr([hue, saturation, 40]);
-    } else if (token.match(/^((var|rgb|rgba|hsl|hsla)\(|#[0-9a-f]{3,6})/)) {
+    if (token.match(/^((var|rgb|rgba|hsl|hsla)\(|#[0-9a-f]{3,6})/)) {
       color = token;
     } else if (token.endsWith('%')) {
       opacity = parseInt(token);
@@ -1271,10 +1263,20 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
   }
 
   if (!opacity) {
+    let color;
+
+    if (name === 'current') {
+      color = 'currentColor';
+    } else if (name === 'inherit') {
+      color = 'inherit';
+    } else {
+      color = `var(--nu-${name}-color)`;
+    }
+
     return {
-      color: `var(--nu-${name}-color)`,
       name,
-    };
+      color,
+    }
   }
 
   return {
@@ -1669,3 +1671,5 @@ export function setAria(el, name, value) {
     (el.nuRef || el).setAttribute(`aria-${name}`, value);
   }
 }
+
+window.parseAttr = parseAttr;
