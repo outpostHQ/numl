@@ -1,20 +1,21 @@
 <nu-heading>Playground</nu-heading>
 
 {#if show('fancy')}
-  <nu-flow color="special-text" size="xl" text="h" gap="2x">
-    <nu-slider fill="--from" width="20" min="0" max="359" value="280" control="props[from=hsi(@)]"></nu-slider>
-    <nu-slider fill="--to" width="20" min="0" max="359" value="320" control="props[to=hsi(@)]"></nu-slider>
-    <nu-block color="hs(280)">Heading</nu-block>
-    <nu-props id="props" from="hsi(280)" to="hsi(320)"></nu-props>
+  <nu-flow color="special-text" size="xl" text="h" gap="4x">
+    <nu-attrs
+      for="slider" width="20" min="0" max="359"
+      image="linear(to right, hsi(0, 90), hsi(90, 90), hsi(180, 90), hsi(270, 90), hsi(0, 90))"></nu-attrs>
+    <nu-slider fill="--from" value="280" control="props[from=hsi(@)]"></nu-slider>
+    <nu-slider fill="--to" value="320" control="props[to=hsi(@)]"></nu-slider>
+    <nu-slider image value="345" control="props[angle=@deg]"></nu-slider>
+    <nu-props id="props" fill="special" from="hsi(280)" to="hsi(320)"></nu-props>
     <nu-card
-      clear radius="3x" width="15" height="15" shadow="special :hover[2 special]"
-      fill="hsi(280) :hover[hsi(320)]" transition="fill .15s, shadow"
-      image="linear(-15deg, --from, --to)">
-      <nu-el
-        move="^:hover[0 .5x]" opacity="^:hover[1] .9"
-        transition="move, opacity">Heading</nu-el>
+      clear radius="3x" width="15" height="15" shadow="special"
+      transition="fill .15s, shadow"
+      image="linear(--angle, --from, --to)">
+      Heading
     </nu-card>
-  </nu-flow>
+</nu-flow>
 {/if}
 
 {#if show('shadow')}

@@ -750,7 +750,7 @@ function prepareNuVar(name) {
 
 const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid', 'initial'];
 const PREPARE_REGEXP = /calc\((\d*)\)/g;
-const CUSTOM_PROPS_REGEX = /(^|[^(])--([a-z0-9-]+)/g;
+const CUSTOM_PROPS_REGEX = /(^|var\(|)--([a-z0-9-]+)/g;
 const COLOR_FUNCS = ['rgb', 'rgba', 'hsl', 'hsla'];
 
 export const CUSTOM_FUNCS = {};
@@ -758,7 +758,7 @@ export const CUSTOM_FUNCS = {};
 let CUSTOM_FUNCS_REGEX;
 
 export function convertCustomProperties(val) {
-  return val.replace(CUSTOM_PROPS_REGEX, (s, s1, s2) => `${s1}var(--nu-${s2}, var(--${s2}))`);
+  return val.replace(CUSTOM_PROPS_REGEX, (s, s1, s2) => s1 === 'var(' ? s : `${s1}var(--nu-${s2}, var(--${s2}))`);
 }
 
 export function convertCustomFuncs(str) {
@@ -1676,5 +1676,3 @@ export function setAria(el, name, value) {
     (el.nuRef || el).setAttribute(`aria-${name}`, value);
   }
 }
-
-window.parseAttr = parseAttr;
