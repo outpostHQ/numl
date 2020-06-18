@@ -49,7 +49,7 @@ export default class NuSlider extends NuElement {
 
   static get nuStyles() {
     return {
-      display: 'inline-block',
+      display: 'block',
       radius: 'round',
       fill: 'special :disabled[text 50%]',
       opacity: '1 :disabled[.5]',

@@ -1,6 +1,5 @@
 import { hsluvToRgb, rgbToHsluv, hpluvToHsluv, hpluvToRgb } from './hsluv';
 import { h } from './helpers';
-import { ROOT } from './context';
 
 export function hslToRgb(hsl) {
   return hsluvToRgb(hsl).map(n => Math.round(n));

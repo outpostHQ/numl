@@ -100,6 +100,11 @@ export default class ControlBehavior {
 
         if (val == null) {
           firstValue = secondValue = applyValue;
+        } else {
+          const tmp = val.split('|');
+
+          firstValue = tmp[0];
+          secondValue = tmp[1] || firstValue;
         }
 
         let setValue = firstValue;
@@ -128,7 +133,7 @@ export default class ControlBehavior {
               element.style.removeProperty(attr);
             }
           } else {
-            setAttr(element, attr, val.includes('@') ? val.replace(/@/g, () => applyValue) : applyValue);
+            setAttr(element, attr, setValue != null ? setValue.replace(/@/g, () => applyValue) : null);
           }
         }
       }
