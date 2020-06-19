@@ -39,6 +39,10 @@ export default class ProgressBarBehavior extends WidgetBehavior {
     const propValue = (value - min) / (max - min);
 
     host.style.setProperty('--nu-value', String(Number(propValue.toFixed(4))));
+
+    this.setAria('valuemin', min);
+    this.setAria('valuemax', max);
+    this.setAria('valuenow', value);
   }
 
   fromHostValue(value, silent) {

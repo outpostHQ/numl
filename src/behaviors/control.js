@@ -133,7 +133,7 @@ export default class ControlBehavior {
               element.style.removeProperty(attr);
             }
           } else {
-            setAttr(element, attr, setValue != null ? setValue.replace(/@/g, () => applyValue) : null);
+            setAttr(element, attr, setValue != null ? String(setValue).replace(/@/g, () => applyValue) : null);
           }
         }
       }

@@ -5,6 +5,10 @@ export default class NuProgressBar extends NuElement {
     return 'nu-progressbar';
   }
 
+  static get nuRole() {
+    return 'progressbar';
+  }
+
   static get nuBehaviors() {
     return {
       progressbar: true,

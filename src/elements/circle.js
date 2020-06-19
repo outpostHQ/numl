@@ -27,6 +27,7 @@ export default class NuCircle extends NuElement {
       size: '1em',
       radius: 'round',
       border: '',
+      fill: 'bg :special[special]',
     };
   }
 }

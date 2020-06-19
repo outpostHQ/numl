@@ -41,7 +41,17 @@ export function define(tag, options, skipDefine) {
     const val = options[key];
 
     if (val != null) {
-      Element.prototype[prototypeBind[key]] = val;
+      const method = prototypeBind[key];
+
+      Element.prototype[method] = function(...args) {
+        const parentFunc = Element.nuParentClass.prototype[method];
+
+        if (parentFunc) {
+          parentFunc.apply(this, args);
+        }
+
+        val.apply(this, args);
+      };
     }
   });
 
