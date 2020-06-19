@@ -5,10 +5,6 @@ export default class NuStrong extends NuInline {
     return 'nu-strong';
   }
 
-  static get nuName() {
-    return '';
-  }
-
   static get nuStyles() {
     return {
       text: 'bold',

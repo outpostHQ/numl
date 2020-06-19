@@ -20,13 +20,11 @@ const TEXT_VALUE = ''; // make it invalid
 const SPECIAL_TEXT_VALUE = 'var(--nu-special-text-color)';
 
 export default function fillAttr(val) {
-  let blur, blurStyles;
-
   val = convertCustomFuncs(val);
 
   let { color, name, opacity } = parseColor(val);
 
-  if (!val || !color || name === 'local') {
+  if (!val || name === 'local') {
     return [{
       $suffix: ':not([theme])',
       [BG_STYLE]: LOCAL_VALUE,
@@ -35,6 +33,13 @@ export default function fillAttr(val) {
       [BG_STYLE]: BG_VALUE,
       [LOCAL_PROP]: BG_VALUE,
       [DIFF_PROP]: SUBTLE_VALUE,
+    }];
+  } else if (!color) {
+    const bgValue = `var(--nu-${val}-color)`;
+
+    return [{
+      [BG_STYLE]: bgValue,
+      [LOCAL_PROP]: bgValue,
     }];
   }
 

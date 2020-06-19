@@ -5,10 +5,6 @@ export default class NuSub extends NuInline {
     return 'nu-sub';
   }
 
-  static get nuName() {
-    return '';
-  }
-
   static get nuStyles() {
     return {
       text: 'sub',

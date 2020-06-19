@@ -5,10 +5,6 @@ export default class NuFlex extends NuBlock {
     return 'nu-flex';
   }
 
-  static get nuName() {
-    return '';
-  }
-
   static get nuStyles() {
     return {
       display: 'flex',

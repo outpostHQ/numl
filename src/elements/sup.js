@@ -5,10 +5,6 @@ export default class NuSup extends NuInline {
     return 'nu-sup';
   }
 
-  static get nuName() {
-    return '';
-  }
-
   static get nuStyles() {
     return {
       text: 'sup',

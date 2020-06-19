@@ -51,7 +51,7 @@ export default function outlineAttr(val) {
 
   styles.push({
     '--nu-local-focus-color': 'transparent',
-    '--nu-local-focus-shadow': `var(--nu-local-focus-inset, ${inset ? 'inset ' : ''}0 0) 0 calc(${!polite ? '1' : 'var(--nu-focus-enabler)'} * (1 - var(--nu-focus-disabler, 0)) * var(--nu-focus-width, calc(var(--nu-border-width) * 3))) var(--nu-local-focus-color)`,
+    '--nu-local-focus-shadow': `var(--nu-local-focus-inset, ${inset ? 'inset ' : ''}0 0) 0 calc(${!polite ? '1' : 'var(--nu-focus-enabler)'} * (1 - var(--nu-focus-disabler, 0)) * var(--nu-focus-width, var(--nu-selected-width))) var(--nu-local-focus-color)`,
   });
 
   // hide outline (if you need transition)

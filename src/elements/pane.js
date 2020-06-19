@@ -5,10 +5,6 @@ export default class NuPane extends NuFlex {
     return 'nu-pane';
   }
 
-  static get nuName() {
-    return '';
-  }
-
   static get nuStyles() {
     return {
       items: 'center',
