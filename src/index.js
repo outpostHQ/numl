@@ -153,7 +153,7 @@ function defineElement(el) {
 }
 
 Nude.init = () => {
-  const rootEls = document.querySelectorAll('is-root');
+  const rootEls = document.querySelectorAll('nu-root');
 
   rootEls.forEach(el => {
     el.nuParent = el.parentNode;
