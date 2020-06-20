@@ -646,7 +646,7 @@ export function requireColor(hue, saturation, alpha, pastel, invertContrast) {
 }
 
 function parseCustomColor(val, defaultSaturation) {
-  const isShort = !!defaultSaturation;
+  const isShort = defaultSaturation != null;
   const values = val.split(',');
 
   const hue = parseInt(values[0]);
@@ -681,7 +681,7 @@ function parseCustomColor(val, defaultSaturation) {
 
 Object.assign(CUSTOM_FUNCS, {
   hs(val, invert) {
-    const [hue, saturation, alpha] = parseCustomColor(val, 70);
+    const [hue, saturation, alpha] = parseCustomColor(val, 100);
 
     return `var(${requireColor(hue, saturation, alpha, false, invert)})`;
   },
