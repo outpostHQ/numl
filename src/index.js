@@ -173,7 +173,6 @@ Nude.init = () => {
 
   // show all nu-root elements back
   rootEls.forEach(el => {
-    el.style.display = 'none';
     el.nuParent && el.nuParent.appendChild(el);
   });
 
