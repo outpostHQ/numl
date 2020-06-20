@@ -172,11 +172,12 @@ Nude.init = () => {
     .forEach(defineElement);
 
   // show all nu-root elements back
-  setTimeout(() => {
-    rootEls.forEach(el => {
-      el.nuParent && el.nuParent.appendChild(el);
-    });
+  rootEls.forEach(el => {
+    el.style.display = 'none';
+    el.nuParent && el.nuParent.appendChild(el);
+  });
 
+  setTimeout(() => {
     if (styleEl && styleEl.parentNode) {
       styleEl.parentNode.removeChild(styleEl);
     }
