@@ -230,7 +230,7 @@ export function query(element, selector) {
  * Return a closest element that has provided id.
  * @param {Element} element
  * @param {String} id
- * @param {Boolean} includeNames
+ * @param {Boolean} [includeNames]
  * @returns {undefined|Element}
  */
 export function queryById(element, id, includeNames) {

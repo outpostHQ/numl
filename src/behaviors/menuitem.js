@@ -10,7 +10,7 @@ export default class MenuItemBehavior extends Behavior {
   init() {
     this.host.nuMenuItem = this;
 
-    this.on('click', () => {
+    this.on(['click', 'tap'], () => {
       if (this.menu) {
         this.menu.setCurrent(this);
       }

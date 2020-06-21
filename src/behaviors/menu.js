@@ -35,6 +35,9 @@ export default class MenuBehavior extends Behavior {
 
   setCurrent(item) {
     const currentItem = this.currentItem;
+
+    if (item === currentItem) return;
+
     const isCurrentFocused = currentItem ? currentItem.host === document.activeElement : false;
 
     if (currentItem) {

@@ -55,12 +55,6 @@ export default class ActionBehavior extends WidgetBehavior {
       }
     });
 
-    this.on('tap', (event) => {
-      if (!event.nuRole && this.role) {
-        event.nuRole = this.role;
-      }
-    });
-
     /**
      * @type {RadioGroupBehavior}
      */
@@ -223,6 +217,10 @@ export default class ActionBehavior extends WidgetBehavior {
           evt.preventDefault();
 
           handleLinksState(true);
+
+          setTimeout(() => {
+            this.emit('tap');
+          }, 0);
 
           return;
         }
