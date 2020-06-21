@@ -978,7 +978,7 @@ export function filterMods(mods, allowedMods) {
 }
 
 // const STATE_TYPE_REGEXP = /\[[^\]]*\|/;
-const STATE_REGEXP = /(\|)|(\[)|(])|(\^((#|)[a-z][a-z0-9-]*|))|:([a-z0-9:-]+)(?=\[)|('[^']*'|[#a-z0-9\.-][^'\]\[\|:]*(?!:))/gi;
+const STATE_REGEXP = /(\|)|(\[)|(])|(\^((#|)[a-z][a-z0-9-]*|))|:([a-z0-9:-]+)(?=\[)|('[^']*'|[#a-z0-9.-][^'\]\[|:]*(?!:))/gi;
 
 function requireZone(zones, index, parent = '') {
   while (zones[index] == null) {
@@ -1208,7 +1208,9 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
 
     let color;
 
-    if (name === 'shadow') {
+    if (name === 'current') {
+      color = 'currentColor';
+    } else if (name === 'shadow') {
       color = `rgba(0, 0, 0, calc(var(--nu-intensity) * ${opacity} / 100 / 2))`;
     } else if (name === 'special-shadow') {
       color = `rgba(0, 0, 0, calc(var(--nu-special-intensity) * ${opacity} / 100 / 2))`;

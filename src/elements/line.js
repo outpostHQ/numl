@@ -1,5 +1,6 @@
 import NuBlock from './block';
 import combinedAttr from '../attributes/combined';
+import sizeAttr from '../attributes/size';
 
 export default class NuLine extends NuBlock {
   static get nuTag() {
@@ -27,6 +28,9 @@ export default class NuLine extends NuBlock {
           width: vertical ? '1fs 1fs' : 'min 1em',
           height: vertical ? 'min 1em' : '1fs 1fs',
         }, NuLine);
+      },
+      size(val) {
+        return sizeAttr(val, {}, true);
       },
     };
   }

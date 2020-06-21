@@ -34,7 +34,13 @@ const BASE_STYLES = {
   'line-height': 'var(--nu-line-height)',
 };
 
-export default function sizeAttr(val) {
+/**
+ * @param {String} val
+ * @param {Object} defaults
+ * @param {Boolean} [propsOnly]
+ * @return {Array<Object>|undefined}
+ */
+export default function sizeAttr(val, defaults, propsOnly) {
   if (!val) val = 'md';
 
   const { mods, all, values } = parseAttr(val, 1);
@@ -71,5 +77,5 @@ export default function sizeAttr(val) {
     styles['--nu-line-height'] = `var(--nu-${all[1]}-line-height, inherit)`;
   }
 
-  return [BASE_STYLES, styles];
+  return (propsOnly ? [] : [BASE_STYLES]).concat(styles);
 }

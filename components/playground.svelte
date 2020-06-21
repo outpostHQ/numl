@@ -1,5 +1,37 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('menu')}
+  <nu-menu padding="1x 0" border width="12" nx-debug>
+    <nu-menuitem>Item 1</nu-menuitem>
+    <nu-menuitem>Item 2</nu-menuitem>
+    <nu-menuitem>Item 3</nu-menuitem>
+  </nu-menu>
+
+  <nu-debug></nu-debug>
+{/if}
+
+{#if show('spacer')}
+  <nu-block>
+    <nu-card>
+      Card 1
+    </nu-card>
+    <nu-spacer size="2x"></nu-spacer>
+    <nu-card>
+      Card 2
+    </nu-card>
+  </nu-block>
+{/if}
+
+{#if show('circle')}
+  <nu-card>
+    <nu-pane gap>
+      <nu-circle></nu-circle>
+      <nu-circle size="xl"></nu-circle>
+      <nu-circle special></nu-circle>
+    </nu-pane>
+  </nu-card>
+{/if}
+
 {#if show('fancy')}
   <nu-flow gap="2x" size="lg">
     <nu-attrs

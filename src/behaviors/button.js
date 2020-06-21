@@ -76,10 +76,8 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     this.linkContext('radiogroup', () => this.verifyRadioGroup(), 'radioGroup');
 
-    if (this.role === 'button') {
-      if (this.to) {
-        this.role = 'link';
-      }
+    if (this.role === 'button' && this.to) {
+      this.role = 'link';
     }
 
     this.createLink();

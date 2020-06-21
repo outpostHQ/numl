@@ -1,30 +1,16 @@
-import NuBlock from './block';
-import combinedAttr from '../attributes/combined';
+import NuElement from './element';
 
-export default class NuSpacer extends NuBlock {
+export default class NuSpacer extends NuElement {
   static get nuTag() {
     return 'nu-spacer';
   }
 
-  static get nuGenerators() {
-    return {
-      size(val) {
-        if (!val) val = '1x';
-
-        val = `min ${val}`;
-
-        return combinedAttr([{
-          width: val,
-          height: val,
-          basis: val,
-        }], NuSpacer);
-      },
-    };
-  }
-
   static get nuStyles() {
     return {
-      basis: '1x',
+      display: 'block',
+      width: 'min 1fs',
+      height: 'min 1fs',
+      basis: '1fs',
       size: '1x',
     };
   }

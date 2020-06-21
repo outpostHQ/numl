@@ -14,7 +14,7 @@ export default class NuActiveElement extends NuElement {
       radius: '',
       text: 'nowrap',
       transition: 'theme, radius',
-      outline: 'focus-inside',
+      outline: 'focus',
       mark: 'n :focusable[hover]',
       opacity: '1 :disabled[.5]',
       cursor: 'pointer :disabled[default]',

@@ -1,6 +1,7 @@
 import { ROOT } from './context';
 
 const IGNORE_KEYS = ['Alt', 'Control', 'Meta', 'Shift'];
+const FOCUS_ALWAYS = ROOT.dataset.nuFocus === 'always';
 
 let enableTimerId, disableTimerId;
 
@@ -17,7 +18,7 @@ export function enableFocus() {
 }
 
 export function disableFocus() {
-  if (disableTimerId) return;
+  if (disableTimerId || FOCUS_ALWAYS) return;
 
   disableTimerId = setTimeout(() => {
     if (ROOT) {
@@ -38,4 +39,8 @@ export function initFocus() {
       enableFocus();
     }
   }, { capture: true });
+
+  if (FOCUS_ALWAYS) {
+    enableFocus();
+  }
 }
