@@ -41,7 +41,7 @@ export default class RadioGroupBehavior extends WidgetBehavior {
   }
 
   getItemsInOrder() {
-    return Menu.getItemsInOrder.call(this, '[nu-action]', 'nuButton');
+    return Menu.getItemsInOrder.call(this, '[nu-action]', 'nuAction');
   }
 
   onKeyDown(event) {

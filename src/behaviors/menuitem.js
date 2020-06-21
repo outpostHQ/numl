@@ -18,9 +18,6 @@ export default class MenuItemBehavior extends Behavior {
   }
 
   connected() {
-    this.nu('focusable')
-      .then(Focusable => Focusable.set('manual'));
-
     this.linkContext('menu', (menu) => {
       if (this.menu) {
         this.menu.removeItem(this);

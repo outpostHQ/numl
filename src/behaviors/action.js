@@ -30,7 +30,7 @@ export default class ActionBehavior extends WidgetBehavior {
 
     const { host } = this;
 
-    host.nuButton = this;
+    host.nuAction = this;
 
     this.on('keydown', (event) => {
       if (event.key === 'Escape' && host.nuHasAria('expanded')) {
@@ -300,8 +300,6 @@ export default class ActionBehavior extends WidgetBehavior {
     this.pressed = pressed;
 
     if (pressed && this.isRadio() && this.radioGroup) {
-      // host.nu('focusable')
-      //   .then(Focusable => Focusable.set(!pressed && !this.disabled));
       this.radioGroup.setCurrent(this);
     }
 

@@ -57,7 +57,6 @@ export default class FocusableBehavior extends Behavior {
   }
 
   set(param) {
-    // @TODO: replace nuTabIndex with more sane approach
     if ((this.isManual && param !== 'auto') || param === 'manual') {
       this.isManual = true;
       this.ref.setAttribute('tabindex', '-1');

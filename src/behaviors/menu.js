@@ -17,6 +17,9 @@ export default class MenuBehavior extends Behavior {
 
       if (items.length === 1) {
         this.setCurrent(item);
+      } else {
+        item.nu('focusable')
+          .then(Focusable => Focusable.set('manual'));
       }
     }
   }
@@ -52,7 +55,7 @@ export default class MenuBehavior extends Behavior {
               it.host.focus();
               Focusable.setEffect(true);
 
-              const Act = it.host.nuButton;
+              const Act = it.host.nuAction;
 
               if (Act && Act.isRadio()) {
                 Act.set(true);
