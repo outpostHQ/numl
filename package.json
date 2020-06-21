@@ -18,7 +18,7 @@
     "svelte": "^3.23.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.10.3",
     "@rollup/plugin-json": "^4.0.3",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@size-limit/preset-big-lib": "^4.4.1",
