@@ -61,7 +61,7 @@ export default class MenuBehavior extends Behavior {
     const elements = deepQueryAll(this.host, '[nu-menuitem]');
     return elements
       .map(element => element.nuMenuItem)
-      .filter(item => item);
+      .filter(item => this.items.includes(item));
   }
 
   onKeyDown(event) {
