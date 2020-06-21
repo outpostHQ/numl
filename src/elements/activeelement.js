@@ -2,11 +2,15 @@ import NuElement from './element';
 
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
-    return 'nu-abstract-activeelement'; // abstract tag
+    return 'nu-action'; // abstract tag
   }
 
   static get nuRole() {
     return 'button';
+  }
+
+  static get nuName() {
+    return 'action';
   }
 
   static get nuStyles() {

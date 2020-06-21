@@ -1,7 +1,7 @@
-import NuBlock from './block';
 import sizeAttr from '../attributes/size';
+import NuElement from './element';
 
-export default class NuIcon extends NuBlock {
+export default class NuIcon extends NuElement {
   static get nuTag() {
     return 'nu-icon';
   }

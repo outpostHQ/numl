@@ -1,8 +1,8 @@
-import NuBlock from './block';
 import combinedAttr from '../attributes/combined';
 import sizeAttr from '../attributes/size';
+import NuElement from './element';
 
-export default class NuLine extends NuBlock {
+export default class NuLine extends NuElement {
   static get nuTag() {
     return 'nu-line';
   }
@@ -37,6 +37,7 @@ export default class NuLine extends NuBlock {
 
   static get nuStyles() {
     return {
+      display: 'block',
       place: 'stretch',
       orient: 'h',
       size: '1bw',

@@ -1,6 +1,6 @@
-import NuBlock from './block';
+import NuElement from './element';
 
-export default class NuFlex extends NuBlock {
+export default class NuFlex extends NuElement {
   static get nuTag() {
     return 'nu-flex';
   }

@@ -49,6 +49,12 @@ export default class MenuBehavior extends Behavior {
             if (isCurrent && isCurrentFocused) {
               it.host.focus();
               Focusable.setEffect(true);
+
+              const Act = it.host.nuButton;
+
+              if (Act && Act.isRadio()) {
+                Act.set(true);
+              }
             }
           });
       });
@@ -57,15 +63,16 @@ export default class MenuBehavior extends Behavior {
     }
   }
 
-  get itemsInOrder() {
-    const elements = deepQueryAll(this.host, '[nu-menuitem]');
-    return elements
-      .map(element => element.nuMenuItem)
+  getItemsInOrder(selector, prop) {
+    const elements = deepQueryAll(this.host, selector || '[nu-menuitem]');
+    return (elements || [])
+      .map(element => element[prop || 'nuMenuItem'])
       .filter(item => this.items.includes(item));
   }
 
   onKeyDown(event) {
-    const items = this.itemsInOrder;
+    const items = this.getItemsInOrder();
+
     const index = items.indexOf(this.currentItem);
 
     switch(event.key) {

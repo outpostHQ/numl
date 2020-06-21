@@ -1,6 +1,6 @@
-import NuBlock from './block';
+import NuElement from './element';
 
-export default class NuTooltip extends NuBlock {
+export default class NuTooltip extends NuElement {
   static get nuTag() {
     return 'nu-tooltip';
   }

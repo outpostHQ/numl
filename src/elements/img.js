@@ -1,8 +1,8 @@
-import NuBlock from './block';
 import { devMode, parseAttr, warn } from '../helpers';
 import combinedAttr from '../attributes/combined';
+import NuElement from './element';
 
-export default class NuImg extends NuBlock {
+export default class NuImg extends NuElement {
   static get nuTag() {
     return 'nu-img';
   }

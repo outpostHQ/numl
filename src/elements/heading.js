@@ -1,10 +1,11 @@
 import NuBlock from './block';
 import { SIZES } from '../attributes/size';
 import { devMode, warn } from '../helpers';
+import NuElement from './element';
 
 const LEVELS = [1, 2, 3, 4, 5, 6];
 
-export default class NuHeading extends NuBlock {
+export default class NuHeading extends NuElement {
   static get nuTag() {
     return 'nu-heading';
   }
@@ -40,6 +41,7 @@ export default class NuHeading extends NuBlock {
 
   static get nuStyles() {
     return {
+      display: 'block',
       level: this.nuAttrs.level,
       color: 'text-soft',
       text: 'heading',

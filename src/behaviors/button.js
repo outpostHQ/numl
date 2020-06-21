@@ -84,6 +84,12 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.setContext('button', this);
   }
 
+  disconnected() {
+    if (this.radioGroup) {
+      this.radioGroup.removeItem(this);
+    }
+  }
+
   changed(name, value) {
     super.changed(name, value);
 
@@ -103,6 +109,8 @@ export default class ButtonBehavior extends WidgetBehavior {
     const radioGroup = this.radioGroup;
 
     if (!radioGroup) return;
+
+    radioGroup.addItem(this);
 
     this.setAttr('link-value', '');
     this.role = radioGroup.params.itemRole;
@@ -221,8 +229,9 @@ export default class ButtonBehavior extends WidgetBehavior {
       }
     }
 
-    if (this.disabled
-      || host.getAttribute('tabindex') === '-1') return;
+    if (this.disabled) return;
+
+    if (this.isRadio() && this.pressed) return;
 
     if (this.scrollto) {
       host.nuScrollTo(this.scrollto);
@@ -290,9 +299,10 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     this.pressed = pressed;
 
-    if (this.isRadio()) {
-      host.nu('focusable')
-        .then(Focusable => Focusable.set(!pressed && !this.disabled));
+    if (pressed && this.isRadio() && this.radioGroup) {
+      // host.nu('focusable')
+      //   .then(Focusable => Focusable.set(!pressed && !this.disabled));
+      this.radioGroup.setCurrent(this);
     }
 
     if (this.popup) {

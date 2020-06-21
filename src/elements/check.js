@@ -1,6 +1,6 @@
-import NuBlock from './block';
+import NuElement from './element';
 
-export default class NuCheck extends NuBlock {
+export default class NuCheck extends NuElement {
   static get nuTag() {
     return 'nu-check';
   }
@@ -13,6 +13,7 @@ export default class NuCheck extends NuBlock {
 
   static get nuStyles() {
     return {
+      display: 'block',
       opacity: ':invalid[1] 0',
       interactive: ':invalid[yes] no',
       size: 'sm',

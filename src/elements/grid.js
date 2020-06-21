@@ -1,6 +1,6 @@
-import NuBlock from './block';
+import NuElement from './element';
 
-export default class NuGrid extends NuBlock {
+export default class NuGrid extends NuElement {
   static get nuTag() {
     return 'nu-grid';
   }

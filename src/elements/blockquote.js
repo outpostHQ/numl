@@ -1,6 +1,6 @@
-import NuBlock from './block';
+import NuElement from './element';
 
-export default class NuBlockQuote extends NuBlock {
+export default class NuBlockQuote extends NuElement {
   static get nuTag() {
     return 'nu-blockquote';
   }
@@ -11,6 +11,7 @@ export default class NuBlockQuote extends NuBlock {
 
   static get nuStyles() {
     return {
+      display: 'block',
       border: '(1x / 2) left color(special)',
       fill: 'diff',
       text: 'i',

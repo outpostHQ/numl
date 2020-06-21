@@ -1,6 +1,6 @@
-import NuBlock from './block';
+import NuElement from './element';
 
-export default class NuSvg extends NuBlock {
+export default class NuSvg extends NuElement {
   static get nuTag() {
     return 'nu-svg';
   }

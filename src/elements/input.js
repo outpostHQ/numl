@@ -1,10 +1,10 @@
 import {
   unit,
 } from '../helpers';
-import NuBlock from './block';
 import { DEFAULT_TIMING } from '../attributes/transition';
+import NuElement from './element';
 
-export default class NuInput extends NuBlock {
+export default class NuInput extends NuElement {
   static get nuTag() {
     return 'nu-input';
   }
