@@ -4,23 +4,25 @@ import { deepQueryAll } from '../helpers';
 export default class MenuBehavior extends Behavior {
   init() {
     this.setContext('menu', this, true);
-    this.items = [];
+    this._items = [];
 
     this.on('keydown', this.onKeyDown.bind(this));
   }
 
   addItem(item) {
-    if (!this.items.includes(item)) {
-      this.items.push(item);
+    const items = this._items;
 
-      if (this.items.length === 1) {
+    if (!items.includes(item)) {
+      items.push(item);
+
+      if (items.length === 1) {
         this.setCurrent(item);
       }
     }
   }
 
   removeItem(item) {
-    const items = this.items;
+    const items = this._items;
 
     if (items.includes(item)) {
       items.splice(items.indexOf(item), 1);
@@ -38,7 +40,7 @@ export default class MenuBehavior extends Behavior {
 
     if (item) {
       this.currentItem = item;
-      this.items.map(it => {
+      this._items.map(it => {
         const isCurrent = it === item;
         const type = isCurrent ? 'auto' : 'manual';
 
@@ -67,7 +69,7 @@ export default class MenuBehavior extends Behavior {
     const elements = deepQueryAll(this.host, selector || '[nu-menuitem]');
     return (elements || [])
       .map(element => element[prop || 'nuMenuItem'])
-      .filter(item => this.items.includes(item));
+      .filter(item => this._items.includes(item));
   }
 
   onKeyDown(event) {

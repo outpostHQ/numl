@@ -16,14 +16,14 @@ export default class RadioGroupBehavior extends WidgetBehavior {
   init() {
     super.init();
 
+    this._items = [];
+
     // Set default value if it's not set
     if (this.value == null) {
       this.setValue('0');
     }
 
     this.setContext('radiogroup', this);
-
-    this.items = [];
 
     this.on('keydown', this.onKeyDown.bind(this));
   }
