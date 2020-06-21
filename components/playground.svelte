@@ -1,11 +1,22 @@
 <nu-heading>Playground</nu-heading>
 
 {#if show('menu')}
-  <nu-menu padding="1x 0" border width="12" nx-debug>
-    <nu-menuitem>Item 1</nu-menuitem>
-    <nu-menuitem>Item 2</nu-menuitem>
-    <nu-menuitem>Item 3</nu-menuitem>
-  </nu-menu>
+  <nu-nav label="Main">
+    <nu-menu padding="1x 0" border width="12" nx-debug>
+      <nu-menuitem>Item 1</nu-menuitem>
+      <nu-menuitem>Item 2</nu-menuitem>
+      <nu-menuitem>Item 3</nu-menuitem>
+      <nu-menuitem>
+        Item 4
+        <nu-popup>
+          <nu-menu>
+            <nu-menuitem>Item 1</nu-menuitem>
+            <nu-menuitem>Item 2</nu-menuitem>
+          </nu-menu>
+        </nu-popup>
+      </nu-menuitem>
+    </nu-menu>
+  </nu-nav>
 
   <nu-debug></nu-debug>
 {/if}
