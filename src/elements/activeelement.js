@@ -30,7 +30,7 @@ export default class NuActiveElement extends NuElement {
   static get nuBehaviors() {
     return {
       control: true,
-      button: true,
+      action: true,
     };
   }
 

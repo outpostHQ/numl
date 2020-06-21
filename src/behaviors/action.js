@@ -3,7 +3,7 @@ import Routing from '../routing';
 import { h, isEqual, queryById, stackTrace } from '../helpers';
 import { handleLinksState } from '../links';
 
-export default class ButtonBehavior extends WidgetBehavior {
+export default class ActionBehavior extends WidgetBehavior {
   static get params() {
     return {
       input: true,
@@ -24,7 +24,7 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.props.checked = pressedAttr;
     this.props.selected = pressedAttr;
 
-    this.setMod('btn', true);
+    this.setMod('action', true);
 
     super.init();
 
