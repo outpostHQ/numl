@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
-    "@rollup/plugin-json": "^4.0.3",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.0.1",
     "@size-limit/preset-big-lib": "^4.4.1",
     "inline-assets": "^1.4.6",
