@@ -1,5 +1,11 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('offset')}
+  <nu-card>
+    <nu-btn nx-offset transition="move :offset[no]" move="(--offset-x * 1x) (--offset-y * 1x)">Interactive Button</nu-btn>
+  </nu-card>
+{/if}
+
 {#if show('menu')}
   <nu-nav label="Main">
     <nu-menu padding="1x 0" border width="12" nx-debug>

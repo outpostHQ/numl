@@ -41,6 +41,7 @@ export const BEHAVIORS = {
   inputgroup: () => extract(import(`./inputgroup.js`)),
   menu: () => extract(import(`./menu.js`)),
   menuitem: () => extract(import(`./menuitem.js`)),
+  offset: () => extract(import(`./offset.js`)),
 };
 
 export function hasBehavior(el, name) {
