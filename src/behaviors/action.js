@@ -165,7 +165,8 @@ export default class ActionBehavior extends WidgetBehavior {
       $link.href = this.href;
       $link.target = this.newTab ? '_blank' : '_self';
       $link.setAttribute('tabindex', '-1');
-      $link.setAttribute('aria-labelledby', host.nuUniqId);
+      $link.setAttribute('aria-hidden', 'true');
+      $link.setAttribute('role', 'none');
 
       this.$link = $link;
 

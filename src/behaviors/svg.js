@@ -11,16 +11,18 @@ export default class SvgBehavior extends Behavior {
     }
   }
 
-  changed(name) {
+  changed(name, value) {
     if (!this.isConnected) return;
 
-    if (name === 'name') {
-      this.apply();
+    if (name === 'src') {
+      this.inject(value);
     }
   }
 
   inject(src) {
     const { host } = this;
+
+    host.innerHTML = '';
 
     if (!src || !src.trim()) return;
 
