@@ -1,8 +1,19 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('appear')}
+  <nu-card>
+    <nu-block height="100vh"></nu-block>
+    <nu-btn nx-appear="toggle" opacity="0 :appear[1]" transition="opacity .5s">Button</nu-btn>
+  </nu-card>
+{/if}
+
 {#if show('offset')}
   <nu-card>
-    <nu-btn nx-offset transition="move :offset[no]" move="(--offset-x * 1x) (--offset-y * 1x)">Interactive Button</nu-btn>
+    <nu-cardbtn
+      nx-offset transition="move :offset[no]"
+      move="(--offset-x * 1x) (--offset-y * 1x)" height="5" width="15">
+      Interactive Button
+    </nu-cardbtn>
   </nu-card>
 {/if}
 
