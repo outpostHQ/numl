@@ -683,7 +683,7 @@ export function requireHue(color) {
 
 const CONTRAST_MODES = ['auto', 'low', 'high'];
 
-function parseHue(val) {
+export function parseHue(val) {
   val = val.replace(',', ' ');
 
   let { all: values } = parseAttr(val, 2);

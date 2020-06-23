@@ -1,5 +1,20 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('code')}
+  <nu-card>
+    <nu-markdown>
+      <pre>
+        # What?
+
+        ```
+        var a = '123';
+        var b = /.+/g;
+        ```
+      </pre>
+    </nu-markdown>
+  </nu-card>
+{/if}
+
 {#if show('appear')}
   <nu-card>
     <nu-block height="100vh"></nu-block>

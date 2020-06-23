@@ -124,10 +124,20 @@ export default function codeToMarkup(str, enumerate, themes) {
     numSize = 1 + String(linesNum).length;
   }
 
+  function getColorAttrs(tok) {
+    return Object.keys(themes[tok] || {}).reduce((str, attr) => {
+      const value = themes[tok][attr];
+
+      str += `${attr}="${value}" `;
+
+      return str;
+    }, '');
+  }
+
   function getNumber(firstLine) {
     const numSpaces = ' '.repeat(numSize - String(number + 1).length);
 
-    return `${!firstLine ? '\n' : ''}<nu-el theme="snippet-com" before="${++number}.${numSpaces}"></nu-el>`;
+    return `${!firstLine ? '\n' : ''}<nu-el ${getColorAttrs(COM)} before="${++number}.${numSpaces}"></nu-el>`;
   }
 
   return tokens.reduce(function (html, token) {
@@ -143,6 +153,6 @@ export default function codeToMarkup(str, enumerate, themes) {
       value = value.replace(/([!#]\[\[|]][!#])/g, '');
     }
 
-    return html + `<nu-el theme="snippet-${token[0]}"${attr}${themes[id].type ? ' fill' : ''}>${value}</nu-el>`;
+    return html + `<nu-el ${getColorAttrs(token[0])}${attr}>${value}</nu-el>`;
   }, enumerate ? getNumber(true) : '');
 }
