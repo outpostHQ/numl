@@ -125,7 +125,7 @@ export default function codeToMarkup(str, enumerate, themes) {
   }
 
   function getColorAttrs(tok) {
-    return Object.keys(themes[tok] || {}).reduce((str, attr) => {
+    return Object.keys(themes[tok]).reduce((str, attr) => {
       const value = themes[tok][attr];
 
       str += `${attr}="${value}" `;

@@ -92,9 +92,9 @@ function declareThemes() {
   themesDeclared = true;
 
   Object.entries(CODE_THEMES).forEach(([id, theme]) => {
-    if (!theme) return;
-
-    if (typeof theme === 'object') {
+    if (!theme) {
+      THEME_ATTRS[id] = { color: '--nu-main-text-color' };
+    } else if (typeof theme === 'object') {
       const { hue, type, saturation, pastel, contrast, lightness } = theme;
 
       const name = `snippet-${id}`;
