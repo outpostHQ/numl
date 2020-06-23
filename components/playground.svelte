@@ -3,7 +3,8 @@
 {#if show('appear')}
   <nu-card>
     <nu-block height="100vh"></nu-block>
-    <nu-btn nx-appear="toggle" opacity="0 :appear[1]" transition="opacity .5s">Button</nu-btn>
+    <nu-btn nx-appear="toggle timeout:1000" opacity="0 :appear[1]" move="8x 0 :appear[0]" transition="opacity .5s, move .5s">Button</nu-btn>
+    <nu-block height="100vh"></nu-block>
   </nu-card>
 {/if}
 

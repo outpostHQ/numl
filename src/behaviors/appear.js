@@ -19,31 +19,39 @@ export default class AppearBehavior extends Behavior {
     const screenHeight = window.innerHeight;
 
     if (rect.y < 0 && rect.y + rect.height > 0) {
-      this.setByThreshold((rect.y + rect.height) / rect.height);
+      this.setByThreshold((rect.y + rect.height) / rect.height, 'bottom');
     } else if (rect.y + rect.height > screenHeight && rect.y < screenHeight) {
-      this.setByThreshold((screenHeight - rect.y) / rect.height);
+      this.setByThreshold((screenHeight - rect.y) / rect.height, 'top');
     } else if (rect.y >= 0 && rect.y + rect.height <= screenHeight) {
-      this.setByThreshold(1);
+      this.setByThreshold(1, (rect.y - (rect.height / 2) <= screenHeight / 2) ? 'top' : 'bottom');
     } else {
       this.setByThreshold(0);
     }
   }
 
-  setByThreshold(value) {
+  setByThreshold(value, direction) {
     const { threshold } = this;
 
-    setTimeout(() => {
-      console.log('! timeout');
-      this.set((threshold / 100) <= value);
-    }, this.timeout);
+    this.set((threshold / 100) <= value, direction);
   }
 
-  set(bool) {
+  set(bool, direction) {
     if (bool) {
-      this.setMod('appear', bool);
+      setTimeout(() => {
+        this.setMod('appear', bool);
+      }, this.timeout);
+
+      this.appeared = true;
+      // this.setMod(`appear-${direction}`, bool);
     } else if (this.params.toggle) {
-      this.setMod('appear', bool);
-    } else if (this.hasMod('appear')) {
+      setTimeout(() => {
+        this.setMod('appear', bool);
+      }, this.timeout);
+
+      this.appeared = false;
+      // this.setMod(`appear-top`, bool);
+      // this.setMod(`appear-bottom`, bool);
+    } else if (this.appeared) {
       this.host.removeAttribute('nx-appear');
     }
   }
