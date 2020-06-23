@@ -1,5 +1,5 @@
 import {
-  log, extractMods, intersection, devMode, generateId, parseColor, CUSTOM_FUNCS
+  log, extractMods, intersection, devMode, generateId, parseColor, CUSTOM_FUNCS, parseAttr, warn
 } from "./helpers";
 import {
   findContrastColor,
@@ -9,7 +9,12 @@ import {
   hslToRgbaStr,
   getTheBrightest,
   hslToRgb,
-  findContrastLightness, setSaturation, strToHsl, getSaturationRatio, hplToRgbaStr,
+  findContrastLightness,
+  setSaturation,
+  strToHsl,
+  getSaturationRatio,
+  hplToRgbaStr,
+  getContrastRatio,
 } from './color';
 import { removeRulesByPart, insertRuleSet, stylesString, withMediaQuery } from './css';
 
@@ -165,7 +170,6 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
       theme['text-strong'] = setSaturation([hue, saturation, findContrastLightness(theme.subtle[2], 7)], saturation, pastel);
       break;
     case 'tone':
-      // @TODO Check bg saturation
       theme.bg = setSaturation([hue, saturation, tonedBgLightness], saturation, true);
       theme.text = setSaturation([hue, saturation, findContrastLightness(tonedBgLightness, minContrast)], saturation, pastel);
       theme['text-strong'] = setSaturation([hue, saturation, findContrastLightness(tonedBgLightness, 7)], saturation, pastel);
@@ -431,7 +435,7 @@ export function declareTheme(el, name, hue, saturation, pastel, defaultMods) {
 export function applyDefaultMods(theme, defaultMods) {
   theme = { ...theme };
 
-  const { value, mods } = extractMods(defaultMods, ALL_THEME_MODS);
+  const { mods } = extractMods(defaultMods, ALL_THEME_MODS);
   const lightnessMod = mods.find(mod => LIGHTNESS_MODS.includes(mod));
   const contrastMod = mods.find(mod => CONTRAST_MODS.includes(mod));
   const typeMod = mods.find(mod => THEME_TYPE_MODS.includes(mod));
@@ -610,27 +614,59 @@ export function hueFromString(str) {
 }
 
 const COLORS = {};
+const LIGHT_MAX_CONTRAST = getContrastRatio(baseBgColor, normalBaseTextColor);
+const LIGHT_HIGH_MAX_CONTRAST = getContrastRatio(baseBgColor, contrastBaseTextColor);
+const DARK_MAX_CONTRAST = getContrastRatio(darkNormanBaseBgColor, darkNormalBaseTextColor);
+const DARK_HIGH_MAX_CONTRAST = getContrastRatio(darkContrastBaseBgColor, darkContrastBaseTextColor);
 
-/**
- *
- * @param {Number} hue
- * @param {Number} saturation
- * @param {Number} alpha
- * @param {Boolean} [pastel]
- * @param {Boolean} [invertContrast]
- */
-export function requireColor(hue, saturation, alpha, pastel, invertContrast) {
-  if (alpha == null) {
-    alpha = 1;
+function convertContrast(contrast, darkScheme, highContrast) {
+  let maxContrast;
+
+  switch(contrast) {
+    case 'auto':
+      return highContrast ? 7 : 4.5;
+    case 'high':
+      return 7;
+    case 'low':
+      return highContrast ? 4.5 : 3;
   }
 
-  const prop = `--nu-h${hue}-s${saturation}-a${(alpha * 100)}${pastel ? '-p' : ''}${invertContrast ? '-i' : ''}`;
+  if (darkScheme) {
+    if (highContrast) {
+      maxContrast = DARK_HIGH_MAX_CONTRAST
+    } else {
+      maxContrast = DARK_MAX_CONTRAST;
+    }
+  } else {
+    if (highContrast) {
+      maxContrast = LIGHT_HIGH_MAX_CONTRAST
+    } else {
+      maxContrast = LIGHT_MAX_CONTRAST;
+    }
+  }
+
+  let relativeContrast = (maxContrast - 1) * (contrast * (highContrast ? 1.5 : 1)) / 100 + 1;
+
+  if (relativeContrast > maxContrast) {
+    relativeContrast = maxContrast;
+  }
+
+  return relativeContrast;
+}
+
+export function requireHue(color) {
+  let { hue, saturation, contrast, alpha, special, pastel } = color;
+
+  const prop = `--nu-h-${hue}-s-${saturation}-c-${contrast}-a-${(alpha)}${pastel ? '-p' : ''}${special ? '-s' : ''}`;
+
+  // convert alpha to decimal value
+  alpha /= 100;
 
   if (!COLORS[prop]) {
-    const lightValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], 4.5), alpha]);
-    const lightContrastValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], 6), alpha]);
-    const darkValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness((!invertContrast ? darkNormanBaseBgColor : darkNormalBaseTextColor)[2], 4.5), alpha]);
-    const darkContrastValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness((!invertContrast ? darkContrastBaseBgColor : darkContrastBaseTextColor)[2], 6), alpha]);
+    const lightValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], convertContrast(contrast)), alpha]);
+    const lightContrastValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], convertContrast(contrast, false, true)), alpha]);
+    const darkValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness((!special ? darkNormanBaseBgColor : darkNormalBaseTextColor)[2], convertContrast(contrast, true), special), alpha]);
+    const darkContrastValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness((!special ? darkContrastBaseBgColor : darkContrastBaseTextColor)[2], convertContrast(contrast, true, true), special), alpha]);
 
     const props = [lightValue, lightContrastValue, darkValue, darkContrastValue]
       .map(value => `${prop}: ${value};`);
@@ -645,61 +681,116 @@ export function requireColor(hue, saturation, alpha, pastel, invertContrast) {
   return prop;
 }
 
-function parseCustomColor(val, defaultSaturation) {
-  const isShort = defaultSaturation != null;
-  const values = val.split(',');
+const CONTRAST_MODES = ['auto', 'low', 'high'];
 
-  const hue = parseInt(values[0]);
+function parseHue(val) {
+  val = val.replace(',', ' ');
 
-  if (isNaN(hue)) return;
+  let { all: values } = parseAttr(val, 2);
 
-  let saturation, alpha;
+  // copy values
+  values = [...values];
 
-  if (isShort && values[1] && values[1].includes('%')) {
-    saturation = defaultSaturation;
-    alpha = parseInt(values[1]) / 100;
-  } else {
-    saturation = parseInt(values[1]);
+  let contrast = 'auto';
+  let special = false;
+  let pastel = false;
+  let modContrast = false;
 
-    if (isNaN(saturation)) {
-      if (defaultSaturation) {
-        saturation = defaultSaturation;
-      } else {
-        return;
+  for (let i = 0; i < values.length;) {
+    const value = values[i];
+
+    if (CONTRAST_MODES.includes(value)) {
+      contrast = value;
+      modContrast = true;
+    } else {
+      switch(value) {
+        case 's':
+        case 'special':
+          special = true;
+          break;
+        case 'p':
+        case 'pastel':
+          pastel = true;
+          break;
+        default:
+          i += 1;
+          continue;
       }
     }
 
-    alpha = parseFloat(isShort ?  values[2] : values[3]).toFixed(2);
+    values.splice(i, 1);
   }
 
-  if (isNaN(alpha)) {
-    alpha = 1;
+  if (!values[0]) {
+    if (devMode) {
+      warn('hue(): 1 argument required.')
+    }
+
+    return;
   }
 
-  return isShort ? [hue, saturation, alpha] : [hue, saturation, parseInt(values[2]), alpha];
+  const hue = parseInt(values[0]);
+
+  if (isNaN(hue) || hue < 0 || hue > 359) {
+    if (devMode) {
+      warn('hue(): incorrect first `hue` argument. Should be an integer between 0 and 359. Provided value:', JSON.stringify(values[0]));
+    }
+
+    return;
+  }
+
+  let alpha = 100;
+  let saturation = 100;
+
+  if (values[1] != null) {
+    const tmpSat = parseInt(values[1]);
+
+    if (!isNaN(tmpSat) || tmpSat < 0 || tmpSat > 100) {
+      saturation = tmpSat;
+    } else if (devMode) {
+      warn('hue(): incorrect second `saturation` value. Should be an integer between 0 and 100. Provided value:', JSON.stringify(values[1]));
+    }
+  }
+
+  const alphaIndex = modContrast ? 2 : 3;
+
+  if (!modContrast && values[2] != null) {
+    const tmpCont = parseInt(values[2]);
+
+    if (!isNaN(tmpCont)) {
+      contrast = tmpCont;
+    } else if (devMode) {
+      warn('hue(): incorrect third `contrast` value. Should be an integer between 0 and 100 or one of the following shorthands: `auto`, `low`, and `high`. Provided value:', JSON.stringify(values[2]));
+    }
+  }
+
+  if (values[alphaIndex] != null) {
+    const tmpAlpha = parseInt(values[alphaIndex]);
+
+    if (!isNaN(tmpAlpha)) {
+      alpha = tmpAlpha;
+    } else if (devMode) {
+      warn('hue(): incorrect fourth `alpha` value. Should be a percent value between 0% and 100%. Provided value:', JSON.stringify(values[alphaIndex]));
+    }
+  }
+
+  return { hue, saturation, contrast, alpha, special, pastel };
+}
+
+function parseHSL(val) {
+  const values = val.split(',');
+
+  return [...values.slice(0, 3).map(i => parseInt(i)), parseFloat(values[3])];
 }
 
 Object.assign(CUSTOM_FUNCS, {
-  hs(val, invert) {
-    const [hue, saturation, alpha] = parseCustomColor(val, 100);
-
-    return `var(${requireColor(hue, saturation, alpha, false, invert)})`;
-  },
-  hp(val, invert) {
-    const [hue, saturation, alpha] = parseCustomColor(val, 100);
-
-    return `var(${requireColor(hue, saturation, alpha, true, invert)})`;
-  },
-  hsi(val) {
-    return this.hs(val, true);
-  },
-  hpi(val) {
-    return this.hp(val, true);
+  hue(val) {
+    return `var(${requireHue(parseHue(val))})`;
   },
   hsluv(val) {
-    return hslToRgbaStr(parseCustomColor(val));
+    return hslToRgbaStr(parseHSL(val));
   },
   hpluv(val) {
-    return hplToRgbaStr(parseCustomColor(val));
+    return hplToRgbaStr(parseHSL(val));
   },
 });
