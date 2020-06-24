@@ -185,12 +185,12 @@ export default class NuBase extends HTMLElement {
     return [];
   }
 
+  static get nuName() {
+    return '';
+  }
+
   static get nuNames() {
     let name = this.hasOwnProperty('nuName') ? this.nuName : this.nuTag.replace(/^nu-/, '');
-
-    if (name.startsWith('abstract-')) {
-      name = '';
-    }
 
     const ignoreNames = name.split(/\s+/g).filter((nm) => {
       return nm.startsWith('-');

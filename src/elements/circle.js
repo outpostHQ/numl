@@ -1,5 +1,5 @@
 import NuElement from './element';
-import combinedAttr from '../attributes/combined';
+import sizeAttr from '../attributes/size';
 
 export default class NuCircle extends NuElement {
   static get nuTag() {
@@ -9,14 +9,7 @@ export default class NuCircle extends NuElement {
   static get nuGenerators() {
     return {
       size(val) {
-        if (!val) val = '1em';
-
-        val = `${val} ${val}`;
-
-        return combinedAttr([{
-          width: val,
-          height: val,
-        }], NuCircle);
+        return sizeAttr(val, {}, true);
       }
     }
   }
@@ -24,6 +17,8 @@ export default class NuCircle extends NuElement {
   static get nuStyles() {
     return {
       display: 'block',
+      width: '1fs 1fs',
+      height: '1fs 1fs',
       size: '1em',
       radius: 'round',
       border: '',

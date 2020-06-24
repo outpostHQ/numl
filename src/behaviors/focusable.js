@@ -56,16 +56,18 @@ export default class FocusableBehavior extends Behavior {
     this.host.nuSetContext('focus', bool || null);
   }
 
-  set(bool) {
-    // @TODO: replace nuTabIndex with more sane approach
-    if (bool && !this.isManual) {
-      this.ref.setAttribute('tabindex', '0');
-    } else if (this.isManual) {
+  set(param) {
+    if ((this.isManual && param !== 'auto') || param === 'manual') {
+      this.isManual = true;
       this.ref.setAttribute('tabindex', '-1');
-    } else  {
+    } else if (param) {
+      this.isManual = false;
+      this.ref.setAttribute('tabindex', '0');
+    } else {
+      this.isManual = false;
       this.ref.removeAttribute('tabindex');
     }
 
-    this.host.nuSetMod('focusable', bool || null);
+    this.host.nuSetMod('focusable', param || null);
   }
 }

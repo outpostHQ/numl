@@ -1,4 +1,7 @@
 import WidgetBehavior from "./widget";
+import MenuBehavior from './menu';
+
+const Menu = MenuBehavior.prototype;
 
 export default class RadioGroupBehavior extends WidgetBehavior {
   static get params() {
@@ -13,11 +16,35 @@ export default class RadioGroupBehavior extends WidgetBehavior {
   init() {
     super.init();
 
+    this._items = [];
+
     // Set default value if it's not set
     if (this.value == null) {
       this.setValue('0');
     }
 
     this.setContext('radiogroup', this);
+
+    this.on('keydown', this.onKeyDown.bind(this));
+  }
+
+  addItem(item) {
+    Menu.addItem.call(this, item);
+  }
+
+  removeItem(item) {
+    Menu.removeItem.call(this, item);
+  }
+
+  setCurrent(item) {
+    Menu.setCurrent.call(this, item);
+  }
+
+  getItemsInOrder() {
+    return Menu.getItemsInOrder.call(this, '[nu-action]', 'nuAction');
+  }
+
+  onKeyDown(event) {
+    Menu.onKeyDown.call(this, event);
   }
 }

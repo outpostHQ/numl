@@ -1,6 +1,6 @@
 import ConverterBehavior from './converter';
 import CodeConverter from '../converters/code';
-import { applyTheme } from '../themes';
+import { applyTheme, parseHue, requireHue } from '../themes';
 
 let themesDeclared = false;
 
@@ -19,40 +19,17 @@ const MRK = 'mrk';
 const IMP = 'imp';
 
 export const CODE_THEMES = {
-  [COM]: {
-    saturation: 0,
-    contrast: 'soft',
-  },
-  [SPC]: { skip: true },
-  [NAM]: { skip: true },
-  [KEY]: {
-    hue: 240,
-  },
-  [NUM]: {
-    hue: 280,
-    saturation: 100,
-    pastel: true,
-  },
-  [PCT]: {
-    hue: 60,
-    pastel: true,
-  },
-  [REX]: {
-    hue: 340,
-  },
-  [STR]: {
-    hue: 180,
-  },
-  [UNK]: {
-    hue: 240,
-    saturation: 0,
-  },
-  [PLS]: {
-    hue: 180,
-  },
-  [MNS]: {
-    hue: 1,
-  },
+  [COM]: '0 0 low',
+  [SPC]: false,
+  [NAM]: false,
+  [KEY]: '240 70',
+  [NUM]: '280 100 pastel',
+  [PCT]: '60 pastel',
+  [REX]: '340 70',
+  [STR]: '180 70',
+  [UNK]: '240 0',
+  [PLS]: '180 70',
+  [MNS]: '1 70',
   [MRK]: {
     hue: 240,
     type: 'tone',
@@ -65,6 +42,7 @@ export const CODE_THEMES = {
     pastel: false,
   }
 };
+export const THEME_ATTRS = {};
 
 export default class CodeBehavior extends ConverterBehavior {
   static get converter() {
@@ -93,7 +71,7 @@ export default class CodeBehavior extends ConverterBehavior {
     container.innerHTML = converter(
       content,
       this.enumerate,
-      CODE_THEMES,
+      THEME_ATTRS,
     );
   }
 
@@ -113,19 +91,31 @@ export default class CodeBehavior extends ConverterBehavior {
 function declareThemes() {
   themesDeclared = true;
 
-  Object.entries(CODE_THEMES).forEach(([id, { hue, type, saturation, pastel, contrast, lightness, skip }]) => {
-    if (skip) return;
+  Object.entries(CODE_THEMES).forEach(([id, theme]) => {
+    if (!theme) {
+      THEME_ATTRS[id] = { color: '--nu-main-text-color' };
+    } else if (typeof theme === 'object') {
+      const { hue, type, saturation, pastel, contrast, lightness } = theme;
 
-    const name = `snippet-${id}`;
+      const name = `snippet-${id}`;
 
-    applyTheme(document.body, {
-      hue: hue != null ? String(hue) : 240,
-      saturation: saturation != null ? saturation : (pastel ? 100 : 75),
-      pastel: pastel != null ? pastel : false,
-      name,
-      type: type || 'tint',
-      lightness: lightness || 'normal',
-      contrast: contrast || 'normal',
-    }, name);
+      applyTheme(document.body, {
+        hue: hue != null ? String(hue) : 240,
+        saturation: saturation != null ? saturation : (pastel ? 100 : 75),
+        pastel: pastel != null ? pastel : false,
+        name,
+        type: type || 'tint',
+        lightness: lightness || 'normal',
+        contrast: contrast || 'normal',
+      }, name);
+
+      THEME_ATTRS[id] = { theme: name };
+
+      if (type) {
+        THEME_ATTRS[id].fill = '';
+      }
+    } else {
+      THEME_ATTRS[id] = { color: `${requireHue(parseHue(theme))}`}
+    }
   });
 }

@@ -207,10 +207,10 @@ function findParentPopup(element) {
   const elements = [];
 
   while (element) {
-    const nuButton = element.nuButton;
+    const nuAction = element.nuAction;
 
-    if (nuButton && nuButton.popup) {
-      const popupEl = nuButton.popup.host;
+    if (nuAction && nuAction.popup) {
+      const popupEl = nuAction.popup.host;
 
       if (popupEl) {
         elements.push(popupEl);

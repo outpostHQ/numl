@@ -1,4 +1,4 @@
-import { devMode, h, parseAttr, toCamelCase, warn } from '../helpers';
+import { devMode, h, isNoValue, parseAttr, toCamelCase, warn } from '../helpers';
 
 const MAP = {
   move: ['transform'],
@@ -39,7 +39,7 @@ function isStyle(style) {
 }
 
 export default function transitionAttr(val) {
-  if (val == null) return;
+  if (val == null || isNoValue(val)) return;
 
   const transitions = val.split(',');
   const map = {};

@@ -15,7 +15,7 @@ export const BEHAVIORS = {
   popup: () => extract(import('./popup.js')),
   control: () => extract(import('./control.js')),
   radiogroup: () => extract(import('./radiogroup.js')),
-  button: () => extract(import('./button.js')),
+  action: () => extract(import('./action.js')),
   label: () => extract(import('./label.js')),
   code: () => extract(import('./code.js')),
   markdown: () => extract(import('./markdown.js')),
@@ -39,6 +39,10 @@ export const BEHAVIORS = {
   datepicker: () => extract(import('./datepicker.js')),
   dateinput: () => extract(import('./dateinput.js')),
   inputgroup: () => extract(import(`./inputgroup.js`)),
+  menu: () => extract(import(`./menu.js`)),
+  menuitem: () => extract(import(`./menuitem.js`)),
+  offset: () => extract(import(`./offset.js`)),
+  appear: () => extract(import(`./appear.js`)),
 };
 
 export function hasBehavior(el, name) {

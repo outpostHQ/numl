@@ -1,19 +1,95 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('code')}
+  <nu-card>
+    <nu-markdown>
+      <pre>
+        # What?
+
+        ```
+        var a = '123';
+        var b = /.+/g;
+        ```
+      </pre>
+    </nu-markdown>
+  </nu-card>
+{/if}
+
+{#if show('appear')}
+  <nu-card>
+    <nu-block height="100vh"></nu-block>
+    <nu-btn nx-appear="toggle timeout:1000" opacity="0 :appear[1]" move="8x 0 :appear[0]" transition="opacity .5s, move .5s">Button</nu-btn>
+    <nu-block height="100vh"></nu-block>
+  </nu-card>
+{/if}
+
+{#if show('offset')}
+  <nu-card>
+    <nu-cardbtn
+      nx-offset transition="move :offset[no]"
+      move="(--offset-x * 1x) (--offset-y * 1x)" height="5" width="15">
+      Interactive Button
+    </nu-cardbtn>
+  </nu-card>
+{/if}
+
+{#if show('menu')}
+  <nu-nav label="Main">
+    <nu-menu padding="1x 0" border width="12" nx-debug>
+      <nu-menuitem>Item 1</nu-menuitem>
+      <nu-menuitem>Item 2</nu-menuitem>
+      <nu-menuitem>Item 3</nu-menuitem>
+      <nu-menuitem>
+        Item 4
+        <nu-popup>
+          <nu-menu>
+            <nu-menuitem>Item 1</nu-menuitem>
+            <nu-menuitem>Item 2</nu-menuitem>
+          </nu-menu>
+        </nu-popup>
+      </nu-menuitem>
+    </nu-menu>
+  </nu-nav>
+
+  <nu-debug></nu-debug>
+{/if}
+
+{#if show('spacer')}
+  <nu-block>
+    <nu-card>
+      Card 1
+    </nu-card>
+    <nu-spacer size="2x"></nu-spacer>
+    <nu-card>
+      Card 2
+    </nu-card>
+  </nu-block>
+{/if}
+
+{#if show('circle')}
+  <nu-card>
+    <nu-pane gap>
+      <nu-circle></nu-circle>
+      <nu-circle size="xl"></nu-circle>
+      <nu-circle special></nu-circle>
+    </nu-pane>
+  </nu-card>
+{/if}
+
 {#if show('fancy')}
   <nu-flow gap="2x" size="lg">
     <nu-attrs
       for="slider" width="15" min="0" max="359"
-      image="linear(to right, hsi(0, 90), hsi(90, 90), hsi(180, 90), hsi(270, 90), hsi(0, 90))"></nu-attrs>
+      image="linear(to right, hue(0), hue(90), hue(180), hue(270), hue(0))"></nu-attrs>
     <nu-grid columns="auto 1fr" gap="1x" items="center start">
       <nu-el>From</nu-el>
-      <nu-slider fill="--from" value="280" control="props[from=hsi(@)]"></nu-slider>
+      <nu-slider fill="--from" value="280" control="props[from=hue(@ special)]"></nu-slider>
       <nu-el>To</nu-el>
-      <nu-slider fill="--to" value="320" control="props[to=hsi(@)]"></nu-slider>
+      <nu-slider fill="--to" value="320" control="props[to=hue(@ special)]"></nu-slider>
       <nu-el>Angle</nu-el>
       <nu-slider image value="345" control="props[angle=@deg]"></nu-slider>
     </nu-grid>
-    <nu-props id="props" fill="special" from="hsi(280)" to="hsi(320)"></nu-props>
+    <nu-props id="props" fill="special"></nu-props>
     <nu-card
       clear color="special-text" size="xl" text="h" radius="3x" width="15" height="15"
       shadow="special"
@@ -21,6 +97,13 @@
       image="linear(--angle, --from, --to)">
       Heading
     </nu-card>
+<!--    <nu-card-->
+<!--      clear color="special-text" size="xl" text="h" radius="3x" width="15" height="15"-->
+<!--      shadow="special"-->
+<!--      transition="fill .15s, shadow"-->
+<!--      image="linear(-15deg, hue(280 100% pastel special), hue(320 special))">-->
+<!--      Heading-->
+<!--    </nu-card>-->
   </nu-flow>
 {/if}
 

@@ -3,7 +3,7 @@ import Routing from '../routing';
 import { h, isEqual, queryById, stackTrace } from '../helpers';
 import { handleLinksState } from '../links';
 
-export default class ButtonBehavior extends WidgetBehavior {
+export default class ActionBehavior extends WidgetBehavior {
   static get params() {
     return {
       input: true,
@@ -24,13 +24,13 @@ export default class ButtonBehavior extends WidgetBehavior {
     this.props.checked = pressedAttr;
     this.props.selected = pressedAttr;
 
-    this.setMod('btn', true);
+    this.setMod('action', true);
 
     super.init();
 
     const { host } = this;
 
-    host.nuButton = this;
+    host.nuAction = this;
 
     this.on('keydown', (event) => {
       if (event.key === 'Escape' && host.nuHasAria('expanded')) {
@@ -55,12 +55,6 @@ export default class ButtonBehavior extends WidgetBehavior {
       }
     });
 
-    this.on('tap', (event) => {
-      if (!event.nuRole && this.role) {
-        event.nuRole = this.role;
-      }
-    });
-
     /**
      * @type {RadioGroupBehavior}
      */
@@ -76,14 +70,18 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     this.linkContext('radiogroup', () => this.verifyRadioGroup(), 'radioGroup');
 
-    if (this.role === 'button') {
-      if (this.to) {
-        this.role = 'link';
-      }
+    if (this.role === 'button' && this.to) {
+      this.role = 'link';
     }
 
     this.createLink();
     this.setContext('button', this);
+  }
+
+  disconnected() {
+    if (this.radioGroup) {
+      this.radioGroup.removeItem(this);
+    }
   }
 
   changed(name, value) {
@@ -105,6 +103,8 @@ export default class ButtonBehavior extends WidgetBehavior {
     const radioGroup = this.radioGroup;
 
     if (!radioGroup) return;
+
+    radioGroup.addItem(this);
 
     this.setAttr('link-value', '');
     this.role = radioGroup.params.itemRole;
@@ -165,7 +165,8 @@ export default class ButtonBehavior extends WidgetBehavior {
       $link.href = this.href;
       $link.target = this.newTab ? '_blank' : '_self';
       $link.setAttribute('tabindex', '-1');
-      $link.setAttribute('aria-labelledby', host.nuUniqId);
+      $link.setAttribute('aria-hidden', 'true');
+      $link.setAttribute('role', 'none');
 
       this.$link = $link;
 
@@ -218,13 +219,18 @@ export default class ButtonBehavior extends WidgetBehavior {
 
           handleLinksState(true);
 
+          setTimeout(() => {
+            this.emit('tap');
+          }, 0);
+
           return;
         }
       }
     }
 
-    if (this.disabled
-      || host.getAttribute('tabindex') === '-1') return;
+    if (this.disabled) return;
+
+    if (this.isRadio() && this.pressed) return;
 
     if (this.scrollto) {
       host.nuScrollTo(this.scrollto);
@@ -292,9 +298,8 @@ export default class ButtonBehavior extends WidgetBehavior {
 
     this.pressed = pressed;
 
-    if (this.isRadio()) {
-      host.nu('focusable')
-        .then(Focusable => Focusable.set(!pressed && !this.disabled));
+    if (pressed && this.isRadio() && this.radioGroup) {
+      this.radioGroup.setCurrent(this);
     }
 
     if (this.popup) {

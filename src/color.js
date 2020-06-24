@@ -33,8 +33,8 @@ const TO_RELATIVE_CACHE = {};
 const FROM_RELATIVE_CACHE = {};
 
 export function getContrastRatio(hslA, hslB) {
-  const a = toRelative(hslA[2]) / 100;
-  const b = toRelative(hslB[2]) / 100;
+  const a = Array.isArray(hslA) ? toRelative(hslA[2]) / 100 : hslA;
+  const b = Array.isArray(hslB) ? toRelative(hslB[2]) / 100 : hslB;
   const l1 = Math.max(a, b);
   const l2 = Math.min(a, b);
 

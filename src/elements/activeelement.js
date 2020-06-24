@@ -2,11 +2,15 @@ import NuElement from './element';
 
 export default class NuActiveElement extends NuElement {
   static get nuTag() {
-    return 'nu-abstract-activeelement'; // abstract tag
+    return 'nu-action'; // abstract tag
   }
 
   static get nuRole() {
     return 'button';
+  }
+
+  static get nuName() {
+    return 'action';
   }
 
   static get nuStyles() {
@@ -14,7 +18,7 @@ export default class NuActiveElement extends NuElement {
       radius: '',
       text: 'nowrap',
       transition: 'theme, radius',
-      outline: 'focus-inside',
+      outline: 'focus',
       mark: 'n :focusable[hover]',
       opacity: '1 :disabled[.5]',
       cursor: 'pointer :disabled[default]',
@@ -26,7 +30,7 @@ export default class NuActiveElement extends NuElement {
   static get nuBehaviors() {
     return {
       control: true,
-      button: true,
+      action: true,
     };
   }
 
