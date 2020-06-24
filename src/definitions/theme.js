@@ -8,7 +8,6 @@ const ATTRS_LIST = [
   'hue',
   'saturation',
   'pastel',
-  'from',
   'mod',
 ];
 
@@ -89,15 +88,15 @@ export default class NuTheme extends NuDefinition {
       return map;
     }, {});
 
-    let { name = '', hue, saturation, pastel, from, mod } = attrs;
+    let { name = '', hue, saturation, pastel, mod } = attrs;
 
-    const cache = JSON.stringify({ name, hue, saturation, pastel, from, mod });
+    const cache = JSON.stringify({ name, hue, saturation, pastel, mod });
 
     if (this.nuCache === cache) return;
 
     this.nuCache= cache;
 
-    if (hue && !parseInt(hue) && hue !== '0') {
+    if (hue && hue !== '0' && isNaN(Number(hue))) {
       hue = hueFromString(hue);
     }
 
@@ -112,21 +111,8 @@ export default class NuTheme extends NuDefinition {
 
     name = name || 'main';
 
-    if (from) {
-      const color = strToHsl(from);
-
-      if (!color) {
-        error('wrong reference color', from);
-        return;
-      }
-
-      hue = color[0];
-
-      saturation = saturation === 'auto' ? (pastel ? 100 : getOptimalSaturation(hue)) : (saturation != null ? saturation : color[1]);
-    } else {
-      hue = hue != null ? Number(hue) : null;
-      saturation = saturation == null || saturation === 'auto' ? (pastel ? 100 : getOptimalSaturation(hue)) : Number(saturation);
-    }
+    hue = hue != null ? Number(hue) : null;
+    saturation = saturation == null || saturation === 'auto' ? (pastel ? 100 : getOptimalSaturation(hue)) : Number(saturation);
 
     if (hue > 359 || hue < 0) {
       warn('[nu-theme] hue is out of range [0..359]:', JSON.stringify(hue));
@@ -155,7 +141,6 @@ export default class NuTheme extends NuDefinition {
 
     this.nuName = name;
     this.nuHue = hue;
-    this.nuFrom = from;
     this.nuSaturation = saturation;
     this.nuPastel = pastel;
     this.nuMods = defaultMods;
@@ -169,7 +154,6 @@ export default class NuTheme extends NuDefinition {
         definition: this,
         name,
         hue,
-        from,
         saturation,
         pastel,
       });

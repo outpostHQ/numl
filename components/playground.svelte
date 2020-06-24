@@ -147,7 +147,9 @@
 {/if}
 
 {#if show('theme')}
-  <nu-card theme="special">
+  <nu-theme name="positive" hue="sadf" mod="tint"></nu-theme>
+
+  <nu-card theme="positive">
     Special card
   </nu-card>
 {/if}

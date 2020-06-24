@@ -14,7 +14,7 @@ import {
   strToHsl,
   getSaturationRatio,
   hplToRgbaStr,
-  getContrastRatio,
+  getContrastRatio, extractColor, rgbToHsl,
 } from './color';
 import { removeRulesByPart, insertRuleSet, stylesString, withMediaQuery } from './css';
 
@@ -600,14 +600,10 @@ export function generateThemeQuery(query, scheme = '', contrast = '') {
 }
 
 export function hueFromString(str) {
-  const { color } = parseColor(str, true);
+  if (str.match(/^(#|(rgb|rgba|hsl)\()/)) {
+    const extColor = extractColor(str);
 
-  if (color) {
-    const hsl = strToHsl(color);
-
-    if (hsl) {
-      return hsl[0];
-    }
+    return rgbToHsl(extColor)[0];
   }
 
   return str.split('').reduce((sum, ch) => sum + ch.charCodeAt(0) * 69, 0) % 360;
