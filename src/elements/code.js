@@ -10,12 +10,6 @@ export default class NuCode extends NuElement {
     return 'figure';
   }
 
-  static get nuAttrs() {
-    return {
-      notranslate: '',
-    };
-  }
-
   static get nuStyles() {
     return {
       display: 'block',
@@ -71,6 +65,8 @@ export default class NuCode extends NuElement {
 
   nuConnected() {
     super.nuConnected();
+
+    this.classList.add('notranslate');
 
     const ref = this.querySelector('textarea, pre');
 
