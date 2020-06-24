@@ -1680,5 +1680,3 @@ export function setAria(el, name, value) {
     (el.nuRef || el).setAttribute(`aria-${name}`, value);
   }
 }
-
-window.parseColor = parseColor;
