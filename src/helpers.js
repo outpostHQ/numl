@@ -1261,6 +1261,8 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
     return { color };
   }
 
+  name = name || mods[0];
+
   if (!name) {
     if (!ignoreError && devMode) {
       warn('incorrect color value:', val);
@@ -1678,3 +1680,5 @@ export function setAria(el, name, value) {
     (el.nuRef || el).setAttribute(`aria-${name}`, value);
   }
 }
+
+window.parseColor = parseColor;
