@@ -784,8 +784,8 @@ function parseHSL(val) {
 }
 
 Object.assign(CUSTOM_FUNCS, {
-  hue(val) {
-    return `var(${requireHue(parseHue(val))})`;
+  hue(val, { explicitColor } = {}) {
+    return `${explicitColor ? 'color(' : ''}var(${requireHue(parseHue(val))})${explicitColor ? ')' : ''}`;
   },
   hsluv(val) {
     return hslToRgbaStr(parseHSL(val));

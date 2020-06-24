@@ -1,5 +1,28 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('borders')}
+  <nu-flow gap>
+    <nu-flex gap>
+      <nu-attrs for="nu-block" height="3" width="3" fill="subtle"></nu-attrs>
+
+      <nu-block radius="round" border="1x hue(320)"></nu-block>
+      <nu-block radius="round" border="1x top #special"></nu-block>
+      <nu-block radius="round" border="1x right #special"></nu-block>
+      <nu-block radius="round" border="1x bottom #special"></nu-block>
+      <nu-block radius="round" border="1x left #special"></nu-block>
+    </nu-flex>
+
+    <nu-flex gap>
+      <nu-attrs for="nu-block" height="5" width="3" fill="subtle"></nu-attrs>
+      <nu-block radius="round" border="1x #special"></nu-block>
+      <nu-block radius="round" border="1x top #special"></nu-block>
+      <nu-block radius="round" border="1x right #special"></nu-block>
+      <nu-block radius="round" border="1x bottom #special"></nu-block>
+      <nu-block radius="round" border="1x left #special"></nu-block>
+    </nu-flex>
+  </nu-flow>
+{/if}
+
 {#if show('code')}
   <nu-card>
     <nu-markdown>
@@ -76,7 +99,7 @@
   </nu-card>
 {/if}
 
-{#if show('fancy')}
+{#if show('gradients')}
   <nu-flow gap="2x" size="lg">
     <nu-attrs
       for="slider" width="15" min="0" max="359"

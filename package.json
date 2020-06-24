@@ -1,6 +1,6 @@
 {
   "name": "numl",
-  "version": "0.11.20",
+  "version": "0.11.21",
   "module": "dist/index.js",
   "homepage": "https://github.com/tenphi/numl#readme",
   "repository": {

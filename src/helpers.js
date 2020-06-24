@@ -761,12 +761,12 @@ export function convertCustomProperties(val) {
   return val.replace(CUSTOM_PROPS_REGEX, (s, s1, s2) => s1 === 'var(' ? s : `${s1}var(--nu-${s2}, var(--${s2}))`);
 }
 
-export function convertCustomFuncs(str) {
+export function convertCustomFuncs(str, options) {
   if (!CUSTOM_FUNCS_REGEX) {
     CUSTOM_FUNCS_REGEX = new RegExp(`(^|[\\s])(${Object.keys(CUSTOM_FUNCS).join('|')})\\(([^)]+)\\)`, 'g');
   }
 
-  return str.replace(CUSTOM_FUNCS_REGEX, (s, s1, s2, s3) => `${s1}${CUSTOM_FUNCS[s2](s3)}`);
+  return str.replace(CUSTOM_FUNCS_REGEX, (s, s1, s2, s3) => `${s1}${CUSTOM_FUNCS[s2](s3, options)}`);
 }
 
 function prepareParsedValue(val) {
@@ -804,7 +804,7 @@ export function parseAttr(value, mode = 0) {
 
     ATTR_REGEXP.lastIndex = 0;
 
-    value = convertCustomFuncs(value);
+    value = convertCustomFuncs(value, { explicitColor: true });
 
     while (token = ATTR_REGEXP.exec(value)) {
       let [s, quoted, func, hashColor, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma] = token;
