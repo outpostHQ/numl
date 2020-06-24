@@ -10,6 +10,12 @@ export default class NuCode extends NuElement {
     return 'figure';
   }
 
+  static get nuAttrs() {
+    return {
+      notranslate: '',
+    };
+  }
+
   static get nuStyles() {
     return {
       display: 'block',
