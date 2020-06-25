@@ -70,7 +70,7 @@ export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 's
 function getMinContrast(type = 'normal', highContrast, darkScheme) {
   if (highContrast) {
     return type === 'strong'
-      ? 8
+      ? 8.5
       : (type === 'soft'
         ? 4.5
         : 7);
@@ -618,11 +618,11 @@ const DARK_HIGH_MAX_CONTRAST = getContrastRatio(darkContrastBaseBgColor, darkCon
 function convertContrast(contrast, darkScheme, highContrast) {
   let maxContrast;
 
-  switch(contrast) {
+  switch (contrast) {
     case 'auto':
       return highContrast ? 7 : 4.5;
     case 'high':
-      return highContrast ? 8 : 7;
+      return highContrast ? 8.5 : 7;
     case 'low':
       return highContrast ? 4.5 : 3;
   }
@@ -650,15 +650,15 @@ function convertContrast(contrast, darkScheme, highContrast) {
   return relativeContrast;
 }
 
-export function requireHue(color) {
+export function requireHue(color, name) {
   let { hue, saturation, contrast, alpha, special, pastel } = color;
 
-  const prop = `--nu-h-${hue}-s-${saturation}-c-${contrast}-a-${(alpha)}${pastel ? '-p' : ''}${special ? '-s' : ''}`;
+  const prop = name ? `--nu-${name}-color` : `--nu-h-${hue}-s-${saturation}-c-${contrast}-a-${(alpha)}${pastel ? '-p' : ''}${special ? '-s' : ''}`;
 
   // convert alpha to decimal value
   alpha /= 100;
 
-  if (!COLORS[prop]) {
+  if (!COLORS[prop] || name) {
     const lightValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], convertContrast(contrast)), alpha]);
     const lightContrastValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], convertContrast(contrast, false, true)), alpha]);
     const darkValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness((!special ? darkNormanBaseBgColor : darkNormalBaseTextColor)[2], convertContrast(contrast, true), special), alpha]);
@@ -699,7 +699,7 @@ export function parseHue(val) {
       contrast = value;
       modContrast = true;
     } else {
-      switch(value) {
+      switch (value) {
         case 's':
         case 'special':
           special = true;
@@ -790,3 +790,15 @@ Object.assign(CUSTOM_FUNCS, {
     return hplToRgbaStr(parseHSL(val));
   },
 });
+
+[
+  ['black', 100],
+  ['white', 0],
+  ['grey', 'auto'],
+  ['dimgrey', 'high'],
+  ['lightgrey', 'low'],
+  ['darkgrey', 80]
+]
+  .forEach(([name, contrast]) => {
+    requireHue({ hue: 0, saturation: 0, contrast, alpha: 100, special: true }, name);
+  });

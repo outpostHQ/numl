@@ -55,6 +55,7 @@ export function handleLinksState(force = false) {
 
 export default function () {
   window.addEventListener('scroll', handleLinksState, { passive: true });
+  window.addEventListener('popstate', handleLinksState, { passive: true });
 
   setTimeout(handleLinksState, 50);
 }

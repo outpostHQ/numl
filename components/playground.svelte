@@ -1,7 +1,7 @@
 <nu-heading>Playground</nu-heading>
 
 {#if show('nav')}
-  <nu-nav as="section">
+  <nu-nav as="section" color="white" fill="dimgrey">
     <nu-menu flow="row">
       <nu-attrs for="menuitem" border="0 :current[1sw bottom inside #special]"></nu-attrs>
       <nu-menuitem to="/">Home</nu-menuitem>
