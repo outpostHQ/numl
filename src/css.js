@@ -452,7 +452,6 @@ const globalRules = [`
   text-align: left;
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
-  -moz-osx-font-smoothing: grayscale;
   transition: background-color calc(var(--nu-transition-enabler) * var(--nu-transition-time)) linear;
 }`,
 
