@@ -102,6 +102,8 @@ export function findContrastColor(hsl, refL = 1, ratio = 4.5, dir) {
 }
 
 export function findContrastLightness(refL = 1, ratio = 4.5, dir) {
+  if (ratio === 1) return refL;
+
   const l1 = toRelative(refL);
   const l2 = getLuminanceByRatio(l1, ratio, dir);
 

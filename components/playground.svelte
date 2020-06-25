@@ -1,7 +1,37 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('colors')}
+  <nu-gridtable columns="auto auto 1fr" border>
+    <nu-attrs for="cell" padding></nu-attrs>
+    <nu-columnheader>Name</nu-columnheader>
+    <nu-columnheader>Contrast</nu-columnheader>
+    <nu-columnheader></nu-columnheader>
+    <nu-cell>black</nu-cell>
+    <nu-cell>100</nu-cell>
+    <nu-cell fill="black"></nu-cell>
+    <nu-cell>dark</nu-cell>
+    <nu-cell>85</nu-cell>
+    <nu-cell fill="dark"></nu-cell>
+    <nu-cell>darkgrey</nu-cell>
+    <nu-cell>high</nu-cell>
+    <nu-cell fill="darkgrey"></nu-cell>
+    <nu-cell>grey</nu-cell>
+    <nu-cell>auto</nu-cell>
+    <nu-cell fill="grey"></nu-cell>
+    <nu-cell>lightgrey</nu-cell>
+    <nu-cell>low</nu-cell>
+    <nu-cell fill="lightgrey"></nu-cell>
+    <nu-cell>light</nu-cell>
+    <nu-cell>5</nu-cell>
+    <nu-cell fill="light"></nu-cell>
+    <nu-cell>white</nu-cell>
+    <nu-cell>0</nu-cell>
+    <nu-cell fill="white"></nu-cell>
+  </nu-gridtable>
+{/if}
+
 {#if show('nav')}
-  <nu-nav as="section" color="white" fill="dimgrey">
+  <nu-nav as="section">
     <nu-menu flow="row">
       <nu-attrs for="menuitem" border="0 :current[1sw bottom inside #special]"></nu-attrs>
       <nu-menuitem to="/">Home</nu-menuitem>

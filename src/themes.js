@@ -641,7 +641,11 @@ function convertContrast(contrast, darkScheme, highContrast) {
     }
   }
 
-  let relativeContrast = (maxContrast - 1) * (contrast * (highContrast ? 1.5 : 1)) / 100 + 1;
+  if (highContrast && contrast) {
+    contrast = 100 - ((100 - contrast) * (1 - (contrast / 100) * .85));
+  }
+
+  let relativeContrast = ((maxContrast - 1) * contrast / 100) + 1;
 
   if (relativeContrast > maxContrast) {
     relativeContrast = maxContrast;
@@ -794,10 +798,11 @@ Object.assign(CUSTOM_FUNCS, {
 [
   ['black', 100],
   ['white', 0],
+  ['light', 5],
   ['grey', 'auto'],
-  ['dimgrey', 'high'],
+  ['darkgrey', 'high'],
   ['lightgrey', 'low'],
-  ['darkgrey', 80]
+  ['dark', 85]
 ]
   .forEach(([name, contrast]) => {
     requireHue({ hue: 0, saturation: 0, contrast, alpha: 100, special: true }, name);
