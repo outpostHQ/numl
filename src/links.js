@@ -16,25 +16,27 @@ export function handleLinkState(el) {
 
     const target = el.nuQueryById(id);
 
-    if (!target) return;
+    if (target) {
+      const rect = target.getBoundingClientRect();
 
-    const rect = target.getBoundingClientRect();
+      const bottom = rect.y + rect.height;
 
-    const bottom = rect.y + rect.height;
+      let isCurrent = false;
 
-    let isCurrent = false;
+      if ((rect.y <= 0 && bottom >= windowHeight)
+        || (rect.y >= 0 && bottom <= windowHeight)
+        || (rect.y >= 0 && rect.y <= windowHeight / 2)
+        || (bottom <= windowHeight && bottom >= windowHeight / 2)) {
+        isCurrent = true;
+      }
 
-    if ((rect.y <= 0 && bottom >= windowHeight)
-      || (rect.y >= 0 && bottom <= windowHeight)
-      || (rect.y >= 0 && rect.y <= windowHeight / 2)
-      || (bottom <= windowHeight && bottom >= windowHeight / 2)) {
-      isCurrent = true;
+      el.nuSetMod('current', isCurrent);
+
+      return;
     }
-
-    el.nuSetMod('current', isCurrent);
-  } else {
-    el.nuSetMod('current', href === location.href);
   }
+
+  el.nuSetMod('current', href === location.href);
 }
 
 export function handleLinksState(force = false) {
