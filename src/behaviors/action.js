@@ -1,7 +1,7 @@
 import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
 import { h, isEqual, queryById, stackTrace } from '../helpers';
-import { handleLinksState } from '../links';
+import { handleLinksState, handleLinkState } from '../links';
 
 export default class ActionBehavior extends WidgetBehavior {
   static get params() {
@@ -170,7 +170,10 @@ export default class ActionBehavior extends WidgetBehavior {
 
       this.$link = $link;
 
-      setTimeout(() => host.appendChild(this.$link));
+      setTimeout(() => {
+        host.appendChild(this.$link);
+        handleLinkState(host);
+      });
 
       this.$link.addEventListener('click', (evt) => {
         if (this.disabled) {

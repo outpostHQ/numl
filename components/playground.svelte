@@ -1,5 +1,15 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('nav')}
+  <nu-nav as="section">
+    <nu-menu flow="row">
+      <nu-attrs for="menuitem" border="0 :current[1sw bottom inside #special]"></nu-attrs>
+      <nu-menuitem to="/">Home</nu-menuitem>
+      <nu-menuitem to="/about">About</nu-menuitem>
+    </nu-menu>
+  </nu-nav>
+{/if}
+
 {#if show('borders')}
   <nu-flow gap>
     <nu-flex gap>

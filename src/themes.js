@@ -70,7 +70,7 @@ export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 's
 function getMinContrast(type = 'normal', highContrast, darkScheme) {
   if (highContrast) {
     return type === 'strong'
-      ? 7
+      ? 8
       : (type === 'soft'
         ? 4.5
         : 7);
@@ -622,7 +622,7 @@ function convertContrast(contrast, darkScheme, highContrast) {
     case 'auto':
       return highContrast ? 7 : 4.5;
     case 'high':
-      return 7;
+      return highContrast ? 8 : 7;
     case 'low':
       return highContrast ? 4.5 : 3;
   }
