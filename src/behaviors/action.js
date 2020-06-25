@@ -259,6 +259,10 @@ export default class ActionBehavior extends WidgetBehavior {
 
     setTimeout(() => {
       this.emit('tap');
+
+      setTimeout(() => {
+        handleLinksState();
+      });
     }, 0);
 
     if (this.isToggle()) {
