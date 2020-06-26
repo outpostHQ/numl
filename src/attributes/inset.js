@@ -16,7 +16,13 @@ export default function insetAttr(val) {
 
   const color = `rgba(0, 0, 0, ${intensity})`;
 
-  return {
+  const styles = {
     '--nu-local-inset-shadow': `0 0 ${size} 0 ${color} inset;`,
   };
+
+  if (mods.includes('active')) {
+    styles.$suffix = '[is-active]';
+  }
+
+  return [styles];
 }

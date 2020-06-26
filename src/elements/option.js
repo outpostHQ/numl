@@ -33,6 +33,7 @@ export default class NuOption extends NuElement {
       mark: 'hover :current[n]',
       opacity: '1 :disabled[.5]',
       cursor: 'pointer :disabled[default]',
+      inset: 'n :active[y]',
 
       '--local-focus-inset': 'inset 0 0',
     };

@@ -1706,7 +1706,7 @@ export default class NuBase extends HTMLElement {
   }
 
   get nuDisabled() {
-    return this.hasAttribute('disabled') || !this.hasAttribute('tabindex');
+    return this.hasAttribute('disabled');
   }
 
   set value(val) {

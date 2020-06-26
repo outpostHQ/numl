@@ -29,7 +29,7 @@ export default class ActiveBehavior extends Behavior {
       } else if (evt.key === ' ') {
         evt.preventDefault();
 
-        if (!host.nuDisabled && host.nuHasMod('focusable')) {
+        if (!host.nuDisabled) {
           this.setMod('active', true);
         }
       }

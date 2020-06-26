@@ -1,5 +1,20 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('basics')}
+  <nu-card as="section">
+    <nu-el
+      border
+      radius
+      padding="1x 2x"
+      cursor="pointer"
+      mark="hover"
+      nx-active
+      inset="active">
+      Button
+    </nu-el>
+  </nu-card>
+{/if}
+
 {#if show('colors')}
   <nu-gridtable columns="auto auto 1fr" border>
     <nu-attrs for="cell" padding></nu-attrs>
