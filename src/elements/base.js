@@ -37,7 +37,7 @@ import {
   deepQuery,
   deepQueryAll,
   queryChildren,
-  setImmediate, isEqual, asyncDebounce, setAttr, setBoolAttr, setAria,
+  setImmediate, isEqual, asyncDebounce, setAttr, setBoolAttr, setAria, decPoint,
 } from '../helpers';
 import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
@@ -1349,10 +1349,10 @@ export default class NuBase extends HTMLElement {
 
       const prevPoint = tmpPoints[i - 1];
 
-      return `@media (max-width: calc(${prevPoint} - 1px)) and (min-width: ${point})`;
+      return `@media (max-width: ${decPoint(prevPoint)}) and (min-width: ${point})`;
     });
 
-    mediaPoints.push(`@media (max-width: calc(${tmpPoints.slice(-1)[0]} - 1px))`);
+    mediaPoints.push(`@media (max-width: ${decPoint(tmpPoints.slice(-1)[0])})`);
 
     return (this.nuResponsiveDecorator = styles => {
       return mediaPoints

@@ -13,6 +13,7 @@ export default class NuRegion extends NuFlow {
     return {
       display: 'block',
       flow: 'column',
+      box: 'y',
     };
   }
 }

@@ -1680,3 +1680,14 @@ export function setAria(el, name, value) {
     (el.nuRef || el).setAttribute(`aria-${name}`, value);
   }
 }
+
+const POINT_REGEX = /([\d.]+)/;
+
+/**
+ * Decrease responsive point value.
+ * @param {String} val
+ * @return {String}
+ */
+export function decPoint(val) {
+  return val.replace(POINT_REGEX, (num) => `${Number(num) - 0.01}`);
+}

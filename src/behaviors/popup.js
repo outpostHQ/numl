@@ -43,6 +43,7 @@ export default class PopupBehavior extends WidgetBehavior {
       if (event.key === 'Escape') {
         if (button) {
           this.close();
+          button.host.focus();
         }
         event.stopPropagation();
       }

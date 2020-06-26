@@ -1,5 +1,5 @@
 import {
-  log, extractMods, intersection, devMode, generateId, parseColor, CUSTOM_FUNCS, parseAttr, warn
+  log, extractMods, intersection, devMode, generateId, CUSTOM_FUNCS, parseAttr, warn
 } from "./helpers";
 import {
   findContrastColor,
@@ -675,7 +675,7 @@ export function requireHue(color, name) {
 
     const cssRules = generateMediaCSS('body', props);
 
-    insertRuleSet(prop, cssRules);
+    insertRuleSet(prop, cssRules, null, !!name);
   }
 
   return prop;
