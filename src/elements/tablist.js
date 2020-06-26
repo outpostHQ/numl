@@ -51,7 +51,7 @@ export default class NuTablist extends NuRadioGroup {
   static get nuBehaviors() {
     return {
       orient: 'dynamic',
-      radiogroup: 'item-role:tab',
+      radiogroup: 'item-role(tab)',
     };
   }
 }

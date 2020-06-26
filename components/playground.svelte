@@ -96,7 +96,7 @@
 {#if show('appear')}
   <nu-card>
     <nu-block height="100vh"></nu-block>
-    <nu-btn nx-appear="toggle timeout:1000" opacity="0 :appear[1]" move="8x 0 :appear[0]" transition="opacity .5s, move .5s">Button</nu-btn>
+    <nu-btn nx-appear="toggle timeout(1000)" opacity="0 :appear[1]" move="8x 0 :appear[0]" transition="opacity .5s, move .5s">Button</nu-btn>
     <nu-block height="100vh"></nu-block>
   </nu-card>
 {/if}
@@ -105,8 +105,8 @@
   <nu-card>
     <nu-cardbtn
       nx-offset transition="move :offset[no]"
-      move="(--offset-x * 1x) (--offset-y * 1x)" height="5" width="15">
-      Interactive Button
+      move="(--offset-x * 1x) (--offset-y * 1x)" height="5" width="15" display="grid" items="center">
+      Interactive button
     </nu-cardbtn>
   </nu-card>
 {/if}

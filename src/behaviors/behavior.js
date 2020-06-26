@@ -1,5 +1,33 @@
 import { setAttr, toCamelCase } from '../helpers';
 
+const PARAMS_REGEXP = /(-|)([a-z][a-z0-9-]+)(\((.*?)\)|)(?=(\s|$))/g;
+
+export function parseParams(value, params = {}) {
+  let token;
+
+  while (token = PARAMS_REGEXP.exec(value)) {
+    let [s, disable, param, s2, value] = token;
+
+    param = toCamelCase(param);
+
+    if (disable) {
+      delete params[param];
+    } else {
+      if (value === 'y') {
+        value = true;
+      } else if (value === 'n') {
+        value = false;
+      }
+
+      params[param] = value != null ? value : true;
+    }
+  }
+
+  return params;
+}
+
+window.parseParams = parseParams;
+
 const PARAMS_MAP = new Map;
 
 export default class Behavior {
@@ -26,19 +54,7 @@ export default class Behavior {
     const params = Object.create(this.constructor.allParams);
 
     if (_params && typeof _params === 'string') {
-      _params.split(/\s+/g).forEach(param => {
-        param = param.trim();
-
-        if (!param || params[param] === false) return;
-
-        if (param.includes(':')) {
-          const tmp = param.split(':');
-
-          params[toCamelCase(tmp[0])] = tmp[1] === 'no' ? false : tmp[1];
-        } else {
-          params[toCamelCase(param)] = true;
-        }
-      });
+      parseParams(_params, params);
     }
 
     this.params = params;
