@@ -1,5 +1,21 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('notifications')}
+  <nu-block theme="tone" box="y" width="20">
+    <nu-card width="100% - 4x" height="100%" place="top left 2x"></nu-card>
+    <nu-card width="100% - 2x" height="100%" place="top left 1x"></nu-card>
+    <nu-card gap>
+      <nu-h6>
+        <nu-icon name="message-circle"></nu-icon>
+        <nu-strong>Susan</nu-strong>
+      </nu-h6>
+      <nu-block text="i">
+        Can I call you now?
+      </nu-block>
+    </nu-card>
+  </nu-block>
+{/if}
+
 {#if show('basics')}
   <nu-card as="section">
     <nu-el

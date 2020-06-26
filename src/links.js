@@ -9,10 +9,11 @@ export function handleLinkState(el) {
   if (!link) return;
 
   const href = link.href;
+  const to = el.getAttribute('to');
   const windowHeight = window.innerHeight;
 
-  if (href.startsWith('#')) {
-    const id = el.getAttribute('to').slice(1);
+  if (to.startsWith('#')) {
+    const id = to.slice(1);
 
     const target = el.nuQueryById(id);
 
