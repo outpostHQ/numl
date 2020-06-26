@@ -13,7 +13,7 @@ export default class NuTriangle extends NuElement {
       text: 'v-middle',
       height: '0',
       width: '0',
-      border: '(1fs / 2) color(clear)',
+      border: '(1fs / 2) #clear',
     };
   }
 

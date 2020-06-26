@@ -9,7 +9,7 @@ export default class NuBtn extends NuActiveElement {
     return {
       display: 'inline-grid',
       padding: '1x 2x',
-      border: '1bw :clear[hidden] :hover[1bw] :clear:hover[color(mark)]',
+      border: '1bw :clear[hidden] :hover[1bw] :clear:hover[#mark]',
       radius: '1r',
       flow: 'column',
       gap: '1x',

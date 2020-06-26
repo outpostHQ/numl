@@ -18,7 +18,7 @@ export default class NuSlider extends NuElement {
         size="1.25em"
         radius="round"
         fill="special-text"
-        border="1bw color(text)"
+        border="1bw #text"
         space=".375em + 1bw"
         text="v-middle"
         move="--local-rail-move-v --local-rail-move-h"

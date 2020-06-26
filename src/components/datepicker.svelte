@@ -1,7 +1,7 @@
 <nu-grid padding="0" gap columns="1fr 1fr" on:focusin={touch}>
   <nu-attrs
     for="arrow"
-    padding="0.5x 0.25x" special border="color(special-bg)"></nu-attrs>
+    padding="0.5x 0.25x" special border="#special-bg"></nu-attrs>
   <nu-attrs for="arrow-left-icon" name="chevron-left" size="1em" move="-.125x 0"></nu-attrs>
   <nu-attrs for="arrow-right-icon" name="chevron-right" size="1em" move=".125x 0"></nu-attrs>
   <nu-attrs
@@ -80,7 +80,7 @@
 <nu-grid
   columns="repeat(7, 1fr)" content="start stretch"
   text="center">
-  <nu-attrs for="day" fill="clear" radius={isRange ? '1r :hover[1r 0 0 1r]' : '1r :hover[1r]'} text="w5" border="color(clear)" focus="inset"></nu-attrs>
+  <nu-attrs for="day" fill="clear" radius={isRange ? '1r :hover[1r 0 0 1r]' : '1r :hover[1r]'} text="w5" border="#clear" focus="inset"></nu-attrs>
   <nu-attrs for="today" text="w7" color="special" border></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
@@ -89,8 +89,8 @@
   <nu-attrs for="selected" radius special fill="special-bg" color></nu-attrs>
   <nu-attrs for="range"
             radius={isRange ? '0 :hover[0 1r 1r 0]' : '1r'}
-            fill="special-bg 25%" color="text" border="color(bg)"></nu-attrs>
-  <nu-attrs for="range-inside" radius="0 :hover[1r 0 0 1r]" fill="special-bg 25%" color="text" border="color(bg)"></nu-attrs>
+            fill="special-bg 25%" color="text" border="#bg"></nu-attrs>
+  <nu-attrs for="range-inside" radius="0 :hover[1r 0 0 1r]" fill="special-bg 25%" color="text" border="#bg"></nu-attrs>
 
   {#each monthDays as day}
     <nu-btn

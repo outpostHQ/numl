@@ -131,7 +131,7 @@ export function removeRuleSet(id, root) {
 
     while (removeRule(id, sheet)) {}
   } else {
-    const ruleSet = ruleMap[name];
+    const ruleSet = ruleMap[id];
 
     if (ruleSet) {
       const element = ruleSet.element;
@@ -429,6 +429,8 @@ const globalRules = [`
 
   --nu-font: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
   --nu-monospace-font: monospace;
+
+  --nu-clear-color: transparent;
 }`,
 
 `:root:not([data-nu-prevent-reset]) body {

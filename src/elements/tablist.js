@@ -25,7 +25,7 @@ export default class NuTablist extends NuRadioGroup {
 
         return combinedAttr([{
           $suffix: '>[role="tab"]',
-          border: `--local-line-width ${direction} inside color(special)`,
+          border: `--local-line-width ${direction} inside #special`,
         }, {
           flow: orientV ? 'column' : 'row',
         }], NuTablist).concat({

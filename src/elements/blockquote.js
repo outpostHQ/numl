@@ -12,7 +12,7 @@ export default class NuBlockQuote extends NuElement {
   static get nuStyles() {
     return {
       display: 'block',
-      border: '(1x / 2) left color(special)',
+      border: '(1x / 2) left #special',
       fill: 'diff',
       text: 'i',
       padding: '2x',
