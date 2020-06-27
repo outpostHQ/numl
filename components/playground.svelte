@@ -7,6 +7,11 @@
     <nu-block color="hue(280 80)">
       <nu-heading level="4">Heading with inherited color</nu-heading>
       <nu-block>Paragraph text.</nu-block>
+
+      <nu-block theme padding="left">
+        <nu-heading level="4">Heading with inherited color</nu-heading>
+        <nu-block>Paragraph text.</nu-block>
+      </nu-block>
     </nu-block>
   </nu-card>
 {/if}

@@ -35,7 +35,7 @@ export default function themeAttr(val, defaults = {}) {
   styles.push({
     $suffix: ':not([color])',
     color: BASE_COLOR,
-    '--nu-local-text-color': 'var(--nu-text-color)',
+    '--nu-local-text-color': 'initial',
   });
 
   return styles;
