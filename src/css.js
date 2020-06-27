@@ -403,7 +403,8 @@ export function withMediaQuery(mediaQuery, rule, styles) {
 
 const globalRules = [`
 :root {
-  --nu-base: 16px;
+  font-size: 100%;
+
   --nu-pixel: 1px;
   --nu-rem-pixel: calc(1rem / 16);
 
@@ -445,7 +446,7 @@ const globalRules = [`
   margin: 0;
   padding: 0;
   font-family: var(--nu-font);
-  font-size: var(--nu-base);
+  font-size: 1rem;
   color: var(--nu-text-color);
   background-color: var(--nu-subtle-color);
   font-weight: var(--nu-normal-font-weight);

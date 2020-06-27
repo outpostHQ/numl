@@ -1,5 +1,16 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('heading')}
+  <nu-card as="section">
+    <nu-heading level="3">Heading</nu-heading>
+
+    <nu-block color="hue(280 80)">
+      <nu-heading level="4">Heading with inherited color</nu-heading>
+      <nu-block>Paragraph text.</nu-block>
+    </nu-block>
+  </nu-card>
+{/if}
+
 {#if show('notifications')}
   <nu-block theme="tone" box="y" width="20">
     <nu-card width="100% - 4x" height="100%" place="top left 2x"></nu-card>

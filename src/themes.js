@@ -654,10 +654,17 @@ function convertContrast(contrast, darkScheme, highContrast) {
   return relativeContrast;
 }
 
+/**
+ *
+ * @param {{saturation: number, special: boolean, pastel: boolean, contrast: string, alpha: number, hue: number}} color
+ * @param {String|Boolean} [name]
+ * @return {String|{prop:string, lightValue: string, lightContrastValue: string, darkValue: string, darkContrastValue: string }}
+ */
 export function requireHue(color, name) {
   let { hue, saturation, contrast, alpha, special, pastel } = color;
 
   const prop = name ? `--nu-${name}-color` : `--nu-h-${hue}-s-${saturation}-c-${contrast}-a-${(alpha)}${pastel ? '-p' : ''}${special ? '-s' : ''}`;
+  const onlyReturn = name === false;
 
   // convert alpha to decimal value
   alpha /= 100;
@@ -671,11 +678,21 @@ export function requireHue(color, name) {
     const props = [lightValue, lightContrastValue, darkValue, darkContrastValue]
       .map(value => `${prop}: ${value};`);
 
-    COLORS[prop] = props;
+    if (!onlyReturn) {
+      COLORS[prop] = props;
 
-    const cssRules = generateMediaCSS('body', props);
+      const cssRules = generateMediaCSS('body', props);
 
-    insertRuleSet(prop, cssRules, null, !!name);
+      insertRuleSet(prop, cssRules, null, !!name);
+    } else {
+      return {
+        prop,
+        lightValue,
+        lightContrastValue,
+        darkValue,
+        darkContrastValue,
+      };
+    }
   }
 
   return prop;
@@ -683,6 +700,11 @@ export function requireHue(color, name) {
 
 const CONTRAST_MODES = ['auto', 'low', 'high'];
 
+/**
+ *
+ * @param {String} val
+ * @return {{saturation: number, special: boolean, pastel: boolean, contrast: string, alpha: number, hue: number}}
+ */
 export function parseHue(val) {
   val = val.replace(',', ' ');
 
@@ -807,3 +829,25 @@ Object.assign(CUSTOM_FUNCS, {
   .forEach(([name, contrast]) => {
     requireHue({ hue: 0, saturation: 0, contrast, alpha: 100, special: true }, name);
   });
+
+export function hue(val, dark, contrast) {
+  const clr = requireHue(parseHue(val), false);
+
+  let rgba;
+
+  if (dark) {
+    if (contrast) {
+      rgba = clr.darkContrastValue;
+    } else {
+      rgba = clr.darkValue;
+    }
+  } else {
+    if (contrast) {
+      rgba = clr.lightContrastValue;
+    } else {
+      rgba = clr.lightValue;
+    }
+  }
+
+  return rgba;
+}

@@ -36,7 +36,7 @@ import props from './props';
 import generators from './generators';
 import { scheme, contrast, reduceMotion, preventInit } from './settings';
 import CONTEXT from './context';
-import { applyTheme, BASE_THEME } from './themes';
+import { applyTheme, BASE_THEME, hue } from './themes';
 import { removeRulesByPart, generateCSS, insertRuleSet } from './css';
 import { NuElement } from './elements';
 import Behavior from './behaviors/behavior';
@@ -127,6 +127,7 @@ const Nude = {
   styles,
   isEqual,
   define,
+  hue,
   // color,
   // themes,
   // css,
@@ -229,6 +230,7 @@ export {
   isEqual,
   styles,
   define,
+  hue,
   // themes,
   // css,
   // color,

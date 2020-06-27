@@ -65,8 +65,6 @@ export default class SliderBehavior extends WidgetBehavior {
 
     host.nuSetContext('disabled', this.disabled);
 
-    this.on('touchmove', (evt) => evt.preventDefault());
-
     ['mousedown', 'touchstart']
       .forEach(eventName => {
         this.on(eventName, this.onDragStart, { passive: true });

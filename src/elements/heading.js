@@ -43,7 +43,7 @@ export default class NuHeading extends NuElement {
     return {
       display: 'block',
       level: this.nuAttrs.level,
-      color: 'text-soft',
+      color: 'var(--nu-local-text-color, var(--nu-text-soft-color))',
       text: 'heading',
     };
   }

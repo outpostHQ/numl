@@ -71,4 +71,14 @@ export default class NuSlider extends NuElement {
       slider: true,
     };
   }
+
+  static nuCSS({ tag, css }) {
+    return [
+      ...css,
+
+      `${tag} {
+        touch-action: none;
+      }`,
+    ];
+  }
 }
