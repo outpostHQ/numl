@@ -15,7 +15,7 @@
     "numl-markdown": "^2.0.14",
     "remarkable": "^2.0.1",
     "src": "^1.1.2",
-    "svelte": "^3.23.0"
+    "svelte": "^3.23.2"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
