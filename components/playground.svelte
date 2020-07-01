@@ -1,5 +1,14 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('snap')}
+  <nu-grid columns="repeat(4, 1fr)" height="10rem" width="max 20" overflow="auto" snapping="x start" gap="2x">
+    <nu-card height="100%" width="20" fill="hue(0)"></nu-card>
+    <nu-card height="100%" width="20" fill="hue(90)"></nu-card>
+    <nu-card height="100%" width="20" fill="hue(180)"></nu-card>
+    <nu-card height="100%" width="20" fill="hue(270)"></nu-card>
+  </nu-grid>
+{/if}
+
 {#if show('touch')}
   <nu-card as="section">
     <nu-btn toggle>

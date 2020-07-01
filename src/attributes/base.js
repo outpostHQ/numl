@@ -42,6 +42,8 @@ import boxAttr from './box';
 import clampAttr from './clamp';
 import { flexAttr } from './flex';
 import backdropAttr from './backdrop';
+import snapAttr from './snap';
+import snappingAttr from './snapping';
 
 export default {
   width: sizeUnit('width'),
@@ -121,4 +123,6 @@ export default {
   selectable: selectableAttr,
   box: boxAttr,
   'line-clamp': clampAttr,
+  snap: snapAttr,
+  snapping: snappingAttr,
 };
