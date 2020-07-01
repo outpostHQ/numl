@@ -14,7 +14,7 @@ const OUTLINE_STYLES = [
     'border-radius': 'var(--nu-local-radius, var(--nu-radius))',
     'box-shadow': 'var(--nu-local-focus-shadow)',
     // Activate transition only if transition and focusable effects are globally enabled
-    transition: 'box-shadow calc(var(--nu-transition-enabler) * var(--nu-focus-enabler) * var(--nu-transition-time)) linear',
+    transition: 'box-shadow calc(var(--nu-transition-enabler) * var(--nu-focus-enabler) * var(--nu-transition)) linear',
     'z-index': '9',
   }
 ];

@@ -1479,7 +1479,7 @@ export function hasYesMod(mods) {
  */
 export function setTransitionTimeout(host, cb, multiplier = 1) {
   const style = getComputedStyle(host);
-  const styleValue = style.getPropertyValue('--nu-transition-time').trim();
+  const styleValue = style.getPropertyValue('--nu-transition').trim();
   const transition = style.transition;
   const time = transition ? parseTime(styleValue) * multiplier : 0;
 

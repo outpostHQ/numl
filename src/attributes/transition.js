@@ -25,11 +25,11 @@ const MAP = {
   image: ['background-image', 'background-position', 'background-size'],
 };
 
-export const DEFAULT_TIMING = 'calc(var(--nu-transition-enabler) * var(--nu-transition-time))';
+export const DEFAULT_TIMING = 'calc(var(--nu-transition-enabler) * var(--nu-transition))';
 const DEFAULT_EASING = 'linear';
 
 function getTiming(name) {
-  return `calc(var(--nu-transition-enabler) * var(--nu-${name}-time, var(--nu-transition-time)))`;
+  return `calc(var(--nu-transition-enabler) * var(--nu-${name}-transition, var(--nu-transition)))`;
 }
 
 const tmp = h('div').style;

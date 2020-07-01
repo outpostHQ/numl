@@ -413,7 +413,7 @@ const globalRules = [`
   --nu-gap: 0.5rem;
   --nu-border-width: 1px;
   --nu-selected-width: calc(1rem / 16 * 3);
-  --nu-transition-time: 0.08s;
+  --nu-transition: 0.08s;
   --nu-inline-offset: -.15em;
   --nu-transition-enabler: 1;
   --nu-icon-size: 1.5em;
@@ -456,7 +456,7 @@ const globalRules = [`
   text-align: left;
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
-  transition: background-color calc(var(--nu-transition-enabler) * var(--nu-transition-time)) linear;
+  transition: background-color calc(var(--nu-transition-enabler) * var(--nu-transition)) linear;
 }`,
 
 `.nu-defaults:not(body) {
