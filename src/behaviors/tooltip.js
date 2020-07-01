@@ -1,5 +1,5 @@
 import Behavior from './behavior';
-import { fixPosition } from '../helpers';
+import { fixPosition, isTouch } from '../helpers';
 
 export default class TooltipBehavior extends Behavior {
   connected() {
@@ -17,16 +17,30 @@ export default class TooltipBehavior extends Behavior {
 
     this.setMod('tooltip', true);
 
-    const onMouseEnter = () => {
-      hover = true;
+    if (isTouch) return;
 
-      if (focus) return;
-
+    const showTooltip = () => {
       this.nu('fixate')
         .then(Fixate => Fixate.start());
 
       host.hidden = false;
       parent.nuSetMod('tooltip-shown', true);
+    };
+
+    const hideTooltip = () => {
+      this.nu('fixate')
+        .then(Fixate => Fixate.end());
+
+      host.hidden = true;
+      parent.nuSetMod('tooltip-shown', false);
+    };
+
+    const onMouseEnter = () => {
+      hover = true;
+
+      if (focus) return;
+
+      showTooltip();
 
       setTimeout(() => {
         fixPosition(host);
@@ -37,11 +51,7 @@ export default class TooltipBehavior extends Behavior {
       hover = false;
       focus = false;
 
-      this.nu('fixate')
-        .then(Fixate => Fixate.end());
-
-      host.hidden = true;
-      parent.nuSetMod('tooltip-shown', false);
+      hideTooltip();
     };
 
     const onFocus = () => {
@@ -49,11 +59,7 @@ export default class TooltipBehavior extends Behavior {
 
       if (hover) return;
 
-      this.nu('fixate')
-        .then(Fixate => Fixate.start());
-
-      host.hidden = false;
-      parent.nuSetMod('tooltip-shown', true);
+      showTooltip();
     };
 
     const onBlur = () => {
@@ -61,11 +67,7 @@ export default class TooltipBehavior extends Behavior {
 
       if (hover) return;
 
-      this.nu('fixate')
-        .then(Fixate => Fixate.end());
-
-      host.hidden = true;
-      parent.nuSetMod('tooltip-shown', false);
+      hideTooltip();
     };
 
     parent.addEventListener('mouseenter', onMouseEnter);

@@ -442,7 +442,7 @@ export default class NuBase extends HTMLElement {
     let css = el.nuExtractCSS(el) || [];
 
     const allAttrs = this.nuAllGenerators;
-    const allDefaults = this.nuAllStyles;
+    const allStyles = this.nuAllStyles;
     const combinators = Object.values(this.nuAllCombinators);
 
     const globalAttrs = Object.keys(allAttrs).filter(attr => GLOBAL_ATTRS.includes(attr) && allAttrs[attr]);
@@ -461,7 +461,7 @@ export default class NuBase extends HTMLElement {
 
     if (!isHost) {
       combinators.forEach(combinator => {
-        const styles = combine(combinator, allDefaults);
+        const styles = combine(combinator, allStyles);
 
         if (styles.length) {
           css.push(...generateCSS(tag, styles, false));
@@ -469,9 +469,9 @@ export default class NuBase extends HTMLElement {
       });
     }
 
-    Object.keys(allDefaults)
+    Object.keys(allStyles)
       .forEach(name => {
-        let value = allDefaults[name];
+        let value = allStyles[name];
 
         if (value == null) return;
 
@@ -481,7 +481,7 @@ export default class NuBase extends HTMLElement {
 
         const isProp = name.startsWith('--');
 
-        styles = computeStyles(name, value, allAttrs, allDefaults);
+        styles = computeStyles(name, value, allAttrs, allStyles);
 
         if (!styles) return;
 

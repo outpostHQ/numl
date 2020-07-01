@@ -1,5 +1,14 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('touch')}
+  <nu-card as="section">
+    <nu-btn toggle>
+      Button
+      <nu-tooltip>Tooltip</nu-tooltip>
+    </nu-btn>
+  </nu-card>
+{/if}
+
 {#if show('heading')}
   <nu-card as="section">
     <nu-heading level="3">Heading</nu-heading>

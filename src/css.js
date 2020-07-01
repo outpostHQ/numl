@@ -201,7 +201,7 @@ export function stylesString(styles) {
 }
 
 const TOUCH_REGEXP = /:hover(?!\))/; // |\[nu-active](?!\))
-const NON_TOUCH_REGEXP = /:hover(?=\))/;
+const NOT_TOUCH_REGEXP = /:not\(:hover(?=\))/;
 
 export function generateCSS(query, styles, universal = false) {
   if (!styles || !styles.length) return [];
@@ -264,15 +264,16 @@ export function generateCSS(query, styles, universal = false) {
       return arr;
     }
 
-    const touchQueries = queries.filter(query => query.match(TOUCH_REGEXP));
-    const touchCSS = touchQueries.length
-      ? `@media (hover: hover){${touchQueries.join(',')}{${stylesString(map)}}}`
+    const touchQueries = [];
+    const nonTouchQueries = [];
+
+    queries.forEach(query => [query.match(TOUCH_REGEXP) ? touchQueries : nonTouchQueries].push(query));
+
+    const touchCSS = nonTouchQueries.length
+      ? `@media (pointer: coarse){${nonTouchQueries.join(',').replace(':not(:hover)', '')}{${stylesString(map)}}}`
       : '';
-    const nonTouchQueries = queries.filter(query => query.match(NON_TOUCH_REGEXP));
-    const nonTouchCSS = nonTouchQueries.length ? `
-      @media (hover: hover){${nonTouchQueries.join(',')}{${stylesString(map)}}}
-      @media (hover: none){${nonTouchQueries.join(',').replace(':not(:hover)', '')}{${stylesString(map)}}}
-    ` : '';
+    const nonTouchCSS = (nonTouchQueries.length ? `@media (pointer: fine){${nonTouchQueries.join(',')}{${stylesString(map)}}}` : '')
+      + (touchQueries.length ? `@media (pointer: fine){${touchQueries.join(',')}{${stylesString(map)}}}` : '');
     const otherQueries = queries.filter(query => !touchQueries.includes(query) && !nonTouchQueries.includes(query));
     const otherCSS = otherQueries.length ? `${otherQueries.join(',')}{${stylesString(map)}}` : '';
 
