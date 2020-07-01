@@ -12,6 +12,7 @@ export { default as NuAside } from './elements/aside';
 export { default as NuArticle } from './elements/article';
 export { default as NuMain } from './elements/main';
 export { default as NuSection } from './elements/section';
+export { default as NuRegion } from './elements/region';
 export { default as NuHeader } from './elements/header';
 export { default as NuFooter } from './elements/footer';
 export { default as NuStatus } from './elements/status';
