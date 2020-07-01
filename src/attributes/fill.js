@@ -80,6 +80,10 @@ export default function fillAttr(val) {
         $suffix: '>:not([fill]):not([nu-popup])',
         [BORDER_PROP]: SPECIAL_BORDER_VALUE,
       });
+      styles.push({
+        $suffix: ':not([color])',
+        color: SPECIAL_TEXT_VALUE,
+      });
     }
   }
 
