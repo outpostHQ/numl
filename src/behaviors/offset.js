@@ -8,7 +8,9 @@ export default class OffsetBehavior extends Behavior {
     const xProp = `--nu${name ? `-${name}` : ''}-offset-x`;
     const yProp = `--nu${name ? `-${name}` : ''}-offset-y`;
 
-    function updateByEvent(event) {
+    const updateByEvent = (event) => {
+      this._active = true;
+
       const rect = host.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
@@ -18,7 +20,7 @@ export default class OffsetBehavior extends Behavior {
 
       host.style.setProperty(xProp, String(offsetX));
       host.style.setProperty(yProp, String(offsetY));
-    }
+    };
 
     this.on('mousemove', updateByEvent);
 
@@ -26,16 +28,21 @@ export default class OffsetBehavior extends Behavior {
       updateByEvent(event);
 
       setTransitionTimeout(host, () => {
-        this.setMod('offset', true);
+        if (this._active) {
+          this.setMod('offset', true);
+        }
       });
     });
 
     this.on('mouseout', () => {
+      this._active = false;
       this.setMod('offset', false);
 
       setTimeout(() => {
-        host.style.setProperty(xProp, '0');
-        host.style.setProperty(yProp, '0');
+        if (!this._active) {
+          host.style.setProperty(xProp, '0');
+          host.style.setProperty(yProp, '0');
+        }
       });
     });
   }
