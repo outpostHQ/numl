@@ -29,7 +29,7 @@ export const DEFAULT_TIMING = 'calc(var(--nu-transition-enabler) * var(--nu-tran
 const DEFAULT_EASING = 'linear';
 
 function getTiming(name) {
-  return `calc(var(--nu-transition-enabler) * var(--nu-${name}-transition-time, var(--nu-transition-time)))`;
+  return `calc(var(--nu-transition-enabler) * var(--nu-${name}-time, var(--nu-transition-time)))`;
 }
 
 const tmp = h('div').style;
