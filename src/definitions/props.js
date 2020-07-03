@@ -18,7 +18,7 @@ export default class NuProps extends NuDefinition {
 
     this.nuApply();
 
-    if (this.nuObserve) return;
+    if (this.nuObserver) return;
 
     const observer = new MutationObserver(() => this.nuApply());
 
@@ -28,6 +28,8 @@ export default class NuProps extends NuDefinition {
       childList: false,
       subtree: false
     });
+
+    this.nuObserver = observer;
   }
 
   nuApply() {

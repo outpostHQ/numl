@@ -6,7 +6,7 @@ export const IGNORE_ATTRS = ['id', 'class', 'nu', 'for'];
 
 export default class NuDefinition extends NuBase {
   static get nuTag() {
-    return 'nu-abstract-definition'; // abstract tag
+    return 'nu-definition'; // abstract tag
   }
 
   static get nuStyles() {

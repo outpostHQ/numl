@@ -98,3 +98,4 @@ export { default as NuValue } from './elements/value';
 export { default as NuTheme } from './definitions/theme';
 export { default as NuAttrs } from './definitions/attrs';
 export { default as NuProps } from './definitions/props';
+export { default as NuBase } from './definitions/base';

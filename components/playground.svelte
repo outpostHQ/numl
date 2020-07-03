@@ -1,5 +1,12 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('base')}
+  <nu-card>
+    <nu-base size="(100vw / 80)|1rem"></nu-base>
+    Everybody is looking for something
+  </nu-card>
+{/if}
+
 {#if show('snap')}
   <nu-grid columns="repeat(4, 1fr)" height="10rem" width="max 20" overflow="auto" snapping="x start" gap="2x">
     <nu-card height="100%" width="20" fill="hue(0)"></nu-card>
