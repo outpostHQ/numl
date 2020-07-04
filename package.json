@@ -2,7 +2,7 @@
   "name": "numl",
   "version": "0.11.26",
   "module": "dist/index.js",
-  "homepage": "https://github.com/tenphi/numl#readme",
+  "homepage": "https://numl.design",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tenphi/numl.git"
@@ -54,7 +54,7 @@
   "sideEffects": false,
   "size-limit": [
     {
-      "name": "NuML Core",
+      "name": "Numl Core",
       "path": [
         "dist/index.js"
       ]
