@@ -4,7 +4,7 @@
 [![](https://img.shields.io/npm/dt/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
 [![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-**Numl** is a markup language to create modern **high-quality** web-interfaces with any look using HTML-based syntax. It utilizes the power of Web Components and creates all the CSS needed right in runtime as it requires, which makes it much more flexible than any other styling solution. Built-in elements will allow you to make gorgeous interfaces and accessible components without inventing your own Design System or UI library.
+**Numl** is a markup and style language to create modern **high-quality** web-interfaces with any look using HTML-based syntax. It utilizes the power of Web Components and creates all the CSS needed right in runtime as it requires, which makes it much more flexible than any other styling solution. Built-in elements will allow you to make gorgeous interfaces and accessible components without inventing your own Design System or UI library.
 
 **PRE-BETA VERSION, UNDER RAPID DEVELOPMENT**
 
@@ -80,7 +80,7 @@ Now it's time to have fun!... Try to write some HTML and build awesome interface
 
 ### NPM installation
 
-Nude Elements are also available via npm.
+Numl is also available via npm.
 ```bash
 $ npm install numl --save
 ```
