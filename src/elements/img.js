@@ -19,7 +19,6 @@ export default class NuImg extends NuElement {
 
   static get nuGenerators() {
     return {
-      display: null,
       fit(val) {
         const { values, mods } = parseAttr(val);
 
@@ -54,7 +53,7 @@ export default class NuImg extends NuElement {
           'max-width': '100%',
         }]).concat(values.length > 0 ? [{
           $suffix: '>img',
-          'object-position': `${values[0]} ${values[1] || ''}`,
+          'object-position': `${values[0] || 'initial'} ${values[1] || ''}`,
         }] : []);
 
         return combinedAttr({

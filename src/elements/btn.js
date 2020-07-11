@@ -15,7 +15,7 @@ export default class NuBtn extends NuActiveElement {
       gap: '1x',
       content: 'center :dropdown[stretch]',
       items: 'center stretch',
-      mark: ':focusable[hover]',
+      mark: 'n :focusable[hover]',
       fill: 'bg :special[special-bg] :themed[bg] :special:themed[special-bg] :clear[clear] :clear:themed[bg]',
       text: 'nowrap :special[w5 nowrap]',
       inset: 'n :active:focusable[y] :pressed:focusable[y] :pressed[y] :pressed:active[y]',

@@ -86,7 +86,7 @@
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
   <nu-attrs for="start" special fill="special-bg" color radius="1r 0 0 1r"></nu-attrs>
   <nu-attrs for="end" radius="0r 1r 1r 0r :hover[1r 0 0 1r]" special fill="special-bg" color></nu-attrs>
-  <nu-attrs for="selected" radius special fill="special-bg" color></nu-attrs>
+  <nu-attrs for="selected" radius special fill="special-bg" color="special-text"></nu-attrs>
   <nu-attrs for="range"
             radius={isRange ? '0 :hover[0 1r 1r 0]' : '1r'}
             fill="special-bg 25%" color="text" border="#bg"></nu-attrs>
