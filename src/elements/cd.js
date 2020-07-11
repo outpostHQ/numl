@@ -8,13 +8,13 @@ export default class NuCd extends NuCode {
   static get nuAttrs() {
     return {
       inline: '',
-      fill: 'subtle',
+      fill: 'main-subtle',
       padding: '.125em .25em',
     };
   }
 
   static get nuName() {
-    return 'cd inline-code -code';
+    return 'cd -code';
   }
 
   static nuCSS({ css, tag }) {

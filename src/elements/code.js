@@ -14,7 +14,7 @@ export default class NuCode extends NuElement {
     return {
       display: 'block',
       radius: '1r',
-      fill: 'bg',
+      fill: 'main-bg',
       text: 'monospace',
     };
   }
