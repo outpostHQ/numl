@@ -14,7 +14,7 @@
     "feather-icons": "^4.28.0",
     "numl-markdown": "^2.0.15",
     "remarkable": "^2.0.1",
-    "svelte": "^3.23.0"
+    "svelte": "^3.24.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
