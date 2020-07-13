@@ -4,26 +4,13 @@
 [![](https://img.shields.io/npm/dt/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
 [![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-**Numl** is a markup and style language to create modern **high-quality** web-interfaces with any look using HTML-based syntax. It utilizes the power of Web Components and creates all the CSS needed right in runtime as it requires, which makes it much more flexible than any other styling solution. Built-in elements will allow you to make gorgeous interfaces and accessible components without inventing your own Design System or UI library.
+**Numl** is an HTML-based language and design system that lets you create responsive and accessible high-quality web interfaces with any look. It allows you to create components and layouts you need by composing base elements and gives you a handy color management system with automatic Dark and Contrast modes.
+
+**Numl** is based on Custom Elements and runtime CSS generation. It has an API to create your own elements, style attributes, and behaviors. The build step is not required, just add a script tag to your HTML file and you are ready to go!
+
+**Your code is your design system**
 
 **PRE-BETA VERSION, UNDER RAPID DEVELOPMENT**
-
-**Numl** is:
-
-* Customizable **Design System** for any project and scale
-* Accessible production-ready **Prototyping Solution**
-* Handy **UI library** for your favorite framework
-* Powerful **CSS/JS/HTML-Framework** with CSS generation, inheritance and more
-* Markup **Methodology** that is enjoyable to follow
-* All-in-one **Language** to describe interfaces that look and work great
-
-And also... it's **just a single js-file** that you can include into your website to start doing magic:
-
-* **No** build step needed (*don't wait! create!*)
-* **No** config needed (*your markup is your config*)
-* **No** scripting to activate
-* **No** confusing classes to style
-* **No** frustration in usage
 
 With **Numl** you can:
 
