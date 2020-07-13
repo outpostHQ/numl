@@ -6,7 +6,7 @@
 
 **Numl** is an HTML-based language and design system that lets you create responsive and accessible high-quality web interfaces with any look. It allows you to create components and layouts you need by composing base elements and gives you a handy color management system with automatic Dark and Contrast modes.
 
-**Numl** is based on Custom Elements and runtime CSS generation. It has an API to create your own elements, style attributes, and behaviors. The build step is not required, just add a script tag to your HTML file and you are ready to go!
+**Numl** utilizes the power of Web Components and runtime CSS generation. It has an API to create your own elements, style attributes, and behaviors. The build step is not required, just add a script tag to your HTML file and you are ready to go!
 
 **Your code is your design system**
 
