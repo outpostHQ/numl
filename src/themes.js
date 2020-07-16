@@ -182,7 +182,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
       theme['special-bg'] = setSaturation([theme.text[0], saturation, findContrastLightness(theme.bg[2], darkScheme ? SPECIAL_CONTRAST_MAP[minContrast] : minContrast)], saturation, true);
       theme['special-text'] = setSaturation([theme.bg[0], theme.bg[1], findContrastLightness(theme['special-bg'][2], minContrast)], saturation, pastel);
       theme.special = [...bgColor];
-      theme['text-soft'] = setSaturation([hue, saturation, findContrastLightness(theme.bg[2], minContrast, darkScheme)], saturation, true);
+      theme['text-soft'] = highContrast ? [...theme.text] : setSaturation([hue, saturation, findContrastLightness(theme.bg[2], minContrast, darkScheme)], saturation, true);
       theme['text-strong'] = [...bgColor];
       break;
     case 'special':
@@ -198,7 +198,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
     case 'main':
       theme.bg = bgColor;
       theme.text = textColor;
-      theme['text-soft'] = [0, 0, findContrastLightness(tonedBgLightness, 7)];
+      theme['text-soft'] = highContrast ? [...theme.text] : [0, 0, findContrastLightness(tonedBgLightness, 7)];
       theme['text-strong'] = [0, 0, findContrastLightness(tonedBgLightness, 7)];
   }
 
@@ -223,8 +223,12 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 
   // in soft variant it's impossible to reduce contrast for headings
   if (!theme['text-soft']) {
-    const contrastLightness = findContrastLightness(theme.bg[2], softContrast, !darkScheme);
-    theme['text-soft'] = contrastLightness ? setSaturation([hue, saturation, contrastLightness], saturation, pastel) : [...theme.text];
+    if (highContrast) {
+      theme['text-soft'] = [...theme.text];
+    } else {
+      const contrastLightness = findContrastLightness(theme.bg[2], softContrast, !darkScheme);
+      theme['text-soft'] = contrastLightness ? setSaturation([hue, saturation, contrastLightness], saturation, pastel) : [...theme.text];
+    }
   }
 
   theme.mark = setOpacity([...theme.special], highContrast ? 0.16 : .08);
