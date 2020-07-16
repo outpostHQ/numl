@@ -163,7 +163,7 @@ Nude.init = () => {
   });
 
   const styleEl = [...document.querySelectorAll('style')].find(style => {
-    if (style.textContent.includes('nu-root')) {
+    if (style.dataset.numl == null && style.textContent.includes('nu-root')) {
       return true;
     }
   });
