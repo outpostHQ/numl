@@ -54,6 +54,7 @@ export { default as NuPopupListBox } from './elements/popuplistbox';
 export { default as NuOption } from './elements/option';
 export { default as NuList } from './elements/list';
 export { default as NuListItem } from './elements/listitem';
+export { default as NuAction } from './elements/action';
 export { default as NuTab } from './elements/tab';
 export { default as NuBtn } from './elements/btn';
 export { default as NuCardBtn } from './elements/cardbtn';

@@ -208,10 +208,10 @@ function findParentPopup(element) {
   const elements = [];
 
   while (element) {
-    const nuAction = element.nuAction;
+    const NuAction = element.NuAction;
 
-    if (nuAction && nuAction.popup) {
-      const popupEl = nuAction.popup.host;
+    if (NuAction && NuAction.popup) {
+      const popupEl = NuAction.popup.host;
 
       if (popupEl) {
         elements.push(popupEl);

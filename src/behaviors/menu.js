@@ -58,7 +58,7 @@ export default class MenuBehavior extends Behavior {
               it.host.focus();
               Focusable.setEffect(true);
 
-              const Act = it.host.nuAction;
+              const Act = it.host.NuAction;
 
               if (Act && Act.isRadio()) {
                 Act.set(true);

@@ -1,6 +1,6 @@
-import NuActiveElement from './activeelement';
+import NuAction from './action';
 
-export default class NuMenuItem extends NuActiveElement {
+export default class NuMenuItem extends NuAction {
   static get nuTag() {
     return 'nu-menuitem';
   }
@@ -19,7 +19,6 @@ export default class NuMenuItem extends NuActiveElement {
     return {
       display: 'inline-grid',
       padding: '1x 2x',
-      radius: '0',
       border: '0',
       flow: 'column',
       gap: '1x',

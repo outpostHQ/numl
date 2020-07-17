@@ -1,6 +1,6 @@
-import NuActiveElement from './activeelement';
+import NuAction from './action';
 
-export default class NuRadio extends NuActiveElement {
+export default class NuRadio extends NuAction {
   static get nuTag() {
     return 'nu-radio';
   }

@@ -1,6 +1,6 @@
-import NuActiveElement from './activeelement';
+import NuAction from './action';
 
-export default class NuLink extends NuActiveElement {
+export default class NuLink extends NuAction {
   static get nuTag() {
     return 'nu-link';
   }

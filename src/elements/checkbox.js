@@ -1,6 +1,6 @@
-import NuActiveElement from './activeelement';
+import NuAction from './action';
 
-export default class NuCheckbox extends NuActiveElement {
+export default class NuCheckbox extends NuAction {
   static get nuTag() {
     return 'nu-checkbox';
   }

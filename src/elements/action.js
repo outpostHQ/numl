@@ -1,6 +1,6 @@
 import NuElement from './element';
 
-export default class NuActiveElement extends NuElement {
+export default class NuAction extends NuElement {
   static get nuTag() {
     return 'nu-action'; // abstract tag
   }
@@ -15,7 +15,7 @@ export default class NuActiveElement extends NuElement {
 
   static get nuStyles() {
     return {
-      radius: '',
+      radius: '0',
       text: 'nowrap',
       transition: 'theme, radius',
       outline: 'focus',

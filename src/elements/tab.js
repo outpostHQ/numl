@@ -1,6 +1,6 @@
-import NuActiveElement from './activeelement';
+import NuAction from './action';
 
-export default class NuTab extends NuActiveElement {
+export default class NuTab extends NuAction {
   static get nuTag() {
     return 'nu-tab';
   }
@@ -13,7 +13,6 @@ export default class NuTab extends NuActiveElement {
     return {
       display: 'grid',
       fill: 'transparent',
-      radius: '0',
       flow: 'column',
       gap: '1x',
       items: '--local-tab-items',

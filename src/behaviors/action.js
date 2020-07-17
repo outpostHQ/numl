@@ -30,7 +30,7 @@ export default class ActionBehavior extends WidgetBehavior {
 
     const { host } = this;
 
-    host.nuAction = this;
+    host.NuAction = this;
 
     this.on('keydown', (event) => {
       if (event.key === 'Escape' && host.nuHasAria('expanded')) {

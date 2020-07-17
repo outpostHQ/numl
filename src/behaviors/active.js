@@ -64,7 +64,7 @@ export default class ActiveBehavior extends Behavior {
   }
 
   tap(evt) {
-    const button = this.host.nuAction;
+    const button = this.host.NuAction;
 
     if (button) {
       button.tap(evt);

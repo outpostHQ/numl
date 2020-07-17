@@ -19,7 +19,7 @@ import initLinks from './links';
 import * as elements from './elements';
 import NuBase from './elements/base';
 import styles from './attributes/base';
-import NuActiveElement from './elements/activeelement';
+import NuAction from './elements/action';
 // export * from './behaviors/widget';
 // export * from './helpers';
 // import * as color from './color';
@@ -209,7 +209,7 @@ export {
 export {
   Nude,
   NuBase,
-  NuActiveElement,
+  NuAction,
   elements,
   scheme,
   contrast,

@@ -1,6 +1,6 @@
-import NuActiveElement from './activeelement';
+import NuAction from './action';
 
-export default class NuBtn extends NuActiveElement {
+export default class NuBtn extends NuAction {
   static get nuTag() {
     return 'nu-btn';
   }
@@ -10,7 +10,7 @@ export default class NuBtn extends NuActiveElement {
       display: 'inline-grid',
       padding: '1x 2x',
       border: '1bw :clear[hidden] :hover[1bw] :clear:hover[#mark]',
-      radius: '1r',
+      radius: '',
       flow: 'column',
       gap: '1x',
       content: 'center :dropdown[stretch]',
