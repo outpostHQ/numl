@@ -1,5 +1,17 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('outline')}
+  <nu-card>
+    <nu-btn outline="focus intrusive">Button</nu-btn>
+  </nu-card>
+{/if}
+
+{#if show('overflow')}
+  <nu-card width="10" height="10" overflow="no auto">
+    <nu-card width="20" height="20"></nu-card>
+  </nu-card>
+{/if}
+
 {#if show('base')}
   <nu-card>
     <nu-base size="(100vw / 80)|1rem"></nu-base>
