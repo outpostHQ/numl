@@ -1,42 +1,36 @@
 import scrollbarAttr from './scrollbar';
+import { devMode, parseAttr, warn } from '../helpers';
+
+const HIDDEN = 'hidden';
+const VISIBLE = 'visible';
 
 const MAP = {
-  'auto': {
-    overflow: 'auto',
-  },
-  'n': {
-    overflow: 'hidden',
-  },
-  'y': {
-    overflow: 'visible',
-  },
-  'no': {
-    overflow: 'hidden',
-  },
-  'yes': {
-    overflow: 'visible',
-  },
-  'scroll': {
-    overflow: 'scroll',
-  },
-  'scroll-x': {
-    'overflow-x': 'scroll',
-    'overflow-y': 'hidden',
-  },
-  'scroll-y': {
-    'overflow-x': 'hidden',
-    'overflow-y': 'scroll',
-  },
+  'auto': 'auto',
+  'n': HIDDEN,
+  'y': VISIBLE,
+  'no': HIDDEN,
+  'yes': VISIBLE,
+  'scroll': 'scroll',
 };
 
-const noScrollList = ['n', 'y', 'no', 'yes'];
+const noScrollList = ['n', 'y', 'no', 'yes', 'hidden'];
 
 export default function overflowAttr(val) {
-  if (!val || !MAP[val]) return;
+  let { all } = parseAttr(val, 2);
 
-  const styles = [MAP[val]];
+  all = all.map(mod => MAP[mod] || mod);
 
-  if (!noScrollList.includes(val)) {
+  const value = all.join(' ');
+
+  if (devMode && !CSS.supports('overflow', value)) {
+    warn('overflow value is not valid', JSON.stringify(value));
+  }
+
+  const styles = [{
+    overflow: value,
+  }];
+
+  if (all.find(v => !noScrollList.includes(v))) {
     styles.push(...scrollbarAttr(val));
   }
 
