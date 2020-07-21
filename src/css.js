@@ -412,7 +412,7 @@ const globalRules = [`
   --nu-radius: 0.5rem;
   --nu-gap: 0.5rem;
   --nu-border-width: 1px;
-  --nu-selected-width: calc(1rem / 16 * 3);
+  --nu-outline-width: calc(1rem / 16 * 3);
   --nu-transition: 0.08s;
   --nu-inline-offset: -.15em;
   --nu-transition-enabler: 1;

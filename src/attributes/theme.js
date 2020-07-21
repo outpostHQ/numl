@@ -24,7 +24,7 @@ export default function themeAttr(val, defaults = {}) {
   }, {
     '--nu-local-border-color': 'var(--nu-border-color)',
     '--nu-local-mark-color': 'var(--nu-mark-color)',
-    '--nu-local-intensity': 'var(--nu-intensity)',
+    '--nu-local-shadow-color': 'var(--nu-shadow-color)',
   })];
 
   // rgb colors

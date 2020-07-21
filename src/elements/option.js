@@ -35,7 +35,7 @@ export default class NuOption extends NuElement {
       cursor: 'pointer :disabled[default]',
       inset: 'n :active[y]',
 
-      '--local-focus-inset': 'inset 0 0',
+      '--local-outline-inset': 'inset 0 0',
     };
   }
 }

@@ -19,11 +19,12 @@
 <nu-root padding="2x||1x" responsive="1280px|960px|640px" fill="subtle">
   <!-- This theme has default values -->
   <nu-theme
-    hue="250"
-    saturation="auto"
-    border-width="1px"
-    indent=".5"
-    animation-time="0.08s"></nu-theme>
+    id="main-theme"></nu-theme>
+  <nu-theme
+    id="secondary-theme"
+    name="secondary"
+    hue="340" mod="tint"
+    saturation="70"></nu-theme>
   <nu-props
     border-radius="1x"></nu-props>
   <nu-vars
@@ -32,6 +33,10 @@
     gap="2x"></nu-vars>
 
   <nu-attrs for="section" flow="column" gap="@gap"></nu-attrs>
+
+  <nu-block padding="2x 0">
+    <nu-slider min="0" max="359" trigger control="main-theme[hue]" value="252"></nu-slider>
+  </nu-block>
 
   <nu-flow gap="2x" id="content" height="min(100vh)" padding="50vh bottom">
     <!--<nu-card as="section">

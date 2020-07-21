@@ -55,7 +55,7 @@ const FILL_STYLES = [{
   'height': '100%',
   'align-self': 'stretch',
   'justify-self': 'stretch',
-  // '--nu-local-focus-inset': 'inset 0 0',
+  // '--nu-local-outline-inset': 'inset 0 0',
 }, {
   $suffix: ':not([radius])',
   '--nu-local-radius': '0',

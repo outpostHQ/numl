@@ -1,12 +1,12 @@
 import { parseAttr } from '../helpers';
 
-const INTENSITY = 'var(--nu-local-intensity, var(--nu-intensity))';
-const SPECIAL_INTENSITY = 'var(--nu-special-intensity)';
+const SHADOW = 'rgba(var(--nu-shadow-color-rgb), .5)';
+const SPECIAL_SHADOW = 'rgba(var(--nu-special-shadow-color-rgb), .5)';
 
 export default function shadowAttr(val) {
-  const { values, mods, color } = parseAttr(val, 1);
+  let { values, mods, color } = parseAttr(val, 1);
 
-  const baseIntensity = mods.includes('special') ? SPECIAL_INTENSITY : INTENSITY;
+  color = color || mods.includes('special') ? SPECIAL_SHADOW : SHADOW;
 
   let x = '0';
   let y = '0';
@@ -28,13 +28,15 @@ export default function shadowAttr(val) {
     }
   }
 
+  const value = `${x} ${y} ${size} ${spread} ${color}`;
+
   if (color) {
     return {
-      '--nu-local-depth-shadow': `${x} ${y} ${size} ${spread} ${color}`,
+      '--nu-local-depth-shadow': value,
     };
   }
 
   return {
-    '--nu-local-depth-shadow': `${x} ${y} ${size} ${spread} ${size === '0rem' ? 'rgba(0, 0, 0, 0)' : `rgba(0, 0, 0, calc(${baseIntensity} / 2))`}`,
+    '--nu-local-depth-shadow': value,
   };
 }

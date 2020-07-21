@@ -26,16 +26,16 @@ export const THEME_PROPS_LIST = [
   'bg-color',
   'border-color',
   'mark-color',
-  'focus-color',
+  'outline-color',
   'subtle-color',
   'text-soft-color',
   'text-strong-color',
-  'intensity',
+  'shadow-color',
   'special-color',
   'special-text-color',
   'special-bg-color',
-  'special-intensity',
   'special-mark-color',
+  'special-shadow-color',
   'input-color',
 ];
 const normalBaseTextColor = [0, 0, 19.87];
@@ -58,7 +58,7 @@ export const BASE_THEME = {
   lightness: 'normal',
 };
 
-export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg'];
+export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg', 'shadow', 'special-shadow'];
 
 /**
  * Get minimal possible contrast ratio between text and foreground.
@@ -136,9 +136,8 @@ const SPECIAL_CONTRAST_MAP = {
  * @param [lightness] {String} – [normal] | dim | bold
  * @param [darkScheme] {Boolean} - true | false
  * @param [highContrast] {Boolean} - true | false
- * @param [shadowIntensity] {Number} – 0 to 1
  */
-export function generateTheme({ hue, saturation, pastel, type, contrast, lightness, darkScheme, highContrast, shadowIntensity }) {
+export function generateTheme({ hue, saturation, pastel, type, contrast, lightness, darkScheme, highContrast }) {
   const theme = {};
   const minContrast = getMinContrast(contrast, highContrast, darkScheme);
   const specialContrast = minContrast * (1 - (darkScheme ? 0 : (getSaturationRatio(hue, saturation, pastel) / 4.5)));
@@ -151,7 +150,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 
   const originalContrast = theme['special-text'] = getTheBrightest(textColor, bgColor);
   const originalSpecial = theme['special-bg'] = setSaturation([hue, saturation, findContrastLightness(theme['special-text'][2], type === 'tone' || type === 'swap' ? minContrast : specialContrast)], saturation, pastel);
-  // themes with same hue should have focus color with consistent setPastelSaturation saturation
+  // themes with same hue should have outline color with consistent setPastelSaturation saturation
 
   if (type === 'main' || type === 'tint') {
     theme.subtle = setSaturation([hue, saturation, bgColor[2] + (darkScheme ? 2 : -2)], saturation * (darkScheme ? .5 : 1), true);
@@ -178,7 +177,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
     case 'swap':
       theme.bg = setSaturation([hue, saturation, findContrastLightness(tonedBgLightness, minContrast)], saturation, pastel);
       theme.text = setSaturation([hue, saturation, tonedBgLightness], saturation, true);
-      theme.border = setPastelSaturation(findContrastColor(mix(originalSpecial, originalContrast, darkScheme ? 0 : .7), theme.bg[2], (highContrast ? 4.5 : 3) + borderContrastModifier, darkScheme), darkScheme ? 100 : saturation * .75);
+      // theme.border = setSaturation(findContrastColor(mix(originalSpecial, originalContrast, darkScheme ? 0 : .7), theme.bg[2], (highContrast ? 4.5 : 3) + borderContrastModifier, darkScheme), darkScheme ? 100 : saturation * .75);
       theme['special-bg'] = setSaturation([theme.text[0], saturation, findContrastLightness(theme.bg[2], darkScheme ? SPECIAL_CONTRAST_MAP[minContrast] : minContrast)], saturation, true);
       theme['special-text'] = setSaturation([theme.bg[0], theme.bg[1], findContrastLightness(theme['special-bg'][2], minContrast)], saturation, pastel);
       theme.special = [...bgColor];
@@ -202,16 +201,17 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
       theme['text-strong'] = [0, 0, findContrastLightness(tonedBgLightness, 7)];
   }
 
-  theme.focus = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
+  theme.outline = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
 
-  if (type === 'main' || type === 'tint') {
+  if (type === 'main') {
     theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 2 : 1.2) + borderContrastModifier), saturation / (highContrast ? 2 : 1));
   } else {
-    theme.border = theme.border || setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : saturation * .75);
+    // theme.border = theme.border || (type === 'tint' || type === 'tone' ? setPastelSaturation : setSaturation)(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : saturation * .75);
+    theme.border = [...theme.text, highContrast ? 1 : .5];
 
     theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -2 : 2)];
 
-    theme.input = theme.input || [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -4 : 4)];
+    theme.input = theme.input || [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -8 : 6)];
   }
 
   if (type === 'main') {
@@ -233,31 +233,18 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 
   theme.mark = setOpacity([...theme.special], highContrast ? 0.16 : .08);
   theme['special-mark'] = setOpacity([...theme['special-text']], highContrast ? 0.16 : .08);
-  theme.intensity = getShadowIntensity(theme.bg[2], shadowIntensity, darkScheme);
-  theme['special-intensity'] = getShadowIntensity(theme['special-bg'][2], shadowIntensity, darkScheme);
 
-  if (highContrast) {
-    theme.intensity = Math.sqrt(theme.intensity);
-    theme['special-intensity'] = Math.sqrt(theme['special-intensity']);
-  }
+  const shadowSaturation = saturation * (type === 'main' ? .66 : 1);
+  const specialShadowSaturation = 100;
+  const shadowContrastRatio = 1.8 * (highContrast ? 1.5 : 1);
+  const specialShadowContrastRatio = (type === 'special' || (!darkScheme && type === 'swap') ? 1.5 : 1) * shadowContrastRatio;
+  const shadowLightness = findContrastLightness(theme.bg[2], shadowContrastRatio, true);
+  const specialShadowLightness = findContrastLightness(theme['special-bg'][2], specialShadowContrastRatio, true);
 
-  // If special-bg color is brighter than background we need to compensate it in shadow intensity
-  if (theme['special-intensity'] < theme['intensity']) {
-    theme['special-intensity'] = Math.sqrt(theme['intensity'] * theme['special-intensity']);
-  }
+  theme.shadow = (type !== 'swap' && type !== 'special' ? setPastelSaturation : setSaturation)([originalSpecial[0], shadowSaturation, shadowLightness, 1], shadowSaturation);
+  theme['special-shadow'] = setPastelSaturation([originalSpecial[0], specialShadowSaturation, specialShadowLightness, 1], specialShadowSaturation);
 
   return theme;
-}
-
-/**
- * Get shadow intensity based on theme and user custom intensity param
- * @param bgLightness – background lightness
- * @param shadowIntensity – User-specified intensity
- * @param darkScheme – User-specified intensity
- * @returns {Number} – 0 to 1
- */
-export function getShadowIntensity(bgLightness, shadowIntensity = .2, darkScheme) {
-  return (1 - bgLightness / 100) * ((darkScheme ? .9 : .8) - shadowIntensity) + shadowIntensity;
 }
 
 export function themeToProps(name, theme) {
@@ -855,3 +842,11 @@ export function hue(val, dark, contrast) {
 
   return rgba;
 }
+
+// export function hueCorrection(hue, lightness) {
+//   const v = hue + 360;
+//   const multiplier = (100 - lightness) / 100;
+//
+//   return (v - (60 - Math.abs(60 - (v + 360 - 60) % 120)) / 2 * multiplier) % 360;
+// }
+

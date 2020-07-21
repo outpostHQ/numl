@@ -317,7 +317,9 @@ export function setPastelSaturation(hsl, saturation = 100) {
 
   hpl[1] = saturation;
 
-  return hpluvToHsluv(hpl);
+  const converted = hpluvToHsluv(hpl);
+
+  return hsl.length > 3 ? [...converted, hsl[3]] : converted;
 }
 
 export function setSaturation(hsl, saturation = 100, pastel = false) {

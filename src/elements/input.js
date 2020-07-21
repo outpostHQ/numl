@@ -30,7 +30,8 @@ export default class NuInput extends NuElement {
       flow: 'column',
       radius: '',
       padding: '1x',
-      fill: 'input :disabled[special-bg 20%]',
+      fill: 'input :disabled[special-bg 20%] :special[special-bg] :special:disabled[bg 20%]',
+      color: 'text :special[special-text]',
       border: '1bw',
       outline: 'focus-inside intrusive',
       opacity: '1 :disabled[.5]',
@@ -91,8 +92,13 @@ export default class NuInput extends NuElement {
         -webkit-opacity: 1;
       }`,
 
-      `${tag} input::placeholder {
-        color: rgb(var(--nu-text-color-rgb), .6);
+      `${tag}:not([special]) input::placeholder {
+        color: rgb(var(--nu-special-color-rgb), .5);
+        -webkit-text-fill-color: currentColor;
+      }`,
+
+      `${tag}[special] input::placeholder {
+        color: rgb(var(--nu-special-text-color-rgb), .6);
         -webkit-text-fill-color: currentColor;
       }`,
 

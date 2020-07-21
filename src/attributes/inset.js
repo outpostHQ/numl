@@ -1,7 +1,7 @@
 import { hasNoMod, parseAttr } from '../helpers';
 
 export default function insetAttr(val) {
-  let { values, mods } = parseAttr(val, 1);
+  let { values, mods, color } = parseAttr(val, 1);
 
   if (!values.length) {
     if (!hasNoMod(mods)) {
@@ -12,9 +12,8 @@ export default function insetAttr(val) {
   }
 
   const size = values[0] || '0';
-  const intensity = values[1] || 'var(--nu-local-intensity, var(--nu-intensity))';
 
-  const color = `rgba(0, 0, 0, ${intensity})`;
+  color = color || `var(--nu-local-shadow-color, var(--nu-shadow-color, var(--nu-main-shadow-color)))`;
 
   const styles = {
     '--nu-local-inset-shadow': `0 0 ${size} 0 ${color} inset;`,

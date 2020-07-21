@@ -20,7 +20,8 @@
 {/if}
 
 {#if show('snap')}
-  <nu-grid columns="repeat(4, 1fr)" height="10rem" width="max 20" overflow="auto" snapping="x start" gap="2x">
+  <nu-grid columns="repeat(4, 1fr)" height="10rem" width="max 20" overflow="auto" snapping="x start"
+           gap="2x">
     <nu-card height="100%" width="20" fill="hue(0)"></nu-card>
     <nu-card height="100%" width="20" fill="hue(90)"></nu-card>
     <nu-card height="100%" width="20" fill="hue(180)"></nu-card>
@@ -165,7 +166,9 @@
 {#if show('appear')}
   <nu-card>
     <nu-block height="100vh"></nu-block>
-    <nu-btn nx-appear="toggle timeout(1000)" opacity="0 :appear[1]" move="8x 0 :appear[0]" transition="opacity .5s, move .5s">Button</nu-btn>
+    <nu-btn nx-appear="toggle timeout(1000)" opacity="0 :appear[1]" move="8x 0 :appear[0]"
+            transition="opacity .5s, move .5s">Button
+    </nu-btn>
     <nu-block height="100vh"></nu-block>
   </nu-card>
 {/if}
@@ -174,7 +177,8 @@
   <nu-card>
     <nu-cardbtn
       nx-offset transition="move :offset[no]"
-      move="(--offset-x * 1x) (--offset-y * 1x)" height="5" width="15" display="grid" items="center">
+      move="(--offset-x * 1x) (--offset-y * 1x)" height="5" width="15" display="grid"
+      items="center">
       Interactive button
     </nu-cardbtn>
   </nu-card>
@@ -244,13 +248,13 @@
       image="linear(--angle, --from, --to)">
       Heading
     </nu-card>
-<!--    <nu-card-->
-<!--      clear color="special-text" size="xl" text="h" radius="3x" width="15" height="15"-->
-<!--      shadow="special"-->
-<!--      transition="fill .15s, shadow"-->
-<!--      image="linear(-15deg, hue(280 100% pastel special), hue(320 special))">-->
-<!--      Heading-->
-<!--    </nu-card>-->
+    <!--    <nu-card-->
+    <!--      clear color="special-text" size="xl" text="h" radius="3x" width="15" height="15"-->
+    <!--      shadow="special"-->
+    <!--      transition="fill .15s, shadow"-->
+    <!--      image="linear(-15deg, hue(280 100% pastel special), hue(320 special))">-->
+    <!--      Heading-->
+    <!--    </nu-card>-->
   </nu-flow>
 {/if}
 
@@ -313,10 +317,18 @@
       <nu-rowgroup>
         <nu-row>
           <nu-tableheader fill="mark"></nu-tableheader>
-          <nu-columnheader><nu-el as="content">Two</nu-el></nu-columnheader>
-          <nu-columnheader><nu-el as="content">Two</nu-el></nu-columnheader>
-          <nu-columnheader><nu-el as="content">Two</nu-el></nu-columnheader>
-          <nu-columnheader><nu-el as="content">Two</nu-el></nu-columnheader>
+          <nu-columnheader>
+            <nu-el as="content">Two</nu-el>
+          </nu-columnheader>
+          <nu-columnheader>
+            <nu-el as="content">Two</nu-el>
+          </nu-columnheader>
+          <nu-columnheader>
+            <nu-el as="content">Two</nu-el>
+          </nu-columnheader>
+          <nu-columnheader>
+            <nu-el as="content">Two</nu-el>
+          </nu-columnheader>
         </nu-row>
       </nu-rowgroup>
       <nu-rowgroup>
@@ -419,10 +431,170 @@
   </nu-block>
 {/if}
 
-{#if show('button')}
-  <nu-card as="section" gap>
-    <nu-heading level="4">Buttons</nu-heading>
-    <nu-block></nu-block>
+{#if show('theme')}
+  <nu-card as="section" gap="2x">
+    <nu-heading level="2">Buttons</nu-heading>
+    <nu-heading level="4">Button states</nu-heading>
+    <nu-card display="flex" gap flow="column" shadow>
+      <nu-h5>Main</nu-h5>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn>Button</nu-btn>
+          <nu-btn mark="y">Hover</nu-btn>
+          <nu-btn inset>Pressed</nu-btn>
+          <nu-btn outline="y">Focus</nu-btn>
+          <nu-btn disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn special>Button</nu-btn>
+          <nu-btn special mark="y">Hover</nu-btn>
+          <nu-btn special inset>Pressed</nu-btn>
+          <nu-btn special outline="y">Focus</nu-btn>
+          <nu-btn special disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn clear>Button</nu-btn>
+          <nu-btn clear mark="y">Hover</nu-btn>
+          <nu-btn clear inset>Pressed</nu-btn>
+          <nu-btn clear outline="y">Focus</nu-btn>
+          <nu-btn clear disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-input placeholder="Input"></nu-input>
+      <nu-input special placeholder="Special Input"></nu-input>
+    </nu-card>
+    <nu-card display="flex" gap flow="column" shadow theme="tint">
+      <nu-h5>Tint</nu-h5>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn>Button</nu-btn>
+          <nu-btn mark="y">Hover</nu-btn>
+          <nu-btn inset>Pressed</nu-btn>
+          <nu-btn outline="y">Focus</nu-btn>
+          <nu-btn disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn special>Button</nu-btn>
+          <nu-btn special mark="y">Hover</nu-btn>
+          <nu-btn special inset>Pressed</nu-btn>
+          <nu-btn special outline="y">Focus</nu-btn>
+          <nu-btn special disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn clear>Button</nu-btn>
+          <nu-btn clear mark="y">Hover</nu-btn>
+          <nu-btn clear inset>Pressed</nu-btn>
+          <nu-btn clear outline="y">Focus</nu-btn>
+          <nu-btn clear disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-input placeholder="Input"></nu-input>
+      <nu-input special placeholder="Special Input"></nu-input>
+    </nu-card>
+    <nu-card display="flex" gap flow="column" shadow theme="tone">
+      <nu-h5>Tone</nu-h5>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn>Button</nu-btn>
+          <nu-btn mark="y">Hover</nu-btn>
+          <nu-btn inset>Pressed</nu-btn>
+          <nu-btn outline="y">Focus</nu-btn>
+          <nu-btn disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn special>Button</nu-btn>
+          <nu-btn special mark="y">Hover</nu-btn>
+          <nu-btn special inset>Pressed</nu-btn>
+          <nu-btn special outline="y">Focus</nu-btn>
+          <nu-btn special disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn clear>Button</nu-btn>
+          <nu-btn clear mark="y">Hover</nu-btn>
+          <nu-btn clear inset>Pressed</nu-btn>
+          <nu-btn clear outline="y">Focus</nu-btn>
+          <nu-btn clear disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-input placeholder="Input"></nu-input>
+      <nu-input special placeholder="Special Input"></nu-input>
+    </nu-card>
+    <nu-card display="flex" gap flow="column" shadow theme="swap">
+      <nu-h5>Swap</nu-h5>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn>Button</nu-btn>
+          <nu-btn mark="y">Hover</nu-btn>
+          <nu-btn inset>Pressed</nu-btn>
+          <nu-btn outline="y">Focus</nu-btn>
+          <nu-btn disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn special>Button</nu-btn>
+          <nu-btn special mark="y">Hover</nu-btn>
+          <nu-btn special inset>Pressed</nu-btn>
+          <nu-btn special outline="y">Focus</nu-btn>
+          <nu-btn special disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn clear>Button</nu-btn>
+          <nu-btn clear mark="y">Hover</nu-btn>
+          <nu-btn clear inset>Pressed</nu-btn>
+          <nu-btn clear outline="y">Focus</nu-btn>
+          <nu-btn clear disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-input placeholder="Input"></nu-input>
+      <nu-input special placeholder="Special Input"></nu-input>
+    </nu-card>
+    <nu-card display="flex" gap flow="column" shadow theme="special">
+      <nu-h5>Special</nu-h5>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn>Button</nu-btn>
+          <nu-btn mark="y">Hover</nu-btn>
+          <nu-btn inset>Pressed</nu-btn>
+          <nu-btn outline="y">Focus</nu-btn>
+          <nu-btn disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn special>Button</nu-btn>
+          <nu-btn special mark="y">Hover</nu-btn>
+          <nu-btn special inset>Pressed</nu-btn>
+          <nu-btn special outline="y">Focus</nu-btn>
+          <nu-btn special disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-block>
+        <nu-flex flow="row wrap" gap>
+          <nu-btn clear>Button</nu-btn>
+          <nu-btn clear mark="y">Hover</nu-btn>
+          <nu-btn clear inset>Pressed</nu-btn>
+          <nu-btn clear outline="y">Focus</nu-btn>
+          <nu-btn clear disabled>Disabled</nu-btn>
+        </nu-flex>
+      </nu-block>
+      <nu-input placeholder="Input"></nu-input>
+      <nu-input special placeholder="Special Input"></nu-input>
+    </nu-card>
     <nu-heading level="4">Toggle buttons</nu-heading>
     <nu-flex gap flow="row wrap">
       <nu-btn toggle>Non-pressed toggle button</nu-btn>

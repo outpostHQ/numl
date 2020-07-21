@@ -17,7 +17,7 @@ const USE_SHADOW = document.querySelector(':root').dataset.nuShadow != null;
 export const CUSTOM_UNITS = {
   'r': 'var(--nu-radius)',
   'bw': 'var(--nu-border-width)',
-  'sw': 'var(--nu-selected-width)',
+  'sw': 'var(--nu-outline-width)',
   'x': 'var(--nu-gap)',
   'fs': 'var(--nu-font-size)',
   'lh': 'var(--nu-line-height)',
@@ -1163,13 +1163,15 @@ const COLOR_NAME_LIST = [
   'bg',
   'border',
   'mark',
-  'focus',
+  'outline',
   'subtle',
   'text-soft',
   'text-strong',
+  'shadow',
   'special',
   'special-text',
   'special-bg',
+  'special-shadow',
   'input',
   'diff', // additional
   'local', // additional
@@ -1210,10 +1212,6 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
 
     if (name === 'current') {
       color = 'currentColor';
-    } else if (name === 'shadow') {
-      color = `rgba(0, 0, 0, calc(var(--nu-intensity) * ${opacity} / 100 / 2))`;
-    } else if (name === 'special-shadow') {
-      color = `rgba(0, 0, 0, calc(var(--nu-special-intensity) * ${opacity} / 100 / 2))`;
     } else {
       if (opacity > 100) {
         opacity = 100;
