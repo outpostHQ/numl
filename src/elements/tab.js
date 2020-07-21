@@ -23,10 +23,10 @@ export default class NuTab extends NuAction {
 
       '--local-line-width': `0
         :hover[1bw]
-        :pressed[1sw]
-        :hover:pressed[1sw]
-        :active[1sw - 1bw]
-        :active:hover[1sw - 1bw]`,
+        :pressed[1ow]
+        :hover:pressed[1ow]
+        :active[1ow - 1bw]
+        :active:hover[1ow - 1bw]`,
     };
   }
 }
