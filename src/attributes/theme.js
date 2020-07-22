@@ -1,5 +1,6 @@
 import { composeThemeName, parseThemeAttr, RGB_COLORS, THEME_PROPS_LIST } from '../themes';
-import { BASE_COLOR } from './color';
+import { BASE_COLOR, SPECIAL_BASE_COLOR } from './color';
+import { isNoValue } from '../helpers';
 
 /**
  * Apply theme to the element by providing specific custom properties.
@@ -9,6 +10,10 @@ import { BASE_COLOR } from './color';
  */
 export default function themeAttr(val, defaults = {}) {
   if (val == null) val = '';
+
+  if (isNoValue(val)) {
+    return [];
+  }
 
   const theme = parseThemeAttr(val);
   const themeName = composeThemeName(theme);
@@ -34,8 +39,13 @@ export default function themeAttr(val, defaults = {}) {
 
   styles.push({
     $suffix: ':not([color])',
-    color: BASE_COLOR,
     '--nu-local-text-color': 'initial',
+  }, {
+    $suffix: ':not([color]):not([special])',
+    color: BASE_COLOR,
+  }, {
+    $suffix: ':not([color])[special]',
+    color: SPECIAL_BASE_COLOR,
   });
 
   return styles;

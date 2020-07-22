@@ -30,7 +30,7 @@ export default class NuInput extends NuElement {
       flow: 'column',
       radius: '',
       padding: '1x',
-      fill: 'input :disabled[special-bg 20%] :special[special-bg] :special:disabled[bg 20%]',
+      fill: 'input :special[special-bg]',
       color: 'text :special[special-text]',
       border: '1bw',
       outline: 'focus-inside intrusive',

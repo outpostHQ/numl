@@ -89,6 +89,12 @@ export default class InputBehavior extends WidgetBehavior {
       this.setEmpty();
     }, 'inputGroup');
 
+    host.addEventListener('keydown', (event) => {
+      if (tag === 'input' && event.key === 'Enter') {
+        this.doAction('submit');
+      }
+    });
+
     // recheck for autocomplete
     setTimeout(() => {
       this.setEmpty();

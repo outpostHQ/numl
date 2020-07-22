@@ -16,7 +16,7 @@ export default class NuBtn extends NuAction {
       content: 'center :dropdown[stretch]',
       items: 'center stretch',
       mark: 'n :focusable[hover]',
-      fill: 'bg :special[special-bg] :themed[bg] :special:themed[special-bg] :clear[clear] :clear:themed[clear]',
+      fill: 'bg :special[special-bg] :clear[clear]',
       text: 'nowrap :special[w5 nowrap]',
       inset: 'n :active[#shadow.50] :active:special[#special-shadow.50] :pressed[y] :pressed:special[y special] :active:pressed[#shadow.50] :active:pressed:special[#special-shadow.50]',
       color: 'text :clear[special] :special[special-text] :special:clear[special-text]',

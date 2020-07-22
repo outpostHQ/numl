@@ -1753,6 +1753,12 @@ export default class NuBase extends HTMLElement {
     return this.pressed;
   }
 
+  focus() {
+    const ref = this.nuRef || this;
+
+    HTMLElement.prototype.focus.call(ref);
+  }
+
   // get asList() {
   //   if (!this._asList) {
   //     const host = this;
