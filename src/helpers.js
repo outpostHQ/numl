@@ -722,7 +722,7 @@ export function isResponsiveAttr(value) {
   return value.includes('|');
 }
 
-const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-z0-9.-]{2,}(?![a-f0-9\[-]))|(--[a-z0-9-]+)|([a-z][a-z0-9-]*)|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/g;
+const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-z0-9.-]{2,}(?![a-f0-9\[-]))|(--[a-z0-9-]+)|([a-z][a-z0-9-]*)|(([0-9]+(?![0-9.])|[0-9.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/ig;
 
 const ATTR_CACHE = new Map;
 const ATTR_CACHE_AUTOCALC = new Map;
@@ -749,8 +749,8 @@ function prepareNuVar(name) {
 }
 
 const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid', 'initial'];
-const PREPARE_REGEXP = /calc\((\d*)\)/g;
-const CUSTOM_PROPS_REGEX = /(^|var\(|)--([a-z0-9-]+)/g;
+const PREPARE_REGEXP = /calc\((\d*)\)/ig;
+const CUSTOM_PROPS_REGEX = /(^|var\(|)--([a-z0-9-]+)/ig;
 const COLOR_FUNCS = ['rgb', 'rgba', 'hsl', 'hsla'];
 
 export const CUSTOM_FUNCS = {};
