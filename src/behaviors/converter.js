@@ -1,4 +1,5 @@
-import { error, h } from '../helpers';
+import { error } from '../helpers';
+import { h } from '../dom-helpers';
 import WidgetBehavior from './widget';
 
 export default class ConverterBehavior extends WidgetBehavior {

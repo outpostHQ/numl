@@ -1,5 +1,4 @@
 import { hsluvToRgb, rgbToHsluv, hpluvToHsluv, hpluvToRgb } from './hsluv';
-import { h } from './helpers';
 
 export function hslToRgb(hsl) {
   return hsluvToRgb(hsl).map(n => Math.round(n));
@@ -142,43 +141,6 @@ export function getLuminanceByRatio(l1, ratio = 4.5, dir) {
   }
 
   return l2 * 100;
-}
-
-const dim = h('div');
-const dimStyle = dim.style;
-
-export function extractColor(color, ignoreAlpha = false) {
-  if (typeof color !== 'string') return null;
-
-  dimStyle.color = '';
-  dimStyle.color = color;
-
-  const arr = !dimStyle.color
-    ? null // incorrect color
-    : dimStyle.color
-      .slice(dimStyle.color.indexOf('(') + 1, -1)
-      .split(', ')
-      .map(Number);
-
-  if (!arr) return arr;
-
-  if (ignoreAlpha) {
-    return arr.slice(0, 3);
-  }
-
-  arr[3] = arr[3] || 1;
-
-  return arr;
-}
-
-export function strToHsl(color, ignoreAlpha = false) {
-  if (!color) return color;
-
-  const rgba = extractColor(color, ignoreAlpha);
-
-  if (!rgba) return;
-
-  return rgbToHsl(rgba);
 }
 
 for (let i = 1; i <= 255; i += .25) {

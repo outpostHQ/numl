@@ -1,5 +1,6 @@
 import WidgetBehavior from './widget';
-import { h, warn } from '../helpers';
+import { warn } from '../helpers';
+import { h } from '../dom-helpers';
 
 export default class ImageBehavior extends WidgetBehavior {
   init() {

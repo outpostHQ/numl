@@ -1,4 +1,5 @@
-import { devMode, h, isNoValue, parseAttr, toCamelCase, warn } from '../helpers';
+import { devMode, isNoValue, parseAttr, toCamelCase, warn } from '../helpers';
+import { h } from '../dom-helpers';
 
 const MAP = {
   move: ['transform'],

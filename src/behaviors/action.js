@@ -1,6 +1,7 @@
 import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
-import { h, isEqual, queryById, stackTrace } from '../helpers';
+import { isEqual, queryById } from '../helpers';
+import { h } from '../dom-helpers';
 import { handleLinksState, handleLinkState } from '../links';
 
 export default class ActionBehavior extends WidgetBehavior {

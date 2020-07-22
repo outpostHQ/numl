@@ -11,11 +11,11 @@ import {
   hslToRgb,
   findContrastLightness,
   setSaturation,
-  strToHsl,
   getSaturationRatio,
   hplToRgbaStr,
-  getContrastRatio, extractColor, rgbToHsl,
+  getContrastRatio, rgbToHsl,
 } from './color';
+import { extractColor } from './dom-helpers';
 import { removeRulesByPart, insertRuleSet, stylesString, withMediaQuery } from './css';
 
 export const THEME_ATTR = 'theme';

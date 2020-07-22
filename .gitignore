@@ -1,7 +1,6 @@
 .DS_Store
 node_modules
 dist
-test
 .idea
 .cache
 generate/*
@@ -9,4 +8,4 @@ playground/*
 src/elements/view.js
 src/behaviors/view.js
 test.html
-
+play

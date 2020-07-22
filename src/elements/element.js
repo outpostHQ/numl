@@ -1,8 +1,9 @@
 import {
   generateId,
   setImmediate,
-  parseAllValues, h, setBoolAttr, setAriaRef,
+  parseAllValues, setBoolAttr, setAriaRef,
 } from '../helpers';
+import { h } from '../dom-helpers';
 import NuBase from './base';
 import BaseAttributes from '../attributes/base';
 import TransformCombinator from '../combinators/transform';

@@ -1,4 +1,5 @@
-import { devMode, log, warn, h } from "./helpers";
+import { devMode, log, warn } from "./helpers";
+import { h } from './dom-helpers';
 import scrollbarAttr from './attributes/scrollbar';
 import { USE_HIDDEN_STYLES } from './settings';
 

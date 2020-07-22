@@ -1,7 +1,7 @@
 import NuDefinition from './definition';
-import { declareTheme, removeTheme, ALL_THEME_MODS, hueFromString, THEME_ATTR } from '../themes';
-import { devMode, error, warn } from '../helpers';
-import { getOptimalSaturation, strToHsl } from '../color';
+import { declareTheme, removeTheme, ALL_THEME_MODS, hueFromString } from '../themes';
+import { devMode, warn } from '../helpers';
+import { getOptimalSaturation } from '../color';
 
 const ATTRS_LIST = [
   'name',

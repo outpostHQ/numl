@@ -1,6 +1,6 @@
 import ConverterBehavior from './converter';
 import markdownConverter from '../converters/markdown';
-import { h } from '../helpers';
+import { h } from '../dom-helpers';
 import { BOOL_TYPE } from './widget';
 
 export default class MarkdownBehavior extends ConverterBehavior {

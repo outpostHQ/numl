@@ -1,5 +1,5 @@
 import NuElement from './element';
-import { h } from '../helpers';
+import { h } from '../dom-helpers';
 
 export default class NuCode extends NuElement {
   static get nuTag() {
