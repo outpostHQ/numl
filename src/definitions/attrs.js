@@ -33,14 +33,14 @@ export default class NuAttrs extends NuDefinition {
   nuChanged(name, oldValue, value) {
     super.nuChanged(name, oldValue, value);
 
-    if (!this.nuIsConnected) {
-      return;
-    }
-
     this.nuApply();
   }
 
   nuApply() {
+    if (!this.nuIsConnected) {
+      return;
+    }
+
     const parent = this.parentNode;
     let id = this.getAttribute('for');
 

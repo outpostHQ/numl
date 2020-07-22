@@ -46,7 +46,7 @@
     "size": "size-limit",
     "start": "npm run play",
     "generate-docs": "node ./generate/backend.js",
-    "prepublishOnly": "npm run build-only"
+    "prepublishOnly": "npm run build-only && npm run test"
   },
   "files": [
     "dist"

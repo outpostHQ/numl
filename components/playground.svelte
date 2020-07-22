@@ -275,7 +275,7 @@
 {/if}
 
 {#if show('theme')}
-  <nu-theme name="positive" hue="sadf" mod="tint"></nu-theme>
+  <nu-theme name="positive" hue="sadf" mod="special"></nu-theme>
 
   <nu-card theme="positive">
     Special card
@@ -465,7 +465,9 @@
         </nu-flex>
       </nu-block>
       <nu-input placeholder="Input"></nu-input>
+      <nu-input disabled placeholder="Disabled input"></nu-input>
       <nu-input special placeholder="Special Input"></nu-input>
+      <nu-input disabled special placeholder="Disabled special input"></nu-input>
     </nu-card>
     <nu-card display="flex" gap flow="column" shadow theme="tint">
       <nu-h5>Tint</nu-h5>
@@ -497,7 +499,9 @@
         </nu-flex>
       </nu-block>
       <nu-input placeholder="Input"></nu-input>
+      <nu-input disabled placeholder="Disabled input"></nu-input>
       <nu-input special placeholder="Special Input"></nu-input>
+      <nu-input disabled special placeholder="Disabled special input"></nu-input>
     </nu-card>
     <nu-card display="flex" gap flow="column" shadow theme="tone">
       <nu-h5>Tone</nu-h5>
@@ -529,7 +533,9 @@
         </nu-flex>
       </nu-block>
       <nu-input placeholder="Input"></nu-input>
+      <nu-input disabled placeholder="Disabled input"></nu-input>
       <nu-input special placeholder="Special Input"></nu-input>
+      <nu-input disabled special placeholder="Disabled special input"></nu-input>
     </nu-card>
     <nu-card display="flex" gap flow="column" shadow theme="swap">
       <nu-h5>Swap</nu-h5>
@@ -561,7 +567,9 @@
         </nu-flex>
       </nu-block>
       <nu-input placeholder="Input"></nu-input>
+      <nu-input disabled placeholder="Disabled input"></nu-input>
       <nu-input special placeholder="Special Input"></nu-input>
+      <nu-input disabled special placeholder="Disabled special input"></nu-input>
     </nu-card>
     <nu-card display="flex" gap flow="column" shadow theme="special">
       <nu-h5>Special</nu-h5>
@@ -593,7 +601,9 @@
         </nu-flex>
       </nu-block>
       <nu-input placeholder="Input"></nu-input>
+      <nu-input disabled placeholder="Disabled input"></nu-input>
       <nu-input special placeholder="Special Input"></nu-input>
+      <nu-input disabled special placeholder="Disabled special input"></nu-input>
     </nu-card>
     <nu-heading level="4">Toggle buttons</nu-heading>
     <nu-flex gap flow="row wrap">
