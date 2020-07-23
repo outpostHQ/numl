@@ -573,8 +573,8 @@ export function computeStyles(name, value, attrs, defaults) {
 
       if (!styles) return null;
 
-      // normalize to array
-      return Array.isArray(styles) ? styles : [styles];
+      // normalize to array and clone incoming styles
+      return (Array.isArray(styles) ? styles : [styles]).map(stls => { return { ...stls }; });
     default:
       return null;
   }
@@ -1689,5 +1689,3 @@ const POINT_REGEX = /([\d.]+)/;
 export function decPoint(val) {
   return val.replace(POINT_REGEX, (num) => `${Number(num) - 0.01}`);
 }
-
-window.normalizeAttrStates = normalizeAttrStates;
