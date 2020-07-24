@@ -2,7 +2,7 @@
  * @TODO Add flexible color support | Use parseAttr() method to parse value.
  */
 
-import { stripCalc, parseAttr } from '../helpers';
+import { stripCalc, parseAttr, isYesValue } from '../helpers';
 
 export const DEFAULT_STROKE_SHADOW = '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)';
 
@@ -44,6 +44,10 @@ const DIRECTIONS_HANDLERS = {
 
 export default function borderAttr(val) {
   if (val == null) return val;
+
+  if (isYesValue(val)) {
+    val = '';
+  }
 
   let style = 'solid';
   let dirs = [];

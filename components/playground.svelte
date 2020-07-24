@@ -274,13 +274,13 @@
   </nu-card>
 {/if}
 
-{#if show('theme')}
-  <nu-theme name="positive" hue="sadf" mod="special"></nu-theme>
+<!--{#if show('theme')}-->
+<!--  <nu-theme name="positive" hue="sadf" mod="special"></nu-theme>-->
 
-  <nu-card theme="positive">
-    Special card
-  </nu-card>
-{/if}
+<!--  <nu-card theme="positive">-->
+<!--    Special card-->
+<!--  </nu-card>-->
+<!--{/if}-->
 
 {#if show('clamp')}
   <nu-card>
@@ -437,6 +437,7 @@
     <nu-heading level="4">Button states</nu-heading>
     <nu-card display="flex" gap flow="column" shadow>
       <nu-h5>Main</nu-h5>
+      <nu-description>Text example.</nu-description>
       <nu-block>
         <nu-flex flow="row wrap" gap>
           <nu-btn>Button</nu-btn>
@@ -471,6 +472,7 @@
     </nu-card>
     <nu-card display="flex" gap flow="column" shadow theme="tint">
       <nu-h5>Tint</nu-h5>
+      <nu-description>Text example.</nu-description>
       <nu-block>
         <nu-flex flow="row wrap" gap>
           <nu-btn>Button</nu-btn>
@@ -505,6 +507,7 @@
     </nu-card>
     <nu-card display="flex" gap flow="column" shadow theme="tone">
       <nu-h5>Tone</nu-h5>
+      <nu-description>Text example.</nu-description>
       <nu-block>
         <nu-flex flow="row wrap" gap>
           <nu-btn>Button</nu-btn>
@@ -539,6 +542,7 @@
     </nu-card>
     <nu-card display="flex" gap flow="column" shadow theme="swap">
       <nu-h5>Swap</nu-h5>
+      <nu-description>Text example.</nu-description>
       <nu-block>
         <nu-flex flow="row wrap" gap>
           <nu-btn>Button</nu-btn>
@@ -573,6 +577,7 @@
     </nu-card>
     <nu-card display="flex" gap flow="column" shadow theme="special">
       <nu-h5>Special</nu-h5>
+      <nu-description>Text example.</nu-description>
       <nu-block>
         <nu-flex flow="row wrap" gap>
           <nu-btn>Button</nu-btn>

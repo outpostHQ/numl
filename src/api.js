@@ -1,4 +1,7 @@
 import NuElement from './elements/element';
+import { log, warn } from './helpers';
+
+const OBJ_ASSIGN = ['attrs', 'styles', 'generators', 'behaviors', 'combinators'];
 
 const staticBind = {
   id: 'nuId',
@@ -60,4 +63,36 @@ export function define(tag, options, skipDefine) {
   }
 
   return Element;
+}
+
+export function assign(element, prop, value, elements = {}) {
+  if (!(prop in staticBind)) {
+    warn('assign: Property not found');
+
+    return;
+  }
+
+  if (typeof element === 'string') {
+    element = Object.values(elements).find(el => el.nuTag === element);
+
+    if (!element) {
+      warn('assign: Element not found', JSON.stringify(element));
+      return;
+    }
+  }
+
+  const propName = staticBind[prop];
+  const oldValue = element[propName];
+
+  let newValue = value;
+
+  if (OBJ_ASSIGN.includes(prop)) {
+    newValue = Object.assign(oldValue || {}, newValue);
+  }
+
+  Object.defineProperty(element, propName, {
+    value: newValue,
+  });
+
+  log('property assigned:', `${element.nuTag}.${prop}:`, newValue);
 }

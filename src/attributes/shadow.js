@@ -1,9 +1,13 @@
-import { parseAttr } from '../helpers';
+import { isYesValue, parseAttr } from '../helpers';
 
 const SHADOW = 'rgba(var(--nu-shadow-color-rgb), .5)';
 const SPECIAL_SHADOW = 'rgba(var(--nu-special-shadow-color-rgb), .5)';
 
 export default function shadowAttr(val) {
+  if (isYesValue(val)) {
+    val = '';
+  }
+
   let { values, mods, color } = parseAttr(val, 1);
 
   color = color || mods.includes('special') ? SPECIAL_SHADOW : SHADOW;

@@ -15,7 +15,6 @@ export default class NuHeader extends NuRegion {
       shadow: '0 :sticky[1]',
       width: '100%',
       z: 'front',
-      border: 'bottom',
       transition: 'all',
     };
   }

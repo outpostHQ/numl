@@ -13,7 +13,7 @@ import {
   setSaturation,
   getSaturationRatio,
   hplToRgbaStr,
-  getContrastRatio, rgbToHsl,
+  getContrastRatio, rgbToHsl, getOptimalSaturation,
 } from './color';
 import { extractColor } from './dom-helpers';
 import { removeRulesByPart, insertRuleSet, stylesString, withMediaQuery } from './css';
@@ -36,8 +36,13 @@ export const THEME_PROPS_LIST = [
   'special-bg-color',
   'special-mark-color',
   'special-shadow-color',
+  'special-invert',
   'input-color',
 ];
+const normalTextLightness = 19.87;
+const contrastTextLightness = 12.25;
+const darkTextLightness = 88.82;
+const darkContrastTextLightness = 94.45;
 const normalBaseTextColor = [0, 0, 19.87];
 const contrastBaseTextColor = [0, 0, 12.25];
 const darkNormalBaseTextColor = [0, 0, 88.82];
@@ -58,7 +63,7 @@ export const BASE_THEME = {
   lightness: 'normal',
 };
 
-export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg', 'shadow', 'special-shadow'];
+export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg', 'shadow', 'special-shadow', 'special-invert'];
 
 /**
  * Get minimal possible contrast ratio between text and foreground.
@@ -104,11 +109,13 @@ function getBgLightness(type = 'normal', highContrast, darkScheme) {
   }
 }
 
-function getBaseTextColor(highContrast, darkScheme) {
+function getBaseTextColor(hue, saturation, highContrast, darkScheme) {
+  saturation /= darkScheme ? 4 : 2;
+
   if (darkScheme) {
-    return highContrast ? darkContrastBaseTextColor : darkNormalBaseTextColor;
+    return [hue, saturation, highContrast ? darkContrastTextLightness : darkTextLightness];
   } else {
-    return highContrast ? contrastBaseTextColor : normalBaseTextColor;
+    return [hue, saturation, highContrast ? contrastTextLightness : normalTextLightness];
   }
 }
 
@@ -138,13 +145,17 @@ const SPECIAL_CONTRAST_MAP = {
  * @param [highContrast] {Boolean} - true | false
  */
 export function generateTheme({ hue, saturation, pastel, type, contrast, lightness, darkScheme, highContrast }) {
+  if (darkScheme) {
+    saturation = getOptimalSaturation(hue, saturation);
+  }
+
   const theme = {};
   const minContrast = getMinContrast(contrast, highContrast, darkScheme);
   const specialContrast = minContrast * (1 - (darkScheme ? 0 : (getSaturationRatio(hue, saturation, pastel) / 4.5)));
   const softContrast = Math.max(minContrast * .8, darkScheme ? 3.75 : 3);
   // const strongContrast = Math.min(minContrast / .8, 7);
   const tonedBgLightness = getBgLightness(lightness, highContrast, darkScheme);
-  const textColor = getBaseTextColor(highContrast, darkScheme);
+  const textColor = getBaseTextColor(hue, saturation, highContrast, darkScheme);
   const bgColor = getBaseBgColor(highContrast, darkScheme);
   const borderContrastModifier = contrast === 'strong' ? 1.5 : 0;
 
@@ -197,7 +208,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
     case 'main':
       theme.bg = bgColor;
       theme.text = textColor;
-      theme['text-soft'] = highContrast ? [...theme.text] : [0, 0, findContrastLightness(tonedBgLightness, 7)];
+      theme['text-soft'] = [theme.text[0], theme.text[1] / 2, highContrast ?  theme.text[2] : findContrastLightness(tonedBgLightness, 7)];
       theme['text-strong'] = [0, 0, findContrastLightness(tonedBgLightness, 7)];
   }
 
@@ -233,6 +244,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 
   theme.mark = setOpacity([...theme.special], highContrast ? 0.16 : .08);
   theme['special-mark'] = setOpacity([...theme['special-text']], highContrast ? 0.16 : .08);
+  theme['special-invert'] = [0, 0, theme['special-text'][2]];
 
   const shadowSaturation = saturation * (type === 'main' ? .66 : 1);
   const specialShadowSaturation = 100;

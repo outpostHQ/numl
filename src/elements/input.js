@@ -92,14 +92,24 @@ export default class NuInput extends NuElement {
         -webkit-opacity: 1;
       }`,
 
-      `${tag}:not([special]) input::placeholder {
-        color: rgb(var(--nu-special-color-rgb), .5);
+      `${tag} input::placeholder {
         -webkit-text-fill-color: currentColor;
       }`,
 
-      `${tag}[special] input::placeholder {
-        color: rgb(var(--nu-special-text-color-rgb), .6);
-        -webkit-text-fill-color: currentColor;
+      `${tag}:not([disabled])[special] input::placeholder {
+        color: rgb(var(--nu-special-invert-color-rgb), .4);
+      }`,
+
+      `${tag}:not([disabled]):not([special]) input::placeholder {
+        color: rgb(var(--nu-text-color-rgb), .4);
+      }`,
+
+      `${tag}[disabled][special] input::placeholder {
+        color: rgb(var(--nu-special-invert-color-rgb), .6);
+      }`,
+
+      `${tag}[disabled]:not([special]) input::placeholder {
+        color: rgb(var(--nu-text-color-rgb), .6);
       }`,
 
       `${tag} nu-icon:not([width]) {

@@ -1,4 +1,4 @@
-import { unit } from '../helpers';
+import { isYesValue, unit } from '../helpers';
 
 const radiusUnit = unit('border-radius', {
   empty: '--nu-radius',
@@ -7,6 +7,10 @@ const radiusUnit = unit('border-radius', {
 });
 
 export default function radiusAttr(val) {
+  if (!val || isYesValue(val)) {
+    val = '';
+  }
+
   if (val === 'round') {
     val = '9999rem';
   } else if (val === 'ellipse') {

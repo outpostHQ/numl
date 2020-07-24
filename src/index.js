@@ -11,7 +11,7 @@ import {
   isEqual,
 } from './helpers';
 
-import { define } from './define';
+import { define, assign as baseAssign } from './api';
 export { FLEX_GAP_SUPPORTED } from './attributes/gap';
 import initSticky from './sticky';
 import initLinks from './links';
@@ -38,12 +38,13 @@ import { scheme, contrast, reduceMotion, preventInit } from './settings';
 import CONTEXT from './context';
 import { applyTheme, BASE_THEME, hue } from './themes';
 import { removeRulesByPart, generateCSS, insertRuleSet } from './css';
-import { NuElement } from './elements';
-import Behavior from './behaviors/behavior';
-import WidgetBehavior from './behaviors/widget';
 
 initSticky(); // enable sticky detection
 initLinks(); // enable link current state detection
+
+function assign(element, prop, value) {
+  return baseAssign(element, prop, value, elements);
+}
 
 const behaviors = {
   define: defineBehavior,
@@ -120,13 +121,11 @@ const Nude = {
   deepQueryAll,
   deepQuery,
   requestIdleCallback,
-  NuElement,
-  Behavior,
-  WidgetBehavior,
   helpers,
   styles,
   isEqual,
   define,
+  assign,
   hue,
   // color,
   // themes,
@@ -223,13 +222,11 @@ export {
   deepQueryAll,
   deepQuery,
   requestIdleCallback,
-  NuElement,
-  Behavior,
-  WidgetBehavior,
   helpers,
   isEqual,
   styles,
   define,
+  assign,
   hue,
   // themes,
   // css,

@@ -285,19 +285,32 @@ export function setPastelSaturation(hsl, saturation = 100) {
 }
 
 export function setSaturation(hsl, saturation = 100, pastel = false) {
-  const hpl = [...hsl];
+  const newHsl = [...hsl];
 
   if (saturation != null) {
-    hpl[1] = saturation;
+    newHsl[1] = saturation;
   }
 
-  return pastel ? hpluvToHsluv(hpl) : hpl;
+  newHsl[1] = (pastel ? hpluvToHsluv(newHsl) : newHsl)[1];
+
+  // return saturationFix([...hsl], newSaturation);
+
+  return newHsl;
 }
 
-export function getOptimalSaturation(hue) {
+export function getOptimalSaturation(hue, baseSaturation) {
   const hsl = hpluvToHsluv([hue, 100, 50]);
+  const max = hsl[1];
 
-  return (100 + hsl[1]) / 2;
+  if (baseSaturation == null) {
+    return (100 + max) / 2;
+  }
+
+  if (baseSaturation > max) {
+    return ((baseSaturation - max) / 125 * baseSaturation) + max;
+  }
+
+  return baseSaturation;
 }
 
 const optimalSaturation = 75;

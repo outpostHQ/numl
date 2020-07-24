@@ -1172,6 +1172,7 @@ const COLOR_NAME_LIST = [
   'special-text',
   'special-bg',
   'special-shadow',
+  'special-invert',
   'input',
   'diff', // additional
   'local', // additional
@@ -1430,8 +1431,8 @@ export function extractModule(promise) {
 //   });
 // }
 
-const NO_VALUES = ['n', 'no'];
-const YES_VALUES = ['y', 'yes'];
+const NO_VALUES = ['n', 'no', 'false'];
+const YES_VALUES = ['y', 'yes', 'true'];
 
 /**
  * Check for "no" value.
