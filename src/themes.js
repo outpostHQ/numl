@@ -36,7 +36,7 @@ export const THEME_PROPS_LIST = [
   'special-bg-color',
   'special-mark-color',
   'special-shadow-color',
-  'special-invert',
+  'special-invert-color',
   'input-color',
 ];
 const normalTextLightness = 19.87;
@@ -244,6 +244,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 
   theme.mark = setOpacity([...theme.special], highContrast ? 0.16 : .08);
   theme['special-mark'] = setOpacity([...theme['special-text']], highContrast ? 0.16 : .08);
+
   theme['special-invert'] = [0, 0, theme['special-text'][2]];
 
   const shadowSaturation = saturation * (type === 'main' ? .66 : 1);
