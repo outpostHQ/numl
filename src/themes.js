@@ -661,24 +661,25 @@ function convertContrast(contrast, darkScheme, highContrast) {
  *
  * @param {{saturation: number, special: boolean, pastel: boolean, contrast: string, alpha: number, hue: number}} color
  * @param {String|Boolean} [name]
- * @return {String|{prop:string, lightValue: string, lightContrastValue: string, darkValue: string, darkContrastValue: string }}
+ * @return {String|{prop:string, light: string, lightContrast: string, dark: string, darkContrast: string }}
  */
 export function requireHue(color, name) {
   let { hue, saturation, contrast, alpha, special, pastel } = color;
 
   const prop = name ? `--nu-${name}-color` : `--nu-h-${hue}-s-${saturation}-c-${contrast}-a-${(alpha)}${pastel ? '-p' : ''}${special ? '-s' : ''}`;
   const onlyReturn = name === false;
+  const darkSaturation = getOptimalSaturation(hue, saturation);
 
   // convert alpha to decimal value
   alpha /= 100;
 
   if (!COLORS[prop] || name) {
-    const lightValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], convertContrast(contrast)), alpha]);
-    const lightContrastValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], convertContrast(contrast, false, true)), alpha]);
-    const darkValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness((!special ? darkNormanBaseBgColor : darkNormalBaseTextColor)[2], convertContrast(contrast, true), special), alpha]);
-    const darkContrastValue = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness((!special ? darkContrastBaseBgColor : darkContrastBaseTextColor)[2], convertContrast(contrast, true, true), special), alpha]);
+    const light = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], convertContrast(contrast)), alpha]);
+    const lightContrast = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, saturation, findContrastLightness(baseBgColor[2], convertContrast(contrast, false, true)), alpha]);
+    const dark = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, darkSaturation, findContrastLightness((!special ? darkNormanBaseBgColor : darkNormalBaseTextColor)[2], convertContrast(contrast, true), special), alpha]);
+    const darkContrast = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, darkSaturation, findContrastLightness((!special ? darkContrastBaseBgColor : darkContrastBaseTextColor)[2], convertContrast(contrast, true, true), special), alpha]);
 
-    const props = [lightValue, lightContrastValue, darkValue, darkContrastValue]
+    const props = [light, lightContrast, dark, darkContrast]
       .map(value => `${prop}: ${value};`);
 
     if (!onlyReturn) {
@@ -690,10 +691,10 @@ export function requireHue(color, name) {
     } else {
       return {
         prop,
-        lightValue,
-        lightContrastValue,
-        darkValue,
-        darkContrastValue,
+        light,
+        lightContrast,
+        dark,
+        darkContrast,
       };
     }
   }
@@ -840,15 +841,15 @@ export function hue(val, dark, contrast) {
 
   if (dark) {
     if (contrast) {
-      rgba = clr.darkContrastValue;
+      rgba = clr.darkContrast;
     } else {
-      rgba = clr.darkValue;
+      rgba = clr.dark;
     }
   } else {
     if (contrast) {
-      rgba = clr.lightContrastValue;
+      rgba = clr.lightContrast;
     } else {
-      rgba = clr.lightValue;
+      rgba = clr.light;
     }
   }
 
