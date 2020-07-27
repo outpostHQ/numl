@@ -28,7 +28,7 @@
     "rollup-plugin-resolve": "0.0.1-predev.1",
     "rollup-plugin-svelte": "^5.2.3",
     "rollup-plugin-terser": "^6.1.0",
-    "size-limit": "^4.5.1",
+    "size-limit": "^4.5.5",
     "svelte": "^3.24.0"
   },
   "scripts": {
