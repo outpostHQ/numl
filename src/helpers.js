@@ -978,7 +978,7 @@ export function filterMods(mods, allowedMods) {
 }
 
 // const STATE_TYPE_REGEXP = /\[[^\]]*\|/;
-const STATE_REGEXP = /(\|)|(\[)|(])|(\^((#|)[a-z][a-z0-9-]*|))|:([a-z0-9:-]+)(?=\[)|('[^']*'|[(#a-z0-9,.-][^'\]\[|:]*(?!:))/gi;
+const STATE_REGEXP = /(\|)|(\[)|(])|(\^((#|)[a-z][a-z0-9-]*|))|:([a-z0-9:\.-]+)(?=\[)|('[^']*'|[(#a-z0-9,.-][^'\]\[|:]*(?!:))/gi;
 
 function requireZone(zones, index, parent = '') {
   while (zones[index] == null) {
@@ -1019,6 +1019,7 @@ export function parseAttrStates(val) {
   let zone;
   let currentContext;
   let token;
+  let orOperator = false;
 
   STATE_REGEXP.lastIndex = 0;
 
@@ -1071,6 +1072,10 @@ export function parseAttrStates(val) {
     } else if (state) {
       currentState = state;
 
+      if (state.includes('.')) {
+        orOperator = true;
+      }
+
       requireState();
     } else if (value) {
       if (zone.states[currentState]) {
@@ -1080,6 +1085,27 @@ export function parseAttrStates(val) {
       }
       zone.touched = true;
     }
+  }
+
+  if (orOperator) {
+    zones.forEach((zone) => {
+      Object.entries(zone.states)
+        .forEach(([state, value]) => {
+          if (!state.includes('.')) return;
+
+          const combinations = getCombinations(state.split('.'));
+
+          combinations.forEach((comb) => {
+            const state = comb.join(':');
+
+            if (zone.states[state] == null) {
+              zone.states[state] = value;
+            }
+          });
+
+          delete zone.states[state];
+        });
+    });
   }
 
   // restore responsive values

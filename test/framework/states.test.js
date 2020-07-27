@@ -111,7 +111,7 @@ describe('Bind style to state', () => {
     ]);
   });
 
-  it.skip('full multiple states via "OR" syntax', () => {
+  it('full multiple states via "OR" syntax', () => {
     expectComputedCSS('val1 :hover.focus[val2]', [
       {
         "style": "val1",
@@ -123,11 +123,11 @@ describe('Bind style to state', () => {
       },
       {
         "style": "val2",
-        "$suffix": "[is-focus]:not(:hover)"
+        "$suffix": "[is-focus]:hover"
       },
       {
         "style": "val2",
-        "$suffix": "[is-focus]:hover"
+        "$suffix": "[is-focus]:not(:hover)"
       }
     ]);
   });
@@ -165,6 +165,135 @@ describe('Bind style to state', () => {
       {
         "style": "val1",
         "$suffix": "[is-focus][is-pressed]:not(:hover)"
+      }
+    ]);
+  });
+
+  it('more states via "OR" syntax', () => {
+    expectComputedCSS('val1 :hover.focus.pressed[val2]', [
+      {
+        "style": "val1",
+        "$suffix": ":not(:hover):not([is-focus]):not([is-pressed])"
+      },
+      {
+        "style": "val2",
+        "$suffix": ":hover:not([is-focus]):not([is-pressed])"
+      },
+      {
+        "style": "val2",
+        "$suffix": "[is-focus]:hover:not([is-pressed])"
+      },
+      {
+        "style": "val2",
+        "$suffix": "[is-focus]:hover[is-pressed]"
+      },
+      {
+        "style": "val2",
+        "$suffix": ":hover[is-pressed]:not([is-focus])"
+      },
+      {
+        "style": "val2",
+        "$suffix": "[is-focus]:not(:hover):not([is-pressed])"
+      },
+      {
+        "style": "val2",
+        "$suffix": "[is-focus][is-pressed]:not(:hover)"
+      },
+      {
+        "style": "val2",
+        "$suffix": "[is-pressed]:not([is-focus]):not(:hover)"
+      }
+    ]);
+  });
+
+  it('states via partial "OR" syntax', () => {
+    expectComputedCSS('val1 :hover.focus[val2] :focus[val3]',  [
+      {
+        "style": "val1",
+        "$suffix": ":not([is-focus]):not(:hover)"
+      },
+      {
+        "style": "val3",
+        "$suffix": "[is-focus]:not(:hover)"
+      },
+      {
+        "style": "val2",
+        "$suffix": ":hover:not([is-focus])"
+      },
+      {
+        "style": "val2",
+        "$suffix": "[is-focus]:hover"
+      }
+    ]);
+  });
+
+  it('mixed complex mapping', () => {
+    expectComputedCSS('val1 :hover.focus[val2] :focus[val3] :pressed[val4]', [
+      {
+        "style": "val1",
+        "$suffix": ":not([is-focus]):not([is-pressed]):not(:hover)"
+      },
+      {
+        "style": "val3",
+        "$suffix": "[is-focus]:not(:hover):not([is-pressed])"
+      },
+      {
+        "style": "val4",
+        "$suffix": "[is-pressed]:not([is-focus]):not(:hover)"
+      },
+      {
+        "style": "val2",
+        "$suffix": ":hover:not([is-focus]):not([is-pressed])"
+      },
+      {
+        "style": "val2",
+        "$suffix": "[is-focus]:hover:not([is-pressed])"
+      },
+      {
+        "style": "val1",
+        "$suffix": "[is-focus][is-pressed]:not(:hover)"
+      },
+      {
+        "style": "val1",
+        "$suffix": "[is-focus]:hover[is-pressed]"
+      },
+      {
+        "style": "val1",
+        "$suffix": ":hover[is-pressed]:not([is-focus])"
+      }
+    ]);
+    expectComputedCSS('val1 :hover.focus[val2] :focus.pressed[val3]', [
+      {
+        "style": "val1",
+        "$suffix": ":not(:hover):not([is-focus]):not([is-pressed])"
+      },
+      {
+        "style": "val2",
+        "$suffix": ":hover:not([is-focus]):not([is-pressed])"
+      },
+      {
+        "style": "val2",
+        "$suffix": "[is-focus]:hover:not([is-pressed])"
+      },
+      {
+        "style": "val2",
+        "$suffix": "[is-focus]:not(:hover):not([is-pressed])"
+      },
+      {
+        "style": "val3",
+        "$suffix": "[is-focus][is-pressed]:not(:hover)"
+      },
+      {
+        "style": "val3",
+        "$suffix": "[is-pressed]:not([is-focus]):not(:hover)"
+      },
+      {
+        "style": "val1",
+        "$suffix": "[is-focus]:hover[is-pressed]"
+      },
+      {
+        "style": "val1",
+        "$suffix": ":hover[is-pressed]:not([is-focus])"
       }
     ]);
   });
