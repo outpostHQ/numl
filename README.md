@@ -96,7 +96,7 @@ Also we have [Gitter](https://gitter.im/tenphi/numl).
 
 ### Browser Support
 
-Based on [caniuse.com](caniuse.com). Real-world support table will be presented after production-release.
+Based on [caniuse.com](caniuse.com). Real-world support table will be presented after **v1 release**.
 
 * Microsoft Edge 16-18 (Partial support with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
 * Microsoft Edge 76+
@@ -106,13 +106,14 @@ Based on [caniuse.com](caniuse.com). Real-world support table will be presented 
 * Apple iOS Safari 10.3+
 * Google Android 67+
 
-## Build
+Safari versions below 11 requires transpiling to support dynamic import.
 
-`npm run build` builds the library to `dist`, generating four files:
+## Development
 
-* `dist/index.js` - ES6 tree-shaking friendly module. (Exports global `Nude` object)
-
-`npm run dev` builds the library, then keeps rebuilding it whenever the source files change.
+* `npm run build` build the library to `dist`, generating four files:
+    * `dist/index.js` - ES6 tree-shaking friendly module. (Exports global `Nude` object)
+* `npm run dev` build the library, then keep rebuilding it whenever the source files change.
+* `npm run test` run tests.
 
 ## Local playground
 
@@ -120,8 +121,9 @@ Run `npm start` to view test page with few examples.
 
 ## Roadmap
 
-* Documentation
+* More documentation
 * More examples
+* More tests
 * TRL Support
 
 See our [Changlelog](https://numl.design/guide/changelog).
