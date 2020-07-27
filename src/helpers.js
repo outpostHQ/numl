@@ -1022,6 +1022,12 @@ export function parseAttrStates(val) {
 
   STATE_REGEXP.lastIndex = 0;
 
+  function requireState() {
+    if (!zone.states[currentState]) {
+      zone.states[currentState] = '';
+    }
+  }
+
   while (token = STATE_REGEXP.exec(val)) {
     let [s, delimiter, open, close, rawContext, context, hash, state, value] = token;
 
@@ -1053,13 +1059,19 @@ export function parseAttrStates(val) {
       }
     } else if (open) {
       opened = true;
+
+      requireState();
     } else if (close) {
       opened = false;
 
       currentState = '';
       stateZoneIndex = 0;
+
+      requireState();
     } else if (state) {
       currentState = state;
+
+      requireState();
     } else if (value) {
       if (zone.states[currentState]) {
         zone.states[currentState] = `${zone.states[currentState]}${value}`.trim();

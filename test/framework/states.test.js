@@ -56,7 +56,7 @@ describe('Bind style to state', () => {
     ]);
   });
 
-  it.skip('empty state value', () => {
+  it('empty state value', () => {
     expectComputedCSS('val1 :hover[]', [
       {
         "style": "val1",
