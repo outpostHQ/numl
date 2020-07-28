@@ -88,6 +88,7 @@ export function hideEffect(host, bool, effectName) {
     setStyles(host, hiddenStyles);
 
     host.nuSetMod('hidden', true);
+    host.nuSetMod('enter', true);
 
     host.offsetHeight;
 
@@ -99,11 +100,13 @@ export function hideEffect(host, bool, effectName) {
       if (id !== host.nuCollapseId) return;
 
       clear(host, effect);
+      host.nuSetMod('enter', false);
     }, multiplier);
   } else {
     setStyles(host, visibleStyles);
 
     host.nuSetMod('hidden', false);
+    host.nuSetMod('leave', true);
 
     host.offsetHeight;
 
@@ -115,6 +118,7 @@ export function hideEffect(host, bool, effectName) {
       if (id !== host.nuCollapseId) return;
 
       host.style.display = 'none';
+      host.nuSetMod('leave', false);
 
       clear(host, effect);
     }, multiplier);

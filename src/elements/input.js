@@ -97,19 +97,19 @@ export default class NuInput extends NuElement {
       }`,
 
       `${tag}:not([disabled])[special] input::placeholder {
-        color: rgb(var(--nu-special-invert-color-rgb), .4);
+        color: var(--nu-placeholder-color, rgb(var(--nu-special-invert-color-rgb), .4));
       }`,
 
       `${tag}:not([disabled]):not([special]) input::placeholder {
-        color: rgb(var(--nu-text-color-rgb), .4);
+        color: var(--nu-placeholder-color, rgb(var(--nu-text-color-rgb), .4));
       }`,
 
       `${tag}[disabled][special] input::placeholder {
-        color: rgb(var(--nu-special-invert-color-rgb), .6);
+        color: var(--nu-placeholder-color, rgb(var(--nu-special-invert-color-rgb), .6));
       }`,
 
       `${tag}[disabled]:not([special]) input::placeholder {
-        color: rgb(var(--nu-text-color-rgb), .6);
+        color: var(--nu-placeholder-color, rgb(var(--nu-text-color-rgb), .6));
       }`,
 
       `${tag} nu-icon:not([width]) {
