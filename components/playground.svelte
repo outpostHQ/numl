@@ -40,6 +40,9 @@
 
 {#if show('heading')}
   <nu-card as="section">
+    <nu-props
+      h1-font-size="2rem||1.75rem"
+      h1-line-height="2.5rem"></nu-props>
     <nu-heading level="3">Heading</nu-heading>
 
     <nu-block color="hue(280 80)">

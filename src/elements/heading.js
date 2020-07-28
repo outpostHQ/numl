@@ -19,8 +19,8 @@ export default class NuHeading extends NuElement {
       level(val) {
         if (!val || !LEVELS.includes(Number(val))) val = 1;
 
-        const fontSize = `${SIZES[`h${val}`][0]}rem`;
-        const lineHeight = `${SIZES[`h${val}`][1]}rem`;
+        const fontSize = `var(--nu-h${val}-font-size)`;
+        const lineHeight = `var(--nu-h${val}-line-height)`;
 
         return [{
           $suffix: ':not([size])',

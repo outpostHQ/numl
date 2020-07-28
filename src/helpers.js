@@ -988,7 +988,7 @@ function requireZone(zones, index, parent = '') {
       const prevPrevZone = zones[index - 2];
 
       if (prevPrevZone) {
-        zones[index - 1] = prevPrevZone;
+        zones[index - 1] = { ...prevPrevZone, states: { ...prevPrevZone.states } };
       }
     }
 
