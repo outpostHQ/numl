@@ -9,6 +9,10 @@ export default class NuInput extends NuElement {
     return 'nu-input';
   }
 
+  static get nuContents() {
+    return 'input';
+  }
+
   static get nuBehaviors() {
     return {
       input: true,
@@ -26,7 +30,7 @@ export default class NuInput extends NuElement {
 
   static get nuStyles() {
     return {
-      display: 'grid',
+      display: 'block',
       flow: 'column',
       radius: '',
       padding: '1x',
@@ -37,6 +41,8 @@ export default class NuInput extends NuElement {
       opacity: '1 :disabled[.5]',
       transition: 'theme',
       selectable: 'n',
+      size: 'inherit',
+      text: 'n',
       box: 'y',
       cursor: 'text',
     };
@@ -53,25 +59,18 @@ export default class NuInput extends NuElement {
 
       `${tag} > input, ${tag} > textarea {
         padding: var(--nu-local-padding);
-        width: 100%;
-        max-width: 100%;
-        min-width: 100%;
         font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
         -webkit-appearance: none;
         background: transparent;
         border: none;
         outline: none;
+        margin: 0;
         border-radius: inherit;
         box-sizing: border-box;
         color: inherit;
         -webkit-text-fill-color: currentColor;
         word-spacing: calc(1rem / 8);
-        height: min-content;
-        min-height: 100%;
         user-select: all;
-        text-align: inherit;
         resize: none;
         transition: opacity ${DEFAULT_TIMING} linear;
       }`,

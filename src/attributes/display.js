@@ -4,8 +4,6 @@ const DOUBLE_DISPLAY = ['block', 'table', 'flex', 'grid'];
 
 // to reset style
 const RESET_VALUE = '0 !important';
-// to disable style
-const INVALID_VALUE = '- !important';
 
 export default function displayAttr(val) {
   if (!val) return;
@@ -28,8 +26,8 @@ export default function displayAttr(val) {
     .concat(val.endsWith('grid')
       ? [{
         $suffix: '>*',
-        '--nu-v-gap': INVALID_VALUE,
-        '--nu-h-gap': INVALID_VALUE,
+        '--nu-v-gap': RESET_VALUE,
+        '--nu-h-gap': RESET_VALUE,
       }]
       : [])
     .concat(val.endsWith('flex')
@@ -40,8 +38,8 @@ export default function displayAttr(val) {
         }]
         : [{
           $suffix: '>*',
-          '--nu-v-gap': INVALID_VALUE,
-          '--nu-h-gap': INVALID_VALUE,
+          '--nu-v-gap': RESET_VALUE,
+          '--nu-h-gap': RESET_VALUE,
         }])
       : []);
 };

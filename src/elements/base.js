@@ -113,6 +113,14 @@ export default class NuBase extends HTMLElement {
   }
 
   /**
+   * In case the tag has `display: contents` transfer all styles to the child.
+   * @return {string}
+   */
+  static get nuContents() {
+    return '';
+  }
+
+  /**
    * Element ARIA Role.
    * @returns {String}
    */
@@ -143,6 +151,7 @@ export default class NuBase extends HTMLElement {
       get css() {
         return _this.nuGetParentCSS(Element, tag);
       },
+      shadow: tag === ':host',
     });
   }
 
@@ -235,10 +244,10 @@ export default class NuBase extends HTMLElement {
 
   /**
    * Allow Shadow DOM usage on the element
-   * @return {boolean}
+   * @return {boolean|null}
    */
-  static get nuAllowShadow() {
-    return true;
+  static get nuShadowRoot() {
+    return null; // use global setting
   }
 
   /**
@@ -443,6 +452,7 @@ export default class NuBase extends HTMLElement {
 
     const allAttrs = this.nuAllGenerators;
     const allStyles = this.nuAllStyles;
+    const transferChild = this.nuContents;
     const combinators = Object.values(this.nuAllCombinators);
 
     const globalAttrs = Object.keys(allAttrs).filter(attr => GLOBAL_ATTRS.includes(attr) && allAttrs[attr]);
@@ -485,10 +495,18 @@ export default class NuBase extends HTMLElement {
 
         if (!styles) return;
 
-        const query = `${tag}${name !== 'text' && !isProp ? `:not([${name}])` : ''}`;
+        let query = `${tag}${name !== 'text' && !isProp ? `:not([${name}])` : ''}`;
+
+        if (transferChild) {
+          query += `> ${transferChild}`;
+        }
 
         css.push(...generateCSS(query, styles, true));
       });
+
+    if (transferChild) {
+      css.push(...generateCSS(tag, [{ display: 'contents' }], true));
+    }
 
     if (!dontInject) {
       insertRuleSet(tag, css);
@@ -672,6 +690,10 @@ export default class NuBase extends HTMLElement {
 
     this.setAttribute('nu', '');
 
+    if (this.constructor.nuContents) {
+      this.setAttribute('nu-contents', '');
+    }
+
     // on first connect (init)
     if (this.nuFirstConnect) {
       this.nuRender();
@@ -784,6 +806,12 @@ export default class NuBase extends HTMLElement {
    * @returns {undefined|Array} - output css
    */
   nuGetCSS(query, name, value) {
+    const transferChild = this.constructor.nuContents;
+
+    if (transferChild) {
+      query += `> ${transferChild}`;
+    }
+
     const isResponsive = value.includes('|');
 
     if (isResponsive) {
@@ -1661,11 +1689,14 @@ export default class NuBase extends HTMLElement {
   get nuIsShadowAllowed() {
     const allowGlobal = !!HTMLElement.prototype.attachShadow;
     const allowContext = this.nuContext.allowShadow;
-    const allowOption = this.constructor.nuAllowShadow;
+    const allowOption = this.constructor.nuShadowRoot;
     const shadowRootAttr = this.getAttribute('shadow-root');
     const allowAttr = !['n', 'no'].includes(shadowRootAttr);
 
-    return allowGlobal && allowContext && (allowAttr || allowOption);
+    if (!allowGlobal) return;
+
+    return allowContext
+      && (allowOption || allowOption == null || (allowOption === false && allowAttr));
   }
 
   nuAttachShadowCSS() {

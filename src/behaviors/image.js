@@ -1,11 +1,17 @@
 import WidgetBehavior from './widget';
-import { warn } from '../helpers';
+import { setAttr, warn } from '../helpers';
 import { h } from '../dom-helpers';
 
 export default class ImageBehavior extends WidgetBehavior {
   init() {
     this.props.src = (src) => {
       this.load(src);
+    };
+
+    this.props.loading = (value) => {
+      if (this.ref) {
+        setAttr(this.ref, 'loading', value);
+      }
     };
 
     super.init();
@@ -23,10 +29,9 @@ export default class ImageBehavior extends WidgetBehavior {
     const img = h('img');
 
     img.role = 'none';
+    setAttr(img, 'loading', host.getAttribute('loading'));
     img.src = src;
     img.alt = '';
-    img.setAttribute('aria-hidden', 'true');
-    img.setAttribute('role', 'presentation');
 
     this.ref = img;
 

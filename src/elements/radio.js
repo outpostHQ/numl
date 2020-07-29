@@ -9,6 +9,10 @@ export default class NuRadio extends NuAction {
     return 'radio';
   }
 
+  static get nuShadowRoot() {
+    return false;
+  }
+
   static get nuTemplate() {
     return `
       <nu-circle

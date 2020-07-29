@@ -24,12 +24,12 @@ export default class NuInputGroup extends NuGroup {
     return [
       ...css,
 
-      `${tag} [nu-input]:not([border]) {
+      `${tag} [nu-input]:not([border]) > input {
         border: 0 !important;
         --nu-local-stroke-shadow: ${DEFAULT_STROKE_SHADOW} !important;
       }`,
 
-      `${tag} [nu-input]:not([border]) {
+      `${tag} [nu-input]:not([border]) > input {
         background-color: transparent !important;
       }`,
 

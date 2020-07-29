@@ -9,6 +9,10 @@ export default class NuCheckbox extends NuAction {
     return 'checkbox';
   }
 
+  static get nuShadowRoot() {
+    return false;
+  }
+
   static get nuTemplate() {
     return `
       <nu-icon

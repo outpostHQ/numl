@@ -763,8 +763,9 @@
       <nu-block>
         <nu-img
           class="nu-dark-invert"
-          id="logo-raster"
+          src={pngImages.logo}
           width="100%"
+          loading="lazy"
           label="NUDE Elements Design System Playground">
         </nu-img>
       </nu-block>
@@ -772,6 +773,7 @@
         <nu-svg
           id="logo-vector"
           color="text-soft"
+          src={svgImages.logo}
           width="100%"
           height="min 3"
           label="NUDE Elements Design System Playground">
@@ -781,7 +783,7 @@
     <nu-heading level="4">Background image</nu-heading>
     <nu-block
       class="nu-dark-invert"
-      id="logo-background"
+      image="no-repeat left center / contain url({pngImages.logo})"
       height="4">
     </nu-block>
   </nu-card>
@@ -1235,6 +1237,13 @@ var b = /wow?/;
   <!--  </nu-card>-->
 
   <nu-card as="section">
+    <nu-flex gap>
+      <nu-input></nu-input>
+      <nu-btn>Submit</nu-btn>
+    </nu-flex>
+  </nu-card>
+
+  <nu-card as="section">
     <nu-card gap>
       <nu-h3>Basic login form</nu-h3>
       <nu-form control="output[.value]" gap="1x">
@@ -1556,6 +1565,9 @@ var b = /wow?/;
 </nu-card>-->
 
 <script>
+const svgImages = require('../images/*.svg');
+const pngImages = require('../images/*.png');
+
 let inputValue = 'Some input value';
 let user = {
   press: 2,

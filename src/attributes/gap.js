@@ -22,10 +22,7 @@ export function isFlexGapSupported() {
   return FLEX_GAP_SUPPORTED;
 }
 
-// @TODO: Unable to calculate it before BODY is accessible.
-// Use native flex gap only for Firefox.
-// Other browsers use polyfill.
-export const FLEX_GAP_SUPPORTED = isFlexGapSupported(); //CSS.supports('-moz-appearance: none');
+export const FLEX_GAP_SUPPORTED = isFlexGapSupported();
 
 /**
  * CSS Gap value. Used for flex and grid layouts.

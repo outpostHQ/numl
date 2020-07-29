@@ -75,23 +75,28 @@ export default function flowAttr(val, defaults) {
       styles.push({
         $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:last-child)`,
         [dirStyle]: dirProp,
+      }, {
+        $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:last-child)[nu-contents]>:first-child`,
+        [dirStyle]: dirProp,
       });
-    } else {
+    } else if (!FLEX_GAP_SUPPORTED) {
       const dirSecondStyle = FLEX_MAP_SECOND[dir];
       const invertProp = getProp(dir, true);
       const dirLocalProp = getLocalProp(dir);
       const invertLocalProp = getLocalProp(dir, true);
 
-      if (!FLEX_GAP_SUPPORTED) {
-        styles.push({
-          $suffix: ':not(:empty)',
-          [dirStyle]: `calc(${dirLocalProp} * -1)`,
-          [dirSecondStyle]: `calc(${invertLocalProp} * -1)`,
-        });
-      }
+      styles.push({
+        $suffix: ':not(:empty)',
+        [dirStyle]: `calc(${dirLocalProp} * -1)`,
+        [dirSecondStyle]: `calc(${invertLocalProp} * -1)`,
+      });
 
       styles.push({
         $suffix: `${defaults.gap ? '' : '[gap]'}>*`,
+        [dirStyle]: dirProp,
+        [dirSecondStyle]: invertProp,
+      }, {
+        $suffix: `${defaults.gap ? '' : '[gap]'}>[nu-contents]>:first-child`,
         [dirStyle]: dirProp,
         [dirSecondStyle]: invertProp,
       });

@@ -111,6 +111,7 @@ export default class NuElement extends NuBase {
       hourcycle: '',
       format: '',
       src: '',
+      loading: '',
       autofocus: '',
       maxlength: '',
       mode: '',
@@ -154,7 +155,7 @@ export default class NuElement extends NuBase {
       ...css,
 
       `${tag}::selection {
-        background-color: rgba(var(--nu-text-color-rgb, var(--nu-main-text-color-rgb)), .33) !important;
+        background-color: rgba(var(--nu-main-outline-color-rgb, var(--nu-outline-color-rgb)), .5) !important;
       }`
     ];
   }

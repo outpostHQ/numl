@@ -9,6 +9,10 @@ export default class NuSwitch extends NuAction {
     return 'switch';
   }
 
+  static get nuShadowRoot() {
+    return false;
+  }
+
   static get nuTemplate() {
     return `
       <nu-circle

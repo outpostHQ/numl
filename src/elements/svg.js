@@ -5,6 +5,10 @@ export default class NuSvg extends NuElement {
     return 'nu-svg';
   }
 
+  static get nuContents() {
+    return 'svg';
+  }
+
   static get nuBehaviors() {
     return {
       svg: true,
@@ -24,23 +28,5 @@ export default class NuSvg extends NuElement {
       box: 'y',
       text: 'v-middle',
     };
-  }
-
-  static nuCSS({ tag, css }) {
-    return [
-      ...css,
-
-      `${tag}[width] svg {
-        min-width: 100%;
-        max-width: 100%;
-        width: auto;
-      }`,
-
-      `${tag}[height] svg {
-        min-height: 100%;
-        max-height: 100%;
-        height: auto;
-      }`,
-    ];
   }
 }

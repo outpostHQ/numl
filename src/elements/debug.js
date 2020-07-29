@@ -11,7 +11,7 @@ export default class NuDebug extends NuCard {
     };
   }
 
-  static get nuAllowShadow() {
+  static get nuShadowRoot() {
     return false;
   }
 
