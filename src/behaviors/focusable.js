@@ -3,6 +3,7 @@
  */
 
 import Behavior from "./behavior";
+import { setAttr } from '../helpers';
 
 export const DISABLED_ATTR = 'disabled';
 
@@ -15,6 +16,12 @@ export default class FocusableBehavior extends Behavior {
     }
 
     const ref = this.ref;
+
+    const transferChild = host.constructor.nuContents;
+
+    if (transferChild) {
+      this.contentsRef = host.querySelector(transferChild);
+    }
 
     ref.addEventListener('focus', () => {
       this.setEffect(true);
@@ -54,6 +61,10 @@ export default class FocusableBehavior extends Behavior {
   setEffect(bool) {
     this.host.nuSetMod('focus', bool);
     this.host.nuSetContext('focus', bool || null);
+
+    if (this.contentsRef) {
+      setAttr(this.contentsRef, 'is-focus', bool);
+    }
   }
 
   set(param) {

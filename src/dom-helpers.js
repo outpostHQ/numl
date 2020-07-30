@@ -1,3 +1,5 @@
+import { queryChildren } from './helpers';
+
 export function h(tag) {
   return document.createElement(tag);
 }
@@ -37,4 +39,10 @@ export function strToHsl(color, ignoreAlpha = false) {
   if (!rgba) return;
 
   return rgbToHsl(rgba);
+}
+
+export function requireChild(host, tag) {
+  if (!host.querySelector(tag)) {
+    host.appendChild(h(tag));
+  }
 }

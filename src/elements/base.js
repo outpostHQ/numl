@@ -498,10 +498,11 @@ export default class NuBase extends HTMLElement {
         let query = `${tag}${name !== 'text' && !isProp ? `:not([${name}])` : ''}`;
 
         if (transferChild) {
-          query += `> ${transferChild}`;
+          css.push(...generateCSS(`${query}:not(:empty) > ${transferChild}`, styles, true));
+          css.push(...generateCSS(`${query}:empty`, styles, true));
+        } else {
+          css.push(...generateCSS(query, styles, true));
         }
-
-        css.push(...generateCSS(query, styles, true));
       });
 
     if (transferChild) {
@@ -803,13 +804,15 @@ export default class NuBase extends HTMLElement {
    * @param {String} query - CSS query to apply styles.
    * @param {String} name - attribute (handler) name.
    * @param {String} value - attribute exact value (handler argument).
+   * @param {Boolean} skipContents - private attribute to skip CONTENTS check.
    * @returns {undefined|Array} - output css
    */
-  nuGetCSS(query, name, value) {
+  nuGetCSS(query, name, value, skipContents) {
     const transferChild = this.constructor.nuContents;
 
-    if (transferChild) {
-      query += `> ${transferChild}`;
+    if (!skipContents && transferChild) {
+      return (this.nuGetCSS(`${query}:not(:empty) > ${transferChild}`, name, value, true) || [])
+        .concat(this.nuGetCSS(`${query}:empty`, name, value, true) || []);
     }
 
     const isResponsive = value.includes('|');

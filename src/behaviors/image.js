@@ -22,13 +22,8 @@ export default class ImageBehavior extends WidgetBehavior {
 
     if (!src || !src.trim()) return;
 
-    if (host.querySelector('img')) {
-      host.innerHTML = '';
-    }
+    let img = host.querySelector('img') || h('img');
 
-    const img = h('img');
-
-    img.role = 'none';
     setAttr(img, 'loading', host.getAttribute('loading'));
     img.src = src;
     img.alt = '';

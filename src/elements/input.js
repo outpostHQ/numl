@@ -1,16 +1,12 @@
-import {
-  unit,
-} from '../helpers';
 import { DEFAULT_TIMING } from '../attributes/transition';
 import NuElement from './element';
+import { requireChild } from '../dom-helpers';
+import combinedAttr from '../attributes/combined';
+import paddingAttr from '../attributes/padding';
 
 export default class NuInput extends NuElement {
   static get nuTag() {
     return 'nu-input';
-  }
-
-  static get nuContents() {
-    return 'input';
   }
 
   static get nuBehaviors() {
@@ -21,28 +17,28 @@ export default class NuInput extends NuElement {
 
   static get nuGenerators() {
     return {
-      padding: unit('--nu-local-padding', {
-        empty: '--nu-gap',
-        convert: true,
-      }),
+      padding: (val) => {
+        const styles = paddingAttr(val, this.constructor.nuAllStyles);
+
+        styles.$suffix = '>input';
+
+        return styles;
+      },
     };
   }
 
   static get nuStyles() {
     return {
-      display: 'block',
+      display: 'grid',
       flow: 'column',
       radius: '',
       padding: '1x',
-      fill: 'input :special[special-bg]',
-      color: 'text :special[special-text]',
+      fill: 'input :disabled[special-bg 20%]',
       border: '1bw',
       outline: 'focus-inside intrusive',
       opacity: '1 :disabled[.5]',
       transition: 'theme',
       selectable: 'n',
-      size: 'inherit',
-      text: 'n',
       box: 'y',
       cursor: 'text',
     };
@@ -52,25 +48,32 @@ export default class NuInput extends NuElement {
     return [
       ...css,
 
-      `${tag} > input::-webkit-inner-spin-button, ${tag} > input::-webkit-outer-spin-button {
+      `${tag} input::-webkit-inner-spin-button, ${tag} input::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }`,
 
-      `${tag} > input, ${tag} > textarea {
-        padding: var(--nu-local-padding);
+      `${tag} input, ${tag} textarea {
+        width: initial;
+        max-width: initial;
+        min-width: initial;
         font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
         -webkit-appearance: none;
         background: transparent;
         border: none;
         outline: none;
-        margin: 0;
         border-radius: inherit;
         box-sizing: border-box;
         color: inherit;
         -webkit-text-fill-color: currentColor;
         word-spacing: calc(1rem / 8);
+        height: initial;
+        min-height: initial;
+        max-height: initial;
         user-select: all;
+        text-align: inherit;
         resize: none;
         transition: opacity ${DEFAULT_TIMING} linear;
       }`,
@@ -115,5 +118,9 @@ export default class NuInput extends NuElement {
         width: calc(var(--nu-local-padding) * 2 + 1em);
       }`,
     ];
+  }
+
+  nuConnected() {
+    super.nuConnected();
   }
 }

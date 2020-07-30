@@ -1,6 +1,6 @@
-import { devMode, parseAttr, warn } from '../helpers';
-import combinedAttr from '../attributes/combined';
+import { h, parseAttr } from '../helpers';
 import NuElement from './element';
+import { requireChild } from '../dom-helpers';
 
 export default class NuImg extends NuElement {
   static get nuTag() {
@@ -57,5 +57,11 @@ export default class NuImg extends NuElement {
         display: block;
       }`,
     ];
+  }
+
+  nuConnected() {
+    super.nuConnected();
+
+    requireChild(this, 'img');
   }
 }

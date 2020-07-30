@@ -1,4 +1,6 @@
 import NuElement from './element';
+import { h } from '../helpers';
+import { requireChild } from '../dom-helpers';
 
 export default class NuSvg extends NuElement {
   static get nuTag() {
@@ -15,10 +17,6 @@ export default class NuSvg extends NuElement {
     };
   }
 
-  static get nuRole() {
-    return 'img';
-  }
-
   static get nuStyles() {
     return {
       display: 'inline-block',
@@ -28,5 +26,11 @@ export default class NuSvg extends NuElement {
       box: 'y',
       text: 'v-middle',
     };
+  }
+
+  nuConnected() {
+    super.nuConnected();
+
+    requireChild(this, 'svg');
   }
 }

@@ -367,6 +367,7 @@ export const STATES_MAP = {
   inline: '[inline]',
   even: ':nth-child(even)',
   odd: ':nth-child(odd)',
+  empty: ':empty',
   autofill: ':-webkit-autofill',
   checked: '[is-pressed]',
   selected: '[is-pressed]',
