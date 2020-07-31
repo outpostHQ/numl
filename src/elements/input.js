@@ -33,7 +33,8 @@ export default class NuInput extends NuElement {
       flow: 'column',
       radius: '',
       padding: '1x',
-      fill: 'input :disabled[special-bg 20%]',
+      fill: 'input :disabled[special-bg 20%] :special[special-bg] :special:disabled[special-bg]',
+      color: 'text :special[special-text]',
       border: '1bw',
       outline: 'focus-inside',
       opacity: '1 :disabled[--disabled-opacity]',
@@ -99,20 +100,20 @@ export default class NuInput extends NuElement {
         -webkit-text-fill-color: currentColor;
       }`,
 
-      `${tag}:not([disabled])[special] input::placeholder {
-        color: var(--nu-placeholder-color, rgb(var(--nu-special-invert-color-rgb), .4));
+      `${tag}:not([disabled]) input::placeholder {
+        opacity: .4;
       }`,
 
-      `${tag}:not([disabled]):not([special]) input::placeholder {
-        color: var(--nu-placeholder-color, rgb(var(--nu-text-color-rgb), .4));
+      `${tag}[disabled] input::placeholder {
+        opacity: .6;
       }`,
 
-      `${tag}[disabled][special] input::placeholder {
-        color: var(--nu-placeholder-color, rgb(var(--nu-special-invert-color-rgb), .6));
+      `${tag}[special] input::placeholder {
+        color: var(--nu-placeholder-color, var(--nu-special-text-color));
       }`,
 
-      `${tag}[disabled]:not([special]) input::placeholder {
-        color: var(--nu-placeholder-color, rgb(var(--nu-text-color-rgb), .6));
+      `${tag}:not([special]) input::placeholder {
+        color: var(--nu-placeholder-color, var(--nu-text-color));
       }`,
 
       `${tag} nu-icon:not([width]) {

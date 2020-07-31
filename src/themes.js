@@ -36,7 +36,6 @@ export const THEME_PROPS_LIST = [
   'special-bg-color',
   'special-mark-color',
   'special-shadow-color',
-  'special-invert-color',
   'input-color',
 ];
 const normalTextLightness = 19.87;
@@ -63,7 +62,7 @@ export const BASE_THEME = {
   lightness: 'normal',
 };
 
-export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg', 'shadow', 'special-shadow', 'special-invert', 'outline'];
+export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg', 'shadow', 'special-shadow', 'outline'];
 
 /**
  * Get minimal possible contrast ratio between text and foreground.
@@ -244,8 +243,6 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 
   theme.mark = setOpacity([...theme.special], highContrast ? 0.16 : .08);
   theme['special-mark'] = setOpacity([...theme['special-text']], highContrast ? 0.16 : .08);
-
-  theme['special-invert'] = [0, 0, theme['special-text'][2]];
 
   const shadowSaturation = saturation * (type === 'main' ? .66 : 1);
   const specialShadowSaturation = 100;

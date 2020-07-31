@@ -1221,7 +1221,6 @@ const COLOR_NAME_LIST = [
   'special-text',
   'special-bg',
   'special-shadow',
-  'special-invert',
   'input',
   'diff', // additional
   'local', // additional
