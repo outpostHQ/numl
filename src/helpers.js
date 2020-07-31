@@ -374,6 +374,10 @@ export const STATES_MAP = {
   checked: '[is-pressed]',
   selected: '[is-pressed]',
   dev: '[data-nu-dev]',
+  dark: '[data-nu-scheme-is="dark"]',
+  light: '[data-nu-scheme-is="light"]',
+  'high-contrast': '[data-nu-contrast-is="high"]',
+  'low-contrast': '[data-nu-contrast-is="low"]',
 };
 
 function getStateSelector(name) {
