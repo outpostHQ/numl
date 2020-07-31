@@ -2,12 +2,23 @@ import { deepQueryAll, requestIdleCallback, log, asyncDebounce } from './helpers
 
 export const ROOT = document.querySelector(':root');
 
-function observeContext() {
-  setLocale();
-  setOutline();
+const DARK = 'dark';
+const LIGHT = 'light';
+const HIGH = 'high';
+const LOW = 'low';
+const SCHEMES = [DARK, LIGHT];
+const CONTRASTS = [HIGH, LOW];
+
+function observeContext(data) {
+  if (data.find(record => !record.attributeName.endsWith('-is'))) {
+    setLocale();
+    setOutline();
+    setScheme();
+    setContrast();
+  }
 }
 
-const observer = new MutationObserver(() => observeContext());
+const observer = new MutationObserver((data) => observeContext(data));
 
 observer.observe(ROOT, {
   characterData: false,
@@ -27,6 +38,38 @@ function setLocale() {
   const value = ROOT.getAttribute('lang') || navigator.language || navigator.languages[0] || 'en';
 
   setRootContext('locale', value);
+}
+
+const schemeMedia = matchMedia('(prefers-color-scheme: dark)');
+const contrastMedia = matchMedia('(prefers-contrast: high)');
+
+let globalScheme = schemeMedia.matches ? DARK : LIGHT;
+let globalContrast = contrastMedia.matches ? HIGH : LOW;
+
+schemeMedia.addListener((_media) => {
+  globalScheme = _media.matches ? DARK : LIGHT;
+
+  setScheme();
+});
+
+contrastMedia.addListener((_media) => {
+  globalContrast = _media.matches ? HIGH : LOW;
+
+  setContrast();
+});
+
+function setScheme() {
+  const setting = ROOT.dataset.nuScheme;
+
+  ROOT.dataset.nuSchemeIs = (setting !== 'auto' && SCHEMES.includes(setting) && setting)
+    || globalScheme;
+}
+
+function setContrast() {
+  const setting = ROOT.dataset.nuContrast;
+
+  ROOT.dataset.nuContrastIs = (setting !== 'auto' && CONTRASTS.includes(setting) && setting)
+    || globalContrast;
 }
 
 let outlineStyleTag;
@@ -90,3 +133,5 @@ export function getRootContext(name) {
 
 setLocale();
 setOutline();
+setScheme();
+setContrast();
