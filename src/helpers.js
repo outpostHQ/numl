@@ -373,6 +373,8 @@ export const STATES_MAP = {
   autofill: ':-webkit-autofill',
   checked: '[is-pressed]',
   selected: '[is-pressed]',
+};
+export const ROOT_STATES_MAP = {
   dev: '[data-nu-dev]',
   dark: '[data-nu-scheme-is="dark"]',
   light: '[data-nu-scheme-is="light"]',
@@ -380,12 +382,12 @@ export const STATES_MAP = {
   'low-contrast': '[data-nu-contrast-is="low"]',
 };
 
-function getStateSelector(name) {
+function getStateSelector(name, isRoot = false) {
   if (name.startsWith('role-')) {
     return `[role="${name.slice(5)}"]`;
   }
 
-  return STATES_MAP[name] || `[is-${name}]`;
+  return isRoot ? (ROOT_STATES_MAP[name] || `[data-nu-${name}]`) : (STATES_MAP[name] || `[is-${name}]`);
 }
 
 export function getCombinations(array) {
@@ -424,7 +426,9 @@ const CONTEXT_END_MAP = {
  */
 export function splitStates(attrValue) {
   const zone = parseAttrStates(attrValue)[0];
-  let context = zone.context;
+  const context = zone.context;
+  const isRoot = context === 'root';
+
   let contextStart, contextEnd;
 
   if (context) {
@@ -497,8 +501,8 @@ export function splitStates(attrValue) {
   stateMaps = stateMaps.map(stateMap => {
     let $prefix, $suffix, $states, value = stateMap.value;
 
-    $states = stateMap.states.map(s => getStateSelector(s)).join('')
-      + stateMap.notStates.map(s => `:not(${getStateSelector(s)})`).join('');
+    $states = stateMap.states.map(s => getStateSelector(s, isRoot)).join('')
+      + stateMap.notStates.map(s => `:not(${getStateSelector(s, isRoot)})`).join('');
 
     if (context && (stateMap.states.length || stateMap.notStates.length)) {
       $prefix = `${contextStart}${$states}${contextEnd}`;
