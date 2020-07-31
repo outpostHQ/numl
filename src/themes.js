@@ -54,7 +54,7 @@ const darkNormanBaseBgColor = [0, 0, normalMinLightness];
 const darkContrastBaseBgColor = [0, 0, contrastMinLightness];
 
 export const BASE_THEME = {
-  hue: 0,
+  hue: 262,
   saturation: 0,
   pastel: true,
   name: 'main',

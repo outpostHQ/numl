@@ -31,7 +31,7 @@ export default class NuOption extends NuElement {
       color: ':current[special]',
       transition: 'theme',
       mark: 'hover :current[n]',
-      opacity: '1 :disabled[.5]',
+      opacity: '1 :disabled[--disabled-opacity]',
       cursor: 'pointer :disabled[default]',
       inset: 'n :active[y]',
 

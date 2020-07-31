@@ -1,6 +1,3 @@
-import { queryChildren } from './helpers';
-import { rgbToHsl } from './color';
-
 export function h(tag) {
   return document.createElement(tag);
 }

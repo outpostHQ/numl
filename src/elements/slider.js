@@ -52,7 +52,7 @@ export default class NuSlider extends NuElement {
       display: 'block',
       radius: 'round',
       fill: 'special :disabled[text 50%]',
-      opacity: '1 :disabled[.5]',
+      opacity: '1 :disabled[--disabled-opacity]',
       border: '1bw',
       text: 'v-middle',
       cursor: 'pointer :disabled[default]',

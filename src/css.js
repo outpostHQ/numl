@@ -418,6 +418,7 @@ const globalRules = [`
   --nu-inline-offset: -.15em;
   --nu-transition-enabler: 1;
   --nu-icon-size: 1.5em;
+  --nu-disabled-opacity: .5;
 
   --nu-font-size: 1rem;
   --nu-line-height: 1.5rem;

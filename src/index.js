@@ -12,6 +12,7 @@ import {
 } from './helpers';
 
 import { define, assign as baseAssign } from './api';
+
 export { FLEX_GAP_SUPPORTED } from './attributes/gap';
 import initSticky from './sticky';
 import initLinks from './links';
@@ -159,12 +160,8 @@ Nude.init = () => {
     el.nuParent = el.parentNode;
 
     el.parentNode.removeChild(el);
-  });
 
-  const styleEl = [...document.querySelectorAll('style')].find(style => {
-    if (style.dataset.numl == null && style.textContent.includes('nu-root')) {
-      return true;
-    }
+    el.style.visibility = 'hidden';
   });
 
   // init all nude elements
@@ -176,10 +173,11 @@ Nude.init = () => {
     el.nuParent && el.nuParent.appendChild(el);
   });
 
+  // setTimeout is used to give some time for themes to initialize.
   setTimeout(() => {
-    if (styleEl && styleEl.parentNode) {
-      styleEl.parentNode.removeChild(styleEl);
-    }
+    rootEls.forEach(el => {
+      el.style.visibility = '';
+    });
   }, 50);
 };
 

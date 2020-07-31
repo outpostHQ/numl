@@ -1290,7 +1290,7 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
   let name, opacity;
 
   if (color) {
-    return { color: strToRgb(color) || color };
+    return { color: (!color.startsWith('var(') ? strToRgb(color) : color) || color };
   }
 
   values.forEach(token => {

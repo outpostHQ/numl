@@ -20,7 +20,7 @@ export default class NuAction extends NuElement {
       transition: 'theme, radius',
       outline: 'focus',
       mark: 'n :focusable[hover]',
-      opacity: '1 :disabled[.5]',
+      opacity: '1 :disabled[--disabled-opacity]',
       cursor: 'pointer :disabled[default]',
       selectable: 'y',
       box: 'y',
