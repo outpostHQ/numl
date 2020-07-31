@@ -35,7 +35,7 @@ export default class NuInput extends NuElement {
       padding: '1x',
       fill: 'input :disabled[special-bg 20%]',
       border: '1bw',
-      outline: 'focus-inside intrusive',
+      outline: 'focus-inside',
       opacity: '1 :disabled[--disabled-opacity]',
       transition: 'theme',
       selectable: 'n',

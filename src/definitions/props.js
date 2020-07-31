@@ -8,6 +8,26 @@ import {
 } from '../helpers';
 import { insertRuleSet } from '../css';
 
+export function handleProp(varName, varValue) {
+  const isColor = varName.endsWith('-color');
+  const zones = parseAttrStates(varValue);
+
+  zones.map(zone => {
+    const states = zone.states;
+
+    Object.keys(states)
+      .forEach(stateName => {
+        states[stateName] = `${varName};${(
+          isColor
+            ? parseColor(states[stateName]).color
+            : parseAttr(states[stateName]).value
+        ) || ''}`;
+      });
+  });
+
+  return normalizeAttrStates(zones);
+}
+
 export default class NuProps extends NuDefinition {
   static get nuTag() {
     return 'nu-props';
@@ -44,23 +64,7 @@ export default class NuProps extends NuDefinition {
     this.nuProps = props;
 
     Object.entries(props).forEach(([varName, varValue]) => {
-      const isColor = varName.endsWith('-color');
-      const zones = parseAttrStates(varValue);
-
-      zones.map(zone => {
-        const states = zone.states;
-
-        Object.keys(states)
-          .forEach(stateName => {
-            states[stateName] = `${varName};${(
-              isColor
-                ? parseColor(states[stateName]).color
-                : parseAttr(states[stateName]).value
-            ) || ''}`;
-          });
-      });
-
-      const value = normalizeAttrStates(zones);
+      const value = handleProp(varName, varValue);
 
       const css = parent.nuGetCSS(context, 'prop', value);
 

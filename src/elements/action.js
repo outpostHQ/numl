@@ -18,7 +18,7 @@ export default class NuAction extends NuElement {
       radius: '0',
       text: 'nowrap',
       transition: 'theme, radius',
-      outline: 'focus',
+      outline: 'focus visible',
       mark: 'n :focusable[hover]',
       opacity: '1 :disabled[--disabled-opacity]',
       cursor: 'pointer :disabled[default]',
@@ -41,6 +41,10 @@ export default class NuAction extends NuElement {
       `${tag} {
         touch-action: manipulation;
         -webkit-tap-highlight-color: var(--nu-mark-color);
+      }`,
+
+      `${tag}[disabled] {
+        pointer-events: none;
       }`,
 
       `${tag} > a {

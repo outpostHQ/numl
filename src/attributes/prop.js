@@ -3,6 +3,8 @@ export default function propAttr(val) {
 
   const [ name, value ] = val.split(';');
 
+  if (!value) return;
+
   const styles = { [`--nu-${name}`]: value };
 
   if (value.endsWith('-color')) {

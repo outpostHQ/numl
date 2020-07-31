@@ -43,7 +43,7 @@ export default function outlineAttr(val) {
   const outside = mods.includes('focus-outside');
   const inside = !outside && mods.includes('focus-inside');
   const focus = mods.includes('focus') || outside || inside;
-  const polite = !mods.includes('intrusive') && focus;
+  const polite = mods.includes('visible') && focus;
 
   styles.push({
     '--nu-local-outline-color': 'transparent',

@@ -15,7 +15,7 @@ export default class NuInputGroup extends NuGroup {
   static get nuStyles() {
     return {
       fill: 'input',
-      outline: 'focus-inside intrusive',
+      outline: 'focus-inside',
       cursor: 'text',
     };
   }

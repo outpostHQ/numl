@@ -32,7 +32,7 @@ export default class NuSwitch extends NuAction {
       border: '1bw',
       sizing: 'content',
       radius: 'round',
-      outline: 'focus',
+      outline: 'focus visible',
       inset: `0
         :active[.5em]
         :active:pressed[.5em]`,
