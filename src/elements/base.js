@@ -1718,7 +1718,7 @@ export default class NuBase extends HTMLElement {
 
     insertRuleSet(
       `shadow:${tag}:outline`,
-      [`:host([is-outline]) [nu] { outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5)} !important; }`],
+      [`:host([is-outline]) [nu] { outline: var(--nu-border-width, 1px) solid var(--nu-outline-color) !important; }`],
       this.nuShadow,
     );
 

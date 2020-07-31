@@ -496,7 +496,7 @@ const globalRules = [`
 }`,
 
 `:root[data-nu-outline] [nu] {
-  outline: var(--nu-border-width, 1px) solid rgba(var(--nu-special-bg-color-rgb), .5) !important;
+  outline: var(--nu-border-width, 1px) solid var(--nu-outline-color) !important;
 }`,
 
 `[nu-hidden] {
