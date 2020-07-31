@@ -12,7 +12,7 @@ export default function shadowAttr(val) {
 
   let { values, mods, color } = parseAttr(val, 1);
 
-  color = color || mods.includes('special') ? SPECIAL_SHADOW : SHADOW;
+  color = color || (mods.includes('special') ? SPECIAL_SHADOW : SHADOW);
 
   let x = '0';
   let y = '0';
