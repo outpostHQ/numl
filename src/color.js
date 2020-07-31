@@ -337,3 +337,7 @@ export function getSaturationRatio(hue, saturation, pastel) {
     return saturation / 100;
   }
 }
+
+export function rgbaStrToRgbValues(rgba) {
+  return rgba.slice(5,-1).split(',').slice(0,3).join(',');
+}

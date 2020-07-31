@@ -41,6 +41,16 @@ export function strToHsl(color, ignoreAlpha = false) {
   return rgbToHsl(rgba);
 }
 
+export function strToRgb(color, ignoreAlpha = false) {
+  if (!color) return undefined;
+
+  if (color.startsWith('rgb')) return color;
+
+  const rgba = extractColor(color, ignoreAlpha);
+
+  return rgba ? `${rgba.length > 3 ? 'rgba' : 'rgb'}(${rgba.join(',')})` : undefined;
+}
+
 export function requireChild(host, tag) {
   if (!host.querySelector(tag)) {
     host.appendChild(h(tag));

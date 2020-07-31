@@ -2,6 +2,8 @@
  * Required root element attribute.
  * @type {String}
  */
+import { extractColor, strToHsl, strToRgb } from './dom-helpers';
+
 export const ROOT_CONTEXT = ':root';
 
 export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
@@ -1231,44 +1233,52 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
 
   if (!val) return {};
 
-  if (shortSyntax && val.startsWith('#')) {
-    val = val.slice(1);
+  if (val.startsWith('#')) {
+    if (shortSyntax) {
+      val = val.slice(1);
 
-    const tmp = val.split('.');
+      const tmp = val.split('.');
 
-    let opacity = 100;
+      let opacity = 100;
 
-    if (tmp.length > 0) {
-      opacity = Number(tmp[1]);
+      if (tmp.length > 0) {
+        opacity = Number(tmp[1]);
 
-      if (opacity !== opacity) {
-        opacity = 100;
+        if (opacity !== opacity) {
+          opacity = 100;
+        }
       }
-    }
 
-    const name = tmp[0];
+      const name = tmp[0];
 
-    let color;
+      let color;
 
-    if (name === 'current') {
-      color = 'currentColor';
+      if (name === 'current') {
+        color = 'currentColor';
+      } else {
+        if (opacity > 100) {
+          opacity = 100;
+        } else if (opacity < 0) {
+          opacity = 0;
+        }
+
+        color = opacity !== 100
+          ? `rgba(var(--nu-${name}-color-rgb), ${opacity / 100})`
+          : `var(--nu-${name}-color, var(--${name}-color, #${name}))`;
+      }
+
+      return {
+        color,
+        name,
+        opacity: opacity != null ? opacity : 100,
+      };
     } else {
-      if (opacity > 100) {
-        opacity = 100;
-      } else if (opacity < 0) {
-        opacity = 0;
-      }
+      const color = strToRgb(val);
 
-      color = opacity !== 100
-        ? `rgba(var(--nu-${name}-color-rgb), ${opacity / 100})`
-        : `var(--nu-${name}-color, var(--${name}-color, #${name}))`;
+      return {
+        color,
+      };
     }
-
-    return {
-      color,
-      name,
-      opacity: opacity != null ? opacity : 100,
-    };
   }
 
   let { values, mods, color } = parseAttr(val, 0);
@@ -1276,12 +1286,12 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
   let name, opacity;
 
   if (color) {
-    return { color };
+    return { color: strToRgb(color) || color };
   }
 
   values.forEach(token => {
     if (token.match(/^((var|rgb|rgba|hsl|hsla)\(|#[0-9a-f]{3,6})/)) {
-      color = token;
+      color = !token.startsWith('var') ? strToRgb(token) : token;
     } else if (token.endsWith('%')) {
       opacity = parseInt(token);
     }

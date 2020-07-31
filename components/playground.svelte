@@ -1,19 +1,26 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('color')}
+  <nu-card as="section">
+    <nu-props some-color="hsl(1, 80%, 50%)"></nu-props>
+    <nu-block height="5" fill="some 50%"></nu-block>
+  </nu-card>
+{/if}
+
 {#if show('outline')}
-  <nu-card>
+  <nu-card as="section">
     <nu-btn outline="focus intrusive">Button</nu-btn>
   </nu-card>
 {/if}
 
 {#if show('overflow')}
-  <nu-card width="10" height="10" overflow="no auto">
+  <nu-card as="section" width="10" height="10" overflow="no auto">
     <nu-card width="20" height="20"></nu-card>
   </nu-card>
 {/if}
 
 {#if show('base')}
-  <nu-card>
+  <nu-card as="section">
     <nu-base size="(100vw / 80)|1rem"></nu-base>
     Everybody is looking for something
   </nu-card>

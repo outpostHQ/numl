@@ -13,7 +13,7 @@ import {
   setSaturation,
   getSaturationRatio,
   hplToRgbaStr,
-  getContrastRatio, rgbToHsl, getOptimalSaturation,
+  getContrastRatio, rgbToHsl, getOptimalSaturation, rgbaStrToRgbValues,
 } from './color';
 import { extractColor } from './dom-helpers';
 import { removeRulesByPart, insertRuleSet, stylesString, withMediaQuery } from './css';
@@ -277,7 +277,7 @@ export function themeToProps(name, theme) {
   }, {});
 
   RGB_COLORS.forEach(clr => {
-    map[`--nu-${name}-${clr}-color-rgb`] = hslToRgb(theme[clr]);
+    map[`--nu-${name}-${clr}-color-rgb`] = rgbaStrToRgbValues(map[`--nu-${name}-${clr}-color`]);
   });
 
   return map;
@@ -668,6 +668,7 @@ export function requireHue(color, name) {
   let { hue, saturation, contrast, alpha, special, pastel } = color;
 
   const prop = name ? `--nu-${name}-color` : `--nu-h-${hue}-s-${saturation}-c-${contrast}-a-${(alpha)}${pastel ? '-p' : ''}${special ? '-s' : ''}`;
+  const rgbProp = `${prop}-rgb`;
   const onlyReturn = name === false;
   const darkSaturation = getOptimalSaturation(hue, saturation);
 
@@ -681,7 +682,7 @@ export function requireHue(color, name) {
     const darkContrast = (pastel ? hplToRgbaStr : hslToRgbaStr)([hue, darkSaturation, findContrastLightness((!special ? darkContrastBaseBgColor : darkContrastBaseTextColor)[2], convertContrast(contrast, true, true), special), alpha]);
 
     const props = [light, lightContrast, dark, darkContrast]
-      .map(value => `${prop}: ${value};`);
+      .map(value => `${prop}: ${value};${rgbProp ? `${rgbProp}: ${rgbaStrToRgbValues(value)}` : ''}`);
 
     if (!onlyReturn) {
       COLORS[prop] = props;

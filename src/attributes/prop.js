@@ -3,5 +3,15 @@ export default function propAttr(val) {
 
   const [ name, value ] = val.split(';');
 
-  return { [`--nu-${name}`]: value };
+  const styles = { [`--nu-${name}`]: value };
+
+  if (value.endsWith('-color')) {
+    styles[`--nu-${name}-rgb`] = `${value}-rgb`;
+  } else if (value.startsWith('var(--nu-h-')) {
+    styles[`--nu-${name}-rgb`] = `${value.slice(0, -1)}-rgb)`;
+  } else if (value.match(/^rgb(|a)\(/)) {
+    styles[`--nu-${name}-rgb`] = value.slice(5, -1).split(',').slice(0,3).join(',');
+  }
+
+  return styles;
 }
