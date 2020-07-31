@@ -1,4 +1,5 @@
 import { queryChildren } from './helpers';
+import { rgbToHsl } from './color';
 
 export function h(tag) {
   return document.createElement(tag);
@@ -29,16 +30,6 @@ export function extractColor(color, ignoreAlpha = false) {
   arr[3] = arr[3] || 1;
 
   return arr;
-}
-
-export function strToHsl(color, ignoreAlpha = false) {
-  if (!color) return color;
-
-  const rgba = extractColor(color, ignoreAlpha);
-
-  if (!rgba) return;
-
-  return rgbToHsl(rgba);
 }
 
 export function strToRgb(color, ignoreAlpha = false) {

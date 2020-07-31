@@ -2,7 +2,7 @@
  * Required root element attribute.
  * @type {String}
  */
-import { extractColor, strToHsl, strToRgb } from './dom-helpers';
+import { strToRgb } from './dom-helpers';
 
 export const ROOT_CONTEXT = ':root';
 
