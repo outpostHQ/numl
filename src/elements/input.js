@@ -40,6 +40,7 @@ export default class NuInput extends NuElement {
       transition: 'theme',
       selectable: 'n',
       box: 'y',
+      height: 'auto :empty[min (1fs + 2x)]',
       cursor: 'text',
     };
   }

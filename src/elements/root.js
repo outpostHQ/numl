@@ -8,6 +8,7 @@ export default class NuRoot extends NuElement {
   static get nuStyles() {
     return {
       display: 'block',
+      text: 'n',
     };
   }
 

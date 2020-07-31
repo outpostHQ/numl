@@ -19,7 +19,7 @@ export default class NuSvg extends NuElement {
 
   static get nuStyles() {
     return {
-      display: 'inline-block',
+      display: 'block',
       sizing: 'content',
       width: 'min 1fs',
       height: 'min 1fs',
