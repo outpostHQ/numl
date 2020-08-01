@@ -40,7 +40,7 @@ export default class NuIcon extends NuElement {
       size: '--icon-size',
       transition: 'transform',
       box: 'y',
-      text: 'bottom',
+      text: 'middle',
     };
   }
 

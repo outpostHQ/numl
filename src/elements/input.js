@@ -56,7 +56,8 @@ export default class NuInput extends NuElement {
       }`,
 
       `${tag} input, ${tag} textarea {
-        width: initial;
+        display: block;
+        width: 100%;
         max-width: initial;
         min-width: initial;
         font-family: inherit;
