@@ -1,7 +1,5 @@
 import { DEFAULT_TIMING } from '../attributes/transition';
 import NuElement from './element';
-import { requireChild } from '../dom-helpers';
-import combinedAttr from '../attributes/combined';
 import paddingAttr from '../attributes/padding';
 
 export default class NuInput extends NuElement {
@@ -44,6 +42,7 @@ export default class NuInput extends NuElement {
       box: 'y',
       height: 'auto :empty[min (1fs + 2x)]',
       cursor: 'text',
+      width: 'auto',
     };
   }
 

@@ -38,7 +38,7 @@ export default class NuTooltip extends NuElement {
       border: '1bw outside',
       size: 'xs',
       interactive: 'no',
-      text: 'w6 wrap',
+      text: 'b wrap',
       width: 'min-content initial 20rem',
       space: 'remove',
       sizing: 'content',

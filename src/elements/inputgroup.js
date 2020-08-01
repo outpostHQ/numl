@@ -29,7 +29,7 @@ export default class NuInputGroup extends NuGroup {
         --nu-local-stroke-shadow: ${DEFAULT_STROKE_SHADOW} !important;
       }`,
 
-      `${tag} [nu-input]:not([border]) > input {
+      `${tag} [nu-input]:not([fill]) > input {
         background-color: transparent !important;
       }`,
 

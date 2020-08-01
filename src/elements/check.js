@@ -17,7 +17,7 @@ export default class NuCheck extends NuElement {
       opacity: ':invalid[1] 0',
       interactive: ':invalid[yes] no',
       size: 'sm',
-      text: 'w6',
+      text: 'b',
       // height: ':invalid[max(1lh)] max(1px)',
       transition: 'opacity, height',
     }

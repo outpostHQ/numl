@@ -9,12 +9,18 @@ export default class ImageBehavior extends WidgetBehavior {
     };
 
     this.props.loading = (value) => {
-      if (this.ref) {
+      if (this.ref && this.ref !== this.host) {
         setAttr(this.ref, 'loading', value);
       }
     };
 
     super.init();
+  }
+
+  connected() {
+    [...this.host.querySelectorAll('img:not([src])')].forEach(el => {
+      el.parentNode.removeChild(el);
+    });
   }
 
   load(src) {

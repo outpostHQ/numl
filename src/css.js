@@ -431,8 +431,10 @@ const globalRules = [`
   --nu-heading-font-weight: 700;
   --nu-font-weight-step: 200;
 
-  --nu-font: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
-  --nu-monospace-font: monospace;
+  --nu-base-font: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
+  --nu-font: var(--nu-base-font);
+  --nu-base-monospace-font: monospace;
+  --nu-monospace-font: var(--nu-base-monospace-font);
 
   --nu-clear-color: transparent;
 }`,

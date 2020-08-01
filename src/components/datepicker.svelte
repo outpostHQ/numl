@@ -11,7 +11,7 @@
     scale="^:pressed[flip-y]" place="right" height="100%" size="1em"></nu-attrs>
   <nu-attrs
     for="dropdown"
-    text="w5 center" content="stretch" columns="1fr auto"
+    text="sb center" content="stretch" columns="1fr auto"
     padding=".5x .25x .5x .75x" grow="1"></nu-attrs>
   <nu-group radius>
     <nu-btn id="arrow" on:tap={prevYear} disabled={havePrevYear ? undefined : ''}>
@@ -69,7 +69,7 @@
 
 </nu-grid>
 <nu-grid columns="repeat(7, 1fr)" text="center" color="text 80%">
-  <nu-attrs for="weekday" text="w7" size="xs"></nu-attrs>
+  <nu-attrs for="weekday" text="h" size="xs"></nu-attrs>
 
   {#each weekDays as weekDay}
     <nu-el id="weekday">
@@ -80,8 +80,8 @@
 <nu-grid
   columns="repeat(7, 1fr)" content="start stretch"
   text="center">
-  <nu-attrs for="day" fill="clear" radius={isRange ? '1r :hover[1r 0 0 1r]' : '1r :hover[1r]'} text="w5" border="#clear" focus="inset"></nu-attrs>
-  <nu-attrs for="today" text="w7" color="special" border></nu-attrs>
+  <nu-attrs for="day" fill="clear" radius={isRange ? '1r :hover[1r 0 0 1r]' : '1r :hover[1r]'} text="sb" border="#clear" focus="inset"></nu-attrs>
+  <nu-attrs for="today" text="h" color="special" border></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
   <nu-attrs for="start" special fill="special-bg" color radius="1r 0 0 1r"></nu-attrs>

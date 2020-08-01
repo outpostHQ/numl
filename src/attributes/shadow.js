@@ -1,6 +1,6 @@
 import { isNoValue, isYesValue, parseAttr } from '../helpers';
 
-const SHADOW = 'rgba(var(--nu-shadow-color-rgb), .5)';
+const SHADOW = 'rgba(var(--nu-shadow-color-rgb), .25)';
 const SPECIAL_SHADOW = 'rgba(var(--nu-special-shadow-color-rgb), .5)';
 
 export default function shadowAttr(val) {

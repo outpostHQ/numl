@@ -8,7 +8,7 @@ export default class NuSpecial extends NuInline {
   static get nuStyles() {
     return {
       color: 'special',
-      text: 'w5',
+      text: 'sb',
     };
   }
 }

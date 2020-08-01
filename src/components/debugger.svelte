@@ -6,7 +6,7 @@
     </nu-link>
   </nu-block>
   <nu-block>
-    <nu-el text="w6">el{target.nuDebugId}</nu-el> in console
+    <nu-el text="b">el{target.nuDebugId}</nu-el> in console
   </nu-block>
   <nu-tablist value="eventlog" border="inside bottom" control="tabs-header[padding]">
     <nu-tab control="eventlog" value="eventlog" trigger>
@@ -36,14 +36,14 @@
     </nu-block>
     <nu-grid id="attributes" columns="auto 1fr" gap="0 1x">
       {#each attrs as attr}
-        <nu-block text="w6">[{attr.name}]</nu-block>
+        <nu-block text="b">[{attr.name}]</nu-block>
         <nu-block>{attr.value}</nu-block>
       {/each}
     </nu-grid>
     {#each behaviors as behavior}
       <nu-block id={behavior.$$name} text="pre">
         <nu-block place="sticky top" fill="bg">
-          <nu-el text="w6">{behavior.$$name}{target.nuDebugId}</nu-el> in console
+          <nu-el text="b">{behavior.$$name}{target.nuDebugId}</nu-el> in console
         </nu-block>
         {logBehaviorState(behavior)}
       </nu-block>

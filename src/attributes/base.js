@@ -44,6 +44,7 @@ import { flexAttr } from './flex';
 import backdropAttr from './backdrop';
 import snapAttr from './snap';
 import snappingAttr from './snapping';
+import { fontAttr } from './font';
 
 export default {
   width: sizeUnit('width'),
@@ -125,4 +126,5 @@ export default {
   'line-clamp': clampAttr,
   snap: snapAttr,
   snapping: snappingAttr,
+  font: fontAttr,
 };

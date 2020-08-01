@@ -8,7 +8,7 @@ export default class NuLabel extends NuElement {
   static get nuStyles() {
     return {
       display: 'block',
-      text: 'w6',
+      text: 'sb',
       cursor: 'default',
       transition: 'theme, transform',
     };
