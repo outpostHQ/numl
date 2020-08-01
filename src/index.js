@@ -178,6 +178,10 @@ Nude.init = () => {
     rootEls.forEach(el => {
       el.style.visibility = '';
     });
+
+    requestAnimationFrame(() => {
+      window.dispatchEvent(numlReadyEvent);
+    });
   }, 50);
 };
 
@@ -191,9 +195,10 @@ Nude.getElementsById = function (id) {
 
 window.Nude = Nude;
 
-const readyEvent = new CustomEvent('nudeReady', { cancelable: true });
+const nudeReadyEvent = new CustomEvent('nudeReady', { cancelable: true });
+const numlReadyEvent = new CustomEvent('numlReady');
 
-if (window.dispatchEvent(readyEvent) && !preventInit) {
+if (window.dispatchEvent(nudeReadyEvent) && !preventInit) {
   Nude.init();
 }
 
