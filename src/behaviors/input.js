@@ -105,12 +105,12 @@ export default class InputBehavior extends WidgetBehavior {
   setEmpty() {
     if (!this.ref) return;
 
-    this.setMod('empty', !this.ref.value);
+    this.setMod('placeholder', !this.ref.value);
 
     const inputGroup = this.inputGroup;
 
     if (inputGroup) {
-      inputGroup.setMod('empty', !this.ref.value);
+      inputGroup.setMod('placeholder', !this.ref.value);
     }
   }
 
