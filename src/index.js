@@ -191,7 +191,9 @@ Nude.getElementsById = function (id) {
 
 window.Nude = Nude;
 
-if (!preventInit) {
+const readyEvent = new CustomEvent('nudeReady', { cancelable: true });
+
+if (window.dispatchEvent(readyEvent) && !preventInit) {
   Nude.init();
 }
 
