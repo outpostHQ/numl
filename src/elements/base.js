@@ -57,6 +57,7 @@ const TEMPLATES_MAP = {};
 const PROPS_MAP = {};
 const ATTRS_MAP = {};
 const BEHAVIORS_MAP = {};
+const ATTRS_FOR_MAP = {};
 
 export function getAllAttrs() {
   return Object.keys(GENERATORS_MAP).reduce((arr, tag) => {
@@ -318,6 +319,26 @@ export default class NuBase extends HTMLElement {
     return {
       display: 'none',
     };
+  }
+
+  /**
+   * Initial attribute values of the Element.
+   */
+  static get nuAttrsFor() {
+    return {};
+  }
+
+  /**
+   * @private
+   */
+  static get nuAllAttrsFor() {
+    return (
+      ATTRS_FOR_MAP[this.nuTag] ||
+      (ATTRS_FOR_MAP[this.nuTag] = {
+        ...(this.nuParentClass && this.nuParentClass.nuAllAttrsFor || {}),
+        ...(this.nuAttrsFor || {}),
+      })
+    );
   }
 
   /**
@@ -726,6 +747,17 @@ export default class NuBase extends HTMLElement {
             });
         });
       }
+
+      const allAttrsFor = this.constructor.nuAllAttrsFor;
+
+      Object.keys(allAttrsFor)
+        .forEach(id => {
+          const define = allAttrsFor[id];
+
+          define.$shadowRoot = this.nuContext.$shadowRoot;
+
+          this.nuSetContext(`attrs:${id}`, define);
+        });
     }
 
     if (this.hasAttribute(THEME_ATTR)) {

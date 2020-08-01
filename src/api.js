@@ -9,6 +9,7 @@ const staticBind = {
   role: 'nuRole',
   attrs: 'nuAttrs',
   styles: 'nuStyles',
+  attrsFor: 'nuAttrsFor',
   css: 'nuCSS',
   generators: 'nuGenerators',
   name: 'nuName',
