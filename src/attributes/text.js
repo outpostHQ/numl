@@ -1,4 +1,4 @@
-import { devMode, extractMods, warn } from '../helpers';
+import { devMode, extractMods, warn, parseParams, parseAttr } from '../helpers';
 
 const MAP = {};
 
@@ -27,7 +27,7 @@ set('v-middle', { 'vertical-align': 'var(--nu-inline-offset)' });
 ['left', 'right', 'center', 'justify'].forEach(name => set(name, { 'text-align': name }));
 
 set('monospace', { 'font-family': 'var(--nu-monospace-font)', 'word-spacing': 'normal' });
-set('spacing', { 'letter-spacing': 'calc(1em / 16)' });
+set('spacing', (val) => ({ 'letter-spacing': parseAttr(val || '1bw').value }));
 set('ellipsis', {
   'max-width': '100%',
   'overflow': 'hidden',
@@ -77,22 +77,37 @@ const LIST = Object.keys(MAP);
  * @param {String} val - String that contains modifiers separated by space.
  */
 export default function textAttr(val) {
-  const { value, mods } = extractMods(val, LIST);
-
-  if (devMode && value) {
-    warn('[text] incorrect modifiers:', value);
-  }
+  const mods = parseParams(val);
 
   const styles = {};
 
-  mods.forEach(mod => {
-    const modifiers = MAP[mod];
-    const keys = Object.keys(modifiers);
+  Object.keys(mods)
+    .forEach(mod => {
+      if (!MAP[mod]) {
+        if (devMode) {
+          warn('[text]: modifier not found', mod);
+        }
 
-    keys.forEach(key => {
-      styles[key] = modifiers[key];
+        return;
+      }
+
+      let value = mods[mod];
+
+      if (!value) {
+        return;
+      }
+
+      if (value === true) {
+        value = undefined;
+      }
+
+      const modStyles = typeof MAP[mod] === 'function' ? MAP[mod](value) : MAP[mod];
+      const keys = Object.keys(modStyles);
+
+      keys.forEach(key => {
+        styles[key] = modStyles[key];
+      });
     });
-  });
 
   if (!styles['font-weight'] && styles['--nu-font-weight']) {
     styles['font-weight'] = 'var(--nu-font-weight, inherit)';

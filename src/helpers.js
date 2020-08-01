@@ -1746,3 +1746,36 @@ const POINT_REGEX = /([\d.]+)/;
 export function decPoint(val) {
   return val.replace(POINT_REGEX, (num) => `${Number(num) - 0.01}`);
 }
+
+const PARAMS_REGEXP = /(-|)([a-z][a-z0-9-]+)(\((.*?)\)|)(?=(\s|$))/g;
+
+/**
+ * Parse params from string like: `param1 param2()`
+ * It is used in behaviors and [text] style.
+ * @param {String} value - string to parse
+ * @param {Object} params - default params. MUTABLE!
+ * @return {Object}
+ */
+export function parseParams(value, params = {}) {
+  let token;
+
+  while (token = PARAMS_REGEXP.exec(value)) {
+    let [s, disable, param, s2, value] = token;
+
+    param = toCamelCase(param);
+
+    if (disable) {
+      delete params[param];
+    } else {
+      if (isYesValue(value)) {
+        value = true;
+      } else if (isNoValue(value)) {
+        value = false;
+      }
+
+      params[param] = value != null ? value : true;
+    }
+  }
+
+  return params;
+}

@@ -1,32 +1,4 @@
-import { setAttr, toCamelCase } from '../helpers';
-
-const PARAMS_REGEXP = /(-|)([a-z][a-z0-9-]+)(\((.*?)\)|)(?=(\s|$))/g;
-
-export function parseParams(value, params = {}) {
-  let token;
-
-  while (token = PARAMS_REGEXP.exec(value)) {
-    let [s, disable, param, s2, value] = token;
-
-    param = toCamelCase(param);
-
-    if (disable) {
-      delete params[param];
-    } else {
-      if (value === 'y') {
-        value = true;
-      } else if (value === 'n') {
-        value = false;
-      }
-
-      params[param] = value != null ? value : true;
-    }
-  }
-
-  return params;
-}
-
-window.parseParams = parseParams;
+import { setAttr, parseParams } from '../helpers';
 
 const PARAMS_MAP = new Map;
 
