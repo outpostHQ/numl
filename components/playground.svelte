@@ -1,5 +1,48 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('radio')}
+  <nu-heading level="2">Radio buttons</nu-heading>
+
+  <nu-card as="section" flow="row">
+    <nu-grid
+      display="inline-grid" columns="auto auto" gap="1x 2x">
+      <nu-radiogroup flow="column" gap value="second">
+        <nu-flex gap="1x" items="center">
+          <nu-radio labelledby=":next" value="first"></nu-radio>
+          <nu-label>First value</nu-label>
+        </nu-flex>
+
+        <nu-flex gap="1x" items="center">
+          <nu-radio labelledby=":next" value="second"></nu-radio>
+          <nu-label>Second value</nu-label>
+        </nu-flex>
+
+        <nu-flex gap="1x" items="center">
+          <nu-radio labelledby=":next" value="third"></nu-radio>
+          <nu-label>Third value</nu-label>
+        </nu-flex>
+      </nu-radiogroup>
+
+      <nu-radiogroup flow="column" gap value="second">
+        <nu-flex gap="1x" items="center">
+          <nu-radio labelledby=":next" value="first" disabled></nu-radio>
+          <nu-label>First value</nu-label>
+        </nu-flex>
+
+        <nu-flex gap="1x" items="center">
+          <nu-radio labelledby=":next" value="second" disabled></nu-radio>
+          <nu-label>Second value</nu-label>
+        </nu-flex>
+
+        <nu-flex gap="1x" items="center">
+          <nu-radio labelledby=":next" value="third" disabled></nu-radio>
+          <nu-label>Third value</nu-label>
+        </nu-flex>
+      </nu-radiogroup>
+    </nu-grid>
+  </nu-card>
+{/if}
+
 {#if show('color')}
   <nu-card as="section">
     <nu-props some-color="^root :high-contrast[hsl(1, 80%, 50%)] :low-contrast[hsl(180, 80%, 50%)]"></nu-props>
@@ -1528,47 +1571,6 @@ var b = /wow?/;
       <nu-checkbox labelledby=":next" disabled checked></nu-checkbox>
       <nu-label>Disabled and checked checkbox</nu-label>
     </nu-flex>
-  </nu-grid>
-</nu-card>
-
-<nu-heading level="2">Radio buttons</nu-heading>
-
-<nu-card as="section" flow="row">
-  <nu-grid
-    display="inline-grid" columns="auto auto" gap="1x 2x">
-    <nu-radiogroup flow="column" gap value="second">
-      <nu-flex gap="1x" items="center">
-        <nu-radio labelledby=":next" value="first"></nu-radio>
-        <nu-label>First value</nu-label>
-      </nu-flex>
-
-      <nu-flex gap="1x" items="center">
-        <nu-radio labelledby=":next" value="second"></nu-radio>
-        <nu-label>Second value</nu-label>
-      </nu-flex>
-
-      <nu-flex gap="1x" items="center">
-        <nu-radio labelledby=":next" value="third"></nu-radio>
-        <nu-label>Third value</nu-label>
-      </nu-flex>
-    </nu-radiogroup>
-
-    <nu-radiogroup flow="column" gap value="second">
-      <nu-flex gap="1x" items="center">
-        <nu-radio labelledby=":next" value="first" disabled></nu-radio>
-        <nu-label>First value</nu-label>
-      </nu-flex>
-
-      <nu-flex gap="1x" items="center">
-        <nu-radio labelledby=":next" value="second" disabled></nu-radio>
-        <nu-label>Second value</nu-label>
-      </nu-flex>
-
-      <nu-flex gap="1x" items="center">
-        <nu-radio labelledby=":next" value="third" disabled></nu-radio>
-        <nu-label>Third value</nu-label>
-      </nu-flex>
-    </nu-radiogroup>
   </nu-grid>
 </nu-card>-->
 

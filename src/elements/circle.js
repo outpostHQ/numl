@@ -10,8 +10,8 @@ export default class NuCircle extends NuElement {
     return {
       size(val) {
         return sizeAttr(val, {}, true);
-      }
-    }
+      },
+    };
   }
 
   static get nuStyles() {

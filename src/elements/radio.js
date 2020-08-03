@@ -31,7 +31,7 @@ export default class NuRadio extends NuAction {
       radius: 'round',
       content: 'stretch',
       items: 'center',
-      padding: '1em / 8',
+      padding: '2bw',
       sizing: 'content',
       cursor: 'default',
       text: 'v-middle',
