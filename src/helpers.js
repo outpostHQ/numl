@@ -1747,7 +1747,7 @@ export function decPoint(val) {
   return val.replace(POINT_REGEX, (num) => `${Number(num) - 0.01}`);
 }
 
-const PARAMS_REGEXP = /(-|)([a-z][a-z0-9-]+)(\((.*?)\)|)(?=(\s|$))/g;
+const PARAMS_REGEXP = /(-|)([a-z][a-z0-9-]*)(\((.*?)\)|)(?=(\s|$))/g;
 
 /**
  * Parse params from string like: `param1 param2()`
