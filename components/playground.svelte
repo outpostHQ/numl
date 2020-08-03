@@ -270,14 +270,14 @@
 {/if}
 
 {#if show('shadow')}
-  <nu-card gap="2x" text="b">
+  <nu-card gap="2x" text="b" padding="4x">
     <nu-card shadow=".25">CARD</nu-card>
     <nu-card shadow=".5">CARD</nu-card>
     <nu-card shadow="1">CARD</nu-card>
     <nu-card shadow="2">CARD</nu-card>
   </nu-card>
 
-  <nu-card gap="2x">
+  <nu-card gap="2x" padding="4x">
     <nu-cardbtn shadow=".25" special>CARD</nu-cardbtn>
     <nu-cardbtn shadow=".5" special>CARD</nu-cardbtn>
     <nu-cardbtn shadow="1" special>CARD</nu-cardbtn>

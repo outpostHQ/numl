@@ -13,7 +13,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@size-limit/preset-big-lib": "^4.4.1",
-    "@web/test-runner": "^0.6.39",
+    "@web/test-runner": "^0.6.56",
     "date-fns": "^2.14.0",
     "email-validator": "^2.0.4",
     "eva-icons": "^1.1.3",

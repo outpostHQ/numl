@@ -1,9 +1,17 @@
 import { isNoValue, isYesValue, parseAttr } from '../helpers';
 
-const SHADOW = 'rgba(var(--nu-shadow-color-rgb), .25)';
-const SPECIAL_SHADOW = 'rgba(var(--nu-special-shadow-color-rgb), .5)';
+const SHADOW = 'rgba(var(--nu-shadow-color-rgb), .5)';
+const SPECIAL_SHADOW = 'rgba(var(--nu-special-shadow-color-rgb), 1)';
 
-export default function shadowAttr(val) {
+export default function shadowAttr(val, defaults, options = {}) {
+  const {
+    shadow, // default shadow color
+    specialShadow, // default special shadow color
+    defaultValue, // default size value
+    active, // has `active` modifier
+    inset, // is it inset shadow?
+  } = options;
+
   if (isYesValue(val)) {
     val = '';
   } else if (isNoValue(val)) {
@@ -12,11 +20,13 @@ export default function shadowAttr(val) {
 
   let { values, mods, color } = parseAttr(val, 1);
 
-  color = color || (mods.includes('special') ? SPECIAL_SHADOW : SHADOW);
+  color = color || (mods.includes('special')
+    ? (specialShadow || SPECIAL_SHADOW)
+    : (shadow || SHADOW));
 
   let x = '0';
   let y = '0';
-  let size = '1rem';
+  let size = defaultValue || '1rem';
   let spread = '0';
 
   if (values.length === 1) {
@@ -34,15 +44,15 @@ export default function shadowAttr(val) {
     }
   }
 
-  const value = `${x} ${y} ${size} ${spread} ${color}`;
+  const prop = `--nu-local-${inset ? 'inset' : 'depth'}-shadow`;
+  const value = `${x} ${y} ${size} ${spread} ${color}${inset ? ' inset' : ''}`;
+  const styles = {
+    [prop]: value,
+  };
 
-  if (color) {
-    return {
-      '--nu-local-depth-shadow': value,
-    };
+  if (active && mods.includes('active')) {
+    styles.$suffix = '[is-active]';
   }
 
-  return {
-    '--nu-local-depth-shadow': value,
-  };
+  return styles;
 }

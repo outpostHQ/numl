@@ -247,7 +247,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
   const shadowSaturation = saturation * (type === 'main' ? .66 : 1);
   const specialShadowSaturation = 100;
   const shadowContrastRatio = 1.8 * (highContrast ? 1.5 : 1);
-  const specialShadowContrastRatio = (type === 'special' || (!darkScheme && type === 'swap') ? 1.5 : 1) * shadowContrastRatio;
+  const specialShadowContrastRatio = (type === 'special' || (!darkScheme && type === 'swap') ? 1.5 : 1) * shadowContrastRatio * (darkScheme ? 1.5 : 1);
   const shadowLightness = findContrastLightness(theme.bg[2], shadowContrastRatio, true);
   const specialShadowLightness = findContrastLightness(theme['special-bg'][2], specialShadowContrastRatio, true);
 

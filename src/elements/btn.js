@@ -27,6 +27,11 @@ export default class NuBtn extends NuAction {
     return [
       ...css,
 
+      // `${tag}[special] {
+      //   --nu-shadow-color: var(--nu-special-shadow-color);
+      //   --nu-shadow-color-rgb: var(--nu-special-shadow-color-rgb);
+      // }`,
+
       `${tag}[special] > :not([theme]) {
         --nu-text-soft-color: var(--nu-special-text-color);
         --nu-text-contrast-color: var(--nu-special-text-color);
