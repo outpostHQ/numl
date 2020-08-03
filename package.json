@@ -8,7 +8,7 @@
     "url": "git+https://github.com/tenphi/numl.git"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.3",
+    "@babel/core": "^7.11.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@size-limit/preset-big-lib": "^4.4.1",
