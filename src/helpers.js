@@ -903,15 +903,13 @@ export function parseAttr(value, mode = 0) {
         currentValue += `${operator} `;
       } else if (unit) {
         if (unitMetric && CUSTOM_UNITS[unitMetric]) {
-          if (unitVal === '1') {
-            currentValue += `${CUSTOM_UNITS[unitMetric]} `;
-          } else {
-            if (!~calc) {
-              currentValue += 'calc';
-            }
+          let add = customUnit(unitVal, unitMetric);
 
-            currentValue += `(${unitVal} * ${CUSTOM_UNITS[unitMetric]}) `;
+          if (!~calc && add.startsWith('(')) {
+            currentValue += 'calc';
           }
+
+          currentValue += `${add} `;
         } else if (insertRem && !unitMetric && !counter) {
           currentValue += `${unit}rem `;
         } else {
@@ -1778,4 +1776,18 @@ export function parseParams(value, params = {}) {
   }
 
   return params;
+}
+
+export function customUnit(value, unit) {
+  const converter = CUSTOM_UNITS[unit];
+
+  if (typeof converter === 'function') {
+    return converter(value);
+  }
+
+  if (value === '1' || value === 1) {
+    return converter;
+  }
+
+  return `(${value} * ${converter})`;
 }

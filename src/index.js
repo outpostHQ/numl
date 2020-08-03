@@ -11,7 +11,7 @@ import {
   isEqual,
 } from './helpers';
 
-import { define, assign as baseAssign } from './api';
+import { define, assign as baseAssign, unit } from './api';
 
 export { FLEX_GAP_SUPPORTED } from './attributes/gap';
 import initSticky from './sticky';
@@ -127,6 +127,7 @@ const Nude = {
   isEqual,
   define,
   assign,
+  unit,
   hue,
   // color,
   // themes,
@@ -232,6 +233,7 @@ export {
   styles,
   define,
   assign,
+  unit,
   hue,
   // themes,
   // css,

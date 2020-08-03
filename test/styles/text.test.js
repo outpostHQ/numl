@@ -8,5 +8,14 @@ checkGenerator('test', textAttr, {
   },
   'spacing': { 'letter-spacing': 'var(--nu-border-width)' },
   'spacing(0.02em)': { 'letter-spacing': '0.02em' },
-  'n nowrap': { 'white-space': 'nowrap' },
+  'n nowrap': {
+    "--nu-font-weight": "var(--nu-normal-font-weight)",
+    "font-family": "var(--nu-font)",
+    "font-style": "initial",
+    "font-weight": "var(--nu-normal-font-weight)",
+    "letter-spacing": "normal",
+    "text-decoration": "none",
+    "text-transform": "none",
+    'white-space': 'nowrap'
+  },
 });
