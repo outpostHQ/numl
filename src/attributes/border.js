@@ -1,4 +1,4 @@
-import { stripCalc, parseAttr, isYesValue } from '../helpers';
+import { stripCalc, parseAttr, isYesValue, isNoValue } from '../helpers';
 
 export const DEFAULT_STROKE_SHADOW = '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)';
 
@@ -43,6 +43,10 @@ export default function borderAttr(val) {
 
   if (isYesValue(val)) {
     val = '';
+  }
+
+  if (isNoValue(val)) {
+    val = '0';
   }
 
   let style = 'solid';
