@@ -1,7 +1,3 @@
-/**
- * @TODO Add flexible color support | Use parseAttr() method to parse value.
- */
-
 import { stripCalc, parseAttr, isYesValue } from '../helpers';
 
 export const DEFAULT_STROKE_SHADOW = '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)';
@@ -51,10 +47,15 @@ export default function borderAttr(val) {
 
   let style = 'solid';
   let dirs = [];
+  let colorStyles = {};
 
   let { values, mods, color } = parseAttr(val, 1);
 
-  color = color || 'var(--nu-local-border-color, var(--nu-border-color))';
+  if (color) {
+    colorStyles = { '--nu-local-border-color': color };
+  } else {
+    color = 'var(--nu-local-border-color, var(--nu-border-color))';
+  }
 
   for (let s of BORDER_STYLES) {
     if (mods.includes(s)) {
@@ -109,5 +110,8 @@ export default function borderAttr(val) {
     });
   }
 
-  return { border, '--nu-local-stroke-shadow': DEFAULT_STROKE_SHADOW };
+  return {
+    ...colorStyles,
+    border,
+    '--nu-local-stroke-shadow': DEFAULT_STROKE_SHADOW };
 }

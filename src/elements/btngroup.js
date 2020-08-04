@@ -16,27 +16,25 @@ export default class NuBtnGroup extends NuGroup {
   static get nuGenerators() {
     return {
       ...NuGroup.nuGenerators,
-      border(val) {
-        if (val == null) return val;
-
-        const width = val
-          ? convertUnit(val)
-          : 'var(--nu-border-width)';
-
-        return {
-          $suffix: '>:not([border])',
-          '--nu-local-border-shadow': `0 0 ${width} var(--nu-border-color)`,
-          '--nu-v-gap': `calc(${stripCalc(width)} * -1) !important`,
-          '--nu-h-gap': `calc(${stripCalc(width)} * -1) !important`,
-        };
-      },
     };
   }
 
   static get nuStyles() {
     return {
-      gap: '--nu-border-width * -1',
-      radius: '1r',
+      gap: '1bw',
+      radius: '',
+      border: '',
+      fill: 'var(--nu-local-border-color, var(--nu-border-color))',
+      outline: 'focus-inside visible',
+    };
+  }
+
+  static get nuAttrsFor() {
+    return {
+      action: {
+        border: '0',
+        outline: 'n',
+      },
     };
   }
 

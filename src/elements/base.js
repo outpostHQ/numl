@@ -1499,7 +1499,7 @@ export default class NuBase extends HTMLElement {
   }
 
   nuSetContextAttrs() {
-    if (!this.nuIsConnected) return;
+    if (!this.nuIsConnected || this.constructor.nuNames.includes('definition')) return;
 
     if (!this.nuContextAttrs) {
       this.nuContextAttrs = new Set;
