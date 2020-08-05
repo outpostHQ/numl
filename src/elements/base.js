@@ -1663,7 +1663,7 @@ export default class NuBase extends HTMLElement {
   nu(name, value) {
     const allBehaviors = this.constructor.nuAllBehaviors;
 
-    let options = allBehaviors[name] || value;
+    let options = `${allBehaviors[name] || ''} ${value || ''}`;
 
     if (options === true) {
       options = undefined;

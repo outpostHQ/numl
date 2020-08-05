@@ -21,6 +21,7 @@
     "i": "^0.3.6",
     "inline-assets": "^1.4.6",
     "install": "^0.13.0",
+    "json-form-data": "^1.7.2",
     "npm": "^6.14.7",
     "numl-markdown": "^2.0.15",
     "parcel": "^1.12.4",

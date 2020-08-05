@@ -45,10 +45,8 @@ const BEHAVIORS = {
   appear: () => extract(import(`./appear.js`)),
 };
 
-function hasBehavior(el, name) {
-  const behaviors = el.constructor.nuAllBehaviors;
-
-  return behaviors && (name in behaviors);
+function hasBehavior(name) {
+  return name in BEHAVIORS;
 }
 
 function getBehavior(name) {

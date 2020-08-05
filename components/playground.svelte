@@ -1294,12 +1294,16 @@ var b = /wow?/;
       <nu-h3>Basic login form</nu-h3>
       <nu-form control="output[.value]" gap="1x">
         <nu-field>
-          <nu-label>Username</nu-label>
-          <nu-input id="username" grow="1"></nu-input>
+          <nu-label>Email</nu-label>
+          <nu-emailinput id="email" grow="1"></nu-emailinput>
         </nu-field>
         <nu-field>
           <nu-label>Password</nu-label>
-          <nu-input id="password" grow="1" mask></nu-input>
+          <nu-password id="password" grow="1"></nu-password>
+        </nu-field>
+        <nu-field>
+          <nu-label>Phone</nu-label>
+          <nu-telinput id="phone" grow="1"></nu-telinput>
         </nu-field>
         <nu-btn special action="submit">Submit</nu-btn>
       </nu-form>
@@ -1333,7 +1337,7 @@ var b = /wow?/;
             transition="theme, transform">
             Password
           </nu-label>
-          <nu-input id="password" placeholder="" grow="1" mask></nu-input>
+          <nu-password id="password" placeholder="" grow="1"></nu-password>
         </nu-inputgroup>
         <nu-check for="password" assert="required">
           Password is required

@@ -8,6 +8,7 @@ export default class InputBehavior extends WidgetBehavior {
       input: true,
       localized: true,
       tag: 'input',
+      type: 'text',
     };
   }
 
@@ -25,6 +26,8 @@ export default class InputBehavior extends WidgetBehavior {
       this.ref = input;
     }
 
+    this.setType();
+
     this.value = null;
     this.props.disabled = () => {
       return this.transferAttr('disabled', this.ref) != null;
@@ -39,13 +42,6 @@ export default class InputBehavior extends WidgetBehavior {
       return this.transferAttr('pattern', this.ref);
     };
     this.props.placeholder = () => this.transferAttr('placeholder', this.ref, '...');
-    this.props.mask = (val) => {
-      val = val != null;
-
-      this.setMask(val);
-
-      return val;
-    };
 
     super.init();
 
@@ -95,7 +91,7 @@ export default class InputBehavior extends WidgetBehavior {
 
     this.inputGroup = null;
 
-    this.linkContext('inputgroup', (inputGroup) => {
+    this.linkContext('inputgroup', () => {
       this.setEmpty();
     }, 'inputGroup');
 
@@ -153,15 +149,11 @@ export default class InputBehavior extends WidgetBehavior {
     }
   }
 
-  setMask(mask) {
-    if (this.ref) {
-      if (mask) {
-        this.ref.type = 'password';
-      } else {
-        this.ref.type = 'text';
-      }
+  setType() {
+    if (this.ref ) {
+      this.ref.type = this.params.type;
     } else {
-      setTimeout(() => this.setMask(mask));
+      setTimeout(() => this.setType());
     }
   }
 }

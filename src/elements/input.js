@@ -123,8 +123,4 @@ export default class NuInput extends NuElement {
       }`,
     ];
   }
-
-  nuConnected() {
-    super.nuConnected();
-  }
 }
