@@ -29,6 +29,15 @@ export default class InputBehavior extends WidgetBehavior {
     this.props.disabled = () => {
       return this.transferAttr('disabled', this.ref) != null;
     };
+    this.props.autofocus = () => {
+      return this.transferAttr('autofocus', this.ref) != null;
+    };
+    this.props.autocomplete = () => {
+      return this.transferAttr('autocomplete', this.ref);
+    };
+    this.props.pattern = () => {
+      return this.transferAttr('pattern', this.ref);
+    };
     this.props.placeholder = () => this.transferAttr('placeholder', this.ref, '...');
     this.props.mask = (val) => {
       val = val != null;

@@ -64,12 +64,12 @@ export default function outlineAttr(val) {
       '--nu-local-outline-color': 'var(--nu-outline-color)',
     });
 
-    // if (inside) {
-    //   styles.push({
-    //     $suffix: '>*',
-    //     '--nu-focus-disabler': '1',
-    //   });
-    // }
+    if (inside) {
+      styles.push({
+        $suffix: '>*',
+        '--nu-focus-disabler': '1',
+      });
+    }
   } else {
     styles.push({
       '--nu-local-outline-color': 'var(--nu-outline-color)',
