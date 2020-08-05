@@ -11,7 +11,7 @@ import {
   isEqual,
 } from './helpers';
 
-import { define, assign as baseAssign, unit } from './api';
+import { define, assign as baseAssign } from './api';
 
 export { FLEX_GAP_SUPPORTED } from './attributes/gap';
 import initSticky from './sticky';
@@ -28,6 +28,7 @@ import NuAction from './elements/action';
 // import * as css from './css';
 // import * as variables from './variables';
 import { defineBehavior, hasBehavior, getBehavior } from './behaviors';
+import units from './units';
 import svg from './svg';
 import icons from './icons';
 import routing from './routing';
@@ -127,7 +128,7 @@ const Nude = {
   isEqual,
   define,
   assign,
-  unit,
+  units,
   hue,
   // color,
   // themes,
@@ -233,7 +234,7 @@ export {
   styles,
   define,
   assign,
-  unit,
+  units,
   hue,
   // themes,
   // css,

@@ -98,10 +98,3 @@ export function assign(element, prop, value, elements = {}) {
   log('property assigned:', `${element.nuTag}.${prop}:`, newValue);
 }
 
-export function unit(unitName, converter) {
-  if (devMode && ((typeof converter !== 'string' && typeof converter !== 'function') || !unitName || typeof unitName !== 'string')) {
-    warn('invalid unit converter', { unitName, converter });
-  }
-
-  CUSTOM_UNITS[unitName] = converter;
-}
