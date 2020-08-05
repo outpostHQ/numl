@@ -9,7 +9,7 @@ import BaseAttributes from '../attributes/base';
 import TransformCombinator from '../combinators/transform';
 import ShadowCombinator from '../combinators/shadow';
 // import WeightCombinator from '../combinators/weight';
-import { BEHAVIORS } from '../behaviors/index';
+import behaviors from '../behaviors/index';
 import { hideEffect } from '../effects/hide';
 import PositionCombinator from '../combinators/position';
 
@@ -56,7 +56,7 @@ export default class NuElement extends NuBase {
             display: `block !important`,
           } : null;
       },
-      ...Object.keys(BEHAVIORS).reduce((map, name) => {
+      ...Object.keys(behaviors.map).reduce((map, name) => {
         map[`nx-${name}`] = '';
 
         return map;

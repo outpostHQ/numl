@@ -27,7 +27,7 @@ import NuAction from './elements/action';
 // import * as themes from './themes';
 // import * as css from './css';
 // import * as variables from './variables';
-import { defineBehavior, hasBehavior, getBehavior } from './behaviors';
+import behaviors from './behaviors';
 import units from './units';
 import svg from './svg';
 import icons from './icons';
@@ -47,12 +47,6 @@ initLinks(); // enable link current state detection
 function assign(element, prop, value) {
   return baseAssign(element, prop, value, elements);
 }
-
-const behaviors = {
-  define: defineBehavior,
-  has: hasBehavior,
-  get: getBehavior,
-};
 
 const helpers = {
   resetScroll,

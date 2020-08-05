@@ -5,7 +5,9 @@ import {
   generateCSS,
   removeRulesByPart,
   transferCSS,
-  STYLE_MAP, insertRuleSet, removeRuleSet, insertRule,
+  STYLE_MAP,
+  insertRuleSet,
+  removeRuleSet,
 } from '../css';
 import {
   parseThemeAttr,
@@ -37,14 +39,18 @@ import {
   deepQuery,
   deepQueryAll,
   queryChildren,
-  setImmediate, isEqual, asyncDebounce, setAttr, setBoolAttr, setAria, decPoint,
+  setImmediate,
+  isEqual,
+  setBoolAttr,
+  setAria,
+  decPoint,
 } from '../helpers';
 import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../attributes/display';
 import themeAttr from '../attributes/theme';
 import propAttr from '../attributes/prop';
 import combine from '../combinators/index';
-import { BEHAVIORS, getBehavior } from '../behaviors/index';
+import behaviors from '../behaviors';
 
 export const ELEMENTS_MAP = {};
 
@@ -572,7 +578,7 @@ export default class NuBase extends HTMLElement {
     if (name.startsWith('nx-')) {
       name = name.replace('nx-', '');
 
-      if (name in BEHAVIORS) {
+      if (behaviors.has(name)) {
         this.nu(name, value);
       }
 
@@ -1655,9 +1661,9 @@ export default class NuBase extends HTMLElement {
    * @return {null|Behavior}
    */
   nu(name, value) {
-    const behaviors = this.constructor.nuAllBehaviors;
+    const allBehaviors = this.constructor.nuAllBehaviors;
 
-    let options = behaviors[name] || value;
+    let options = allBehaviors[name] || value;
 
     if (options === true) {
       options = undefined;
@@ -1681,7 +1687,7 @@ export default class NuBase extends HTMLElement {
     if (behaviorPromise) return behaviorPromise;
 
     // request Mixin class and create new instance
-    return this.nuBehaviorPromises[name] = getBehavior(name).then(Behavior => {
+    return this.nuBehaviorPromises[name] = behaviors.get(name).then(Behavior => {
       if (!Behavior) {
         throw error('behavior not found', Behavior);
       }

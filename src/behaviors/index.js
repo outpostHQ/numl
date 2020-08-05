@@ -5,7 +5,7 @@ import { extractModule as extract } from '../helpers';
 
 const DICT = {};
 
-export const BEHAVIORS = {
+const BEHAVIORS = {
   focusable: () => extract(import(`./focusable.js`)),
   listbox: () => extract(import(`./listbox.js`)),
   option: () => extract(import(`./option.js`)),
@@ -45,13 +45,13 @@ export const BEHAVIORS = {
   appear: () => extract(import(`./appear.js`)),
 };
 
-export function hasBehavior(el, name) {
+function hasBehavior(el, name) {
   const behaviors = el.constructor.nuAllBehaviors;
 
   return behaviors && (name in behaviors);
 }
 
-export function getBehavior(name) {
+function getBehavior(name) {
   if (DICT[name]) {
     return DICT[name];
   }
@@ -74,7 +74,7 @@ export function getBehavior(name) {
   return promise;
 }
 
-export function defineBehavior(name, behaviorLoader) {
+function defineBehavior(name, behaviorLoader) {
   if (BEHAVIORS[name]) {
     warn('behavior has already been defined', name);
 
@@ -83,3 +83,10 @@ export function defineBehavior(name, behaviorLoader) {
 
   BEHAVIORS[name] = behaviorLoader;
 }
+
+export default {
+  define: defineBehavior,
+  has: hasBehavior,
+  get: getBehavior,
+  map: BEHAVIORS,
+};
