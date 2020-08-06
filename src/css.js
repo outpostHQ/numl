@@ -1,7 +1,7 @@
 import { devMode, log, warn } from "./helpers";
 import { h } from './dom-helpers';
 import scrollbarAttr from './attributes/scrollbar';
-import { USE_HIDDEN_STYLES } from './settings';
+import { USE_HIDDEN_STYLES, SCROLLBAR } from './settings';
 
 export const STYLE_MAP = {};
 const HEAD = document.head;
@@ -505,6 +505,6 @@ const globalRules = [`
   display: none !important;
 }`,
 
-...generateCSS('body', scrollbarAttr('yes'), false)];
+...(SCROLLBAR ? generateCSS('body', scrollbarAttr('yes'), false) : [])];
 
 insertRuleSet('global', globalRules);

@@ -1,5 +1,5 @@
 import { ROOT, setRootContext } from './context';
-import { devMode, isYesValue, requestIdleCallback } from './helpers';
+import { devMode, isNoValue, isYesValue, requestIdleCallback } from './helpers';
 
 const DATASET = ROOT.dataset;
 const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
@@ -53,6 +53,7 @@ export function reduceMotion(bool) {
 export const USE_SHADOW = isYesValue(DATASET.nuShadow);
 export const USE_HIDDEN_STYLES = DATASET.nuStyles === 'hidden';
 export const ICONS_PROVIDER = ICONS_OPTIONS.includes(DATASET.nuIcons) ? DATASET.nuIcons : 'feather';
+export const SCROLLBAR = DATASET.nuScrollbar != null;
 
 setRootContext('scheme', scheme());
 setRootContext('contrast', contrast());

@@ -505,7 +505,7 @@
         <nu-flex flow="row wrap" gap>
           <nu-btn special>Button</nu-btn>
           <nu-btn special mark="y">Hover</nu-btn>
-          <nu-btn special inset>Pressed</nu-btn>
+          <nu-btn special inset="special">Pressed</nu-btn>
           <nu-btn special outline="y">Focus</nu-btn>
           <nu-btn special disabled>Disabled</nu-btn>
         </nu-flex>
@@ -540,7 +540,7 @@
         <nu-flex flow="row wrap" gap>
           <nu-btn special>Button</nu-btn>
           <nu-btn special mark="y">Hover</nu-btn>
-          <nu-btn special inset>Pressed</nu-btn>
+          <nu-btn special inset="special">Pressed</nu-btn>
           <nu-btn special outline="y">Focus</nu-btn>
           <nu-btn special disabled>Disabled</nu-btn>
         </nu-flex>
@@ -575,7 +575,7 @@
         <nu-flex flow="row wrap" gap>
           <nu-btn special>Button</nu-btn>
           <nu-btn special mark="y">Hover</nu-btn>
-          <nu-btn special inset>Pressed</nu-btn>
+          <nu-btn special inset="special">Pressed</nu-btn>
           <nu-btn special outline="y">Focus</nu-btn>
           <nu-btn special disabled>Disabled</nu-btn>
         </nu-flex>
@@ -610,7 +610,7 @@
         <nu-flex flow="row wrap" gap>
           <nu-btn special>Button</nu-btn>
           <nu-btn special mark="y">Hover</nu-btn>
-          <nu-btn special inset>Pressed</nu-btn>
+          <nu-btn special inset="special">Pressed</nu-btn>
           <nu-btn special outline="y">Focus</nu-btn>
           <nu-btn special disabled>Disabled</nu-btn>
         </nu-flex>
@@ -645,7 +645,7 @@
         <nu-flex flow="row wrap" gap>
           <nu-btn special>Button</nu-btn>
           <nu-btn special mark="y">Hover</nu-btn>
-          <nu-btn special inset>Pressed</nu-btn>
+          <nu-btn special inset="special">Pressed</nu-btn>
           <nu-btn special outline="y">Focus</nu-btn>
           <nu-btn special disabled>Disabled</nu-btn>
         </nu-flex>
