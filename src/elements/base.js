@@ -501,6 +501,12 @@ export default class NuBase extends HTMLElement {
         const styles = combine(combinator, allStyles);
 
         if (styles.length) {
+          if (transferChild) {
+            styles.forEach(map => {
+              map.$suffix += `>${transferChild}`;
+            });
+          }
+
           css.push(...generateCSS(tag, styles, false));
         }
       });
