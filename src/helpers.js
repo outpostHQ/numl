@@ -123,8 +123,24 @@ export function unit(name, { suffix, empty, property, convert } = {}) {
 const DEFAULT_MIN_SIZE = 'var(--nu-gap)';
 const DEFAULT_MAX_SIZE = '100%';
 
-const FILL_AVAILABLE = '-webkit-fill-available';
-const VH100 = CSS.supports('height', FILL_AVAILABLE) ? FILL_AVAILABLE : '100vh';
+function isSizingSupport(val) {
+  return CSS.supports('height', val);
+}
+
+const STRETCH = 'stretch';
+const FILL_AVAILABLE = 'fill-available';
+const WEBKIT_FILL_AVAILABLE = '-webkit-fill-available';
+const MOZ_FILL_AVAILABLE = '-moz-fill-available';
+const STRETCH_SIZE = isSizingSupport(STRETCH)
+  ? STRETCH
+  : isSizingSupport(FILL_AVAILABLE)
+    ? FILL_AVAILABLE
+    : isSizingSupport(WEBKIT_FILL_AVAILABLE)
+      ? WEBKIT_FILL_AVAILABLE
+      : isSizingSupport(MOZ_FILL_AVAILABLE)
+        ? MOZ_FILL_AVAILABLE
+        : null;
+const INTRINSIC_MODS = ['max-content', 'min-content', 'fit-content', 'stretch'];
 
 /**
  * Returns unit handler for dimensional attributes.
@@ -146,13 +162,13 @@ export function sizeUnit(name, $suffix) {
     val.split(',').forEach(value => {
       const { mods, values } = parseAttr(value, 1);
 
-      if (name === 'height') {
-        values.forEach((v, i) => {
-          if (v === '100vh') {
-            values[i] = VH100;
-          }
-        });
-      }
+      transferMods(INTRINSIC_MODS, mods, values);
+
+      values.forEach((v, i) => {
+        if (v === 'stretch') {
+          values[i] = STRETCH_SIZE || (name === 'height' ? '100vh' : '100vw');
+        }
+      });
 
       let flag = false;
 
@@ -1801,4 +1817,13 @@ export function customUnit(value, unit) {
   }
 
   return `(${value} * ${converter})`;
+}
+
+export function transferMods(mods, from, to) {
+  mods.forEach(mod => {
+    if (from.includes(mod)) {
+      to.push(mod);
+      from.splice(from.indexOf(mod), 1);
+    }
+  });
 }
