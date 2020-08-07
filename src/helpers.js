@@ -123,6 +123,9 @@ export function unit(name, { suffix, empty, property, convert } = {}) {
 const DEFAULT_MIN_SIZE = 'var(--nu-gap)';
 const DEFAULT_MAX_SIZE = '100%';
 
+const FILL_AVAILABLE = '-webkit-fill-available';
+const VH100 = CSS.supports('height', FILL_AVAILABLE) ? FILL_AVAILABLE : '100vh';
+
 /**
  * Returns unit handler for dimensional attributes.
  * @param {String} name - Attribute name.
@@ -142,6 +145,14 @@ export function sizeUnit(name, $suffix) {
 
     val.split(',').forEach(value => {
       const { mods, values } = parseAttr(value, 1);
+
+      if (name === 'height') {
+        values.forEach((v, i) => {
+          if (v === '100vh') {
+            values[i] = VH100;
+          }
+        });
+      }
 
       let flag = false;
 
