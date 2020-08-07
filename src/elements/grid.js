@@ -1,4 +1,4 @@
-import NuElement from './element';
+import NuElement from './el';
 
 export default class NuGrid extends NuElement {
   static get nuTag() {

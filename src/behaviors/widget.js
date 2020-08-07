@@ -7,7 +7,7 @@ import {
   setImmediate,
   isEqual,
 } from '../helpers';
-import NuElement from '../elements/element';
+import NuElement from '../elements/el';
 
 
 const LOCALE_VAR = 'locale';

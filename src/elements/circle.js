@@ -1,4 +1,4 @@
-import NuElement from './element';
+import NuElement from './el';
 import sizeAttr from '../attributes/size';
 
 export default class NuCircle extends NuElement {

@@ -1,4 +1,4 @@
-import NuElement from './element';
+import NuElement from './el';
 
 export default class NuDescription extends NuElement {
   static get nuTag() {

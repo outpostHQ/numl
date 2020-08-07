@@ -1,5 +1,5 @@
 import { h, parseAttr } from '../helpers';
-import NuElement from './element';
+import NuElement from './el';
 import { requireChild } from '../dom-helpers';
 
 export default class NuImg extends NuElement {

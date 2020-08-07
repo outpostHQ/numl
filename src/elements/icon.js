@@ -1,5 +1,5 @@
 import sizeAttr from '../attributes/size';
-import NuElement from './element';
+import NuElement from './el';
 
 export default class NuIcon extends NuElement {
   static get nuTag() {

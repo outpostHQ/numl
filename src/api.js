@@ -1,4 +1,4 @@
-import NuElement from './elements/element';
+import NuElement from './elements/el';
 import { log, warn, CUSTOM_UNITS, devMode } from './helpers';
 
 const OBJ_ASSIGN = ['attrs', 'styles', 'generators', 'behaviors', 'combinators'];

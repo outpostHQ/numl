@@ -1,4 +1,4 @@
-import NuElement from './element';
+import NuElement from './el';
 import combinedAttr from '../attributes/combined';
 
 export default class NuSlider extends NuElement {

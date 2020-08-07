@@ -1,7 +1,7 @@
 import NuBlock from './block';
 import { SIZES } from '../attributes/size';
 import { devMode, warn } from '../helpers';
-import NuElement from './element';
+import NuElement from './el';
 
 const LEVELS = [1, 2, 3, 4, 5, 6];
 

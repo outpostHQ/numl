@@ -1,5 +1,5 @@
 import { DEFAULT_TIMING } from '../attributes/transition';
-import NuElement from './element';
+import NuElement from './el';
 import paddingAttr from '../attributes/padding';
 
 export default class NuInput extends NuElement {

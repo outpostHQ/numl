@@ -1,4 +1,4 @@
-import NuElement from './element';
+import NuElement from './el';
 import { h } from '../helpers';
 import { requireChild } from '../dom-helpers';
 

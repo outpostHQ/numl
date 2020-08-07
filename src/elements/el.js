@@ -113,6 +113,8 @@ export default class NuElement extends NuBase {
       src: '',
       loading: '',
       autofocus: '',
+      autocomplete: '',
+      pattern: '',
       maxlength: '',
       mode: '',
       mask: '',

@@ -1,4 +1,4 @@
-import NuElement from './element';
+import NuElement from './el';
 import { h } from '../dom-helpers';
 
 export default class NuCode extends NuElement {

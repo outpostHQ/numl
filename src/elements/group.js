@@ -1,4 +1,4 @@
-import NuElement from './element';
+import NuElement from './el';
 
 const FLOW_ATTR = NuElement.nuAllGenerators.flow;
 

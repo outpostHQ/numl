@@ -1,6 +1,6 @@
 import combinedAttr from '../attributes/combined';
 import sizeAttr from '../attributes/size';
-import NuElement from './element';
+import NuElement from './el';
 
 export default class NuLine extends NuElement {
   static get nuTag() {
