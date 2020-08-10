@@ -1,7 +1,7 @@
 import { ICONS_PROVIDER } from './settings';
 import { extractModule, warn } from './helpers';
 
-export function featherIconsLoader(name) {
+function featherIconsLoader(name) {
   return extractModule(import('feather-icons/dist/icons.json'))
     .then(icons => {
       name = name.replace('-outline', '');
@@ -16,7 +16,7 @@ export function featherIconsLoader(name) {
     });
 }
 
-export function evaIconsLoader(name) {
+function evaIconsLoader(name) {
   return extractModule(import('eva-icons/eva-icons.json'))
     .then(icons => {
       let contents = icons[name];
@@ -65,8 +65,10 @@ const Icons = {
   setLoader(_loader) {
     loader = _loader;
   },
-  featherIconsLoader,
-  evaIconsLoader,
+  loaders: {
+    feather: featherIconsLoader,
+    eva: evaIconsLoader,
+  },
 }
 
 export default Icons;
