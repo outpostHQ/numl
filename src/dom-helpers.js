@@ -44,3 +44,13 @@ export function requireChild(host, tag) {
     host.appendChild(h(tag));
   }
 }
+
+export function fixture(html) {
+  const template = document.createElement('template');
+
+  html = html.trim();
+
+  template.innerHTML = html;
+
+  return template.content.firstChild;
+}

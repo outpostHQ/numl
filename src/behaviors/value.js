@@ -79,6 +79,18 @@ export default class ValueBehavior extends WidgetBehavior {
       `;
     } else if (typeof value === 'boolean') {
       value = value ? '<nu-icon name="check"></nu-icon>' : '<nu-icon name="minus"></nu-icon>';
+    } else if (Array.isArray(value)) {
+      value = `</nu-block>${value.join('</nu-block><nu-block>')}</nu-block>`;
+    } else if (value instanceof File) {
+      value = value.name;
+    } else if (value instanceof FileList) {
+      const files = [];
+
+      for (const file of value) {
+        files.push(file.name);
+      }
+
+      value = `</nu-block>${files.join('</nu-block><nu-block>')}</nu-block>`;
     } else if (typeof value === 'object') {
       value = `<pre>${JSON.stringify(value, null, 2)}</pre>`;
     }

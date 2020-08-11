@@ -119,6 +119,7 @@ export default class NuElement extends NuBase {
       mode: '',
       mask: '',
       list: '',
+      multiple: '',
       // converters
       typographer: '',
       linkify: '',

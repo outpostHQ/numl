@@ -1,14 +1,16 @@
 import WidgetBehavior from './widget';
 import { isEqual } from '../helpers';
-import { h } from '../dom-helpers';
+import { fixture, h } from '../dom-helpers';
 
-export default class InputBehavior extends WidgetBehavior {
+export default class FileInputBehavior extends WidgetBehavior {
   static get params() {
     return {
       input: true,
       localized: false,
       tag: 'input',
-      type: 'text',
+      type: 'file',
+      acceptValue: false,
+      provideValue: true,
     };
   }
 
@@ -16,30 +18,29 @@ export default class InputBehavior extends WidgetBehavior {
     const tag = this.tagName = this.params.tag;
     const { host } = this;
 
-    this.ref = host.querySelector(tag);
+    const existRef = host.querySelector(tag);
 
-    if (!this.ref) {
-      const input = h(tag);
-
-      host.appendChild(input);
-
-      this.ref = input;
+    if (existRef) {
+      existRef.parentNode.removeChild(existRef);
     }
 
+    const container = fixture('<nu-block place="cover" opacity="0" overflow="n"><input/></nu-block>');
+
+    host.appendChild(container);
+
+    this.ref = container.querySelector('input');
+
     this.setType();
+
+    host.appendChild(fixture('<nu-icon name="upload"><nu-icon>'));
+    host.appendChild(fixture('<nu-value></nu-value>'));
 
     this.value = null;
     this.props.disabled = () => {
       return this.transferAttr('disabled', this.ref) != null;
     };
-    this.props.autofocus = () => {
-      return this.transferAttr('autofocus', this.ref) != null;
-    };
-    this.props.autocomplete = () => {
-      return this.transferAttr('autocomplete', this.ref);
-    };
-    this.props.pattern = () => {
-      return this.transferAttr('pattern', this.ref);
+    this.props.multiple = () => {
+      return this.transferAttr('multiple', this.ref) != null;
     };
     this.props.placeholder = () => this.transferAttr('placeholder', this.ref, '...');
 
@@ -47,20 +48,10 @@ export default class InputBehavior extends WidgetBehavior {
 
     const { ref } = this;
 
-    if (this.value == null) {
-      const elementValue = tag === 'textarea' ? ref.textContent : ref.value;
-
-      if (elementValue) {
-        this.setValue(elementValue, true);
-      }
-    }
-
-    this.setFormValue();
-
     ref.addEventListener('input', (event) => {
       event.stopPropagation();
 
-      this.setValue(ref.value);
+      this.setValue(ref.files);
     });
 
     ref.addEventListener('change', (event) => {
@@ -93,12 +84,6 @@ export default class InputBehavior extends WidgetBehavior {
       this.setEmpty();
     }, 'inputGroup');
 
-    host.addEventListener('keydown', (event) => {
-      if (tag === 'input' && event.key === 'Enter') {
-        this.doAction('submit');
-      }
-    });
-
     // recheck for autocomplete
     setTimeout(() => {
       this.setEmpty();
@@ -117,10 +102,14 @@ export default class InputBehavior extends WidgetBehavior {
     }
   }
 
-  setValue(value, silent) {
-    if (isEqual(this.value, value)) return;
+  setValue(fileList, silent) {
+    if (!(fileList instanceof FileList) || isEqual(this.value, fileList)) return;
 
-    this.value = value;
+    this.value = this.multiple ? fileList : fileList[0];
+
+    if (this.params.provideValue) {
+      this.setValueToContext();
+    }
 
     this.setEmpty();
 
@@ -128,30 +117,18 @@ export default class InputBehavior extends WidgetBehavior {
       this.emit('input', this.value);
     }
 
-    this.setInputValue(value);
     this.setFormValue();
   }
 
-  setInputValue(value) {
-    const { ref } = this;
-    const tag = this.tagName;
-
-    if (!ref) return;
-
-    if (tag === 'textarea') {
-      if (ref.textContent !== value) {
-        ref.textContent = value;
-      }
-    } else if (ref.value !== value) {
-      ref.value = value;
-    }
-  }
-
   setType() {
-    if (this.ref && this.params.tag === 'input') {
+    if (this.ref ) {
       this.ref.type = this.params.type;
     } else {
       setTimeout(() => this.setType());
     }
+  }
+
+  getTypedValue(value) {
+    return value;
   }
 }

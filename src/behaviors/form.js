@@ -1,6 +1,7 @@
 import WidgetBehavior from './widget';
 import { checkErrors } from '../validators';
 import { deepQueryAll, isEqual } from '../helpers';
+import jsonToFormData from 'json-form-data';
 
 /**
  * Behavior to handle form logic.
@@ -46,7 +47,8 @@ export default class FormBehavior extends WidgetBehavior {
       this.verifyData()
         .then(valid => {
           if (valid) {
-            this.emit('input', this.value);
+            this.emit('input', this.type === 'formdata'
+              ? jsonToFormData(this.value) : this.value);
             this.control();
           }
         });

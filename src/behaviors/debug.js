@@ -75,7 +75,7 @@ export default class DebugBehavior extends Behavior {
       }
     }
 
-    const debugEl = query(host, `#${id}`);
+    const debugEl = query(host, `#${id.trim()}`);
 
     if (debugEl && debugEl.nu) {
       this.debugger = debugEl;

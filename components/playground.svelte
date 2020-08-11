@@ -1292,7 +1292,7 @@ var b = /wow?/;
   <nu-card as="section">
     <nu-card gap>
       <nu-h3>Basic form</nu-h3>
-      <nu-form control="output[.value]" gap="1x">
+      <nu-form control="output[.value]" gap="1x" type="formdata">
         <nu-field>
           <nu-label>Password</nu-label>
           <nu-password id="password" grow="1"></nu-password>
@@ -1301,7 +1301,6 @@ var b = /wow?/;
           <nu-label>Phone</nu-label>
           <nu-telinput id="phone" grow="1"></nu-telinput>
         </nu-field>
-        <nu-form gap="2x" width="8sp">
         <nu-field>
           <nu-label>Full name</nu-label>
           <nu-input id="name"/>
@@ -1317,6 +1316,10 @@ var b = /wow?/;
         <nu-field>
           <nu-label>LinkedIn Profile (optional)</nu-label>
           <nu-input id="linkedInUrl"/>
+        </nu-field>
+          <nu-field>
+          <nu-label>CV/Resume</nu-label>
+          <nu-fileinput id="files" />
         </nu-field>
         <nu-btn special action="submit">Submit</nu-btn>
       </nu-form>

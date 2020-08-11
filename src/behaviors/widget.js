@@ -462,7 +462,7 @@ export default class WidgetBehavior extends Behavior {
   }
 
   transferAttr(name, ref, defaultValue) {
-    if (!ref) return;
+    if (!ref || this.ref === this.host) return;
 
     let value = this.host.getAttribute(name);
 

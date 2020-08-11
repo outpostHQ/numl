@@ -19,7 +19,7 @@ export default class NuInput extends NuElement {
       padding: (val) => {
         const styles = paddingAttr(val, this.constructor.nuAllStyles);
 
-        styles.$suffix = '>*';
+        styles.$suffix = '>input,>textarea';
 
         return styles;
       },
@@ -50,7 +50,7 @@ export default class NuInput extends NuElement {
   static get nuAttrsFor() {
     return {
       icon: {
-        width: '((--nu-local-padding * 2) + 1em)',
+        width: '((--nu-gap * 2) + 1em)',
       },
     };
   }

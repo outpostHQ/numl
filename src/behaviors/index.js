@@ -25,6 +25,7 @@ const BEHAVIORS = {
   numinput: () => extract(import('./numinput.js')),
   input: () => extract(import('./input.js')),
   textarea: () => extract(import('./textarea.js')),
+  fileinput: () => extract(import('./fileinput.js')),
   icon: () => extract(import('./icon.js')),
   svg: () => extract(import('./svg.js')),
   image: () => extract(import('./image.js')),
