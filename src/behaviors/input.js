@@ -6,7 +6,7 @@ export default class InputBehavior extends WidgetBehavior {
   static get params() {
     return {
       input: true,
-      localized: true,
+      localized: false,
       tag: 'input',
       type: 'text',
     };
@@ -150,7 +150,7 @@ export default class InputBehavior extends WidgetBehavior {
   }
 
   setType() {
-    if (this.ref ) {
+    if (this.ref && this.params.tag === 'input') {
       this.ref.type = this.params.type;
     } else {
       setTimeout(() => this.setType());

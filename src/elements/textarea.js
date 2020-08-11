@@ -11,4 +11,10 @@ export default class NuTextArea extends NuInput {
       input: null,
     };
   }
+
+  static get nuStyles() {
+    return {
+      height: '3lh + 2x + 2bw',
+    };
+  }
 }

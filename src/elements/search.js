@@ -8,7 +8,6 @@ export default class NuSearch extends NuInput {
   static get nuBehaviors() {
     return {
       input: 'type(search)',
-      search: true,
     };
   }
 }

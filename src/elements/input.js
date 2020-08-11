@@ -19,7 +19,7 @@ export default class NuInput extends NuElement {
       padding: (val) => {
         const styles = paddingAttr(val, this.constructor.nuAllStyles);
 
-        styles.$suffix = '>input';
+        styles.$suffix = '>*';
 
         return styles;
       },
@@ -44,6 +44,14 @@ export default class NuInput extends NuElement {
       height: 'auto :empty[min (1fs + 2x)]',
       cursor: 'text',
       width: 'auto',
+    };
+  }
+
+  static get nuAttrsFor() {
+    return {
+      icon: {
+        width: '((--nu-local-padding * 2) + 1em)',
+      },
     };
   }
 
@@ -92,34 +100,30 @@ export default class NuInput extends NuElement {
         line-height: inherit;
       }`,
 
-      `${tag} input[disabled] {
+      `${tag} input[disabled], ${tag} textarea[disabled] {
         color: inherit;
         background: transparent;
         -webkit-opacity: 1;
       }`,
 
-      `${tag} input::placeholder {
+      `${tag} input::placeholder, ${tag} textarea::placeholder {
         -webkit-text-fill-color: currentColor;
       }`,
 
-      `${tag}:not([disabled]) input::placeholder {
+      `${tag}:not([disabled]) input::placeholder, ${tag}:not([disabled]) textarea::placeholder {
         opacity: .4;
       }`,
 
-      `${tag}[disabled] input::placeholder {
+      `${tag}[disabled] input::placeholder, ${tag}[disabled] textarea::placeholder {
         opacity: .6;
       }`,
 
-      `${tag}[special] input::placeholder {
+      `${tag}[special] input::placeholder, ${tag}[special] textarea::placeholder {
         color: var(--nu-placeholder-color, var(--nu-special-text-color));
       }`,
 
-      `${tag}:not([special]) input::placeholder {
+      `${tag}:not([special]) input::placeholder, ${tag}:not([special]) textarea::placeholder {
         color: var(--nu-placeholder-color, var(--nu-text-color));
-      }`,
-
-      `${tag} nu-icon:not([width]) {
-        width: calc(var(--nu-local-padding) * 2 + 1em);
       }`,
     ];
   }

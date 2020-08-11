@@ -8,7 +8,6 @@ export default class NuEmailInput extends NuInput {
   static get nuBehaviors() {
     return {
       input: 'type(email)',
-      search: true,
     };
   }
 }

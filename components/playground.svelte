@@ -1291,12 +1291,8 @@ var b = /wow?/;
 
   <nu-card as="section">
     <nu-card gap>
-      <nu-h3>Basic login form</nu-h3>
+      <nu-h3>Basic form</nu-h3>
       <nu-form control="output[.value]" gap="1x">
-        <nu-field>
-          <nu-label>Email</nu-label>
-          <nu-emailinput id="email" grow="1"></nu-emailinput>
-        </nu-field>
         <nu-field>
           <nu-label>Password</nu-label>
           <nu-password id="password" grow="1"></nu-password>
@@ -1304,6 +1300,23 @@ var b = /wow?/;
         <nu-field>
           <nu-label>Phone</nu-label>
           <nu-telinput id="phone" grow="1"></nu-telinput>
+        </nu-field>
+        <nu-form gap="2x" width="8sp">
+        <nu-field>
+          <nu-label>Full name</nu-label>
+          <nu-input id="name"/>
+        </nu-field>
+        <nu-field>
+          <nu-label>Email</nu-label>
+          <nu-emailinput id="email"/>
+        </nu-field>
+        <nu-field>
+          <nu-label>Cover letter (optional)</nu-label>
+          <nu-textarea id="coverLetter"/>
+        </nu-field>
+        <nu-field>
+          <nu-label>LinkedIn Profile (optional)</nu-label>
+          <nu-input id="linkedInUrl"/>
         </nu-field>
         <nu-btn special action="submit">Submit</nu-btn>
       </nu-form>
