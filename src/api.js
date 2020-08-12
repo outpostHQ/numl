@@ -1,5 +1,5 @@
 import NuElement from './elements/el';
-import { log, warn, CUSTOM_UNITS, devMode } from './helpers';
+import { log, warn } from './helpers';
 
 const OBJ_ASSIGN = ['attrs', 'styles', 'generators', 'behaviors', 'combinators'];
 
@@ -66,7 +66,14 @@ export function define(tag, options, skipDefine) {
   return Element;
 }
 
-export function assign(element, prop, value, elements = {}) {
+export function assign(element, options, elements = {}) {
+  Object.keys(options)
+    .forEach(option => {
+      assignOption(element, option, options[option], elements);
+    });
+}
+
+export function assignOption(element, prop, value, elements = {}) {
   if (!(prop in staticBind)) {
     warn('assign: Property not found');
 
@@ -97,4 +104,3 @@ export function assign(element, prop, value, elements = {}) {
 
   log('property assigned:', `${element.nuTag}.${prop}:`, newValue);
 }
-

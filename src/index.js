@@ -44,8 +44,8 @@ import { removeRulesByPart, generateCSS, insertRuleSet } from './css';
 initSticky(); // enable sticky detection
 initLinks(); // enable link current state detection
 
-function assign(element, prop, value) {
-  return baseAssign(element, prop, value, elements);
+function assign(element, options) {
+  return baseAssign(element, options, elements);
 }
 
 const helpers = {
