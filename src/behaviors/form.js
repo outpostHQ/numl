@@ -1,7 +1,7 @@
 import WidgetBehavior from './widget';
 import { checkErrors } from '../validators';
 import { deepQueryAll, isEqual } from '../helpers';
-import jsonToFormData from 'json-form-data';
+import jsonToFormData from '../json-to-dataform';
 
 /**
  * Behavior to handle form logic.
