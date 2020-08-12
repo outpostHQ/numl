@@ -97,6 +97,6 @@ export default class ValueBehavior extends WidgetBehavior {
 
     this.host.innerHTML = hasValue ? value : (this.placeholder || '&nbsp;');
 
-    this.setMod('empty', !hasValue);
+    this.setMod('placeholder', !hasValue);
   }
 }

@@ -2,6 +2,12 @@ import WidgetBehavior from './widget';
 import { isEqual } from '../helpers';
 import { h } from '../dom-helpers';
 
+const AUTOCOMPLETE_MAP = {
+  email: 'email',
+  tel: 'tel',
+  url: 'url',
+};
+
 export default class InputBehavior extends WidgetBehavior {
   static get params() {
     return {
@@ -36,7 +42,7 @@ export default class InputBehavior extends WidgetBehavior {
       return this.transferAttr('autofocus', this.ref) != null;
     };
     this.props.autocomplete = () => {
-      return this.transferAttr('autocomplete', this.ref);
+      return this.transferAttr('autocomplete', this.ref, AUTOCOMPLETE_MAP[this.params.type]);
     };
     this.props.pattern = () => {
       return this.transferAttr('pattern', this.ref);

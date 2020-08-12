@@ -28,9 +28,11 @@ export default class NuFileInput extends NuElement {
     return {
       ...NuInput.nuStyles,
       height: 'min (1lh + 2x + 2bw)',
-      cursor: 'default',
+      cursor: 'pointer',
       content: 'center start',
       gap: '2x',
+      items: 'center stretch',
+      mark: 'hover',
     };
   }
 
@@ -57,6 +59,7 @@ export default class NuFileInput extends NuElement {
         bottom: 0;
         left: 0;
         transform: scale(100, 100);
+        cursor: inherit;
       }`,
     ];
   }
