@@ -21,19 +21,16 @@ export default class FileInputBehavior extends WidgetBehavior {
     const existRef = host.querySelector(tag);
 
     if (existRef) {
-      existRef.parentNode.removeChild(existRef);
+      this.ref = existRef;
+    } else {
+      const container = fixture('<nu-block place="cover" opacity="0" overflow="n"><input/></nu-block>');
+
+      host.appendChild(container);
+
+      this.ref = container.querySelector('input');
     }
 
-    const container = fixture('<nu-block place="cover" opacity="0" overflow="n"><input/></nu-block>');
-
-    host.appendChild(container);
-
-    this.ref = container.querySelector('input');
-
     this.setType();
-
-    host.appendChild(fixture('<nu-icon name="upload"><nu-icon>'));
-    host.appendChild(fixture('<nu-value></nu-value>'));
 
     this.value = null;
     this.props.disabled = () => {

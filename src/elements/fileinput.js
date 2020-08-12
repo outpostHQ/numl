@@ -10,6 +10,14 @@ export default class NuFileInput extends NuElement {
     return 'fileinput input';
   }
 
+  static get nuTemplate() {
+    return `
+      <nu-block place="cover" opacity="0" overflow="n"><input/></nu-block>
+      <nu-icon name="upload"></nu-icon>
+      <nu-value></nu-value>
+    `;
+  }
+
   static get nuBehaviors() {
     return {
       fileinput: true,
