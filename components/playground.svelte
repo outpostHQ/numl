@@ -1,5 +1,17 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('snippet')}
+  <nu-heading level="2">Code</nu-heading>
+
+  <nu-card as="section">
+    <nu-code is-dark padding="1x 2x">
+      <pre>
+        var a = '123';
+      </pre>
+    </nu-code>
+  </nu-card>
+{/if}
+
 {#if show('radio')}
   <nu-heading level="2">Radio buttons</nu-heading>
 
@@ -209,7 +221,7 @@
         # What?
 
         ```
-        var a = '123';
+        var a = #[['123']]#;
         var b = /.+/g;
         ```
       </pre>

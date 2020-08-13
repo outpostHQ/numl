@@ -14,8 +14,23 @@ export default class NuCode extends NuElement {
     return {
       display: 'block',
       radius: '1r',
-      fill: 'main-bg',
+      fill: 'hue(0 0 0) :dark[hue(0 0 70 special)]',
       text: 'monospace',
+      '--com-color': 'hue(0 0 low) :dark[hue(0 0 low special)]',
+      '--spc-color': '--main-text-color :dark[white]',
+      '--nam-color': '--main-text-color :dark[white]',
+      '--key-color': 'hue(240 70) :dark[hue(240 70 10 special)]',
+      '--num-color': 'hue(280 100 pastel) :dark[hue(280 100 10 pastel special)]',
+      '--pct-color': 'hue(60 pastel) :dark[hue(60 100 10 pastel special)]',
+      '--rex-color': 'hue(340 70) :dark[hue(340 70 10 special)]',
+      '--str-color': 'hue(180 70) :dark[hue(180 70 10 special)]',
+      '--unk-color': 'hue(240 0) :dark[hue(240 0 10 special)]',
+      '--pls-color': 'hue(180 70) :dark[hue(180 70 10 special)]',
+      '--mns-color': 'hue(1 70) :dark[hue(1 70 10 special)]',
+      '--mrk-color': 'hue(240 70 60) :dark[hue(240 70 60 special)]',
+      '--mrk-bg-color': 'hue(240 70 3) :dark[hue(240 70 3 special)]',
+      '--imp-color': '--white-color',
+      '--imp-bg-color': 'hue(1 70 special)',
     };
   }
 

@@ -1,6 +1,5 @@
 import ConverterBehavior from './converter';
 import CodeConverter from '../converters/code';
-import { applyTheme, parseHue, requireHue } from '../themes';
 
 let themesDeclared = false;
 
@@ -18,30 +17,7 @@ const MNS = 'mns';
 const MRK = 'mrk';
 const IMP = 'imp';
 
-export const CODE_THEMES = {
-  [COM]: '0 0 low',
-  [SPC]: false,
-  [NAM]: false,
-  [KEY]: '240 70',
-  [NUM]: '280 100 pastel',
-  [PCT]: '60 pastel',
-  [REX]: '340 70',
-  [STR]: '180 70',
-  [UNK]: '240 0',
-  [PLS]: '180 70',
-  [MNS]: '1 70',
-  [MRK]: {
-    hue: 240,
-    type: 'tone',
-  },
-  [IMP]: {
-    hue: 1,
-    type: 'special',
-    lightness: 'dim',
-    saturation: 75,
-    pastel: false,
-  }
-};
+export const NAMES = [COM, KEY, NAM, NUM, PCT, REX, SPC, STR, UNK, PLS, MNS, MRK, IMP];
 export const THEME_ATTRS = {};
 
 export default class CodeBehavior extends ConverterBehavior {
@@ -91,31 +67,11 @@ export default class CodeBehavior extends ConverterBehavior {
 function declareThemes() {
   themesDeclared = true;
 
-  Object.entries(CODE_THEMES).forEach(([id, theme]) => {
-    if (!theme) {
-      THEME_ATTRS[id] = { color: '--nu-main-text-color' };
-    } else if (typeof theme === 'object') {
-      const { hue, type, saturation, pastel, contrast, lightness } = theme;
+  NAMES.forEach(name => {
+    THEME_ATTRS[name] = { style: `color: var(--nu-${name}-color, var(--nu-main-text-color)); background-color: var(--nu-${name}-bg-color, transparent)` };
 
-      const name = `snippet-${id}`;
-
-      applyTheme(document.body, {
-        hue: hue != null ? String(hue) : 240,
-        saturation: saturation != null ? saturation : (pastel ? 100 : 75),
-        pastel: pastel != null ? pastel : false,
-        name,
-        type: type || 'tint',
-        lightness: lightness || 'normal',
-        contrast: contrast || 'normal',
-      }, name);
-
-      THEME_ATTRS[id] = { theme: name };
-
-      if (type) {
-        THEME_ATTRS[id].fill = '';
-      }
-    } else {
-      THEME_ATTRS[id] = { color: `${requireHue(parseHue(theme))}`}
+    if (name === MRK || name === IMP) {
+      THEME_ATTRS[name].radius = '.5x';
     }
   });
 }
