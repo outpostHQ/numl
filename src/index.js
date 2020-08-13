@@ -8,7 +8,7 @@ import {
   deepQuery,
   requestIdleCallback,
   resetScroll,
-  isEqual,
+  isEqual, error,
 } from './helpers';
 
 import { define, assign as baseAssign } from './api';
@@ -55,7 +55,7 @@ const helpers = {
 const BODY = document.body;
 
 if (window.Nude) {
-  warn('Several instances of NUDE Framework is loaded. Initialization aborted');
+  throw error('Several instances of NUDE Framework is loaded. Initialization aborted');
 }
 
 initFocus();
