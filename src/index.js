@@ -70,34 +70,6 @@ insertRuleSet('theme:base', generateCSS('body', [...themeStyles, {
   '--nu-diff-color': 'var(--nu-bg-color)',
 }], false, true));
 
-const verifyDOM = asyncDebounce(() => {
-  const els = [...document.querySelectorAll('[nu]')];
-
-  els.forEach(el => {
-    el.nuCreateContext();
-  });
-
-  els.forEach(el => {
-    el.nuContextChanged(name);
-    el.nuSetContextAttrs();
-
-    if (el.hasAttribute('theme')) {
-      el.nuEnsureThemes();
-    }
-
-    if (el.nuApply) {
-      el.nuApply();
-    }
-  });
-
-  [...document.querySelectorAll('[is-root]')]
-    .forEach(el => {
-      el.nuVerifyChildren(true);
-    });
-
-  removeRulesByPart('attrs:all');
-});
-
 const Nude = {
   tags: {},
   isTouch,
@@ -113,7 +85,6 @@ const Nude = {
   icons,
   svg,
   elements,
-  verifyDOM,
   deepQueryAll,
   deepQuery,
   requestIdleCallback,
@@ -219,7 +190,6 @@ export {
   routing,
   icons,
   svg,
-  verifyDOM,
   deepQueryAll,
   deepQuery,
   requestIdleCallback,
