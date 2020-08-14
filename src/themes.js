@@ -212,7 +212,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
       theme['text-strong'] = [0, 0, findContrastLightness(tonedBgLightness, 7)];
   }
 
-  theme.dark = setPastelSaturation(originalSpecial, saturation / (darkScheme ? 1 : 1.5));
+  theme.dark = setPastelSaturation(originalSpecial, Math.max(saturation * (darkScheme ? 1.2 : 1), 100));
   theme.dark[2] = darkScheme ? 22 : 30;
   theme.outline = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
 
