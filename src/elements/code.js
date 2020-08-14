@@ -17,8 +17,8 @@ export default class NuCode extends NuElement {
       fill: 'hue(0 0 0) :dark[hue(0 0 70 special)]',
       text: 'monospace',
       '--com-color': 'hue(0 0 low) :dark[hue(0 0 low special)]',
-      '--spc-color': '--main-text-color :dark[white]',
-      '--nam-color': '--main-text-color :dark[white]',
+      '--spc-color': '--main-text-color :dark[color(white)]',
+      '--nam-color': '--main-text-color :dark[color(white)]',
       '--key-color': 'hue(240 70) :dark[hue(240 70 10 special)]',
       '--num-color': 'hue(280 100 pastel) :dark[hue(280 100 10 pastel special)]',
       '--pct-color': 'hue(60 pastel) :dark[hue(60 100 10 pastel special)]',
@@ -29,7 +29,7 @@ export default class NuCode extends NuElement {
       '--mns-color': 'hue(1 70) :dark[hue(1 70 10 special)]',
       '--mrk-color': 'hue(240 70 60) :dark[hue(240 70 60 special)]',
       '--mrk-bg-color': 'hue(240 70 3) :dark[hue(240 70 3 special)]',
-      '--imp-color': '--white-color',
+      '--imp-color': 'color(white)',
       '--imp-bg-color': 'hue(1 70 special)',
     };
   }
