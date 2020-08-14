@@ -8,6 +8,7 @@ export default class NuCd extends NuCode {
   static get nuAttrs() {
     return {
       inline: '',
+      fill: 'diff :special[dark]',
     };
   }
 
