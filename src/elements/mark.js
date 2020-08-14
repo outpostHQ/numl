@@ -5,6 +5,10 @@ export default class NuMark extends NuElement {
     return 'nu-mark';
   }
 
+  static get nuRole() {
+    return 'mark';
+  }
+
   static get nuStyles() {
     return {
       text: 'nowrap bolder',

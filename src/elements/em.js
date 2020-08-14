@@ -5,6 +5,10 @@ export default class NuEm extends NuInline {
     return 'nu-em';
   }
 
+  static get nuRole() {
+    return 'emphasis';
+  }
+
   static get nuStyles() {
     return {
       text: 'i',

@@ -5,6 +5,10 @@ export default class NuStrong extends NuInline {
     return 'nu-strong';
   }
 
+  static get nuRole() {
+    return 'strong';
+  }
+
   static get nuStyles() {
     return {
       text: 'bold',
