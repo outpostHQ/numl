@@ -15,9 +15,9 @@ export default function scrollbarAttr(val) {
   return [
     {
       $suffix: ':not([special])',
-      '--nu-local-scrollbar-thumb-color': 'var(--nu-scrollbar-thumb-color, rgba(var(--nu-text-color-rgb), .5)))',
+      '--nu-local-scrollbar-thumb-color': 'var(--nu-scrollbar-thumb-color, rgba(var(--nu-text-color-rgb), .5))',
       '--nu-local-scrollbar-border-color': 'var(--nu-scrollbar-border-color, var(--nu-border-width))',
-      '--nu-local-scrollbar-bg-color': 'var(--nu-scrollbar-bg-color, var(--nu-local-bg-color, var(--nu-subtle-color)))',
+      '--nu-local-scrollbar-bg-color': 'var(--nu-scrollbar-bg-color, var(--nu-diff-color, var(--nu-local-bg-color)))',
     },
     {
       $suffix: '[special]',

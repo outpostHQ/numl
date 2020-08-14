@@ -7,6 +7,9 @@
     <nu-code special padding="1x 2x" overflow="auto">
       <pre>
         <nu-input is-big placeholder="Input"></nu-input>
+        [[ ]] ## qqsdasd
+
+        #[[something]]#
       </pre>
     </nu-code>
   </nu-card>
