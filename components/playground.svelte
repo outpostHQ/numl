@@ -4,7 +4,7 @@
   <nu-heading level="2">Code</nu-heading>
 
   <nu-card as="section">
-    <nu-code is-dark padding="1x 2x">
+    <nu-code special padding="1x 2x">
       <pre>
         var a = '123';
       </pre>
