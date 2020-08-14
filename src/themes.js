@@ -36,6 +36,7 @@ export const THEME_PROPS_LIST = [
   'special-bg-color',
   'special-mark-color',
   'special-shadow-color',
+  'dark-color',
   'input-color',
 ];
 const normalTextLightness = 19.87;
@@ -211,6 +212,8 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
       theme['text-strong'] = [0, 0, findContrastLightness(tonedBgLightness, 7)];
   }
 
+  theme.dark = setPastelSaturation(originalSpecial, saturation / (darkScheme ? 1 : 1.5));
+  theme.dark[2] = darkScheme ? 22 : 30;
   theme.outline = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
 
   if (type === 'main') {

@@ -14,7 +14,7 @@ export default class NuCode extends NuElement {
     return {
       display: 'block',
       radius: '1r',
-      fill: 'hue(0 0 0) :special[hue(0 0 70 special)]',
+      fill: 'hue(0 0 0) :special[dark]',
       text: 'monospace',
       '--com-color': 'hue(0 0 low) :special[hue(0 0 12 special)]',
       '--spc-color': '--main-text-color :special[color(white)]',
