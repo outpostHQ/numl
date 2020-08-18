@@ -222,7 +222,9 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
     // theme.border = theme.border || (type === 'tint' || type === 'tone' ? setPastelSaturation : setSaturation)(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : saturation * .75);
     theme.border = [...theme.text, highContrast ? 1 : .5];
 
-    theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -2 : 2)];
+    if (!theme.subtle) {
+      theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -2 : 2)];
+    }
 
     theme.input = theme.input || [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -8 : 6)];
   }

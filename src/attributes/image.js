@@ -1,6 +1,6 @@
 import { convertCustomFuncs, convertCustomProperties } from '../helpers';
 
-const REGEX = /(linear|conic)(?=\()/g;
+const REGEX = /(linear|conic|radial)(?=\()/g;
 
 export default function imageAttr(val) {
   val = convertCustomProperties(convertCustomFuncs(val));

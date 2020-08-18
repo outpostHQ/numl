@@ -17,7 +17,7 @@ export default class NuCard extends NuRegion {
       border: '1bw :clear[0]',
       radius: '1r',
       transition: 'theme, radius',
-      shadow: '0 :clear[1.5]',
+      shadow: '0 :clear[0 1x 4x #shadow.33]',
       box: 'y',
     };
   }

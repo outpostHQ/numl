@@ -29,7 +29,7 @@ export default class NuList extends NuElement {
       display: 'block',
       flow: 'column',
       gap: '1x',
-      position: 'inside',
+      position: 'outside',
     };
   }
 

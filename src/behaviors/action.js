@@ -219,7 +219,7 @@ export default class ActionBehavior extends WidgetBehavior {
         if (elm) {
           elm.scrollIntoView({ behavior: 'smooth' });
 
-          location.hash = id;
+          history.replaceState(null, '', `#${id}`);
 
           evt.preventDefault();
 
