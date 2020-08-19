@@ -2,9 +2,9 @@ import WidgetBehavior, { NUMBER_TYPE } from './widget';
 
 export default class ProgressBarBehavior extends WidgetBehavior {
   init() {
-    this.props.value = NUMBER_TYPE(0);
     this.props.min = NUMBER_TYPE(0);
     this.props.max = NUMBER_TYPE(100);
+    this.props.value = NUMBER_TYPE(100);
 
     super.init();
   }

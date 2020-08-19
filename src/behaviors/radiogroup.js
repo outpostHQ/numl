@@ -1,5 +1,6 @@
-import WidgetBehavior from "./widget";
+import WidgetBehavior, { BOOL_TYPE } from "./widget";
 import MenuBehavior from './menu';
+import { deepQueryAll, setAttr } from '../helpers';
 
 const Menu = MenuBehavior.prototype;
 
@@ -14,6 +15,19 @@ export default class RadioGroupBehavior extends WidgetBehavior {
   }
 
   init() {
+    this.props.disabled = (val) => {
+      const { host } = this;
+      const value = BOOL_TYPE(val);
+
+      const actionEls = deepQueryAll(host, '[nu-action]');
+
+      actionEls.forEach(el => {
+        setAttr(el, 'disabled', value);
+      });
+
+      return value;
+    };
+
     super.init();
 
     this._items = [];

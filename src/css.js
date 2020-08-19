@@ -437,6 +437,8 @@ const globalRules = [`
   --nu-monospace-font: var(--nu-base-monospace-font);
 
   --nu-clear-color: transparent;
+  --nu-black-color: rgba(0, 0, 0, 1);
+  --nu-black-color-rgb: 0, 0, 0;
 }`,
 
 `:root:not([data-nu-prevent-reset]) body {

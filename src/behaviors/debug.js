@@ -53,7 +53,7 @@ export default class DebugBehavior extends Behavior {
 
   getDebugger() {
     const { host } = this;
-    let id = this.debuggerId;
+    let id = this.debuggerId.trim();
 
     if (this.debugger && this.debugger.nuId === id) {
       return this.debugger;

@@ -776,13 +776,11 @@ Object.assign(CUSTOM_FUNCS, {
 });
 
 [
-  ['black', 100],
   ['white', 0],
   ['light', 5],
   ['grey', 'auto'],
   ['darkgrey', 'high'],
   ['lightgrey', 'low'],
-  ['dark', 85]
 ]
   .forEach(([name, contrast]) => {
     requireHue({ hue: 0, saturation: 0, contrast, alpha: 100, special: true }, name);
