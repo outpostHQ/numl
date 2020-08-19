@@ -8,7 +8,9 @@ export default function propAttr(val) {
   const styles = { [`--nu-${name}`]: value };
 
   if (value.endsWith('-color')) {
-    styles[`--nu-${name}-rgb`] = `${value}-rgb`;
+    styles[`--nu-${name}-rgb`] = `var(${value}-rgb)`;
+  } else if (value.startsWith('var(--nu-') && value.endsWith('-color)')) {
+    styles[`--nu-${name}-rgb`] = `var(${value.slice(4, -1)}-rgb)`;
   } else if (value.startsWith('var(--nu-h-')) {
     styles[`--nu-${name}-rgb`] = `${value.slice(0, -1)}-rgb)`;
   } else if (value.match(/^rgb(|a)\(/)) {
