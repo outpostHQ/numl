@@ -336,10 +336,10 @@
   </nu-card>
 
   <nu-card gap="2x" padding="4x">
-    <nu-cardbtn shadow=".25" special>CARD</nu-cardbtn>
-    <nu-cardbtn shadow=".5" special>CARD</nu-cardbtn>
-    <nu-cardbtn shadow="1" special>CARD</nu-cardbtn>
-    <nu-cardbtn shadow="2" special>CARD</nu-cardbtn>
+    <nu-cardbtn shadow=".25" border="0" special>CARD</nu-cardbtn>
+    <nu-cardbtn shadow=".5" border="0" special>CARD</nu-cardbtn>
+    <nu-cardbtn shadow="1" border="0" special>CARD</nu-cardbtn>
+    <nu-cardbtn shadow="2" border="0" special>CARD</nu-cardbtn>
   </nu-card>
 {/if}
 

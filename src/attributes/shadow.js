@@ -1,7 +1,7 @@
 import { isNoValue, isYesValue, parseAttr } from '../helpers';
 
-const SHADOW = 'rgba(var(--nu-shadow-color-rgb), .5)';
-const SPECIAL_SHADOW = 'rgba(var(--nu-special-shadow-color-rgb), 1)';
+const SHADOW = 'rgba(var(--nu-shadow-color-rgb), .33)';
+const SPECIAL_SHADOW = 'rgba(var(--nu-special-shadow-color-rgb), .33)';
 
 export default function shadowAttr(val, defaults, options = {}) {
   const {
@@ -31,6 +31,7 @@ export default function shadowAttr(val, defaults, options = {}) {
 
   if (values.length === 1) {
     size = values[0];
+    y = `calc(${size} / 3)`;
   } else if (values.length >= 2) {
     x = values[0];
     y = values[1];
