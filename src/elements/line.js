@@ -44,6 +44,7 @@ export default class NuLine extends NuElement {
       fill: 'var(--nu-local-border-color, var(--nu-border-color)) :special[special]',
       text: 'v-middle',
       box: 'y',
+      transition: 'fill',
     };
   }
 

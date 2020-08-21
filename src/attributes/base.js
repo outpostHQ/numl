@@ -45,6 +45,7 @@ import backdropAttr from './backdrop';
 import snapAttr from './snap';
 import snappingAttr from './snapping';
 import { fontAttr } from './font';
+import clipAttr from './clip';
 
 export default {
   width: sizeUnit('width'),
@@ -127,4 +128,5 @@ export default {
   snap: snapAttr,
   snapping: snappingAttr,
   font: fontAttr,
+  clip: clipAttr,
 };
