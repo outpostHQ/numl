@@ -499,7 +499,7 @@ const globalRules = [`
   --nu-transition-enabler: 0;
 }`,
 
-`:root[data-nu-outline] [nu] {
+`:root[data-nu-outline] [nu], :root[data-nu-outline] [nu-contents] > * {
   outline: var(--nu-border-width, 1px) solid var(--nu-outline-color) !important;
 }`,
 
