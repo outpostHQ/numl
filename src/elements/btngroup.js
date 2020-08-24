@@ -29,9 +29,9 @@ export default class NuBtnGroup extends NuGroup {
     };
   }
 
-  static get nuAttrsFor() {
+  static get nuContext() {
     return {
-      action: {
+      'attrs:action': {
         border: '0',
         outline: 'n',
       },

@@ -20,13 +20,13 @@ export default class NuInputGroup extends NuGroup {
     };
   }
 
-  static get nuAttrsFor() {
+  static get nuContext() {
     return {
-      icon: {
+      'attrs:icon': {
         padding: '1x left right',
         grow: '0',
       },
-      input: {
+      'attrs:input': {
         border: '0',
       },
     };

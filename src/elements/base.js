@@ -63,7 +63,7 @@ const TEMPLATES_MAP = {};
 const PROPS_MAP = {};
 const ATTRS_MAP = {};
 const BEHAVIORS_MAP = {};
-const ATTRS_FOR_MAP = {};
+const CONTEXT_MAP = {};
 
 export function getAllAttrs() {
   return Object.keys(GENERATORS_MAP).reduce((arr, tag) => {
@@ -330,19 +330,19 @@ export default class NuBase extends HTMLElement {
   /**
    * Initial attribute values of the Element.
    */
-  static get nuAttrsFor() {
+  static get nuContext() {
     return {};
   }
 
   /**
    * @private
    */
-  static get nuAllAttrsFor() {
+  static get nuAllContext() {
     return (
-      ATTRS_FOR_MAP[this.nuTag] ||
-      (ATTRS_FOR_MAP[this.nuTag] = {
-        ...(this.nuParentClass && this.nuParentClass.nuAllAttrsFor || {}),
-        ...(this.nuAttrsFor || {}),
+      CONTEXT_MAP[this.nuTag] ||
+      (CONTEXT_MAP[this.nuTag] = {
+        ...(this.nuParentClass && this.nuParentClass.nuAllContext || {}),
+        ...(this.nuContext || {}),
       })
     );
   }
@@ -760,15 +760,18 @@ export default class NuBase extends HTMLElement {
         });
       }
 
-      const allAttrsFor = this.constructor.nuAllAttrsFor;
+      const nuAllContext = this.constructor.nuAllContext;
 
-      Object.keys(allAttrsFor)
-        .forEach(id => {
-          const define = allAttrsFor[id];
+      Object.keys(nuAllContext)
+        .forEach(key => {
+          const value = nuAllContext[key];
 
-          define.$shadowRoot = this.nuContext.$shadowRoot;
+          // if it's `attrs` declaration then add Shadow Root flag
+          if (key.startsWith('attrs:')) {
+            value.$shadowRoot = this.nuContext.$shadowRoot;
+          }
 
-          this.nuSetContext(`attrs:${id}`, define);
+          this.nuSetContext(key, value);
         });
     }
 

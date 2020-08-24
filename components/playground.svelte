@@ -74,9 +74,10 @@
     <nu-btn outline="inset focus">Inset</nu-btn>
     <nu-btn outline="focus visible">Focus visible</nu-btn>
     <nu-cardbtn outline="n">
-      <nu-el outline="focus-outside" box="y">Focus outside</nu-el>
+      <nu-el outline="focus-outside" box="y">On focus outside</nu-el>
     </nu-cardbtn>
     <nu-card outline="focus-inside">
+      On focus inside
       <nu-btn outline="n">Button</nu-btn>
     </nu-card>
   </nu-card>

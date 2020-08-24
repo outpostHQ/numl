@@ -36,9 +36,9 @@ export default class NuFileInput extends NuElement {
     };
   }
 
-  static get nuAttrsFor() {
+  static get nuContext() {
     return {
-      ...NuInput.nuAttrsFor,
+      ...NuInput.nuContext,
     };
   }
 

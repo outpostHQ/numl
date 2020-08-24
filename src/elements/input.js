@@ -47,9 +47,9 @@ export default class NuInput extends NuElement {
     };
   }
 
-  static get nuAttrsFor() {
+  static get nuContext() {
     return {
-      icon: {
+      'attrs:icon': {
         width: '((--nu-gap * 2) + 1em)',
       },
     };
