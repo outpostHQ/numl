@@ -50,6 +50,11 @@ checkGenerator('height', heightAttr, {
     'max-height': '-webkit-fill-available',
     'min-height': 'auto'
   },
+  'max max(100vw, 10x)': {
+    'height': 'auto',
+    'max-height': 'max(100vw, calc(10 * var(--nu-gap)))',
+    'min-height': 'auto'
+  },
 });
 
 checkGenerator('width', widthAttr, {

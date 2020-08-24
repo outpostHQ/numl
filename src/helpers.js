@@ -159,45 +159,43 @@ export function sizeUnit(name, $suffix) {
       [maxStyle]: 'initial',
     };
 
-    val.split(',').forEach(value => {
-      const { mods, values } = parseAttr(value, 1);
+    const { mods, values } = parseAttr(val, 1);
 
-      transferMods(INTRINSIC_MODS, mods, values);
+    transferMods(INTRINSIC_MODS, mods, values);
 
-      values.forEach((v, i) => {
-        if (v === 'stretch') {
-          values[i] = STRETCH_SIZE || (name === 'height' ? '100vh' : '100vw');
-        }
-      });
-
-      let flag = false;
-
-      for (let mod of mods) {
-        switch (mod) {
-          case 'min':
-            styles[minStyle] = values[0] || DEFAULT_MIN_SIZE;
-            flag = true;
-            break;
-          case 'max':
-            styles[maxStyle] = values[0] || DEFAULT_MAX_SIZE;
-            flag = true;
-            break;
-        }
-      }
-
-      if (!flag || !mods.length) {
-        if (values.length === 2) {
-          styles[minStyle] = values[0];
-          styles[maxStyle] = values[1];
-        } else if (values.length === 3) {
-          styles[minStyle] = values[0];
-          styles[name] = values[1];
-          styles[maxStyle] = values[2];
-        } else {
-          styles[name] = values[0] || 'auto';
-        }
+    values.forEach((v, i) => {
+      if (v === 'stretch') {
+        values[i] = STRETCH_SIZE || (name === 'height' ? '100vh' : '100vw');
       }
     });
+
+    let flag = false;
+
+    for (let mod of mods) {
+      switch (mod) {
+        case 'min':
+          styles[minStyle] = values[0] || DEFAULT_MIN_SIZE;
+          flag = true;
+          break;
+        case 'max':
+          styles[maxStyle] = values[0] || DEFAULT_MAX_SIZE;
+          flag = true;
+          break;
+      }
+    }
+
+    if (!flag || !mods.length) {
+      if (values.length === 2) {
+        styles[minStyle] = values[0];
+        styles[maxStyle] = values[1];
+      } else if (values.length === 3) {
+        styles[minStyle] = values[0];
+        styles[name] = values[1];
+        styles[maxStyle] = values[2];
+      } else {
+        styles[name] = values[0] || 'auto';
+      }
+    }
 
     return styles;
   };
@@ -612,7 +610,9 @@ export function computeStyles(name, value, attrs, defaults) {
       if (!styles) return null;
 
       // normalize to array and clone incoming styles
-      return (Array.isArray(styles) ? styles : [styles]).map(stls => { return { ...stls }; });
+      return (Array.isArray(styles) ? styles : [styles]).map(stls => {
+        return { ...stls };
+      });
     default:
       return null;
   }
@@ -801,10 +801,16 @@ export function convertCustomProperties(val) {
 
 export function convertCustomFuncs(str, options) {
   if (!CUSTOM_FUNCS_REGEX) {
-    CUSTOM_FUNCS_REGEX = new RegExp(`(^|[\\s])(${Object.keys(CUSTOM_FUNCS).join('|')})\\(([^)]+)\\)`, 'g');
+    const customFuncs = Object.keys(CUSTOM_FUNCS);
+
+    if (customFuncs.length) {
+      CUSTOM_FUNCS_REGEX = new RegExp(`(^|[\\s])(${customFuncs.join('|')})\\(([^)]+)\\)`, 'g');
+    } else {
+      CUSTOM_FUNCS_REGEX = true; // ignore
+    }
   }
 
-  return str.replace(CUSTOM_FUNCS_REGEX, (s, s1, s2, s3) => `${s1}${CUSTOM_FUNCS[s2](s3, options)}`);
+  return CUSTOM_FUNCS_REGEX === true ? str : str.replace(CUSTOM_FUNCS_REGEX, (s, s1, s2, s3) => `${s1}${CUSTOM_FUNCS[s2](s3, options)}`);
 }
 
 function prepareParsedValue(val) {
