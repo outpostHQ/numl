@@ -111,16 +111,6 @@ function getEmptyStyles(defaults, skipPosition) {
   return styles;
 }
 
-const SPACE_AROUND = {
-  'margin': 'auto',
-};
-const SPACE_LEFT = {
-  'margin-left': 'auto',
-};
-const SPACE_RIGHT = {
-  'margin-right': 'auto',
-};
-
 export default function placeAttr(val, defaults) {
   if (!val) return getEmptyStyles(defaults);
 
@@ -130,18 +120,6 @@ export default function placeAttr(val, defaults) {
   const offsetX = values[1] || values[0] || '0';
 
   let pos = '';
-
-  if (mods.includes('space-around')) {
-    return [SPACE_AROUND, ...getEmptyStyles(defaults)];
-  }
-
-  if (mods.includes('space-left')) {
-    return [SPACE_LEFT, ...getEmptyStyles(defaults)];
-  }
-
-  if (mods.includes('space-right')) {
-    return [SPACE_RIGHT, ...getEmptyStyles(defaults)];
-  }
 
   if (mods.includes('float-left')) {
     return [{ float: 'left' }, ...getEmptyStyles(defaults)];

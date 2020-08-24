@@ -1,12 +1,14 @@
 import {
   DIRECTIONS,
   parseAttr,
-  filterMods
+  filterMods, isNoValue
 } from '../helpers';
 
-const DEFAULT_SPACE = 'var(--nu-gap)';
+const DEFAULT_SPACE = 'auto';
 
 function prepareValue(value) {
+  if (value === 'auto') return value;
+
   if (value.startsWith('calc(')) {
     value = value.slice(5, -1);
   }
@@ -17,6 +19,8 @@ function prepareValue(value) {
 export default function spaceAttr(val) {
   if (!val) return;
 
+  if (isNoValue(val)) return;
+
   let { values, mods } = parseAttr(val, 1);
 
   if (mods.includes('remove')) {
@@ -25,7 +29,7 @@ export default function spaceAttr(val) {
     };
   }
 
-  let around = mods.includes('around');
+  let around = mods.includes('around') || !values.length;
 
   mods = filterMods(mods, DIRECTIONS);
 
