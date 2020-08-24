@@ -1,4 +1,4 @@
-import { hasNoMod, parseAttr } from '../helpers';
+import { hasNegativeMod, parseAttr } from '../helpers';
 
 export default function markAttr(val) {
   const { values, mods, color } = parseAttr(val, 1);
@@ -15,7 +15,7 @@ export default function markAttr(val) {
   const markColor = color || 'var(--nu-local-mark-color, var(--nu-mark-color))';
   const hover = mods.includes('hover');
 
-  if (!hasNoMod(mods)) {
+  if (!hasNegativeMod(mods)) {
     styles.push({
       '--nu-local-mark-shadow': `0 0 0 ${size} ${markColor}, 0 0 0 9999rem ${markColor} inset`,
     });

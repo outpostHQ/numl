@@ -1,9 +1,9 @@
-import { hasNoMod, parseAttr } from '../helpers';
+import { hasNegativeMod, parseAttr } from '../helpers';
 
 export default function snapAttr(val) {
   const { values, mods } = parseAttr(val);
 
-  if (hasNoMod(mods)) {
+  if (hasNegativeMod(mods)) {
     return {};
   }
 

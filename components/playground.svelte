@@ -68,7 +68,17 @@
 
 {#if show('outline')}
   <nu-card as="section">
-    <nu-btn outline="focus intrusive">Button</nu-btn>
+    <nu-btn outline="focus">Focus</nu-btn>
+    <nu-btn outline="focus 1x">Focus 1x</nu-btn>
+    <nu-btn outline="focus #special">Focus Special</nu-btn>
+    <nu-btn outline="inset focus">Inset</nu-btn>
+    <nu-btn outline="focus visible">Focus visible</nu-btn>
+    <nu-cardbtn outline="n">
+      <nu-el outline="focus-outside" box="y">Focus outside</nu-el>
+    </nu-cardbtn>
+    <nu-card outline="focus-inside">
+      <nu-btn outline="n">Button</nu-btn>
+    </nu-card>
   </nu-card>
 {/if}
 

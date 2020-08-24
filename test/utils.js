@@ -12,7 +12,7 @@ export function checkGenerator(name, generator, map) {
   });
 }
 
-export function pause(ms = 20) {
+export function pause(ms = 30) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 

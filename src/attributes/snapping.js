@@ -1,4 +1,4 @@
-import { hasNoMod, parseAttr } from '../helpers';
+import { hasNegativeMod, parseAttr } from '../helpers';
 import snapAttr from './snap';
 import filter from './filter';
 
@@ -16,7 +16,7 @@ export default function snappingAttr(val) {
 
   let { mods, values } = parseAttr(val, 1);
 
-  if (hasNoMod(mods)) {
+  if (hasNegativeMod(mods)) {
     return;
   }
 

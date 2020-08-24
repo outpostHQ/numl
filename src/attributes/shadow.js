@@ -24,14 +24,14 @@ export default function shadowAttr(val, defaults, options = {}) {
     ? (specialShadow || SPECIAL_SHADOW)
     : (shadow || SHADOW));
 
-  let x = '0';
-  let y = '0';
   let size = defaultValue || '1rem';
+  let x = '0';
+  let y = inset ? '0' : `calc(${size} / 3)`;
   let spread = '0';
 
   if (values.length === 1) {
     size = values[0];
-    y = `calc(${size} / 3)`;
+    y = inset ? '0' : `calc(${size} / 3)`;
   } else if (values.length >= 2) {
     x = values[0];
     y = values[1];

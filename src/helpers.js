@@ -1539,7 +1539,7 @@ export function isYesValue(value) {
  * @param mods {Array<String>} - original attribute value.
  * @return {boolean}
  */
-export function hasNoMod(mods) {
+export function hasNegativeMod(mods) {
   return !!NO_VALUES.find(val => mods.includes(val));
 }
 
@@ -1548,7 +1548,7 @@ export function hasNoMod(mods) {
  * @param mods {Array<String>} - original attribute value.
  * @return {boolean}
  */
-export function hasYesMod(mods) {
+export function hasPositiveMod(mods) {
   return !!YES_VALUES.find(val => mods.includes(val));
 }
 

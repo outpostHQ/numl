@@ -1,4 +1,5 @@
-import { hasNoMod } from '../helpers';
+import { hasNegativeMod, parseAttr } from '../helpers';
+import { localProp, prop } from '../props-helpers';
 
 const OUTLINE_STYLES = [
   {
@@ -11,7 +12,7 @@ const OUTLINE_STYLES = [
     bottom: '0',
     left: '0',
     'pointer-events': 'none',
-    'border-radius': 'var(--nu-local-radius, var(--nu-radius))',
+    'border-radius': localProp('radius'),
     'box-shadow': 'var(--nu-local-outline-shadow)',
     // Activate transition only if transition and focusable effects are globally enabled
     transition: 'box-shadow calc(var(--nu-transition-enabler) * var(--nu-focus-enabler) * var(--nu-transition)) linear',
@@ -22,7 +23,7 @@ const SELECTOR = '[is-focus]';
 const WITHIN_SELECTOR = ':focus-within';
 
 export default function outlineAttr(val) {
-  const mods = val.split(/\s+/g);
+  const { values, mods, color } = parseAttr(val, 2);
 
   // disable outline completely
   if (mods.includes('native')) {
@@ -35,9 +36,12 @@ export default function outlineAttr(val) {
   const styles = [{ outline: 'none' }];
 
   // disable outline completely
-  if (hasNoMod(mods)) {
+  if (hasNegativeMod(mods)) {
     return styles;
   }
+
+  const outlineSize = values[0] || prop('outline-width');
+  const outlineColor = color || prop('outline-color');
 
   const inset = mods.includes('inset');
   const outside = mods.includes('focus-outside');
@@ -47,7 +51,7 @@ export default function outlineAttr(val) {
 
   styles.push({
     '--nu-local-outline-color': 'transparent',
-    '--nu-local-outline-shadow': `var(--nu-local-outline-inset, ${inset ? 'inset ' : ''}0 0) 0 calc(${!polite ? '1' : 'var(--nu-focus-enabler)'} * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)`,
+    '--nu-local-outline-shadow': `var(--nu-local-outline-inset, ${inset ? 'inset ' : ''}0 0) 0 calc(${!polite ? '1' : 'var(--nu-focus-enabler)'} * (1 - var(--nu-focus-disabler, 0)) * ${outlineSize}) var(--nu-local-outline-color)`,
   });
 
   // hide outline (if you need transition)
@@ -61,7 +65,7 @@ export default function outlineAttr(val) {
     styles.push({
       $prefix: outside ? `${SELECTOR}, :host(${SELECTOR})` : '',
       $suffix: `${outside ? '' : (inside ? WITHIN_SELECTOR : SELECTOR)}`,
-      '--nu-local-outline-color': 'var(--nu-outline-color)',
+      '--nu-local-outline-color': outlineColor,
     });
 
     if (inside) {
@@ -72,7 +76,7 @@ export default function outlineAttr(val) {
     }
   } else {
     styles.push({
-      '--nu-local-outline-color': 'var(--nu-outline-color)',
+      '--nu-local-outline-color': outlineColor,
     });
   }
 
