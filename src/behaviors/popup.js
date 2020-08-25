@@ -23,10 +23,6 @@ export default class PopupBehavior extends WidgetBehavior {
 
     super.init();
 
-    if (!this.hasAttr('theme')) {
-      this.setAttr('theme', 'main');
-    }
-
     this.setMod('popup', true);
 
     this.on('mousedown', (event) => {
