@@ -1,6 +1,6 @@
 {
   "name": "numl",
-  "version": "0.12.0-beta.10",
+  "version": "0.12.0-beta.11",
   "module": "dist/index.js",
   "homepage": "https://numl.design",
   "repository": {
