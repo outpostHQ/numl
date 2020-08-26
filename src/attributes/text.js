@@ -28,6 +28,7 @@ set('vMiddle', { 'vertical-align': 'var(--nu-inline-offset)' });
 
 set('monospace', { 'font-family': 'var(--nu-monospace-font)', 'word-spacing': 'normal' });
 set('spacing', (val) => ({ 'letter-spacing': parseAttr(val || '1bw').value }));
+set('color', (val) => ({ 'text-decoration-color': val }));
 set('ellipsis', {
   'max-width': '100%',
   'overflow': 'hidden',

@@ -9,13 +9,17 @@ checkGenerator('test', textAttr, {
   'spacing': { 'letter-spacing': 'var(--nu-border-width)' },
   'spacing(0.02em)': { 'letter-spacing': '0.02em' },
   'n nowrap': {
-    "--nu-font-weight": "var(--nu-normal-font-weight)",
-    "font-family": "var(--nu-font)",
-    "font-style": "initial",
-    "font-weight": "var(--nu-normal-font-weight)",
-    "letter-spacing": "normal",
-    "text-decoration": "none",
-    "text-transform": "none",
+    '--nu-font-weight': 'var(--nu-normal-font-weight)',
+    'font-family': 'var(--nu-font)',
+    'font-style': 'initial',
+    'font-weight': 'var(--nu-normal-font-weight)',
+    'letter-spacing': 'normal',
+    'text-decoration': 'none',
+    'text-transform': 'none',
     'white-space': 'nowrap'
+  },
+  'u #special': {
+    'text-decoration-color': 'var(--nu-special-color, var(--special-color, #special))',
+    'text-decoration-line': 'underline'
   },
 });

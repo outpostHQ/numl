@@ -7,7 +7,7 @@ function checkParsing(map) {
 
     mode = mode ? Number(mode) : 0;
 
-    it(`'${val}' should be parsed correctly with mode ${mode}`, () => {
+    it(`attribute '${val}' should be parsed correctly with mode ${mode}`, () => {
       const result = parseAttr(val, mode ? Number(mode) : 0);
 
       expect(result).to.eql(parsed);
@@ -15,7 +15,7 @@ function checkParsing(map) {
   });
 }
 
-describe('attribute', () => {
+describe('Parsing', () => {
   checkParsing({
     '': {
       'all': [],

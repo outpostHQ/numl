@@ -1,5 +1,13 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('decoration')}
+  <nu-heading level="2">Code</nu-heading>
+
+  <nu-card as="section">
+    <nu-el text="u #special.50" color="special">Special</nu-el>
+  </nu-card>
+{/if}
+
 {#if show('snippet')}
   <nu-heading level="2">Code</nu-heading>
 

@@ -1779,7 +1779,7 @@ export function decPoint(val) {
   return val.replace(POINT_REGEX, (num) => `${Number(num) - 0.01}`);
 }
 
-const PARAMS_REGEXP = /(-|)([a-z][a-z0-9-]*)(\((.*?)\)|)(?=(\s|$))/g;
+const PARAMS_REGEXP = /(-|)([a-z][a-z0-9-]*|#[a-z0-9-.]+)(\((.*?)\)|)(?=(\s|$))/g;
 
 /**
  * Parse params from string like: `param1 param2()`
@@ -1793,6 +1793,12 @@ export function parseParams(value, params = {}) {
 
   while (token = PARAMS_REGEXP.exec(value)) {
     let [s, disable, param, s2, value] = token;
+
+    if (param.startsWith('#')) {
+      params.color = parseColor(param, false, true).color;
+
+      continue;
+    }
 
     param = toCamelCase(param);
 

@@ -1,6 +1,7 @@
 import WidgetBehavior from './widget';
 import { setAttr, warn } from '../helpers';
 import { h } from '../dom-helpers';
+import { fixSafariInvisibleContents } from '../browser-fixes';
 
 export default class ImageBehavior extends WidgetBehavior {
   init() {
@@ -37,6 +38,8 @@ export default class ImageBehavior extends WidgetBehavior {
     this.ref = img;
 
     host.appendChild(img);
+
+    fixSafariInvisibleContents(host);
 
     img.onerror = () => {
       this.removeChild(img);

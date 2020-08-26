@@ -1,6 +1,7 @@
 import Behavior from './behavior';
 import { error, svgElement } from '../helpers';
 import Svg from '../svg';
+import { fixSafariInvisibleContents } from '../browser-fixes';
 
 export default class SvgBehavior extends Behavior {
   connected() {
@@ -40,6 +41,8 @@ export default class SvgBehavior extends Behavior {
 
       host.innerHTML = '';
       host.appendChild(svgNode);
+
+      fixSafariInvisibleContents(host);
     }).catch(() => {
       error('svg not loaded:', name);
 
