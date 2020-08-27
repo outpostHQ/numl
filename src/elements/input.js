@@ -107,23 +107,16 @@ export default class NuInput extends NuElement {
       }`,
 
       `${tag} input::placeholder, ${tag} textarea::placeholder {
-        -webkit-text-fill-color: currentColor;
-      }`,
-
-      `${tag}:not([disabled]) input::placeholder, ${tag}:not([disabled]) textarea::placeholder {
-        opacity: .4;
-      }`,
-
-      `${tag}[disabled] input::placeholder, ${tag}[disabled] textarea::placeholder {
-        opacity: .6;
+        -webkit-text-fill-color: var(--nu-local-placeholder-color);
+        color: var(--nu-local-placeholder-color);
       }`,
 
       `${tag}[special] input::placeholder, ${tag}[special] textarea::placeholder {
-        color: var(--nu-placeholder-color, var(--nu-special-text-color));
+        --nu-local-placeholder-color: var(--nu-placeholder-color, rgba(var(--nu-special-text-color-rgb), .5));
       }`,
 
       `${tag}:not([special]) input::placeholder, ${tag}:not([special]) textarea::placeholder {
-        color: var(--nu-placeholder-color, var(--nu-text-color));
+        --nu-local-placeholder-color: var(--nu-placeholder-color, rgba(var(--nu-text-color-rgb), .5));
       }`,
     ];
   }
