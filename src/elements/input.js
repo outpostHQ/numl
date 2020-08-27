@@ -84,7 +84,7 @@ export default class NuInput extends NuElement {
         height: initial;
         min-height: initial;
         max-height: initial;
-        user-select: all;
+        user-select: auto;
         text-align: inherit;
         resize: none;
         transition: opacity ${DEFAULT_TIMING} linear;
