@@ -1274,51 +1274,43 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
   if (!val) return {};
 
   if (val.startsWith('#')) {
-    if (shortSyntax) {
-      val = val.slice(1);
+    val = val.slice(1);
 
-      const tmp = val.split('.');
+    const tmp = val.split('.');
 
-      let opacity = 100;
+    let opacity = 100;
 
-      if (tmp.length > 0) {
-        opacity = Number(tmp[1]);
+    if (tmp.length > 0) {
+      opacity = Number(tmp[1]);
 
-        if (opacity !== opacity) {
-          opacity = 100;
-        }
+      if (opacity !== opacity) {
+        opacity = 100;
       }
-
-      const name = tmp[0];
-
-      let color;
-
-      if (name === 'current') {
-        color = 'currentColor';
-      } else {
-        if (opacity > 100) {
-          opacity = 100;
-        } else if (opacity < 0) {
-          opacity = 0;
-        }
-      }
-
-      color = opacity !== 100
-        ? rgbColorProp(name, Math.round(opacity) / 100)
-        : colorProp(name, null, `#${name}`);
-
-      return {
-        color,
-        name,
-        opacity: opacity != null ? opacity : 100,
-      };
-    } else {
-      const color = strToRgb(val);
-
-      return {
-        color,
-      };
     }
+
+    const name = tmp[0];
+
+    let color;
+
+    if (name === 'current') {
+      color = 'currentColor';
+    } else {
+      if (opacity > 100) {
+        opacity = 100;
+      } else if (opacity < 0) {
+        opacity = 0;
+      }
+    }
+
+    color = opacity !== 100
+      ? rgbColorProp(name, Math.round(opacity) / 100)
+      : colorProp(name, null, `#${name}`);
+
+    return {
+      color,
+      name,
+      opacity: opacity != null ? opacity : 100,
+    };
   }
 
   let { values, mods, color } = parseAttr(val, 0);
