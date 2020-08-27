@@ -1304,7 +1304,7 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
 
     color = opacity !== 100
       ? rgbColorProp(name, Math.round(opacity) / 100)
-      : colorProp(name, null, `#${name}`);
+      : colorProp(name, null, strToRgb(`#${name}`));
 
     return {
       color,

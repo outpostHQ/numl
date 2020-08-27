@@ -65,7 +65,7 @@ checkGenerator('outline', outlineAttr, {
     },
     OUTLINE_STYLES,
     {
-      "--nu-local-outline-color": "var(--nu-special-color, var(--special-color, #special))"
+      "--nu-local-outline-color": "var(--nu-special-color, var(--special-color))"
     },
   ],
   'inset': [

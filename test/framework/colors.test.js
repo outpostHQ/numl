@@ -29,7 +29,9 @@ describe('parseColor()', () => {
 
   it('should parse hex colors with conversion', () => {
     expectParsedColor('#4856f5', {
-      'color': 'rgba(72,86,245,1)',
+      'color': 'var(--nu-4856f5-color, var(--4856f5-color, rgba(72,86,245,1)))',
+      'name': '4856f5',
+      'opacity': 100
     });
   });
 

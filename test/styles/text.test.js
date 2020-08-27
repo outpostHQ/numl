@@ -19,7 +19,7 @@ checkGenerator('test', textAttr, {
     'white-space': 'nowrap'
   },
   'u #special': {
-    'text-decoration-color': 'var(--nu-special-color, var(--special-color, #special))',
+    'text-decoration-color': 'var(--nu-special-color, var(--special-color))',
     'text-decoration-line': 'underline'
   },
 });

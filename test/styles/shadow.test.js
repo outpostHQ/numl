@@ -12,5 +12,5 @@ checkGenerator('shadow', shadowAttr, {
   '1x 2x 3x': { '--nu-local-depth-shadow': 'var(--nu-gap) calc(2 * var(--nu-gap)) calc(3 * var(--nu-gap)) 0 rgba(var(--nu-shadow-color-rgb), .33)' },
   '1x 2x 3x 4x': { '--nu-local-depth-shadow': 'var(--nu-gap) calc(2 * var(--nu-gap)) calc(3 * var(--nu-gap)) calc(4 * var(--nu-gap)) rgba(var(--nu-shadow-color-rgb), .33)' },
   'named': { '--nu-local-depth-shadow': 'var(--nu-named-shadow, var(--named-shadow)) ' },
-  'named #custom': { '--nu-local-depth-shadow': 'var(--nu-named-shadow, var(--named-shadow)) var(--nu-custom-color, var(--custom-color, #custom))' },
+  'named #custom': { '--nu-local-depth-shadow': 'var(--nu-named-shadow, var(--named-shadow)) var(--nu-custom-color, var(--custom-color))' },
 });

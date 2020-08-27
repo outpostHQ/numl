@@ -68,9 +68,12 @@
 
 {#if show('color')}
   <nu-card as="section">
-    <nu-props some-color="^root :high-contrast[hsl(1, 80%, 50%)] :low-contrast[hsl(180, 80%, 50%)]"></nu-props>
+    <nu-props
+      some-color="^root :high-contrast[hsl(1, 80%, 50%)] :low-contrast[hsl(180, 80%, 50%)]"
+      custom-color="#aabbcc" other-color="color(custom)"></nu-props>
 <!--    <nu-props some-color="hue(1)"></nu-props>-->
     <nu-block height="5" fill="some 50%"></nu-block>
+    <nu-block height="5" fill="other-color"></nu-block>
   </nu-card>
 {/if}
 
