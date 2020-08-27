@@ -46,6 +46,7 @@ export default class NuImg extends NuElement {
       sizing: 'content',
       box: 'y',
       text: 'v-middle',
+      width: 'max 100%',
     };
   }
 

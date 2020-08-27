@@ -21,7 +21,7 @@ export default class NuSvg extends NuElement {
     return {
       display: 'block',
       sizing: 'content',
-      width: 'min 1fs',
+      width: '1fs 100%',
       height: 'min 1fs',
       box: 'y',
       text: 'v-middle',
