@@ -1,4 +1,4 @@
-import { setAttr, parseParams } from '../helpers';
+import { setAttr, parseParams, log } from '../helpers';
 
 const PARAMS_MAP = new Map;
 
@@ -161,5 +161,29 @@ export default class Behavior {
 
   get uniqId() {
     return this.host.nuUniqId;
+  }
+
+  doAction(action, value) {
+    if (!action) {
+      action = this.host.getAttribute('action');
+    }
+
+    if (action) {
+      const actionCallback = this.parentContext[`action:${action}`];
+
+      log('trigger action', this.host, action, value, actionCallback);
+
+      if (actionCallback) {
+        actionCallback(value);
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  get hasPopup() {
+    return !!this.host.nuDeepQuery('[is-popup]');
   }
 }

@@ -13,6 +13,10 @@ export default class MenuItemBehavior extends Behavior {
     this.on(['click', 'tap'], () => {
       if (this.menu) {
         this.menu.setCurrent(this);
+
+        if (!this.hasPopup) {
+          this.doAction('close', true);
+        }
       }
     });
   }

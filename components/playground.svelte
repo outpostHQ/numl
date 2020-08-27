@@ -286,7 +286,15 @@
         <nu-popup>
           <nu-menu>
             <nu-menuitem>Item 1</nu-menuitem>
-            <nu-menuitem>Item 2</nu-menuitem>
+            <nu-menuitem>
+              Item 2
+              <nu-popup>
+                <nu-menu>
+                  <nu-menuitem>Item 1</nu-menuitem>
+                  <nu-menuitem>Item 2</nu-menuitem>
+                </nu-menu>
+              </nu-popup>
+            </nu-menuitem>
           </nu-menu>
         </nu-popup>
       </nu-menuitem>
