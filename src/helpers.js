@@ -3,6 +3,7 @@
  * @type {String}
  */
 import { strToRgb } from './dom-helpers';
+import { colorProp, rgbColorProp } from './props-helpers';
 
 export const ROOT_CONTEXT = ':root';
 
@@ -1300,11 +1301,11 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
         } else if (opacity < 0) {
           opacity = 0;
         }
-
-        color = opacity !== 100
-          ? `rgba(var(--nu-${name}-color-rgb), ${opacity / 100})`
-          : `var(--nu-${name}-color, var(--${name}-color, #${name}))`;
       }
+
+      color = opacity !== 100
+        ? rgbColorProp(name, Math.round(opacity) / 100)
+        : colorProp(name, null, `#${name}`);
 
       return {
         color,
@@ -1376,7 +1377,7 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
   }
 
   return {
-    color: `rgba(var(--nu-${name}-color-rgb), ${opacity / 100})`,
+    color: rgbColorProp(name, Math.round(opacity) / 100),
     name,
     opacity,
   };

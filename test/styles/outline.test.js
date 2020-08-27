@@ -27,11 +27,11 @@ checkGenerator('outline', outlineAttr, {
     DISABLE_STYLES,
     {
       "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)"
+      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
     },
     OUTLINE_STYLES,
     {
-      "--nu-local-outline-color": "var(--nu-outline-color)"
+      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
     },
   ],
   'n': [DISABLE_STYLES],
@@ -39,11 +39,11 @@ checkGenerator('outline', outlineAttr, {
     DISABLE_STYLES,
     {
       "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)"
+      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
     },
     OUTLINE_STYLES,
     {
-      "--nu-local-outline-color": "var(--nu-outline-color)"
+      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
     },
   ],
   '1x': [
@@ -54,14 +54,14 @@ checkGenerator('outline', outlineAttr, {
     },
     OUTLINE_STYLES,
     {
-      "--nu-local-outline-color": "var(--nu-outline-color)"
+      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
     },
   ],
   '#special': [
     DISABLE_STYLES,
     {
       "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)"
+      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
     },
     OUTLINE_STYLES,
     {
@@ -72,37 +72,37 @@ checkGenerator('outline', outlineAttr, {
     DISABLE_STYLES,
     {
       "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, inset 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)"
+      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, inset 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
     },
     OUTLINE_STYLES,
     {
-      "--nu-local-outline-color": "var(--nu-outline-color)"
+      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
     },
   ],
   'focus': [
     DISABLE_STYLES,
     {
       "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)"
+      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '',
       $suffix: '[is-focus]',
-      "--nu-local-outline-color": "var(--nu-outline-color)"
+      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
     },
   ],
   'focus-inside': [
     DISABLE_STYLES,
     {
       "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)"
+      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '',
       $suffix: ':focus-within',
-      "--nu-local-outline-color": "var(--nu-outline-color)"
+      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
     },
     {
       $suffix: '>*',
@@ -113,39 +113,39 @@ checkGenerator('outline', outlineAttr, {
     DISABLE_STYLES,
     {
       "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)"
+      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '[is-focus], :host([is-focus])',
       $suffix: '',
-      "--nu-local-outline-color": "var(--nu-outline-color)"
+      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
     },
   ],
   'focus visible': [
     DISABLE_STYLES,
     {
       "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(var(--nu-focus-enabler) * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)"
+      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(var(--nu-focus-enabler) * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '',
       $suffix: '[is-focus]',
-      "--nu-local-outline-color": "var(--nu-outline-color)"
+      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
     },
   ],
   'focus-inside visible': [
     DISABLE_STYLES,
     {
       "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(var(--nu-focus-enabler) * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)"
+      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(var(--nu-focus-enabler) * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '',
       $suffix: ':focus-within',
-      "--nu-local-outline-color": "var(--nu-outline-color)"
+      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
     },
     {
       $suffix: '>*',
@@ -156,13 +156,13 @@ checkGenerator('outline', outlineAttr, {
     DISABLE_STYLES,
     {
       "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(var(--nu-focus-enabler) * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width)) var(--nu-local-outline-color)"
+      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(var(--nu-focus-enabler) * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '[is-focus], :host([is-focus])',
       $suffix: '',
-      "--nu-local-outline-color": "var(--nu-outline-color)"
+      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
     },
   ],
 });
