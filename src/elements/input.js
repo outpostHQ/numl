@@ -56,6 +56,10 @@ export default class NuInput extends NuElement {
   }
 
   static nuCSS({ tag, css }) {
+    const sel = (mod = '', childMod = '') => {
+      return `${tag}${mod} input${childMod}, ${tag}${mod} textarea${childMod}`;
+    };
+
     return [
       ...css,
 
@@ -64,7 +68,7 @@ export default class NuInput extends NuElement {
         margin: 0;
       }`,
 
-      `${tag} input, ${tag} textarea {
+      `${sel()} {
         display: block;
         width: 100%;
         max-width: initial;
@@ -90,6 +94,10 @@ export default class NuInput extends NuElement {
         transition: opacity ${DEFAULT_TIMING} linear;
       }`,
 
+      `${sel('', '::-webkit-search-cancel-button')} {
+        display: none;
+      }`,
+
       `${tag} input:-webkit-autofill, ${tag} input:-webkit-autofill:hover, ${tag} input:-webkit-autofill:focus {
         caret-color: var(--nu-special-color);
         -webkit-text-fill-color: var(--nu-special-color);
@@ -100,22 +108,22 @@ export default class NuInput extends NuElement {
         line-height: inherit;
       }`,
 
-      `${tag} input[disabled], ${tag} textarea[disabled] {
+      `${sel('', '[disabled]')} {
         color: inherit;
         background: transparent;
         -webkit-opacity: 1;
       }`,
 
-      `${tag} input::placeholder, ${tag} textarea::placeholder {
+      `${sel('', '::placeholder')} {
         -webkit-text-fill-color: var(--nu-local-placeholder-color);
         color: var(--nu-local-placeholder-color);
       }`,
 
-      `${tag}[special] input::placeholder, ${tag}[special] textarea::placeholder {
+      `${sel('[special]', '::placeholder')} {
         --nu-local-placeholder-color: var(--nu-placeholder-color, rgba(var(--nu-special-text-color-rgb), .5));
       }`,
 
-      `${tag}:not([special]) input::placeholder, ${tag}:not([special]) textarea::placeholder {
+      `${sel(':not([special])', '::placeholder')} {
         --nu-local-placeholder-color: var(--nu-placeholder-color, rgba(var(--nu-text-color-rgb), .5));
       }`,
     ];
