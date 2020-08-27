@@ -42,7 +42,7 @@ export default class OptionBehavior extends WidgetBehavior {
 
     this.on('click', () => {
       this.doAction('input', this.value);
-      this.doAction('close');
+      // this.doAction('close');
     });
   }
 

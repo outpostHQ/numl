@@ -1,9 +1,6 @@
 <nu-flex gap>
-  <nu-icon name="calendar-outline" move="0 (1x / -4)"></nu-icon>
   <nu-value grow="1" placeholder={placeholder}></nu-value>
-  <nu-icon
-    name="chevron-down" size="1.25em" transition="scale"
-    scale="^host:pressed[flip-y]"></nu-icon>
+  <nu-icon name="calendar-outline" move="0 (1x / -4)"></nu-icon>
 </nu-flex>
 <nu-popup width="18 min-content" padding>
   <nu-datepicker
