@@ -17,8 +17,6 @@ export default function propAttr(val) {
     if (rgbValue !== value) {
       styles[`--nu-${name}-rgb`] = rgbValue;
     }
-
-    console.log('!', name, rgbValue);
   }
 
   return styles;
