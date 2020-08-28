@@ -750,11 +750,14 @@ export default class NuBase extends HTMLElement {
       const allAttrs = this.constructor.nuAllAttrs;
 
       if (allAttrs) {
+        this.nuAutoAttrs = {};
+
         setTimeout(() => {
           Object.entries(allAttrs)
             .forEach(([attr, value]) => {
               if (value != null && !this.hasAttribute(attr)) {
-                this.setAttribute(attr, String(value) || this.constructor.nuStyles[attr] || '');
+                this.setAttribute(attr, String(value) || '');
+                this.nuAutoAttrs[attr] = this.getAttribute(attr);
               }
             });
         });
@@ -1592,7 +1595,7 @@ export default class NuBase extends HTMLElement {
         value = value.slice(1);
       }
 
-      if (!this.hasAttribute(name) || force) {
+      if ((!this.hasAttribute(name)) || force) {
         if (!contextAttrs.has(name)) {
           contextAttrs.add(name);
         }

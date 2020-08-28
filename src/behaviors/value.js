@@ -50,7 +50,7 @@ export default class ValueBehavior extends WidgetBehavior {
         if (option) {
           this.host.innerHTML = option.host.innerHTML;
 
-          this.setMod('empty', false);
+          this.setMod('placeholder', false);
 
           return;
         }

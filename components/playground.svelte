@@ -1351,6 +1351,10 @@ var b = /wow?/;
           <nu-input id="name"/>
         </nu-field>
         <nu-field>
+          <nu-label>One time code</nu-label>
+          <nu-onetimecode id="onetimecode"/>
+        </nu-field>
+        <nu-field>
           <nu-label>Email</nu-label>
           <nu-emailinput id="email"/>
         </nu-field>
