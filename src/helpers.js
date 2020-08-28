@@ -1021,7 +1021,7 @@ export function filterMods(mods, allowedMods) {
 }
 
 // const STATE_TYPE_REGEXP = /\[[^\]]*\|/;
-const STATE_REGEXP = /(\|)|(\[)|(])|(\^((#|)[a-z][a-z0-9-]*|))|:([a-z0-9:\.-]+)(?=\[)|('[^']*'|[(#a-z0-9,.-][^'\]\[|:]*(?!:))/gi;
+const STATE_REGEXP = /(\|)|(\[)|(])|(\^((#|)[a-z][a-z0-9-]*|))|:([a-z0-9:.-]+)(?=\[)|('[^']*'|[(#a-z0-9,.-][^'\]\[|:]*(?!:))/gi;
 
 function requireZone(zones, index, parent = '') {
   while (zones[index] == null) {

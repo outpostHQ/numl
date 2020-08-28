@@ -297,4 +297,41 @@ describe('Bind style to state', () => {
       }
     ]);
   });
+
+  it.only('mixed OR/AND state', () => {
+    expectComputedCSS('val1 :hover.focus:pressed[val2]', [
+      {
+        "$suffix": ":not(:hover):not([is-focus]):not([is-pressed])",
+        "style": "val1"
+      },
+      {
+        "$suffix": ":hover:not([is-focus]):not([is-pressed])",
+        "style": "val2"
+      },
+      {
+        "$suffix": "[is-focus]:hover[is-pressed]",
+        "style": "val2"
+      },
+      {
+        "$suffix": "[is-focus][is-pressed]:not(:hover)",
+        "style": "val2"
+      },
+      {
+        "$suffix": "[is-focus]:hover:not([is-pressed])",
+        "style": "val1"
+      },
+      {
+        "$suffix": ":hover[is-pressed]:not([is-focus])",
+        "style": "val1"
+      },
+      {
+        "$suffix": "[is-focus]:not(:hover):not([is-pressed])",
+        "style": "val1"
+      },
+      {
+        "$suffix": "[is-pressed]:not(:hover):not([is-focus])",
+        "style": "val1"
+      },
+    ]);
+  });
 });
