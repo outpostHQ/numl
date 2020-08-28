@@ -1,7 +1,5 @@
 <img src="https://github.com/tenphi/nude/blob/master/images/logo.png?raw=true" alt="NUDE Elements" width="891">
 
----
-
 **Numl** An open-source Library of Web Components and a Runtime CSS Framework for rapidly building UI that follows your Design System.
 
 - **For beginners** Use a well-thought-out Design System with automatic Dark Scheme and High Contrast Mode for rapid developing adaptive and accessible UIs. Create new components by nesting or/and styling foundation elements. 
