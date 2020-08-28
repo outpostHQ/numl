@@ -1662,8 +1662,6 @@ function submit(event) {
 }
 
 function customValidator(val) {
-  console.log('! custom validator', val);
-
   return val === 'Andrew';
 }
 

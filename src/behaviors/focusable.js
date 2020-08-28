@@ -8,10 +8,10 @@ import { setAttr } from '../helpers';
 export const DISABLED_ATTR = 'disabled';
 
 export default class FocusableBehavior extends Behavior {
-  constructor(host, option) {
-    super(host);
+  constructor(host, options) {
+    super(host, options);
 
-    if (option === 'manual') {
+    if (this.params.manual) {
       this.isManual = true;
     }
 
@@ -40,12 +40,18 @@ export default class FocusableBehavior extends Behavior {
 
       this.contextDisabled = contextDisabled;
 
-      this.set(contextDisabled ? false : !this.disabled);
+      if (!this.isManual) {
+        this.set(contextDisabled ? false : !this.disabled);
+      }
     }, false);
   }
 
   init() {
-    this.set(!this.disabled);
+    if (!this.isManual) {
+      this.set(!this.disabled);
+    } else {
+      this.set(false);
+    }
   }
 
   get disabled() {

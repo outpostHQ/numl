@@ -10,7 +10,6 @@ export default class NuInput extends NuElement {
   static get nuBehaviors() {
     return {
       input: true,
-      focusable: 'manual',
     };
   }
 

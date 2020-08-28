@@ -1689,11 +1689,12 @@ export default class NuBase extends HTMLElement {
       this.nuBehaviorPromises = {};
     }
 
-    // search among the behavior instances
+    // search among behavior instances
     let behavior = this.nuBehaviors[name];
 
     if (behavior) return Promise.resolve(behavior);
 
+    // search among behavior promises
     let behaviorPromise = this.nuBehaviorPromises[name];
 
     if (behaviorPromise) return behaviorPromise;
