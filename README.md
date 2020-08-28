@@ -1,30 +1,20 @@
-# <img src="https://github.com/tenphi/nude/blob/master/images/logo.png?raw=true" alt="NUDE Elements" width="891">
+**Numl** An open-source Library of Web Components and a Runtime CSS Framework for rapidly building UI that follows your Design System.
 
+- **For beginners** Use a well-thought-out Design System with automatic Dark Scheme and High Contrast Mode for rapid developing adaptive and accessible UIs. Create new components by nesting or/and styling foundation elements. 
+- **For enthusiastic** Customize the Numl Design System to the smallest detail in runtime using HTML. Use behaviors and control system to add simple interactions. Add your favorite framework (**Vue.js**, **Angular**, **React**, **Svelte**...) for complex logic.
+- **For experts** Use JavaScript API to create elements that follow your Design System on top of the **Numl**. Integrate Design Tokens into elements to have more control. Add your own unique elements, styles, and behaviors.
+
+<img src="https://github.com/tenphi/nude/blob/master/images/logo.png?raw=true" alt="NUDE Elements" width="891">
+
+---
 [![NPM Version](https://img.shields.io/npm/v/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
 [![](https://img.shields.io/npm/dt/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
 [![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Rate on Openbase](https://badges.openbase.io/js/rating/numl.svg)](https://openbase.io/js/numl?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
-**Numl** is an HTML-based language and design system that lets you create responsive and accessible high-quality web interfaces with any look. It allows you to create components and layouts you need by composing base elements and gives you a handy color management system with automatic Dark and Contrast modes.
+**PRE-RELEASE VERSION, UNDER RAPID DEVELOPMENT**
 
-**Numl** utilizes the power of Web Components and runtime CSS generation. It has an API to create your own elements, style attributes, and behaviors. The build step is not required, just add a script tag to your HTML file and you are ready to go!
-
-**Your code is your design system**
-
-**PRE-BETA VERSION, UNDER RAPID DEVELOPMENT**
-
-With **Numl** you can:
-
-* Create virtually **any interface** you want
-* Make your interface **accessible** without fighting IDs and specifications
-* Create your own element or a whole **Design System** with ease
-* **Responsive layouts** with effort so little you've never seen before
-* **Copy-paste** your markup from project to project, regardless of the framework used
-* Add **Dark** and **High-contrast** modes to your site effortlessly
-* Be calm for technical debt in markup code
-* **Enjoy** while doing what you love
-
-[Learn more](https://numl.design/)
+[Learn more at NUML.DESIGN](https://numl.design/)
 
 ## Examples
 
@@ -39,7 +29,7 @@ With **Numl** you can:
 To start prototyping with **Numl** just add a single module to the page:
 
 ```html
-<script type="module" src="https://unpkg.com/numl@0.12.0-beta.8/dist/index.js"></script>
+<script type="module" src="https://cdn.skypack.dev/numl@0.12"></script>
 ```
 
 That's it! No build step, no explicit function call to apply changes.
@@ -80,6 +70,14 @@ Import the module to your application:
 import 'numl';
 ```
 
+Make sure that **Numl** won't be run on the server side.
+
+**Numl** don't support SSR but still compatible with it, just make sure you import it after the app rehydration. You can use dynamic import for this:
+
+```javascript
+import('numl');
+``` 
+
 ## Projects that use Numl
 
 * [Numl Landing Page](https://numl.design) ([Repo Link](https://github.com/tenphi/numl.design)) built with Parcel.
@@ -98,7 +96,7 @@ Also we have [Gitter](https://gitter.im/tenphi/numl).
 
 Based on [caniuse.com](caniuse.com). Real-world support table will be presented after **v1 release**.
 
-* Microsoft Edge 16-18 (Partial support with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
+* ~~Microsoft Edge 16-18~~ (Partial support with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
 * Microsoft Edge 76+
 * Google Chrome 67+
 * Mozilla Firefox 63+
@@ -106,11 +104,12 @@ Based on [caniuse.com](caniuse.com). Real-world support table will be presented 
 * Apple iOS Safari 10.3+
 * Google Android 67+
 
-Safari versions below 11 requires transpiling to support dynamic import.
+> Safari versions below 11 requires additional transpiling to support dynamic import.
 
 ## Development
 
-* `npm run build` build the library to `dist`, generating four files:
+* `npm start` run Numl Playground.
+* `npm run build` build the library to `dist`:
     * `dist/index.js` - ES6 tree-shaking friendly module. (Exports global `Nude` object)
 * `npm run dev` build the library, then keep rebuilding it whenever the source files change.
 * `npm run test` run tests.
@@ -119,18 +118,25 @@ Safari versions below 11 requires transpiling to support dynamic import.
 
 Run `npm start` to view test page with few examples.
 
-## Roadmap
+## Roadmap v1
 
 * More documentation
 * More examples
 * More tests
 * TRL Support
+* Improved Behavior System
 
 See our [Changlelog](https://numl.design/guide/changelog).
 
 ## Contribution
 
-There is no contribution guideline just yet but we would love to hear any feedback from you. Feel free to leave a note at [tenphi@gmail.com](mailto:tenphi@gmail.com?subject=Numl%20Feeback).
+**We are looking for contributors!** 
+
+**Numl** is a big and ambitious project with open source that it has a unique approach in UI development. 
+
+Join us, and we'll make the Web better for everyone!
+
+If you want to join us or leave some feedback write to this email: [tenphi@gmail.com](mailto:tenphi@gmail.com?subject=Numl%20Project).
 
 ## License
 
