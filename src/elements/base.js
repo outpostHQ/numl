@@ -1805,6 +1805,18 @@ export default class NuBase extends HTMLElement {
     return this.nuGetValue ? this.nuGetValue() : this._value;
   }
 
+  set assert(val) {
+    if (this.nuSetAssert) {
+      this.nuSetAssert(val);
+    } else {
+      this._assert = val;
+    }
+  }
+
+  get assert() {
+    return this.nuGetAssert ? this.nuGetAssert() : this._assert;
+  }
+
   set hidden(val) {
     setBoolAttr(this, 'hidden', val);
   }

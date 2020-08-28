@@ -3,9 +3,9 @@ import { warn, extractModule as extract } from './helpers';
 const VALIDATORS = {
   email: (val) => extract(import('email-validator'))
     .then(validator => !val || validator.validate(val)),
-  maxlength: (val, option) => Promise.resolve().then(() => val.length <= Number(option)),
-  minlength: (val, option) => Promise.resolve().then(() => val.length >= Number(option)),
-  required: (val) => Promise.resolve().then(() => {
+  maxlength: (val, option) => val.length <= Number(option),
+  minlength: (val, option) => val.length >= Number(option),
+  required: (val) => {
     switch (typeof val) {
       case 'string':
         return val.length > 0;
@@ -16,7 +16,7 @@ const VALIDATORS = {
       default:
         return val != null;
     }
-  }),
+  },
 };
 
 export function checkErrors(data, checks) {
@@ -42,21 +42,26 @@ export function checkErrors(data, checks) {
         const checkNames = Object.keys(validators);
 
         return Promise.all(checkNames
-          .map(check => {
+          .map(async check => {
             const options = validators[check];
             const validator = VALIDATORS[check];
-
-            if (!validator) {
-              warn('unknown validator', check);
-
-              return true;
-            }
 
             // validator(data[name], options).then(result => {
             //   console.log('validation', name, options, result);
             // });
 
-            return validator(data[name], options);
+            // if it's a custom validator method
+            if (typeof options === 'function') {
+              return options(data[name]);
+            } else {
+              if (!validator) {
+                warn('unknown validator', check);
+
+                return true;
+              }
+
+              return validator(data[name], options);
+            }
           }))
           .then(results => {
             const valid = results.every(r => r);

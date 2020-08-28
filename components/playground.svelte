@@ -1429,6 +1429,9 @@ var b = /wow?/;
             <nu-check for="name" assert="minlength:5">
               Name should contain at least 5 characters
             </nu-check>
+            <nu-check for="name" assert={customValidator}>
+              Name should pass custom validator
+            </nu-check>
           </nu-field>
 
           <nu-field>
@@ -1656,6 +1659,12 @@ let dateRange = [new Date('2020-05-10'), new Date('2020-05-20')];
 
 function submit(event) {
   console.log('! form data submitted', event.detail);
+}
+
+function customValidator(val) {
+  console.log('! custom validator', val);
+
+  return val === 'Andrew';
 }
 
 window.addEventListener('hashchange', () => {

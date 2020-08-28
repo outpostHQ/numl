@@ -1,5 +1,5 @@
 import WidgetBehavior from './widget';
-import { getRealHeight, setTransitionTimeout, setImmediate } from '../helpers';
+import { devMode, warn } from '../helpers';
 import { hideEffect } from '../effects/hide';
 
 export default class ValidatorBehavior extends WidgetBehavior {
@@ -12,18 +12,30 @@ export default class ValidatorBehavior extends WidgetBehavior {
   }
 
   init() {
+    const { host } = this;
+
     this.props.for = (val) => {
       this.fieldId = val;
     };
     this.props.assert = (assert) => {
       if (assert) {
-        const tmp = assert.split(':');
-        this.assert = tmp[0];
-        this.assertValue = tmp[1];
+        [this.assert, this.assertValue] = assert.split(':');
       } else {
         this.assert = null;
       }
     };
+
+    host.nuSetAssert = (val) => {
+      if (typeof val === 'function') {
+        this.assert = val.name;
+        this.assertValue = val;
+      } else if (typeof val === 'string') {
+        [this.assert, this.assertValue] = val.split(':');
+      } if (devMode) {
+        warn('validator: wrong assert method', val);
+      }
+    };
+    host.nuGetAssert = () => this.assert;
 
     super.init();
   }
@@ -33,6 +45,14 @@ export default class ValidatorBehavior extends WidgetBehavior {
   }
 
   connected() {
+    const { host } = this;
+
+    if (host._assert != null) {
+      host.nuSetAssert(host._assert);
+
+      delete host._assert;
+    }
+
     this.linkContext('form', (form) => {
       if (this.currentForm && form !== this.currentForm) {
         this.disconnectForm(this.currentForm, !!form);
@@ -55,11 +75,11 @@ export default class ValidatorBehavior extends WidgetBehavior {
   }
 
   connectForm() {
-    const { fieldId, assert, form, assertValue } = this;
+    const { fieldId, assert, form, assertValue, assertMethod } = this;
 
     if (!fieldId || !assert || !form) return;
 
-    this.form.registerCheck(fieldId, this, assert, assertValue);
+    this.form.registerCheck(fieldId, this, assertMethod || assert, assertValue);
   }
 
   disconnectForm(form = this.currentForm, dontDelete) {
