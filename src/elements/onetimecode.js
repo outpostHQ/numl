@@ -1,8 +1,8 @@
 import NuInput from './input';
 
-export default class NuPinCode extends NuInput {
+export default class NuOneTimeCode extends NuInput {
   static get nuTag() {
-    return 'nu-pincode';
+    return 'nu-onetimecode';
   }
 
   static get nuBehaviors() {
@@ -15,7 +15,7 @@ export default class NuPinCode extends NuInput {
     return {
       maxlength: '4',
       placeholder: '••••',
-      autocomplete: 'off',
+      autocomplete: 'one-time-code',
     };
   }
 }

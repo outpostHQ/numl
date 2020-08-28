@@ -77,7 +77,7 @@ export { default as NuPassword } from './elements/password';
 export { default as NuSearch } from './elements/search';
 export { default as NuTelInput } from './elements/telinput';
 export { default as NuEmailInput } from './elements/emailinput';
-export { default as NuPinCode } from './elements/pincode';
+export { default as NuOneTimeCode } from './elements/onetimecode';
 export { default as NuFileInput } from './elements/fileinput';
 export { default as NuTextArea } from './elements/textarea';
 export { default as NuSvg } from './elements/svg';
