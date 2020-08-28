@@ -74,6 +74,7 @@ export default class NuInput extends NuElement {
         max-width: initial;
         min-width: initial;
         font-family: inherit;
+        font-weight: inherit;
         font-size: inherit;
         line-height: inherit;
         -webkit-appearance: none;
