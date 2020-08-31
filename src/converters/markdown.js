@@ -1,7 +1,6 @@
 import { Remarkable } from 'remarkable';
 import { linkify } from 'remarkable/linkify';
-
-const numlPlugin = require('remarkable-numl');
+import numlPlugin from 'remarkable-numl';
 
 /** Parse Markdown into an NuML String. */
 export default function markdownToNuml(md, options = {}) {
