@@ -7,7 +7,8 @@
 - Don't require writing CSS, fully customizable in runtime with HTML or JS
 - Style mapping to state or screen width
 - Runtime theme generator with Dark Scheme and High Contrast Mode
-- Comprehensive Design System with tokens out-of-the-box
+- Comprehensive Design System with dozens of tokens out-of-the-box
+- Compatible with Static Site Generators
 - Built with accessibility in mind
 - Free and Open source
 
@@ -26,6 +27,26 @@
 
 [Learn more at NUML.DESIGN](https://numl.design/)
 
+## Quick Start
+
+Add the following code to your page.
+
+Via [Skypack]:
+
+```html
+<script type="module" src="https://cdn.skypack.dev/numl@1.0.0-beta.1"></script>
+```
+
+Via [JsDelivr]:
+
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.0-beta.1/dist/index.js"></script>
+```
+
+That's it! Now you can use all Numl elements and features!
+
+See the [installation instructions](https://numl.design/guide/getting-started) for more details and other ways to install Numl.
+
 ## Examples
 
 * [Flex playground](https://numl.design/storybook/layouts/flex-playground)
@@ -34,64 +55,11 @@
 * [Before/After slider](https://numl.design/storybook/complex/before-after-slider)
 * [Login form validation](https://numl.design/storybook/complex/login-form)
 
-## Getting started
+## Built with Numl
 
-To start prototyping with **Numl** just add a single module to the page:
-
-```html
-<script type="module" src="https://cdn.skypack.dev/numl@0.12"></script>
-```
-
-That's it! No build step, no explicit function call to apply changes.
-
-If you want to prevent flash of unstyled content then add the following tag to the `head`:
-
-```html
-:not(:defined) {
-  visibility: hidden;
-}
-```
-
-Make sure you are using `nu-root` tags on the top-level of your app:
-
-```html
-<body>
-  <nu-root>
-    <nu-card>
-      My first <nu-mark>Numl</nu-mark> application!
-    </nu-card>
-  </nu-root>
-</body>
-```
-
-Now it's time to have fun!... Try to write some HTML and build awesome interfaces.
-
-[Check out the Guide](https://numl.design/guide/basics/base-syntax) (Work in progress)
-
-### NPM installation
-
-Numl is also available via npm.
-```bash
-$ npm install numl --save
-```
-
-Import the module to your application:
-```javascript
-import 'numl';
-```
-
-Make sure that **Numl** won't be run on the server side.
-
-**Numl** don't support SSR but still compatible with it, just make sure you import it after the app rehydration. You can use dynamic import for this:
-
-```javascript
-import('numl');
-``` 
-
-## Projects that use Numl
-
-* [Numl Landing Page](https://numl.design) ([Repo Link](https://github.com/tenphi/numl.design)) built with Parcel.
-* [Numl Storybook](https://numl.design/storybook) ([Repo Link](https://github.com/tenphi/numl-storybook)) built with Vue.js and Webpack.
+* [Cube.js UIKit](https://github.com/https://github.com/cube-js/cubejs-ui-kit) by **Cube Dev**.
+* [Numl Landing Page](https://numl.design) ([Repo Link](https://github.com/tenphi/numl.design)) built with **Parcel**.
+* [Numl Storybook](https://numl.design/storybook) ([Repo Link](https://github.com/tenphi/numl-storybook)) built with **Vue.js** and **Webpack**.
 * [Sellerscale](https://sellerscale.com) – [Project Screenshot Light](https://github.com/tenphi/nude/blob/master/images/example-app-light.png?raw=true) | [Project Screenshot Dark](https://github.com/tenphi/nude/blob/master/images/example-app-dark.png?raw=true) | [Project Screenshot Light Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-light-contrast.png?raw=true) | [Project Screenshot Dark Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-dark-contrast.png?raw=true)
 * [Web Standards Calendar](https://frontend-events-numl.now.sh/) by [@KatrinLuna](https://github.com/katrinLuna) ([Repo Link](https://github.com/katrinLuna/frontend-events-numl)).
 
@@ -104,17 +72,18 @@ Also we have [Gitter](https://gitter.im/tenphi/numl).
 
 ### Browser Support
 
-Based on [caniuse.com](caniuse.com). Real-world support table will be presented after **v1 release**.
+Numl is tested in the latest two versions of the following browsers:
 
-* ~~Microsoft Edge 16-18~~ (Partial support with [@webcomponents/custom-elements polyfill](https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements), 5kb)
-* Microsoft Edge 76+
-* Google Chrome 67+
-* Mozilla Firefox 63+
-* Apple Safari 10.1+
-* Apple iOS Safari 10.3+
-* Google Android 67+
+* Microsoft Edge
+* Google Chrome
+* Mozilla Firefox
+* Apple Safari
+* Apple iOS Safari
+* Google Android
 
-> Safari versions below 11 requires additional transpiling to support dynamic import.
+Critical bug fixes in earlier versions will be addressed based on their severity and impact.
+
+If you need to support IE11 or pre-Chromium Edge, this library isn't for you. Although web components can (to some degree) be polyfilled for legacy browsers, supporting them is outside the scope of this project. If you're using Shoelace in such a browser, you're gonna have a bad time.
 
 ## Development
 

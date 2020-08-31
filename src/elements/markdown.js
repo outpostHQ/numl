@@ -22,6 +22,14 @@ export default class NuMarkdown extends NuElement {
     ];
   }
 
+  static get nuContext() {
+    return {
+      'attrs:list': {
+        position: 'inside',
+      },
+    };
+  }
+
   static get nuBehaviors() {
     return {
       markdown: true,
