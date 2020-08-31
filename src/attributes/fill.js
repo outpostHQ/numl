@@ -5,13 +5,16 @@ const LOCAL_PROP = '--nu-local-bg-color';
 const LOCAL_VALUE = `var(${LOCAL_PROP}, var(--nu-bg-color))`;
 const DIFF_PROP = '--nu-diff-color';
 const SHADOW_PROP = '--nu-local-shadow-color';
+const SHADOW_RGB_PROP = '--nu-local-shadow-color-rgb';
 const MARK_PROP = '--nu-local-mark-color';
 const BORDER_PROP = '--nu-local-border-color';
 const TEXT_PROP = '--nu-local-text-color';
 const SHADOW_VALUE = 'var(--nu-shadow-color)';
+const SHADOW_RGB_VALUE = 'var(--nu-shadow-color-rgb)';
 const BORDER_VALUE = 'var(--nu-border-color)';
 const SPECIAL_BORDER_VALUE = 'var(--nu-special-text-color)';
 const SPECIAL_SHADOW_VALUE = 'var(--nu-special-shadow-color)';
+const SPECIAL_RGB_SHADOW_VALUE = 'var(--nu-special-shadow-color-rgb)';
 const MARK_VALUE = 'var(--nu-mark-color)';
 const SPECIAL_MARK_VALUE = 'var(--nu-special-mark-color)';
 const BG_VALUE = 'var(--nu-bg-color)';
@@ -62,6 +65,7 @@ export default function fillAttr(val) {
       [LOCAL_PROP]: color,
       [`--nu-local-bg-color-rgb`]: `var(--nu-${name}-color-rgb, var(--nu-bg-color-rgb))`,
       [SHADOW_PROP]: SHADOW_VALUE,
+      [SHADOW_PROP]: SHADOW_RGB_VALUE,
       [TEXT_PROP]: TEXT_VALUE,
       [BG_STYLE]: LOCAL_VALUE,
       [MARK_PROP]: MARK_VALUE,
@@ -76,6 +80,7 @@ export default function fillAttr(val) {
       styles[0][TEXT_PROP] = SPECIAL_TEXT_VALUE;
       styles[0][MARK_PROP] = SPECIAL_MARK_VALUE;
       styles[0][SHADOW_PROP] = SPECIAL_SHADOW_VALUE;
+      styles[0][SHADOW_RGB_PROP] = SPECIAL_RGB_SHADOW_VALUE;
       styles.push({
         $suffix: '>:not([fill]):not([nu-popup])',
         [BORDER_PROP]: SPECIAL_BORDER_VALUE,

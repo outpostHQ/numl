@@ -1,7 +1,7 @@
 import { isNoValue, isYesValue, parseAttr } from '../helpers';
 import { prop } from '../props-helpers';
 
-const SHADOW = 'rgba(var(--nu-shadow-color-rgb), .33)';
+const SHADOW = 'rgba(var(--nu-local-shadow-color-rgb, var(--nu-shadow-color-rgb)), .33)';
 const SPECIAL_SHADOW = 'rgba(var(--nu-special-shadow-color-rgb), .33)';
 
 export default function shadowAttr(val, defaults, options = {}) {
