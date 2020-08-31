@@ -45,15 +45,51 @@ export default class ValueBehavior extends WidgetBehavior {
 
       if (listEl && listEl.nuListBox && listEl.nuListBox.options.length) {
         const listbox = listEl.nuListBox;
-        const option = listbox.getOptionByValue(this.value);
 
-        if (option) {
-          this.host.innerHTML = option.host.innerHTML;
+        let html = '';
 
-          this.setMod('placeholder', false);
+        this.setAria('label', false);
 
-          return;
+        if (listbox.multiple) {
+          const values = listbox.value || [];
+
+          if (values.length) {
+            html += '<nu-flex gap flow="row wrap">';
+
+            const rawValues = [];
+
+            values.forEach(value => {
+              const option = listbox.getOptionByValue(value);
+
+              if (option) {
+                html += `<nu-badge>${option.host.innerHTML}</nu-badge>`;
+                rawValues.push(option.host.innerText);
+              }
+            });
+
+            html += '</nu-flex>';
+
+            this.setAria('label', rawValues.join(','));
+          }
+        } else {
+          const option = listbox.getOptionByValue(value);
+
+          if (option) {
+            html = option.host.innerHTML;
+
+            this.setAria('label', option.host.innerText);
+          }
         }
+
+        if (html) {
+          this.setMod('placeholder', false);
+          this.host.innerHTML = html;
+        } else {
+          this.setMod('placeholder', true);
+          this.host.innerHTML = this.placeholder || '&nbsp;';
+        }
+
+        return;
       } else {
         setTimeout(() => {
           if (this.list != null) {

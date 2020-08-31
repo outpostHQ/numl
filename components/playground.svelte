@@ -1524,6 +1524,18 @@ var b = /wow?/;
       <nu-option value="three">Three</nu-option>
     </nu-listbox>
 
+    <nu-spacer></nu-spacer>
+
+    <nu-heading level="4">Listbox with multiple value</nu-heading>
+
+    <nu-listbox value="one, two" label="Choose a number:" multiple>
+      <nu-option value="one">One</nu-option>
+      <nu-option value="two">Two</nu-option>
+      <nu-option value="three">Three</nu-option>
+    </nu-listbox>
+
+    <nu-spacer></nu-spacer>
+
     <nu-flow gap>
       <nu-heading level="4">Select</nu-heading>
 
@@ -1533,8 +1545,8 @@ var b = /wow?/;
       <nu-btn id="comboxbox" width="10" columns="1fr auto" value="six" labelledby="value">
         <nu-value list></nu-value>
         <nu-dropdownicon></nu-dropdownicon>
-        <nu-popuplistbox nx-debug="debug-1" labelledby="label">
-          <nu-option value="one" nx-debug="debug-2">One</nu-option>
+        <nu-popuplistbox labelledby="label">
+          <nu-option value="one">One</nu-option>
           <nu-option value="two">Two</nu-option>
           <nu-option value="three">Three</nu-option>
           <nu-option value="four">Four</nu-option>
@@ -1545,10 +1557,29 @@ var b = /wow?/;
       </nu-btn>
     </nu-flow>
 
-    <nu-grid columns="1pr 1pr" gap>
-      <nu-debug id="debug-1"></nu-debug>
-      <nu-debug id="debug-2"></nu-debug>
-    </nu-grid>
+    <nu-spacer></nu-spacer>
+
+    <nu-flow gap>
+      <nu-heading level="4">Multi-Select</nu-heading>
+
+      <nu-label for="comboxbox">
+        Choose a number:
+      </nu-label>
+      <nu-btn id="comboxbox" width="10 20" text="wrap" columns="1fr auto" value="six, four" labelledby="value">
+        <nu-attrs for="badge" special></nu-attrs>
+        <nu-value list placeholder="select options..."></nu-value>
+        <nu-dropdownicon></nu-dropdownicon>
+        <nu-popuplistbox multiple labelledby="label">
+          <nu-option value="one">One</nu-option>
+          <nu-option value="two">Two</nu-option>
+          <nu-option value="three">Three</nu-option>
+          <nu-option value="four">Four</nu-option>
+          <nu-option value="five">Five</nu-option>
+          <nu-option value="six">Six</nu-option>
+          <nu-option value="seven">Seven</nu-option>
+        </nu-popuplistbox>
+      </nu-btn>
+    </nu-flow>
   </nu-card>
 {/if}
 

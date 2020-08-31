@@ -19,7 +19,9 @@ export default class NuListBox extends NuCard {
   static get nuStyles() {
     return {
       padding: '1x 0',
-      outline: 'focus visible',
+      outline: 'n',
+      gap: '1bw',
+      border: 'y :focus[y #special]',
     };
   }
 }

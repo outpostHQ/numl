@@ -12,7 +12,7 @@ export default class NuBadge extends NuElement {
       gap: '1x',
       items: 'center',
       padding: '0 .5em',
-      radius: 'round',
+      radius: '',
       text: 'nowrap :special[sb nowrap]',
       border: '1bw',
       fill: 'bg :special[special-bg]',

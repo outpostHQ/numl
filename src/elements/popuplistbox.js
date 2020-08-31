@@ -27,6 +27,10 @@ export default class NuPopupListBox extends NuPopup {
       height: 'max 16',
       scrollbar: '',
       overflow: 'auto',
+      place: 'top :multiple[outside-bottom]',
+      gap: '1bw',
+      border: 'y :focus[y #special]',
+      shadow: 'special',
     };
   }
 }

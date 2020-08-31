@@ -4,7 +4,7 @@
 
 - Works with popular JS-Frameworks
 - Don't require build step, works with CDNs
-- Fully customizable with HTML or JS (Don't require writing CSS)
+- Don't require writing CSS, fully customizable in runtime with HTML or JS
 - Style mapping to state or screen width
 - Runtime theme generator with Dark Scheme and High Contrast Mode
 - Comprehensive Design System with tokens out-of-the-box

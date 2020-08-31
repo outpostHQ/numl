@@ -46,7 +46,9 @@ export default class ActionBehavior extends WidgetBehavior {
           // delegate focus to the listbox
           this.listbox.host.focus();
           // delegate event handling to the listbox
-          this.listbox.onKeyDown(event);
+          if (event.key !== 'Enter' && event.key !== ' ') {
+            this.listbox.onKeyDown(event);
+          }
         }
 
         setTimeout(() => {
@@ -353,8 +355,8 @@ export default class ActionBehavior extends WidgetBehavior {
     this.toggleInnerPopup();
   }
 
-  toggleInnerPopup(bool) {
-    const innerPopup = this.host.nuDeepQuery('[is-popup]');
+  toggleInnerPopup(bool, ignoreMultiple) {
+    const innerPopup = this.host.nuDeepQuery(`[is-popup]${ignoreMultiple ? ':not([multiple])' : ''}`);
     const method = bool == null
       ? (this.pressed ? 'open' : 'close')
       : (bool ? 'open' : 'close');
@@ -366,7 +368,7 @@ export default class ActionBehavior extends WidgetBehavior {
 
   setValue(value, silent) {
     if (!this.ignorePopup) {
-      this.toggleInnerPopup(false);
+      this.toggleInnerPopup(false, true);
     }
 
     super.setValue(value, silent);

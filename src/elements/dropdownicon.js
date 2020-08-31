@@ -15,6 +15,7 @@ export default class NuDropdownIcon extends NuIcon {
     return {
       scale: '^action:pressed[flip-y]', // if parent action is pressed then flip the icon
       space: '^:action[.5em left right] 0', // if parent is action
+      color: '^action special :special[special-text]',
     };
   }
 }

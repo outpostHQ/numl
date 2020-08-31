@@ -2,7 +2,7 @@
  * @see https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html
  */
 
-import WidgetBehavior from './widget';
+import WidgetBehavior, { BOOL_TYPE } from './widget';
 import { deepQueryAll, isEqual, scrollParentToChild } from '../helpers';
 
 export default class ListBoxBehavior extends WidgetBehavior {
@@ -14,6 +14,20 @@ export default class ListBoxBehavior extends WidgetBehavior {
   }
 
   init() {
+    this.props.multiple = (val) => {
+      const bool = BOOL_TYPE(val);
+
+      if (bool) {
+        this.setAttr('type', 'array');
+      }
+
+      this.setAria('aria-multiselectable', bool);
+
+      return bool;
+    };
+
+    this.multiple = this.host.hasAttribute('multiple');
+
     this.isPopup = this.host.hasAttribute('nu-popup');
 
     if (this.isPopup) {
@@ -43,53 +57,107 @@ export default class ListBoxBehavior extends WidgetBehavior {
       }
     });
 
-    this.on('keydown', (evt) => {
-      this.onKeyDown(evt);
-    });
+    this.on('keydown', this.onKeyDown.bind(this));
+    this.on('keyup', this.onKeyUp.bind(this));
+  }
+
+  connected() {
+    super.connected();
   }
 
   setValue(value, silent) {
-    if (value === this.value) return;
+    if (this.multiple && !Array.isArray(value) && value != null) {
+      if (typeof value ==='string') {
+        value = value.split(/,/g).map(val => val.trim());
+      } else {
+        value = [value];
+      }
+    }
+
+    if (isEqual(this.value, value)) return;
 
     super.setValue(value, silent);
+  }
 
-    setTimeout(() => {
-      const activeOption = this.activeOption;
+  toggleOption(toggleValue, silent) {
+    if (!this.multiple) {
+      this.setValue(toggleValue, silent);
 
-      if (activeOption) {
-        scrollParentToChild(this.host, activeOption.host);
-      }
-    });
+      return;
+    }
+
+    const option = this.getOptionByValue(toggleValue);
+
+    // ignore if there is no option with such value
+    if (!option) return;
+
+    let value = [...(this.value || [])];
+
+    if (!Array.isArray(value)) {
+      value = [];
+    }
+
+    this.current = toggleValue;
+
+    // toggle option value
+    if (value.includes(toggleValue)) {
+      value.splice(value.indexOf(toggleValue), 1);
+    } else {
+      value.push(toggleValue);
+    }
+
+    this.updateCurrent();
+
+    this.setValue(value, silent);
+  }
+
+  onKeyUp(evt) {
+    switch (evt.key) {
+      case ' ':
+        evt.stopPropagation();
+        evt.preventDefault();
+        this.toggleOption(this.current);
+
+        if (!this.multiple && evt.target === this.host && this.isPopup) {
+          this.nu('popup')
+            .then(Popup => Popup.close());
+        }
+        break;
+      default:
+        return;
+    }
+
+    evt.nuListBoxHandled = true;
   }
 
   onKeyDown(evt) {
     const options = this.orderedOptions;
-    const activeOption = this.activeOption;
+    const currentOption = this.currentOption;
 
-    if (!options.length || (activeOption && !options.includes(activeOption))) return;
+    if (!options.length || (currentOption && !options.includes(currentOption))) return;
 
-    const index = options.indexOf(activeOption);
+    const index = options.indexOf(currentOption);
 
-    let newValue;
+    let newCurrent;
 
     switch (evt.key) {
       case 'Home':
         if (!this.isEdgeMoveAllowed()) return;
 
-        newValue = options[0].value;
+        newCurrent = options[0].value;
 
         break;
       case 'End':
         if (!this.isEdgeMoveAllowed()) return;
 
-        newValue = options.slice(-1)[0].value;
+        newCurrent = options.slice(-1)[0].value;
 
         break;
       case 'ArrowUp':
         if (index > 0) {
-          newValue = options[index - 1].value;
+          newCurrent = options[index - 1].value;
         } else if (index === -1) {
-          newValue = options.slice(-1)[0].value;
+          newCurrent = options.slice(-1)[0].value;
         } else {
           return;
         }
@@ -99,9 +167,9 @@ export default class ListBoxBehavior extends WidgetBehavior {
         break;
       case 'ArrowDown':
         if (index < options.length - 1) {
-          newValue = options[index + 1].value;
+          newCurrent = options[index + 1].value;
         } else if (index === -1) {
-          newValue = options[0].value;
+          newCurrent = options[0].value;
         } else {
           return;
         }
@@ -109,11 +177,18 @@ export default class ListBoxBehavior extends WidgetBehavior {
         this.openPopup();
 
         break;
+      case ' ':
+        evt.preventDefault();
+        evt.stopPropagation();
+        return;
       case 'Enter':
+        this.setValue(this.current);
+
         if (evt.target === this.host && this.isPopup) {
           this.nu('popup')
             .then(Popup => Popup.close());
         }
+        break;
       default:
         return;
     }
@@ -121,7 +196,11 @@ export default class ListBoxBehavior extends WidgetBehavior {
     evt.nuListBoxHandled = true;
 
     setTimeout(() => {
-      this.setValue(newValue);
+      if (newCurrent != null) {
+        this.current = newCurrent;
+      }
+
+      this.updateCurrent();
     });
 
     evt.preventDefault();
@@ -155,6 +234,10 @@ export default class ListBoxBehavior extends WidgetBehavior {
   addOption(option) {
     if (!this.options.includes(option)) {
       this.options.push(option);
+
+      if (this.options.length === 1) {
+        this.current = option.value;
+      }
     }
   }
 
@@ -167,17 +250,35 @@ export default class ListBoxBehavior extends WidgetBehavior {
       .filter(option => option);
   }
 
-  get activeOption() {
-    return this.options.find(option => isEqual(option.value, this.value));
+  get currentOption() {
+    return this.options.find(option => isEqual(option.value, this.current));
   }
 
   removeOption(option) {
-    if (!this.options.includes(option)) {
+    if (this.options.includes(option)) {
       this.options.splice(this.options.indexOf(option), 1);
+
+      if (this.current === option.value) {
+        this.current = false;
+      }
     }
   }
 
   getOptionByValue(value) {
     return this.options.find(option => isEqual(option.value, value));
+  }
+
+  updateCurrent() {
+    this.options.forEach(option => {
+      option.setCurrent();
+    });
+
+    setTimeout(() => {
+      const currentOption = this.currentOption;
+
+      if (currentOption) {
+        scrollParentToChild(this.host, currentOption.host);
+      }
+    });
   }
 }

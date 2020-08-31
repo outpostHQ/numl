@@ -235,7 +235,12 @@ export default class WidgetBehavior extends Behavior {
     if (this.params.provideValue) {
       this.provideAction('input', (val) => {
         this.valueBubbled = true;
-        this.setValue(val);
+
+        if (this.toggleOption) {
+          this.toggleOption(val);
+        } else {
+          this.setValue(val);
+        }
       });
     }
   }

@@ -399,6 +399,7 @@ export const STATES_MAP = {
   autofill: ':-webkit-autofill',
   checked: '[is-pressed]',
   selected: '[is-pressed]',
+  multiple: '[multiple]',
 };
 export const ROOT_STATES_MAP = {
   dev: '[data-nu-dev]',

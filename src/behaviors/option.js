@@ -4,7 +4,7 @@ import { isEqual } from '../helpers';
 export default class OptionBehavior extends WidgetBehavior {
   static get params() {
     return {
-      contextValue: true,
+      // contextValue: true,
       provideValue: false,
     };
   }
@@ -90,12 +90,18 @@ export default class OptionBehavior extends WidgetBehavior {
   }
 
   setCurrent() {
-    const bool = this.listbox ? isEqual(this.value, this.listbox.value) : false;
+    const isSelected = this.listbox ? (
+      !this.listbox.multiple
+        ? isEqual(this.value, this.listbox.value)
+        : (this.listbox.value || []).includes(this.value)
+    ) : false;
+    const isCurrent = this.listbox ? this.listbox.current === this.value : false;
 
-    this.setMod('current', bool);
-    this.setAria('selected', bool || null);
+    this.setMod('current', isCurrent);
+    this.setMod('pressed', isSelected); // synonym to "selected"
+    this.setAria('selected', isSelected);
 
-    if (this.listbox && bool) {
+    if (this.listbox && isCurrent) {
       this.listbox.setAria('activedescendant', this.uniqId);
     }
   }
