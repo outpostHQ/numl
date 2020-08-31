@@ -2,7 +2,18 @@
 
 **Numl** An open-source Library of Web Components and a Runtime CSS Framework for rapidly building UI that follows your Design System.
 
-- **For beginners** Use a well-thought-out Design System with automatic Dark Scheme and High Contrast Mode for rapid developing adaptive and accessible UIs. Create new components by nesting or/and styling foundation elements. 
+- Works with popular JS-Frameworks
+- Don't require build step, works with CDNs
+- Fully customizable with HTML or JS (Don't require writing CSS)
+- Style mapping to state or screen width
+- Runtime theme generator with Dark Scheme and High Contrast Mode
+- Comprehensive Design System with tokens out-of-the-box
+- Built with accessibility in mind
+- Free and Open source
+
+## Who is Numl for?
+
+- **For beginners** Use a well-thought-out Design System with automatic Dark Scheme and High Contrast Mode for rapid development of adaptive and accessible UIs. Create new components by nesting or/and styling foundation elements. 
 - **For enthusiastic** Customize the Numl Design System to the smallest detail in runtime using HTML. Use behaviors and control system to add simple interactions. Add your favorite framework (**Vue.js**, **Angular**, **React**, **Svelte**...) for complex logic.
 - **For experts** Use JavaScript API to create elements that follow your Design System on top of the **Numl**. Integrate Design Tokens into elements to have more control. Add your own unique elements, styles, and behaviors.
 
