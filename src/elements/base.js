@@ -46,9 +46,9 @@ import {
   decPoint,
 } from '../helpers';
 import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
-import displayAttr from '../attributes/display';
-import themeAttr from '../attributes/theme';
-import propAttr from '../attributes/prop';
+import displayAttr from '../styles/display';
+import themeAttr from '../styles/theme';
+import propAttr from '../styles/prop';
 import combine from '../combinators/index';
 import behaviors from '../behaviors';
 

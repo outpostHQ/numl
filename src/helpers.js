@@ -386,7 +386,7 @@ export function toKebabCase(str) {
  * @type {Object}
  */
 export const STATES_MAP = {
-  hover: ':hover',
+  // hover: ':hover',
   'focus-within': ':focus-within',
   themed: '[theme]',
   special: '[special]',

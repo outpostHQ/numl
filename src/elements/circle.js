@@ -1,5 +1,5 @@
 import NuElement from './el';
-import sizeAttr from '../attributes/size';
+import sizeAttr from '../styles/size';
 
 export default class NuCircle extends NuElement {
   static get nuTag() {

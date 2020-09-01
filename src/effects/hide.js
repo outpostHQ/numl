@@ -1,5 +1,5 @@
 import { getRealHeight, setTransitionTimeout } from '../helpers';
-import transitionAttr from '../attributes/transition';
+import transitionAttr from '../styles/transition';
 
 export const HIDE_EFFECT_ATTR = 'effect';
 

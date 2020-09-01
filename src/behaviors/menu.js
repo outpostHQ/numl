@@ -18,7 +18,7 @@ export default class MenuBehavior extends Behavior {
       if (items.length === 1) {
         this.setCurrent(item);
       } else {
-        item.nu('focusable')
+        item.nu('focus')
           .then(Focusable => Focusable.set('manual'));
       }
     }
@@ -50,7 +50,7 @@ export default class MenuBehavior extends Behavior {
         const isCurrent = it === item;
         const type = isCurrent ? 'auto' : 'manual';
 
-        it.nu('focusable')
+        it.nu('focus')
           .then(Focusable => {
             Focusable.set(type);
 

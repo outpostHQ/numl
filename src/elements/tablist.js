@@ -1,5 +1,5 @@
 import NuRadioGroup from './radiogroup';
-import combinedAttr from '../attributes/combined';
+import combinedAttr from '../styles/combined';
 import { convertUnit, DIRECTIONS } from '../helpers';
 
 const ITEMS_MAP = {

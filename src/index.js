@@ -12,13 +12,13 @@ import {
 
 import { define, assign as baseAssign } from './api';
 
-export { FLEX_GAP_SUPPORTED } from './attributes/gap';
+export { FLEX_GAP_SUPPORTED } from './styles/gap';
 import initSticky from './sticky';
 import initLinks from './links';
 
 import * as elements from './elements';
 import NuBase from './elements/base';
-import styles from './attributes/base';
+import styles from './styles/base';
 import NuAction from './elements/action';
 // export * from './behaviors/widget';
 // export * from './helpers';
@@ -31,7 +31,7 @@ import units from './units';
 import svg from './svg';
 import icons from './icons';
 import routing from './routing';
-import themeAttr from './attributes/theme';
+import themeAttr from './styles/theme';
 import { initFocus } from './focus';
 import props from './props';
 import generators from './generators';

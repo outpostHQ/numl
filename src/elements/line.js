@@ -1,5 +1,5 @@
-import combinedAttr from '../attributes/combined';
-import sizeAttr from '../attributes/size';
+import combinedAttr from '../styles/combined';
+import sizeAttr from '../styles/size';
 import NuElement from './el';
 
 export default class NuLine extends NuElement {

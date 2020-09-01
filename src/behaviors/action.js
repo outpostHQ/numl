@@ -16,7 +16,7 @@ export default class ActionBehavior extends WidgetBehavior {
     this.value = null;
     this.offValue = null;
     // require mixins
-    this.require('active', 'focusable');
+    this.require('active', 'focus', 'hover');
 
     const pressedAttr = ALIAS_ATTR(this.host, 'pressed');
 

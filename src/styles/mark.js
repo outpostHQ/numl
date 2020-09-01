@@ -21,8 +21,8 @@ export default function markAttr(val) {
     });
 
     if (hover) {
-      styles[0].$suffix = ':not(:hover)';
-      styles[1].$suffix = ':hover';
+      styles[0].$suffix = ':not([is-hover])';
+      styles[1].$suffix = '[is-hover]';
     }
   }
 

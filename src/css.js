@@ -1,6 +1,6 @@
 import { devMode, log, warn } from "./helpers";
 import { h } from './dom-helpers';
-import scrollbarAttr from './attributes/scrollbar';
+import scrollbarAttr from './styles/scrollbar';
 import { USE_HIDDEN_STYLES, SCROLLBAR } from './settings';
 
 export const STYLE_MAP = {};
@@ -201,9 +201,6 @@ export function stylesString(styles) {
     .reduce((string, style) => !style.startsWith('$') ? `${string}${styles[style] ? `${style}:${styles[style]}` : ''};` : string, '');
 }
 
-const TOUCH_REGEXP = /:hover(?!\))/; // |\[nu-active](?!\))
-const NOT_TOUCH_REGEXP = /:not\(:hover(?=\))/;
-
 export function generateCSS(query, styles, universal = false) {
   if (!styles || !styles.length) return [];
 
@@ -265,24 +262,11 @@ export function generateCSS(query, styles, universal = false) {
       return arr;
     }
 
-    const touchQueries = [];
-    const nonTouchQueries = [];
+    const css = queries.length ? `${queries.join(',')}{${stylesString(map)}}` : '';
 
-    queries.forEach(query => [query.match(TOUCH_REGEXP) ? touchQueries : nonTouchQueries].push(query));
-
-    const touchCSS = nonTouchQueries.length
-      ? `@media (pointer: coarse){${nonTouchQueries.join(',').replace(':not(:hover)', '')}{${stylesString(map)}}}`
-      : '';
-    const nonTouchCSS = (nonTouchQueries.length ? `@media (pointer: fine){${nonTouchQueries.join(',')}{${stylesString(map)}}}` : '')
-      + (touchQueries.length ? `@media (pointer: fine){${touchQueries.join(',')}{${stylesString(map)}}}` : '');
-    const otherQueries = queries.filter(query => !touchQueries.includes(query) && !nonTouchQueries.includes(query));
-    const otherCSS = otherQueries.length ? `${otherQueries.join(',')}{${stylesString(map)}}` : '';
-
-    [touchCSS, nonTouchCSS, otherCSS].forEach(rule => {
-      if (rule) {
-        arr.push(rule);
-      }
-    });
+    if (css) {
+      arr.push(css);
+    }
 
     return arr;
   }, []);

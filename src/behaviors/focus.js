@@ -7,7 +7,7 @@ import { setAttr } from '../helpers';
 
 export const DISABLED_ATTR = 'disabled';
 
-export default class FocusableBehavior extends Behavior {
+export default class FocusBehavior extends Behavior {
   constructor(host, options) {
     super(host, options);
 

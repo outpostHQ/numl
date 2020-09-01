@@ -5,7 +5,7 @@ import {
 } from '../helpers';
 import { h } from '../dom-helpers';
 import NuBase from './base';
-import BaseAttributes from '../attributes/base';
+import BaseAttributes from '../styles/base';
 import TransformCombinator from '../combinators/transform';
 import ShadowCombinator from '../combinators/shadow';
 // import WeightCombinator from '../combinators/weight';

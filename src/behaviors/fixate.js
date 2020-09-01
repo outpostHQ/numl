@@ -1,5 +1,5 @@
 import { devMode, DIRECTIONS, fixPosition, parseAttr, warn } from '../helpers';
-import { PLACE_ATTR } from '../attributes/place';
+import { PLACE_ATTR } from '../styles/place';
 
 const LISTENERS = new Set;
 

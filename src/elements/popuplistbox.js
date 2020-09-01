@@ -16,7 +16,7 @@ export default class NuPopupListBox extends NuPopup {
   static get nuBehaviors() {
     return {
       listbox: true,
-      focusable: 'manual',
+      focus: 'manual',
     };
   }
 

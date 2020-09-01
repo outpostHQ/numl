@@ -1,5 +1,5 @@
 import NuGroup from './group';
-import { DEFAULT_STROKE_SHADOW } from '../attributes/border';
+import { DEFAULT_STROKE_SHADOW } from '../styles/border';
 
 export default class NuInputGroup extends NuGroup {
   static get nuTag() {

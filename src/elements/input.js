@@ -1,6 +1,6 @@
-import { DEFAULT_TIMING } from '../attributes/transition';
+import { DEFAULT_TIMING } from '../styles/transition';
 import NuElement from './el';
-import paddingAttr from '../attributes/padding';
+import paddingAttr from '../styles/padding';
 
 export default class NuInput extends NuElement {
   static get nuTag() {

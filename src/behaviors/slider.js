@@ -32,7 +32,7 @@ export default class SliderBehavior extends WidgetBehavior {
 
     super.init();
 
-    this.require('orient', 'active', 'focusable');
+    this.require('orient', 'active', 'focus', 'hover');
 
     this.on('keydown', (evt) => {
       const step = this.step * (evt.shiftKey ? 10 : 1);

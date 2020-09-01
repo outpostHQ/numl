@@ -12,7 +12,7 @@ export default class NuListBox extends NuCard {
   static get nuBehaviors() {
     return {
       listbox: true,
-      focusable: true,
+      focus: true,
     };
   }
 

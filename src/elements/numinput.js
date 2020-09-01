@@ -1,5 +1,5 @@
 import NuInput from './input';
-import { DEFAULT_TIMING } from '../attributes/transition';
+import { DEFAULT_TIMING } from '../styles/transition';
 
 export default class NuNumInput extends NuInput {
   static get nuTag() {

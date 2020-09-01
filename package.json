@@ -69,5 +69,8 @@
     "last 10 Chrome versions",
     "last 5 Firefox versions",
     "last 3 Safari versions"
-  ]
+  ],
+  "dependencies": {
+    "src": "^1.1.2"
+  }
 }

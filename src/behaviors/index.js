@@ -6,7 +6,8 @@ import { extractModule as extract } from '../helpers';
 const DICT = {};
 
 const BEHAVIORS = {
-  focusable: () => extract(import(`./focusable.js`)),
+  focus: () => extract(import(`./focus.js`)),
+  hover: () => extract(import(`./hover.js`)),
   listbox: () => extract(import(`./listbox.js`)),
   option: () => extract(import(`./option.js`)),
   active: () => extract(import(`./active.js`)),

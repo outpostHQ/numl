@@ -1,0 +1,159 @@
+/**
+ * Make element hoverable or temporarily disable that ability.
+ * Handles pointer hover interactions for an element. Normalizes behavior
+ * across browsers and platforms, and ignores emulated mouse events on touch devices.
+ */
+
+import Behavior from "./behavior";
+import { setAttr } from '../helpers';
+
+let globalIgnoreEmulatedMouseEvents = false;
+let hoverCount = 0;
+
+function setGlobalIgnoreEmulatedMouseEvents() {
+  globalIgnoreEmulatedMouseEvents = true;
+
+  setTimeout(() => {
+    globalIgnoreEmulatedMouseEvents = false;
+  }, 50);
+}
+
+function handleGlobalPointerEvent(e) {
+  if (e.pointerType === 'touch') {
+    setGlobalIgnoreEmulatedMouseEvents();
+  }
+}
+
+function setupGlobalTouchEvents() {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
+  if (typeof PointerEvent !== 'undefined') {
+    document.addEventListener('pointerup', handleGlobalPointerEvent);
+  } else {
+    document.addEventListener('touchend', setGlobalIgnoreEmulatedMouseEvents);
+  }
+
+  hoverCount++;
+
+  return () => {
+    hoverCount--;
+    if (hoverCount > 0) {
+      return;
+    }
+
+    if (typeof PointerEvent !== 'undefined') {
+      document.removeEventListener('pointerup', handleGlobalPointerEvent);
+    } else {
+      document.removeEventListener('touchend', setGlobalIgnoreEmulatedMouseEvents);
+    }
+  };
+}
+
+export const DISABLED_ATTR = 'disabled';
+
+export default class HoverBehavior extends Behavior {
+  constructor(host, options) {
+    super(host, options);
+
+    this.state = {
+      isHovered: false,
+      ignoreEmulatedMouseEvents: false
+    };
+  }
+
+  init() {
+    this.ignoreEmulatedMouseEvents = false;
+    this.isHovered = false;
+
+    if (typeof PointerEvent !== 'undefined') {
+      this.on('pointerenter', (e) => {
+        if (globalIgnoreEmulatedMouseEvents && e.pointerType === 'mouse') {
+          return;
+        }
+
+        this.triggerHoverStart(e, e.pointerType);
+      });
+
+      this.on('pointerleave', (e) => {
+        this.triggerHoverEnd(e, e.pointerType);
+      });
+    } else {
+      this.on('touchstart', () => {
+        this.ignoreEmulatedMouseEvents = true;
+      });
+
+      this.on('mouseenter', (e) => {
+        if (!this.ignoreEmulatedMouseEvents && !globalIgnoreEmulatedMouseEvents) {
+          this.triggerHoverStart(e, 'mouse');
+        }
+
+        this.ignoreEmulatedMouseEvents = false;
+      });
+
+      this.on('mouseleave', (e) => {
+        this.triggerHoverEnd(e, 'mouse');
+      });
+    }
+  }
+
+  connected() {
+    this.tearDown = setupGlobalTouchEvents();
+  }
+
+  disconnected() {
+    if (this.tearDown) {
+      this.tearDown();
+    }
+  }
+
+  get isDisabled() {
+    return this.host.hasAttribute(DISABLED_ATTR);
+  }
+
+  changed(name, value) {
+    if (name === DISABLED_ATTR) {
+      this.set(value == null);
+    }
+  }
+
+  setEffect(bool) {
+    this.host.nuSetMod('hover', bool);
+    this.host.nuSetContext('hover', bool || null);
+
+    if (this.contentsRef) {
+      setAttr(this.contentsRef, 'is-hover', bool);
+    }
+  }
+
+  set(param) {
+    this.host.nuSetMod('hoverable', param || null);
+  }
+
+  triggerHoverStart(event, pointerType) {
+    if (this.isDisabled || pointerType === 'touch' || this.isHovered) {
+      return;
+    }
+
+    this.isHovered = true;
+
+    this.emit('hoverstart', { pointerType });
+    this.emit('hoverchange', { pointerType });
+
+    this.setEffect(true);
+  }
+
+  triggerHoverEnd(event, pointerType) {
+    if (this.isDisabled || pointerType === 'touch' || !this.isHovered) {
+      return;
+    }
+
+    this.isHovered = false;
+
+    this.emit('hoverend', { pointerType });
+    this.emit('hoverchange', { pointerType });
+
+    this.setEffect(false);
+  }
+}

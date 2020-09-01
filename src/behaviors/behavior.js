@@ -186,4 +186,20 @@ export default class Behavior {
   get hasPopup() {
     return !!this.host.nuDeepQuery('[is-popup]');
   }
+
+  emit(name, detail = null, options = {}) {
+    if (name !== 'log') {
+      log('emit', { element: this, name, detail, options });
+    }
+
+    const event = new CustomEvent(name, {
+      detail,
+      bubbles: false,
+      ...options,
+    });
+
+    event.nuTarget = this.host;
+
+    this.host.dispatchEvent(event);
+  }
 }
