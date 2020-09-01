@@ -83,8 +83,16 @@ function defineBehavior(name, behaviorLoader) {
   BEHAVIORS[name] = behaviorLoader;
 }
 
+function clearAll() {
+  Object.keys(BEHAVIORS)
+    .forEach(behaviorName => {
+      delete BEHAVIORS[behaviorName];
+    });
+}
+
 export default {
   define: defineBehavior,
+  clearAll,
   has: hasBehavior,
   get: getBehavior,
   map: BEHAVIORS,

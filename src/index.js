@@ -1,5 +1,4 @@
 import {
-  asyncDebounce,
   devMode,
   isDefined,
   isTouch,
@@ -36,7 +35,7 @@ import themeAttr from './attributes/theme';
 import { initFocus } from './focus';
 import props from './props';
 import generators from './generators';
-import { scheme, contrast, reduceMotion, preventInit } from './settings';
+import { scheme, contrast, reduceMotion, preventInit, behaviorOption } from './settings';
 import CONTEXT from './context';
 import { applyTheme, BASE_THEME, hue } from './themes';
 import { removeRulesByPart, generateCSS, insertRuleSet } from './css';
@@ -44,8 +43,8 @@ import { removeRulesByPart, generateCSS, insertRuleSet } from './css';
 initSticky(); // enable sticky detection
 initLinks(); // enable link current state detection
 
-function assign(element, options) {
-  return baseAssign(element, options, elements);
+function assign(element, options, replace) {
+  return baseAssign(element, options, elements, replace);
 }
 
 const helpers = {
@@ -164,6 +163,21 @@ window.Nude = Nude;
 
 const nudeReadyEvent = new CustomEvent('nudeReady', { cancelable: true });
 const numlReadyEvent = new CustomEvent('numlReady');
+
+if (behaviorOption !== 'auto') {
+  Object.keys(elements)
+    .forEach(name => {
+      const Element = elements[name];
+
+      assign(Element.nuTag, {
+        behaviors: {},
+      }, true);
+    });
+
+  if (behaviorOption === 'no') {
+    behaviors.clearAll();
+  }
+}
 
 if (window.dispatchEvent(nudeReadyEvent) && !preventInit) {
   Nude.init();

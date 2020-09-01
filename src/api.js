@@ -66,14 +66,21 @@ export function define(tag, options, skipDefine) {
   return Element;
 }
 
-export function assign(element, options, elements = {}) {
+/**
+ * Assign new options to the element.
+ * @param {HTMLElement} element
+ * @param {Object} options
+ * @param {Object<String,HTMLElement>} elements
+ * @param {Boolean} replace
+ */
+export function assign(element, options, elements = {}, replace) {
   Object.keys(options)
     .forEach(option => {
-      assignOption(element, option, options[option], elements);
+      assignOption(element, option, options[option], elements, replace);
     });
 }
 
-export function assignOption(element, prop, value, elements = {}) {
+export function assignOption(element, prop, value, elements = {}, replace) {
   if (!(prop in staticBind)) {
     warn('assign: Property not found');
 
@@ -94,7 +101,7 @@ export function assignOption(element, prop, value, elements = {}) {
 
   let newValue = value;
 
-  if (OBJ_ASSIGN.includes(prop)) {
+  if (OBJ_ASSIGN.includes(prop) && !replace) {
     newValue = Object.assign(oldValue || {}, newValue);
   }
 
