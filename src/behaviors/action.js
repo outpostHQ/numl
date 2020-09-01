@@ -1,6 +1,6 @@
 import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
-import { isEqual, queryById } from '../helpers';
+import { deepQuery, isEqual, queryById } from '../helpers';
 import { h } from '../dom-helpers';
 import { handleLinksState, handleLinkState } from '../links';
 
@@ -163,7 +163,11 @@ export default class ActionBehavior extends WidgetBehavior {
     }
 
     if (!this.$link) {
-      $link = h('a');
+      $link = deepQuery(host, 'a');
+
+      if (!$link) {
+        $link = h('a');
+      }
 
       $link.href = this.href;
       $link.target = this.newTab ? '_blank' : '_self';
