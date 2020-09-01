@@ -116,7 +116,7 @@ export default class SliderBehavior extends WidgetBehavior {
 
     let value;
 
-    this.nu('orient').then(Orient => Orient.set(rect.width > rect.height ? 'h' : 'v'));
+    this.use('orient').then(Orient => Orient.set(rect.width > rect.height ? 'h' : 'v'));
 
     if (rect.width > rect.height) {
       const pageX = (evt.pageX || (evt.touches && evt.touches.length && evt.touches[0].pageX)) - window.scrollX;

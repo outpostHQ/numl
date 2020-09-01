@@ -300,7 +300,7 @@ export default class NuBase extends HTMLElement {
 
           if (!entry[1]
             && !name.startsWith('nu-')
-            && !name.startsWith('nx-')
+            && !name.startsWith('use-')
             && !(name in baseAttrs)) {
             list.push(name);
           }
@@ -581,11 +581,11 @@ export default class NuBase extends HTMLElement {
 
     if (name === 'nu') return;
 
-    if (name.startsWith('nx-')) {
-      name = name.replace('nx-', '');
+    if (name.startsWith('use-')) {
+      name = name.replace('use-', '');
 
       if (behaviors.has(name)) {
-        this.nu(name, value);
+        this.nuUse(name, value);
       }
 
       return;
@@ -743,7 +743,7 @@ export default class NuBase extends HTMLElement {
 
       if (behaviorList.length) {
         for (let name of behaviorList) {
-          this.nu(name);
+          this.nuUse(name);
         }
       }
 
@@ -1672,7 +1672,7 @@ export default class NuBase extends HTMLElement {
    * @param [value] {String} - Options string
    * @return {null|Behavior}
    */
-  nu(name, value) {
+  nuUse(name, value) {
     const allBehaviors = this.constructor.nuAllBehaviors;
 
     let options = `${allBehaviors[name] || ''} ${value || ''}`;

@@ -20,7 +20,7 @@ export default class TooltipBehavior extends Behavior {
     if (isTouch) return;
 
     const showTooltip = () => {
-      this.nu('fixate')
+      this.use('fixate')
         .then(Fixate => Fixate.start());
 
       host.hidden = false;
@@ -28,7 +28,7 @@ export default class TooltipBehavior extends Behavior {
     };
 
     const hideTooltip = () => {
-      this.nu('fixate')
+      this.use('fixate')
         .then(Fixate => Fixate.end());
 
       host.hidden = true;

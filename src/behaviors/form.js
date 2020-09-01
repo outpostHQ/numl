@@ -174,7 +174,7 @@ export default class FormBehavior extends WidgetBehavior {
 
     return Promise.all(forms
       .map(formEl => {
-        return formEl.nu('form')
+        return formEl.use('form')
           .then(Form => {
             return Form.setDirty()
               .then(() => Form.validate())

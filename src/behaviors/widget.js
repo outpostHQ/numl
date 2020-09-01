@@ -427,7 +427,7 @@ export default class WidgetBehavior extends Behavior {
   }
 
   control() {
-    this.nu('control')
+    this.use('control')
       .then(Control => Control.apply(null, this.getTypedValue(this.emitValue)));
   }
 

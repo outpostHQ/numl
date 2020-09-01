@@ -109,7 +109,7 @@ export default class PopupBehavior extends WidgetBehavior {
 
     if (this.isOpen) return;
 
-    host.nu('fixate')
+    host.nuUse('fixate')
       .then(Fixate => Fixate.start());
 
     this.openEffect(true);
@@ -165,7 +165,7 @@ export default class PopupBehavior extends WidgetBehavior {
 
     if (!this.isOpen) return;
 
-    host.nu('fixate')
+    host.nuUse('fixate')
       .then(Fixate => Fixate.end());
 
     this.openEffect(false);

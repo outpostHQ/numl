@@ -41,6 +41,8 @@ export default class OptionBehavior extends WidgetBehavior {
     }, false);
 
     this.on('click', () => {
+      if (this.disabled) return;
+
       this.doAction('input', this.value);
       // this.doAction('close');
     });

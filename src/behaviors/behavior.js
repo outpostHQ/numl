@@ -37,8 +37,8 @@ export default class Behavior {
    * @param name
    * @returns {undefined|Promise<Behavior>}
    */
-  nu(name) {
-    return this.host.nu(name);
+  use(name) {
+    return this.host.nuUse(name);
   }
 
   is(name) {
@@ -51,7 +51,7 @@ export default class Behavior {
    */
   require(...behaviors) {
     behaviors.forEach(name => {
-      this.host.nu(name);
+      this.host.nuUse(name);
     });
   }
 

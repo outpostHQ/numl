@@ -63,6 +63,12 @@ export default class ListBoxBehavior extends WidgetBehavior {
 
   connected() {
     super.connected();
+
+    setTimeout(() => {
+      if (!this.current && this.options.length) {
+        this.current = this.options[0].value;
+      }
+    });
   }
 
   setValue(value, silent) {
@@ -119,7 +125,7 @@ export default class ListBoxBehavior extends WidgetBehavior {
         this.toggleOption(this.current);
 
         if (!this.multiple && evt.target === this.host && this.isPopup) {
-          this.nu('popup')
+          this.use('popup')
             .then(Popup => Popup.close());
         }
         break;
@@ -185,7 +191,7 @@ export default class ListBoxBehavior extends WidgetBehavior {
         this.setValue(this.current);
 
         if (evt.target === this.host && this.isPopup) {
-          this.nu('popup')
+          this.use('popup')
             .then(Popup => Popup.close());
         }
         break;
@@ -235,8 +241,10 @@ export default class ListBoxBehavior extends WidgetBehavior {
     if (!this.options.includes(option)) {
       this.options.push(option);
 
-      if (this.options.length === 1) {
-        this.current = option.value;
+      if (!this.current) {
+        if (this.multiple ? (this.value || []).includes(option.value) : isEqual(this.value, option.value)) {
+          this.current = option.value;
+        }
       }
     }
   }

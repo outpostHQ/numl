@@ -13,6 +13,9 @@
     for="dropdown"
     text="sb center" content="stretch" columns="1fr auto"
     padding=".5x .25x .5x .75x" grow="1"></nu-attrs>
+  <nu-attrs
+    for="option"
+    padding="1x" content="center"></nu-attrs>
   <nu-group radius>
     <nu-btn id="arrow" on:tap={prevYear} disabled={havePrevYear ? undefined : ''}>
       <nu-icon id="arrow-left-icon"></nu-icon>
@@ -27,9 +30,7 @@
         {#each years as year}
           <nu-option
             value={year}
-            disabled={!isMonthInRange(year, beginDate, endDate) ? '' : undefined}
-            color=":current[special]"
-            fill=":current[subtle]">
+            disabled={!isMonthInRange(year, beginDate, endDate) ? '' : undefined}>
             <nu-datetime year value={year}></nu-datetime>
           </nu-option>
         {/each}
@@ -54,9 +55,7 @@
         {#each months as month}
           <nu-option
             value={month}
-            disabled={!isMonthInRange(month, beginDate, endDate) ? '' : undefined}
-            color=":current[special]"
-            fill=":current[subtle]">
+            disabled={!isMonthInRange(month, beginDate, endDate) ? '' : undefined}>
             <nu-datetime month value={month}></nu-datetime>
           </nu-option>
         {/each}

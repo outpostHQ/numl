@@ -443,7 +443,7 @@ export default class ActionBehavior extends WidgetBehavior {
       state = !!this.pressed;
     }
 
-    this.nu('control')
+    this.use('control')
       .then(Control => Control.apply(state, this.getTypedValue(this.emitValue), dryRun));
   }
 

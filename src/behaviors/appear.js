@@ -52,13 +52,13 @@ export default class AppearBehavior extends Behavior {
       // this.setMod(`appear-top`, bool);
       // this.setMod(`appear-bottom`, bool);
     } else if (this.appeared) {
-      this.host.removeAttribute('nx-appear');
+      this.host.removeAttribute('use-appear');
     }
   }
 }
 
 function onPositionChange() {
-  const els = deepQueryAll(document.body, '[nx-appear]');
+  const els = deepQueryAll(document.body, '[use-appear]');
 
   els.forEach(el => {
     el.nuBehaviors.appear.apply();

@@ -57,7 +57,7 @@ export default class NuElement extends NuBase {
           } : null;
       },
       ...Object.keys(behaviors.map).reduce((map, name) => {
-        map[`nx-${name}`] = '';
+        map[`use-${name}`] = '';
 
         return map;
       }, {}),
