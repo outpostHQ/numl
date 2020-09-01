@@ -67,7 +67,7 @@ export default class ValueBehavior extends WidgetBehavior {
               }
             });
 
-            html += '</nu-flex>';
+            html += '&nbsp;</nu-flex>';
 
             this.setAria('label', rawValues.join(','));
           }
