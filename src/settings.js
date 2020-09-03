@@ -4,7 +4,7 @@ import { devMode, isNoValue, isYesValue, requestIdleCallback } from './helpers';
 const DATASET = ROOT.dataset;
 const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
 const CONTRAST_OPTIONS = ['auto', 'low', 'high'];
-const ICONS_OPTIONS = ['feather', 'eva'];
+const ICONS_OPTIONS = ['feather', 'eva', 'no'];
 const BEHAVIORS_OPTIONS = ['auto', 'no', 'manual']
 
 export const preventInit = DATASET.nuPrevent != null;

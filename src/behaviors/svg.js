@@ -23,11 +23,11 @@ export default class SvgBehavior extends Behavior {
   inject(src) {
     const { host } = this;
 
-    host.innerHTML = '';
-
     if (!src || !src.trim()) return;
 
     Svg.load(src).then(svg => {
+      host.innerHTML = '';
+
       const svgNode = svgElement(svg);
       const width = svgNode.getAttribute('width');
       const height = svgNode.getAttribute('height');

@@ -49,6 +49,8 @@ let loader = (name) => {
       return evaIconsLoader(name);
   }
 
+  warn('icon not found', { name });
+
   return Promise.resolve('');
 }
 

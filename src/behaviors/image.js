@@ -27,7 +27,11 @@ export default class ImageBehavior extends WidgetBehavior {
   load(src) {
     const { host } = this;
 
-    if (!src || !src.trim()) return;
+    src = src && src.trim();
+
+    if (!src || src === this.cachedSrc) return;
+
+    this.cachedSrc = src;
 
     let img = host.querySelector('img') || h('img');
 
@@ -37,7 +41,9 @@ export default class ImageBehavior extends WidgetBehavior {
 
     this.ref = img;
 
-    host.appendChild(img);
+    if (!img.parentNode) {
+      host.appendChild(img);
+    }
 
     fixSafariInvisibleContents(host);
 
