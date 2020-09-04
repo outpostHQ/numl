@@ -2,6 +2,7 @@ import NuElement from './elements/el';
 import { log, warn } from './helpers';
 
 const OBJ_ASSIGN = ['attrs', 'styles', 'generators', 'behaviors', 'combinators'];
+const ARR_ASSIGN = ['css'];
 
 const staticBind = {
   id: 'nuId',
@@ -9,6 +10,7 @@ const staticBind = {
   role: 'nuRole',
   attrs: 'nuAttrs',
   styles: 'nuStyles',
+  contents: 'nuContents',
   context: 'nuContext',
   css: 'nuCSS',
   generators: 'nuGenerators',
@@ -103,6 +105,14 @@ export function assignOption(element, prop, value, elements = {}, replace) {
 
   if (OBJ_ASSIGN.includes(prop) && !replace) {
     newValue = Object.assign(oldValue || {}, newValue);
+  }
+
+  if (prop === 'css' && typeof newValue === 'function' && !replace) {
+    const newCSS = newValue;
+
+    newValue = ({ tag, css }) => {
+      return [...(oldValue({ tag, css}) || []), ...(newCSS({ tag, css}) || [])];
+    };
   }
 
   Object.defineProperty(element, propName, {
