@@ -5,7 +5,7 @@
 An open-source Library of Web Components and a Runtime CSS Framework for rapidly building UI that follows your Design System.
 
 - Works with popular JS-Frameworks
-- Don't require build step, works with CDNs
+- Don't require a build step, works with CDNs
 - Don't require writing CSS, fully customizable in runtime with HTML or JS
 - Style mapping to state or screen width
 - Runtime theme generator with Dark Scheme and High Contrast Mode
