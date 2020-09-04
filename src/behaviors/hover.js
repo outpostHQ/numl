@@ -2,6 +2,8 @@
  * Make element hoverable or temporarily disable that ability.
  * Handles pointer hover interactions for an element. Normalizes behavior
  * across browsers and platforms, and ignores emulated mouse events on touch devices.
+ * Implementation is based on @react-aria useHover:
+ * @see https://github.com/adobe/react-spectrum/blob/main/packages/@react-aria/interactions/src/useHover.ts
  */
 
 import Behavior from "./behavior";
