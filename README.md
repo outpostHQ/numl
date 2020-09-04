@@ -25,8 +25,6 @@ An open-source Library of Web Components and a Runtime CSS Framework for rapidly
 [![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Rate on Openbase](https://badges.openbase.io/js/rating/numl.svg)](https://openbase.io/js/numl?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
-**PRE-RELEASE VERSION, UNDER RAPID DEVELOPMENT**
-
 [Learn more at NUML.DESIGN](https://numl.design/)
 
 ## Quick Start
