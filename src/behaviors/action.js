@@ -174,6 +174,7 @@ export default class ActionBehavior extends WidgetBehavior {
       $link.setAttribute('tabindex', '-1');
       $link.setAttribute('aria-hidden', 'true');
       $link.setAttribute('role', 'none');
+      $link.innerHTML = '';
 
       this.$link = $link;
 

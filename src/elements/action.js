@@ -56,8 +56,10 @@ export default class NuAction extends NuElement {
         left: 0;
         overflow: hidden;
         cursor: inherit;
-        color: inherit;
+        color: transparent;
         text-decoration: inherit;
+        text-indent: -999rem;
+        white-space: nowrap;
       }`,
 
       `${tag} > a:focus {

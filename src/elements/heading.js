@@ -1,5 +1,3 @@
-import NuBlock from './block';
-import { SIZES } from '../styles/size';
 import { devMode, warn } from '../helpers';
 import NuElement from './el';
 
