@@ -31,7 +31,7 @@ export default class ValidatorBehavior extends WidgetBehavior {
         this.assertValue = val;
       } else if (typeof val === 'string') {
         [this.assert, this.assertValue] = val.split(':');
-      } if (devMode) {
+      } else if (devMode) {
         warn('validator: wrong assert method', val);
       }
     };

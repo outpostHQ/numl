@@ -42,7 +42,7 @@ export function checkErrors(data, checks) {
         const checkNames = Object.keys(validators);
 
         return Promise.all(checkNames
-          .map(async check => {
+          .map(check => {
             const options = validators[check];
             const validator = VALIDATORS[check];
 
