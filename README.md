@@ -31,13 +31,13 @@ An open-source Library of Web Components and a Runtime CSS Framework for rapidly
 
 Add the following code to your page.
 
-Via [Skypack]:
+via [Skypack](https://www.skypack.dev/):
 
 ```html
 <script type="module" src="https://cdn.skypack.dev/numl@1.0.0-beta.1"></script>
 ```
 
-Via [JsDelivr]:
+via [JsDelivr](http://www.jsdelivr.com/):
 
 ```html
 <script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.0-beta.1/dist/index.js"></script>
