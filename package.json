@@ -73,5 +73,6 @@
   ],
   "dependencies": {
     "src": "^1.1.2"
-  }
+  },
+  "license": "MIT"
 }
