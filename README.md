@@ -4,6 +4,11 @@
 
 An open-source Library of Web Components and a Runtime CSS Framework for rapidly building UI that follows your Design System.
 
+[![NPM Version](https://img.shields.io/npm/v/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
+[![](https://img.shields.io/npm/dt/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
+[![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Rate on Openbase](https://badges.openbase.io/js/rating/numl.svg)](https://openbase.io/js/numl?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
+
 - Works with popular JS-Frameworks
 - Don't require a build step, works with CDNs
 - Don't require writing CSS, fully customizable in runtime with HTML or JS
@@ -20,10 +25,12 @@ An open-source Library of Web Components and a Runtime CSS Framework for rapidly
 - **For enthusiastic** Customize the Numl Design System to the smallest detail in runtime using HTML. Use behaviors and control system to add simple interactions. Add your favorite framework (**Vue.js**, **Angular**, **React**, **Svelte**...) for complex logic.
 - **For experts** Use JavaScript API to create elements that follow your Design System on top of the **Numl**. Integrate Design Tokens into elements to have more control. Add your own unique elements, styles, and behaviors.
 
-[![NPM Version](https://img.shields.io/npm/v/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
-[![](https://img.shields.io/npm/dt/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
-[![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Rate on Openbase](https://badges.openbase.io/js/rating/numl.svg)](https://openbase.io/js/numl?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
+## Another UI Framework? Why should I care?
+
+- **All-in-one** – Numl is both a markup language for rapidly building responsive interfaces and a set of ready-to-use highly-customizable accessible elements. So you can use a single comprehensive tool to compose and style web applications. It's also possible to create simple interactions using only HTML.
+- **Unique** – Numl is based on unique CSS generation technology that allows you to unleash all the power of modern CSS and take all styles under your control.
+- **DX Focused** – Numl is focused on providing the best possible Developer Experience. It has lots of built-in helpers and solutions for routine UI development and its approach is convenient for maintaining and refactoring.
+- **Universal** – Numl is built on top of Web Components, a modern web API to create reusable UI elements, and it's compatible with most modern JS-frameworks. You can use it as is or create lightweight wrappers for your favorite framework to improve DX, SSR and SEO.
 
 [Learn more at NUML.DESIGN](https://numl.design/)
 
