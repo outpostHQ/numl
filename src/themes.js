@@ -8,7 +8,6 @@ import {
   setOpacity,
   hslToRgbaStr,
   getTheBrightest,
-  hslToRgb,
   findContrastLightness,
   setSaturation,
   getSaturationRatio,
@@ -16,7 +15,7 @@ import {
   getContrastRatio, rgbToHsl, getOptimalSaturation, rgbaStrToRgbValues,
 } from './color';
 import { extractColor } from './dom-helpers';
-import { removeRulesByPart, insertRuleSet, stylesString, withMediaQuery } from './css';
+import { removeRulesByPart, insertRuleSet, stylesString } from './css';
 
 export const THEME_ATTR = 'theme';
 

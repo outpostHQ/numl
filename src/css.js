@@ -375,18 +375,6 @@ export function splitIntoRules(css) {
   return arr.slice(0, -1);
 }
 
-/**
- *
- * @param mediaQuery - CSS media query for the rule
- * @param {String} rule - a full rule or just a selector
- * @param {String} [styles]
- * @return {string}
- */
-export function withMediaQuery(mediaQuery, rule, styles) {
-  return `@media ${mediaQuery} {${styles != null ? `${rule}{${styles}}` : rule}}`;
-}
-
-
 const globalRules = [`
 :root {
   font-size: 16px;
