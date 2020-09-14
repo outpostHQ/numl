@@ -9,6 +9,7 @@ An open-source Library of Web Components and a Runtime CSS Framework for rapidly
 [![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Rate on Openbase](https://badges.openbase.io/js/rating/numl.svg)](https://openbase.io/js/numl?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
+- Blazing-fast prototyping using only HTML
 - Works with popular JS-Frameworks
 - Don't require a build step, works with CDNs
 - Don't require writing CSS, fully customizable in runtime with HTML or JS
@@ -27,7 +28,7 @@ An open-source Library of Web Components and a Runtime CSS Framework for rapidly
 
 ## Another UI Framework? Why should I care?
 
-- **All-in-one** – Numl is both a markup language for rapidly building responsive interfaces and a set of ready-to-use highly-customizable accessible elements. So you can use a single comprehensive tool to compose and style web applications. It's also possible to create simple interactions using only HTML.
+- **All-in-one** – Numl is both a markup language for rapidly building responsive interfaces and a set of ready-to-use highly-customizable accessible elements. So you can use a single comprehensive tool to compose and style web applications. It's also possible to create simple interactions without writing JS.
 - **Unique** – Numl is based on unique CSS generation technology that allows you to unleash all the power of modern CSS and take all styles under your control.
 - **DX Focused** – Numl is focused on providing the best possible Developer Experience. It has lots of built-in helpers and solutions for routine UI development and its approach is convenient for maintaining and refactoring.
 - **Universal** – Numl is built on top of Web Components, a modern web API to create reusable UI elements, and it's compatible with most modern JS-frameworks. You can use it as is or create lightweight wrappers for your favorite framework to improve DX, SSR and SEO.
