@@ -21,6 +21,7 @@ export default class NuFileInput extends NuElement {
   static get nuBehaviors() {
     return {
       fileinput: true,
+      hover: true,
     };
   }
 

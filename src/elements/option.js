@@ -13,6 +13,7 @@ export default class NuOption extends NuElement {
     return {
       option: true,
       active: true,
+      hover: true,
     };
   }
 
