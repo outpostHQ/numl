@@ -238,11 +238,11 @@ export default function placeAttr(val, defaults) {
       }
     }
 
-    if (styles.left === '50%') {
+    if (styles.left === '50%' && offsetX !== '50%') {
       transX = '-50%';
     }
 
-    if (styles.top === '50%') {
+    if (styles.top === '50%' && offsetY !== '50%') {
       transY = '-50%';
     }
 
