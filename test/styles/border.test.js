@@ -1,4 +1,4 @@
-import borderAttr from '../../src/attributes/border';
+import borderAttr from '../../src/styles/border';
 import { checkGenerator } from '../utils';
 
 checkGenerator('border', borderAttr, {

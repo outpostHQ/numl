@@ -1,4 +1,4 @@
-import textAttr from '../../src/attributes/text';
+import textAttr from '../../src/styles/text';
 import { checkGenerator } from '../utils';
 
 checkGenerator('test', textAttr, {

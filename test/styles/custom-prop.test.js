@@ -1,7 +1,7 @@
 import { handleProp } from '../../src/definitions/props';
 import { expect } from '../utils';
 import { computeStyles } from '../../src/helpers';
-import propAttr from '../../src/attributes/prop';
+import propAttr from '../../src/styles/prop';
 
 describe('Compute properties', () => {
   it('should handle metric units', () => {

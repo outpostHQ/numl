@@ -1,4 +1,4 @@
-import paddingAttr from '../../src/attributes/padding';
+import paddingAttr from '../../src/styles/padding';
 import { checkGenerator } from '../utils';
 
 checkGenerator('padding', paddingAttr, {

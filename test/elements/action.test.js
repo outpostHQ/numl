@@ -7,6 +7,8 @@ describe('nu-action', () => {
       <nu-action>Action</nu-action>
     `);
 
+    await pause();
+
     expect(el).to.have.attr('role', 'button');
   });
 

@@ -3,41 +3,54 @@ import { ROOT } from './context';
 
 let timerId;
 
-export function handleLinkState(el) {
+function handleHashLinks(links) {
+  const arr = [];
+
+  links.forEach(link => {
+    const id = link.getAttribute('to').slice(1);
+    const target = link.nuQueryById(id);
+
+    if (!target) return;
+
+    const rect = target.getBoundingClientRect();
+    const offset = rect.y;
+
+    if (target) {
+      arr.push({
+        link,
+        id,
+        target,
+        offset,
+      });
+    }
+  });
+
+  if (!arr.length) return;
+
+  arr.sort((a, b) => b.offset - a.offset);
+
+  let map = arr.find(map => map.offset <= 0);
+
+  if (map) {
+    map.link.nuSetMod('current', true);
+  }
+
+  arr.forEach(mp => {
+    if (mp !== map) {
+      mp.link.nuSetMod('current', false);
+    }
+  });
+}
+
+export function handleLinkState(el, handleHash) {
   const link = el.querySelector('a');
 
   if (!link) return;
 
   const href = link.href;
   const to = el.getAttribute('to');
-  const windowHeight = window.innerHeight;
 
-  if (to.startsWith('#')) {
-    const id = to.slice(1);
-
-    const target = el.nuQueryById(id);
-
-    if (target) {
-      const rect = target.getBoundingClientRect();
-
-      const bottom = rect.y + rect.height;
-
-      let isCurrent = false;
-
-      if ((rect.y <= 0 && bottom >= windowHeight)
-        || (rect.y >= 0 && bottom <= windowHeight)
-        || (rect.y >= 0 && rect.y <= windowHeight / 2)
-        || (bottom <= windowHeight && bottom >= windowHeight / 2)) {
-        isCurrent = true;
-      }
-
-      el.nuSetMod('current', isCurrent);
-
-      return;
-    }
-  }
-
-  el.nuSetMod('current', href === location.href);
+  el.nuSetMod('current', href === location.href.replace(location.hash, ''));
 }
 
 export function handleLinksState(force = false) {
@@ -50,9 +63,12 @@ export function handleLinksState(force = false) {
   timerId = setTimeout(() => {
     timerId = null;
 
-    const links = deepQueryAll(ROOT, '[nu-action][to]');
+    const hashLinks = deepQueryAll(ROOT, '[nu-action][to^="#"]');
+    const otherLinks = deepQueryAll(ROOT, '[nu-action][to]:not([to^="#"])');
 
-    links.forEach(handleLinkState);
+    otherLinks.forEach(handleLinkState);
+
+    handleHashLinks(hashLinks);
   }, force ? 0 : 100);
 }
 

@@ -22,6 +22,7 @@ export { default as NuStrong } from './elements/strong';
 export { default as NuEm } from './elements/em';
 export { default as NuSup } from './elements/sup';
 export { default as NuSub } from './elements/sub';
+export { default as NuContents } from './elements/contents';
 export { default as NuHeading } from './elements/heading';
 export { default as NuH1 } from './elements/h1';
 export { default as NuH2 } from './elements/h2';

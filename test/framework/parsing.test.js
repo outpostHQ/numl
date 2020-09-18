@@ -112,6 +112,21 @@ describe('Parsing', () => {
       'values': [
         'max(100%, var(--nu-content-width, var(--content-width)))',
       ],
-    }
+    },
+
+    'mod -3.9x': {
+      'all': [
+        'mod',
+        'calc(-3.9 * var(--nu-gap))'
+      ],
+      'color': '',
+      'mods': [
+        'mod',
+      ],
+      'value': 'mod calc(-3.9 * var(--nu-gap))',
+      'values': [
+        'calc(-3.9 * var(--nu-gap))',
+      ],
+    },
   });
 });

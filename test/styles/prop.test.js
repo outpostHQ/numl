@@ -1,4 +1,4 @@
-import propAttr from '../../src/attributes/prop';
+import propAttr from '../../src/styles/prop';
 import { checkGenerator } from '../utils';
 
 checkGenerator('shadow', propAttr, {

@@ -1,4 +1,4 @@
-import spaceAttr from '../../src/attributes/space';
+import spaceAttr from '../../src/styles/space';
 import { checkGenerator } from '../utils';
 
 checkGenerator('space', spaceAttr, {

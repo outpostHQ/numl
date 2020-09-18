@@ -1,4 +1,4 @@
-import { h, parseAttr } from '../helpers';
+import { parseAttr } from '../helpers';
 import NuElement from './el';
 import { requireChild } from '../dom-helpers';
 

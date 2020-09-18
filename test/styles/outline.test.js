@@ -1,4 +1,4 @@
-import outlineAttr from '../../src/attributes/outline';
+import outlineAttr from '../../src/styles/outline';
 import { checkGenerator } from '../utils';
 import { localProp } from '../../src/props-helpers';
 
