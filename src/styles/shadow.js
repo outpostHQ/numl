@@ -2,7 +2,6 @@ import { isNoValue, isYesValue, parseAttr } from '../helpers';
 import { prop } from '../props-helpers';
 
 const SHADOW = 'rgba(var(--nu-local-shadow-color-rgb, var(--nu-shadow-color-rgb)), .33)';
-const SPECIAL_SHADOW = 'rgba(var(--nu-special-shadow-color-rgb), .33)';
 
 export default function shadowAttr(val, defaults, options = {}) {
   const {
@@ -22,12 +21,6 @@ export default function shadowAttr(val, defaults, options = {}) {
   const propName = `--nu-local-${inset ? 'inset' : 'depth'}-shadow`;
 
   let { values, mods, color } = parseAttr(val, 1);
-  let isSpecial = false;
-
-  if (mods.includes('special')) {
-    isSpecial = true;
-    mods = mods.filter(m => m !== 'special');
-  }
 
   let value;
 
@@ -35,9 +28,7 @@ export default function shadowAttr(val, defaults, options = {}) {
     const name = mods[0];
     value = `${prop(`${name}-shadow`)} ${color || ''}${inset ? ' inset' : ''}`;
   } else {
-    color = color || (isSpecial
-      ? (specialShadow || SPECIAL_SHADOW)
-      : (shadow || SHADOW));
+    color = color || shadow || SHADOW;
 
     let size = defaultValue || '1rem';
     let x = '0';

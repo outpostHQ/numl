@@ -30,7 +30,7 @@ export default class NuPopupListBox extends NuPopup {
       place: 'top :multiple[outside-bottom]',
       gap: '1bw',
       border: 'y :focus[y #special]',
-      shadow: 'special',
+      shadow: 'y',
     };
   }
 }
