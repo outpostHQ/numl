@@ -48,7 +48,7 @@ export default class FormBehavior extends WidgetBehavior {
         .then(valid => {
           if (valid) {
             this.emit('input', this.type === 'formdata'
-              ? jsonToFormData(this.value) : this.value);
+              ? jsonToFormData(this.value) : { ...(this.value || {}) });
             this.control();
           }
         });

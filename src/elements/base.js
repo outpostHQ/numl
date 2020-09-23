@@ -1856,6 +1856,12 @@ export default class NuBase extends HTMLElement {
     HTMLElement.prototype.focus.call(ref);
   }
 
+  blur() {
+    const ref = this.nuRef || this;
+
+    HTMLElement.prototype.blur.call(ref);
+  }
+
   select() {
     if (this.nuRef && this.nuRef.select) {
       this.nuRef.select();
