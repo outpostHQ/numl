@@ -2,7 +2,7 @@ import WidgetBehavior, { ALIAS_ATTR } from "./widget";
 import Routing from '../routing';
 import { deepQuery, isEqual, queryById } from '../helpers';
 import { h } from '../dom-helpers';
-import { handleLinksState, handleLinkState } from '../links';
+import { handleLinksState, handleLinkState } from './current';
 
 export default class ActionBehavior extends WidgetBehavior {
   static get params() {

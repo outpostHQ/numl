@@ -14,7 +14,6 @@ import { define, assign as baseAssign } from './api';
 
 export { FLEX_GAP_SUPPORTED } from './styles/gap';
 import initSticky from './sticky';
-import initLinks from './links';
 
 import * as elements from './elements';
 import NuBase from './elements/base';
@@ -38,10 +37,9 @@ import generators from './generators';
 import { scheme, contrast, reduceMotion, preventInit, behaviorOption } from './settings';
 import CONTEXT from './context';
 import { applyTheme, BASE_THEME, hue } from './themes';
-import { removeRulesByPart, generateCSS, insertRuleSet } from './css';
+import { generateCSS, insertRuleSet } from './css';
 
 initSticky(); // enable sticky detection
-initLinks(); // enable link current state detection
 
 function assign(element, options, replace) {
   return baseAssign(element, options, elements, replace);

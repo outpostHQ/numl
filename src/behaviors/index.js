@@ -46,6 +46,7 @@ const BEHAVIORS = {
   offset: () => extract(import(`./offset.js`)),
   appear: () => extract(import(`./appear.js`)),
   hotkey: () => extract(import('./hotkey.js')),
+  current: () => extract(import('./current.js')),
 };
 
 function hasBehavior(name) {

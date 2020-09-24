@@ -1,0 +1,87 @@
+import { deepQueryAll } from '../helpers';
+import { ROOT } from '../context';
+import Behavior from './behavior';
+
+let timerId;
+
+function handleHashLinks(links) {
+  const arr = [];
+
+  links.forEach(link => {
+    const id = link.getAttribute('href').slice(1);
+    const target = link.parentNode.nuQueryById(id);
+
+    if (!target) return;
+
+    const rect = target.getBoundingClientRect();
+    const offset = rect.y;
+
+    if (target) {
+      arr.push({
+        link,
+        id,
+        target,
+        offset,
+        parent: link.parentNode,
+      });
+    }
+  });
+
+  if (!arr.length) return;
+
+  arr.sort((a, b) => b.offset - a.offset);
+
+  let map = arr.find(map => map.offset <= 0);
+
+  if (map) {
+    map.parent.nuSetMod('current', true);
+  }
+
+  arr.forEach(mp => {
+    if (mp !== map) {
+      mp.parent.nuSetMod('current', false);
+    }
+  });
+}
+
+export function handleLinkState(link) {
+  const href = link.href;
+
+  link.parentNode.nuSetMod('current', href === location.href.replace(location.hash, ''));
+}
+
+export function handleLinksState(force = false) {
+  if (timerId && !force) return;
+
+  if (force) {
+    clearTimeout(timerId);
+  }
+
+  timerId = setTimeout(() => {
+    timerId = null;
+
+    const hashLinks = deepQueryAll(ROOT, '[is-current-spy] > a[href^="#"]');
+    const otherLinks = deepQueryAll(ROOT, '[is-current-spy] > a:not([href^="#"])');
+
+    console.log('!', hashLinks.length, otherLinks.length);
+
+    otherLinks.forEach(handleLinkState);
+
+    handleHashLinks(hashLinks);
+  }, force ? 0 : 100);
+}
+
+window.addEventListener('scroll', handleLinksState, { passive: true });
+window.addEventListener('popstate', handleLinksState, { passive: true });
+
+setTimeout(handleLinksState, 50);
+
+export default class CurrentBehavior extends Behavior {
+  connected() {
+    this.setMod('current-spy', true);
+  }
+
+  disconnected() {
+    this.setMod('current-spy', false);
+  }
+}
