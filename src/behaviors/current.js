@@ -63,8 +63,6 @@ export function handleLinksState(force = false) {
     const hashLinks = deepQueryAll(ROOT, '[is-current-spy] > a[href^="#"]');
     const otherLinks = deepQueryAll(ROOT, '[is-current-spy] > a:not([href^="#"])');
 
-    console.log('!', hashLinks.length, otherLinks.length);
-
     otherLinks.forEach(handleLinkState);
 
     handleHashLinks(hashLinks);

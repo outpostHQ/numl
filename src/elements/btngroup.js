@@ -34,6 +34,7 @@ export default class NuBtnGroup extends NuGroup {
       'attrs:action': {
         border: '0',
         outline: 'n',
+        padding: '1x',
       },
     };
   }
