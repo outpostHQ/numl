@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.5",
+    "@github/hotkey": "^1.4.2",
     "@open-wc/testing": "^2.5.19",
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-json": "^4.1.0",

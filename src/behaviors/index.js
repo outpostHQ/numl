@@ -45,6 +45,7 @@ const BEHAVIORS = {
   menuitem: () => extract(import(`./menuitem.js`)),
   offset: () => extract(import(`./offset.js`)),
   appear: () => extract(import(`./appear.js`)),
+  hotkey: () => extract(import('./hotkey.js')),
 };
 
 function hasBehavior(name) {
