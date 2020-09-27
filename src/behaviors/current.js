@@ -2,9 +2,24 @@ import { deepQueryAll } from '../helpers';
 import { ROOT } from '../context';
 import Behavior from './behavior';
 
+const history = window.history;
+
+const _wr = function (type) {
+  return function () {
+    const rv = History.prototype[type].apply(history, arguments);
+    const e = new Event(type.toLowerCase());
+    window.dispatchEvent(e);
+    return rv;
+  };
+};
+
+history.pushState = _wr('pushState')
+history.replaceState = _wr('replaceState');
+
 let timerId;
 
-function handleHashLinks(links) {
+function handleHashLinks() {
+  const links = deepQueryAll(ROOT, '[is-current-spy] > a[href^="#"]');
   const arr = [];
 
   links.forEach(link => {
@@ -60,17 +75,22 @@ export function handleLinksState(force = false) {
   timerId = setTimeout(() => {
     timerId = null;
 
-    const hashLinks = deepQueryAll(ROOT, '[is-current-spy] > a[href^="#"]');
     const otherLinks = deepQueryAll(ROOT, '[is-current-spy] > a:not([href^="#"])');
 
+    handleHashLinks();
     otherLinks.forEach(handleLinkState);
-
-    handleHashLinks(hashLinks);
   }, force ? 0 : 100);
 }
 
-window.addEventListener('scroll', handleLinksState, { passive: true });
-window.addEventListener('popstate', handleLinksState, { passive: true });
+['popstate', 'pushstate', 'replacestate'].forEach(eventName => {
+  window.addEventListener(eventName, () => {
+    setTimeout(handleLinksState, 100);
+  }, { passive: true });
+});
+
+['scroll', 'hashchange'].forEach((eventName) => {
+  window.addEventListener(eventName, handleHashLinks, { passive: true });
+});
 
 setTimeout(handleLinksState, 50);
 
