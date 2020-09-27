@@ -1201,7 +1201,23 @@ var b = /wow?/;
 
 {#if show('control')}
   <nu-card as="section">
-    <nu-props transition-time=".4s"></nu-props>
+    <nu-props transition=".9s"></nu-props>
+    <nu-heading>Collapsing Custom Effect</nu-heading>
+    <nu-btn
+      toggle trigger
+      control="collapsing[!hidden]"
+      t="'Show the block' :pressed['Collapse the block']"></nu-btn>
+    <nu-block id="collapsing" opacity="1 :hidden[0]" transition="opacity, move" move=":hidden[0 -5x]" hidden>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </nu-block>
+  </nu-card>
+
+  <nu-card as="section">
+    <nu-props transition=".4s"></nu-props>
     <nu-heading>Collapsing</nu-heading>
     <nu-btn
       toggle trigger

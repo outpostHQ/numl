@@ -41,10 +41,14 @@ function setStyles(host, styles, transition = '') {
   }
 }
 
+const TRANSITION_NAME = 'hiding-time';
+
 export function hideEffect(host, bool, effectName) {
   effectName = host.getAttribute(HIDE_EFFECT_ATTR) || effectName;
   const effect = EFFECTS[effectName];
+  const isVisible = !host.style.display;
 
+  host.nuEffected = true;
   host.style.display = '';
   host.style.transition = '';
   host.offsetHeight;
@@ -82,7 +86,29 @@ export function hideEffect(host, bool, effectName) {
     }
   }
 
-  const multiplier = (effectName != null && host.hasAttribute('nu')) ? 1 : 0;
+  const onInit = host.nuInitial || !host.nuIsConnected;
+
+  if (onInit) {
+    host.nuSetMod('hidden', bool);
+    host.nuSetMod('leave', false);
+    host.nuSetMod('enter', false);
+
+    if (bool) {
+      host.style.display = 'none';
+    } else {
+      delete host.style.display;
+    }
+
+    return;
+  }
+
+  if ((bool && !isVisible) || (!bool && isVisible)) {
+    if (!isVisible) {
+      host.style.display = 'none';
+    }
+
+    return;
+  }
 
   if (!bool) {
     setStyles(host, hiddenStyles);
@@ -101,7 +127,7 @@ export function hideEffect(host, bool, effectName) {
 
       clear(host, effect);
       host.nuSetMod('enter', false);
-    }, multiplier);
+    }, TRANSITION_NAME);
   } else {
     setStyles(host, visibleStyles);
 
@@ -121,6 +147,6 @@ export function hideEffect(host, bool, effectName) {
       host.nuSetMod('leave', false);
 
       clear(host, effect);
-    }, multiplier);
+    }, TRANSITION_NAME);
   }
 }

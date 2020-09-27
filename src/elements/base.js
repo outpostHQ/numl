@@ -667,6 +667,10 @@ export default class NuBase extends HTMLElement {
    * @private
    */
   connectedCallback() {
+    // the flag tells that it's a sync phase of element connection.
+    // it's used to detect whether or not apply a transition to hiding effect.
+    this.nuInitial = true;
+
     if (!ELEMENTS_MAP[this.constructor.nuTag]) {
       this.constructor.nuInit();
     }
@@ -790,6 +794,10 @@ export default class NuBase extends HTMLElement {
 
     this.nuFirstConnect = false;
     this.nuIsConnectionComplete = true;
+
+    setTimeout(() => {
+      delete this.nuInitial;
+    });
   }
 
   /**

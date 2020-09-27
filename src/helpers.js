@@ -12,6 +12,7 @@ export const DIRECTIONS = ['top', 'right', 'bottom', 'left'];
 export const isTouch = matchMedia('(pointer: coarse)').matches;
 
 const USE_SHADOW = document.querySelector(':root').dataset.nuShadow != null;
+const DISABLED_TRANSITION = 'all 0s ease 0s';
 
 /**
  * Custom units dict
@@ -1556,13 +1557,13 @@ export function hasPositiveMod(mods) {
  * Set timeout based on local transition time.
  * @param host {HTMLElement}
  * @param cb {Function}
- * @param multiplier {Number}
+ * @param [transitionName] {String} - Prop name of transition time.
  */
-export function setTransitionTimeout(host, cb, multiplier = 1) {
+export function setTransitionTimeout(host, cb, transitionName) {
   const style = getComputedStyle(host);
-  const styleValue = style.getPropertyValue('--nu-transition').trim();
+  const styleValue = (transitionName && style.getPropertyValue(`--nu-${transitionName}`).trim()) || style.getPropertyValue('--nu-transition').trim();
   const transition = style.transition;
-  const time = transition ? parseTime(styleValue) * multiplier : 0;
+  const time = transition !== DISABLED_TRANSITION ? parseTime(styleValue) : 0;
 
   if (!time) {
     cb();
