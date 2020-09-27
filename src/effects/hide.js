@@ -61,6 +61,10 @@ export function hideEffect(host, bool, effectName) {
 
   const id = host.nuCollapseId;
 
+  const transitionInProgress = host.nuEffectTransition;
+
+  host.nuEffectTransition = true;
+
   let visibleStyles = {}, hiddenStyles = {}, transition;
 
   if (effect) {
@@ -95,14 +99,17 @@ export function hideEffect(host, bool, effectName) {
 
     if (bool) {
       host.style.display = 'none';
+      host.nuSetMod('enter', true);
     } else {
       delete host.style.display;
     }
 
+    host.nuEffectTransition = false;
+
     return;
   }
 
-  if ((bool && !isVisible) || (!bool && isVisible)) {
+  if (!transitionInProgress && ((bool && !isVisible) || (!bool && isVisible))) {
     if (!isVisible) {
       host.style.display = 'none';
     }
@@ -115,24 +122,28 @@ export function hideEffect(host, bool, effectName) {
 
     host.nuSetMod('hidden', true);
     host.nuSetMod('enter', true);
+    host.nuSetMod('leave', false);
 
     host.offsetHeight;
 
     setStyles(host, visibleStyles, transition);
 
     host.nuSetMod('hidden', false);
+    host.nuSetMod('enter', false);
 
     setTransitionTimeout(host, () => {
       if (id !== host.nuCollapseId) return;
 
+      host.nuEffectTransition = false;
+
       clear(host, effect);
-      host.nuSetMod('enter', false);
     }, TRANSITION_NAME);
   } else {
     setStyles(host, visibleStyles);
 
     host.nuSetMod('hidden', false);
     host.nuSetMod('leave', true);
+    host.nuSetMod('enter', false);
 
     host.offsetHeight;
 
@@ -143,8 +154,11 @@ export function hideEffect(host, bool, effectName) {
     setTransitionTimeout(host, () => {
       if (id !== host.nuCollapseId) return;
 
+      host.nuEffectTransition = false;
+
       host.style.display = 'none';
       host.nuSetMod('leave', false);
+      host.nuSetMod('enter', true);
 
       clear(host, effect);
     }, TRANSITION_NAME);

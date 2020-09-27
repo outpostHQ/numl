@@ -1207,7 +1207,7 @@ var b = /wow?/;
       toggle trigger
       control="collapsing[!hidden]"
       t="'Show the block' :pressed['Collapse the block']"></nu-btn>
-    <nu-block id="collapsing" opacity="1 :hidden[0]" transition="opacity, move" move=":hidden[0 -5x]" hidden>
+    <nu-block id="collapsing" opacity="1 :hidden[0]" transition="opacity, move" move="0 0 :enter[0 -5x] :leave[0 5x]" hidden>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
