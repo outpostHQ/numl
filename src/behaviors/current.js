@@ -62,7 +62,7 @@ function handleHashLinks() {
 export function handleLinkState(link) {
   const href = link.href;
 
-  link.parentNode.nuSetMod('current', href === location.href.replace(location.hash, ''));
+  link.parentNode && link.parentNode.nuSetMod && link.parentNode.nuSetMod('current', href === location.href.replace(location.hash, ''));
 }
 
 export function handleLinksState(force = false) {
