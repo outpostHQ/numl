@@ -1835,3 +1835,11 @@ export function transferMods(mods, from, to) {
     }
   });
 }
+
+export function roundNumToFixed(num, fix = 0) {
+  num = Number(num);
+
+  if (isNan(num)) return num;
+
+  return Number(Number(num).toFixed(fix));
+}

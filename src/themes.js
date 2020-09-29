@@ -1,6 +1,14 @@
 import {
-  log, extractMods, intersection, devMode, generateId, CUSTOM_FUNCS, parseAttr, warn
-} from "./helpers";
+  log,
+  extractMods,
+  intersection,
+  devMode,
+  generateId,
+  CUSTOM_FUNCS,
+  parseAttr,
+  warn,
+  roundNumToFixed
+} from './helpers';
 import {
   findContrastColor,
   mix,
@@ -618,7 +626,8 @@ function convertContrast(contrast, darkScheme, highContrast) {
 export function requireHue(color, name) {
   let { hue, saturation, contrast, alpha, special, pastel } = color;
 
-  const prop = name ? `--nu-${name}-color` : `--nu-h-${hue}-s-${saturation}-c-${contrast}-a-${(alpha)}${pastel ? '-p' : ''}${special ? '-s' : ''}`;
+  const prop = name ? `--nu-${name}-color` : `--nu-h-${hue}-s-${saturation}-c-${contrast}-a-${(alpha)}${pastel ? '-p' : ''}${special ? '-s' : ''}-color`
+    .replace(/\s/g, '').replace(/\./g, '-');
   const rgbProp = `${prop}-rgb`;
   const onlyReturn = name === false;
   const darkSaturation = getOptimalSaturation(hue, saturation);
@@ -734,7 +743,7 @@ export function parseHue(val) {
   const alphaIndex = modContrast ? 2 : 3;
 
   if (!modContrast && values[2] != null) {
-    const tmpCont = parseInt(values[2]);
+    const tmpCont = roundNumToFixed(values[2], 1);
 
     if (!isNaN(tmpCont)) {
       contrast = tmpCont;
@@ -744,7 +753,7 @@ export function parseHue(val) {
   }
 
   if (values[alphaIndex] != null) {
-    const tmpAlpha = parseInt(values[alphaIndex]);
+    const tmpAlpha = roundNumToFixed(values[alphaIndex], 1);
 
     if (!isNaN(tmpAlpha)) {
       alpha = tmpAlpha;
