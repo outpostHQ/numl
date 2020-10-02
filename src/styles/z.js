@@ -5,7 +5,9 @@ const Z_MAP = {
   'below': '-1',
   'above': '1',
   'front': '9999',
+  'max': '99999',
   'back': '-9999',
+  'min': '-99999',
 };
 
 export default function zAttr(val) {
