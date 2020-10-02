@@ -15,7 +15,6 @@ export default class NuCd extends NuCode {
   static get nuStyles() {
     return {
       fill: 'hue(0 0 0) :special[hue(0 0 70 special)]',
-      padding: '.125em .25em',
     };
   }
 
