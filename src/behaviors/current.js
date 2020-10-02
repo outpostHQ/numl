@@ -46,7 +46,7 @@ function handleHashLinks() {
 
   arr.sort((a, b) => b.offset - a.offset);
 
-  let map = arr.find(map => map.offset <= 0);
+  let map = arr.find(map => map.offset <= 1);
 
   if (map) {
     map.parent.nuSetMod('current', true);
