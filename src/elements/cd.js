@@ -7,13 +7,13 @@ export default class NuCd extends NuCode {
 
   static get nuAttrs() {
     return {
-      inline: '',
       fill: 'diff :special[dark]',
     };
   }
 
   static get nuStyles() {
     return {
+      display: 'inline-block',
       fill: 'hue(0 0 0) :special[hue(0 0 70 special)]',
     };
   }
