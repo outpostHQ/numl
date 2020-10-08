@@ -84,7 +84,8 @@ export function handleLinksState(force = false) {
 
 ['popstate', 'pushstate', 'replacestate'].forEach(eventName => {
   window.addEventListener(eventName, () => {
-    setTimeout(handleLinksState, 100);
+    requestAnimationFrame(handleLinksState);
+    setTimeout(handleLinksState, 250);
   }, { passive: true });
 });
 
@@ -97,6 +98,10 @@ setTimeout(handleLinksState, 50);
 export default class CurrentBehavior extends Behavior {
   connected() {
     this.setMod('current-spy', true);
+
+    this.on('tap', () => {
+      this.setMod('current', true);
+    });
   }
 
   disconnected() {
