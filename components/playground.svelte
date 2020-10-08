@@ -1,5 +1,16 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('group')}
+  <nu-heading level="2">Group radius</nu-heading>
+
+  <nu-card as="section">
+    <nu-flex group-radius="column" flow="column">
+      <nu-btn>1</nu-btn>
+      <nu-btn>2</nu-btn>
+    </nu-flex>
+  </nu-card>
+{/if}
+
 {#if show('decoration')}
   <nu-heading level="2">Code</nu-heading>
 

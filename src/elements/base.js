@@ -110,13 +110,13 @@ const TAG_LIST = [];
  * @property nuParentContext {NudeContext}
  * @property nuBehaviors {Array<NudeMixin>}
  */
-export default class NuBase extends HTMLElement {
+export default class NuAbstract extends HTMLElement {
   /**
    * Element tag name.
    * @returns {String}
    */
   static get nuTag() {
-    return 'nu-abstract-base'; // abstract tag
+    return 'nu-abstract'; // abstract tag
   }
 
   /**
@@ -146,7 +146,7 @@ export default class NuBase extends HTMLElement {
   /**
    * Method to extract element css with current element context.
    * @protected
-   * @param Element {Object} - NuBase (HTMLElement)
+   * @param Element {Object} - NuAbstract (HTMLElement)
    * @param tag {String} - tag name
    * @returns {Array<String>}
    */
@@ -290,7 +290,7 @@ export default class NuBase extends HTMLElement {
    */
   static get nuPropsList() {
     const tag = this.nuTag;
-    const baseAttrs = NuBase.nuAllGenerators;
+    const baseAttrs = NuAbstract.nuAllGenerators;
 
     return (PROPS_MAP[tag]
       || (PROPS_MAP[tag] = Object
@@ -491,8 +491,8 @@ export default class NuBase extends HTMLElement {
     }
 
     Object.keys(allAttrs).forEach(attr => {
-      if (!NuBase.prototype.hasOwnProperty(attr) && isPropDeclarable(attr)) {
-        declareProp(NuBase, attr);
+      if (!NuAbstract.prototype.hasOwnProperty(attr) && isPropDeclarable(attr)) {
+        declareProp(NuAbstract, attr);
       }
     });
 

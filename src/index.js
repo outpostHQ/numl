@@ -38,6 +38,7 @@ import { scheme, contrast, reduceMotion, preventInit, behaviorOption } from './s
 import CONTEXT from './context';
 import { applyTheme, BASE_THEME, hue } from './themes';
 import { generateCSS, insertRuleSet } from './css';
+import Behavior from './behaviors/behavior';
 
 initSticky(); // enable sticky detection
 
@@ -75,6 +76,7 @@ const Nude = {
   contrast,
   reduceMotion,
   behaviors,
+  Behavior,
   props,
   generators,
   CONTEXT,
@@ -199,6 +201,7 @@ export {
   reduceMotion,
   CONTEXT,
   behaviors,
+  Behavior,
   routing,
   icons,
   svg,

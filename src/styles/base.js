@@ -40,18 +40,20 @@ import opacityAttr from './opacity';
 import selectableAttr from './selectable';
 import boxAttr from './box';
 import clampAttr from './clamp';
-import { flexAttr } from './flex';
+import flexAttr from './flex';
 import backdropAttr from './backdrop';
 import snapAttr from './snap';
 import snappingAttr from './snapping';
-import { fontAttr } from './font';
+import fontAttr from './font';
 import clipAttr from './clip';
+import groupRadiusAttr from './group-radius';
 
 export default {
   width: sizeUnit('width'),
   height: sizeUnit('height'),
   sizing: sizingAttr,
   radius: radiusAttr,
+  'group-radius': groupRadiusAttr,
   // 'items-radius': unit('border-radius', {
   //   suffix: '>:not([radius])',
   //   empty: '--nu-radius',
@@ -82,11 +84,7 @@ export default {
   'place-items': PLACE_VALUES[1],
   content: PLACE_VALUES[0],
   items: PLACE_VALUES[1],
-  'template-areas': 'grid-template-areas',
   areas: 'grid-template-areas',
-  'auto-flow': 'grid-auto-flow',
-  'template-columns': unit('grid-template-columns', { convert: true }),
-  'template-rows': unit('grid-template-rows', { convert: true }),
   columns: gridUnit('grid-template-columns'),
   rows: gridUnit('grid-template-rows'),
   column: 'grid-column',

@@ -1,4 +1,4 @@
-export function fontAttr(val) {
+export default function fontAttr(val) {
   if (val.includes(' ') && !val.includes('\'')) {
     val = `'${val}'`;
   }
