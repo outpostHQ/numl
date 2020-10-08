@@ -35,5 +35,8 @@ export default function groupRadiusAttr(val) {
   }, {
     $suffix: '>:last-child:not([radius])',
     'border-radius': endValue,
+  }, {
+    $suffix: '>:not(:last-child):not(:first-child):not([radius])',
+    'border-radius': '0',
   }];
 }

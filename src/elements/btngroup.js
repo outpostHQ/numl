@@ -1,5 +1,4 @@
 import NuGroup from './group';
-import { convertUnit, stripCalc } from '../helpers';
 
 export default class NuBtnGroup extends NuGroup {
   static get nuTag() {
@@ -10,12 +9,6 @@ export default class NuBtnGroup extends NuGroup {
     return {
       radiogroup: true,
       control: true,
-    };
-  }
-
-  static get nuGenerators() {
-    return {
-      ...NuGroup.nuGenerators,
     };
   }
 
@@ -41,8 +34,6 @@ export default class NuBtnGroup extends NuGroup {
 
   static nuCSS({ css, tag }) {
     return [
-      ...NuGroup.nuExtractCSS(this, tag),
-
       `${tag} > *:not([grow]) {
         flex-grow:1;
       }`,
