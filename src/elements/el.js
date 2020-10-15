@@ -109,6 +109,7 @@ export default class NuElement extends NuBase {
       calendar: '',
       system: '',
       hourcycle: '',
+      grouping: '',
       format: '',
       src: '',
       loading: '',

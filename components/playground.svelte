@@ -1,5 +1,14 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('format')}
+  <nu-heading level="2">Formatting</nu-heading>
+
+  <nu-card as="section">
+    <nu-block><nu-num value="1234"></nu-num></nu-block>
+    <nu-block><nu-num value="1234" grouping="no"></nu-num></nu-block>
+  </nu-card>
+{/if}
+
 {#if show('group')}
   <nu-heading level="2">Group radius</nu-heading>
 

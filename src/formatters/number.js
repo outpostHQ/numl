@@ -1,4 +1,4 @@
-import { devMode, warn } from '../helpers';
+import { devMode, isNoValue, isYesValue, warn } from '../helpers';
 
 export const NUM_NOTATIONS = [
   'standard', 'scientific', 'engineering', 'compact',
@@ -35,7 +35,7 @@ function getInList(val, list) {
 }
 
 export default function numberFormat(value, locale, {
-  type, code, sign, unit, notation, fallback, significant, integer, decimal,
+  type, code, sign, unit, notation, fallback, significant, integer, decimal, grouping,
 } = {}) {
   fallback = fallback != null ? fallback : '–';
 
@@ -65,6 +65,10 @@ export default function numberFormat(value, locale, {
   value = Number(value);
 
   const options = {};
+
+  if (grouping != null) {
+    options.useGrouping = !isNoValue(grouping);
+  }
 
   if (fractionAttr[0]) {
     if (fractionAttr[1]) {

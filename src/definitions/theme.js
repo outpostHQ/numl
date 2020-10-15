@@ -78,6 +78,8 @@ export default class NuTheme extends NuDefinition {
   }
 
   nuApply(initial = false) {
+    if (!this.nuParent) return;
+
     const attrs = [...this.attributes].reduce((map, attr) => {
       if (attr.name === 'pastel') {
         map[attr.name] = this.hasAttribute('pastel');

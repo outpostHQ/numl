@@ -1624,7 +1624,7 @@ export default class NuAbstract extends HTMLElement {
   nuCreateContext() {
     let parent = this.parentNode;
 
-    while (!parent.nuContext && parent !== document.body) {
+    while (parent && !parent.nuContext && parent !== document.body) {
       parent = parent.parentNode;
     }
 
@@ -1632,7 +1632,7 @@ export default class NuAbstract extends HTMLElement {
       this.nuContextTemp = this.nuContext;
     }
 
-    if (parent.nuContext) {
+    if (parent && parent.nuContext) {
       const temp = this.nuContext;
 
       this.nuParentContext = parent.nuContext;
