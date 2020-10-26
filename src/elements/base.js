@@ -3,11 +3,10 @@ import {
   hasRuleSet,
   attrsQuery,
   generateCSS,
-  removeRulesByPart,
   transferCSS,
   STYLE_MAP,
   insertRuleSet,
-  removeRuleSet,
+  removeRuleSet, removeRulesById,
 } from '../css';
 import {
   parseThemeAttr,
@@ -817,7 +816,7 @@ export default class NuAbstract extends HTMLElement {
 
     if (this.id) {
       setTimeout(() => {
-        removeRulesByPart(new RegExp(`#${this.id}(?![a-z0-9_-])`, 'g'));
+        removeRulesById(this.id);
       });
     }
   }

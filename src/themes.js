@@ -23,7 +23,7 @@ import {
   getContrastRatio, rgbToHsl, getOptimalSaturation, rgbaStrToRgbValues,
 } from './color';
 import { extractColor } from './dom-helpers';
-import { removeRulesByPart, insertRuleSet, stylesString } from './css';
+import { insertRuleSet, stylesString, removeRulesById } from './css';
 
 export const THEME_ATTR = 'theme';
 
@@ -494,7 +494,7 @@ export function removeTheme(el, name, customProps) {
     .forEach(prop => {
       if (prop.startsWith(key)) {
         delete el.nuContext[prop];
-        removeRulesByPart(`${prop}:#${el.nuUniqId}`);
+        removeRulesById(el.nuUniqId, prop);
       }
     });
 }

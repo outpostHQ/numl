@@ -6,10 +6,10 @@ const SHADOW = 'rgba(var(--nu-local-shadow-color-rgb, var(--nu-shadow-color-rgb)
 export default function shadowAttr(val, defaults, options = {}) {
   const {
     shadow, // default shadow color
-    specialShadow, // default special shadow color
     defaultValue, // default size value
     active, // has `active` modifier
     inset, // is it inset shadow?
+    ignoreSpread,
   } = options;
 
   if (isYesValue(val)) {
@@ -51,7 +51,7 @@ export default function shadowAttr(val, defaults, options = {}) {
       }
     }
 
-    value = `${x} ${y} ${size} ${spread} ${color}${inset ? ' inset' : ''}`;
+    value = `${x} ${y} ${size}${ignoreSpread ? '' : ` ${spread}`} ${color}${inset ? ' inset' : ''}`;
   }
 
   const styles = {

@@ -284,11 +284,25 @@ export function parseStyles(str) {
     }, {});
 }
 
-export function removeRulesByPart(selectorPart) {
-  log('clean css by part', selectorPart);
-  const isRegexp = selectorPart instanceof RegExp;
-  const keys = Object.keys(RULE_SETS).filter(id => isRegexp
-    ? id.match(selectorPart) : id.includes(selectorPart));
+/**
+ * Remove CSS rules by element ID. Like garbage collector of deleted elements.
+ * @param {String} id - id of the element.
+ * @param {String} [namespace] - Remove all rules in namespace. Used for themes.
+ */
+export function removeRulesById(id, namespace) {
+  log('clean css rules by element id', id);
+
+  const regex = new RegExp(`${namespace ? `${namespace}:` : ''}#${id}${!namespace ? '(?![a-z0-9-])' : ''}`, 'i');
+
+  const keys = Object.keys(RULE_SETS)
+    .filter(ruleId => {
+      if (namespace) {
+        return ruleId.match(regex);
+      }
+
+      return ruleId.split('"')
+        .find((s, i) =>  i % 2 === 0 && s.match(regex));
+    });
 
   keys.forEach(key => {
     removeRuleSet(key);

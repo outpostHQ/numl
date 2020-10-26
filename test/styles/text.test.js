@@ -8,6 +8,7 @@ checkGenerator('test', textAttr, {
   },
   'spacing': { 'letter-spacing': 'var(--nu-border-width)' },
   'spacing(0.02em)': { 'letter-spacing': '0.02em' },
+  'shadow(1px 1px 1ow #black.50)': { 'text-shadow': '1px 1px var(--nu-outline-width) rgba(var(--nu-black-color-rgb), 0.5)' },
   'n nowrap': {
     '--nu-font-weight': 'var(--nu-normal-font-weight)',
     'font-family': 'var(--nu-font)',

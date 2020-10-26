@@ -1,4 +1,5 @@
 import { devMode, warn, parseParams, parseAttr } from '../helpers';
+import shadowAttr from './shadow';
 
 const MAP = {};
 
@@ -28,6 +29,7 @@ set('vMiddle', { 'vertical-align': 'var(--nu-inline-offset)' });
 
 set('monospace', { 'font-family': 'var(--nu-monospace-font)', 'word-spacing': 'normal' });
 set('spacing', (val) => ({ 'letter-spacing': parseAttr(val || '1bw').value }));
+set('shadow', (val, defaults) => ({ 'text-shadow': shadowAttr(val, defaults, { ignoreSpread: true })['--nu-local-depth-shadow'] || 'initial' }));
 set('color', (val) => ({ 'text-decoration-color': val }));
 set('ellipsis', {
   'max-width': '100%',
@@ -75,7 +77,7 @@ set('lighter', { 'font-weight': 'calc(var(--nu-font-weight) - var(--nu-font-weig
  * Apply text modifiers.
  * @param {String} val - String that contains modifiers separated by space.
  */
-export default function textAttr(val) {
+export default function textAttr(val, defaults) {
   const mods = parseParams(val);
 
   const styles = {};
@@ -100,7 +102,7 @@ export default function textAttr(val) {
         value = undefined;
       }
 
-      const modStyles = typeof MAP[mod] === 'function' ? MAP[mod](value) : MAP[mod];
+      const modStyles = typeof MAP[mod] === 'function' ? MAP[mod](value, defaults) : MAP[mod];
       const keys = Object.keys(modStyles);
 
       keys.forEach(key => {
