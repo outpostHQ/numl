@@ -389,6 +389,8 @@ export function splitIntoRules(css) {
   return arr.slice(0, -1);
 }
 
+/* System font stack is used https://css-tricks.com/snippets/css/system-font-stack/ */
+
 const globalRules = [`
 :root {
   font-size: 16px;
@@ -417,8 +419,8 @@ const globalRules = [`
   --nu-heading-font-weight: 700;
   --nu-font-weight-step: 200;
 
-  --nu-base-font: 'Avenir Next', 'Avenir', Helvetica, Ubuntu, 'DejaVu Sans', Arial, sans-serif;
-  --nu-font: var(--nu-base-font);
+  --nu-system-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Avenir Next", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --nu-font: var(--nu-system-font);
   --nu-base-monospace-font: monospace;
   --nu-monospace-font: var(--nu-base-monospace-font);
 
