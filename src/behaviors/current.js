@@ -59,10 +59,19 @@ function handleHashLinks() {
   });
 }
 
+function isCurrent(href) {
+  let locHref = location.href.replace(location.hash, '');
+
+  locHref = locHref.replace(/\/$/, '');
+  href = href.replace(/\/$/, '');
+
+  return href === locHref;
+}
+
 export function handleLinkState(link) {
   const href = link.href;
 
-  link.parentNode && link.parentNode.nuSetMod && link.parentNode.nuSetMod('current', href === location.href.replace(location.hash, ''));
+  link.parentNode && link.parentNode.nuSetMod && link.parentNode.nuSetMod('current', isCurrent(href));
 }
 
 export function handleLinksState(force = false) {
