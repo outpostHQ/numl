@@ -60,6 +60,8 @@ function handleHashLinks() {
 }
 
 function isCurrent(href) {
+  if (href == null) return false;
+
   let locHref = location.href.replace(location.hash, '');
 
   locHref = locHref.replace(/\/$/, '');
