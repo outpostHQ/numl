@@ -41,7 +41,7 @@ import selectableAttr from './selectable';
 import boxAttr from './box';
 import clampAttr from './clamp';
 import flexAttr from './flex';
-import backdropAttr from './backdrop';
+import backdropFilterAttr from './backdrop-filter';
 import snapAttr from './snap';
 import snappingAttr from './snapping';
 import fontAttr from './font';
@@ -97,7 +97,7 @@ export default {
   color: colorAttr,
   fill: fillAttr,
   filter: filterAttr,
-  backdrop: backdropAttr,
+  'backdrop-filter': backdropFilterAttr,
   image: imageAttr,
   transform: transformAttr,
   scale: scaleAttr,
