@@ -53,7 +53,7 @@ via [JsDelivr](http://www.jsdelivr.com/):
 
 That's it! Now you can use all Numl elements and features!
 
-See the [installation instructions](https://numl.design/guide/getting-started) for more details and other ways to install Numl.
+See the [installation instructions](https://numl.design/handbook/getting-started) for more details and other ways to install Numl.
 
 ## Examples
 
