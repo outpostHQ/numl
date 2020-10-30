@@ -9,16 +9,14 @@ An open-source Library of Web Components and a Runtime CSS Framework for rapidly
 [![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Rate on Openbase](https://badges.openbase.io/js/rating/numl.svg)](https://openbase.io/js/numl?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
-- Blazing-fast prototyping using only HTML
-- Works with popular JS-Frameworks
-- Don't require a build step, works with CDNs
-- Don't require writing CSS, fully customizable in runtime with HTML or JS
-- Style mapping to state or screen width
-- Runtime theme generator with Dark Scheme and High Contrast Mode
-- Comprehensive Design System with dozens of tokens out-of-the-box
-- Compatible with Static Site Generators
-- Built with accessibility in mind
-- Free and Open source
+* Add a single JS-script to your page, and you are ready to create virtually any interface using only HTML syntax quickly. No bundler, config, and frustration.
+* Integrate Numl with popular JS-Frameworks. Use it with SSG if you like. 
+* Use color generation system and styles-to-state bindings to decrease style declarations up to dozens of times compared to plain CSS.
+* Easily create your own Design System and UI Kit based on Numl. [Example](https://cubejs-uikit.vercel.app/)
+* Customize your elements at any level: Globally, in context, directly. Use design tokens (Custom Properties) for a more convenient way to customize.
+* Remove dozens of UI helper libraries from your project 'cause Numl can do it itself.
+* Add your own elements, style attributes, behaviors, design tokens, custom units, and more...
+* Use it for free. Contribute if you like it. 
 
 ## Who is Numl for?
 
