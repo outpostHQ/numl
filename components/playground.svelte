@@ -1183,7 +1183,7 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
       <pre>
 #### My awesome markdown header
 
-And markdown **TEXT**. What do you _think_? `var a = '123'`. Also here is a [link](https://github.com/tenphi/nude).
+And markdown **TEXT**. What do you _think_? `var a = '123'`. Also here is a [link](https://github.com/numldesign/numl).
 
 ----
 
@@ -1198,7 +1198,7 @@ var b = /wow?/;
       <pre>
 #### Markdown in Shadow DOM
 
-And markdown **TEXT**. What do you _think_? `var a = '123'`. Also here is a [link](https://github.com/tenphi/nude).
+And markdown **TEXT**. What do you _think_? `var a = '123'`. Also here is a [link](https://github.com/numldesign/numl).
 
 ```enumerate
 var a = '123';

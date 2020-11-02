@@ -5,7 +5,7 @@
   "homepage": "https://numl.design",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tenphi/numl.git"
+    "url": "git+https://github.com/numldesign/numl.git"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",

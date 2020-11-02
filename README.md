@@ -1,4 +1,4 @@
-<img src="https://github.com/tenphi/nude/blob/master/images/logo.png?raw=true" alt="NUDE Elements" width="891">
+<img src="https://github.com/numldesign/numl/blob/master/images/logo.png?raw=true" alt="NUDE Elements" width="891">
 
 # Numl
 
@@ -6,7 +6,7 @@ An open-source Library of Web Components and a Runtime CSS Framework for rapidly
 
 [![NPM Version](https://img.shields.io/npm/v/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
 [![](https://img.shields.io/npm/dt/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
-[![Gitter](https://badges.gitter.im/tenphi/numl.svg)](https://gitter.im/tenphi/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/numldesign/numl.svg)](https://gitter.im/numldesign/numl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Rate on Openbase](https://badges.openbase.io/js/rating/numl.svg)](https://openbase.io/js/numl?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 * Add a single JS-script to your page, and you are ready to create virtually any interface using only HTML syntax quickly. No bundler, config, and frustration.
@@ -40,13 +40,13 @@ Add the following code to your page.
 via [Skypack](https://www.skypack.dev/):
 
 ```html
-<script type="module" src="https://cdn.skypack.dev/numl@1.0.0-beta.1"></script>
+<script type="module" src="https://cdn.skypack.dev/numl@1.0.0-beta.6"></script>
 ```
 
 via [JsDelivr](http://www.jsdelivr.com/):
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.0-beta.1/dist/index.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.0-beta.6/dist/index.js"></script>
 ```
 
 That's it! Now you can use all Numl elements and features!

@@ -35,7 +35,7 @@ import { initFocus } from './focus';
 import props from './props';
 import generators from './generators';
 import { scheme, contrast, reduceMotion, preventInit, behaviorOption } from './settings';
-import CONTEXT from './context';
+import CONTEXT, { initContext } from './context';
 import { applyTheme, BASE_THEME, hue } from './themes';
 import { generateCSS, insertRuleSet } from './css';
 import Behavior from './behaviors/behavior';
@@ -180,6 +180,8 @@ if (behaviorOption !== 'auto') {
 }
 
 if (window.dispatchEvent(nudeReadyEvent) && !preventInit) {
+  initContext();
+
   Nude.init();
 }
 

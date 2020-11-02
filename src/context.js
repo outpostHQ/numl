@@ -18,15 +18,6 @@ function observeContext(data) {
   }
 }
 
-const observer = new MutationObserver((data) => observeContext(data));
-
-observer.observe(ROOT, {
-  characterData: false,
-  attributes: true,
-  childList: false,
-  subtree: false
-});
-
 const CONTEXT = {
   $shadowRoot: null,
   $parentShadowRoot: null,
@@ -131,7 +122,18 @@ export function getRootContext(name) {
   return CONTEXT[name];
 }
 
-setLocale();
-setOutline();
-setScheme();
-setContrast();
+export function initContext() {
+  setLocale();
+  setOutline();
+  setScheme();
+  setContrast();
+
+  const observer = new MutationObserver((data) => observeContext(data));
+
+  observer.observe(ROOT, {
+    characterData: false,
+    attributes: true,
+    childList: false,
+    subtree: false
+  });
+}
