@@ -26,7 +26,6 @@
     "json-form-data": "^1.7.2",
     "npm": "^6.14.8",
     "numl-markdown": "^2.0.18",
-    "parcel": "^1.12.4",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-svelte": "^4.0.6",
     "remarkable": "^2.0.1",
