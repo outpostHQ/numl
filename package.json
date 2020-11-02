@@ -8,7 +8,7 @@
     "url": "git+https://github.com/tenphi/numl.git"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.6",
+    "@babel/core": "^7.12.3",
     "@github/hotkey": "^1.4.2",
     "@open-wc/testing": "^2.5.29",
     "@rollup/plugin-commonjs": "^16.0.0",
