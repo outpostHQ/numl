@@ -11,7 +11,7 @@
     "@babel/core": "^7.11.6",
     "@github/hotkey": "^1.4.2",
     "@open-wc/testing": "^2.5.29",
-    "@rollup/plugin-commonjs": "^15.1.0",
+    "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@size-limit/preset-big-lib": "^4.6.0",
