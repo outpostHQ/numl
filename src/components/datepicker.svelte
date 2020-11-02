@@ -1,9 +1,7 @@
-<nu-grid padding="0" gap columns="1fr 1fr" on:focusin={touch}>
+<nu-grid columns="auto 1pr 1pr auto" gap on:focusin={touch}>
   <nu-attrs
     for="arrow"
-    padding="0.5x 0.25x" special border="#special-bg"></nu-attrs>
-  <nu-attrs for="arrow-left-icon" name="chevron-left" size="1em" move="-.125x 0"></nu-attrs>
-  <nu-attrs for="arrow-right-icon" name="chevron-right" size="1em" move=".125x 0"></nu-attrs>
+    padding="0.5x 1x" special border="#special-bg"></nu-attrs>
   <nu-attrs
     for="dropdown-icon"
     name="chevron-down"
@@ -11,62 +9,55 @@
     scale="^:pressed[flip-y]" place="right" height="100%" size="1em"></nu-attrs>
   <nu-attrs
     for="dropdown"
-    text="sb center" content="stretch" columns="1fr auto"
+    text="sb center" content="stretch" columns="1fr 1.5x"
     padding=".5x .25x .5x .75x" grow="1"></nu-attrs>
   <nu-attrs
     for="option"
     padding="1x" content="center"></nu-attrs>
-  <nu-group radius>
-    <nu-btn id="arrow" on:tap={prevYear} disabled={havePrevYear ? undefined : ''}>
-      <nu-icon id="arrow-left-icon"></nu-icon>
-    </nu-btn>
-    <nu-btn
-      id="dropdown" type="date"
-      value={navDate} on:input={(event) => navDate = event.detail}>
-      <nu-datetime year value={navDate}></nu-datetime>
-      <nu-icon id="dropdown-icon"></nu-icon>
-      <nu-popuplistbox
-        height="28x" bind:this={yearPopup}>
-        {#each years as year}
-          <nu-option
-            value={year}
-            disabled={!isMonthInRange(year, beginDate, endDate) ? '' : undefined}>
-            <nu-datetime year value={year}></nu-datetime>
-          </nu-option>
-        {/each}
-      </nu-popuplistbox>
-    </nu-btn>
-    <nu-btn id="arrow" on:tap={nextYear} disabled={haveNextYear ? undefined : ''}>
-      <nu-icon id="arrow-right-icon"></nu-icon>
-    </nu-btn>
-  </nu-group>
 
-  <nu-group radius>
-    <nu-btn id="arrow" on:tap={prevMonth} disabled={havePrevMonth ? undefined : ''}>
-      <nu-icon id="arrow-left-icon"></nu-icon>
-    </nu-btn>
-    <nu-btn
-      id="dropdown" on:tap={toggle} type="date"
-      on:input={(event) => navDate = event.detail} value={navDate}>
-      <nu-datetime month="short" value={navDate}></nu-datetime>
-      <nu-icon id="dropdown-icon"></nu-icon>
-      <nu-popuplistbox
-        height="28x" overflow="auto" scrollbar bind:this={monthPopup}>
-        {#each months as month}
-          <nu-option
-            value={month}
-            disabled={!isMonthInRange(month, beginDate, endDate) ? '' : undefined}>
-            <nu-datetime month value={month}></nu-datetime>
-          </nu-option>
-        {/each}
-      </nu-popuplistbox>
-    </nu-btn>
-    <nu-btn id="arrow" on:tap={nextMonth} disabled={haveNextMonth ? undefined : ''}>
-      <nu-icon id="arrow-right-icon"></nu-icon>
-    </nu-btn>
-  </nu-group>
+  <nu-btn id="arrow" on:tap={prevMonth} disabled={havePrevMonth ? undefined : ''}>
+    <nu-icon name="chevron-left" size="1em" move="-.125x 0"></nu-icon>
+  </nu-btn>
 
+  <nu-btn
+    id="dropdown" on:tap={toggle} type="date" clear
+    on:input={(event) => navDate = event.detail} value={navDate}>
+    <nu-datetime month="short" value={navDate}></nu-datetime>
+    <nu-icon id="dropdown-icon"></nu-icon>
+    <nu-popuplistbox
+      height="28x" overflow="auto" scrollbar bind:this={monthPopup}>
+      {#each months as month}
+        <nu-option
+          value={month}
+          disabled={!isMonthInRange(month, beginDate, endDate) ? '' : undefined}>
+          <nu-datetime month value={month}></nu-datetime>
+        </nu-option>
+      {/each}
+    </nu-popuplistbox>
+  </nu-btn>
+
+  <nu-btn
+    id="dropdown" type="date" clear
+    value={navDate} on:input={(event) => navDate = event.detail}>
+    <nu-datetime year value={navDate}></nu-datetime>
+    <nu-icon id="dropdown-icon"></nu-icon>
+    <nu-popuplistbox
+      height="28x" bind:this={yearPopup}>
+      {#each years as year}
+        <nu-option
+          value={year}
+          disabled={!isMonthInRange(year, beginDate, endDate) ? '' : undefined}>
+          <nu-datetime year value={year}></nu-datetime>
+        </nu-option>
+      {/each}
+    </nu-popuplistbox>
+  </nu-btn>
+
+  <nu-btn id="arrow" on:tap={nextMonth} disabled={haveNextMonth ? undefined : ''}>
+    <nu-icon name="chevron-right" size="1em" move=".125x 0"></nu-icon>
+  </nu-btn>
 </nu-grid>
+
 <nu-grid columns="repeat(7, 1fr)" text="center" color="text 80%">
   <nu-attrs for="weekday" text="h" size="xs"></nu-attrs>
 
@@ -239,7 +230,7 @@ $: beginDate = (() => {
     return date;
   }
 
-  return addYears(todayDate, -100);
+  return addYears(todayDate, -10);
 })();
 $: endDate = (() => {
   let date;
@@ -254,7 +245,7 @@ $: endDate = (() => {
     return date;
   }
 
-  return addYears(todayDate, 100);
+  return addYears(todayDate, 10);
 })();
 $: monthDays = (() => {
   let arr = [];
