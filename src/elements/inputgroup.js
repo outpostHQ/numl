@@ -28,6 +28,10 @@ export default class NuInputGroup extends NuGroup {
       },
       'attrs:input': {
         border: '0',
+        grow: '1',
+      },
+      'attrs:btn': {
+        padding: '',
       },
     };
   }
