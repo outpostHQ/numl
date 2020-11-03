@@ -13,7 +13,6 @@ export default class NuTable extends NuElement {
     return {
       display: 'table',
       gap: '1bw',
-      fill: 'border',
     };
   }
 }

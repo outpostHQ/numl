@@ -414,7 +414,7 @@
     <nu-table>
       <nu-rowgroup>
         <nu-row>
-          <nu-tableheader fill="mark"></nu-tableheader>
+          <nu-tableheader></nu-tableheader>
           <nu-columnheader>Two</nu-columnheader>
         </nu-row>
       </nu-rowgroup>
@@ -435,7 +435,7 @@
     <nu-table box="y" overflow="scroll-x">
       <nu-rowgroup>
         <nu-row>
-          <nu-tableheader fill="mark"></nu-tableheader>
+          <nu-tableheader></nu-tableheader>
           <nu-columnheader>
             <nu-el as="content">Two</nu-el>
           </nu-columnheader>

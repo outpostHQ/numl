@@ -8,7 +8,6 @@ export default class NuTableHeader extends NuCell {
   static get nuStyles() {
     return {
       text: 'bold middle',
-      fill: 'subtle',
     };
   }
 }
