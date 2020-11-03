@@ -32,7 +32,7 @@ export default class NuInput extends NuElement {
       radius: '',
       padding: '1x',
       fill: 'input :special[special-bg]',
-      mark: 'n :disabled[#special-bg.20]',
+      mark: 'n :disabled[#special-bg.10]',
       color: 'text :special[special-text]',
       border: '1bw',
       outline: 'focus-inside',
