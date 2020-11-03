@@ -21,7 +21,7 @@
       <nu-datetime month="short" value={navDate}></nu-datetime>
       <nu-icon id="dropdown-icon"></nu-icon>
       <nu-popuplistbox
-        height="28x" overflow="auto" scrollbar bind:this={monthPopup}>
+        height="28x" size="md" bind:this={monthPopup}>
         {#each months as month}
           <nu-option
             value={month}
@@ -38,7 +38,7 @@
       <nu-datetime year value={navDate}></nu-datetime>
       <nu-icon id="dropdown-icon"></nu-icon>
       <nu-popuplistbox
-        height="28x" bind:this={yearPopup}>
+        height="28x" bind:this={yearPopup} size="md">
         {#each years as year}
           <nu-option
             value={year}
@@ -72,10 +72,10 @@
 </nu-grid>
 <nu-grid
   columns="repeat(7, 1fr)" content="start stretch"
-  text="center">
+  text="center" gap="1bw">
   <nu-attrs for="day" fill="clear" radius={isRange ? '1r :hover[1r 0 0 1r]' : '1r :hover[1r]'}
-            text="sb" border="#clear" focus="inset"></nu-attrs>
-  <nu-attrs for="today" text="h" color="special" border></nu-attrs>
+            text="sb" shadow="0 0 0 1bw #white" border="n" focus="inset"></nu-attrs>
+  <nu-attrs for="today" text="h" color="special" shadow="0 0 0 1bw #border"></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
   <nu-attrs for="start" special fill="special-bg" color radius="1r 0 0 1r"></nu-attrs>
@@ -84,9 +84,9 @@
   <nu-attrs for="selected" radius special fill="special-bg" color="special-text"></nu-attrs>
   <nu-attrs for="range"
             radius={isRange ? '0 :hover[0 1r 1r 0]' : '1r'}
-            fill="special-bg 25%" color="text" border="#bg"></nu-attrs>
+            fill="special-bg 25%" color="text" border="0 0 0 1bw #bg"></nu-attrs>
   <nu-attrs for="range-inside" radius="0 :hover[1r 0 0 1r]" fill="special-bg 25%" color="text"
-            border="#bg"></nu-attrs>
+            border="0 0 0 1bw #bg"></nu-attrs>
 
   {#each monthDays as day}
     <nu-btn
