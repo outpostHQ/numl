@@ -20,11 +20,18 @@ export default class NuGridTable extends NuGrid {
 
   static get nuStyles() {
     return {
-      gap: '1bw',
+      width: 'min-content',
       color: '',
       overflow: 'auto',
-      fill: 'border',
       padding: '1x',
+    };
+  }
+
+  static get nuContext() {
+    return {
+      'attrs:cell': {
+        shadow: '0 1bw 0 #border',
+      },
     };
   }
 }

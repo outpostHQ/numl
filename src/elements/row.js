@@ -12,7 +12,6 @@ export default class NuRow extends NuElement {
   static get nuStyles() {
     return {
       display: 'table-row',
-      fill: 'bg',
       shadow: '0 1px 0 #border',
     };
   }

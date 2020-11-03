@@ -427,6 +427,16 @@
     </nu-table>
   </nu-card>
 
+  <nu-card>
+    <nu-h3>Grid Table</nu-h3>
+    <nu-gridtable columns="auto 1fr">
+      <nu-tableheader></nu-tableheader>
+      <nu-columnheader>Two</nu-columnheader>
+      <nu-rowheader>One</nu-rowheader>
+      <nu-cell>Two</nu-cell>
+    </nu-gridtable>
+  </nu-card>
+
   <nu-card height="100vh + 4x" padding="1x 0">
     <nu-attrs
       for="columnheader"

@@ -12,7 +12,7 @@ export default class NuTable extends NuElement {
   static get nuStyles() {
     return {
       display: 'table',
-      gap: '1bw',
+      gap: '0',
     };
   }
 }

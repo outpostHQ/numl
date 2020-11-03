@@ -120,6 +120,8 @@ function defineElement(el) {
 }
 
 Nude.init = () => {
+  initContext();
+
   const rootEls = document.querySelectorAll('nu-root');
 
   rootEls.forEach(el => {
@@ -180,8 +182,6 @@ if (behaviorOption !== 'auto') {
 }
 
 if (window.dispatchEvent(nudeReadyEvent) && !preventInit) {
-  initContext();
-
   Nude.init();
 }
 
