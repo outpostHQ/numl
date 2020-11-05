@@ -74,7 +74,7 @@
   columns="repeat(7, 1fr)" content="start stretch"
   text="center" gap="1bw">
   <nu-attrs for="day" fill="clear" radius={isRange ? '1r :hover[1r 0 0 1r]' : '1r :hover[1r]'}
-            text="sb" shadow="0 0 0 1bw #white" border="n" focus="inset"></nu-attrs>
+            text="n" shadow="n" border="n" focus="inset"></nu-attrs>
   <nu-attrs for="today" text="h" color="special" shadow="0 0 0 1bw #border"></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
