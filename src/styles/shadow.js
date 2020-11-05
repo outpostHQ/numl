@@ -2,6 +2,7 @@ import { isNoValue, isYesValue, parseAttr } from '../helpers';
 import { prop } from '../props-helpers';
 
 const SHADOW = 'rgba(var(--nu-local-shadow-color-rgb, var(--nu-shadow-color-rgb)), .33)';
+const TRANSPARENT = 'rgba(var(--nu-local-shadow-color-rgb, var(--nu-shadow-color-rgb)), 0)';
 
 export default function shadowAttr(val, defaults, options = {}) {
   const {
@@ -15,7 +16,7 @@ export default function shadowAttr(val, defaults, options = {}) {
   if (isYesValue(val)) {
     val = '';
   } else if (isNoValue(val)) {
-    val = '0';
+    val = '0 #shadow.0';
   }
 
   const propName = `--nu-local-${inset ? 'inset' : 'depth'}-shadow`;
@@ -28,7 +29,7 @@ export default function shadowAttr(val, defaults, options = {}) {
     const name = mods[0];
     value = `${prop(`${name}-shadow`)} ${color || ''}${inset ? ' inset' : ''}`;
   } else {
-    color = color || shadow || SHADOW;
+    color = color || shadow || (isNoValue(val) ? TRANSPARENT : SHADOW);
 
     let size = defaultValue || '1rem';
     let x = '0';

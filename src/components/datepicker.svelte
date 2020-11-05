@@ -74,19 +74,19 @@
   columns="repeat(7, 1fr)" content="start stretch"
   text="center" gap="1bw">
   <nu-attrs for="day" fill="clear" radius={isRange ? '1r :hover[1r 0 0 1r]' : '1r :hover[1r]'}
-            text="n" shadow="n" border="n" focus="inset"></nu-attrs>
-  <nu-attrs for="today" text="h" color="special" shadow="0 0 0 1bw #border"></nu-attrs>
+            text="n" inset="n" border="n" focus="inset"></nu-attrs>
+  <nu-attrs for="today" text="h" color="special" inset="0 0 0 1bw #border"></nu-attrs>
   <nu-attrs for="other-month" color="text 50% :hover[text]"></nu-attrs>
   <nu-attrs for="disabled" disabled color="text 50%"></nu-attrs>
-  <nu-attrs for="start" special fill="special-bg" color radius="1r 0 0 1r" shadow="n"></nu-attrs>
+  <nu-attrs for="start" special fill="special-bg" color radius="1r 0 0 1r" inset="n"></nu-attrs>
   <nu-attrs for="end" radius="0r 1r 1r 0r :hover[1r 0 0 1r]" special fill="special-bg"
-            color shadow="n"></nu-attrs>
+            color inset="n"></nu-attrs>
   <nu-attrs for="selected" radius special fill="special-bg" color="special-text"></nu-attrs>
   <nu-attrs for="range"
-            radius={isRange ? '0 :hover[0 1r 1r 0]' : '1r'} shadow="n"
+            radius={isRange ? '0 :hover[0 1r 1r 0]' : '1r'} inset="n"
             fill="special-bg 25%" color="text" border="0 0 0 1bw #bg"></nu-attrs>
   <nu-attrs for="range-inside" radius="0 :hover[1r 0 0 1r]" fill="special-bg 25%" color="text"
-            border="0 0 0 1bw #bg" shadow="n"></nu-attrs>
+            border="0 0 0 1bw #bg" inset="n"></nu-attrs>
 
   {#each monthDays as day}
     <nu-btn

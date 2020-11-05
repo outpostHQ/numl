@@ -4,7 +4,7 @@ import { checkGenerator } from '../utils';
 checkGenerator('shadow', shadowAttr, {
   '': { '--nu-local-depth-shadow': '0 calc(1rem / 3) 1rem 0 rgba(var(--nu-local-shadow-color-rgb, var(--nu-shadow-color-rgb)), .33)' },
   'y': { '--nu-local-depth-shadow': '0 calc(1rem / 3) 1rem 0 rgba(var(--nu-local-shadow-color-rgb, var(--nu-shadow-color-rgb)), .33)' },
-  'n': { '--nu-local-depth-shadow': '0 calc(0rem / 3) 0rem 0 rgba(var(--nu-local-shadow-color-rgb, var(--nu-shadow-color-rgb)), .33)' },
+  'n': { '--nu-local-depth-shadow': '0 calc(0rem / 3) 0rem 0 rgba(var(--nu-shadow-color-rgb), 0)' },
   '1x': { '--nu-local-depth-shadow': '0 calc(var(--nu-gap) / 3) var(--nu-gap) 0 rgba(var(--nu-local-shadow-color-rgb, var(--nu-shadow-color-rgb)), .33)' },
   '2x #special-shadow': { '--nu-local-depth-shadow': '0 calc(calc(2 * var(--nu-gap)) / 3) calc(2 * var(--nu-gap)) 0 var(--nu-special-shadow-color, var(--special-shadow-color))' },
   '#custom.70': { '--nu-local-depth-shadow': '0 calc(1rem / 3) 1rem 0 rgba(var(--nu-custom-color-rgb), 0.7)' },
