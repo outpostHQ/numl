@@ -9,7 +9,7 @@
   <nu-attrs
     for="dropdown" size="lg"
     text="sb center" content="stretch" columns="1fr 1.5x"
-    padding=".5x .25x .5x .75x" grow="1"></nu-attrs>
+    padding=".25x .25x .25x .75x" grow="1"></nu-attrs>
   <nu-attrs
     for="option"
     padding="1x" content="center"></nu-attrs>
