@@ -1,5 +1,27 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('group-radius')}
+  <nu-heading level="2">Group radius</nu-heading>
+
+  <nu-card as="section">
+    <nu-attrs
+      for="btn"
+      shadow="0 0 0 1bw #border :pressed[0 0 0 1bw #special-bg]"
+      fill="#bg :pressed[#special-bg]"
+      z=":pressed[above]"
+      border="n"
+      color="#special :pressed[special-text]"
+      inset="n :active[.75em] :pressed[n]"></nu-attrs>
+    <nu-radiogroup
+      value="0" display="inline-flex"
+      group-radius="1r" border="#clear" gap="1bw" radius>
+      <nu-btn>A</nu-btn>
+      <nu-btn>B</nu-btn>
+      <nu-btn>C</nu-btn>
+    </nu-radiogroup>
+  </nu-card>
+{/if}
+
 {#if show('format')}
   <nu-heading level="2">Formatting</nu-heading>
 

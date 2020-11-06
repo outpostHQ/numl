@@ -8,7 +8,6 @@ export default function shadowAttr(val, defaults, options = {}) {
   const {
     shadow, // default shadow color
     defaultValue, // default size value
-    active, // has `active` modifier
     inset, // is it inset shadow?
     ignoreSpread,
   } = options;
@@ -58,10 +57,6 @@ export default function shadowAttr(val, defaults, options = {}) {
   const styles = {
     [propName]: value,
   };
-
-  if (active && mods.includes('active')) {
-    styles.$suffix = '[is-active]';
-  }
 
   return styles;
 }
