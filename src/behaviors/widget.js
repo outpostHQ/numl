@@ -137,13 +137,13 @@ export default class WidgetBehavior extends Behavior {
     const { host } = this;
     const localized = this.params.localized;
 
-    if (!this.hasAttr('role') && this.params.role) {
-      this.setAttr('role', this.params.role);
-    }
-
     // generate cache of props list
     if (!PROPS_LIST) {
       PROPS_LIST = Object.keys(BASE_PROPS).reverse();
+    }
+
+    if (!this.hasAttr('role') && this.params.role) {
+      this.setAttr('role', this.params.role);
     }
 
     // get current values of attributes and handle them
