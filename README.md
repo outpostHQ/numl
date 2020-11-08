@@ -37,16 +37,16 @@ An open-source Library of Web Components and a Runtime CSS Framework for rapidly
 
 Add the following code to your page.
 
-via [Skypack](https://www.skypack.dev/):
-
-```html
-<script type="module" src="https://cdn.skypack.dev/numl@1.0.0-beta.6"></script>
-```
-
 via [JsDelivr](http://www.jsdelivr.com/):
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.0-beta.6/dist/index.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.0-beta.9/dist/index.js"></script>
+```
+
+via [Skypack](https://www.skypack.dev/):
+
+```html
+<script type="module" src="https://cdn.skypack.dev/numl@1.0.0-beta.9"></script>
 ```
 
 That's it! Now you can use all Numl elements and features!
