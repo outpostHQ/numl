@@ -51,81 +51,147 @@ describe('Parsing', () => {
 
     '(100vw + 10x)': {
       'all': [
-        'calc(100vw + (10 * var(--nu-gap)))'
+        'calc(100vw + (10 * var(--gap)))'
       ],
       'color': '',
       'mods': [],
-      'value': 'calc(100vw + (10 * var(--nu-gap)))',
+      'value': 'calc(100vw + (10 * var(--gap)))',
       'values': [
-        'calc(100vw + (10 * var(--nu-gap)))',
+        'calc(100vw + (10 * var(--gap)))',
       ],
     },
 
     '100vw + 10x': {
       'all': [
-        'calc((100vw) + (10 * var(--nu-gap)))'
+        'calc((100vw) + (10 * var(--gap)))'
       ],
       'color': '',
       'mods': [],
-      'value': 'calc((100vw) + (10 * var(--nu-gap)))',
+      'value': 'calc((100vw) + (10 * var(--gap)))',
       'values': [
-        'calc((100vw) + (10 * var(--nu-gap)))',
+        'calc((100vw) + (10 * var(--gap)))',
       ],
     },
 
     '1x': {
       'all': [
-        'var(--nu-gap)'
+        'var(--gap)'
       ],
       'color': '',
       'mods': [],
-      'value': 'var(--nu-gap)',
+      'value': 'var(--gap)',
       'values': [
-        'var(--nu-gap)',
+        'var(--gap)',
+      ],
+    },
+
+    '@padding-v @padding-h': {
+      'all': [
+        'var(--padding-v)',
+        'var(--padding-h)',
+      ],
+      'color': '',
+      'mods': [],
+      'value': 'var(--padding-v) var(--padding-h)',
+      'values': [
+        'var(--padding-v)',
+        'var(--padding-h)',
+      ],
+    },
+
+    '--var -5x': {
+      'all': [
+        'var(--var)',
+        'calc(-5 * var(--gap))',
+      ],
+      'color': '',
+      'mods': [],
+      'value': 'var(--var) calc(-5 * var(--gap))',
+      'values': [
+        'var(--var)',
+        'calc(-5 * var(--gap))',
+      ],
+    },
+
+    '@var -5x': {
+      'all': [
+        'var(--var)',
+        'calc(-5 * var(--gap))',
+      ],
+      'color': '',
+      'mods': [],
+      'value': 'var(--var) calc(-5 * var(--gap))',
+      'values': [
+        'var(--var)',
+        'calc(-5 * var(--gap))',
+      ],
+    },
+
+    '@var - 5x': {
+      'all': [
+        'calc((var(--var)) - (5 * var(--gap)))',
+      ],
+      'color': '',
+      'mods': [],
+      'value': 'calc((var(--var)) - (5 * var(--gap)))',
+      'values': [
+        'calc((var(--var)) - (5 * var(--gap)))'
+      ],
+    },
+
+    '@(some, 1x) + 5x': {
+      'all': [
+        'calc((var(--some, var(--gap))) + (5 * var(--gap)))'
+      ],
+      'color': '',
+      'mods': [],
+      'value': 'calc((var(--some, var(--gap))) + (5 * var(--gap)))',
+      'values': [
+        'calc((var(--some, var(--gap))) + (5 * var(--gap)))'
       ],
     },
 
     '--padding-v --padding-h': {
       'all': [
-        'var(--nu-padding-v, var(--padding-v))',
-        'var(--nu-padding-h, var(--padding-h))',
+        'var(--padding-v)',
+        'var(--padding-h)',
       ],
       'color': '',
       'mods': [],
-      'value': 'var(--nu-padding-v, var(--padding-v)) var(--nu-padding-h, var(--padding-h))',
+      'value': 'var(--padding-v) var(--padding-h)',
       'values': [
-        'var(--nu-padding-v, var(--padding-v))',
-        'var(--nu-padding-h, var(--padding-h))',
+        'var(--padding-v)',
+        'var(--padding-h)',
       ],
     },
 
     'max max(100%, --content-width)': {
       'all': [
         'max',
-        'max(100%, var(--nu-content-width, var(--content-width)))'
+        'max(100%, var(--content-width))'
       ],
       'color': '',
       'mods': [
         'max',
       ],
-      'value': 'max max(100%, var(--nu-content-width, var(--content-width)))',
+      'value': 'max max(100%, var(--content-width))',
       'values': [
-        'max(100%, var(--nu-content-width, var(--content-width)))',
+        'max(100%, var(--content-width))',
       ],
     },
 
     'mod -3.9x': {
       'all': [
         'mod',
-        'calc(-3.9 * var(--nu-gap))'
+        'calc(-3.9 * var(--gap))'
       ],
       'color': '',
       'mods': [
         'mod',
       ],
-      'value': 'mod calc(-3.9 * var(--nu-gap))',
+      'value': 'mod calc(-3.9 * var(--gap))',
       'values': [
-        'calc(-3.9 * var(--nu-gap))',
+        'calc(-3.9 * var(--gap))',
       ],
     },
   });

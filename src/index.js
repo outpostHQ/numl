@@ -24,7 +24,6 @@ import NuAction from './elements/action';
 // import * as color from './color';
 // import * as themes from './themes';
 // import * as css from './css';
-// import * as variables from './variables';
 import behaviors from './behaviors';
 import units from './units';
 import svg from './svg';
@@ -65,7 +64,7 @@ setTimeout(() => {
 const themeStyles = themeAttr('main');
 
 insertRuleSet('theme:base', generateCSS('body', [...themeStyles, {
-  '--nu-diff-color': 'var(--nu-bg-color)',
+  '--diff-color': 'var(--bg-color)',
 }], false, true));
 
 const Nude = {
@@ -97,7 +96,6 @@ const Nude = {
   // color,
   // themes,
   // css,
-  // variables,
 };
 
 function defineElement(el) {
@@ -220,5 +218,4 @@ export {
   // themes,
   // css,
   // color,
-  // variables,
 };

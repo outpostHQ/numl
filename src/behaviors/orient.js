@@ -20,7 +20,7 @@ export default class OrientBehavior extends Behavior {
         const styles = getComputedStyle(host);
 
         this.set(styles.flexFlow.includes('column')
-          || styles.getPropertyValue('--nu-orient') === 'v' ? 'v' : 'h');
+          || styles.getPropertyValue('--orient') === 'v' ? 'v' : 'h');
       }, { passive: true });
     }
   }

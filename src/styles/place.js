@@ -55,14 +55,13 @@ const FILL_STYLES = [{
   'height': '100%',
   'align-self': 'stretch',
   'justify-self': 'stretch',
-  // '--nu-local-outline-inset': 'inset 0 0',
 }, {
   $suffix: ':not([radius])',
-  '--nu-local-radius': '0',
+  '--local-radius': '0',
 }, {
   $suffix: ':not([border])',
   'border': 'none',
-  '--nu-local-border-shadow': 'inset 0 0 0 0 var(--nu-border-color)',
+  '--local-border-shadow': 'inset 0 0 0 0 var(--border-color)',
 }];
 
 const COVER_STYLES = {
@@ -73,12 +72,12 @@ const COVER_STYLES = {
 };
 
 const OTHER_ATTRS = TransformCombinator().attrs.filter(attr => attr !== PLACE_ATTR);
-const DEFAULT_TRANSFORM = { '--nu-transform-place': 'translate(0, 0)' };
-const DEFAULT_POSITION = { '--nu-place-position': 'initial' };
+const DEFAULT_TRANSFORM = { '--transform-place': 'translate(0, 0)' };
+const DEFAULT_POSITION = { '--place-position': 'initial' };
 const NOT_OTHER_SELECTOR = OTHER_ATTRS.map(attr => `:not([${attr}])`).join('');
 const SECONDARY_DEFAULT_STYLES = [{
   $suffix: NOT_OTHER_SELECTOR,
-  '--nu-transform-place': 'none',
+  '--transform-place': 'none',
 }, ...OTHER_ATTRS.map(attr => {
   return {
     $suffix: `[${attr}]`,
@@ -131,7 +130,7 @@ export default function placeAttr(val, defaults) {
 
   if (mods.includes('sticky')) {
     return [{
-      '--nu-place-position': 'sticky',
+      '--place-position': 'sticky',
       ...DIRECTIONS.reduce((map, dir, i) => {
         if (mods.includes(dir)) {
           map[dir] = (i % 2) ? offsetX : offsetY;
@@ -160,7 +159,7 @@ export default function placeAttr(val, defaults) {
 
   if (abs) {
     const styles = {
-      '--nu-place-position': mods.includes('fixed') ? 'fixed' : 'absolute',
+      '--place-position': mods.includes('fixed') ? 'fixed' : 'absolute',
       margin: '0 !important',
     };
     let transX = 0;
@@ -246,7 +245,7 @@ export default function placeAttr(val, defaults) {
       transY = '-50%';
     }
 
-    styles['--nu-transform-place'] = `translate(${transX}, ${transY})`;
+    styles['--transform-place'] = `translate(${transX}, ${transY})`;
 
     return [styles];
   }
@@ -260,7 +259,7 @@ export default function placeAttr(val, defaults) {
 
   if (pos) {
     styles.push({
-      '--nu-place-position': pos,
+      '--place-position': pos,
     });
   }
 

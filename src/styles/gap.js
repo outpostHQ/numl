@@ -1,6 +1,6 @@
 import { parseAttr } from '../helpers';
 
-const BASE = 'var(--nu-gap)';
+const BASE = 'var(--gap)';
 
 export function isFlexGapSupported() {
   const els = [1, 2, 3].map(() => document.createElement('div'));
@@ -43,14 +43,14 @@ export default function gapAttr(val) {
   return [{
     gap: fullVal,
     'grid-gap': fullVal,
-    '--nu-local-v-gap': vGap,
-    '--nu-local-h-gap': hGap,
-    '--nu-local-gap': vGap === hGap ? vGap : null,
+    '--local-v-gap': vGap,
+    '--local-h-gap': hGap,
+    '--local-gap': vGap === hGap ? vGap : null,
     'border-collapse': isZero ? 'collapse' :'separate',
     'border-spacing': `${vGap} ${hGap}`,
   }, {
     $suffix: '>*',
-    '--nu-v-gap': vGap,
-    '--nu-h-gap': hGap,
+    '--v-gap': vGap,
+    '--h-gap': hGap,
   }];
 }

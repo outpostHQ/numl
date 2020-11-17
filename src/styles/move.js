@@ -8,6 +8,6 @@ export default function moveAttr(val) {
   const { values } = parseAttr(val, 1);
 
   return {
-    '--nu-transform-move': `translate(${values.join(', ')})`,
+    '--transform-move': `translate(${values.join(', ')})`,
   };
 }

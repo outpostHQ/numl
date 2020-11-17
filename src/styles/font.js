@@ -4,7 +4,7 @@ export default function fontAttr(val) {
   }
 
   return {
-    'font-family': 'var(--nu-font)',
-    '--nu-font': `${val ? `${val}, ` : ''}var(--nu-system-font)`,
+    'font-family': 'var(--font)',
+    '--font': `${val ? `${val}, ` : ''}var(--system-font)`,
   };
 }

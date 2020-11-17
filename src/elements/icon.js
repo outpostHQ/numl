@@ -52,10 +52,10 @@ export default class NuIcon extends NuElement {
         position: absolute;
         left: 50%;
         top: 50%;
-        width: var(--nu-font-size);
-        height: var(--nu-font-size);
+        width: var(--font-size);
+        height: var(--font-size);
         transform: translate(-50%, -50%);
-        transition: opacity calc(var(--nu-transition-enabler) * var(--nu-opacity-transition, var(--nu-transition))) linear;
+        transition: opacity calc(var(--transition-enabler) * var(--opacity-transition, var(--transition))) linear;
       }`
     ];
   }

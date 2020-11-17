@@ -8,7 +8,7 @@ export default function fadeAttr(val) {
   if (!val) return;
 
   const { values, mods: allMods } = parseAttr(val, 1);
-  const size = values[0] || 'calc(var(--nu-gap) * 2)';
+  const size = values[0] || 'calc(var(--gap) * 2)';
   const mods = filterMods(allMods, ALLOWED_MODS);
 
   const direction = mods[0] || 'bottom';
@@ -18,7 +18,7 @@ export default function fadeAttr(val) {
     content: "''",
     position: 'absolute',
     'pointer-events': 'none',
-    'background-image': `linear-gradient(to ${direction}, rgba(var(--nu-local-bg-color-rgb), 1), rgba(var(--nu-local-bg-color-rgb), 0))`,
+    'background-image': `linear-gradient(to ${direction}, rgba(var(--local-bg-color-rgb), 1), rgba(var(--local-bg-color-rgb), 0))`,
   };
 
   if (HORIZONTAL_MODS.includes(direction)) {

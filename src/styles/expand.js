@@ -8,7 +8,7 @@ export default function expandAttr(value) {
   let sizeY = values[0] || '0';
   let sizeX = values[1] || values[0];
 
-  const radius = values[2] || 'var(--nu-local-radius, var(--nu-radius))';
+  const radius = values[2] || 'var(--local-radius, var(--radius))';
 
   if (sizeY !== '0') {
     sizeY = `calc(-1 * ${stripCalc(sizeY)})`;

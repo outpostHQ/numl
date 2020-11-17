@@ -40,7 +40,7 @@ export default class NuAction extends NuElement {
 
       `${tag} {
         touch-action: manipulation;
-        -webkit-tap-highlight-color: var(--nu-mark-color);
+        -webkit-tap-highlight-color: var(--mark-color);
       }`,
 
       `${tag}[disabled] {

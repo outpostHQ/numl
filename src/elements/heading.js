@@ -17,15 +17,15 @@ export default class NuHeading extends NuElement {
       level(val) {
         if (!val || !LEVELS.includes(Number(val))) val = 1;
 
-        const fontSize = `var(--nu-h${val}-font-size)`;
-        const lineHeight = `var(--nu-h${val}-line-height)`;
+        const fontSize = `var(--h${val}-font-size)`;
+        const lineHeight = `var(--h${val}-line-height)`;
 
         return [{
           $suffix: ':not([size])',
           'font-size': fontSize,
           'line-height': lineHeight,
-          '--nu-font-size': fontSize,
-          '--nu-line-height': lineHeight,
+          '--font-size': fontSize,
+          '--line-height': lineHeight,
         }];
       },
     };
@@ -41,7 +41,7 @@ export default class NuHeading extends NuElement {
     return {
       display: 'block',
       level: this.nuAttrs.level,
-      color: 'var(--nu-local-text-color, var(--nu-text-soft-color))',
+      color: 'var(--local-text-color, var(--text-soft-color))',
       text: 'heading',
     };
   }

@@ -26,8 +26,8 @@ export default function displayAttr(val) {
     .concat(val.endsWith('grid')
       ? [{
         $suffix: '>*',
-        '--nu-v-gap': RESET_VALUE,
-        '--nu-h-gap': RESET_VALUE,
+        '--v-gap': RESET_VALUE,
+        '--h-gap': RESET_VALUE,
       }]
       : [])
     .concat(val.endsWith('flex')
@@ -38,8 +38,8 @@ export default function displayAttr(val) {
         }]
         : [{
           $suffix: '>*',
-          '--nu-v-gap': RESET_VALUE,
-          '--nu-h-gap': RESET_VALUE,
+          '--v-gap': RESET_VALUE,
+          '--h-gap': RESET_VALUE,
         }])
       : []);
 };

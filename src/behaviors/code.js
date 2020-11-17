@@ -68,7 +68,7 @@ function declareThemes() {
   themesDeclared = true;
 
   NAMES.forEach(name => {
-    THEME_ATTRS[name] = { style: `color: var(--nu-${name}-color, var(--nu-main-text-color)); background-color: var(--nu-${name}-bg-color, transparent)` };
+    THEME_ATTRS[name] = { style: `color: var(--${name}-color, var(--main-text-color)); background-color: var(--${name}-bg-color, transparent)` };
 
     if (name === MRK || name === IMP) {
       THEME_ATTRS[name].radius = '.5x';

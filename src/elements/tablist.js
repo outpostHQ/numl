@@ -29,12 +29,12 @@ export default class NuTablist extends NuRadioGroup {
         }, {
           flow: orientV ? 'column' : 'row',
         }], NuTablist).concat({
-          '--nu-local-tab-items': ITEMS_MAP[direction] || 'center',
-          '--nu-local-tab-padding-h': orientV ? convertUnit('2x') : '0',
-          '--nu-local-tab-padding-v': orientV ? '0' : convertUnit('1x'),
-          '--nu-local-tab-expand-h': orientV ? '0' : '--local-h-gap',
-          '--nu-local-tab-expand-v': orientV ? '--local-v-gap' : '0',
-          '--nu-local-tab-gap': orientV ? convertUnit('1x') : convertUnit('2x'),
+          '--local-tab-items': ITEMS_MAP[direction] || 'center',
+          '--local-tab-padding-h': orientV ? convertUnit('2x') : '0',
+          '--local-tab-padding-v': orientV ? '0' : convertUnit('1x'),
+          '--local-tab-expand-h': orientV ? '0' : '--local-h-gap',
+          '--local-tab-expand-v': orientV ? '--local-v-gap' : '0',
+          '--local-tab-gap': orientV ? convertUnit('1x') : convertUnit('2x'),
         });
       },
     }

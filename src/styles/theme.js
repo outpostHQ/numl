@@ -20,26 +20,26 @@ export default function themeAttr(val, defaults = {}) {
 
   const styles = [THEME_PROPS_LIST.reduce((map, prop) => {
     if (themeName === 'main') {
-      map[`--nu-${prop}`] = `var(--nu-${themeName}-${prop})`;
+      map[`--${prop}`] = `var(--${themeName}-${prop})`;
     } else {
-      map[`--nu-${prop}`] = `var(--nu-${themeName}-${prop}, var(--nu-main-${prop}))`;
+      map[`--${prop}`] = `var(--${themeName}-${prop}, var(--main-${prop}))`;
     }
 
     return map;
   }, {
-    '--nu-local-border-color': 'var(--nu-border-color)',
-    '--nu-local-mark-color': 'var(--nu-mark-color)',
-    '--nu-local-shadow-color': 'var(--nu-shadow-color)',
+    '--local-border-color': 'var(--border-color)',
+    '--local-mark-color': 'var(--mark-color)',
+    '--local-shadow-color': 'var(--shadow-color)',
   })];
 
   // rgb colors
   RGB_COLORS.forEach(clr => {
-    styles[0][`--nu-${clr}-color-rgb`] = `var(--nu-${themeName}-${clr}-color-rgb, var(--nu-main-${clr}-color-rgb))`;
+    styles[0][`--${clr}-color-rgb`] = `var(--${themeName}-${clr}-color-rgb, var(--main-${clr}-color-rgb))`;
   });
 
   styles.push({
     $suffix: ':not([color])',
-    '--nu-local-text-color': 'initial',
+    '--local-text-color': 'initial',
   }, {
     $suffix: ':not([color]):not([special])',
     color: BASE_COLOR,

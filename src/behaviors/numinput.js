@@ -76,6 +76,6 @@ export default class NumInputBehavior extends InputBehavior {
   declareProps() {
     let visibleValue = this.value != null ? `"${NumberFormat(this.value, this.locale, this)}"` : `"${this.placeholder}"`;
 
-    this.host.style.setProperty('--nu-value', visibleValue);
+    this.host.style.setProperty('--value', visibleValue);
   }
 }

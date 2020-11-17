@@ -22,7 +22,7 @@ export default function groupRadiusAttr(val) {
     } else if (mods.includes('ellipse')) {
       value = '50%';
     } else {
-      value = 'var(--nu-radius)';
+      value = 'var(--radius)';
     }
   }
 
@@ -32,14 +32,14 @@ export default function groupRadiusAttr(val) {
   return [{
     $suffix: '>:first-child:not([radius])',
     'border-radius': startValue,
-    '--nu-local-border-radius': startValue,
+    '--local-radius': startValue,
   }, {
     $suffix: '>:last-child:not([radius])',
     'border-radius': endValue,
-    '--nu-local-border-radius': endValue,
+    '--local-radius': endValue,
   }, {
     $suffix: '>:not(:last-child):not(:first-child):not([radius])',
     'border-radius': '0',
-    '--nu-local-border-radius': '0',
+    '--local-radius': '0',
   }];
 }

@@ -19,15 +19,15 @@ const DISABLED_TRANSITION = 'all 0s ease 0s';
  * @type {Object}
  */
 export const CUSTOM_UNITS = {
-  'r': 'var(--nu-radius)',
-  'bw': 'var(--nu-border-width)',
-  'ow': 'var(--nu-outline-width)',
-  'x': 'var(--nu-gap)',
-  'fs': 'var(--nu-font-size)',
-  'lh': 'var(--nu-line-height)',
-  'rp': 'var(--nu-rem-pixel)',
+  'r': 'var(--radius)',
+  'bw': 'var(--border-width)',
+  'ow': 'var(--outline-width)',
+  'x': 'var(--gap)',
+  'fs': 'var(--font-size)',
+  'lh': 'var(--line-height)',
+  'rp': 'var(--rem-pixel)',
   // global setting
-  'wh': 'var(--nu-window-height)',
+  'wh': 'var(--window-height)',
 };
 
 /**
@@ -65,7 +65,7 @@ export function unit(name, { suffix, empty, property, convert } = {}) {
   const propertyName = !property
     ? null
     : typeof property === 'boolean'
-      ? `--nu-local-${name}`
+      ? `--local-${name}`
       : property;
   const propertyUsage = `var(${propertyName})`;
 
@@ -122,7 +122,7 @@ export function unit(name, { suffix, empty, property, convert } = {}) {
   };
 }
 
-const DEFAULT_MIN_SIZE = 'var(--nu-gap)';
+const DEFAULT_MIN_SIZE = 'var(--gap)';
 const DEFAULT_MAX_SIZE = '100%';
 
 function isSizingSupport(val) {
@@ -147,10 +147,9 @@ const INTRINSIC_MODS = ['max-content', 'min-content', 'fit-content', 'stretch'];
 /**
  * Returns unit handler for dimensional attributes.
  * @param {String} name - Attribute name.
- * @param {String} $suffix - Query suffix for styles.
  * @returns {null|Object}
  */
-export function sizeUnit(name, $suffix) {
+export function dimensionUnit(name) {
   const minStyle = `min-${name}`;
   const maxStyle = `max-${name}`;
 
@@ -598,7 +597,7 @@ export function computeStyles(name, value, attrs, defaults) {
 
   const attrValue = isProp ? (val) => {
     return [{
-      [name.replace('--', '--nu-')]: parseAttr(val).value,
+      [name]: parseAttr(val).value,
     }];
   } : attrs[name];
 
@@ -723,7 +722,7 @@ export function extractStyleFuncs(val) {
 }
 
 export function fixPosition(element) {
-  element.style.removeProperty('--nu-transform');
+  element.style.removeProperty('--transform');
 
   const { x, width } = element.getBoundingClientRect();
   const maxW = window.innerWidth;
@@ -731,7 +730,7 @@ export function fixPosition(element) {
   if (x + width > maxW) {
     const offset = -parseInt(x + width - maxW + 1);
 
-    element.style.setProperty('--nu-transform', `translate(${offset}px, 0)`);
+    element.style.setProperty('--transform', `translate(${offset}px, 0)`);
 
     if (!element.hasAttribute('transform')) {
       element.setAttribute('transform', '');
@@ -739,7 +738,7 @@ export function fixPosition(element) {
   } else if (x < 0) {
     const offset = -x;
 
-    element.style.setProperty('--nu-transform', `translate(${offset}px, 0)`);
+    element.style.setProperty('--transform', `translate(${offset}px, 0)`);
 
     if (!element.hasAttribute('transform')) {
       element.setAttribute('transform', '');
@@ -751,19 +750,13 @@ export function intersection(arr1, arr2) {
   return arr1.filter(i => arr2.includes(i));
 }
 
-export function isVariableAttr(value) {
-  if (!value) return false;
-
-  return value.includes('@');
-}
-
 export function isResponsiveAttr(value) {
   if (!value) return false;
 
   return value.includes('|');
 }
 
-const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-z0-9.-]{2,}(?![a-f0-9\[-]))|(--[a-z0-9-]+)|([a-z][a-z0-9-]*)|(([0-9]+(?![0-9.])|[0-9-.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/ig;
+const ATTR_REGEXP = /('[^'|]*')|([a-z]+\()|(#[a-z0-9.-]{2,}(?![a-f0-9\[-]))|(--[a-z0-9-]+|@[a-z0-9-]+)|([a-z][a-z0-9-]*)|(([0-9]+(?![0-9.])|[0-9-.]{2,}|[0-9-]{2,}|[0-9.-]{3,})([a-z%]{0,3}))|([*\/+-])|([()])|(,)/ig;
 
 const ATTR_CACHE = new Map;
 const ATTR_CACHE_AUTOCALC = new Map;
@@ -777,18 +770,6 @@ const ATTR_CACHE_MODE_MAP = [
   ATTR_CACHE_IGNORE_COLOR,
 ];
 
-function prepareNuVar(name) {
-  const isNu = name.startsWith('--nu-');
-
-  if (!isNu) {
-    const nuName = name.replace('--', '--nu-');
-
-    return `var(${nuName}, var(${name}))`;
-  } else {
-    return `var(${name})`;
-  }
-}
-
 const IGNORE_MODS = ['auto', 'max-content', 'min-content', 'none', 'subgrid', 'initial'];
 const PREPARE_REGEXP = /calc\((\d*)\)/ig;
 const CUSTOM_PROPS_REGEX = /(^|var\(|)--([a-z0-9-]+)/ig;
@@ -799,7 +780,10 @@ export const CUSTOM_FUNCS = {};
 let CUSTOM_FUNCS_REGEX;
 
 export function convertCustomProperties(val) {
-  return val.replace(CUSTOM_PROPS_REGEX, (s, s1, s2) => s1 === 'var(' ? s : `${s1}var(--nu-${s2}, var(--${s2}))`);
+  return val
+    .replace(/@\(/, 'var(')
+    .replace(/@[a-z0-9-]+/g, s => `var(--${s.slice(1)})`)
+    .replace(CUSTOM_PROPS_REGEX, (s, s1, s2) => s1 === 'var(' ? s : `${s1}var(--${s2})`);
 }
 
 export function convertCustomFuncs(str, options) {
@@ -823,7 +807,7 @@ function prepareParsedValue(val) {
 /**
  *
  * @param {String} value
- * @param {Integer} mode
+ * @param {Number} mode
  * @returns {Object<String,String|Array>}
  */
 export function parseAttr(value, mode = 0) {
@@ -852,6 +836,7 @@ export function parseAttr(value, mode = 0) {
     ATTR_REGEXP.lastIndex = 0;
 
     value = convertCustomFuncs(value, { explicitColor: true });
+    value = value.replace(/@\(/g, 'var(--');
 
     while (token = ATTR_REGEXP.exec(value)) {
       let [s, quoted, func, hashColor, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma] = token;
@@ -952,8 +937,9 @@ export function parseAttr(value, mode = 0) {
           currentValue += `${unit} `;
         }
       } else if (prop) {
+        prop = prop.replace('@', '--');
         if (currentFunc !== 'var') {
-          currentValue += `${prepareNuVar(prop)} `;
+          currentValue += `var(${prop}) `;
         } else {
           currentValue += `${prop} `;
         }
@@ -1361,7 +1347,7 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
     } else if (name === 'inherit') {
       color = 'inherit';
     } else {
-      color = `var(--nu-${name}-color)`;
+      color = `var(--${name}-color)`;
     }
 
     return {
@@ -1561,7 +1547,7 @@ export function hasPositiveMod(mods) {
  */
 export function setTransitionTimeout(host, cb, transitionName) {
   const style = getComputedStyle(host);
-  const styleValue = (transitionName && style.getPropertyValue(`--nu-${transitionName}`).trim()) || style.getPropertyValue('--nu-transition').trim();
+  const styleValue = (transitionName && style.getPropertyValue(`--${transitionName}`).trim()) || style.getPropertyValue('--transition').trim();
   const transition = style.transition;
   const time = transition !== DISABLED_TRANSITION ? parseTime(styleValue) : 0;
 

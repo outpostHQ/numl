@@ -35,7 +35,7 @@ export default class NuNumInput extends NuInput {
     if (!shadow) {
       all.push(
         `${tag}::after {
-          content: var(--nu-value);
+          content: var(--value);
           display: grid;
           place-content: center;
           position: absolute;

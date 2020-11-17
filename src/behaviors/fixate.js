@@ -160,11 +160,11 @@ export default class FixateBehavior {
       .forEach(([name, value]) => {
         value = value ? `${value}px` : 'initial';
 
-        host.style.setProperty(`--nu-fixate-${name}`, value);
+        host.style.setProperty(`--fixate-${name}`, value);
       });
 
-    host.style.setProperty(`--nu-fixate-width`, `${width}px`);
-    host.style.setProperty(`--nu-transform-place`, `translate(${move})`);
+    host.style.setProperty(`--fixate-width`, `${width}px`);
+    host.style.setProperty(`--transform-place`, `translate(${move})`);
 
     setTimeout(() => {
       fixPosition(host);
@@ -204,10 +204,10 @@ export default class FixateBehavior {
     setTimeout(() => {
       if (!this.fixated) {
         host.style.display = 'none';
-        host.style.removeProperty(`--nu-transform-place`);
+        host.style.removeProperty(`--transform-place`);
 
         [...DIRECTIONS, 'width']
-          .forEach(prop => host.style.removeProperty(`--nu-fixate-${prop}`));
+          .forEach(prop => host.style.removeProperty(`--fixate-${prop}`));
       }
     }, 500);
   }

@@ -9,15 +9,15 @@ export default function markAttr(val) {
    * @type {Array<Object>}
    */
   const styles = [{
-    '--nu-local-mark-shadow': `0 0 0 0 transparent, 0 0 0 9999rem transparent inset`,
+    '--local-mark-shadow': `0 0 0 0 transparent, 0 0 0 9999rem transparent inset`,
   }];
 
-  const markColor = color || 'var(--nu-local-mark-color, var(--nu-mark-color))';
+  const markColor = color || 'var(--local-mark-color, var(--mark-color))';
   const hover = mods.includes('hover');
 
   if (!hasNegativeMod(mods)) {
     styles.push({
-      '--nu-local-mark-shadow': `0 0 0 ${size} ${markColor}, 0 0 0 9999rem ${markColor} inset`,
+      '--local-mark-shadow': `0 0 0 ${size} ${markColor}, 0 0 0 9999rem ${markColor} inset`,
     });
 
     if (hover) {

@@ -52,13 +52,13 @@ export default class PopupBehavior extends WidgetBehavior {
     this.on('mouseenter', () => {
       if (!this.button) return;
 
-      this.button.host.style.setProperty('--nu-local-mark-color', 'transparent');
+      this.button.host.style.setProperty('--local-mark-color', 'transparent');
     });
 
     this.on('mouseleave', () => {
       if (!this.button) return;
 
-      this.button.host.style.removeProperty('--nu-local-mark-color');
+      this.button.host.style.removeProperty('--local-mark-color');
     });
   }
 
@@ -177,7 +177,7 @@ export default class PopupBehavior extends WidgetBehavior {
       this.button.host.focus();
     }
 
-    host.style.removeProperty('--nu-transform');
+    host.style.removeProperty('--transform');
 
     this.emit('close', null);
     this.emit('toggle', null);

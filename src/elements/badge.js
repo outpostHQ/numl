@@ -26,7 +26,7 @@ export default class NuBadge extends NuElement {
       ...css,
 
       `${tag} {
-        line-height: calc(var(--nu-line-height) - 1px);
+        line-height: calc(var(--line-height) - 1px);
       }`,
     ];
   }

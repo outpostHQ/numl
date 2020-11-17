@@ -16,9 +16,9 @@ const OUTLINE_STYLES = {
   left: '0',
   'pointer-events': 'none',
   'border-radius': localProp('radius'),
-  'box-shadow': 'var(--nu-local-outline-shadow)',
+  'box-shadow': 'var(--local-outline-shadow)',
   // Activate transition only if transition and focusable effects are globally enabled
-  transition: 'box-shadow calc(var(--nu-transition-enabler) * var(--nu-focus-enabler) * var(--nu-transition)) linear',
+  transition: 'box-shadow calc(var(--transition-enabler) * var(--transition)) linear',
   'z-index': '9',
 };
 
@@ -26,143 +26,143 @@ checkGenerator('outline', outlineAttr, {
   '': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, 0 0) 0 calc(1 * (1 - var(--focus-disabler, 0)) * var(--outline-width)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
-      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
+      "--local-outline-color": "var(--outline-color)"
     },
   ],
   'n': [DISABLE_STYLES],
   'y': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, 0 0) 0 calc(1 * (1 - var(--focus-disabler, 0)) * var(--outline-width)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
-      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
+      "--local-outline-color": "var(--outline-color)"
     },
   ],
   '1x': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-gap)) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, 0 0) 0 calc(1 * (1 - var(--focus-disabler, 0)) * var(--gap)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
-      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
+      "--local-outline-color": "var(--outline-color)"
     },
   ],
   '#special': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, 0 0) 0 calc(1 * (1 - var(--focus-disabler, 0)) * var(--outline-width)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
-      "--nu-local-outline-color": "var(--nu-special-color, var(--special-color))"
+      "--local-outline-color": "var(--special-color)"
     },
   ],
   'inset': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, inset 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, inset 0 0) 0 calc(1 * (1 - var(--focus-disabler, 0)) * var(--outline-width)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
-      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
+      "--local-outline-color": "var(--outline-color)"
     },
   ],
   'focus': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, 0 0) 0 calc(1 * (1 - var(--focus-disabler, 0)) * var(--outline-width)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '',
       $suffix: '[is-focus]',
-      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
+      "--local-outline-color": "var(--outline-color)"
     },
   ],
   'focus-inside': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, 0 0) 0 calc(1 * (1 - var(--focus-disabler, 0)) * var(--outline-width)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '',
       $suffix: ':focus-within',
-      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
+      "--local-outline-color": "var(--outline-color)"
     },
     {
       $suffix: '>*',
-      '--nu-focus-disabler': '1',
+      '--focus-disabler': '1',
     }
   ],
   'focus-outside': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(1 * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, 0 0) 0 calc(1 * (1 - var(--focus-disabler, 0)) * var(--outline-width)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '[is-focus], :host([is-focus])',
       $suffix: '',
-      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
+      "--local-outline-color": "var(--outline-color)"
     },
   ],
   'focus visible': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(var(--nu-focus-enabler) * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, 0 0) 0 calc(var(--focus-enabler) * (1 - var(--focus-disabler, 0)) * var(--outline-width)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '',
       $suffix: '[is-focus]',
-      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
+      "--local-outline-color": "var(--outline-color)"
     },
   ],
   'focus-inside visible': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(var(--nu-focus-enabler) * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, 0 0) 0 calc(var(--focus-enabler) * (1 - var(--focus-disabler, 0)) * var(--outline-width)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '',
       $suffix: ':focus-within',
-      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
+      "--local-outline-color": "var(--outline-color)"
     },
     {
       $suffix: '>*',
-      '--nu-focus-disabler': '1',
+      '--focus-disabler': '1',
     }
   ],
   'focus-outside visible': [
     DISABLE_STYLES,
     {
-      "--nu-local-outline-color": "transparent",
-      "--nu-local-outline-shadow": "var(--nu-local-outline-inset, 0 0) 0 calc(var(--nu-focus-enabler) * (1 - var(--nu-focus-disabler, 0)) * var(--nu-outline-width, var(--outline-width))) var(--nu-local-outline-color)"
+      "--local-outline-color": "rgba(var(--outline-color-rgb), 0)",
+      "--local-outline-shadow": "var(--local-outline-inset, 0 0) 0 calc(var(--focus-enabler) * (1 - var(--focus-disabler, 0)) * var(--outline-width)) var(--local-outline-color)"
     },
     OUTLINE_STYLES,
     {
       $prefix: '[is-focus], :host([is-focus])',
       $suffix: '',
-      "--nu-local-outline-color": "var(--nu-outline-color, var(--outline-color))"
+      "--local-outline-color": "var(--outline-color)"
     },
   ],
 });

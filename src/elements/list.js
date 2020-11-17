@@ -46,7 +46,7 @@ export default class NuList extends NuElement {
       }`,
 
       `${tag} ${tag}:not([padding]) {
-        padding-left: calc(var(--nu-gap) * 4);
+        padding-left: calc(var(--gap) * 4);
       }`,
     ];
   }

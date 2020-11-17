@@ -32,12 +32,12 @@ describe('Params', () => {
     'param2(value2) #special': {
       param1: 'value1',
       param2: 'value2',
-      color: 'var(--nu-special-color, var(--special-color))',
+      color: 'var(--special-color)',
     },
     'param2(value2) #special.50': {
       param1: 'value1',
       param2: 'value2',
-      color: 'rgba(var(--nu-special-color-rgb), 0.5)',
+      color: 'rgba(var(--special-color-rgb), 0.5)',
     },
   });
 });

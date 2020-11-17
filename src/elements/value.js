@@ -13,7 +13,7 @@ export default class NuValue extends NuElement {
 
   static get nuStyles() {
     return {
-      color: ':placeholder[var(--nu-placeholder-color, rgba(var(--nu-text-color-rgb), var(--nu-disabled-opacity)))] inherit',
+      color: ':placeholder[var(--placeholder-color, rgba(var(--text-color-rgb), var(--disabled-opacity)))] inherit',
     };
   }
 }

@@ -12,7 +12,6 @@ const VERSION = `"${pkg.version}"`;
 function getConfigByEnv(env) {
   return {
     input: 'src/index.js',
-    external: ['ms'],
     output: [{
       name: 'Nude',
       dir: `./dist/${env ==='development' ? 'dev/' : ''}`,

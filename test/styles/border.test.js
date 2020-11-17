@@ -3,34 +3,34 @@ import { checkGenerator } from '../utils';
 
 checkGenerator('border', borderAttr, {
   '': {
-    '--nu-local-stroke-shadow': '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)',
-    'border': 'var(--nu-border-width) solid var(--nu-local-border-color, var(--nu-border-color))'
+    '--local-stroke-shadow': '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)',
+    'border': 'var(--border-width) solid var(--local-border-color, var(--border-color))'
   },
   '1x': {
-    '--nu-local-stroke-shadow': '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)',
-    'border': 'var(--nu-gap) solid var(--nu-local-border-color, var(--nu-border-color))'
+    '--local-stroke-shadow': '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)',
+    'border': 'var(--gap) solid var(--local-border-color, var(--border-color))'
   },
   'top': {
-    '--nu-local-stroke-shadow': '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)',
-    'border-top': 'var(--nu-border-width) solid var(--nu-local-border-color, var(--nu-border-color))'
+    '--local-stroke-shadow': '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)',
+    'border-top': 'var(--border-width) solid var(--local-border-color, var(--border-color))'
   },
   'top right bottom left': {
-    '--nu-local-stroke-shadow': '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)',
-    'border-top': 'var(--nu-border-width) solid var(--nu-local-border-color, var(--nu-border-color))',
-    'border-bottom': 'var(--nu-border-width) solid var(--nu-local-border-color, var(--nu-border-color))',
-    'border-left': 'var(--nu-border-width) solid var(--nu-local-border-color, var(--nu-border-color))',
-    'border-right': 'var(--nu-border-width) solid var(--nu-local-border-color, var(--nu-border-color))'
+    '--local-stroke-shadow': '0 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 0 rgba(0, 0, 0, 0)',
+    'border-top': 'var(--border-width) solid var(--local-border-color, var(--border-color))',
+    'border-bottom': 'var(--border-width) solid var(--local-border-color, var(--border-color))',
+    'border-left': 'var(--border-width) solid var(--local-border-color, var(--border-color))',
+    'border-right': 'var(--border-width) solid var(--local-border-color, var(--border-color))'
   },
   'outside': {
-    '--nu-local-stroke-shadow': '0 0 0 var(--nu-border-width) var(--nu-local-border-color, var(--nu-border-color)),\n            inset 0 0 0 0 var(--nu-local-border-color, var(--nu-border-color))'
+    '--local-stroke-shadow': '0 0 0 var(--border-width) var(--local-border-color, var(--border-color)),\n            inset 0 0 0 0 var(--local-border-color, var(--border-color))'
   },
   'inside': {
-    '--nu-local-stroke-shadow': '0 0 0 0 var(--nu-local-border-color, var(--nu-border-color)),\n            inset 0 0 0 var(--nu-border-width) var(--nu-local-border-color, var(--nu-border-color))'
+    '--local-stroke-shadow': '0 0 0 0 var(--local-border-color, var(--border-color)),\n            inset 0 0 0 var(--border-width) var(--local-border-color, var(--border-color))'
   },
   'center': {
-    '--nu-local-stroke-shadow': '0 0 0 calc((var(--nu-border-width)) / 2) var(--nu-local-border-color, var(--nu-border-color)),\n            inset 0 0 0 calc((var(--nu-border-width)) / 2) var(--nu-local-border-color, var(--nu-border-color))'
+    '--local-stroke-shadow': '0 0 0 calc((var(--border-width)) / 2) var(--local-border-color, var(--border-color)),\n            inset 0 0 0 calc((var(--border-width)) / 2) var(--local-border-color, var(--border-color))'
   },
   'outside top left bottom left': {
-    '--nu-local-stroke-shadow': '0 calc(var(--nu-border-width) * -1) 0 0 var(--nu-local-border-color, var(--nu-border-color)),\n                  inset 0 0 0 0 var(--nu-local-border-color, var(--nu-border-color)),0 calc(var(--nu-border-width) * 1) 0 0 var(--nu-local-border-color, var(--nu-border-color)),\n                  inset 0 0 0 0 var(--nu-local-border-color, var(--nu-border-color)),calc(var(--nu-border-width) * -1) 0 0 0 var(--nu-local-border-color, var(--nu-border-color)),\n                  inset 0 0 0 0 var(--nu-local-border-color, var(--nu-border-color))'
+    '--local-stroke-shadow': '0 calc(var(--border-width) * -1) 0 0 var(--local-border-color, var(--border-color)),\n                  inset 0 0 0 0 var(--local-border-color, var(--border-color)),0 calc(var(--border-width) * 1) 0 0 var(--local-border-color, var(--border-color)),\n                  inset 0 0 0 0 var(--local-border-color, var(--border-color)),calc(var(--border-width) * -1) 0 0 0 var(--local-border-color, var(--border-color)),\n                  inset 0 0 0 0 var(--local-border-color, var(--border-color))'
   },
 });

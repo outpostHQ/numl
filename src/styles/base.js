@@ -1,6 +1,6 @@
 import {
   unit,
-  sizeUnit, gridUnit,
+  dimensionUnit, gridUnit,
 } from '../helpers';
 import textAttr from './text';
 import placeAttr, { PLACE_VALUES } from './place';
@@ -49,23 +49,12 @@ import clipAttr from './clip';
 import groupRadiusAttr from './group-radius';
 
 export default {
-  width: sizeUnit('width'),
-  height: sizeUnit('height'),
+  width: dimensionUnit('width'),
+  height: dimensionUnit('height'),
   sizing: sizingAttr,
   radius: radiusAttr,
   'group-radius': groupRadiusAttr,
-  // 'items-radius': unit('border-radius', {
-  //   suffix: '>:not([radius])',
-  //   empty: '--nu-radius',
-  //   property: true,
-  //   convert: true,
-  // }),
   padding: paddingAttr,
-  // 'items-padding': unit('padding', {
-  //   suffix: '>:not([padding])',
-  //   empty: '--nu-gap',
-  //   convert: true,
-  // }),
   overflow: overflowAttr,
   space: spaceAttr,
   border: borderAttr,

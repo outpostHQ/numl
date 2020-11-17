@@ -1,6 +1,6 @@
 import { DIRECTIONS, parseAttr, filterMods } from '../helpers';
 
-const BASE = 'var(--nu-gap)';
+const BASE = 'var(--gap)';
 
 export default function paddingAttr(val, defaults, prefix = '') {
   if (val == null) return;

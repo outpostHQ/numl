@@ -4,6 +4,7 @@
   <nu-heading level="2">Group radius</nu-heading>
 
   <nu-card as="section">
+    <nu-props transition=".2s"></nu-props>
     <nu-attrs
       for="btn"
       shadow="0 0 0 1bw #border :pressed[0 0 0 1bw #special-bg]"

@@ -10,7 +10,7 @@ export function enableFocus() {
 
   enableTimerId = setTimeout(() => {
     if (ROOT) {
-      ROOT.style.setProperty('--nu-focus-enabler', '1');
+      ROOT.style.setProperty('--focus-enabler', '1');
       ROOT.dataset.nuFocus = '';
     }
 
@@ -23,7 +23,7 @@ export function disableFocus() {
 
   disableTimerId = setTimeout(() => {
     if (ROOT) {
-      ROOT.style.setProperty('--nu-focus-enabler', '0');
+      ROOT.style.setProperty('--focus-enabler', '0');
       delete ROOT.dataset.nuFocus;
     }
 

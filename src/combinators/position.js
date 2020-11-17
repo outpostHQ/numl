@@ -12,7 +12,7 @@ export default function ShadowCombinator() {
         if (attr === 'mark') {
           position = 'relative';
         } else {
-          position = `var(--nu-${attr}-position${position ? `, ${position}` : ''})`;
+          position = `var(--${attr}-position${position ? `, ${position}` : ''})`;
         }
       });
 

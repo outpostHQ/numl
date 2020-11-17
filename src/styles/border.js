@@ -56,9 +56,9 @@ export default function borderAttr(val) {
   let { values, mods, color } = parseAttr(val, 1);
 
   if (color) {
-    colorStyles = { '--nu-local-border-color': color };
+    colorStyles = { '--local-border-color': color };
   } else {
-    color = 'var(--nu-local-border-color, var(--nu-border-color))';
+    color = 'var(--local-border-color, var(--border-color))';
   }
 
   for (let s of BORDER_STYLES) {
@@ -73,7 +73,7 @@ export default function borderAttr(val) {
     }
   }
 
-  let size = values[0] || 'var(--nu-border-width)';
+  let size = values[0] || 'var(--border-width)';
 
   if (style === 'center') {
     size = `calc((${stripCalc(size)}) / 2)`;
@@ -87,7 +87,7 @@ export default function borderAttr(val) {
   if (STROKE_STYLES.includes(style)) {
     if (dirs.length) {
       return {
-        '--nu-local-stroke-shadow': dirs.map(dir => {
+        '--local-stroke-shadow': dirs.map(dir => {
           let pos = DIRECTIONS_HANDLERS[dir];
 
           return `${style !== 'inside' ? pos(size, true) : '0 0'} 0 ${dirs.length ? 0 : size} ${color},
@@ -97,7 +97,7 @@ export default function borderAttr(val) {
     }
 
     return {
-      '--nu-local-stroke-shadow': `0 0 0 ${style !== 'inside' ? size : 0} ${color},
+      '--local-stroke-shadow': `0 0 0 ${style !== 'inside' ? size : 0} ${color},
             inset 0 0 0 ${style !== 'outside' ? size : 0} ${color}`,
     };
   }
@@ -110,12 +110,12 @@ export default function borderAttr(val) {
 
       return styles;
     }, {
-      '--nu-local-stroke-shadow': DEFAULT_STROKE_SHADOW,
+      '--local-stroke-shadow': DEFAULT_STROKE_SHADOW,
     });
   }
 
   return {
     ...colorStyles,
     border,
-    '--nu-local-stroke-shadow': DEFAULT_STROKE_SHADOW };
+    '--local-stroke-shadow': DEFAULT_STROKE_SHADOW };
 }

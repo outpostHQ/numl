@@ -157,7 +157,7 @@ export default class SliderBehavior extends WidgetBehavior {
 
     this.value = value;
 
-    host.style.setProperty('--nu-local-offset', this.getOffset(value));
+    host.style.setProperty('--local-offset', this.getOffset(value));
 
     this.setAria('valuemin', min);
     this.setAria('valuemax', max);

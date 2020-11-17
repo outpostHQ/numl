@@ -7,7 +7,7 @@ export default function TransformCombinator() {
       return {
         transform: allAttrs.reduce((value, attr) => {
           if (attrs.includes(attr)) {
-            value += `var(--nu-transform${attr === 'transform' ? '' : `-${attr}`}) `;
+            value += `var(--transform${attr === 'transform' ? '' : `-${attr}`}) `;
           }
 
           return value;

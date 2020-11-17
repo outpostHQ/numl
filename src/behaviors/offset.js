@@ -5,8 +5,8 @@ export default class OffsetBehavior extends Behavior {
   connected() {
     const { host, params } = this;
     const { name } = params;
-    const xProp = `--nu${name ? `-${name}` : ''}-offset-x`;
-    const yProp = `--nu${name ? `-${name}` : ''}-offset-y`;
+    const xProp = `--${name ? `${name}-` : ''}offset-x`;
+    const yProp = `--${name ? `${name}-` : ''}offset-y`;
 
     const updateByEvent = (event) => {
       this._active = true;

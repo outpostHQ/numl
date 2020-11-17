@@ -9,7 +9,7 @@ function featherIconsLoader(name) {
       const contents = icons[name];
 
       if (contents) {
-        return `<svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" style="stroke-width: var(--nu-icon-stroke-width, calc(1rem / 8))" fill="none" stroke-linecap="round" stroke-linejoin="round">${contents}</svg>`;
+        return `<svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" style="stroke-width: var(--icon-stroke-width, calc(1rem / 8))" fill="none" stroke-linecap="round" stroke-linejoin="round">${contents}</svg>`;
       }
 
       return '';

@@ -13,9 +13,9 @@ const OUTLINE_STYLES = [
     left: '0',
     'pointer-events': 'none',
     'border-radius': localProp('radius'),
-    'box-shadow': 'var(--nu-local-outline-shadow)',
+    'box-shadow': 'var(--local-outline-shadow)',
     // Activate transition only if transition and focusable effects are globally enabled
-    transition: 'box-shadow calc(var(--nu-transition-enabler) * var(--nu-focus-enabler) * var(--nu-transition)) linear',
+    transition: 'box-shadow calc(var(--transition-enabler) * var(--transition)) linear',
     'z-index': '9',
   }
 ];
@@ -50,8 +50,8 @@ export default function outlineAttr(val) {
   const polite = mods.includes('visible') && focus;
 
   styles.push({
-    '--nu-local-outline-color': 'transparent',
-    '--nu-local-outline-shadow': `var(--nu-local-outline-inset, ${inset ? 'inset ' : ''}0 0) 0 calc(${!polite ? '1' : 'var(--nu-focus-enabler)'} * (1 - var(--nu-focus-disabler, 0)) * ${outlineSize}) var(--nu-local-outline-color)`,
+    '--local-outline-color': 'rgba(var(--outline-color-rgb), 0)',
+    '--local-outline-shadow': `var(--local-outline-inset, ${inset ? 'inset ' : ''}0 0) 0 calc(${!polite ? '1' : 'var(--focus-enabler)'} * (1 - var(--focus-disabler, 0)) * ${outlineSize}) var(--local-outline-color)`,
   });
 
   // hide outline (if you need transition)
@@ -65,18 +65,18 @@ export default function outlineAttr(val) {
     styles.push({
       $prefix: outside ? `${SELECTOR}, :host(${SELECTOR})` : '',
       $suffix: `${outside ? '' : (inside ? WITHIN_SELECTOR : SELECTOR)}`,
-      '--nu-local-outline-color': outlineColor,
+      '--local-outline-color': outlineColor,
     });
 
     if (inside) {
       styles.push({
         $suffix: '>*',
-        '--nu-focus-disabler': '1',
+        '--focus-disabler': '1',
       });
     }
   } else {
     styles.push({
-      '--nu-local-outline-color': outlineColor,
+      '--local-outline-color': outlineColor,
     });
   }
 

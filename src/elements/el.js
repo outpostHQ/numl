@@ -159,7 +159,7 @@ export default class NuElement extends NuBase {
       ...css,
 
       `${tag}::selection {
-        background: rgba(var(--nu-main-outline-color-rgb, var(--nu-outline-color-rgb)), .5);
+        background: rgba(var(--main-outline-color-rgb, var(--outline-color-rgb)), .5);
       }`
     ];
   }

@@ -1,8 +1,8 @@
 import { isYesValue, unit } from '../helpers';
 
 const radiusUnit = unit('border-radius', {
-  empty: '--nu-radius',
-  property: '--nu-local-radius',
+  empty: '--radius',
+  property: '--local-radius',
   convert: true,
 });
 

@@ -15,30 +15,30 @@ export default function scrollbarAttr(val) {
   return [
     {
       $suffix: ':not([special])',
-      '--nu-local-scrollbar-thumb-color': 'var(--nu-scrollbar-thumb-color, rgba(var(--nu-text-color-rgb), .5))',
-      '--nu-local-scrollbar-border-color': 'var(--nu-scrollbar-border-color, var(--nu-border-width))',
-      '--nu-local-scrollbar-bg-color': 'var(--nu-scrollbar-bg-color, var(--nu-diff-color, var(--nu-local-bg-color)))',
+      '--local-scrollbar-thumb-color': 'var(--scrollbar-thumb-color, rgba(var(--text-color-rgb), .5))',
+      '--local-scrollbar-border-color': 'var(--scrollbar-border-color, var(--border-width))',
+      '--local-scrollbar-bg-color': 'var(--scrollbar-bg-color, var(--diff-color, var(--local-bg-color)))',
     },
     {
       $suffix: '[special]',
-      '--nu-local-scrollbar-thumb-color': 'var(--nu-scrollbar-thumb-color, rgba(var(--nu-white-color-rgb), .6))',
-      '--nu-local-scrollbar-border-color': 'var(--nu-scrollbar-border-color, rgba(var(--nu-dark-color-rgb), .8))',
-      '--nu-local-scrollbar-bg-color': 'var(--nu-scrollbar-bg-color, var(--nu-dark-color))',
+      '--local-scrollbar-thumb-color': 'var(--scrollbar-thumb-color, rgba(var(--white-color-rgb), .6))',
+      '--local-scrollbar-border-color': 'var(--scrollbar-border-color, rgba(var(--dark-color-rgb), .8))',
+      '--local-scrollbar-bg-color': 'var(--scrollbar-bg-color, var(--dark-color))',
     },
     {
       $suffix: '::-webkit-scrollbar',
-      width: 'var(--nu-gap)',
-      height: 'var(--nu-gap)',
+      width: 'var(--gap)',
+      height: 'var(--gap)',
     },
     {
       $suffix: '::-webkit-scrollbar-track',
-      'background-color': 'var(--nu-local-scrollbar-bg-color)',
+      'background-color': 'var(--local-scrollbar-bg-color)',
     },
     {
       $suffix: '::-webkit-scrollbar-thumb',
-      'background-color': 'var(--nu-local-scrollbar-thumb-color)',
-      'border-radius': 'var(--nu-radius)',
-      border: 'var(--nu-border-width) solid var(--nu-local-scrollbar-border-color)',
+      'background-color': 'var(--local-scrollbar-thumb-color)',
+      'border-radius': 'var(--radius)',
+      border: 'var(--border-width) solid var(--local-scrollbar-border-color)',
     },
     {
       $suffix: '::-webkit-scrollbar-corner',
@@ -46,6 +46,6 @@ export default function scrollbarAttr(val) {
     }
   ].concat(SCROLLBAR_SUPPORT ? [{
     'scrollbar-width': 'thin',
-    'scrollbar-color': 'var(--nu-local-scrollbar-bg-color) var(--nu-local-scrollbar-thumb-color)',
+    'scrollbar-color': 'var(--local-scrollbar-bg-color) var(--local-scrollbar-thumb-color)',
   }] : []);
 }

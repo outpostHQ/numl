@@ -23,15 +23,15 @@ let PROPS = '';
 Object.keys(SIZES).forEach(size => {
   const arr = SIZES[size];
 
-  PROPS += `--nu-${size}-font-size: ${arr[0]}rem;
---nu-${size}-line-height: ${arr[1]}rem;`;
+  PROPS += `--${size}-font-size: ${arr[0]}rem;
+--${size}-line-height: ${arr[1]}rem;`;
 });
 
 insertRuleSet('nu-sizes', [`:root{${PROPS}`]);
 
 const BASE_STYLES = {
-  'font-size': 'var(--nu-font-size)',
-  'line-height': 'var(--nu-line-height)',
+  'font-size': 'var(--font-size)',
+  'line-height': 'var(--line-height)',
 };
 
 /**
@@ -49,11 +49,11 @@ export default function sizeAttr(val, defaults, propsOnly) {
 
   if (mod === 'smaller') {
     return [{
-      'font-size': 'calc(var(--nu-font-size) / 1.5)',
+      'font-size': 'calc(var(--font-size) / 1.5)',
     }];
   } else if (mod === 'bigger') {
     return [{
-      'font-size': 'var(--nu-line-height)',
+      'font-size': 'var(--line-height)',
     }];
   }
 
@@ -62,9 +62,9 @@ export default function sizeAttr(val, defaults, propsOnly) {
   if (values.includes(all[0])) {
     let value = all[0];
 
-    styles['--nu-font-size'] = value === '-' ? 'inherit' : value;
+    styles['--font-size'] = value === '-' ? 'inherit' : value;
   } else if (mods.includes(all[0])) {
-    styles['--nu-font-size'] = `var(--nu-${all[0]}-font-size, inherit)`;
+    styles['--font-size'] = `var(--${all[0]}-font-size, inherit)`;
   } else {
     return;
   }
@@ -72,9 +72,9 @@ export default function sizeAttr(val, defaults, propsOnly) {
   if (values.includes(all[1])) {
     let value = all[1];
 
-    styles['--nu-line-height'] = value === '-' ? 'inherit' : value;
+    styles['--line-height'] = value === '-' ? 'inherit' : value;
   } else if (mods.includes(all[1])) {
-    styles['--nu-line-height'] = `var(--nu-${all[1]}-line-height, inherit)`;
+    styles['--line-height'] = `var(--${all[1]}-line-height, inherit)`;
   }
 
   return (propsOnly ? [] : [BASE_STYLES]).concat(styles);

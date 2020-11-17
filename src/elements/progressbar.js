@@ -36,27 +36,27 @@ export default class NuProgressBar extends NuElement {
         content: '';
         position: absolute;
         left: 0;
-        width: calc(var(--nu-value) * 100%);
+        width: calc(var(--value) * 100%);
         top: 0;
         bottom: 0;
-        background: var(--nu-special-color);
-        border-radius: var(--nu-border-width);
+        background: var(--special-color);
+        border-radius: var(--border-width);
       }`,
 
       `${tag}::after {
         content: '';
         position: absolute;
         left: 0;
-        width: calc(var(--nu-value) * 100%);
+        width: calc(var(--value) * 100%);
         top: 0;
         bottom: 0;
         opacity: .2;
         background-color: transparent;
-        border-radius: var(--nu-border-width);
+        border-radius: var(--border-width);
         background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5)), linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 36%, rgb(0, 0, 255) 38%, rgb(0, 0, 255) 72%, rgb(255, 255, 255) 74%, rgb(255, 255, 255) 100%);
         background-repeat: repeat;
         background-size: 3em;
-        animation: nu-progressbar-animation calc(var(--nu-transition) * 10 - 0.01s) linear infinite;
+        animation: nu-progressbar-animation calc(var(--transition) * 10 - 0.01s) linear infinite;
       }`,
 
       `@keyframes nu-progressbar-animation {

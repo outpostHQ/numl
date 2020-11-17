@@ -28,16 +28,16 @@ export default class NuBtn extends NuAction {
       ...css,
 
       `${tag}[special] {
-        --nu-shadow-color: var(--nu-special-shadow-color);
-        --nu-shadow-color-rgb: var(--nu-special-shadow-color-rgb);
+        --shadow-color: var(--special-shadow-color);
+        --shadow-color-rgb: var(--special-shadow-color-rgb);
       }`,
 
       `${tag}[special] > :not([theme]) {
-        --nu-text-soft-color: var(--nu-special-text-color);
-        --nu-text-contrast-color: var(--nu-special-text-color);
-        --nu-text-color: var(--nu-special-text-color);
-        --nu-special-color: var(--nu-special-text-color);
-        --nu-mark-color: var(--nu-special-mark-color);
+        --text-soft-color: var(--special-text-color);
+        --text-contrast-color: var(--special-text-color);
+        --text-color: var(--special-text-color);
+        --special-color: var(--special-text-color);
+        --mark-color: var(--special-mark-color);
       }`,
     ];
   }

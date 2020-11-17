@@ -14,7 +14,7 @@ export default class NuSlider extends NuElement {
     return `
       <nu-circle
         id="slider-cap"
-        place="top left --nu-local-rail-top --nu-local-rail-left"
+        place="top left --local-rail-top --local-rail-left"
         size="1.25em"
         radius="round"
         fill="special-text"

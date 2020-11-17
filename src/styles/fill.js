@@ -1,26 +1,26 @@
 import { convertCustomFuncs, parseColor } from '../helpers';
 
 const BG_STYLE = 'background-color';
-const LOCAL_PROP = '--nu-local-bg-color';
-const LOCAL_VALUE = `var(${LOCAL_PROP}, var(--nu-bg-color))`;
-const DIFF_PROP = '--nu-diff-color';
-const SHADOW_PROP = '--nu-local-shadow-color';
-const SHADOW_RGB_PROP = '--nu-local-shadow-color-rgb';
-const MARK_PROP = '--nu-local-mark-color';
-const BORDER_PROP = '--nu-local-border-color';
-const TEXT_PROP = '--nu-local-text-color';
-const SHADOW_VALUE = 'var(--nu-shadow-color)';
-const SHADOW_RGB_VALUE = 'var(--nu-shadow-color-rgb)';
-const BORDER_VALUE = 'var(--nu-border-color)';
-const SPECIAL_BORDER_VALUE = 'var(--nu-special-text-color)';
-const SPECIAL_SHADOW_VALUE = 'var(--nu-special-shadow-color)';
-const SPECIAL_RGB_SHADOW_VALUE = 'var(--nu-special-shadow-color-rgb)';
-const MARK_VALUE = 'var(--nu-mark-color)';
-const SPECIAL_MARK_VALUE = 'var(--nu-special-mark-color)';
-const BG_VALUE = 'var(--nu-bg-color)';
-const SUBTLE_VALUE = 'var(--nu-subtle-color)';
+const LOCAL_PROP = '--local-bg-color';
+const LOCAL_VALUE = `var(${LOCAL_PROP}, var(--bg-color))`;
+const DIFF_PROP = '--diff-color';
+const SHADOW_PROP = '--local-shadow-color';
+const SHADOW_RGB_PROP = '--local-shadow-color-rgb';
+const MARK_PROP = '--local-mark-color';
+const BORDER_PROP = '--local-border-color';
+const TEXT_PROP = '--local-text-color';
+const SHADOW_VALUE = 'var(--shadow-color)';
+const SHADOW_RGB_VALUE = 'var(--shadow-color-rgb)';
+const BORDER_VALUE = 'var(--border-color)';
+const SPECIAL_BORDER_VALUE = 'var(--special-text-color)';
+const SPECIAL_SHADOW_VALUE = 'var(--special-shadow-color)';
+const SPECIAL_RGB_SHADOW_VALUE = 'var(--special-shadow-color-rgb)';
+const MARK_VALUE = 'var(--mark-color)';
+const SPECIAL_MARK_VALUE = 'var(--special-mark-color)';
+const BG_VALUE = 'var(--bg-color)';
+const SUBTLE_VALUE = 'var(--subtle-color)';
 const TEXT_VALUE = ''; // make it invalid
-const SPECIAL_TEXT_VALUE = 'var(--nu-special-text-color) !important';
+const SPECIAL_TEXT_VALUE = 'var(--special-text-color) !important';
 
 export default function fillAttr(val) {
   val = convertCustomFuncs(val);
@@ -38,7 +38,7 @@ export default function fillAttr(val) {
       [DIFF_PROP]: SUBTLE_VALUE,
     }];
   } else if (!color) {
-    const bgValue = `var(--nu-${val}-color)`;
+    const bgValue = `var(--${val}-color)`;
 
     return [{
       [BG_STYLE]: bgValue,
@@ -63,7 +63,7 @@ export default function fillAttr(val) {
     }, {
       [DIFF_PROP]: otherColor,
       [LOCAL_PROP]: color,
-      [`--nu-local-bg-color-rgb`]: `var(--nu-${name}-color-rgb, var(--nu-bg-color-rgb))`,
+      [`--local-bg-color-rgb`]: `var(--${name}-color-rgb, var(--bg-color-rgb))`,
       [SHADOW_PROP]: SHADOW_VALUE,
       [SHADOW_PROP]: SHADOW_RGB_VALUE,
       [TEXT_PROP]: TEXT_VALUE,

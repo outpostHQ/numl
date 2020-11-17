@@ -67,7 +67,7 @@ export default class NuCode extends NuElement {
       }`,
 
       `${tag} nu-el[fill] {
-        border-radius: var(--nu-radius);
+        border-radius: var(--radius);
         padding: .25em;
       }`,
     ];

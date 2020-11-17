@@ -2,7 +2,7 @@ import { parseAttr } from '../helpers';
 
 export default function scaleAttr(val) {
   if (!val) return {
-    '--nu-transform-scale': `scale(1, 1)`,
+    '--transform-scale': `scale(1, 1)`,
   };
 
   let { value } = parseAttr(val);
@@ -22,6 +22,6 @@ export default function scaleAttr(val) {
   value = value.split(/\s+/g).join(', ');
 
   return {
-    '--nu-transform-scale': `scale(${value})`,
+    '--transform-scale': `scale(${value})`,
   };
 }

@@ -17,7 +17,7 @@ export default class NuBtnGroup extends NuGroup {
       gap: '1bw',
       radius: '',
       border: '',
-      fill: 'var(--nu-local-border-color, var(--nu-border-color)) :disabled[rgba(var(--nu-local-border-color-rgb, var(--nu-border-color-rgb)), var(--nu-disabled-opacity))]',
+      fill: 'var(--local-border-color, var(--border-color)) :disabled[rgba(var(--local-border-color-rgb, var(--border-color-rgb)), var(--disabled-opacity))]',
       outline: 'focus-inside visible',
     };
   }

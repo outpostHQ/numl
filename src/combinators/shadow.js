@@ -14,7 +14,7 @@ export default function ShadowCombinator() {
       return {
         'box-shadow': allAttrs
           .filter(attr => attrs.includes(attr))
-          .map((attr) => `var(--nu-local-${STYLE_MAP[attr]}-shadow)`)
+          .map((attr) => `var(--local-${STYLE_MAP[attr]}-shadow)`)
           .join(', '),
       };
     },

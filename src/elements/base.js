@@ -18,7 +18,6 @@ import {
   THEME_TYPE_MODS, THEME_ATTR
 } from '../themes';
 import { generateCSSByZones, RESPONSIVE_ATTR, RESPONSIVE_MOD } from '../responsive';
-import { composeVarsValue, getVarsList } from '../variables';
 import {
   getParent,
   query,
@@ -31,7 +30,6 @@ import {
   error,
   parseAllValues,
   extractMods,
-  isVariableAttr,
   isResponsiveAttr,
   normalizeAttrStates,
   parseAttrStates,
@@ -633,8 +631,8 @@ export default class NuAbstract extends HTMLElement {
       oldValue = this.nuAttrValues[name];
     }
 
-    // if styled attribute and contains variables
-    if (isVariableAttr(value) || isResponsiveAttr(value)) {
+    // if dynamic attr
+    if (isResponsiveAttr(value)) {
       varAttr = this.nuGetDynamicAttr(name, value);
 
       value = varAttr.value;
@@ -643,7 +641,7 @@ export default class NuAbstract extends HTMLElement {
     this.nuAttrValues[name] = value;
 
     if (devMode && !name.startsWith('attr-') && name !== 'control') {
-      if (value !== origValue || isVariableAttr(value) || isResponsiveAttr(value)) {
+      if (value !== origValue || isResponsiveAttr(value)) {
         this.setAttribute(`attr-${name}`, normalizeAttrStates(value));
       }
 
@@ -912,7 +910,7 @@ export default class NuAbstract extends HTMLElement {
 
     let value;
 
-    if (isVariableAttr(attrValue) || isResponsiveAttr(attrValue)) {
+    if (isResponsiveAttr(attrValue)) {
       if (!varAttr) {
         varAttr = this.nuGetDynamicAttr(name, attrValue);
       }
@@ -952,10 +950,9 @@ export default class NuAbstract extends HTMLElement {
 
     if (!value) return value;
 
-    const isVariable = isVariableAttr(value);
     const isResponsive = isResponsiveAttr(value);
 
-    if (firstValueOnly && !isVariable) {
+    if (firstValueOnly) {
       if (isResponsive) {
         return parseAttrStates(value)[0].states[''];
       }
@@ -963,9 +960,7 @@ export default class NuAbstract extends HTMLElement {
       return value;
     }
 
-    const isVariableOrResponsive = isVariable || isResponsive;
-
-    if (isVariableOrResponsive) {
+    if (isResponsive) {
       value = this.nuGetDynamicAttr(attr, value).value;
     }
 
@@ -1000,23 +995,12 @@ export default class NuAbstract extends HTMLElement {
     value = value == null ? this.getAttribute(attr) : value;
 
     const responsive = this.nuContext && this.nuContext.responsive && this.nuContext.responsive;
-    const varsList = getVarsList(value);
     const contextIds = new Set;
     const contextMod = `${attr}-ctx`;
     const contextModAttr = `is-${contextMod}`;
     const oldValue = this.nuAttrValues && this.nuAttrValues[attr];
 
-    varsList.forEach(varName => {
-      const varData = this.nuContext[`var:${varName}`];
-
-      if (!varData) return;
-
-      const nuId = varData.context.nuUniqId;
-
-      contextIds.add(nuId);
-    });
-
-    value = composeVarsValue(normalizeAttrStates(value), this.nuContext, responsive ? responsive.zones.length + 1 : 1);
+    value = normalizeAttrStates(value);
 
     if (responsive && value.includes('|')) {
       context[`is-${RESPONSIVE_MOD}`] = responsive.context.nuUniqId;
@@ -1776,7 +1760,7 @@ export default class NuAbstract extends HTMLElement {
 
     insertRuleSet(
       `shadow:${tag}:outline`,
-      [`:host([is-outline]) [nu], :host([is-outline]) [nu-contents] > *, :host([is-outline][nu-contents]) > * { outline: var(--nu-border-width, 1px) solid var(--nu-outline-color) !important; }`],
+      [`:host([is-outline]) [nu], :host([is-outline]) [nu-contents] > *, :host([is-outline][nu-contents]) > * { outline: var(--border-width, 1px) solid var(--outline-color) !important; }`],
       this.nuShadow,
     );
 

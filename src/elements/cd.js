@@ -27,7 +27,7 @@ export default class NuCd extends NuCode {
       ...css,
 
       `${tag}:not([fill]) {
-        background-color: var(--nu-subtle-color);
+        background-color: var(--subtle-color);
       }`,
 
       `${tag}:not([padding]) {

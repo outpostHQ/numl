@@ -1,5 +1,3 @@
-import color from './color';
-
 export default function propAttr(val) {
   if (val == null) return;
 
@@ -7,7 +5,7 @@ export default function propAttr(val) {
 
   if (!value) return;
 
-  const styles = { [`--nu-${name}`]: value };
+  const styles = { [`--${name}`]: value };
 
   if (name.endsWith('-color')) {
     let rgbValue = value.replace(/-color([,)])/g, (s, s1) => `-color-rgb${s1}`);
@@ -15,7 +13,7 @@ export default function propAttr(val) {
     rgbValue = rgbValue.replace(/rgba\(([^)]+),[^)]+\)/, (s, s1) => s1);
 
     if (rgbValue !== value) {
-      styles[`--nu-${name}-rgb`] = rgbValue;
+      styles[`--${name}-rgb`] = rgbValue;
     }
   }
 

@@ -223,7 +223,7 @@ export default class FormBehavior extends WidgetBehavior {
     const validators = Object.keys(this.validators[name] || {});
 
     for (let check of validators) {
-      const prop = `--nu-check-${name}-${check}`;
+      const prop = `--check-${name}-${check}`;
 
       this.host.style.setProperty(prop, 'none');
     }

@@ -24,7 +24,7 @@ export default class NuTriangle extends NuElement {
       `${tag}:not([border]):not([border]) {
         border-top: 0;
         border-bottom-color: currentColor;
-        border-bottom-width: calc(var(--nu-line-height) / 2);
+        border-bottom-width: calc(var(--line-height) / 2);
       }`,
 
       `${tag}:not([size]):not([size]) {

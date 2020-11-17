@@ -395,38 +395,37 @@ const globalRules = [`
 :root {
   font-size: 16px;
 
-  --nu-pixel: 1px;
-  --nu-rem-pixel: calc(1rem / 16);
+  --rem-pixel: calc(1rem / 16);
 
-  --nu-radius: 0.5rem;
-  --nu-gap: 0.5rem;
-  --nu-border-width: 1px;
-  --nu-outline-width: calc(1rem / 16 * 3);
-  --nu-transition: 0.08s;
-  --nu-inline-offset: -.15em;
-  --nu-transition-enabler: 1;
-  --nu-icon-size: 1.5em;
-  --nu-disabled-opacity: .5;
+  --radius: 0.5rem;
+  --gap: 0.5rem;
+  --border-width: 1px;
+  --outline-width: calc(1rem / 16 * 3);
+  --transition: 0.08s;
+  --inline-offset: -.15em;
+  --transition-enabler: 1;
+  --icon-size: 1.5em;
+  --disabled-opacity: .5;
 
-  --nu-font-size: 1rem;
-  --nu-line-height: 1.5rem;
-  --nu-font-weight: 400;
-  --nu-text-font-weight: var(--nu-font-weight);
-  --nu-light-font-weight: 200;
-  --nu-normal-font-weight: 400;
-  --nu-bold-font-weight: 600;
-  --nu-semi-bold-font-weight: 500;
-  --nu-heading-font-weight: 700;
-  --nu-font-weight-step: 200;
+  --font-size: 1rem;
+  --line-height: 1.5rem;
+  --font-weight: 400;
+  --text-font-weight: var(--font-weight);
+  --light-font-weight: 200;
+  --normal-font-weight: 400;
+  --bold-font-weight: 600;
+  --semi-bold-font-weight: 500;
+  --heading-font-weight: 700;
+  --font-weight-step: 200;
 
-  --nu-system-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Avenir Next", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  --nu-font: var(--nu-system-font);
-  --nu-base-monospace-font: monospace;
-  --nu-monospace-font: var(--nu-base-monospace-font);
+  --system-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Avenir Next", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --font: var(--system-font);
+  --base-monospace-font: monospace;
+  --monospace-font: var(--base-monospace-font);
 
-  --nu-clear-color: transparent;
-  --nu-black-color: rgba(0, 0, 0, 1);
-  --nu-black-color-rgb: 0, 0, 0;
+  --clear-color: transparent;
+  --black-color: rgba(0, 0, 0, 1);
+  --black-color-rgb: 0, 0, 0;
 }`,
 
 `:root:not([data-nu-prevent-reset]) body {
@@ -440,17 +439,17 @@ const globalRules = [`
 `.nu-defaults, :root:not([data-nu-prevent-reset]) body {
   margin: 0;
   padding: 0;
-  font-family: var(--nu-font);
-  font-size: var(--nu-font-size);
-  color: var(--nu-text-color);
-  background-color: var(--nu-subtle-color);
-  font-weight: var(--nu-normal-font-weight);
+  font-family: var(--font);
+  font-size: var(--font-size);
+  color: var(--text-color);
+  background-color: var(--subtle-color);
+  font-weight: var(--normal-font-weight);
   word-spacing: calc(1rem / 8);
   min-height: 100vh;
   text-align: left;
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
-  transition: background-color calc(var(--nu-transition-enabler) * var(--nu-transition)) linear;
+  transition: background-color calc(var(--transition-enabler) * var(--transition)) linear;
 }`,
 
 `.nu-defaults:not(body) {
@@ -479,16 +478,16 @@ const globalRules = [`
 
 `@media (prefers-reduced-motion: reduce) {
   :root {
-    --nu-transition-enabler: 0;
+    --transition-enabler: 0;
   }
 }`,
 
 `:root[data-nu-reduce-motion] {
-  --nu-transition-enabler: 0;
+  --transition-enabler: 0;
 }`,
 
 `:root[data-nu-outline] [nu], :root[data-nu-outline] [nu-contents] > * {
-  outline: var(--nu-border-width, 1px) solid var(--nu-outline-color) !important;
+  outline: var(--border-width, 1px) solid var(--outline-color) !important;
 }`,
 
 `[nu-hidden] {

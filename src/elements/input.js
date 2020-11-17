@@ -49,7 +49,7 @@ export default class NuInput extends NuElement {
   static get nuContext() {
     return {
       'attrs:icon': {
-        width: '((--nu-gap * 2) + 1em)',
+        width: '((--gap * 2) + 1em)',
       },
     };
   }
@@ -99,10 +99,10 @@ export default class NuInput extends NuElement {
       }`,
 
       `${tag} input:-webkit-autofill, ${tag} input:-webkit-autofill:hover, ${tag} input:-webkit-autofill:focus {
-        caret-color: var(--nu-special-color);
-        -webkit-text-fill-color: var(--nu-special-color);
-        -webkit-box-shadow: 0 0 0px 9999rem var(--nu-input-color) inset;
-        box-shadow: 0 0 0px 9999rem var(--nu-input-color) inset;
+        caret-color: var(--special-color);
+        -webkit-text-fill-color: var(--special-color);
+        -webkit-box-shadow: 0 0 0px 9999rem var(--input-color) inset;
+        box-shadow: 0 0 0px 9999rem var(--input-color) inset;
         font-family: inherit;
         font-size: inherit;
         line-height: inherit;
@@ -115,16 +115,16 @@ export default class NuInput extends NuElement {
       }`,
 
       `${sel('', '::placeholder')} {
-        -webkit-text-fill-color: var(--nu-local-placeholder-color);
-        color: var(--nu-local-placeholder-color);
+        -webkit-text-fill-color: var(--local-placeholder-color);
+        color: var(--local-placeholder-color);
       }`,
 
       `${sel('[special]', '::placeholder')} {
-        --nu-local-placeholder-color: var(--nu-placeholder-color, rgba(var(--nu-special-text-color-rgb), .5));
+        --local-placeholder-color: var(--placeholder-color, rgba(var(--special-text-color-rgb), .5));
       }`,
 
       `${sel(':not([special])', '::placeholder')} {
-        --nu-local-placeholder-color: var(--nu-placeholder-color, rgba(var(--nu-text-color-rgb), .5));
+        --local-placeholder-color: var(--placeholder-color, rgba(var(--text-color-rgb), .5));
       }`,
     ];
   }

@@ -10,14 +10,6 @@ export default class NuGridTable extends NuGrid {
     return 'table';
   }
 
-  static get nuGenerators() {
-    return {
-      padding: unit('--nu-cell-padding', {
-        convert: true,
-      }),
-    };
-  }
-
   static get nuStyles() {
     return {
       width: 'min-content',

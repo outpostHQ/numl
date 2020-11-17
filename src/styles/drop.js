@@ -7,9 +7,9 @@ export default function dropAttr(val, defaults) {
   return [{
     $suffix: defaults.place ? `[${FIXATE_ATTR}]` : `:not([${PLACE_ATTR}])`,
     position: 'fixed',
-    top: 'var(--nu-fixate-top, initial)',
-    right: 'var(--nu-fixate-right, initial)',
-    bottom: 'var(--nu-fixate-bottom, initial)',
-    left: 'var(--nu-fixate-left, initial)',
+    top: 'var(--fixate-top, initial)',
+    right: 'var(--fixate-right, initial)',
+    bottom: 'var(--fixate-bottom, initial)',
+    left: 'var(--fixate-left, initial)',
   }];
 }

@@ -272,11 +272,11 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 export function themeToProps(name, theme) {
   const map = Object.keys(theme).reduce((map, color) => {
     if (!Array.isArray(theme[color])) {
-      const key = `--nu-${name}-${color}`;
+      const key = `--${name}-${color}`;
 
       map[key] = theme[color];
     } else {
-      const key = `--nu-${name}-${color}-color`;
+      const key = `--${name}-${color}-color`;
       const hsl = theme[color];
 
       map[key] = hslToRgbaStr(hsl);
@@ -286,7 +286,7 @@ export function themeToProps(name, theme) {
   }, {});
 
   RGB_COLORS.forEach(clr => {
-    map[`--nu-${name}-${clr}-color-rgb`] = rgbaStrToRgbValues(map[`--nu-${name}-${clr}-color`]);
+    map[`--${name}-${clr}-color-rgb`] = rgbaStrToRgbValues(map[`--${name}-${clr}-color`]);
   });
 
   return map;
@@ -626,7 +626,7 @@ function convertContrast(contrast, darkScheme, highContrast) {
 export function requireHue(color, name) {
   let { hue, saturation, contrast, alpha, special, pastel } = color;
 
-  const prop = name ? `--nu-${name}-color` : `--nu-h-${hue}-s-${saturation}-c-${contrast}-a-${(alpha)}${pastel ? '-p' : ''}${special ? '-s' : ''}-color`
+  const prop = name ? `--${name}-color` : `--h-${hue}-s-${saturation}-c-${contrast}-a-${(alpha)}${pastel ? '-p' : ''}${special ? '-s' : ''}-color`
     .replace(/\s/g, '').replace(/\./g, '-');
   const rgbProp = `${prop}-rgb`;
   const onlyReturn = name === false;

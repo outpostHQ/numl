@@ -14,14 +14,14 @@ function expectParsedColor(value, expectedData, debug) {
 describe('parseColor()', () => {
   it('should parse named colors', () => {
     expectParsedColor('named', {
-      'color': 'var(--nu-named-color)',
+      'color': 'var(--named-color)',
       'name': 'named'
     });
   });
 
   it('should parse named colors with opacity', () => {
     expectParsedColor('named 50%', {
-      'color': 'rgba(var(--nu-named-color-rgb), 0.5)',
+      'color': 'rgba(var(--named-color-rgb), 0.5)',
       'name': 'named',
       opacity: 50
     });
@@ -29,7 +29,7 @@ describe('parseColor()', () => {
 
   it('should parse hex colors with conversion', () => {
     expectParsedColor('#4856f5', {
-      'color': 'var(--nu-4856f5-color, var(--4856f5-color, rgba(72,86,245,1)))',
+      'color': 'var(--4856f5-color, rgba(72,86,245,1))',
       'name': '4856f5',
       'opacity': 100
     });

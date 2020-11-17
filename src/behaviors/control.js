@@ -1,7 +1,7 @@
 import { asyncDebounce, log, setAttr, stackTrace } from "../helpers";
 import { ROOT } from '../context';
 
-const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(!|)(\.|)([a-z-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
+const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(!|)(\.|)([a-z0-9@-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
 const BOOL_ATTRS = [
   'disabled',
   'hidden',
@@ -109,6 +109,8 @@ export default class ControlBehavior {
 
         let setValue = firstValue;
 
+        attr = attr.replace(/^@/, '--');
+
         const isProp = attr.startsWith('--');
 
         if (state === false) {
@@ -128,7 +130,7 @@ export default class ControlBehavior {
         } else {
           if (isProp) {
             if (setValue != null && setValue !== false) {
-              element.style.setProperty(attr.replace('--', '--nu-'), String(setValue));
+              element.style.setProperty(attr, String(setValue));
             } else {
               element.style.removeProperty(attr);
             }

@@ -23,11 +23,11 @@ const INVERT_MAP = {
 };
 
 function getLocalProp(dir, invert = false) {
-  return (invert ^ dir.includes('row')) ? 'var(--nu-local-h-gap)' : 'var(--nu-local-v-gap)';
+  return (invert ^ dir.includes('row')) ? 'var(--local-h-gap)' : 'var(--local-v-gap)';
 }
 
 function getProp(dir, invert = false) {
-  return (invert ^ dir.includes('row')) ? 'var(--nu-h-gap)' : 'var(--nu-v-gap)';
+  return (invert ^ dir.includes('row')) ? 'var(--h-gap)' : 'var(--v-gap)';
 }
 
 const MOD_LIST = Object.keys(FLEX_MAP).concat(['wrap', 'nowrap']);
