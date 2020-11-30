@@ -195,7 +195,7 @@ export default class WidgetBehavior extends Behavior {
     }
 
     // link widget with form
-    if (this.params.input) {
+    if (this.params.input && host.id) {
       const id = host.nuId;
 
       if (id) {
