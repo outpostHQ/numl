@@ -14,6 +14,7 @@
 
 <script>
 import { createEventDispatcher } from 'svelte';
+import { startOfDay } from 'date-fns';
 
 export let placeholder;
 export let mode;
