@@ -3,14 +3,14 @@ import { warn, extractModule as extract } from './helpers';
 const VALIDATORS = {
   email: (val) => extract(import('email-validator'))
     .then(validator => !val || validator.validate(val)),
-  maxlength: (val, option) => val.length <= Number(option),
-  minlength: (val, option) => val.length >= Number(option),
+  maxlength: (val, option) => val == null || val.length <= Number(option),
+  minlength: (val, option) => val == null || val.length >= Number(option),
   required: (val) => {
     switch (typeof val) {
       case 'string':
         return val.length > 0;
       case 'number':
-        return val === val;
+        return !Number.isNaN(val);
       case 'boolean':
         return true;
       default:
