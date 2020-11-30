@@ -22,7 +22,8 @@ export default class NuSwitch extends NuAction {
         move="--circle-offset"
         fill="--circle-bg-color"
         overflow="no"
-        border="0"></nu-circle>
+        border="0"
+        shadow="0 0 1ow #circle-shadow"></nu-circle>
     `;
   }
 
@@ -44,7 +45,7 @@ export default class NuSwitch extends NuAction {
       padding: '--circle-gap',
 
       '--size': '1em + --circle-gap',
-      '--circle-gap': '.125em + 1bw',
+      '--circle-gap': '1ow',
       '--circle-size': '--size',
       '--circle-offset': `0
         :pressed[--size - 1bw]`,
@@ -52,6 +53,7 @@ export default class NuSwitch extends NuAction {
         :disabled[rgba(--text-color-rgb, .66)]
         :pressed[--special-text-color]
         :pressed:disabled[--special-text-color]`,
+      '--circle-shadow-color': '#shadow :pressed[#special-shadow.66]',
     };
   }
 }
