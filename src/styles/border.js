@@ -58,7 +58,7 @@ export default function borderAttr(val) {
   if (color) {
     colorStyles = { '--local-border-color': color };
   } else {
-    color = 'var(--local-border-color, var(--border-color))';
+    color = 'var(--border-color)';
   }
 
   for (let s of BORDER_STYLES) {
