@@ -743,7 +743,7 @@ export function parseHue(val) {
   const alphaIndex = modContrast ? 2 : 3;
 
   if (!modContrast && values[2] != null) {
-    const tmpCont = roundNumToFixed(values[2], 1);
+    const tmpCont = roundNumToFixed(parseInt(values[2]), 1);
 
     if (!isNaN(tmpCont)) {
       contrast = tmpCont;
@@ -753,7 +753,7 @@ export function parseHue(val) {
   }
 
   if (values[alphaIndex] != null) {
-    const tmpAlpha = roundNumToFixed(values[alphaIndex], 1);
+    const tmpAlpha = roundNumToFixed(parseInt(values[alphaIndex]), 1);
 
     if (!isNaN(tmpAlpha)) {
       alpha = tmpAlpha;
