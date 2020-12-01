@@ -15,9 +15,7 @@ export function setInternalRouter(_router) {
       return true;
     }
 
-    _router(url, openNewTab); // handle routing by Vue Router
-
-    return false;
+    return !!_router(url, openNewTab); // handle routing by Vue Router
   };
 }
 
