@@ -41,6 +41,7 @@ import {
   setBoolAttr,
   setAria,
   decPoint,
+  isNoValue,
 } from '../helpers';
 import { isPropDeclarable, declareProp, GLOBAL_ATTRS } from '../compatibility';
 import displayAttr from '../styles/display';
@@ -1665,6 +1666,10 @@ export default class NuAbstract extends HTMLElement {
    */
   nuUse(name, value) {
     const allBehaviors = this.constructor.nuAllBehaviors;
+
+    const attrValue = this.getAttribute(`use-${name}`);
+
+    if (isNoValue(attrValue)) return Promise.resolve();
 
     let options = `${allBehaviors[name] || ''} ${value || ''}`;
 

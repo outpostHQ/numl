@@ -1,5 +1,20 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('button')}
+  <nu-heading level="2">Button states</nu-heading>
+
+  <nu-card as="seciton">
+    <nu-pane flow="row wrap">
+      <nu-btn use-action="no">Normal</nu-btn>
+      <nu-btn use-action="n" is-hover mark>Hover</nu-btn>
+      <nu-btn use-action="n" is-active>Pressed</nu-btn>
+      <nu-btn use-action="n" is-pressed>Toggled</nu-btn>
+      <nu-btn use-action="n" outline="focus" is-focus>Focused</nu-btn>
+      <nu-btn use-action="n" disabled>Disabled</nu-btn>
+    </nu-pane>
+  </nu-card>
+{/if}
+
 {#if show('group-radius')}
   <nu-heading level="2">Group radius</nu-heading>
 
