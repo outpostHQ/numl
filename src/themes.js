@@ -44,6 +44,7 @@ export const THEME_PROPS_LIST = [
   'special-mark-color',
   'special-shadow-color',
   'dark-color',
+  'light-color',
   'input-color',
 ];
 const normalTextLightness = 19.87;
@@ -70,7 +71,7 @@ export const BASE_THEME = {
   lightness: 'normal',
 };
 
-export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg', 'shadow', 'special-shadow', 'outline', 'dark'];
+export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg', 'shadow', 'special-shadow', 'outline', 'dark', 'light'];
 
 /**
  * Get minimal possible contrast ratio between text and foreground.
@@ -221,6 +222,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 
   theme.dark = setPastelSaturation(originalSpecial, Math.min(saturation * (darkScheme ? 1.2 : 1), 100));
   theme.dark[2] = darkScheme ? 22 : 30;
+  theme.light = [hue, saturation, (darkScheme ? (highContrast ? darkContrastTextLightness : darkTextLightness) : 100) - 4 ];
   theme.outline = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
 
   if (type === 'main') {
@@ -785,13 +787,22 @@ Object.assign(CUSTOM_FUNCS, {
 
 [
   ['white', 0],
-  ['light', 5],
   ['grey', 'auto'],
   ['darkgrey', 'high'],
   ['lightgrey', 'low'],
+  ['success', 'auto', 140, false],
+  ['success-bg', 'auto', 140, true],
+  ['danger', 'auto', 14, false],
+  ['danger-bg', 'auto', 14, true],
 ]
-  .forEach(([name, contrast]) => {
-    requireHue({ hue: 0, saturation: 0, contrast, alpha: 100, special: true }, name);
+  .forEach(([name, contrast, hue, special]) => {
+    requireHue({
+      hue: hue != null ? hue : 0,
+      saturation: hue != null ? 100 : 0,
+      contrast,
+      alpha: 100,
+      special: special != null ? special : true,
+    }, name);
   });
 
 export function hue(val, dark, contrast) {

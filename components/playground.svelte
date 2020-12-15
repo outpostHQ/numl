@@ -3,7 +3,7 @@
 {#if show('button')}
   <nu-heading level="2">Button states</nu-heading>
 
-  <nu-card as="seciton">
+  <nu-card as="section">
     <nu-pane flow="row wrap">
       <nu-btn use-action="no">Normal</nu-btn>
       <nu-btn use-action="n" is-hover mark>Hover</nu-btn>
@@ -262,6 +262,13 @@
     <nu-cell>0</nu-cell>
     <nu-cell fill="white"></nu-cell>
   </nu-gridtable>
+
+  <nu-card gap="2x">
+    <nu-block color="success">Success text</nu-block>
+    <nu-block color="danger">Danger text</nu-block>
+    <nu-block color="white" fill="success-bg">Success special text</nu-block>
+    <nu-block color="white" fill="danger-bg">Danger special text</nu-block>
+  </nu-card>
 {/if}
 
 {#if show('nav')}
