@@ -78,16 +78,16 @@ export default class FileInputBehavior extends WidgetBehavior {
     this.inputGroup = null;
 
     this.linkContext('inputgroup', () => {
-      this.setEmpty();
+      this.setEmptyMod();
     }, 'inputGroup');
 
     // recheck for autocomplete
     setTimeout(() => {
-      this.setEmpty();
+      this.setEmptyMod();
     }, 500);
   }
 
-  setEmpty() {
+  setEmptyMod() {
     if (!this.ref) return;
 
     this.setMod('placeholder', !this.ref.value);
@@ -100,15 +100,19 @@ export default class FileInputBehavior extends WidgetBehavior {
   }
 
   setValue(fileList, silent) {
-    if (!(fileList instanceof FileList) || isEqual(this.value, fileList)) return;
+    if (fileList) {
+      if (!(fileList instanceof FileList) || isEqual(this.value, fileList)) return;
 
-    this.value = this.multiple ? fileList : fileList[0];
+      this.value = this.multiple ? fileList : fileList[0];
+    } else {
+      this.value = null;
+    }
 
     if (this.params.provideValue) {
       this.setValueToContext();
     }
 
-    this.setEmpty();
+    this.setEmptyMod();
 
     if (!silent) {
       this.emit('input', this.value);

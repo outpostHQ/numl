@@ -1,5 +1,19 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('test-input')}
+  <nu-heading level="2">Input test</nu-heading>
+
+  <nu-card as="section">
+    <nu-pane>
+      <nu-input value={inputTestValue} on:input={evt => { inputTestValue = evt.detail; console.log('??', evt.detail) }}></nu-input>
+
+      <nu-btn on:tap={() => { inputTestValue = '123' }}>Clear</nu-btn>
+
+      <nu-block>{inputTestValue}</nu-block>
+    </nu-pane>
+  </nu-card>
+{/if}
+
 {#if show('button')}
   <nu-heading level="2">Button states</nu-heading>
 
@@ -1778,6 +1792,7 @@ let formData = {
   user,
 };
 let dateRange = [new Date('2020-05-10'), new Date('2020-05-20')];
+let inputTestValue = '456';
 
 function submit(event) {
   console.log('! form data submitted', event.detail);

@@ -13,7 +13,7 @@ export default class ValueBehavior extends WidgetBehavior {
     super.init();
 
     this.linkContext('typedValue', (value) => {
-      if (value === undefined) return;
+      if (value === undefined && !this.value) return;
 
       this.setValue(value);
     }, 'parentValue');
