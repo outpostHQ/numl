@@ -111,6 +111,9 @@ Run `npm start` to view test page with few examples.
 * More tests
 * TRL Support
 * Improved Behavior System
+* Figma UI Kit 🌟 (Coming Soon)
+* Theme Builder 🌈 (Coming Soon)
+* Rich UI Library 🤖 (Coming Soon)
 
 See our [Changlelog](https://numl.design/guide/changelog).
 
