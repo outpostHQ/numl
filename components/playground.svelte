@@ -974,8 +974,8 @@
     <nu-heading>Switches</nu-heading>
 
     <nu-block>
-      <nu-switch></nu-switch>
-      <nu-switch checked></nu-switch>
+      <nu-switch checked={false}/>
+      <nu-switch checked={true}/>
     </nu-block>
 
     <nu-block size="xs">
