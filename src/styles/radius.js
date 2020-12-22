@@ -1,6 +1,8 @@
 import { isNoValue, isYesValue, parseAttr } from '../helpers';
 import { DIRECTIONS } from '../helpers';
 
+const PROP = 'var(--radius)';
+
 export default function radiusAttr(val) {
   if (!val || isYesValue(val)) {
     val = '';
@@ -17,7 +19,7 @@ export default function radiusAttr(val) {
   } else if (mods.includes('ellipse')) {
     values = ['50%'];
   } else if (!values.length) {
-    values = ['var(--radius)'];
+    values = [PROP];
   }
 
   if (mods.length) {
@@ -30,8 +32,8 @@ export default function radiusAttr(val) {
 
       flag = true;
 
-      arr[i] = values[0] || 'var(--radius)';
-      arr[(i + 1) % 4] = values[0] || 'var(--radius)';
+      arr[i] = values[0] || PROP;
+      arr[(i + 1) % 4] = values[0] || PROP;
     });
 
     if (flag) {
