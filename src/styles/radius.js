@@ -2,6 +2,7 @@ import { isNoValue, isYesValue, parseAttr } from '../helpers';
 import { DIRECTIONS } from '../helpers';
 
 const PROP = 'var(--radius)';
+const SHARP = 'var(--leaf-sharp-radius)';
 
 export default function radiusAttr(val) {
   if (!val || isYesValue(val)) {
@@ -22,7 +23,11 @@ export default function radiusAttr(val) {
     values = [PROP];
   }
 
-  if (mods.length) {
+  if (mods.includes('leaf')) {
+    values = [values[1] || SHARP, values[0] || PROP, values[1] || SHARP, values[0] || PROP];
+  } else if (mods.includes('backleaf')) {
+    values = [values[0] || PROP, values[1] || SHARP, values[0] || PROP, values[1] || SHARP];
+  } else if (mods.length) {
     const arr = ['0', '0', '0', '0'];
 
     let flag = false;

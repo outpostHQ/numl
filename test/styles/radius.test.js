@@ -47,4 +47,20 @@ checkGenerator('radius', radiusAttr, {
     '--local-radius': '50% 0 0 50%',
     'border-radius': 'var(--local-radius)',
   },
+  'leaf': {
+    '--local-radius': 'var(--leaf-sharp-radius) var(--radius) var(--leaf-sharp-radius) var(--radius)',
+    'border-radius': 'var(--local-radius)',
+  },
+  'backleaf': {
+    '--local-radius': 'var(--radius) var(--leaf-sharp-radius) var(--radius) var(--leaf-sharp-radius)',
+    'border-radius': 'var(--local-radius)',
+  },
+  'leaf 1.5r .5r': {
+    '--local-radius': 'calc(.5 * var(--radius)) calc(1.5 * var(--radius)) calc(.5 * var(--radius)) calc(1.5 * var(--radius))',
+    'border-radius': 'var(--local-radius)',
+  },
+  'backleaf 1.5r .5r': {
+    '--local-radius': 'calc(1.5 * var(--radius)) calc(.5 * var(--radius)) calc(1.5 * var(--radius)) calc(.5 * var(--radius))',
+    'border-radius': 'var(--local-radius)',
+  },
 });
