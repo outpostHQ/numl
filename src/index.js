@@ -7,8 +7,10 @@ import {
   deepQuery,
   requestIdleCallback,
   resetScroll,
-  isEqual, error,
+  isEqual,
+  error,
 } from './helpers';
+import { extractColor } from './dom-helpers';
 
 import { define, assign as baseAssign } from './api';
 
@@ -21,7 +23,7 @@ import styles from './styles/base';
 import NuAction from './elements/action';
 // export * from './behaviors/widget';
 // export * from './helpers';
-// import * as color from './color';
+import { findContrastLightness, rgbToHsl, hslToRgb, hplToRgb, getContrastRatio } from './color';
 // import * as themes from './themes';
 // import * as css from './css';
 import behaviors from './behaviors';
@@ -35,8 +37,8 @@ import props from './props';
 import generators from './generators';
 import { scheme, contrast, reduceMotion, preventInit, behaviorOption } from './settings';
 import CONTEXT, { initContext } from './context';
-import { applyTheme, BASE_THEME, hue } from './themes';
-import { generateCSS, insertRuleSet } from './css';
+import { applyTheme, BASE_THEME, hue, generateTheme, themeToProps } from './themes';
+import { generateCSS, insertRuleSet, stylesString } from './css';
 import Behavior from './behaviors/behavior';
 
 initSticky(); // enable sticky detection
@@ -45,8 +47,23 @@ function assign(element, options, replace) {
   return baseAssign(element, options, elements, replace);
 }
 
+const color = {
+  extractColor,
+  findContrastLightness,
+  rgbToHsl,
+  hslToRgb,
+  hplToRgb,
+  getContrastRatio,
+};
+
+const themes = {
+  generate: generateTheme,
+  convertToProps: themeToProps,
+};
+
 const helpers = {
   resetScroll,
+  stylesString,
 };
 
 const BODY = document.body;
@@ -93,8 +110,8 @@ const Nude = {
   assign,
   units,
   hue,
-  // color,
-  // themes,
+  themes,
+  color,
   // css,
 };
 
@@ -215,7 +232,7 @@ export {
   assign,
   units,
   hue,
-  // themes,
+  themes,
+  color,
   // css,
-  // color,
 };

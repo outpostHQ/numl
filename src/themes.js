@@ -20,7 +20,10 @@ import {
   setSaturation,
   getSaturationRatio,
   hplToRgbaStr,
-  getContrastRatio, rgbToHsl, getOptimalSaturation, rgbaStrToRgbValues,
+  getContrastRatio,
+  rgbToHsl,
+  getOptimalSaturation,
+  rgbaStrToRgbValues,
 } from './color';
 import { extractColor } from './dom-helpers';
 import { insertRuleSet, stylesString, removeRulesById } from './css';
@@ -621,7 +624,7 @@ function convertContrast(contrast, darkScheme, highContrast) {
 
 /**
  *
- * @param {{saturation: number, special: boolean, pastel: boolean, contrast: string, alpha: number, hue: number}} color
+ * @param {{saturation: number, special: boolean, pastel: boolean, contrast: <string,number>, alpha: number, hue: number}} color
  * @param {String|Boolean} [name]
  * @return {String|{prop:string, light: string, lightContrast: string, dark: string, darkContrast: string }}
  */
@@ -671,7 +674,7 @@ const CONTRAST_MODES = ['auto', 'low', 'high'];
 /**
  *
  * @param {String} val
- * @return {{saturation: number, special: boolean, pastel: boolean, contrast: string, alpha: number, hue: number}}
+ * @return {{saturation: number, special: boolean, pastel: boolean, contrast: string, alpha: number, hue: number}|undefined}
  */
 export function parseHue(val) {
   val = val.replace(',', ' ');
@@ -775,7 +778,11 @@ function parseHSL(val) {
 
 Object.assign(CUSTOM_FUNCS, {
   hue(val, { explicitColor } = {}) {
-    return `${explicitColor ? 'color(' : ''}var(${requireHue(parseHue(val))})${explicitColor ? ')' : ''}`;
+    const parsedHue = parseHue(val);
+
+    if (!parsedHue) return 'var(--invalid-color)';
+
+    return `${explicitColor ? 'color(' : ''}var(${requireHue(parsedHue)})${explicitColor ? ')' : ''}`;
   },
   hsluv(val) {
     return hslToRgbaStr(parseHSL(val));
@@ -786,7 +793,7 @@ Object.assign(CUSTOM_FUNCS, {
 });
 
 [
-  ['white', 0],
+  ['white', '0'],
   ['grey', 'auto'],
   ['darkgrey', 'high'],
   ['lightgrey', 'low'],
@@ -797,11 +804,12 @@ Object.assign(CUSTOM_FUNCS, {
 ]
   .forEach(([name, contrast, hue, special]) => {
     requireHue({
-      hue: hue != null ? hue : 0,
+      hue: Number(hue != null ? hue : 0),
       saturation: hue != null ? 100 : 0,
-      contrast,
+      contrast: String(contrast),
       alpha: 100,
-      special: special != null ? special : true,
+      special: special != null ? !!special : true,
+      pastel: false,
     }, name);
   });
 
@@ -826,11 +834,3 @@ export function hue(val, dark, contrast) {
 
   return rgba;
 }
-
-// export function hueCorrection(hue, lightness) {
-//   const v = hue + 360;
-//   const multiplier = (100 - lightness) / 100;
-//
-//   return (v - (60 - Math.abs(60 - (v + 360 - 60) % 120)) / 2 * multiplier) % 360;
-// }
-

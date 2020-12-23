@@ -406,6 +406,7 @@ const globalRules = [`
   --transition-enabler: 1;
   --icon-size: 1.5em;
   --disabled-opacity: .5;
+  --leaf-sharp-radius: 0;
 
   --font-size: 1rem;
   --line-height: 1.5rem;
@@ -426,6 +427,8 @@ const globalRules = [`
   --clear-color: transparent;
   --black-color: rgba(0, 0, 0, 1);
   --black-color-rgb: 0, 0, 0;
+
+  --invalid-color: transparent;
 }`,
 
 `:root:not([data-nu-prevent-reset]) body {

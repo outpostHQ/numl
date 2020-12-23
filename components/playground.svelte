@@ -1,5 +1,17 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('radius')}
+  <nu-heading level="2">Radius</nu-heading>
+
+  <nu-card>
+    <nu-pane flow="row wrap">
+      <nu-btn radius="leaf">Leaf</nu-btn>
+      <nu-btn radius="backleaf">BackLeaf</nu-btn>
+      <nu-btn radius="leaf 2r .5r">Custom Leaf</nu-btn>
+    </nu-pane>
+  </nu-card>
+{/if}
+
 {#if show('test-input')}
   <nu-heading level="2">Input test</nu-heading>
 
@@ -1382,7 +1394,7 @@ var b = /wow?/;
 
     <nu-flex gap>
       <nu-btn
-        toggle trigger nx-debug
+        toggle trigger use-debug
         control="layout[columns=auto auto|repeat(4, auto)]">
         Toggle Layout
       </nu-btn>
@@ -1484,7 +1496,7 @@ var b = /wow?/;
   </nu-card>
 
   <nu-card as="section">
-    <nu-form value={formData} on:input={submit} nx-debug="form-debugger0">
+    <nu-form value={formData} on:input={submit} use-debug="form-debugger0">
       <nu-theme name="error" hue="1" mod="tone"></nu-theme>
       <!--      <nu-attrs for="nu-check" theme="error"></nu-attrs>-->
       <nu-attrs for="nu-field" theme=":invalid[error]"></nu-attrs>
@@ -1519,7 +1531,7 @@ var b = /wow?/;
                       placeholder="Date range"></nu-dateinput>
       </nu-field>
       <nu-card>
-        <nu-form id="user" nx-debug="form-debugger1">
+        <nu-form id="user" use-debug="form-debugger1">
           <nu-heading level="5">User</nu-heading>
 
           <nu-field>
@@ -1548,7 +1560,7 @@ var b = /wow?/;
           </nu-field>
 
           <nu-pane gap>
-            <nu-checkbox checked id="press" nx-debug="form-debugger3"></nu-checkbox>
+            <nu-checkbox checked id="press" use-debug="form-debugger3"></nu-checkbox>
             <nu-label for="press">Some checkbox</nu-label>
           </nu-pane>
         </nu-form>
@@ -1608,8 +1620,8 @@ var b = /wow?/;
 
   <nu-card as="section">
     <nu-heading level="2">Slider</nu-heading>
-    <nu-slider value="50" nx-debug="slider-debug-h"></nu-slider>
-    <nu-slider value="50" orient="v" nx-debug="slider-debug-v"></nu-slider>
+    <nu-slider value="50" use-debug="slider-debug-h"></nu-slider>
+    <nu-slider value="50" orient="v" use-debug="slider-debug-v"></nu-slider>
 
     <nu-grid gap columns="1fr 1fr">
       <nu-debug id="slider-debug-h"></nu-debug>
@@ -1692,14 +1704,14 @@ var b = /wow?/;
   <nu-card as="section">
     <nu-heading level="3">Select</nu-heading>
 
-    <nu-btn id="select" nx-debug="debugger4" type="date">
+    <nu-btn id="select" use-debug="debugger4" type="date">
       <nu-value></nu-value>
-      <nu-popup nx-listbox type="date" nx-debug="select-debugger" link-value padding="1x 0">
+      <nu-popup use-listbox type="date" use-debug="select-debugger" link-value padding="1x 0">
         <nu-option value="05.10.2020">One</nu-option>
         <nu-option value="10.10.2020">Two</nu-option>
         <nu-option>
           Something else...
-          <nu-popup nx-listbox place="outside-right -1x 0" link-value padding="1x 0">
+          <nu-popup use-listbox place="outside-right -1x 0" link-value padding="1x 0">
             <nu-option value="05.11.2020">Three</nu-option>
           </nu-popup>
         </nu-option>
@@ -1708,7 +1720,7 @@ var b = /wow?/;
 
     <nu-btn id="select" type="date">
       <nu-value></nu-value>
-      <nu-popup nx-listbox type="date" link-value padding="1x 0">
+      <nu-popup use-listbox type="date" link-value padding="1x 0">
         <nu-option value="05.10.2020">One</nu-option>
         <nu-option value="10.10.2020">Two</nu-option>
       </nu-popup>
