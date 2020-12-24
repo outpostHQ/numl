@@ -1,52 +1,33 @@
 import { ICONS_PROVIDER } from './settings';
 import { extractModule, warn } from './helpers';
 
+function ionIconsLoader(name) {
+  return fetch(`https://unpkg.com/ionicons@5/dist/svg/${name}.svg`)
+    .then(response => response.text());
+}
+
 function featherIconsLoader(name) {
-  return extractModule(import('feather-icons/dist/icons.json'))
-    .then(icons => {
-      name = name.replace('-outline', '');
+  name = name.replace('-outline', '');
 
-      const contents = icons[name];
-
-      if (contents) {
-        return `<svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" style="stroke-width: var(--icon-stroke-width, calc(1rem / 8))" fill="none" stroke-linecap="round" stroke-linejoin="round">${contents}</svg>`;
+  return fetch(`https://unpkg.com/feather-icons@4/dist/icons/${name}.svg`)
+    .then(response => response.text())
+    .then((svg) => {
+      if (svg) {
+        svg = svg.replace(/^<svg/, '<svg style="stroke-width: var(--icon-stroke-width, calc(1rem / 8))"');
       }
 
-      return '';
+      return svg;
     });
 }
 
 function evaIconsLoader(name) {
-  return extractModule(import('eva-icons/eva-icons.json'))
-    .then(icons => {
-      let contents = icons[name];
-
-      if (!contents) {
-        name = name.replace('-outline', '');
-
-        contents = icons[name];
-
-        if (!contents) {
-          name = `${name}-outline`;
-
-          contents = icons[name];
-        }
-      }
-
-      if (contents) {
-        return `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${contents}</svg>`;
-      }
-
-      return '';
-    });
+  return fetch(`https://unpkg.com/eva-icons@1/${name.endsWith('-outline') ? 'outline' : 'fill'}/svg/${name}.svg`)
+    .then(response => response.text());
 }
 
 let loader = (name) => {
-  switch (ICONS_PROVIDER) {
-    case 'feather':
-      return featherIconsLoader(name);
-    case 'eva':
-      return evaIconsLoader(name);
+  if (ICONS_PROVIDER in Icons.loaders) {
+    return Icons.loaders[ICONS_PROVIDER](name);
   }
 
   warn('icon not found', { name });
@@ -70,6 +51,7 @@ const Icons = {
   loaders: {
     feather: featherIconsLoader,
     eva: evaIconsLoader,
+    ion: ionIconsLoader,
   },
 }
 
