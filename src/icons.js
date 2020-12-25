@@ -1,5 +1,5 @@
 import { ICONS_PROVIDER } from './settings';
-import { extractModule, warn } from './helpers';
+import { warn } from './helpers';
 
 function ionIconsLoader(name) {
   return fetch(`https://unpkg.com/ionicons@5/dist/svg/${name}.svg`)

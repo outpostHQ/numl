@@ -56,15 +56,6 @@ function setupGlobalTouchEvents() {
 export const DISABLED_ATTR = 'disabled';
 
 export default class HoverBehavior extends Behavior {
-  constructor(host, options) {
-    super(host, options);
-
-    this.state = {
-      isHovered: false,
-      ignoreEmulatedMouseEvents: false
-    };
-  }
-
   init() {
     this.ignoreEmulatedMouseEvents = false;
     this.isHovered = false;
