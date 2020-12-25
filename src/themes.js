@@ -801,6 +801,8 @@ Object.assign(CUSTOM_FUNCS, {
   ['success-bg', 'auto', 140, true],
   ['danger', 'auto', 14, false],
   ['danger-bg', 'auto', 14, true],
+  ['warning', 'auto', 35, false],
+  ['warning-bg', 'auto', 35, true],
 ]
   .forEach(([name, contrast, hue, special]) => {
     requireHue({
