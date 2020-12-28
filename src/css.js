@@ -429,6 +429,13 @@ const globalRules = [`
   --black-color-rgb: 0, 0, 0;
 
   --invalid-color: transparent;
+
+  --xs: .5rem;
+  --sm: .75rem;
+  --md: 1rem;
+  --lg: 1.5rem;
+  --xl: 2rem;
+  --xxl: 3rem;
 }`,
 
 `:root:not([data-nu-prevent-reset]) body {
