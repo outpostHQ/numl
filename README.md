@@ -6,7 +6,7 @@ An open-source Library of Web Components and a Runtime CSS Framework for rapidly
 
 [![NPM Version](https://img.shields.io/npm/v/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
 [![](https://img.shields.io/npm/dt/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
-[![Slack](https://img.shields.io/badge/chat-on%20slack-red)](https://join.slack.com/t/numldesign/shared_invite/zt-ketfaid1-p1qtFhCQtI644ibdZyszzg)
+[![Discord](https://img.shields.io/discord/793832892781690891?color=7389D8&label=chat%20on%20Discord&logo=Discord&logoColor=ffffff)](https://discord.gg/sHnHPnAPZj)
 [![Rate on Openbase](https://badges.openbase.io/js/rating/numl.svg)](https://openbase.io/js/numl?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 * Add a single JS-script to your page, and you are ready to create virtually any interface using only HTML syntax quickly. No bundler, config, and frustration.
@@ -74,7 +74,7 @@ See the [installation instructions](https://numl.design/handbook/getting-started
 
 Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
 
-And here is our [Slack](https://join.slack.com/t/numldesign/shared_invite/zt-ketfaid1-p1qtFhCQtI644ibdZyszzg). (Ask your questions here!)
+And here is our [Discord](https://discord.gg/sHnHPnAPZj). (Ask your questions here!)
 Also we have [Telegram Chat](https://tele.click/numldesign).
 
 ### Browser Support
