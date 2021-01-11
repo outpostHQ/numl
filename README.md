@@ -1,6 +1,6 @@
 <img src="https://github.com/numldesign/numl/blob/master/images/logo.png?raw=true" alt="NUDE Elements" width="891">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # Numl
@@ -145,6 +145,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/shubham-kaushal"><img src="https://avatars3.githubusercontent.com/u/63925481?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shubham Kaushal</b></sub></a><br /><a href="https://github.com/numldesign/numl/issues?q=author%3Ashubham-kaushal" title="Bug reports">🐛</a> <a href="#business-shubham-kaushal" title="Business development">💼</a> <a href="#design-shubham-kaushal" title="Design">🎨</a> <a href="https://github.com/numldesign/numl/commits?author=shubham-kaushal" title="Documentation">📖</a> <a href="#ideas-shubham-kaushal" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/numldesign/numl/commits?author=shubham-kaushal" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://resume.dmtry.me/"><img src="https://avatars3.githubusercontent.com/u/572096?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dmitry Patsura</b></sub></a><br /><a href="https://github.com/numldesign/numl/commits?author=ovr" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/timeshift92"><img src="https://avatars1.githubusercontent.com/u/13614530?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nurbek Akhmedov</b></sub></a><br /><a href="https://github.com/numldesign/numl/commits?author=timeshift92" title="Tests">⚠️</a> <a href="https://github.com/numldesign/numl/issues?q=author%3Atimeshift92" title="Bug reports">🐛</a> <a href="#ideas-timeshift92" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
