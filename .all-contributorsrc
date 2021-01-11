@@ -75,6 +75,16 @@
         "ideas",
         "test"
       ]
+    },
+    {
+      "login": "YakovlevCoded",
+      "name": "Leonid Yakovlev",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/30028681?v=4",
+      "profile": "https://dev.to/leonid_cube_dev",
+      "contributions": [
+        "ideas",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
