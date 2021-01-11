@@ -12,7 +12,7 @@ An open-source Library of Web Components and a Runtime CSS Framework for rapidly
 [![Discord](https://img.shields.io/discord/793832892781690891?color=7389D8&label=chat%20on%20Discord&logo=Discord&logoColor=ffffff)](https://discord.gg/sHnHPnAPZj)
 [![Rate on Openbase](https://badges.openbase.io/js/rating/numl.svg)](https://openbase.io/js/numl?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
-* Add a single JS-script to your page, and you are ready to create virtually any interface using only HTML syntax quickly. No bundler, config, and frustration.
+* Add a single JS-script to your page, and you are ready to create virtually any interface using only HTML syntax quickly. No bundler, no config, and no frustration.
 * Integrate Numl with popular JS-Frameworks. Use it with SSG if you like. 
 * Use color generation system and styles-to-state bindings to decrease style declarations up to dozens of times compared to plain CSS.
 * Easily create your own Design System and UI Kit based on Numl. [Example](https://cubejs-uikit.vercel.app/)
