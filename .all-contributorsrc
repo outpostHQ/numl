@@ -18,6 +18,15 @@
         "ideas",
         "test"
       ]
+    },
+    {
+      "login": "ovr",
+      "name": "Dmitry Patsura",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/572096?v=4",
+      "profile": "https://resume.dmtry.me/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
