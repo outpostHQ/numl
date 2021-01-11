@@ -27,6 +27,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "andrey-skl",
+      "name": "Andrey Skladchikov",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4318513?v=4",
+      "profile": "https://github.com/andrey-skl",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
