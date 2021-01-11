@@ -1,0 +1,29 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "shubham-kaushal",
+      "name": "Shubham Kaushal",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/63925481?v=4",
+      "profile": "https://github.com/shubham-kaushal",
+      "contributions": [
+        "bug",
+        "business",
+        "design",
+        "doc",
+        "ideas",
+        "test"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "numl",
+  "projectOwner": "numldesign",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
