@@ -1,6 +1,6 @@
 <img src="https://github.com/numldesign/numl/blob/master/images/logo.png?raw=true" alt="NUDE Elements" width="891">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # Numl
@@ -148,6 +148,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/andrey-skl"><img src="https://avatars2.githubusercontent.com/u/4318513?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Andrey Skladchikov</b></sub></a><br /><a href="https://github.com/numldesign/numl/issues?q=author%3Aandrey-skl" title="Bug reports">🐛</a> <a href="#ideas-andrey-skl" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/timeshift92"><img src="https://avatars1.githubusercontent.com/u/13614530?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nurbek Akhmedov</b></sub></a><br /><a href="https://github.com/numldesign/numl/commits?author=timeshift92" title="Tests">⚠️</a> <a href="https://github.com/numldesign/numl/issues?q=author%3Atimeshift92" title="Bug reports">🐛</a> <a href="#ideas-timeshift92" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://www.facebook.com/profile.php?id=100003949341124"><img src="https://avatars2.githubusercontent.com/u/29942902?v=4?s=100" width="100px;" alt=""/><br /><sub><b>katrinLuna</b></sub></a><br /><a href="https://github.com/numldesign/numl/commits?author=katrinLuna" title="Documentation">📖</a> <a href="https://github.com/numldesign/numl/commits?author=katrinLuna" title="Tests">⚠️</a> <a href="https://github.com/numldesign/numl/issues?q=author%3AkatrinLuna" title="Bug reports">🐛</a> <a href="#ideas-katrinLuna" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://tenphi.me"><img src="https://avatars3.githubusercontent.com/u/327209?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Andrey Yamanov</b></sub></a><br /><a href="https://github.com/numldesign/numl/commits?author=tenphi" title="Code">💻</a> <a href="https://github.com/numldesign/numl/issues?q=author%3Atenphi" title="Bug reports">🐛</a> <a href="#business-tenphi" title="Business development">💼</a> <a href="#design-tenphi" title="Design">🎨</a> <a href="https://github.com/numldesign/numl/commits?author=tenphi" title="Documentation">📖</a> <a href="#ideas-tenphi" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/numldesign/numl/commits?author=tenphi" title="Tests">⚠️</a></td>
   </tr>
 </table>
 

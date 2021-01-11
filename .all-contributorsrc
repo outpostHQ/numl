@@ -60,6 +60,21 @@
         "bug",
         "ideas"
       ]
+    },
+    {
+      "login": "tenphi",
+      "name": "Andrey Yamanov",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/327209?v=4",
+      "profile": "https://tenphi.me",
+      "contributions": [
+        "code",
+        "bug",
+        "business",
+        "design",
+        "doc",
+        "ideas",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
