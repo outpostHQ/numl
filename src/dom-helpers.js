@@ -54,3 +54,21 @@ export function fixture(html) {
 
   return template.content.firstChild;
 }
+
+/**
+ * Apply "theme"-related attribute to the element.
+ * @param {HTMLElement} host
+ * @param {String} themeName
+ * @param {Boolean} bool
+ */
+export function setThemeAttr(host, themeName, bool) {
+  if (bool) {
+    if (!host.getAttribute('theme')) {
+      host.setAttribute('theme', themeName);
+    }
+  } else {
+    if (host.getAttribute('theme') === themeName) {
+      host.removeAttribute('theme');
+    }
+  }
+}

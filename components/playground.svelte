@@ -1,5 +1,20 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('builtin')}
+  <nu-heading level="2">Built-in Themes</nu-heading>
+
+  <nu-card>
+    <nu-pane flow="row wrap">
+      <nu-btn success>Success</nu-btn>
+      <nu-btn danger>Danger</nu-btn>
+      <nu-btn warning>Warning</nu-btn>
+      <nu-btn success special>Success special</nu-btn>
+      <nu-btn danger special>Danger special</nu-btn>
+      <nu-btn warning special>Warning special</nu-btn>
+    </nu-pane>
+  </nu-card>
+{/if}
+
 {#if show('mark')}
   <nu-heading level="2">Marks</nu-heading>
 

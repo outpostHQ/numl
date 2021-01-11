@@ -37,7 +37,7 @@ import props from './props';
 import generators from './generators';
 import { scheme, contrast, reduceMotion, preventInit, behaviorOption } from './settings';
 import CONTEXT, { initContext } from './context';
-import { applyTheme, BASE_THEME, hue, generateTheme, themeToProps } from './themes';
+import { applyTheme, BASE_THEME, hue, generateTheme, themeToProps, THEME_MAP } from './themes';
 import { generateCSS, insertRuleSet, stylesString } from './css';
 import Behavior from './behaviors/behavior';
 
@@ -114,6 +114,10 @@ const Nude = {
   color,
   // css,
 };
+
+Object.keys(THEME_MAP).forEach(theme => {
+  CONTEXT[`theme:${theme}`] = THEME_MAP[theme];
+});
 
 function defineElement(el) {
   const tag = el.nuTag;

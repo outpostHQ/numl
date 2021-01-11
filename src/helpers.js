@@ -1522,7 +1522,7 @@ export function isNoValue(value) {
  * @return {boolean}
  */
 export function isYesValue(value) {
-  return YES_VALUES.includes(value);
+  return YES_VALUES && YES_VALUES.includes(value);
 }
 
 /**
@@ -1531,7 +1531,7 @@ export function isYesValue(value) {
  * @return {boolean}
  */
 export function hasNegativeMod(mods) {
-  return !!NO_VALUES.find(val => mods.includes(val));
+  return mods != null && !!NO_VALUES.find(val => mods.includes(val));
 }
 
 /**

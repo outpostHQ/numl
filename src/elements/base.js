@@ -15,7 +15,7 @@ import {
   applyDefaultMods,
   BASE_THEME,
   ALL_THEME_MODS,
-  THEME_TYPE_MODS, THEME_ATTR
+  THEME_TYPE_MODS, THEME_ATTR, declareTheme
 } from '../themes';
 import { generateCSSByZones, RESPONSIVE_ATTR, RESPONSIVE_MOD } from '../responsive';
 import {
@@ -49,6 +49,7 @@ import themeAttr from '../styles/theme';
 import propAttr from '../styles/prop';
 import combine from '../combinators/index';
 import behaviors from '../behaviors';
+import { setThemeAttr } from '../dom-helpers';
 
 export const ELEMENTS_MAP = {};
 
@@ -1110,6 +1111,11 @@ export default class NuAbstract extends HTMLElement {
       case 'lang':
         this.nuSetContext('locale', value);
         break;
+      case 'warning':
+      case 'danger':
+      case 'success':
+        setThemeAttr(this, name, value != null);
+        return;
     }
   }
 
@@ -1188,7 +1194,11 @@ export default class NuAbstract extends HTMLElement {
         }
       }
 
-      if (baseTheme && (!this.nuContext[key] || force)) {
+      if (baseTheme && (!this.nuContext[key] || baseTheme.lazy || force)) {
+        if (baseTheme.lazy) {
+          declareTheme(baseTheme.$context, theme.name, baseTheme.hue, baseTheme.saturation, baseTheme.pastel, baseTheme.mods || '');
+        }
+        baseTheme.lazy = false;
         applyTheme(baseTheme.$context, {
           hue: baseTheme.hue,
           saturation: baseTheme.saturation,

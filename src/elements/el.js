@@ -124,6 +124,10 @@ export default class NuElement extends NuBase {
       // converters
       typographer: '',
       linkify: '',
+      // themes
+      success: '',
+      danger: '',
+      warning: '',
     };
   }
 

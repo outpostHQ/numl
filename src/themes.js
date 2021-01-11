@@ -64,14 +64,30 @@ const contrastMinLightness = 12.25;
 const darkNormanBaseBgColor = [0, 0, normalMinLightness];
 const darkContrastBaseBgColor = [0, 0, contrastMinLightness];
 
-export const BASE_THEME = {
-  hue: 262,
-  saturation: 0,
-  pastel: true,
-  name: 'main',
-  type: 'main',
-  contrast: 'normal',
-  lightness: 'normal',
+function createThemeConfig(config = {}) {
+  return Object.assign({}, {
+    hue: 262,
+    saturation: getOptimalSaturation(config.hue || 262),
+    pastel: false,
+    name: 'main',
+    type: 'main',
+    contrast: 'normal',
+    lightness: 'normal',
+    $context: document.body,
+    mods: '',
+    lazy: true,
+  }, config);
+}
+
+export const BASE_THEME = createThemeConfig({ saturation: 0 });
+export const SUCCESS_THEME = createThemeConfig({ name: 'success', hue: 140, type: 'tint', mods: 'tint' });
+export const DANGER_THEME = createThemeConfig({ name: 'danger', hue: 14, type: 'tint', mods: 'tint' });
+export const WARNING_THEME = createThemeConfig({ name: 'warning', hue: 35, type: 'tint', mods: 'tint' });
+export const THEME_MAP = {
+  success: SUCCESS_THEME,
+  danger: DANGER_THEME,
+  warning: WARNING_THEME,
+  base: BASE_THEME,
 };
 
 export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg', 'shadow', 'special-shadow', 'outline', 'dark', 'light'];
@@ -797,12 +813,6 @@ Object.assign(CUSTOM_FUNCS, {
   ['grey', 'auto'],
   ['darkgrey', 'high'],
   ['lightgrey', 'low'],
-  ['success', 'auto', 140, false],
-  ['success-bg', 'auto', 140, true],
-  ['danger', 'auto', 14, false],
-  ['danger-bg', 'auto', 14, true],
-  ['warning', 'auto', 35, false],
-  ['warning-bg', 'auto', 35, true],
 ]
   .forEach(([name, contrast, hue, special]) => {
     requireHue({
