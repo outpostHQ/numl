@@ -1,5 +1,30 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('mark')}
+  <nu-heading level="2">Marks</nu-heading>
+
+  <nu-card>
+    <nu-pane flow="row wrap">
+      <nu-mark>Default Mark</nu-mark>
+      <nu-mark special>Special Mark</nu-mark>
+    </nu-pane>
+  </nu-card>
+{/if}
+
+{#if show('badge')}
+  <nu-heading level="2">Badges</nu-heading>
+
+  <nu-card>
+    <nu-pane flow="row wrap">
+      <nu-badge>Default Badge</nu-badge>
+      <nu-badge success>Success Badge</nu-badge>
+      <nu-badge danger>Danger Badge</nu-badge>
+      <nu-badge warning>Warning Badge</nu-badge>
+      <nu-badge special>Special Badge</nu-badge>
+    </nu-pane>
+  </nu-card>
+{/if}
+
 {#if show('radius')}
   <nu-heading level="2">Radius</nu-heading>
 
@@ -37,6 +62,13 @@
       <nu-btn use-action="n" is-pressed>Toggled</nu-btn>
       <nu-btn use-action="n" outline="focus" is-focus>Focused</nu-btn>
       <nu-btn use-action="n" disabled>Disabled</nu-btn>
+    </nu-pane>
+
+    <nu-pane flow="row wrap">
+      <nu-btn>Default Button</nu-btn>
+      <nu-btn special>Special Button</nu-btn>
+      <nu-btn danger>Danger Button</nu-btn>
+      <nu-btn danger special>Danger Special Button</nu-btn>
     </nu-pane>
   </nu-card>
 {/if}

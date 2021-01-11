@@ -430,6 +430,7 @@ const globalRules = [`
 
   --invalid-color: transparent;
 
+  --xxs: .25rem;
   --xs: .5rem;
   --sm: .75rem;
   --md: 1rem;
