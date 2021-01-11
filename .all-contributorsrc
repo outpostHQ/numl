@@ -27,6 +27,18 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "katrinLuna",
+      "name": "katrinLuna",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/29942902?v=4",
+      "profile": "https://www.facebook.com/profile.php?id=100003949341124",
+      "contributions": [
+        "doc",
+        "test",
+        "bug",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
