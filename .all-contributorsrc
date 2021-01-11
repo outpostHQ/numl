@@ -6,6 +6,21 @@
   "commit": false,
   "contributors": [
     {
+      "login": "tenphi",
+      "name": "Andrey Yamanov",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/327209?v=4",
+      "profile": "https://tenphi.me",
+      "contributions": [
+        "code",
+        "bug",
+        "business",
+        "design",
+        "doc",
+        "ideas",
+        "test"
+      ]
+    },
+    {
       "login": "shubham-kaushal",
       "name": "Shubham Kaushal",
       "avatar_url": "https://avatars3.githubusercontent.com/u/63925481?v=4",
@@ -17,25 +32,6 @@
         "doc",
         "ideas",
         "test"
-      ]
-    },
-    {
-      "login": "ovr",
-      "name": "Dmitry Patsura",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/572096?v=4",
-      "profile": "https://resume.dmtry.me/",
-      "contributions": [
-        "doc"
-      ]
-    },
-    {
-      "login": "andrey-skl",
-      "name": "Andrey Skladchikov",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/4318513?v=4",
-      "profile": "https://github.com/andrey-skl",
-      "contributions": [
-        "bug",
-        "ideas"
       ]
     },
     {
@@ -62,18 +58,22 @@
       ]
     },
     {
-      "login": "tenphi",
-      "name": "Andrey Yamanov",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/327209?v=4",
-      "profile": "https://tenphi.me",
+      "login": "ovr",
+      "name": "Dmitry Patsura",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/572096?v=4",
+      "profile": "https://resume.dmtry.me/",
       "contributions": [
-        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "andrey-skl",
+      "name": "Andrey Skladchikov",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4318513?v=4",
+      "profile": "https://github.com/andrey-skl",
+      "contributions": [
         "bug",
-        "business",
-        "design",
-        "doc",
-        "ideas",
-        "test"
+        "ideas"
       ]
     },
     {
