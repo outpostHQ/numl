@@ -27,6 +27,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "timeshift92",
+      "name": "Nurbek Akhmedov",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/13614530?v=4",
+      "profile": "https://github.com/timeshift92",
+      "contributions": [
+        "test",
+        "bug",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
