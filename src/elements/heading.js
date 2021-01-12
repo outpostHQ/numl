@@ -1,9 +1,9 @@
 import { devMode, warn } from '../helpers';
-import NuElement from './el';
+import NuEl from './el';
 
 const LEVELS = [1, 2, 3, 4, 5, 6];
 
-export default class NuHeading extends NuElement {
+export default class NuHeading extends NuEl {
   static get nuTag() {
     return 'nu-heading';
   }

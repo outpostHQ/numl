@@ -1,6 +1,4 @@
 import {
-  generateId,
-  setImmediate,
   parseAllValues, setBoolAttr, setAriaRef,
 } from '../helpers';
 import { h } from '../dom-helpers';
@@ -8,7 +6,6 @@ import NuBase from './base';
 import BaseAttributes from '../styles/base';
 import TransformCombinator from '../combinators/transform';
 import ShadowCombinator from '../combinators/shadow';
-// import WeightCombinator from '../combinators/weight';
 import behaviors from '../behaviors/index';
 import { hideEffect } from '../effects/hide';
 import PositionCombinator from '../combinators/position';
@@ -17,7 +14,7 @@ import PositionCombinator from '../combinators/position';
  * @class
  * @abstract
  */
-export default class NuElement extends NuBase {
+export default class NuEl extends NuBase {
   static get nuTag() {
     return 'nu-el'; // abstract tag
   }

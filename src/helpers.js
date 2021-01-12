@@ -1373,7 +1373,7 @@ export function isDefined(tag) {
 
 /**
  * Reset scroll on the element.
- * @param el {HTMLElement}
+ * @param el {NuElement}
  * @param affectChildren
  */
 export function resetScroll(el, affectChildren = false) {
@@ -1545,7 +1545,7 @@ export function hasPositiveMod(mods) {
 
 /**
  * Set timeout based on local transition time.
- * @param host {HTMLElement}
+ * @param host {NuElement}
  * @param cb {Function}
  * @param [transitionName] {String} - Prop name of transition time.
  */

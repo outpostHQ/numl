@@ -86,6 +86,11 @@ export function getAllAttrs() {
 const TAG_LIST = [];
 
 /**
+ * @typedef NuElement
+ * @type {HTMLElement|NuAbstract}
+ */
+
+/**
  * @typedef NudeContext
  * @property allowShadow {boolean}
  * @property $shadowRoot {HTMLFragment}
@@ -105,7 +110,7 @@ const TAG_LIST = [];
  * @class
  * @abstract
  * @property nuContext {NudeContext}
- * @property nuParent {HTMLElement}
+ * @property nuParent {NuElement}
  * @property nuParentContext {NudeContext}
  * @property nuBehaviors {Array<NudeMixin>}
  */

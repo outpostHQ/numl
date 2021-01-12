@@ -1,7 +1,7 @@
 import sizeAttr from '../styles/size';
-import NuElement from './el';
+import NuEl from './el';
 
-export default class NuIcon extends NuElement {
+export default class NuIcon extends NuEl {
   static get nuTag() {
     return 'nu-icon';
   }
@@ -56,6 +56,14 @@ export default class NuIcon extends NuElement {
         height: var(--font-size);
         transform: translate(-50%, -50%);
         transition: opacity calc(var(--transition-enabler) * var(--opacity-transition, var(--transition))) linear;
+      }`,
+
+      `${tag}[is-provider="eva"] svg, ${tag}[is-provider="ion"] svg {
+        fill: currentColor;
+      }`,
+
+      `${tag}[is-provider="feather"] svg {
+        stroke-width: var(--icon-stroke-width, calc(1rem / 8));
       }`
     ];
   }

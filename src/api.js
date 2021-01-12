@@ -1,4 +1,4 @@
-import NuElement from './elements/el';
+import NuEl from './elements/el';
 import { log, warn } from './helpers';
 
 const OBJ_ASSIGN = ['attrs', 'styles', 'generators', 'behaviors', 'combinators'];
@@ -27,7 +27,7 @@ const prototypeBind = {
 };
 
 export function define(tag, options, skipDefine) {
-  const Parent = options.parent || NuElement;
+  const Parent = options.parent || NuEl;
 
   const Element = class Element extends Parent {};
 
@@ -70,7 +70,7 @@ export function define(tag, options, skipDefine) {
 
 /**
  * Assign new options to the element.
- * @param {HTMLElement} element
+ * @param {NuElement} element
  * @param {Object} options
  * @param {Object<String,HTMLElement>} elements
  * @param {Boolean} replace

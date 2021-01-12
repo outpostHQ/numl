@@ -1,6 +1,6 @@
-import NuElement from './el';
+import NuEl from './el';
 
-export default class NuSpacer extends NuElement {
+export default class NuSpacer extends NuEl {
   static get nuTag() {
     return 'nu-spacer';
   }

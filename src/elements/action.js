@@ -1,6 +1,6 @@
-import NuElement from './el';
+import NuEl from './el';
 
-export default class NuAction extends NuElement {
+export default class NuAction extends NuEl {
   static get nuTag() {
     return 'nu-action'; // abstract tag
   }

@@ -54,12 +54,12 @@
 <script>
 // export let host;
 /**
- * @type {HTMLElement}
+ * @type {NuElement}
  */
 export let target = null;
 
 /**
- * @type {HTMLElement}
+ * @type {NuElement}
  */
 let currentTarget = null;
 let eventLog = [];

@@ -1,7 +1,7 @@
-import NuElement from './el';
+import NuEl from './el';
 import { h } from '../dom-helpers';
 
-export default class NuCode extends NuElement {
+export default class NuCode extends NuEl {
   static get nuTag() {
     return 'nu-code';
   }

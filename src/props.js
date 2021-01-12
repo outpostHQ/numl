@@ -1,6 +1,6 @@
 import { registerProp } from './behaviors/widget';
-import { NuElement } from './elements';
-const GENERATORS = NuElement.prototype.nuGenerators;
+import { NuEl } from './elements';
+const GENERATORS = NuEl.prototype.nuGenerators;
 
 export default {
   define(name, cb) {

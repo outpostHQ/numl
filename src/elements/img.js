@@ -1,8 +1,8 @@
 import { parseAttr } from '../helpers';
-import NuElement from './el';
+import NuEl from './el';
 import { requireChild } from '../dom-helpers';
 
-export default class NuImg extends NuElement {
+export default class NuImg extends NuEl {
   static get nuTag() {
     return 'nu-img';
   }

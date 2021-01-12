@@ -884,6 +884,20 @@
   <nu-card as="section">
     <nu-heading level="4">Icons</nu-heading>
 
+    <nu-heading level="5">Ionicons</nu-heading>
+
+    Uses IonIcons library.
+
+    <nu-block size="xl">
+      <nu-icon name="accessibility-outline :hover[accessibility]" use-hover></nu-icon>
+      <nu-icon name="aperture-outline :hover[aperture]" use-hover></nu-icon>
+      <nu-icon name="basketball-outline :hover[basketball]" use-hover></nu-icon>
+      <nu-icon name="calendar-outline :hover[calendar]" use-hover></nu-icon>
+      Text to align
+    </nu-block>
+
+    <nu-heading level="5">Feather</nu-heading>
+
     Uses Feather Icons library by default. (lazy-loading)
 
     <nu-block size="xl">

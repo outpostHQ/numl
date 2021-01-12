@@ -57,7 +57,7 @@ export function fixture(html) {
 
 /**
  * Apply "theme"-related attribute to the element.
- * @param {HTMLElement} host
+ * @param {NuElement} host
  * @param {String} themeName
  * @param {Boolean} bool
  */

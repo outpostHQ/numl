@@ -1,7 +1,7 @@
-import NuElement from './el';
+import NuEl from './el';
 import combinedAttr from '../styles/combined';
 
-export default class NuSlider extends NuElement {
+export default class NuSlider extends NuEl {
   static get nuTag() {
     return 'nu-slider';
   }

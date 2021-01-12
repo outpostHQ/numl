@@ -2,7 +2,7 @@ import { ICONS_PROVIDER } from './settings';
 import { warn } from './helpers';
 
 function ionIconsLoader(name) {
-  return fetch(`https://unpkg.com/ionicons@5/dist/svg/${name}.svg`)
+  return fetch(`https://unpkg.com/ionicons@5.3.1-1/dist/svg/${name}.svg`)
     .then(response => response.text());
 }
 
@@ -10,14 +10,7 @@ function featherIconsLoader(name) {
   name = name.replace('-outline', '');
 
   return fetch(`https://unpkg.com/feather-icons@4/dist/icons/${name}.svg`)
-    .then(response => response.text())
-    .then((svg) => {
-      if (svg) {
-        svg = svg.replace(/^<svg/, '<svg style="stroke-width: var(--icon-stroke-width, calc(1rem / 8))"');
-      }
-
-      return svg;
-    });
+    .then(response => response.text());
 }
 
 function evaIconsLoader(name) {

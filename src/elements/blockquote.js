@@ -1,6 +1,6 @@
-import NuElement from './el';
+import NuEl from './el';
 
-export default class NuBlockQuote extends NuElement {
+export default class NuBlockQuote extends NuEl {
   static get nuTag() {
     return 'nu-blockquote';
   }

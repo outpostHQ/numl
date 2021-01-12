@@ -1,7 +1,7 @@
-import NuElement from './el';
+import NuEl from './el';
 import sizeAttr from '../styles/size';
 
-export default class NuCircle extends NuElement {
+export default class NuCircle extends NuEl {
   static get nuTag() {
     return 'nu-circle';
   }

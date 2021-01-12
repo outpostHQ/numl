@@ -2,7 +2,7 @@
 export { default as NuRoot } from './elements/root';
 export { default as NuGrid } from './elements/grid';
 export { default as NuFlow } from './elements/flow';
-export { default as NuElement } from './elements/el';
+export { default as NuEl } from './elements/el';
 export { default as NuBlock } from './elements/block';
 export { default as NuFlex } from './elements/flex';
 export { default as NuCard } from './elements/card';

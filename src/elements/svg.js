@@ -1,8 +1,8 @@
-import NuElement from './el';
+import NuEl from './el';
 import { h } from '../helpers';
 import { requireChild } from '../dom-helpers';
 
-export default class NuSvg extends NuElement {
+export default class NuSvg extends NuEl {
   static get nuTag() {
     return 'nu-svg';
   }

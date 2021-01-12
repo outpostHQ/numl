@@ -7,7 +7,7 @@ import {
   setImmediate,
   isEqual,
 } from '../helpers';
-import NuElement from '../elements/el';
+import NuEl from '../elements/el';
 
 
 const LOCALE_VAR = 'locale';
@@ -34,7 +34,7 @@ export const NUMBER_TYPE = (defaultValue) => {
   };
 };
 
-export const BASE_PROPS = NuElement.nuPropsList.reduce((props, name) => {
+export const BASE_PROPS = NuEl.nuPropsList.reduce((props, name) => {
   props[name] = null;
 
   return props;

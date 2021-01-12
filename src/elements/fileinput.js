@@ -1,7 +1,7 @@
-import NuElement from './el';
+import NuEl from './el';
 import NuInput from './input';
 
-export default class NuFileInput extends NuElement {
+export default class NuFileInput extends NuEl {
   static get nuTag() {
     return 'nu-fileinput';
   }

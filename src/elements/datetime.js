@@ -1,6 +1,6 @@
-import NuElement from './el';
+import NuEl from './el';
 
-export default class NuDateTime extends NuElement {
+export default class NuDateTime extends NuEl {
   static get nuTag() {
     return 'nu-datetime';
   }

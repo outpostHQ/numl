@@ -1,6 +1,6 @@
-import NuElement from './el';
+import NuEl from './el';
 
-export default class NuGroup extends NuElement {
+export default class NuGroup extends NuEl {
   static get nuTag() {
     return 'nu-group';
   }

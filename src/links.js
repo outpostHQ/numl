@@ -3,6 +3,10 @@ import { ROOT } from './context';
 
 let timerId;
 
+function stripQuery(href) {
+  return href.replace(/\?.+$/, '');
+}
+
 function handleHashLinks(links) {
   const arr = [];
 
@@ -42,15 +46,21 @@ function handleHashLinks(links) {
   });
 }
 
-export function handleLinkState(el, handleHash) {
+/**
+ *
+ * @param {NuElement} el
+ */
+export function handleLinkState(el) {
   const link = el.querySelector('a');
 
   if (!link) return;
 
   const href = link.href;
-  const to = el.getAttribute('to');
+  const hasQueryParams = href.includes('?');
 
-  el.nuSetMod('current', href === location.href.replace(location.hash, ''));
+  el.nuSetMod('current', !hasQueryParams
+    ? href === stripQuery(location.href.replace(location.hash, ''))
+    : href === location.href.replace(location.hash, ''));
 }
 
 export function handleLinksState(force = false) {

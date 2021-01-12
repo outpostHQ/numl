@@ -1,6 +1,6 @@
-import NuElement from './el';
+import NuEl from './el';
 
-export default class NuDatePicker extends NuElement {
+export default class NuDatePicker extends NuEl {
   static get nuTag() {
     return 'nu-datepicker';
   }

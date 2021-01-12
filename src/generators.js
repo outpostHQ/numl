@@ -1,7 +1,7 @@
-import { NuElement } from './elements';
+import { NuEl } from './elements';
 import { log, warn } from './helpers';
 
-const GENERATORS = NuElement.prototype.nuGenerators;
+const GENERATORS = NuEl.prototype.nuGenerators;
 
 export default {
   set(name, cb) {
