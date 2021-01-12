@@ -27,6 +27,7 @@ import {
 } from './color';
 import { extractColor } from './dom-helpers';
 import { insertRuleSet, stylesString, removeRulesById } from './css';
+import CONTEXT from './context';
 
 export const THEME_ATTR = 'theme';
 
@@ -434,22 +435,29 @@ export function declareTheme(el, name, hue, saturation, pastel, defaultMods) {
     return;
   }
 
-  generateId(el);
-
+  const isGlobal = el === document.body;
   const key = `theme:${name}`;
   const theme = applyDefaultMods(BASE_THEME, defaultMods);
 
-  el.nuSetContext(key, {
+  const contextTheme = {
     mods: defaultMods,
     ...theme,
     hue,
     saturation,
     pastel,
     $context: el,
-  });
+  };
 
-  if (!el.hasAttribute('theme') && name === 'main') {
-    el.setAttribute('theme', 'main');
+  if (isGlobal) {
+    CONTEXT[key] = contextTheme;
+  } else {
+    generateId(el);
+
+    if (!el.hasAttribute('theme') && name === 'main') {
+      el.setAttribute('theme', 'main');
+    }
+
+    el.nuSetContext(key, contextTheme);
   }
 
   applyTheme(el, {
@@ -558,7 +566,7 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
 
   if (themeName === name) return;
 
-  element.nuSetContext(`theme:${themeName}`, {
+  const theme = {
     name,
     hue,
     saturation,
@@ -567,7 +575,13 @@ export function applyTheme(element, { name, hue, saturation, pastel, type, contr
     contrast,
     lightness,
     $context: element
-  });
+  };
+
+  if (element.nuSetContext) {
+    element.nuSetContext(`theme:${themeName}`, theme);
+  } else {
+    CONTEXT[`theme:${themeName}`] = theme;
+  }
 }
 
 export function generateSchemeCSS(query, [lightNormalProps, lightContrastProps, darkNormalProps, darkContrastProps]) {

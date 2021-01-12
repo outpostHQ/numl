@@ -114,7 +114,7 @@ export default class ValueBehavior extends WidgetBehavior {
         </nu-flex>
       `;
     } else if (typeof value === 'boolean') {
-      value = value ? '<nu-icon name="check"></nu-icon>' : '<nu-icon name="minus"></nu-icon>';
+      value = value ? '<nu-icon name="check checkmark"></nu-icon>' : '<nu-icon name="minus"></nu-icon>';
     } else if (Array.isArray(value)) {
       value = `</nu-block>${value.join('</nu-block><nu-block>')}</nu-block>`;
     } else if (value instanceof File) {

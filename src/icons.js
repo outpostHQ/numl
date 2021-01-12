@@ -3,19 +3,19 @@ import { warn } from './helpers';
 
 function ionIconsLoader(name) {
   return fetch(`https://unpkg.com/ionicons@5.3.1-1/dist/svg/${name}.svg`)
-    .then(response => response.text());
+    .then(response => response.ok ? response.text() : '');
 }
 
 function featherIconsLoader(name) {
   name = name.replace('-outline', '');
 
   return fetch(`https://unpkg.com/feather-icons@4/dist/icons/${name}.svg`)
-    .then(response => response.text());
+    .then(response => response.ok ? response.text() : '');
 }
 
 function evaIconsLoader(name) {
   return fetch(`https://unpkg.com/eva-icons@1/${name.endsWith('-outline') ? 'outline' : 'fill'}/svg/${name}.svg`)
-    .then(response => response.text());
+    .then(response => response.ok ? response.text() : '');
 }
 
 let loader = (name) => {
@@ -33,9 +33,11 @@ const Icons = {
     return Promise
       .all(names.split(/\s+/g)
         .map(name => {
-          return loader(name, type);
-        })).then(list => {
-        return list.find(iconData => iconData);
+          return loader(name, type)
+            .catch(() => '');
+        }))
+      .then(list => {
+        return list.find(iconData => !!iconData);
       }).catch(e => warn(e));
   },
   setLoader(_loader) {

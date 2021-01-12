@@ -1201,10 +1201,10 @@ export default class NuAbstract extends HTMLElement {
 
       if (baseTheme && (!this.nuContext[key] || baseTheme.lazy || force)) {
         if (baseTheme.lazy) {
-          declareTheme(baseTheme.$context, theme.name, baseTheme.hue, baseTheme.saturation, baseTheme.pastel, baseTheme.mods || '');
+          declareTheme(document.body, theme.name, baseTheme.hue, baseTheme.saturation, baseTheme.pastel, baseTheme.mods || '');
         }
         baseTheme.lazy = false;
-        applyTheme(baseTheme.$context, {
+        applyTheme(baseTheme.$context || document.body, {
           hue: baseTheme.hue,
           saturation: baseTheme.saturation,
           pastel: baseTheme.pastel,
