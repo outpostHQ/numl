@@ -7,7 +7,7 @@ import {
   CUSTOM_FUNCS,
   parseAttr,
   warn,
-  roundNumToFixed
+  roundNumToFixed,
 } from './helpers';
 import {
   findContrastColor,
@@ -461,12 +461,11 @@ export function declareTheme(el, name, hue, saturation, pastel, defaultMods) {
     hue,
     saturation,
     pastel,
+    name,
     $context: el,
   };
 
-  if (isGlobal) {
-    CONTEXT[key] = contextTheme;
-  } else {
+  if (!isGlobal) {
     generateId(el);
 
     if (!el.hasAttribute('theme') && name === 'main') {
