@@ -28,17 +28,24 @@ let loader = (name) => {
   return Promise.resolve('');
 }
 
+const ICONS_CACHE = {};
+
 const Icons = {
   load(names, type) {
-    return Promise
+    if (names in ICONS_CACHE) return ICONS_CACHE[names];
+
+    return ICONS_CACHE[names] = Promise
       .all(names.split(/\s+/g)
         .map(name => {
+          if (!name || typeof name !== 'string' || !name.trim()) return Promise.resolve('');
+
           return loader(name, type)
             .catch(() => '');
         }))
       .then(list => {
         return list.find(iconData => !!iconData);
-      }).catch(e => warn(e));
+      })
+      .catch(e => warn(e));
   },
   setLoader(_loader) {
     loader = _loader;
