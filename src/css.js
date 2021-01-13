@@ -425,8 +425,10 @@ const globalRules = [`
   --monospace-font: var(--base-monospace-font);
 
   --clear-color: transparent;
-  --black-color: rgba(0, 0, 0, 1);
-  --black-color-rgb: 0, 0, 0;
+  --system-black-color: rgba(0, 0, 0, 1);
+  --system-black-color-rgb: 0, 0, 0;
+  --system-white-color: rgba(255, 255, 255, 1);
+  --system-white-color-rgb: 255, 255, 255;
 
   --invalid-color: transparent;
 

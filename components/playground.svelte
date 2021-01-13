@@ -308,32 +308,38 @@
 {/if}
 
 {#if show('colors')}
-  <nu-gridtable columns="auto auto 1fr" border>
+  <nu-gridtable columns="auto auto 1fr" border text="nowrap">
     <nu-attrs for="cell" padding></nu-attrs>
     <nu-columnheader>Name</nu-columnheader>
     <nu-columnheader>Contrast</nu-columnheader>
     <nu-columnheader></nu-columnheader>
+    <nu-cell>system-black</nu-cell>
+    <nu-cell>~MIN~</nu-cell>
+    <nu-cell fill="#system-black"></nu-cell>
     <nu-cell>black</nu-cell>
     <nu-cell>100</nu-cell>
-    <nu-cell fill="black"></nu-cell>
+    <nu-cell fill="#black"></nu-cell>
     <nu-cell>dark</nu-cell>
     <nu-cell>85</nu-cell>
-    <nu-cell fill="dark"></nu-cell>
+    <nu-cell fill="#dark"></nu-cell>
     <nu-cell>darkgrey</nu-cell>
     <nu-cell>high</nu-cell>
-    <nu-cell fill="darkgrey"></nu-cell>
+    <nu-cell fill="#darkgrey"></nu-cell>
     <nu-cell>grey</nu-cell>
     <nu-cell>auto</nu-cell>
-    <nu-cell fill="grey"></nu-cell>
+    <nu-cell fill="#grey"></nu-cell>
     <nu-cell>lightgrey</nu-cell>
     <nu-cell>low</nu-cell>
-    <nu-cell fill="lightgrey"></nu-cell>
+    <nu-cell fill="#lightgrey"></nu-cell>
     <nu-cell>light</nu-cell>
     <nu-cell>5</nu-cell>
-    <nu-cell fill="light"></nu-cell>
+    <nu-cell fill="#light"></nu-cell>
     <nu-cell>white</nu-cell>
     <nu-cell>0</nu-cell>
-    <nu-cell fill="white"></nu-cell>
+    <nu-cell fill="#white"></nu-cell>
+    <nu-cell>system-white</nu-cell>
+    <nu-cell>~MAX~</nu-cell>
+    <nu-cell fill="#system-white"></nu-cell>
   </nu-gridtable>
 
   <nu-card gap="2x">

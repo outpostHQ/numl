@@ -81,9 +81,25 @@ function createThemeConfig(config = {}) {
 }
 
 export const BASE_THEME = createThemeConfig({ saturation: 0 });
-export const SUCCESS_THEME = createThemeConfig({ name: 'success', hue: 140, type: 'tint', mods: 'tint' });
-export const DANGER_THEME = createThemeConfig({ name: 'danger', hue: 14, type: 'tint', mods: 'tint' });
-export const WARNING_THEME = createThemeConfig({ name: 'warning', hue: 35, type: 'tint', mods: 'tint' });
+export const SUCCESS_THEME = createThemeConfig({
+  name: 'success',
+  hue: 140,
+  type: 'tint',
+  mods: 'tint',
+});
+export const DANGER_THEME = createThemeConfig({
+  name: 'danger',
+  hue: 14,
+  type: 'tint',
+  mods: 'tint',
+  saturation: 75,
+});
+export const WARNING_THEME = createThemeConfig({
+  name: 'warning',
+  hue: 35,
+  type: 'tint',
+  mods: 'tint',
+});
 export const THEME_MAP = {
   success: SUCCESS_THEME,
   danger: DANGER_THEME,
@@ -827,14 +843,15 @@ Object.assign(CUSTOM_FUNCS, {
   ['grey', 'auto'],
   ['darkgrey', 'high'],
   ['lightgrey', 'low'],
+  ['black', '100'],
 ]
-  .forEach(([name, contrast, hue, special]) => {
+  .forEach(([name, contrast]) => {
     requireHue({
-      hue: Number(hue != null ? hue : 0),
-      saturation: hue != null ? 100 : 0,
+      hue: 0,
+      saturation: 0,
       contrast: String(contrast),
       alpha: 100,
-      special: special != null ? !!special : true,
+      special: true,
       pastel: false,
     }, name);
   });
