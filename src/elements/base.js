@@ -1167,7 +1167,7 @@ export default class NuAbstract extends HTMLElement {
 
   /**
    *
-   * @param {Boolean} force
+   * @param {Boolean} [force]
    * @param {Array<String>} [ignoreList]
    * @return {*}
    */
@@ -1180,6 +1180,7 @@ export default class NuAbstract extends HTMLElement {
       ignoreList.push(val);
 
       let theme = parseThemeAttr(val);
+
       const themeName = composeThemeName(theme);
       const key = `theme:${themeName}`;
       const baseTheme = this.nuContext[`theme:${theme.name}`];
@@ -1204,6 +1205,7 @@ export default class NuAbstract extends HTMLElement {
           baseTheme.lazy = false;
           declareTheme(document.body, baseTheme.name, baseTheme.hue, baseTheme.saturation, baseTheme.pastel, baseTheme.mods || '');
         }
+
         applyTheme(baseTheme.$context || document.body, {
           hue: baseTheme.hue,
           saturation: baseTheme.saturation,

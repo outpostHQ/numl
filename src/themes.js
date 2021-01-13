@@ -517,6 +517,8 @@ export function applyDefaultMods(theme, defaultMods) {
     theme.type = typeMod;
   }
 
+  theme.mods = `${theme.type !== 'main' ? theme.type : ''} ${theme.lightness !== 'normal' ? theme.lightness : ''} ${theme.contrast !== 'normal' ? theme.contrast : ''}`;
+
   return theme;
 }
 

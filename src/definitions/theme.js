@@ -1,5 +1,5 @@
 import NuDefinition from './definition';
-import { declareTheme, removeTheme, ALL_THEME_MODS, hueFromString } from '../themes';
+import { ALL_THEME_MODS, declareTheme, hueFromString, removeTheme } from '../themes';
 import { devMode, warn } from '../helpers';
 import { getOptimalSaturation } from '../color';
 
@@ -96,7 +96,7 @@ export default class NuTheme extends NuDefinition {
 
     if (this.nuCache === cache) return;
 
-    this.nuCache= cache;
+    this.nuCache = cache;
 
     if (hue && hue !== '0' && isNaN(Number(hue))) {
       hue = hueFromString(hue);
@@ -165,20 +165,20 @@ export default class NuTheme extends NuDefinition {
 
     declareTheme(this.nuParent, name, hue, saturation, pastel, defaultMods || '');
 
-    // if (!initial) {
-    const parent = this.nuParent;
+    if (!initial) {
+      const parent = this.nuParent;
 
-    if (!VERIFY_MAP.has(parent)) {
-      VERIFY_MAP.set(parent, setTimeout(() => {
-        const values = [];
+      if (!VERIFY_MAP.has(parent)) {
+        VERIFY_MAP.set(parent, setTimeout(() => {
+          const values = [];
 
-        VERIFY_MAP.delete(parent);
-        [...parent.querySelectorAll(SELECTOR)]
-          .forEach(el => {
-            values.push(...el.nuEnsureThemes(true, values));
-          });
-      }));
+          VERIFY_MAP.delete(parent);
+          [...parent.querySelectorAll(SELECTOR)]
+            .forEach(el => {
+              values.push(...el.nuEnsureThemes(true, values));
+            });
+        }));
+      }
     }
-    // }
   }
 }

@@ -686,7 +686,26 @@
   </nu-block>
 {/if}
 
-{#if show('theme')}
+{#if show('custom-themes')}
+  <nu-card as="section" gap="2x">
+    <nu-heading level="2">Custom themes</nu-heading>
+
+    <nu-theme name="success1" hue="130" mod="tone dim"></nu-theme>
+    <nu-theme name="danger1" hue="1" mod="special strong"></nu-theme>
+
+    <nu-flow gap>
+      <nu-card theme="success1">
+        Everything is ok!
+      </nu-card>
+
+      <nu-card theme="danger1">
+        Something went dramatically wrong!
+      </nu-card>
+    </nu-flow>
+  </nu-card>
+{/if}
+
+{#if show('button-themes')}
   <nu-card as="section" gap="2x">
     <nu-heading level="2">Buttons</nu-heading>
     <nu-heading level="4">Button states</nu-heading>
