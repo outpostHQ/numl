@@ -395,6 +395,9 @@ const globalRules = [`
 :root {
   font-size: 16px;
 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   --rem-pixel: calc(1rem / 16);
 
   --radius: 0.5rem;
