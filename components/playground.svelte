@@ -3,7 +3,7 @@
 {#if show('builtin')}
   <nu-heading level="2">Built-in Themes</nu-heading>
 
-  <nu-card>
+  <nu-card gap="1x">
     <nu-pane flow="row wrap">
       <nu-btn success>Success</nu-btn>
       <nu-btn danger>Danger</nu-btn>
@@ -14,6 +14,16 @@
       <nu-btn success special>Special Success</nu-btn>
       <nu-btn danger special>Special Danger</nu-btn>
       <nu-btn warning special>Special Warning</nu-btn>
+    </nu-pane>
+    <nu-pane flow="row wrap">
+      <nu-btn theme="blue">Blue</nu-btn>
+      <nu-btn theme="cyan">Cyan</nu-btn>
+      <nu-btn theme="green">Green</nu-btn>
+      <nu-btn theme="yellow soft">Yellow</nu-btn>
+      <nu-btn theme="orange">Orange</nu-btn>
+      <nu-btn theme="red">Red</nu-btn>
+      <nu-btn theme="purple">Purple</nu-btn>
+      <nu-btn theme="violet">Violet</nu-btn>
     </nu-pane>
   </nu-card>
 {/if}

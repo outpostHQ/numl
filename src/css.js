@@ -397,6 +397,7 @@ const globalRules = [`
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 
   --rem-pixel: calc(1rem / 16);
 
