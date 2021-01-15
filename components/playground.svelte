@@ -8,9 +8,12 @@
       <nu-btn success>Success</nu-btn>
       <nu-btn danger>Danger</nu-btn>
       <nu-btn warning>Warning</nu-btn>
-      <nu-btn success special>Success special</nu-btn>
-      <nu-btn danger special>Danger special</nu-btn>
-      <nu-btn warning special>Warning special</nu-btn>
+      <nu-btn success clear>Clear Success</nu-btn>
+      <nu-btn danger clear>Clear Danger</nu-btn>
+      <nu-btn warning clear>Clear Warning</nu-btn>
+      <nu-btn success special>Special Success</nu-btn>
+      <nu-btn danger special>Special Danger</nu-btn>
+      <nu-btn warning special>Special Warning</nu-btn>
     </nu-pane>
   </nu-card>
 {/if}

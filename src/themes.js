@@ -84,21 +84,24 @@ export const BASE_THEME = createThemeConfig({ saturation: 0 });
 export const SUCCESS_THEME = createThemeConfig({
   name: 'success',
   hue: 140,
-  type: 'tint',
-  mods: 'tint',
+  type: 'tone',
+  lightness: 'dim',
+  mods: 'tone dim',
 });
 export const DANGER_THEME = createThemeConfig({
   name: 'danger',
   hue: 14,
-  type: 'tint',
-  mods: 'tint',
+  type: 'tone',
+  lightness: 'dim',
+  mods: 'tone dim',
   saturation: 75,
 });
 export const WARNING_THEME = createThemeConfig({
   name: 'warning',
   hue: 35,
-  type: 'tint',
-  mods: 'tint',
+  type: 'tone',
+  lightness: 'dim',
+  mods: 'tone dim',
 });
 export const THEME_MAP = {
   success: SUCCESS_THEME,
