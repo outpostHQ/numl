@@ -20,7 +20,7 @@ export default class NuOption extends NuEl {
   static get nuStyles() {
     return {
       display: 'grid',
-      padding: '1x 2x',
+      padding: '1x 1.5x',
       fill: 'transparent :selected[special-bg]',
       outline: 'n :current[y focus-outside visible]',
       width: '100%',
@@ -28,16 +28,16 @@ export default class NuOption extends NuEl {
       gap: '1x',
       content: 'center start',
       items: 'stretch',
-      radius: '0',
+      radius: '.5r',
       border: '0',
       color: 'text',
       transition: 'theme',
       mark: 'hover :current[n]',
       opacity: '1 :disabled[--disabled-opacity]',
       cursor: 'pointer :disabled[default]',
-      inset: 'n :active[y]',
+      inset: '.75em #shadow.0 :active[.75em #shadow.50] :selected[.75em #shadow.0] :active:selected[.75em #special-shadow.50]',
 
-      '--local-outline-inset': 'inset 0 0',
+      // '--local-outline-inset': 'inset 0 0',
     };
   }
 }

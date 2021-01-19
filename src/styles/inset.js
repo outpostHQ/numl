@@ -5,6 +5,6 @@ export default function insetAttr(val, defaults) {
     inset: true,
     shadow: 'rgba(var(--local-shadow-color-rgb, var(--shadow-color-rgb)), 1)',
     specialShadow: 'rgba(var(--special-shadow-color-rgb), 1)',
-    defaultValue: '.75em',
+    defaultValue: '.75em #shadow.50',
   });
 }
