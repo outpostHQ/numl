@@ -32,7 +32,7 @@ export default class NuOption extends NuEl {
       border: '0',
       color: 'text',
       transition: 'theme',
-      mark: 'hover :current[n]',
+      mark: 'hover',
       opacity: '1 :disabled[--disabled-opacity]',
       cursor: 'pointer :disabled[default]',
       inset: '.75em #shadow.0 :active[.75em #shadow.50] :selected[.75em #shadow.0] :active:selected[.75em #special-shadow.50]',
