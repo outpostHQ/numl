@@ -34,7 +34,7 @@ export default class NuSwitch extends NuAction {
       sizing: 'content',
       radius: 'round',
       outline: 'focus visible',
-      inset: `0 :active[.5em #shadow.50]`,
+      inset: `0 :active[.5em #shadow.50] :pressed[0] :pressed:active[.5em #special-shadow.50]`,
       transition: 'shadow',
       width: '(--size * 2)',
       fill: `bg
