@@ -19,6 +19,8 @@ export default class NuMenu extends NuEl {
     return {
       display: 'flex',
       flow: 'column',
+      padding: '.5x',
+      radius: '',
     };
   }
 }

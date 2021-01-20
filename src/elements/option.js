@@ -36,8 +36,6 @@ export default class NuOption extends NuEl {
       opacity: '1 :disabled[--disabled-opacity]',
       cursor: 'pointer :disabled[default]',
       inset: '.75em #shadow.0 :active[.75em #shadow.50] :selected[.75em #shadow.0] :active:selected[.75em #special-shadow.50]',
-
-      // '--local-outline-inset': 'inset 0 0',
     };
   }
 }

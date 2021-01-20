@@ -436,18 +436,20 @@
 
 {#if show('menu')}
   <nu-nav label="Main">
-    <nu-menu padding="1x 0" border width="12" nx-debug>
+    <nu-menu border width="12" nx-debug>
       <nu-menuitem>Item 1</nu-menuitem>
       <nu-menuitem>Item 2</nu-menuitem>
       <nu-menuitem>Item 3</nu-menuitem>
-      <nu-menuitem>
-        Item 4
-        <nu-popup>
+      <nu-menuitem content="space-between">
+        <nu-el>Item 4</nu-el>
+        <nu-dropdownicon></nu-dropdownicon>
+        <nu-popup padding="0">
           <nu-menu>
             <nu-menuitem>Item 1</nu-menuitem>
-            <nu-menuitem>
-              Item 2
-              <nu-popup>
+            <nu-menuitem content="space-between">
+              <nu-el>Item 2</nu-el>
+              <nu-dropdownicon></nu-dropdownicon>
+              <nu-popup padding="0">
                 <nu-menu>
                   <nu-menuitem>Item 1</nu-menuitem>
                   <nu-menuitem>Item 2</nu-menuitem>
