@@ -84,12 +84,33 @@
 
   <nu-card as="section">
     <nu-pane flow="row wrap">
-      <nu-btn use-action="no">Normal</nu-btn>
+      <nu-btn>Normal</nu-btn>
+      <nu-btn use-action="n">Default</nu-btn>
       <nu-btn use-action="n" is-hover mark>Hover</nu-btn>
       <nu-btn use-action="n" is-active>Pressed</nu-btn>
       <nu-btn use-action="n" is-pressed>Toggled</nu-btn>
       <nu-btn use-action="n" outline="focus" is-focus>Focused</nu-btn>
       <nu-btn use-action="n" disabled>Disabled</nu-btn>
+    </nu-pane>
+
+    <nu-pane flow="row wrap">
+      <nu-btn clear>Normal</nu-btn>
+      <nu-btn clear use-action="n">Default</nu-btn>
+      <nu-btn clear use-action="n" is-hover mark>Hover</nu-btn>
+      <nu-btn clear use-action="n" is-active>Pressed</nu-btn>
+      <nu-btn clear use-action="n" is-pressed>Toggled</nu-btn>
+      <nu-btn clear use-action="n" outline="focus" is-focus>Focused</nu-btn>
+      <nu-btn clear use-action="n" disabled>Disabled</nu-btn>
+    </nu-pane>
+
+    <nu-pane flow="row wrap">
+      <nu-btn special>Normal</nu-btn>
+      <nu-btn special use-action="n">Default</nu-btn>
+      <nu-btn special use-action="n" is-hover mark>Hover</nu-btn>
+      <nu-btn special use-action="n" is-active>Pressed</nu-btn>
+      <nu-btn special use-action="n" is-pressed>Toggled</nu-btn>
+      <nu-btn special use-action="n" outline="focus" is-focus>Focused</nu-btn>
+      <nu-btn special use-action="n" disabled>Disabled</nu-btn>
     </nu-pane>
 
     <nu-pane flow="row wrap">
