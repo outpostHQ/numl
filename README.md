@@ -81,7 +81,6 @@ See the [installation instructions](https://numl.design/handbook/getting-started
 Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
 
 And here is our [Discord](https://discord.gg/sHnHPnAPZj). (Ask your questions here!)
-Also we have [Telegram Chat](https://tele.click/numldesign).
 
 ### Browser Support
 
