@@ -381,13 +381,13 @@ export function beautifyCSS(css) {
     }).join('\n');
 }
 
-export function splitIntoRules(css) {
-  if (Array.isArray(css)) return css;
-
-  const arr = css.split('}').map(s => `${s}}`);
-
-  return arr.slice(0, -1);
-}
+// export function splitIntoRules(css) {
+//   if (Array.isArray(css)) return css;
+//
+//   const arr = css.split('}').map(s => `${s}}`);
+//
+//   return arr.slice(0, -1);
+// }
 
 /* System font stack is used https://css-tricks.com/snippets/css/system-font-stack/ */
 
