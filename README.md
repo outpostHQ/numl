@@ -130,7 +130,7 @@ See our [Changlelog](https://numl.design/guide/changelog).
 
 Join us, and we'll make the Web better for everyone!
 
-If you want to join us or leave some feedback write to this email: [tenphi@gmail.com](mailto:tenphi@gmail.com?subject=Numl%20Project).
+If you want to join us or leave some feedback write to this email: [inbox@numl.design](mailto:inbox@numl.design?subject=Numl%20Project).
 
 ## Contributors ✨
 
