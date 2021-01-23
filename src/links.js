@@ -57,10 +57,11 @@ export function handleLinkState(el) {
 
   const href = link.href;
   const hasQueryParams = href.includes('?');
+  const noHashLocation = location.href.replace(location.hash, '');
 
   el.nuSetMod('current', !hasQueryParams
-    ? href === stripQuery(location.href.replace(location.hash, ''))
-    : href === location.href.replace(location.hash, ''));
+    ? href === stripQuery(noHashLocation)
+    : href === noHashLocation);
 }
 
 export function handleLinksState(force = false) {
