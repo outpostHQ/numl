@@ -1609,7 +1609,7 @@ var b = /wow?/;
         </nu-field>
           <nu-field>
           <nu-label>CV/Resume</nu-label>
-          <nu-fileinput id="files" />
+          <nu-fileinput id="files" accept=".json" />
         </nu-field>
         <nu-btn special action="submit">Submit</nu-btn>
       </nu-form>
