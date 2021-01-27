@@ -1,5 +1,13 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('svg')}
+  <nu-heading level="2">Built-in Themes</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-svg color="#text :hover[#special]" use-hover src={svgImages.logo}></nu-svg>
+  </nu-card>
+{/if}
+
 {#if show('builtin')}
   <nu-heading level="2">Built-in Themes</nu-heading>
 
