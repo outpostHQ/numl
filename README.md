@@ -118,7 +118,7 @@ Run `npm start` to view test page with few examples.
 * Improved Behavior System
 * Figma UI Kit 🌟 (Coming Soon) [![Figma](https://img.shields.io/badge/follow%20us-on%20Figma-blue)](https://www.figma.com/@numldesign)
 * Theme Builder 🌈 (Coming Soon)
-* Rich UI Library 🤖 (Coming Soon)
+* [Numl-React UI Library 🤖](https://github.com/numldesign/numl-react)
 
 See our [Changlelog](https://numl.design/guide/changelog).
 
