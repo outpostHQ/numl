@@ -80,56 +80,6 @@ function createThemeConfig(config = {}) {
   }, config);
 }
 
-export const BASE_THEME = createThemeConfig({ saturation: 0 });
-export const SUCCESS_THEME = createThemeConfig({
-  name: 'success',
-  hue: 134,
-  type: 'tone',
-  lightness: 'dim',
-  mods: 'tone dim',
-});
-export const DANGER_THEME = createThemeConfig({
-  name: 'danger',
-  hue: 12,
-  type: 'tone',
-  lightness: 'dim',
-  mods: 'tone dim',
-  saturation: 75,
-});
-export const WARNING_THEME = createThemeConfig({
-  name: 'warning',
-  hue: 45,
-  type: 'tone',
-  lightness: 'dim',
-  mods: 'tone dim',
-});
-export const COLOR_THEMES = [
-  ['blue', 262],
-  ['cyan', 192],
-  ['green', 134],
-  ['yellow', 75, 100],
-  ['orange', 45],
-  ['red', 12, 75],
-  ['purple', 312],
-  ['violet', 282],
-].reduce((map, [name, hue, saturation]) => {
-  map[name] = createThemeConfig({
-    name, hue, saturation: saturation != null ? saturation : getOptimalSaturation(hue),
-    type: 'tone',
-    lightness: 'dim',
-    mods: 'tone dim',
-  });
-
-  return map;
-}, {});
-export const THEME_MAP = {
-  success: SUCCESS_THEME,
-  danger: DANGER_THEME,
-  warning: WARNING_THEME,
-  ...COLOR_THEMES,
-  base: BASE_THEME,
-};
-
 export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg', 'shadow', 'special-shadow', 'outline', 'dark', 'light'];
 
 /**
@@ -901,3 +851,61 @@ export function hue(val, dark, contrast) {
 
   return rgba;
 }
+
+export const BASE_THEME = createThemeConfig({ saturation: 0 });
+export const SUCCESS_THEME = createThemeConfig({
+  name: 'success',
+  hue: 134,
+  type: 'tone',
+  lightness: 'dim',
+  mods: 'tone dim',
+});
+export const DANGER_THEME = createThemeConfig({
+  name: 'danger',
+  hue: 12,
+  type: 'tone',
+  lightness: 'dim',
+  mods: 'tone dim',
+  saturation: 75,
+});
+export const WARNING_THEME = createThemeConfig({
+  name: 'warning',
+  hue: 45,
+  type: 'tone',
+  lightness: 'dim',
+  mods: 'tone dim',
+});
+export const COLOR_THEMES = [
+  ['blue', 262],
+  ['cyan', 192],
+  ['green', 134],
+  ['yellow', 75, 100],
+  ['orange', 45],
+  ['red', 12, 75],
+  ['purple', 312],
+  ['violet', 282],
+].reduce((map, [name, hue, saturation]) => {
+  map[name] = createThemeConfig({
+    name, hue, saturation: saturation != null ? saturation : getOptimalSaturation(hue),
+    type: 'tone',
+    lightness: 'dim',
+    mods: 'tone dim',
+  });
+
+  requireHue({
+    hue: hue,
+    saturation: saturation != null ? saturation : getOptimalSaturation(hue),
+    contrast: 'auto',
+    alpha: 100,
+    pastel: false,
+  }, name);
+
+  return map;
+}, {});
+export const THEME_MAP = {
+  success: SUCCESS_THEME,
+  danger: DANGER_THEME,
+  warning: WARNING_THEME,
+  ...COLOR_THEMES,
+  base: BASE_THEME,
+};

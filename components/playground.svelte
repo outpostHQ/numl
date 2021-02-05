@@ -9,7 +9,7 @@
 {/if}
 
 {#if show('builtin')}
-  <nu-heading level="2">Built-in Themes</nu-heading>
+  <nu-heading level="2">Built-in Themes & Colors</nu-heading>
 
   <nu-card gap="1x">
     <nu-pane flow="row wrap">
@@ -27,11 +27,21 @@
       <nu-btn theme="blue">Blue</nu-btn>
       <nu-btn theme="cyan">Cyan</nu-btn>
       <nu-btn theme="green">Green</nu-btn>
-      <nu-btn theme="yellow soft">Yellow</nu-btn>
+      <nu-btn theme="yellow">Yellow</nu-btn>
       <nu-btn theme="orange">Orange</nu-btn>
       <nu-btn theme="red">Red</nu-btn>
       <nu-btn theme="purple">Purple</nu-btn>
       <nu-btn theme="violet">Violet</nu-btn>
+    </nu-pane>
+    <nu-pane flow="row wrap">
+      <nu-label color="#blue">Blue</nu-label>
+      <nu-label color="#cyan">Cyan</nu-label>
+      <nu-label color="#green">Green</nu-label>
+      <nu-label color="#yellow">Yellow</nu-label>
+      <nu-label color="#orange">Orange</nu-label>
+      <nu-label color="#red">Red</nu-label>
+      <nu-label color="#purple">Purple</nu-label>
+      <nu-label color="#violet">Violet</nu-label>
     </nu-pane>
   </nu-card>
 {/if}
