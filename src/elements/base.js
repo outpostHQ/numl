@@ -1871,6 +1871,38 @@ export default class NuAbstract extends HTMLElement {
     return this.pressed;
   }
 
+  set special(val) {
+    setBoolAttr(this, 'special', val);
+  }
+
+  get special() {
+    return this.hasAttribute('special');
+  }
+
+  set danger(val) {
+    setBoolAttr(this, 'danger', val);
+  }
+
+  get danger() {
+    return this.hasAttribute('danger');
+  }
+
+  set warning(val) {
+    setBoolAttr(this, 'warning', val);
+  }
+
+  get warning() {
+    return this.hasAttribute('warning');
+  }
+
+  set success(val) {
+    setBoolAttr(this, 'success', val);
+  }
+
+  get success() {
+    return this.hasAttribute('success');
+  }
+
   focus() {
     const ref = this.nuRef || this;
 

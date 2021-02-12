@@ -1,11 +1,21 @@
 <nu-heading>Playground</nu-heading>
 
-{#if show('disabled')}
-  <nu-heading level="2">Disabled state</nu-heading>
+{#if show('boolean')}
+  <nu-heading level="2">Boolean state</nu-heading>
 
   <nu-card gap="1x">
-    <nu-btn disabled={true}>Disabled</nu-btn>
-    <nu-btn disabled={false}>Enabled</nu-btn>
+    <nu-pane flow="row wrap">
+      <nu-btn disabled={true}>Disabled</nu-btn>
+      <nu-btn disabled={false}>Not disabled</nu-btn>
+      <nu-btn special={true}>Special</nu-btn>
+      <nu-btn special={false}>Not special</nu-btn>
+      <nu-btn success={true}>Success</nu-btn>
+      <nu-btn success={false}>Not success</nu-btn>
+      <nu-btn warning={true}>Warning</nu-btn>
+      <nu-btn warning={false}>Not warning</nu-btn>
+      <nu-btn danger={true}>Danger</nu-btn>
+      <nu-btn danger={false}>Not danger</nu-btn>
+    </nu-pane>
   </nu-card>
 {/if}
 
