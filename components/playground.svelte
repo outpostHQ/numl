@@ -1592,7 +1592,7 @@ var b = /wow?/;
   </nu-card>
 
   <nu-card as="section">
-    <nu-btngroup value="auto" control=":root[data-nu-scheme=@]">
+    <nu-btngroup use-radiogroup value="auto" control=":root[data-nu-scheme=@]">
       <nu-btn value="auto">Auto</nu-btn>
       <nu-btn value="dark">Dark</nu-btn>
       <nu-btn value="light">Light</nu-btn>
