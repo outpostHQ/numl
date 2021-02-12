@@ -1831,6 +1831,14 @@ export default class NuAbstract extends HTMLElement {
     return this.nuGetAssert ? this.nuGetAssert() : this._assert;
   }
 
+  set disabled(val) {
+    setBoolAttr(this, 'disabled', val);
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled');
+  }
+
   set hidden(val) {
     setBoolAttr(this, 'hidden', val);
   }

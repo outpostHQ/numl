@@ -1,5 +1,14 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('disabled')}
+  <nu-heading level="2">Disabled state</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-btn disabled={true}>Disabled</nu-btn>
+    <nu-btn disabled={false}>Enabled</nu-btn>
+  </nu-card>
+{/if}
+
 {#if show('svg')}
   <nu-heading level="2">Built-in Themes</nu-heading>
 
