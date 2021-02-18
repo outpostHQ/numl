@@ -49,7 +49,7 @@ import themeAttr from '../styles/theme';
 import propAttr from '../styles/prop';
 import combine from '../combinators/index';
 import behaviors from '../behaviors';
-import { setThemeAttr } from '../dom-helpers';
+import { setThemeAttr, h } from '../dom-helpers';
 
 export const ELEMENTS_MAP = {};
 
@@ -1750,7 +1750,11 @@ export default class NuAbstract extends HTMLElement {
       this.nuSetMod('host', true);
     }
 
-    host.innerHTML = template;
+    const temp = h('template');
+
+    temp.innerHTML = template;
+
+    host.appendChild(temp.content);
   }
 
   get nuIsShadowAllowed() {
