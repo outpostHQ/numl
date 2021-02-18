@@ -27,7 +27,7 @@ export default class NuMenuItem extends NuAction {
       items: 'center stretch',
       mark: 'hover',
       fill: 'clear',
-      text: 'nowrap :special[sb nowrap]',
+      text: 'sb nowrap :special[sb nowrap]',
       inset: 'n :active[#shadow.50]',
     };
   }
