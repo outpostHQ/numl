@@ -52,11 +52,11 @@
 
   <nu-pane>
     <nu-btn id="arrow" on:tap={prevMonth} disabled={havePrevMonth ? undefined : ''}>
-      <nu-icon name="chevron-left" size="1.25em" move="-.125x 0"></nu-icon>
+      <nu-icon name="chevron-left chevron-back-outline" size="1.25em" move="-.125x 0"></nu-icon>
     </nu-btn>
 
     <nu-btn id="arrow" on:tap={nextMonth} disabled={haveNextMonth ? undefined : ''}>
-      <nu-icon name="chevron-right" size="1.25em" move=".125x 0"></nu-icon>
+      <nu-icon name="chevron-right chevron-forward-outline" size="1.25em" move=".125x 0"></nu-icon>
     </nu-btn>
   </nu-pane>
 </nu-pane>
