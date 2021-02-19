@@ -162,6 +162,8 @@ const SPECIAL_CONTRAST_MAP = {
  * @param [highContrast] {Boolean} - true | false
  */
 export function generateTheme({ hue, saturation, pastel, type, contrast, lightness, darkScheme, highContrast }) {
+  const originalSaturation = saturation;
+
   if (darkScheme) {
     saturation = getOptimalSaturation(hue, saturation);
   }
@@ -233,12 +235,16 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
   theme.dark[2] = darkScheme ? 22 : 30;
   theme.light = [hue, saturation, (darkScheme ? (highContrast ? darkContrastTextLightness : darkTextLightness) : 100) - 4 ];
   theme.outline = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
+  theme.outline[1] = getOptimalSaturation(hue, Math.max(saturation, 75));
 
   if (type === 'main') {
     theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 2 : 1.2) + borderContrastModifier), saturation / (highContrast ? 2 : 1));
   } else {
-    // theme.border = theme.border || (type === 'tint' || type === 'tone' ? setPastelSaturation : setSaturation)(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : saturation * .75);
-    theme.border = [...theme.text, highContrast ? 1 : .5];
+    theme.border = setPastelSaturation([
+      hue,
+      saturation,
+      (highContrast ? (theme.text[2] * 2 + theme.bg[2]) : (theme.text[2] + theme.bg[2] * 2)) / 3,
+    ], originalSaturation);
 
     if (!theme.subtle) {
       theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -2 : 2)];
@@ -275,7 +281,7 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
   const specialShadowLightness = findContrastLightness(theme['special-bg'][2], specialShadowContrastRatio, true);
 
   theme.shadow = (type !== 'swap' && type !== 'special' ? setPastelSaturation : setSaturation)([originalSpecial[0], shadowSaturation, shadowLightness, 1], shadowSaturation);
-  theme['special-shadow'] = setPastelSaturation([originalSpecial[0], specialShadowSaturation, specialShadowLightness, 1], specialShadowSaturation);
+  theme['special-shadow'] = setPastelSaturation([originalSpecial[0], saturation, specialShadowLightness, 1], originalSaturation);
 
   return theme;
 }
