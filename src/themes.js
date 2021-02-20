@@ -287,13 +287,15 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
 }
 
 export function themeToProps(name, theme) {
+  const prefix = name ? `--${name}-` : '--';
+
   const map = Object.keys(theme).reduce((map, color) => {
     if (!Array.isArray(theme[color])) {
-      const key = `--${name}-${color}`;
+      const key = `${prefix}${color}`;
 
       map[key] = theme[color];
     } else {
-      const key = `--${name}-${color}-color`;
+      const key = `${prefix}${color}-color`;
       const hsl = theme[color];
 
       map[key] = hslToRgbaStr(hsl);
@@ -303,7 +305,7 @@ export function themeToProps(name, theme) {
   }, {});
 
   RGB_COLORS.forEach(clr => {
-    map[`--${name}-${clr}-color-rgb`] = rgbaStrToRgbValues(map[`--${name}-${clr}-color`]);
+    map[`${prefix}${clr}-color-rgb`] = rgbaStrToRgbValues(map[`${prefix}${clr}-color`]);
   });
 
   return map;
