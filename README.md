@@ -69,7 +69,7 @@ See the [installation instructions](https://numl.design/handbook/getting-started
 
 ## Built with Numl
 
-* [Cube.js UIKit](https://github.com/cube-js/cubejs-ui-kit) by **Cube Dev**.
+* [Cube.js UI Kit](https://github.com/cube-js/cubejs-ui-kit) by **Cube Dev**.
 * [Numl Website](https://numl.design) ([Repo Link](https://github.com/numldesign/website)) - built with **Nuxt** and **Vue.js**.
 * Old Numl Landing Page ([Repo Link](https://github.com/tenphi/numl.design)) built with **Parcel**.
 * Old Numl Storybook ([Repo Link](https://github.com/tenphi/numl-storybook)) built with **Vue.js** and **Webpack**.
@@ -118,7 +118,7 @@ Run `npm start` to view test page with few examples.
 * Improved Behavior System
 * Figma UI Kit 🌟 (Coming Soon) [![Figma](https://img.shields.io/badge/follow%20us-on%20Figma-blue)](https://www.figma.com/@numldesign)
 * Theme Builder 🌈 (Coming Soon)
-* Rich UI Library 🤖 (Coming Soon)
+* [Numl-React UI Library 🤖](https://github.com/numldesign/numl-react)
 
 See our [Changlelog](https://numl.design/guide/changelog).
 
