@@ -80,33 +80,6 @@ function createThemeConfig(config = {}) {
   }, config);
 }
 
-export const BASE_THEME = createThemeConfig({ saturation: 0 });
-export const SUCCESS_THEME = createThemeConfig({
-  name: 'success',
-  hue: 140,
-  type: 'tint',
-  mods: 'tint',
-});
-export const DANGER_THEME = createThemeConfig({
-  name: 'danger',
-  hue: 14,
-  type: 'tint',
-  mods: 'tint',
-  saturation: 75,
-});
-export const WARNING_THEME = createThemeConfig({
-  name: 'warning',
-  hue: 35,
-  type: 'tint',
-  mods: 'tint',
-});
-export const THEME_MAP = {
-  success: SUCCESS_THEME,
-  danger: DANGER_THEME,
-  warning: WARNING_THEME,
-  base: BASE_THEME,
-};
-
 export const RGB_COLORS = ['text', 'bg', 'subtle', 'special', 'special-text', 'special-bg', 'shadow', 'special-shadow', 'outline', 'dark', 'light'];
 
 /**
@@ -189,6 +162,8 @@ const SPECIAL_CONTRAST_MAP = {
  * @param [highContrast] {Boolean} - true | false
  */
 export function generateTheme({ hue, saturation, pastel, type, contrast, lightness, darkScheme, highContrast }) {
+  const originalSaturation = saturation;
+
   if (darkScheme) {
     saturation = getOptimalSaturation(hue, saturation);
   }
@@ -260,12 +235,16 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
   theme.dark[2] = darkScheme ? 22 : 30;
   theme.light = [hue, saturation, (darkScheme ? (highContrast ? darkContrastTextLightness : darkTextLightness) : 100) - 4 ];
   theme.outline = setPastelSaturation(mix(theme['special-text'], theme['special-bg']));
+  theme.outline[1] = getOptimalSaturation(hue, Math.max(saturation, 75));
 
   if (type === 'main') {
     theme.border = setPastelSaturation(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 2 : 1.2) + borderContrastModifier), saturation / (highContrast ? 2 : 1));
   } else {
-    // theme.border = theme.border || (type === 'tint' || type === 'tone' ? setPastelSaturation : setSaturation)(findContrastColor(originalSpecial, theme.bg[2], (highContrast ? 3 : 1.5) + borderContrastModifier), darkScheme ? 100 : saturation * .75);
-    theme.border = [...theme.text, highContrast ? 1 : .5];
+    theme.border = setPastelSaturation([
+      hue,
+      saturation,
+      (highContrast ? (theme.text[2] * 2 + theme.bg[2]) : (theme.text[2] + theme.bg[2] * 2)) / 3,
+    ], originalSaturation);
 
     if (!theme.subtle) {
       theme.subtle = [theme.bg[0], theme.bg[1], theme.bg[2] + (theme.bg[2] < theme.text[2] ? -2 : 2)];
@@ -302,19 +281,21 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
   const specialShadowLightness = findContrastLightness(theme['special-bg'][2], specialShadowContrastRatio, true);
 
   theme.shadow = (type !== 'swap' && type !== 'special' ? setPastelSaturation : setSaturation)([originalSpecial[0], shadowSaturation, shadowLightness, 1], shadowSaturation);
-  theme['special-shadow'] = setPastelSaturation([originalSpecial[0], specialShadowSaturation, specialShadowLightness, 1], specialShadowSaturation);
+  theme['special-shadow'] = setPastelSaturation([originalSpecial[0], saturation, specialShadowLightness, 1], originalSaturation);
 
   return theme;
 }
 
 export function themeToProps(name, theme) {
+  const prefix = name ? `--${name}-` : '--';
+
   const map = Object.keys(theme).reduce((map, color) => {
     if (!Array.isArray(theme[color])) {
-      const key = `--${name}-${color}`;
+      const key = `${prefix}${color}`;
 
       map[key] = theme[color];
     } else {
-      const key = `--${name}-${color}-color`;
+      const key = `${prefix}${color}-color`;
       const hsl = theme[color];
 
       map[key] = hslToRgbaStr(hsl);
@@ -324,7 +305,7 @@ export function themeToProps(name, theme) {
   }, {});
 
   RGB_COLORS.forEach(clr => {
-    map[`--${name}-${clr}-color-rgb`] = rgbaStrToRgbValues(map[`--${name}-${clr}-color`]);
+    map[`${prefix}${clr}-color-rgb`] = rgbaStrToRgbValues(map[`${prefix}${clr}-color`]);
   });
 
   return map;
@@ -878,3 +859,61 @@ export function hue(val, dark, contrast) {
 
   return rgba;
 }
+
+export const BASE_THEME = createThemeConfig({ saturation: 0 });
+export const SUCCESS_THEME = createThemeConfig({
+  name: 'success',
+  hue: 134,
+  type: 'tone',
+  lightness: 'dim',
+  mods: 'tone dim',
+});
+export const DANGER_THEME = createThemeConfig({
+  name: 'danger',
+  hue: 12,
+  type: 'tone',
+  lightness: 'dim',
+  mods: 'tone dim',
+  saturation: 75,
+});
+export const WARNING_THEME = createThemeConfig({
+  name: 'warning',
+  hue: 45,
+  type: 'tone',
+  lightness: 'dim',
+  mods: 'tone dim',
+});
+export const COLOR_THEMES = [
+  ['blue', 262],
+  ['cyan', 192],
+  ['green', 134],
+  ['yellow', 75, 100],
+  ['orange', 45],
+  ['red', 12, 75],
+  ['purple', 312],
+  ['violet', 282],
+].reduce((map, [name, hue, saturation]) => {
+  map[name] = createThemeConfig({
+    name, hue, saturation: saturation != null ? saturation : getOptimalSaturation(hue),
+    type: 'tone',
+    lightness: 'dim',
+    mods: 'tone dim',
+  });
+
+  requireHue({
+    hue: hue,
+    saturation: saturation != null ? saturation : getOptimalSaturation(hue),
+    contrast: 'auto',
+    alpha: 100,
+    pastel: false,
+  }, name);
+
+  return map;
+}, {});
+export const THEME_MAP = {
+  success: SUCCESS_THEME,
+  danger: DANGER_THEME,
+  warning: WARNING_THEME,
+  ...COLOR_THEMES,
+  base: BASE_THEME,
+};

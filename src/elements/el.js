@@ -118,6 +118,7 @@ export default class NuEl extends NuBase {
       mask: '',
       list: '',
       multiple: '',
+      accept: '',
       // converters
       typographer: '',
       linkify: '',

@@ -39,6 +39,9 @@ export default class FileInputBehavior extends WidgetBehavior {
     this.props.multiple = () => {
       return this.transferAttr('multiple', this.ref) != null;
     };
+    this.props.accept = () => {
+      return this.transferAttr('accept', this.ref);
+    };
     this.props.placeholder = () => this.transferAttr('placeholder', this.ref, '...');
 
     super.init();

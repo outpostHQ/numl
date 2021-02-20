@@ -9,15 +9,15 @@ export default class NuBtn extends NuAction {
     return {
       display: 'inline-grid',
       padding: '1x 2x',
-      border: '1bw :clear[hidden] :hover[1bw] :clear:hover[#mark] :special[#clear] :special:hover[#clear]',
+      border: '1bw :clear[#clear] :hover[1bw] :clear:hover[#mark] :special[#clear] :special:hover[#clear]',
       radius: '',
       flow: 'column',
       gap: '1x',
       content: 'center :dropdown[stretch]',
       items: 'center stretch',
       mark: 'n :focusable[hover]',
-      text: 'nowrap :special[sb nowrap]',
-      inset: '#clear :active[#shadow.50] :active:special[#special-shadow.50] :pressed[y] :pressed:special[y special] :active:pressed[#shadow.50] :active:pressed:special[#special-shadow.50]',
+      text: 'sb nowrap',
+      inset: '#clear :active[#shadow.50] :active:special[#special-shadow.50] :pressed[y] :pressed:special[#special-shadow] :active:pressed[#shadow.50] :active:special[#special-shadow.50] :active:pressed:special[#special-shadow.50]',
       fill: 'bg :special[special-bg] :clear[clear]',
       color: 'text :clear[special] :special[special-text] :special:clear[special-text]',
     };

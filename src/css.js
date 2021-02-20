@@ -381,19 +381,23 @@ export function beautifyCSS(css) {
     }).join('\n');
 }
 
-export function splitIntoRules(css) {
-  if (Array.isArray(css)) return css;
-
-  const arr = css.split('}').map(s => `${s}}`);
-
-  return arr.slice(0, -1);
-}
+// export function splitIntoRules(css) {
+//   if (Array.isArray(css)) return css;
+//
+//   const arr = css.split('}').map(s => `${s}}`);
+//
+//   return arr.slice(0, -1);
+// }
 
 /* System font stack is used https://css-tricks.com/snippets/css/system-font-stack/ */
 
 const globalRules = [`
 :root {
   font-size: 16px;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 
   --rem-pixel: calc(1rem / 16);
 

@@ -1,16 +1,66 @@
 <nu-heading>Playground</nu-heading>
 
-{#if show('builtin')}
+{#if show('boolean')}
+  <nu-heading level="2">Boolean state</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-pane flow="row wrap">
+      <nu-btn disabled={true}>Disabled</nu-btn>
+      <nu-btn disabled={false}>Not disabled</nu-btn>
+      <nu-btn special={true}>Special</nu-btn>
+      <nu-btn special={false}>Not special</nu-btn>
+      <nu-btn success={true}>Success</nu-btn>
+      <nu-btn success={false}>Not success</nu-btn>
+      <nu-btn warning={true}>Warning</nu-btn>
+      <nu-btn warning={false}>Not warning</nu-btn>
+      <nu-btn danger={true}>Danger</nu-btn>
+      <nu-btn danger={false}>Not danger</nu-btn>
+    </nu-pane>
+  </nu-card>
+{/if}
+
+{#if show('svg')}
   <nu-heading level="2">Built-in Themes</nu-heading>
 
-  <nu-card>
+  <nu-card gap="1x">
+    <nu-svg color="#text :hover[#special]" use-hover src={svgImages.logo}></nu-svg>
+  </nu-card>
+{/if}
+
+{#if show('builtin')}
+  <nu-heading level="2">Built-in Themes & Colors</nu-heading>
+
+  <nu-card gap="1x">
     <nu-pane flow="row wrap">
       <nu-btn success>Success</nu-btn>
       <nu-btn danger>Danger</nu-btn>
       <nu-btn warning>Warning</nu-btn>
-      <nu-btn success special>Success special</nu-btn>
-      <nu-btn danger special>Danger special</nu-btn>
-      <nu-btn warning special>Warning special</nu-btn>
+      <nu-btn success clear>Clear Success</nu-btn>
+      <nu-btn danger clear>Clear Danger</nu-btn>
+      <nu-btn warning clear>Clear Warning</nu-btn>
+      <nu-btn success special>Special Success</nu-btn>
+      <nu-btn danger special>Special Danger</nu-btn>
+      <nu-btn warning special>Special Warning</nu-btn>
+    </nu-pane>
+    <nu-pane flow="row wrap">
+      <nu-btn theme="blue">Blue</nu-btn>
+      <nu-btn theme="cyan">Cyan</nu-btn>
+      <nu-btn theme="green">Green</nu-btn>
+      <nu-btn theme="yellow">Yellow</nu-btn>
+      <nu-btn theme="orange">Orange</nu-btn>
+      <nu-btn theme="red">Red</nu-btn>
+      <nu-btn theme="purple">Purple</nu-btn>
+      <nu-btn theme="violet">Violet</nu-btn>
+    </nu-pane>
+    <nu-pane flow="row wrap">
+      <nu-label color="#blue">Blue</nu-label>
+      <nu-label color="#cyan">Cyan</nu-label>
+      <nu-label color="#green">Green</nu-label>
+      <nu-label color="#yellow">Yellow</nu-label>
+      <nu-label color="#orange">Orange</nu-label>
+      <nu-label color="#red">Red</nu-label>
+      <nu-label color="#purple">Purple</nu-label>
+      <nu-label color="#violet">Violet</nu-label>
     </nu-pane>
   </nu-card>
 {/if}
@@ -71,12 +121,33 @@
 
   <nu-card as="section">
     <nu-pane flow="row wrap">
-      <nu-btn use-action="no">Normal</nu-btn>
+      <nu-btn>Normal</nu-btn>
+      <nu-btn use-action="n">Default</nu-btn>
       <nu-btn use-action="n" is-hover mark>Hover</nu-btn>
       <nu-btn use-action="n" is-active>Pressed</nu-btn>
       <nu-btn use-action="n" is-pressed>Toggled</nu-btn>
       <nu-btn use-action="n" outline="focus" is-focus>Focused</nu-btn>
       <nu-btn use-action="n" disabled>Disabled</nu-btn>
+    </nu-pane>
+
+    <nu-pane flow="row wrap">
+      <nu-btn clear>Normal</nu-btn>
+      <nu-btn clear use-action="n">Default</nu-btn>
+      <nu-btn clear use-action="n" is-hover mark>Hover</nu-btn>
+      <nu-btn clear use-action="n" is-active>Pressed</nu-btn>
+      <nu-btn clear use-action="n" is-pressed>Toggled</nu-btn>
+      <nu-btn clear use-action="n" outline="focus" is-focus>Focused</nu-btn>
+      <nu-btn clear use-action="n" disabled>Disabled</nu-btn>
+    </nu-pane>
+
+    <nu-pane flow="row wrap">
+      <nu-btn special>Normal</nu-btn>
+      <nu-btn special use-action="n">Default</nu-btn>
+      <nu-btn special use-action="n" is-hover mark>Hover</nu-btn>
+      <nu-btn special use-action="n" is-active>Pressed</nu-btn>
+      <nu-btn special use-action="n" is-pressed>Toggled</nu-btn>
+      <nu-btn special use-action="n" outline="focus" is-focus>Focused</nu-btn>
+      <nu-btn special use-action="n" disabled>Disabled</nu-btn>
     </nu-pane>
 
     <nu-pane flow="row wrap">
@@ -423,18 +494,20 @@
 
 {#if show('menu')}
   <nu-nav label="Main">
-    <nu-menu padding="1x 0" border width="12" nx-debug>
+    <nu-menu border width="12" nx-debug>
       <nu-menuitem>Item 1</nu-menuitem>
       <nu-menuitem>Item 2</nu-menuitem>
       <nu-menuitem>Item 3</nu-menuitem>
-      <nu-menuitem>
-        Item 4
-        <nu-popup>
+      <nu-menuitem content="space-between">
+        <nu-el>Item 4</nu-el>
+        <nu-dropdownicon></nu-dropdownicon>
+        <nu-popup padding="0">
           <nu-menu>
             <nu-menuitem>Item 1</nu-menuitem>
-            <nu-menuitem>
-              Item 2
-              <nu-popup>
+            <nu-menuitem content="space-between">
+              <nu-el>Item 2</nu-el>
+              <nu-dropdownicon></nu-dropdownicon>
+              <nu-popup padding="0">
                 <nu-menu>
                   <nu-menuitem>Item 1</nu-menuitem>
                   <nu-menuitem>Item 2</nu-menuitem>
@@ -1519,7 +1592,7 @@ var b = /wow?/;
   </nu-card>
 
   <nu-card as="section">
-    <nu-btngroup value="auto" control=":root[data-nu-scheme=@]">
+    <nu-btngroup use-radiogroup value="auto" control=":root[data-nu-scheme=@]">
       <nu-btn value="auto">Auto</nu-btn>
       <nu-btn value="dark">Dark</nu-btn>
       <nu-btn value="light">Light</nu-btn>
@@ -1573,7 +1646,7 @@ var b = /wow?/;
         </nu-field>
           <nu-field>
           <nu-label>CV/Resume</nu-label>
-          <nu-fileinput id="files" />
+          <nu-fileinput id="files" accept=".json" />
         </nu-field>
         <nu-btn special action="submit">Submit</nu-btn>
       </nu-form>

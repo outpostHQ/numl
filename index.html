@@ -2967,17 +2967,17 @@
     place="fixed right bottom" transform="translate(-1rem, -1rem)"
     padding="0" size="xs" shadow=".5"
     z="front" fill="clear">
-    <nu-block radius padding backdrop="blur(2)" fill="bg 70%">
+    <nu-block radius padding backdrop-filter="blur(2)" fill="bg 70%">
       <nu-theme hue="248"></nu-theme>
       <nu-flex gap="1x" items="stretch" flow="column">
         <nu-block>Prefers color scheme:</nu-block>
-        <nu-btngroup id="prefers-color-scheme" value="auto">
+        <nu-btngroup use-radiogroup id="prefers-color-scheme" value="auto">
           <nu-btn value="auto">Auto</nu-btn>
           <nu-btn value="dark">Dark</nu-btn>
           <nu-btn value="light">Light</nu-btn>
         </nu-btngroup>
         <nu-block>Prefers contrast:</nu-block>
-        <nu-btngroup id="prefers-contrast" value="auto">
+        <nu-btngroup use-radiogroup id="prefers-contrast" value="auto" group-radius>
           <nu-btn value="auto">Auto</nu-btn>
           <nu-btn value="high">High</nu-btn>
           <nu-btn value="low">Low</nu-btn>

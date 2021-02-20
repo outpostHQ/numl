@@ -18,16 +18,17 @@ export default class NuMenuItem extends NuAction {
   static get nuStyles() {
     return {
       display: 'inline-grid',
-      padding: '1x 2x',
+      padding: '1x 1.5x',
       border: '0',
+      radius: '.5r',
       flow: 'column',
       gap: '1x',
       content: 'stretch',
       items: 'center stretch',
-      mark: ':focusable[hover]',
+      mark: 'hover',
       fill: 'clear',
-      text: 'nowrap :special[sb nowrap]',
-      inset: 'n :active:focusable[y] :pressed:focusable[y] :pressed[y] :pressed:active[y]',
+      text: 'sb nowrap :special[sb nowrap]',
+      inset: 'n :active[#shadow.50]',
     };
   }
 }

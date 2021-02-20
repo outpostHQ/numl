@@ -85,6 +85,7 @@ insertRuleSet('theme:base', generateCSS('body', [...themeStyles, {
 }], false, true));
 
 const Nude = {
+  initialized: false,
   tags: {},
   isTouch,
   version: process.env.APP_VERSION,
@@ -139,6 +140,12 @@ function defineElement(el) {
 }
 
 Nude.init = () => {
+  if (Nude.initialized) {
+    log('already initialized');
+
+    return;
+  }
+
   initContext();
 
   const rootEls = document.querySelectorAll('nu-root');
@@ -170,6 +177,8 @@ Nude.init = () => {
       window.dispatchEvent(numlReadyEvent);
     });
   }, 50);
+
+  Nude.initialized = true;
 };
 
 Nude.getElementById = function (id) {

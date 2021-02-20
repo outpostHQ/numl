@@ -112,8 +112,16 @@ export default class HoverBehavior extends Behavior {
   }
 
   setEffect(bool) {
-    this.host.nuSetMod('hover', bool);
-    this.host.nuSetContext('hover', bool || null);
+    const host = this.host;
+
+    host.nuSetMod('hover', bool);
+    host.nuSetContext('hover', bool || null);
+
+    const transferChild = host.constructor.nuContents;
+
+    if (transferChild) {
+      this.contentsRef = host.querySelector(transferChild);
+    }
 
     if (this.contentsRef) {
       setAttr(this.contentsRef, 'is-hover', bool);

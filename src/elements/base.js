@@ -49,7 +49,7 @@ import themeAttr from '../styles/theme';
 import propAttr from '../styles/prop';
 import combine from '../combinators/index';
 import behaviors from '../behaviors';
-import { setThemeAttr } from '../dom-helpers';
+import { setThemeAttr, h } from '../dom-helpers';
 
 export const ELEMENTS_MAP = {};
 
@@ -1750,7 +1750,11 @@ export default class NuAbstract extends HTMLElement {
       this.nuSetMod('host', true);
     }
 
-    host.innerHTML = template;
+    const temp = h('template');
+
+    temp.innerHTML = template;
+
+    host.appendChild(temp.content);
   }
 
   get nuIsShadowAllowed() {
@@ -1831,6 +1835,14 @@ export default class NuAbstract extends HTMLElement {
     return this.nuGetAssert ? this.nuGetAssert() : this._assert;
   }
 
+  set disabled(val) {
+    setBoolAttr(this, 'disabled', val);
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled');
+  }
+
   set hidden(val) {
     setBoolAttr(this, 'hidden', val);
   }
@@ -1861,6 +1873,38 @@ export default class NuAbstract extends HTMLElement {
 
   get selected() {
     return this.pressed;
+  }
+
+  set special(val) {
+    setBoolAttr(this, 'special', val);
+  }
+
+  get special() {
+    return this.hasAttribute('special');
+  }
+
+  set danger(val) {
+    setBoolAttr(this, 'danger', val);
+  }
+
+  get danger() {
+    return this.hasAttribute('danger');
+  }
+
+  set warning(val) {
+    setBoolAttr(this, 'warning', val);
+  }
+
+  get warning() {
+    return this.hasAttribute('warning');
+  }
+
+  set success(val) {
+    setBoolAttr(this, 'success', val);
+  }
+
+  get success() {
+    return this.hasAttribute('success');
   }
 
   focus() {

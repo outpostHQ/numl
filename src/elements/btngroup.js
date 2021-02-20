@@ -5,13 +5,6 @@ export default class NuBtnGroup extends NuGroup {
     return 'nu-btngroup';
   }
 
-  static get nuBehaviors() {
-    return {
-      radiogroup: true,
-      control: true,
-    };
-  }
-
   static get nuStyles() {
     return {
       gap: '1bw',

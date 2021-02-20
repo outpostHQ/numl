@@ -20,6 +20,7 @@ export default class NuTab extends NuAction {
       border: '0',
       expand: '--local-tab-expand-v --local-tab-expand-h',
       mark: null,
+      text: 'sb nowrap',
 
       '--local-line-width': `0
         :hover[1bw]
