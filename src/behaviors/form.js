@@ -130,8 +130,13 @@ export default class FormBehavior extends WidgetBehavior {
   }
 
   unregisterCheck(field, name) {
-    delete this.validators[field][name];
-    delete this.checks[field][name];
+    if (this.validators[field]) {
+      delete this.validators[field][name];
+    }
+
+    if (this.checks[field]) {
+      delete this.checks[field][name];
+    }
   }
 
   unregisterField(name) {
