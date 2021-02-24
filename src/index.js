@@ -2,6 +2,7 @@ import {
   devMode,
   isDefined,
   isTouch,
+  log,
   warn,
   deepQueryAll,
   deepQuery,

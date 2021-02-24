@@ -2,6 +2,8 @@ import WidgetBehavior from './widget';
 import { devMode, warn } from '../helpers';
 import { hideEffect } from '../effects/hide';
 
+let CUS_VAL_COUNT = 0;
+
 export default class ValidatorBehavior extends WidgetBehavior {
   static get params() {
     return {
@@ -18,24 +20,34 @@ export default class ValidatorBehavior extends WidgetBehavior {
       this.fieldId = val;
     };
     this.props.assert = (assert) => {
+      this.disconnectForm(this.currentForm, true);
+
       if (assert) {
         [this.assert, this.assertValue] = assert.split(':');
       } else {
         this.assert = null;
       }
+
+      this.connectForm();
     };
 
     host.nuSetAssert = (val) => {
+      this.disconnectForm(this.currentForm, true);
+
       if (typeof val === 'function') {
-        this.assert = val.name;
+        this.assert = val.name || `customValidator${++CUS_VAL_COUNT}`;
         this.assertValue = val;
       } else if (typeof val === 'string') {
         [this.assert, this.assertValue] = val.split(':');
       } else if (devMode) {
+        this.assert = null;
+        this.assertValue = null;
         warn('validator: wrong assert method', val);
       }
+
+      this.connectForm();
     };
-    host.nuGetAssert = () => this.assert;
+    host.nuGetAssert = () => this.assert || this.assertValue;
 
     super.init();
   }
@@ -75,19 +87,19 @@ export default class ValidatorBehavior extends WidgetBehavior {
   }
 
   connectForm() {
-    const { fieldId, assert, form, assertValue, assertMethod } = this;
+    let { fieldId, assert, form, assertValue } = this;
 
     if (!fieldId || !assert || !form) return;
 
-    this.form.registerCheck(fieldId, this, assertMethod || assert, assertValue);
+    this.form.registerCheck(fieldId, this, assert, assertValue);
   }
 
   disconnectForm(form = this.currentForm, dontDelete) {
     const { fieldId, assert } = this;
 
-    if (!fieldId || !assert) return;
+    if (!fieldId || !assert || !form) return;
 
-    form.unregisterCheck(fieldId);
+    form.unregisterCheck(fieldId, assert);
 
     if (!dontDelete) {
       delete this.form;
