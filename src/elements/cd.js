@@ -9,7 +9,6 @@ export default class NuCd extends NuCode {
     return {
       display: 'inline-block',
       padding: '.125rem .25em',
-      fill: 'hue(0 0 0) :special[#dark]',
     };
   }
 
