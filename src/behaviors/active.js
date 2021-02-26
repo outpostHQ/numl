@@ -9,8 +9,20 @@ export default class ActiveBehavior extends Behavior {
   constructor(host) {
     super(host);
 
+    const root = document.documentElement;
+
+    const setActive = (bool) => {
+      this.setMod('active', bool);
+
+      if ('webkitUserSelect' in root.style) {
+        root.style.webkitUserSelect = bool ? 'none' : '';
+      } else {
+        root.style.userSelect = bool ? 'none' : '';
+      }
+    }
+
     this.on('click', evt => {
-      this.setMod('active', false);
+      setActive(false);
 
       if (host.nuDisabled || evt.nuHandled) return;
 
@@ -30,13 +42,13 @@ export default class ActiveBehavior extends Behavior {
         evt.preventDefault();
 
         if (!host.nuDisabled) {
-          this.setMod('active', true);
+          setActive(true);
         }
       }
     });
 
     this.on('keyup', evt => {
-      this.setMod('active', false);
+      setActive(false);
 
       if (host.nuDisabled || evt.nuHandled) return;
 
@@ -48,18 +60,18 @@ export default class ActiveBehavior extends Behavior {
       }
     });
 
-    this.on('blur', () => this.setMod('active', false));
+    this.on('blur', () => setActive(false));
 
     this.on(['mousedown', 'touchstart'], () => {
       // checking for focusable also && host.nuHasMod('focusable')
       // doesn't for nu-option
       if (!host.nuDisabled) {
-        this.setMod('active', true);
+        setActive(true);
       }
     }, { passive: true });
 
     this.on(['mouseleave', 'mouseup', 'touchend'], () => {
-      this.setMod('active', false);
+      setActive(false);
     }, { passive: true });
   }
 
