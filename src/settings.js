@@ -3,7 +3,7 @@ import { devMode, isNoValue, isYesValue, requestIdleCallback } from './helpers';
 
 const DATASET = ROOT.dataset;
 const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
-const CONTRAST_OPTIONS = ['auto', 'low', 'high'];
+const CONTRAST_OPTIONS = ['auto', 'no-preference', 'more'];
 const ICONS_OPTIONS = ['feather', 'eva', 'ion', 'no'];
 const BEHAVIORS_OPTIONS = ['auto', 'no', 'manual']
 
