@@ -1,5 +1,16 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('tooltip')}
+  <nu-heading level="2">Tooltip</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-btn>
+      <nu-tooltip>Some tooltip</nu-tooltip>
+      Hover me!
+    </nu-btn>
+  </nu-card>
+{/if}
+
 {#if show('boolean')}
   <nu-heading level="2">Boolean state</nu-heading>
 
