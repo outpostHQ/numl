@@ -1017,10 +1017,36 @@
 
     Uses IonIcons library.
 
+    <nu-block size="md">
+      <nu-icon name="accessibility-outline :hover[accessibility]" use-hover></nu-icon>
+      <nu-icon name="aperture-outline :hover[aperture]" use-hover></nu-icon>
+      <nu-icon name="basketball-outline :hover[basketball]" use-hover></nu-icon>
+      <nu-icon name="calendar-outline :hover[calendar]" use-hover></nu-icon>
+      Text to align
+    </nu-block>
+
     <nu-block size="xl">
       <nu-icon name="accessibility-outline :hover[accessibility]" use-hover></nu-icon>
       <nu-icon name="aperture-outline :hover[aperture]" use-hover></nu-icon>
       <nu-icon name="basketball-outline :hover[basketball]" use-hover></nu-icon>
+      <nu-icon name="calendar-outline :hover[calendar]" use-hover></nu-icon>
+      Text to align
+    </nu-block>
+
+    <nu-heading level="5">Eva</nu-heading>
+
+    <nu-block size="md">
+      <nu-icon name="archive-outline :hover[archive]" use-hover></nu-icon>
+      <nu-icon name="checkmark-square-2-outline :hover[checkmark-square-2]" use-hover></nu-icon>
+      <nu-icon name="email-outline :hover[email]" use-hover></nu-icon>
+      <nu-icon name="calendar-outline :hover[calendar]" use-hover></nu-icon>
+      Text to align
+    </nu-block>
+
+    <nu-block size="xl">
+      <nu-icon name="archive-outline :hover[archive]" use-hover></nu-icon>
+      <nu-icon name="checkmark-square-2-outline :hover[checkmark-square-2]" use-hover></nu-icon>
+      <nu-icon name="email-outline :hover[email]" use-hover></nu-icon>
       <nu-icon name="calendar-outline :hover[calendar]" use-hover></nu-icon>
       Text to align
     </nu-block>
@@ -1040,30 +1066,30 @@
     <nu-heading level="5">Change default size (Context definition)</nu-heading>
     <nu-block>
       <nu-el>
-        <nu-icon name="hash"></nu-icon>
+        <nu-icon name="today-outline"></nu-icon>
       </nu-el>
 
       <nu-el>
         <nu-props icon-size="1em"></nu-props>
-        <nu-icon name="hash"></nu-icon>
+        <nu-icon name="today-outline"></nu-icon>
       </nu-el>
 
       <nu-el>
         <nu-props icon-size="2em"></nu-props>
-        <nu-icon name="hash"></nu-icon>
+        <nu-icon name="today-outline"></nu-icon>
       </nu-el>
     </nu-block>
 
     <nu-heading level="5">Change default stroke width</nu-heading>
     <nu-block>
       <nu-el>
-        <nu-props icon-stroke-width=".5x / 3"></nu-props>
-        <nu-icon name="hash"></nu-icon>
+        <nu-props icon-stroke-width="1em / 8"></nu-props>
+        <nu-icon name="today-outline"></nu-icon>
       </nu-el>
 
       <nu-el>
-        <nu-props icon-stroke-width=".5x"></nu-props>
-        <nu-icon name="hash"></nu-icon>
+        <nu-props icon-stroke-width="1em / 16"></nu-props>
+        <nu-icon name="today-outline"></nu-icon>
       </nu-el>
     </nu-block>
 

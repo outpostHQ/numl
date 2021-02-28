@@ -56,7 +56,7 @@ export function reduceMotion(bool) {
 
 export const USE_SHADOW = isYesValue(DATASET.nuShadow);
 export const USE_HIDDEN_STYLES = DATASET.nuStyles === 'hidden';
-export const ICONS_PROVIDER = ICONS_OPTIONS.includes(DATASET.nuIcons) ? DATASET.nuIcons : 'feather';
+export const ICONS_PROVIDER = ICONS_OPTIONS.includes(DATASET.nuIcons) ? DATASET.nuIcons : 'ion';
 export const SCROLLBAR = DATASET.nuScrollbar != null;
 
 setRootContext('scheme', scheme());

@@ -443,6 +443,8 @@ const globalRules = [`
   --lg: 1.5rem;
   --xl: 2rem;
   --xxl: 3rem;
+
+  --icon-stroke-width: calc(1em / 14);
 }`,
 
 `:root:not([data-nu-prevent-reset]) body {
