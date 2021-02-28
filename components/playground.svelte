@@ -1,5 +1,25 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('nested')}
+  <nu-heading level="2">Nested actions</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-btn on:tap={() => console.log('tap out')}>
+      Parent button
+      <nu-btn on:tap={() => console.log('tap in')}>
+        <nu-icon name="close"></nu-icon>
+      </nu-btn>
+    </nu-btn>
+
+    <nu-btn on:tap={() => console.log('tap out')}>
+      Parent button
+      <nu-btn disabled on:tap={() => console.log('tap in')}>
+        <nu-icon name="close"></nu-icon>
+      </nu-btn>
+    </nu-btn>
+  </nu-card>
+{/if}
+
 {#if show('tooltip')}
   <nu-heading level="2">Tooltip</nu-heading>
 

@@ -24,55 +24,51 @@ export default class ActiveBehavior extends Behavior {
     this.on('click', evt => {
       setActive(false);
 
-      if (host.nuDisabled || evt.nuHandled) return;
+      if (host.nuDisabled) return;
 
-      evt.nuHandled = true;
+      evt.stopPropagation();
 
       this.tap(evt);
     });
 
     this.on('keydown', evt => {
-      if (host.nuDisabled || evt.nuHandled) return;
+      if (host.nuDisabled) return;
 
-      evt.nuHandled = true;
-
-      if (evt.key === 'Enter') {
-        this.tap(evt);
-      } else if (evt.key === ' ') {
+      if (evt.key === 'Enter' || evt.key === ' ') {
+        evt.stopPropagation();
         evt.preventDefault();
 
-        if (!host.nuDisabled) {
-          setActive(true);
-        }
+        setActive(true);
       }
     });
-
     this.on('keyup', evt => {
-      setActive(false);
+      if (host.nuDisabled) return;
 
-      if (host.nuDisabled || evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (evt.key === ' ') {
+      if (evt.key === 'Enter' || evt.key === ' ') {
+        evt.stopPropagation();
         evt.preventDefault();
         this.tap(evt);
+        setActive(false);
       }
     });
 
     this.on('blur', () => setActive(false));
 
-    this.on(['mousedown', 'touchstart'], () => {
-      // checking for focusable also && host.nuHasMod('focusable')
-      // doesn't for nu-option
+    this.on(['mousedown', 'touchstart'], (evt) => {
       if (!host.nuDisabled) {
+        evt.stopPropagation();
+
         setActive(true);
       }
-    }, { passive: true });
+    });
 
-    this.on(['mouseleave', 'mouseup', 'touchend'], () => {
+    this.on(['mouseleave', 'mouseup', 'touchend'], (evt) => {
       setActive(false);
-    }, { passive: true });
+
+      if (host.nuDisabled) return;
+
+      evt.stopPropagation();
+    });
   }
 
   tap(evt) {
