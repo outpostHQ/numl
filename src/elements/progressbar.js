@@ -50,10 +50,9 @@ export default class NuProgressBar extends NuEl {
         width: calc(var(--value) * 100%);
         top: 0;
         bottom: 0;
-        opacity: .2;
         background-color: transparent;
         border-radius: var(--border-width);
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5)), linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 36%, rgb(0, 0, 255) 38%, rgb(0, 0, 255) 72%, rgb(255, 255, 255) 74%, rgb(255, 255, 255) 100%);
+        background-image: linear-gradient(to bottom, rgba(var(--dark-color-rgb), 0), rgba(var(--dark-color-rgb), .2)), linear-gradient(135deg, rgba(var(--special-text-color-rgb), .6) 0%, rgba(var(--special-text-color-rgb), .6) 34%, var(--special-bg-color) 40%, var(--special-bg-color) 70%, rgba(var(--special-text-color-rgb), .6) 76%, rgba(var(--special-text-color-rgb), .6) 100%), linear-gradient(to bottom, var(--special-bg-color), var(--special-bg-color));
         background-repeat: repeat;
         background-size: 3em;
         animation: nu-progressbar-animation calc(var(--transition) * 10 - 0.01s) linear infinite;
