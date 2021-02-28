@@ -1,5 +1,16 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('props')}
+  <nu-heading level="2">Properties</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-props my-color="@white-color"></nu-props>
+    <nu-block fill="#dark" color="#my">
+      Text
+    </nu-block>
+  </nu-card>
+{/if}
+
 {#if show('nested')}
   <nu-heading level="2">Nested actions</nu-heading>
 

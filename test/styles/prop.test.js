@@ -10,4 +10,8 @@ checkGenerator('shadow', propAttr, {
     '--name-color': 'rgba(50,100,250, 1)',
     '--name-color-rgb': '50,100,250'
   },
+  'name-color;var(--white-color)': {
+    '--name-color': 'var(--white-color)',
+    '--name-color-rgb': 'var(--white-color-rgb)'
+  },
 });

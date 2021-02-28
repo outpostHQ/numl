@@ -1,4 +1,4 @@
-import { computeStyles, splitStates } from '../../src/helpers';
+import { computeStyles } from '../../src/helpers';
 import { expect } from '../utils';
 
 function testGenerator(val) {
