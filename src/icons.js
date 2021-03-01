@@ -1,5 +1,8 @@
 import { ICONS_PROVIDER } from './settings';
-import { h, warn } from './dom-helpers';
+import { h } from './dom-helpers';
+import { warn } from './helpers';
+
+const handleJSON = response => response.ok ? response.json() : {};
 
 let ION_CACHE;
 
@@ -34,7 +37,7 @@ async function featherIconsLoader(name) {
 
   if (!FEATHER_CACHE) {
     FEATHER_CACHE = fetch(`https://unpkg.com/feather-icons@4/dist/icons.json`)
-      .then(response => response.ok ? response.json() : {});
+      .then(handleJSON);
   }
 
   return FEATHER_CACHE.then((cache) => {
@@ -46,14 +49,28 @@ async function featherIconsLoader(name) {
   });
 }
 
-function evaIconsLoader(name) {
-  return import('https://unpkg.com/eva-icons@1')
-    .then(() => {
-      const icon = window.eva.icons[name];
-      const { attrs } = icon;
+let EVA_CACHE;
 
-      return `<svg viewBox="${attrs.viewBox}" width="${attrs.width}" height="${attrs.height}" color="currentColor">${icon.contents}</svg>`;
-    });
+async function evaIconsLoader(name) {
+  if (!EVA_CACHE) {
+    EVA_CACHE = Promise.all([
+      fetch('https://unpkg.com/eva-icons@1.1.3/fill-icons.json')
+        .then(handleJSON),
+      fetch('https://unpkg.com/eva-icons@1.1.3/outline-icons.json')
+        .then(handleJSON),
+    ])
+      .then((maps) => {
+        return maps.reduce((obj, map) => Object.assign(obj, map), {});
+      });
+  }
+
+  return EVA_CACHE.then((cache) => {
+    const contents = cache[name];
+
+    if (!contents) return '';
+
+    return `<svg viewBox="0 0 24 24" width="24" height="24" color="currentColor">${contents}</svg>`;
+  });
 }
 
 let loader = (name) => {
