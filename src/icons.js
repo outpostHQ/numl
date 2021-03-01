@@ -69,7 +69,7 @@ async function evaIconsLoader(name) {
 
     if (!contents) return '';
 
-    return `<svg viewBox="0 0 24 24" width="24" height="24" color="currentColor">${contents}</svg>`;
+    return `<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">${contents}</svg>`;
   });
 }
 
