@@ -1766,7 +1766,7 @@ var b = /wow?/;
           <nu-field>
             <nu-label for="name">User name</nu-label>
             <nu-inputgroup>
-              <nu-icon name="person-outline"></nu-icon>
+              <nu-icon name="person-outline" padding="0 1x"></nu-icon>
               <nu-input id="name" grow="1"></nu-input>
             </nu-inputgroup>
             <nu-check for="name" assert="required">
