@@ -64,10 +64,6 @@ export default class ActiveBehavior extends Behavior {
 
     this.on(['mouseleave', 'mouseup', 'touchend'], (evt) => {
       setActive(false);
-
-      if (host.nuDisabled) return;
-
-      evt.stopPropagation();
     });
   }
 
