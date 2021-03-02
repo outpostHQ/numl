@@ -26,7 +26,7 @@ function ionIconsLoader(name) {
 
     const contents = svg.innerHTML.split('</title>')[1];
 
-    return `<svg viewBox="0 0 512 512"${!name.includes('outline') ? ' fill="currentColor"' : ' stroke="currentColor" style="stroke-width: calc(var(--icon-stroke-width) * 512 / 24);" fill="none"'}>${contents}</svg>`;
+    return `<svg viewBox="0 0 512 512" style="stroke: currentColor; fill: currentColor;">${contents}</svg>`;
   });
 }
 

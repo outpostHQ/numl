@@ -511,6 +511,14 @@ const globalRules = [`
 
 `[nu-hidden] {
   display: none !important;
+}
+
+.ionicon-fill-none {
+  fill: none;
+}
+
+.ionicon-stroke-width {
+  stroke-width: calc(var(--icon-stroke-width) * 512 / 16);
 }`,
 
 ...(SCROLLBAR ? generateCSS('body', scrollbarAttr('yes'), false) : [])];
