@@ -1766,7 +1766,7 @@ var b = /wow?/;
           <nu-field>
             <nu-label for="name">User name</nu-label>
             <nu-inputgroup>
-              <nu-icon name="user"></nu-icon>
+              <nu-icon name="person-outline"></nu-icon>
               <nu-input id="name" grow="1"></nu-input>
             </nu-inputgroup>
             <nu-check for="name" assert="required">
@@ -1784,7 +1784,7 @@ var b = /wow?/;
             <nu-label>Period</nu-label>
             <nu-inputgroup>
               <nu-icon name="hash"></nu-icon>
-              <nu-numinput id="period" unit="day" grow="1"></nu-numinput>
+              <nu-numinput id="period" unit="day" grow="1" max="100"></nu-numinput>
             </nu-inputgroup>
           </nu-field>
 
