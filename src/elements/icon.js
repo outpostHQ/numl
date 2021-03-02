@@ -57,14 +57,6 @@ export default class NuIcon extends NuEl {
         transform: translate(-50%, -50%);
         transition: opacity calc(var(--transition-enabler) * var(--opacity-transition, var(--transition))) linear;
       }`,
-
-      `${tag}[is-provider="eva"] svg, ${tag}[is-provider="ion"] svg {
-        fill: currentColor;
-      }`,
-
-      `${tag}[is-provider="feather"] svg {
-        stroke-width: var(--icon-stroke-width, calc(1rem / 8));
-      }`
     ];
   }
 }

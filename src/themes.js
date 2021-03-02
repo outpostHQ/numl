@@ -586,10 +586,10 @@ export function generateSchemeCSS(query, [lightNormalProps, lightContrastProps, 
   const cssRules = [];
 
   cssRules.push(
-    `html[data-nu-scheme-is="light"][data-nu-contrast-is="low"] ${query} {${lightNormalProps}}`,
-    `html[data-nu-scheme-is="dark"][data-nu-contrast-is="low"] ${query} {${darkNormalProps}}`,
-    `html[data-nu-scheme-is="light"][data-nu-contrast-is="high"] ${query} {${lightContrastProps}}`,
-    `html[data-nu-scheme-is="dark"][data-nu-contrast-is="high"] ${query} {${darkContrastProps}}`,
+    `html[data-nu-scheme-is="light"][data-nu-contrast-is="no-preference"] ${query} {${lightNormalProps}}`,
+    `html[data-nu-scheme-is="dark"][data-nu-contrast-is="no-preference"] ${query} {${darkNormalProps}}`,
+    `html[data-nu-scheme-is="light"][data-nu-contrast-is="more"] ${query} {${lightContrastProps}}`,
+    `html[data-nu-scheme-is="dark"][data-nu-contrast-is="more"] ${query} {${darkContrastProps}}`,
   );
 
   return cssRules;

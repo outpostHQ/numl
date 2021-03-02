@@ -1,5 +1,47 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('props')}
+  <nu-heading level="2">Properties</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-props my-color="@white-color"></nu-props>
+    <nu-block fill="#dark" color="#my">
+      Text
+    </nu-block>
+  </nu-card>
+{/if}
+
+{#if show('nested')}
+  <nu-heading level="2">Nested actions</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-btn on:tap={() => console.log('tap out')}>
+      Parent button
+      <nu-btn on:tap={() => console.log('tap in')}>
+        <nu-icon name="close"></nu-icon>
+      </nu-btn>
+    </nu-btn>
+
+    <nu-btn on:tap={() => console.log('tap out')}>
+      Parent button
+      <nu-btn disabled on:tap={() => console.log('tap in')}>
+        <nu-icon name="close"></nu-icon>
+      </nu-btn>
+    </nu-btn>
+  </nu-card>
+{/if}
+
+{#if show('tooltip')}
+  <nu-heading level="2">Tooltip</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-btn>
+      <nu-tooltip>Some tooltip</nu-tooltip>
+      Hover me!
+    </nu-btn>
+  </nu-card>
+{/if}
+
 {#if show('boolean')}
   <nu-heading level="2">Boolean state</nu-heading>
 
@@ -986,10 +1028,36 @@
 
     Uses IonIcons library.
 
+    <nu-block size="md">
+      <nu-icon name="accessibility-outline :hover[accessibility]" use-hover></nu-icon>
+      <nu-icon name="aperture-outline :hover[aperture]" use-hover></nu-icon>
+      <nu-icon name="basketball-outline :hover[basketball]" use-hover></nu-icon>
+      <nu-icon name="calendar-outline :hover[calendar]" use-hover></nu-icon>
+      Text to align
+    </nu-block>
+
     <nu-block size="xl">
       <nu-icon name="accessibility-outline :hover[accessibility]" use-hover></nu-icon>
       <nu-icon name="aperture-outline :hover[aperture]" use-hover></nu-icon>
       <nu-icon name="basketball-outline :hover[basketball]" use-hover></nu-icon>
+      <nu-icon name="calendar-outline :hover[calendar]" use-hover></nu-icon>
+      Text to align
+    </nu-block>
+
+    <nu-heading level="5">Eva</nu-heading>
+
+    <nu-block size="md">
+      <nu-icon name="archive-outline :hover[archive]" use-hover></nu-icon>
+      <nu-icon name="checkmark-square-2-outline :hover[checkmark-square-2]" use-hover></nu-icon>
+      <nu-icon name="email-outline :hover[email]" use-hover></nu-icon>
+      <nu-icon name="calendar-outline :hover[calendar]" use-hover></nu-icon>
+      Text to align
+    </nu-block>
+
+    <nu-block size="xl">
+      <nu-icon name="archive-outline :hover[archive]" use-hover></nu-icon>
+      <nu-icon name="checkmark-square-2-outline :hover[checkmark-square-2]" use-hover></nu-icon>
+      <nu-icon name="email-outline :hover[email]" use-hover></nu-icon>
       <nu-icon name="calendar-outline :hover[calendar]" use-hover></nu-icon>
       Text to align
     </nu-block>
@@ -1009,30 +1077,30 @@
     <nu-heading level="5">Change default size (Context definition)</nu-heading>
     <nu-block>
       <nu-el>
-        <nu-icon name="hash"></nu-icon>
+        <nu-icon name="today-outline"></nu-icon>
       </nu-el>
 
       <nu-el>
         <nu-props icon-size="1em"></nu-props>
-        <nu-icon name="hash"></nu-icon>
+        <nu-icon name="today-outline"></nu-icon>
       </nu-el>
 
       <nu-el>
         <nu-props icon-size="2em"></nu-props>
-        <nu-icon name="hash"></nu-icon>
+        <nu-icon name="today-outline"></nu-icon>
       </nu-el>
     </nu-block>
 
     <nu-heading level="5">Change default stroke width</nu-heading>
     <nu-block>
       <nu-el>
-        <nu-props icon-stroke-width=".5x / 3"></nu-props>
-        <nu-icon name="hash"></nu-icon>
+        <nu-props icon-stroke-width="1em / 8"></nu-props>
+        <nu-icon name="today-outline"></nu-icon>
       </nu-el>
 
       <nu-el>
-        <nu-props icon-stroke-width=".5x"></nu-props>
-        <nu-icon name="hash"></nu-icon>
+        <nu-props icon-stroke-width="1em / 16"></nu-props>
+        <nu-icon name="today-outline"></nu-icon>
       </nu-el>
     </nu-block>
 
@@ -1698,7 +1766,7 @@ var b = /wow?/;
           <nu-field>
             <nu-label for="name">User name</nu-label>
             <nu-inputgroup>
-              <nu-icon name="user"></nu-icon>
+              <nu-icon name="person-outline" padding="0 1x"></nu-icon>
               <nu-input id="name" grow="1"></nu-input>
             </nu-inputgroup>
             <nu-check for="name" assert="required">
@@ -1716,7 +1784,7 @@ var b = /wow?/;
             <nu-label>Period</nu-label>
             <nu-inputgroup>
               <nu-icon name="hash"></nu-icon>
-              <nu-numinput id="period" unit="day" grow="1"></nu-numinput>
+              <nu-numinput id="period" unit="day" grow="1" max="100"></nu-numinput>
             </nu-inputgroup>
           </nu-field>
 

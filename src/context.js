@@ -4,10 +4,10 @@ export const ROOT = document.querySelector(':root');
 
 const DARK = 'dark';
 const LIGHT = 'light';
-const HIGH = 'high';
-const LOW = 'low';
+const MORE = 'more';
+const NORMAL = 'no-preference';
 const SCHEMES = [DARK, LIGHT];
-const CONTRASTS = [HIGH, LOW];
+const CONTRASTS = [MORE, NORMAL];
 
 function observeContext(data) {
   if (data.find(record => !record.attributeName.endsWith('-is'))) {
@@ -32,10 +32,10 @@ function setLocale() {
 }
 
 const schemeMedia = matchMedia('(prefers-color-scheme: dark)');
-const contrastMedia = matchMedia('(prefers-contrast: high)');
+const contrastMedia = matchMedia('(prefers-contrast: more)');
 
 let globalScheme = schemeMedia.matches ? DARK : LIGHT;
-let globalContrast = contrastMedia.matches ? HIGH : LOW;
+let globalContrast = contrastMedia.matches ? MORE : NORMAL;
 
 schemeMedia.addListener((_media) => {
   globalScheme = _media.matches ? DARK : LIGHT;
@@ -44,7 +44,7 @@ schemeMedia.addListener((_media) => {
 });
 
 contrastMedia.addListener((_media) => {
-  globalContrast = _media.matches ? HIGH : LOW;
+  globalContrast = _media.matches ? MORE : NORMAL;
 
   setContrast();
 });

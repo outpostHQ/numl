@@ -9,12 +9,12 @@ export default class InputGroupBehavior extends Behavior {
       this.setMod('focus', false);
     });
     this.on('click', () => {
-      const input = this.host.querySelector('input, [tabindex]:not([tabindex="-1"])');
+      const input = this.host.querySelector('input');
 
       if (input) {
         input.focus();
       }
-    });
+    }, { passive: true });
   }
 
   connected() {

@@ -9,18 +9,20 @@ import {
 import { insertRuleSet } from '../css';
 
 export function handleProp(varName, varValue) {
-  const isColor = varName.endsWith('-color');
   const zones = parseAttrStates(varValue);
+  const isColor = varName.endsWith('-color');
 
   zones.map(zone => {
     const states = zone.states;
 
     Object.keys(states)
       .forEach(stateName => {
+        const val = states[stateName];
+
         states[stateName] = `${varName};${(
           isColor
-            ? parseColor(states[stateName]).color
-            : parseAttr(states[stateName]).value
+            ? parseColor(val).color
+            : parseAttr(val).value
         ) || ''}`;
       });
   });

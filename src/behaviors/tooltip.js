@@ -70,12 +70,12 @@ export default class TooltipBehavior extends Behavior {
       hideTooltip();
     };
 
-    parent.addEventListener('mouseenter', onMouseEnter);
-    parent.addEventListener('mouseleave', onMouseLeave);
+    parent.addEventListener('hoverstart', onMouseEnter);
+    parent.addEventListener('hoverend', onMouseLeave);
 
     this.removeListeners = () => {
-      parent.removeEventListener('mouseenter', onMouseEnter);
-      parent.removeEventListener('mouseleave', onMouseLeave);
+      parent.removeEventListener('hoverstart', onMouseEnter);
+      parent.removeEventListener('hoverend', onMouseLeave);
     };
 
     host.nuSetContextHook('focus', (val) => {

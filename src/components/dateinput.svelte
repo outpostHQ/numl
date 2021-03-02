@@ -1,7 +1,7 @@
-<nu-flex gap>
+<nu-pane gap>
   <nu-value grow="1" placeholder={placeholder}></nu-value>
   <nu-icon name="calendar-outline" move="0 (1x / -4)"></nu-icon>
-</nu-flex>
+</nu-pane>
 <nu-popup width="18 min-content" padding>
   <nu-datepicker
     value={value}

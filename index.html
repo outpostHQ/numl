@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-nu-icons="eva">
+<html lang="en" data-nu-icons="ion">
 <head>
   <link rel="icon" media="(prefers-color-scheme:light)" type="image/png" sizes="32x32"
         href="/images/nude-logo-32.png">
@@ -2969,18 +2969,22 @@
     z="front" fill="clear">
     <nu-block radius padding backdrop-filter="blur(2)" fill="bg 70%">
       <nu-theme hue="248"></nu-theme>
+      <nu-attrs for="btn" padding="1x"></nu-attrs>
       <nu-flex gap="1x" items="stretch" flow="column">
         <nu-block>Prefers color scheme:</nu-block>
-        <nu-btngroup use-radiogroup id="prefers-color-scheme" value="auto">
+        <nu-btngroup use-radiogroup id="prefers-color-scheme" value="auto" display="grid" columns="1fr 1fr 1fr">
           <nu-btn value="auto">Auto</nu-btn>
           <nu-btn value="dark">Dark</nu-btn>
           <nu-btn value="light">Light</nu-btn>
         </nu-btngroup>
         <nu-block>Prefers contrast:</nu-block>
-        <nu-btngroup use-radiogroup id="prefers-contrast" value="auto" group-radius>
+        <nu-btngroup
+          use-radiogroup id="prefers-contrast" value="auto" group-radius
+          display="grid" columns="1fr 1fr 1fr"
+        >
           <nu-btn value="auto">Auto</nu-btn>
-          <nu-btn value="high">High</nu-btn>
-          <nu-btn value="low">Low</nu-btn>
+          <nu-btn value="more">More</nu-btn>
+          <nu-btn value="no-preference">Normal</nu-btn>
         </nu-btngroup>
       </nu-flex>
     </nu-block>

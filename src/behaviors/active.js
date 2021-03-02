@@ -9,58 +9,62 @@ export default class ActiveBehavior extends Behavior {
   constructor(host) {
     super(host);
 
+    const root = document.documentElement;
+
+    const setActive = (bool) => {
+      this.setMod('active', bool);
+
+      if ('webkitUserSelect' in root.style) {
+        root.style.webkitUserSelect = bool ? 'none' : '';
+      } else {
+        root.style.userSelect = bool ? 'none' : '';
+      }
+    }
+
     this.on('click', evt => {
-      this.setMod('active', false);
+      setActive(false);
 
-      if (host.nuDisabled || evt.nuHandled) return;
+      if (host.nuDisabled) return;
 
-      evt.nuHandled = true;
+      evt.stopPropagation();
 
       this.tap(evt);
     });
 
     this.on('keydown', evt => {
-      if (host.nuDisabled || evt.nuHandled) return;
+      if (host.nuDisabled) return;
 
-      evt.nuHandled = true;
-
-      if (evt.key === 'Enter') {
-        this.tap(evt);
-      } else if (evt.key === ' ') {
+      if (evt.key === 'Enter' || evt.key === ' ') {
+        evt.stopPropagation();
         evt.preventDefault();
 
-        if (!host.nuDisabled) {
-          this.setMod('active', true);
-        }
+        setActive(true);
       }
     });
-
     this.on('keyup', evt => {
-      this.setMod('active', false);
+      if (host.nuDisabled) return;
 
-      if (host.nuDisabled || evt.nuHandled) return;
-
-      evt.nuHandled = true;
-
-      if (evt.key === ' ') {
+      if (evt.key === 'Enter' || evt.key === ' ') {
+        evt.stopPropagation();
         evt.preventDefault();
         this.tap(evt);
+        setActive(false);
       }
     });
 
-    this.on('blur', () => this.setMod('active', false));
+    this.on('blur', () => setActive(false));
 
-    this.on(['mousedown', 'touchstart'], () => {
-      // checking for focusable also && host.nuHasMod('focusable')
-      // doesn't for nu-option
+    this.on(['mousedown', 'touchstart'], (evt) => {
       if (!host.nuDisabled) {
-        this.setMod('active', true);
-      }
-    }, { passive: true });
+        evt.stopPropagation();
 
-    this.on(['mouseleave', 'mouseup', 'touchend'], () => {
-      this.setMod('active', false);
-    }, { passive: true });
+        setActive(true);
+      }
+    });
+
+    this.on(['mouseleave', 'mouseup', 'touchend'], (evt) => {
+      setActive(false);
+    });
   }
 
   tap(evt) {

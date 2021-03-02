@@ -17,6 +17,8 @@ describe('nu-action', () => {
       <nu-action to="#">Link action</nu-action>
     `);
 
+    pause();
+
     expect(el).to.have.attr('role', 'link');
   });
 
