@@ -42,29 +42,33 @@ export default class NumInputBehavior extends InputBehavior {
   }
 
   setValue(value, silent) {
+    const originValue = value;
+
     if (value != null) {
       value = getFloatFromAttr(value);
     }
 
     if (value != null) {
-      if (this.value > this.max) {
+      if (value > this.max) {
         value = this.max;
-      } else if (this.value < this.min) {
+      } else if (value < this.min) {
         value = this.min;
+      }
+    }
+
+    if (this.ref) {
+      if (originValue == null || originValue === '') {
+        if (this.ref.value) {
+          this.ref.value = '';
+        }
+      } else {
+        this.ref.value = value;
       }
     }
 
     if (isEqual(this.value, value)) return;
 
     this.value = value;
-
-    if (this.ref) {
-      if (value == null) {
-        this.ref.value = '';
-      } else {
-        this.ref.value = value;
-      }
-    }
 
     if (!silent) {
       this.emit('input', this.value);
