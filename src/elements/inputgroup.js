@@ -23,7 +23,6 @@ export default class NuInputGroup extends NuGroup {
   static get nuContext() {
     return {
       'attrs:icon': {
-        padding: '1x left right',
         grow: '0',
       },
       'attrs:input': {
@@ -32,6 +31,7 @@ export default class NuInputGroup extends NuGroup {
       },
       'attrs:btn': {
         padding: '',
+        border: 'n',
       },
     };
   }
