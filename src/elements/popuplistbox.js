@@ -24,7 +24,7 @@ export default class NuPopupListBox extends NuPopup {
     return {
       padding: '.5x',
       outline: 'n',
-      height: 'max 16',
+      height: 'max 17',
       scrollbar: '',
       overflow: 'auto',
       place: 'outside-bottom left .5x 0',
