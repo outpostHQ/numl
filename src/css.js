@@ -511,13 +511,13 @@ const globalRules = [`
 
 `[nu-hidden] {
   display: none !important;
-}
+}`,
 
-.ionicon-fill-none {
+`.ionicon-fill-none {
   fill: none;
-}
+}`,
 
-.ionicon-stroke-width {
+`.ionicon-stroke-width {
   stroke-width: calc(var(--icon-stroke-width) * 512 / 16);
 }`,
 
