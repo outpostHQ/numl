@@ -8,7 +8,7 @@ let ION_CACHE;
 
 function ionIconsLoader(name) {
   if (!ION_CACHE) {
-    ION_CACHE = fetch(`https://unpkg.com/ionicons@5/dist/ionicons.symbols.svg`)
+    ION_CACHE = fetch(`https://cdn.jsdelivr.net/npm/ionicons@5/dist/ionicons.symbols.svg`)
       .then(response => response.ok ? response.text() : '')
       .then(str => {
         const el = h('div');
@@ -36,7 +36,7 @@ async function featherIconsLoader(name) {
   name = name.replace('-outline', '');
 
   if (!FEATHER_CACHE) {
-    FEATHER_CACHE = fetch(`https://unpkg.com/feather-icons@4/dist/icons.json`)
+    FEATHER_CACHE = fetch(`https://cdn.jsdelivr.net/npm/feather-icons@4/dist/icons.json`)
       .then(handleJSON);
   }
 
@@ -45,7 +45,7 @@ async function featherIconsLoader(name) {
 
     const contents = cache[name];
 
-    return `<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" style="stroke-width: var(--icon-stroke-width);" stroke-linecap="round" stroke-linejoin="round">${contents}</svg>`;
+    return `<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" style="stroke-width: var(--icon-stroke-width, 2px);" stroke-linecap="round" stroke-linejoin="round">${contents}</svg>`;
   });
 }
 
@@ -54,9 +54,9 @@ let EVA_CACHE;
 async function evaIconsLoader(name) {
   if (!EVA_CACHE) {
     EVA_CACHE = Promise.all([
-      fetch('https://unpkg.com/eva-icons@1.1.3/fill-icons.json')
+      fetch('https://cdn.jsdelivr.net/npm/eva-icons@1/fill-icons.json')
         .then(handleJSON),
-      fetch('https://unpkg.com/eva-icons@1.1.3/outline-icons.json')
+      fetch('https://cdn.jsdelivr.net/npm/eva-icons@1/outline-icons.json')
         .then(handleJSON),
     ])
       .then((maps) => {
