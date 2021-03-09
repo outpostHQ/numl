@@ -443,8 +443,6 @@ const globalRules = [`
   --lg: 1.5rem;
   --xl: 2rem;
   --xxl: 3rem;
-
-  --icon-stroke-width: calc(1em / 14);
 }`,
 
 `:root:not([data-nu-prevent-reset]) body {
@@ -518,7 +516,8 @@ const globalRules = [`
 }`,
 
 `.ionicon-stroke-width {
-  stroke-width: calc(var(--icon-stroke-width) * 512 / 16);
+  --local-stroke-width: var(--icon-stroke-width, 2px);
+  stroke-width: calc(var(--local-stroke-width) * 16);
 }`,
 
 ...(SCROLLBAR ? generateCSS('body', scrollbarAttr('yes'), false) : [])];
