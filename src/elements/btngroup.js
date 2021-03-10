@@ -11,7 +11,7 @@ export default class NuBtnGroup extends NuGroup {
       radius: '',
       border: '',
       fill: 'var(--local-border-color, var(--border-color)) :disabled[rgba(var(--local-border-color-rgb, var(--border-color-rgb)), var(--disabled-opacity))]',
-      outline: 'focus-inside visible',
+      outline: 'n :radiogroup[focus-inside visible]',
     };
   }
 
@@ -19,7 +19,7 @@ export default class NuBtnGroup extends NuGroup {
     return {
       'attrs:action': {
         border: '0',
-        outline: 'n',
+        outline: '^btngroup focus visible :radiogroup[n]',
         padding: '1x',
       },
     };

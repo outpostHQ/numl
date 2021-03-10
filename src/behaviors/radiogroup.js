@@ -38,6 +38,7 @@ export default class RadioGroupBehavior extends WidgetBehavior {
     }
 
     this.setContext('radiogroup', this);
+    this.setMod('radiogroup', true);
 
     this.on('keydown', this.onKeyDown.bind(this));
   }

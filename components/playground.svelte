@@ -206,21 +206,11 @@
 
   <nu-card as="section">
     <nu-props transition=".2s"></nu-props>
-    <nu-attrs
-      for="btn"
-      shadow="0 0 0 1bw #border :pressed[0 0 0 1bw #special-bg]"
-      fill="#bg :pressed[#special-bg]"
-      z=":pressed[above]"
-      border="n"
-      color="#special :pressed[special-text]"
-      inset="n :active[.75em] :pressed[n]"></nu-attrs>
-    <nu-radiogroup
-      value="0" display="inline-flex"
-      group-radius="1r" border="#clear" gap="1bw" radius>
+    <nu-btngroup>
       <nu-btn>A</nu-btn>
       <nu-btn>B</nu-btn>
       <nu-btn>C</nu-btn>
-    </nu-radiogroup>
+    </nu-btngroup>
   </nu-card>
 {/if}
 
