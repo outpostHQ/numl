@@ -18,7 +18,8 @@ export default class NuBtn extends NuAction {
       mark: 'n :focusable[hover]',
       text: 'sb nowrap',
       inset: '#clear :active[#shadow.50] :active:special[#special-shadow.50] :pressed[y] :pressed:special[#special-shadow] :active:pressed[#shadow.50] :active:special[#special-shadow.50] :active:pressed:special[#special-shadow.50]',
-      fill: 'bg :special[special-bg] :clear[clear]',
+      fill: 'bg :disabled[#bg] :special.disabled[#special-bg] :clear[clear] :clear:disabled[#bg]',
+      filter: 'n :disabled[saturate(.5) contrast(0.9)]',
       color: 'text :clear[special] :special[special-text] :special:clear[special-text]',
     };
   }

@@ -1,8 +1,10 @@
-import { convertUnit, extractStyleFuncs } from '../helpers';
+import { convertUnit, extractStyleFuncs, isNoValue } from '../helpers';
 
 const CONVERT_FILTERS = ['drop-shadow', 'blur'];
 
 export default function filterAttr(val) {
+  if (isNoValue(val)) return;
+
   const parts = extractStyleFuncs(val);
   const filters = [];
 
