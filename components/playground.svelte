@@ -1,5 +1,36 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('validation')}
+  <nu-heading level="2">Properties</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-form>
+      <nu-field>
+        <nu-btn id="digit" width="10" columns="1fr auto">
+          <nu-value list placeholder="placeholder"></nu-value>
+          <nu-dropdownicon></nu-dropdownicon>
+          <nu-popuplistbox>
+            <nu-option value="one">One</nu-option>
+            <nu-option value="two">Two</nu-option>
+            <nu-option value="three">Three</nu-option>
+            <nu-option value="four">Four</nu-option>
+            <nu-option value="five">Five</nu-option>
+            <nu-option value="six">Six</nu-option>
+            <nu-option value="seven">Seven</nu-option>
+          </nu-popuplistbox>
+        </nu-btn>
+
+        <nu-check for="digit" assert={sixValidator}>
+          Value should be SIX
+        </nu-check>
+      </nu-field>
+
+      <nu-btn action="submit">Submit</nu-btn>
+
+    </nu-form>
+  </nu-card>
+{/if}
+
 {#if show('props')}
   <nu-heading level="2">Properties</nu-heading>
 
@@ -2041,4 +2072,7 @@ window.addEventListener('hashchange', () => {
 $: show = (name) => {
   return hash ? hash.includes(name) : true;
 }
+
+let sixValidator = v => v === 'six';
+
 </script>

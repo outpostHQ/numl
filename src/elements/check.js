@@ -18,9 +18,9 @@ export default class NuCheck extends NuEl {
       interactive: ':invalid[yes] no',
       size: 'sm',
       text: 'b',
-      // height: ':invalid[max(1lh)] max(1px)',
       transition: 'opacity, height',
-    }
+      color: '#danger',
+    };
   }
 
   nuInit() {

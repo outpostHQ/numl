@@ -53,7 +53,6 @@ export default class NuSlider extends NuEl {
       display: 'block',
       radius: 'round',
       fill: 'special',
-      opacity: '1 :disabled[--disabled-opacity]',
       border: '1bw',
       text: 'v-middle',
       cursor: 'pointer :disabled[default]',
@@ -63,7 +62,7 @@ export default class NuSlider extends NuEl {
       orient: 'h',
       outline: 'n',
       box: 'y',
-      filter: 'n :disabled[saturate(.5) contrast(0.9)]',
+      filter: 'n :disabled[saturate(0.25) contrast(0.88) opacity(var(--disabled-opacity))]',
     };
   }
 
