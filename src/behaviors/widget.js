@@ -496,6 +496,10 @@ export default class WidgetBehavior extends Behavior {
     if (!silent) {
       this.emit('input', value);
       this.doActions(value);
+
+      if (this.host.id) {
+        this.emit('nu-change', this.host.nuId, { bubbles: true });
+      }
     }
 
     if (!silent || this.trigger) {
