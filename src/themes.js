@@ -887,9 +887,12 @@ export const COLOR_THEMES = [
   ['blue', 262],
   ['cyan', 192],
   ['green', 134],
+  ['success', 134],
   ['yellow', 75, 100],
   ['orange', 45],
+  ['warning', 45],
   ['red', 12, 75],
+  ['danger', 12, 75],
   ['purple', 312],
   ['violet', 282],
 ].reduce((map, [name, hue, saturation]) => {
