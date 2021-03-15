@@ -280,19 +280,19 @@
         </nu-flex>
       </nu-radiogroup>
 
-      <nu-radiogroup flow="column" gap value="second">
+      <nu-radiogroup flow="column" gap value="second" disabled>
         <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="first" disabled></nu-radio>
+          <nu-radio labelledby=":next" value="first"></nu-radio>
           <nu-label>First value</nu-label>
         </nu-flex>
 
         <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="second" disabled></nu-radio>
+          <nu-radio labelledby=":next" value="second"></nu-radio>
           <nu-label>Second value</nu-label>
         </nu-flex>
 
         <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="third" disabled></nu-radio>
+          <nu-radio labelledby=":next" value="third"></nu-radio>
           <nu-label>Third value</nu-label>
         </nu-flex>
       </nu-radiogroup>
@@ -1841,6 +1841,7 @@ var b = /wow?/;
     <nu-heading level="2">Slider</nu-heading>
     <nu-slider value="50" use-debug="slider-debug-h"></nu-slider>
     <nu-slider value="50" orient="v" use-debug="slider-debug-v"></nu-slider>
+    <nu-slider value="50" disabled></nu-slider>
 
     <nu-grid gap columns="1fr 1fr">
       <nu-debug id="slider-debug-h"></nu-debug>

@@ -20,7 +20,7 @@ export default class NuListBox extends NuCard {
     return {
       padding: '.5x',
       outline: 'n',
-      gap: '0 :multiple[1bw]',
+      gap: '1bw',
       border: 'y :focus[y #special]',
     };
   }

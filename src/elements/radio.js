@@ -16,7 +16,7 @@ export default class NuRadio extends NuAction {
   static get nuTemplate() {
     return `
       <nu-circle
-        fill="^host clear :pressed[special] :disabled:pressed[text 50%]"
+        fill="^host clear :pressed[special]"
         transition="fill"
         border="0"></nu-circle>
     `;
@@ -27,7 +27,7 @@ export default class NuRadio extends NuAction {
       display: 'inline-block',
       width: '1em',
       height: '1em',
-      border: '1bw #text :disabled[1bw #text.50]',
+      border: '1bw #text',
       radius: 'round',
       content: 'stretch',
       items: 'center',

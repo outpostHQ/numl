@@ -35,7 +35,7 @@ export default class NuCheckbox extends NuAction {
       items: 'center',
       padding: '0',
       sizing: 'content',
-      color: 'special :disabled[text 66%]',
+      color: '#special',
       fill: 'bg',
       cursor: 'default',
       text: 'v-middle',

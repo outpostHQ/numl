@@ -21,7 +21,7 @@ export default class NuOption extends NuEl {
     return {
       display: 'grid',
       padding: '1x 1.5x',
-      fill: 'transparent :selected[special-bg]',
+      fill: 'transparent :selected.disabled[#special-bg] :disabled[#local-bg]',
       outline: 'n :current[y focus-outside visible]',
       width: '100%',
       flow: 'column',
@@ -34,6 +34,7 @@ export default class NuOption extends NuEl {
       transition: 'theme',
       mark: 'hover',
       opacity: '1 :disabled[--disabled-opacity]',
+      filter: 'n :disabled[saturate(.5) contrast(0.9)]',
       cursor: 'pointer :disabled[default]',
       inset: '.75em #shadow.0 :active[.75em #shadow.50] :selected[.75em #shadow.0] :active:selected[.75em #special-shadow.50]',
       text: 'sb nowrap',

@@ -5,5 +5,6 @@ export default function opacityAttr(val) {
 
   return {
     opacity: values[0] || '1',
+    '--opacity': values[0] || '1',
   };
 }

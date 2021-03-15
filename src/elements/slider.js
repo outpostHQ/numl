@@ -52,7 +52,7 @@ export default class NuSlider extends NuEl {
     return {
       display: 'block',
       radius: 'round',
-      fill: 'special :disabled[text 50%]',
+      fill: 'special',
       opacity: '1 :disabled[--disabled-opacity]',
       border: '1bw',
       text: 'v-middle',
@@ -63,6 +63,7 @@ export default class NuSlider extends NuEl {
       orient: 'h',
       outline: 'n',
       box: 'y',
+      filter: 'n :disabled[saturate(.5) contrast(0.9)]',
     };
   }
 

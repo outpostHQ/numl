@@ -24,6 +24,7 @@ export default class NuAction extends NuEl {
       cursor: 'pointer :disabled[default]',
       selectable: 'y',
       box: 'y',
+      filter: 'n :disabled[saturate(.5) contrast(0.9)]',
     };
   }
 
