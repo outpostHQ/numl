@@ -16,7 +16,7 @@
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@rollup/plugin-replace": "^2.3.4",
     "@size-limit/preset-big-lib": "^4.9.1",
-    "@web/test-runner": "^0.12.2",
+    "@web/test-runner": "^0.12.17",
     "date-fns": "^2.16.1",
     "email-validator": "^2.0.4",
     "inline-assets": "^1.4.8",
