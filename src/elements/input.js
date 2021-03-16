@@ -117,6 +117,7 @@ export default class NuInput extends NuEl {
       `${sel('', '::placeholder')} {
         -webkit-text-fill-color: var(--local-placeholder-color);
         color: var(--local-placeholder-color);
+        filter: saturate(.33);
       }`,
 
       `${sel('[special]:not([disabled])', '::placeholder')} {
@@ -125,14 +126,6 @@ export default class NuInput extends NuEl {
 
       `${sel(':not([special]):not([disabled])', '::placeholder')} {
         --local-placeholder-color: var(--placeholder-color, rgba(var(--text-color-rgb), .5));
-      }`,
-
-      `${sel('[special][disabled]', '::placeholder')} {
-        --local-placeholder-color: var(--placeholder-color, rgba(var(--special-text-color-rgb), .66));
-      }`,
-
-      `${sel(':not([special])[disabled]', '::placeholder')} {
-        --local-placeholder-color: var(--placeholder-color, rgba(var(--text-color-rgb), .66));
       }`,
     ];
   }
