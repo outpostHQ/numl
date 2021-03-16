@@ -28,7 +28,7 @@ export default class NuRadio extends NuAction {
       display: 'inline-block',
       width: '1em - 2bw',
       height: '1em - 2bw',
-      border: '#text :pressed[#special-bg]',
+      border: '#text :disabled.pressed[#text.50] :pressed[#special-bg]',
       radius: 'round',
       content: 'stretch',
       items: 'center',
