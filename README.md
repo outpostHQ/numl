@@ -46,13 +46,13 @@ Add the following code to your page.
 via [JsDelivr](http://www.jsdelivr.com/):
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.0-beta.21/dist/index.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.0-beta.23/dist/index.js"></script>
 ```
 
 via [Skypack](https://www.skypack.dev/):
 
 ```html
-<script type="module" src="https://cdn.skypack.dev/numl@1.0.0-beta.21"></script>
+<script type="module" src="https://cdn.skypack.dev/numl@1.0.0-beta.23"></script>
 ```
 
 That's it! Now you can use all Numl elements and features!

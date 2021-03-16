@@ -1,5 +1,36 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('validation')}
+  <nu-heading level="2">Properties</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-form>
+      <nu-field>
+        <nu-btn id="digit" width="10" columns="1fr auto">
+          <nu-value list placeholder="placeholder"></nu-value>
+          <nu-dropdownicon></nu-dropdownicon>
+          <nu-popuplistbox>
+            <nu-option value="one">One</nu-option>
+            <nu-option value="two">Two</nu-option>
+            <nu-option value="three">Three</nu-option>
+            <nu-option value="four">Four</nu-option>
+            <nu-option value="five">Five</nu-option>
+            <nu-option value="six">Six</nu-option>
+            <nu-option value="seven">Seven</nu-option>
+          </nu-popuplistbox>
+        </nu-btn>
+
+        <nu-check for="digit" assert={sixValidator}>
+          Value should be SIX
+        </nu-check>
+      </nu-field>
+
+      <nu-btn action="submit">Submit</nu-btn>
+
+    </nu-form>
+  </nu-card>
+{/if}
+
 {#if show('props')}
   <nu-heading level="2">Properties</nu-heading>
 
@@ -206,21 +237,11 @@
 
   <nu-card as="section">
     <nu-props transition=".2s"></nu-props>
-    <nu-attrs
-      for="btn"
-      shadow="0 0 0 1bw #border :pressed[0 0 0 1bw #special-bg]"
-      fill="#bg :pressed[#special-bg]"
-      z=":pressed[above]"
-      border="n"
-      color="#special :pressed[special-text]"
-      inset="n :active[.75em] :pressed[n]"></nu-attrs>
-    <nu-radiogroup
-      value="0" display="inline-flex"
-      group-radius="1r" border="#clear" gap="1bw" radius>
+    <nu-btngroup>
       <nu-btn>A</nu-btn>
       <nu-btn>B</nu-btn>
       <nu-btn>C</nu-btn>
-    </nu-radiogroup>
+    </nu-btngroup>
   </nu-card>
 {/if}
 
@@ -290,19 +311,19 @@
         </nu-flex>
       </nu-radiogroup>
 
-      <nu-radiogroup flow="column" gap value="second">
+      <nu-radiogroup flow="column" gap value="second" disabled>
         <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="first" disabled></nu-radio>
+          <nu-radio labelledby=":next" value="first"></nu-radio>
           <nu-label>First value</nu-label>
         </nu-flex>
 
         <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="second" disabled></nu-radio>
+          <nu-radio labelledby=":next" value="second"></nu-radio>
           <nu-label>Second value</nu-label>
         </nu-flex>
 
         <nu-flex gap="1x" items="center">
-          <nu-radio labelledby=":next" value="third" disabled></nu-radio>
+          <nu-radio labelledby=":next" value="third"></nu-radio>
           <nu-label>Third value</nu-label>
         </nu-flex>
       </nu-radiogroup>
@@ -1851,6 +1872,7 @@ var b = /wow?/;
     <nu-heading level="2">Slider</nu-heading>
     <nu-slider value="50" use-debug="slider-debug-h"></nu-slider>
     <nu-slider value="50" orient="v" use-debug="slider-debug-v"></nu-slider>
+    <nu-slider value="50" disabled></nu-slider>
 
     <nu-grid gap columns="1fr 1fr">
       <nu-debug id="slider-debug-h"></nu-debug>
@@ -2050,4 +2072,7 @@ window.addEventListener('hashchange', () => {
 $: show = (name) => {
   return hash ? hash.includes(name) : true;
 }
+
+let sixValidator = v => v === 'six';
+
 </script>

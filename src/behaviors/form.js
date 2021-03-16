@@ -36,7 +36,7 @@ export default class FormBehavior extends WidgetBehavior {
     this.setContext('form', this);
     this.context.value = null;
 
-    this.on('nu-blur', (event) => {
+    this.on('nu-change', (event) => {
       const field = event.detail;
       if (this.fields[field]) {
         this.verifyData(field);

@@ -37,9 +37,7 @@ export default class NuSwitch extends NuAction {
       inset: `0 :active[.5em #shadow.50] :pressed[0] :pressed:active[.5em #special-shadow.50]`,
       transition: 'shadow',
       width: '(--size * 2)',
-      fill: `bg
-        :pressed[special-bg]
-        :pressed:disabled[text 50%]`,
+      fill: `bg :pressed[special-bg]`,
       text: 'middle',
       mark: ':focusable[hover]',
       padding: '--circle-gap',
@@ -49,10 +47,7 @@ export default class NuSwitch extends NuAction {
       '--circle-size': '--size',
       '--circle-offset': `0
         :pressed[--size - 1bw]`,
-      '--circle-bg-color': `--special-bg-color
-        :disabled[rgba(--text-color-rgb, .66)]
-        :pressed[--special-text-color]
-        :pressed:disabled[--special-text-color]`,
+      '--circle-bg-color': `--special-bg-color :pressed[--special-text-color]`,
       '--circle-shadow-color': '#shadow :pressed[#special-shadow.66]',
     };
   }

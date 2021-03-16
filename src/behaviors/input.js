@@ -77,7 +77,7 @@ export default class InputBehavior extends WidgetBehavior {
 
     ref.addEventListener('blur', () => {
       if (host.id) {
-        this.emit('nu-blur', host.nuId, { bubbles: true });
+        this.emit('nu-change', host.nuId, { bubbles: true });
       }
     });
 

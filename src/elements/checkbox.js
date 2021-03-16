@@ -19,8 +19,12 @@ export default class NuCheckbox extends NuAction {
         name="check checkmark"
         size="1em"
         height="1em"
-        opacity="--icon-opacity"
-        transition="opacity"></nu-icon>
+        width="1em"
+        color="^ #clear :pressed[#special-text]"
+        fill="^ #bg :pressed[#special-bg]"
+        transition="fill, color, opacity, inset"
+        transition="opacity"
+        inset="^ 0 :active[.5em] :pressed[0] :active:pressed[.5em]"></nu-icon>
     `;
   }
 
@@ -29,21 +33,18 @@ export default class NuCheckbox extends NuAction {
       display: 'inline-grid',
       width: '1em',
       height: '1em',
-      border: '1bw #text :disabled[1bw #text.50]',
+      border: '#text :disabled.pressed[#text.50] :pressed[#special-bg]',
       radius: '.25em',
       content: 'stretch',
       items: 'center',
       padding: '0',
+      overflow: 'n',
       sizing: 'content',
-      color: 'special :disabled[text 66%]',
-      fill: 'bg',
       cursor: 'default',
       text: 'v-middle',
-      inset: '0 :active[.5em] :pressed[0] :active:pressed[.5em]',
-      mark: ':focusable[.5em hover]',
+      mark: '.5em hover :disabled[n]',
       expand: '.5em',
-
-      '--icon-opacity': ':pressed[1] 0',
+      inset: 'n',
     };
   }
 }

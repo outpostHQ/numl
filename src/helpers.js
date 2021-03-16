@@ -275,7 +275,13 @@ export function queryById(element, id, includeNames) {
  * Tell if library run in dev mode.
  * @type {Boolean}
  */
-export const devMode = typeof process !== 'undefined' && process.env.NODE_ENV === 'development';
+export const devMode = (() => {
+  try {
+    return process.env.NODE_ENV === 'development';
+  } catch (e) {
+    return false;
+  }
+})();
 
 /**
  * Write log to console.

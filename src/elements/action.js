@@ -17,13 +17,13 @@ export default class NuAction extends NuEl {
     return {
       radius: '0',
       text: 'nowrap',
-      transition: 'theme, radius',
+      transition: 'theme, radius, filter',
       outline: 'focus visible',
       mark: 'n :focusable[hover]',
-      opacity: '1 :disabled[--disabled-opacity]',
       cursor: 'pointer :disabled[default]',
       selectable: 'y',
       box: 'y',
+      filter: 'n :disabled[saturate(0.33) contrast(0.88) opacity(var(--disabled-opacity))]',
     };
   }
 

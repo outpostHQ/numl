@@ -32,11 +32,10 @@ export default class NuInput extends NuEl {
       radius: '',
       padding: '1x',
       fill: 'input :special[special-bg]',
-      mark: 'n :disabled[#special-bg.10]',
       color: 'text :special[special-text]',
       border: '1bw',
       outline: 'focus-inside',
-      opacity: '1 :disabled[--disabled-opacity]',
+      filter: 'n :disabled[saturate(0.33) contrast(0.78) opacity(var(--disabled-opacity))]',
       transition: 'theme',
       selectable: 'n',
       box: 'y',
@@ -118,13 +117,14 @@ export default class NuInput extends NuEl {
       `${sel('', '::placeholder')} {
         -webkit-text-fill-color: var(--local-placeholder-color);
         color: var(--local-placeholder-color);
+        filter: saturate(.33);
       }`,
 
-      `${sel('[special]', '::placeholder')} {
+      `${sel('[special]:not([disabled])', '::placeholder')} {
         --local-placeholder-color: var(--placeholder-color, rgba(var(--special-text-color-rgb), .5));
       }`,
 
-      `${sel(':not([special])', '::placeholder')} {
+      `${sel(':not([special]):not([disabled])', '::placeholder')} {
         --local-placeholder-color: var(--placeholder-color, rgba(var(--text-color-rgb), .5));
       }`,
     ];
