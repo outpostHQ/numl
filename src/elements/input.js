@@ -35,7 +35,7 @@ export default class NuInput extends NuEl {
       color: 'text :special[special-text]',
       border: '1bw',
       outline: 'focus-inside',
-      filter: 'n :disabled[saturate(0.25) contrast(0.78) opacity(var(--disabled-opacity))]',
+      filter: 'n :disabled[saturate(0.33) contrast(0.78) opacity(var(--disabled-opacity))]',
       transition: 'theme',
       selectable: 'n',
       box: 'y',
@@ -119,12 +119,20 @@ export default class NuInput extends NuEl {
         color: var(--local-placeholder-color);
       }`,
 
-      `${sel('[special]', '::placeholder')} {
+      `${sel('[special]:not([disabled])', '::placeholder')} {
         --local-placeholder-color: var(--placeholder-color, rgba(var(--special-text-color-rgb), .5));
       }`,
 
-      `${sel(':not([special])', '::placeholder')} {
+      `${sel(':not([special]):not([disabled])', '::placeholder')} {
         --local-placeholder-color: var(--placeholder-color, rgba(var(--text-color-rgb), .5));
+      }`,
+
+      `${sel('[special][disabled]', '::placeholder')} {
+        --local-placeholder-color: var(--placeholder-color, rgba(var(--special-text-color-rgb), .66));
+      }`,
+
+      `${sel(':not([special])[disabled]', '::placeholder')} {
+        --local-placeholder-color: var(--placeholder-color, rgba(var(--text-color-rgb), .66));
       }`,
     ];
   }
