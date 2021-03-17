@@ -24,6 +24,8 @@ export default class NuCheckbox extends NuAction {
         fill="^ #bg :pressed[#special-bg]"
         transition="fill, color, opacity, inset"
         transition="opacity"
+        radius="@context-radius"
+        border="^ #text :pressed[#special-bg] :disabled.pressed[#text.50]"
         inset="^ 0 :active[.5em] :pressed[0] :active:pressed[.5em]"></nu-icon>
     `;
   }
@@ -31,20 +33,20 @@ export default class NuCheckbox extends NuAction {
   static get nuStyles() {
     return {
       display: 'inline-grid',
-      width: '1em',
-      height: '1em',
-      border: '#text :disabled.pressed[#text.50] :pressed[#special-bg]',
+      width: '1em + 2bw',
+      height: '1em + 2bw',
       radius: '.25em',
       content: 'stretch',
       items: 'center',
       padding: '0',
-      overflow: 'n',
       sizing: 'content',
       cursor: 'default',
       text: 'v-middle',
       mark: '.5em hover :disabled[n]',
       expand: '.5em',
       inset: 'n',
+      transition: 'all',
+      outline: 'focus visible',
     };
   }
 }
