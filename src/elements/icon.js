@@ -37,7 +37,7 @@ export default class NuIcon extends NuEl {
       width: 'min 1fs',
       height: 'min 1lh',
       sizing: 'content',
-      size: '--icon-size',
+      size: '@icon-size',
       transition: 'transform',
       box: 'y',
       text: 'middle',

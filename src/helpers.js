@@ -567,6 +567,8 @@ export function splitStates(attrValue) {
 export function computeStyles(name, value, attrs, defaults) {
   if (value == null) return;
 
+  name = name.replace(/^@/, '--');
+
   const isProp = name.startsWith('--');
 
   if (name !== 'before' && name !== 'after') {

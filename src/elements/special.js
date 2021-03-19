@@ -7,7 +7,7 @@ export default class NuSpecial extends NuInline {
 
   static get nuStyles() {
     return {
-      color: 'special',
+      color: '#special',
       text: 'sb',
     };
   }

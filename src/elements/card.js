@@ -12,8 +12,8 @@ export default class NuCard extends NuRegion {
   static get nuStyles() {
     return {
       padding: '2x',
-      fill: 'bg :clear[clear]',
-      color: 'text :clear[current]',
+      fill: '#bg :clear[#clear]',
+      color: '#text :clear[current]',
       border: '1bw :clear[0]',
       radius: '1r',
       transition: 'theme, radius',

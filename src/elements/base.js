@@ -526,7 +526,7 @@ export default class NuAbstract extends HTMLElement {
 
         let styles;
 
-        const isProp = name.startsWith('--');
+        const isProp = name.startsWith('@');
 
         styles = computeStyles(name, value, allAttrs, allStyles);
 

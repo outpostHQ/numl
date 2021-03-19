@@ -12,7 +12,7 @@ export default class NuLink extends NuAction {
   static get nuStyles() {
     return {
       display: 'inline-block',
-      color: 'special',
+      color: '#special',
       text: 'nowrap u bold',
       cursor: 'pointer',
       radius: '.5r',

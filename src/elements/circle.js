@@ -22,7 +22,7 @@ export default class NuCircle extends NuEl {
       size: '1em',
       radius: 'round',
       border: '',
-      fill: 'bg :special[special]',
+      fill: '#bg :special[#special]',
     };
   }
 }

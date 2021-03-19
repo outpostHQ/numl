@@ -14,15 +14,15 @@ export default class NuSlider extends NuEl {
     return `
       <nu-circle
         id="slider-cap"
-        place="top left --local-rail-top --local-rail-left"
+        place="top left @local-rail-top @local-rail-left"
         size="1.25em"
         radius="round"
-        fill="special-text"
+        fill="#special-text"
         border="none"
         shadow="1ow #shadow"
         space=".375em + 1bw"
         text="v-middle"
-        move="--local-rail-move-v --local-rail-move-h"
+        move="@local-rail-move-v @local-rail-move-h"
         orient="h"
         opacity="1"
         outline="focus-outside visible"></nu-circle>
@@ -39,9 +39,9 @@ export default class NuSlider extends NuEl {
           height: vertical ? '10x' : '.5em',
           '--local-rail-move-h': vertical ? '-.5em - 1bw' : '-.5em + 1bw',
           '--local-rail-move-v': vertical ? '-.5em + 1bw' : '-.5em - 1bw',
-          '--local-rail-top': vertical ? '(100% - --local-offset)' : '0',
-          '--local-rail-left': vertical ? 'initial' : '--local-offset',
-          '--local-rail-bottom': vertical ? '--local-offset' : 'initial',
+          '--local-rail-top': vertical ? '(100% - @local-offset)' : '0',
+          '--local-rail-left': vertical ? 'initial' : '@local-offset',
+          '--local-rail-bottom': vertical ? '@local-offset' : 'initial',
           '--orient': vertical ? 'v' : 'h',
         }], NuSlider);
       },
@@ -52,7 +52,7 @@ export default class NuSlider extends NuEl {
     return {
       display: 'block',
       radius: 'round',
-      fill: 'special',
+      fill: '#special',
       border: '1bw',
       text: 'v-middle',
       cursor: 'pointer :disabled[default]',

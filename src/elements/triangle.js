@@ -8,7 +8,7 @@ export default class NuTriangle extends NuEl {
   static get nuStyles() {
     return {
       direction: 'up',
-      color: 'border',
+      color: '#border',
       overflow: 'no',
       text: 'v-middle',
       height: '0',

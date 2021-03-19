@@ -483,9 +483,6 @@
     <nu-block color="success">Success text</nu-block>
     <nu-block color="danger">Danger text</nu-block>
     <nu-block color="warning">Warning text</nu-block>
-    <nu-block color="white" fill="success-bg">Success special bg</nu-block>
-    <nu-block color="white" fill="danger-bg">Danger special bg</nu-block>
-    <nu-block color="white" fill="warning-bg">Warning special bg</nu-block>
   </nu-card>
 {/if}
 

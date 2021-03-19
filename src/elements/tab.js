@@ -12,17 +12,17 @@ export default class NuTab extends NuAction {
   static get nuStyles() {
     return {
       display: 'grid',
-      fill: 'transparent',
+      fill: '#clear',
       flow: 'column',
       gap: '1x',
-      items: '--local-tab-items',
-      padding: '--local-tab-padding-v --local-tab-padding-h',
+      items: '@local-tab-items',
+      padding: '@local-tab-padding-v @local-tab-padding-h',
       border: '0',
-      expand: '--local-tab-expand-v --local-tab-expand-h',
+      expand: '@local-tab-expand-v @local-tab-expand-h',
       mark: null,
       text: 'sb nowrap',
 
-      '--local-line-width': `0
+      '@local-line-width': `0
         :hover[1bw]
         :pressed[1ow]
         :hover:pressed[1ow]
