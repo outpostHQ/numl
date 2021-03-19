@@ -1,12 +1,12 @@
-import { error } from '../helpers';
+import { error, isEqual } from '../helpers';
 import { h } from '../dom-helpers';
 import WidgetBehavior from './widget';
 
 export default class ConverterBehavior extends WidgetBehavior {
   static get converter() {}
 
-  constructor(host) {
-    super(host);
+  constructor(host, params) {
+    super(host, params);
 
     this.container = null;
     this.observe = null;
@@ -32,7 +32,6 @@ export default class ConverterBehavior extends WidgetBehavior {
     }
 
     if (!ref) {
-      error('converter: textarea tag required', this.host);
       return;
     }
 
@@ -41,15 +40,7 @@ export default class ConverterBehavior extends WidgetBehavior {
     ref.setAttribute('role', 'none');
     ref.setAttribute('aria-hidden', 'true');
 
-    const container = this.container = this.createContainer();
-
-    const toRemove = host.nuQueryChildren('*:not(pre):not(textarea)');
-
-    toRemove.forEach(el => {
-      el.parentNode.removeChild(el);
-    });
-
-    (host.nuShadow || host).appendChild(container);
+    const container = this.requireContainer();
 
     const observe = this.observe = this.createObserveListener(ref, container, this.constructor.converter);
 
@@ -65,6 +56,22 @@ export default class ConverterBehavior extends WidgetBehavior {
     observe();
   }
 
+  requireContainer() {
+    const { host } = this;
+
+    this.container = this.createContainer();
+
+    const toRemove = host.nuQueryChildren('*:not(pre):not(textarea)');
+
+    toRemove.forEach(el => {
+      el.parentNode.removeChild(el);
+    });
+
+    (host.nuShadow || host).appendChild(this.container);
+
+    return this.container;
+  }
+
   createContainer() {
     return h('nu-block');
   }
@@ -78,6 +85,22 @@ export default class ConverterBehavior extends WidgetBehavior {
       this.apply(container, content, converter);
       this.postHandler(container);
     }
+  }
+
+  setValue(value, silent) {
+    this.log('set value', value, silent);
+
+    if (typeof value !== 'string') return;
+
+    if (isEqual(this.value, value)) return;
+
+    this.value = value;
+
+    const container = this.requireContainer();
+    const content = this.prepareContent(value);
+
+    this.apply(container, content, this.constructor.converter);
+    this.postHandler(container);
   }
 
   apply(container, content, converter) {}

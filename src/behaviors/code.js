@@ -34,11 +34,11 @@ export default class CodeBehavior extends ConverterBehavior {
       return val != null;
     };
 
-    super.init();
-
     if (!themesDeclared) {
       declareThemes();
     }
+
+    super.init();
   }
 
   apply(container, content, converter) {
