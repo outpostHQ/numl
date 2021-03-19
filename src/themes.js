@@ -823,6 +823,7 @@ Object.assign(CUSTOM_FUNCS, {
 [
   ['white', '0'],
   ['grey', 'auto'],
+  ['grey-text', 'auto'],
   ['darkgrey', 'high'],
   ['lightgrey', 'low'],
   ['black', '100'],
@@ -833,7 +834,7 @@ Object.assign(CUSTOM_FUNCS, {
       saturation: 0,
       contrast: String(contrast),
       alpha: 100,
-      special: true,
+      special: name !== 'grey-text', // use adaptive color for grey to maintain contrast ratio
       pastel: false,
     }, name);
   });

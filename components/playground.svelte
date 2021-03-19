@@ -459,6 +459,9 @@
     <nu-cell>darkgrey</nu-cell>
     <nu-cell>high</nu-cell>
     <nu-cell fill="#darkgrey"></nu-cell>
+    <nu-cell>grey-text</nu-cell>
+    <nu-cell>auto</nu-cell>
+    <nu-cell fill="#grey-text"></nu-cell>
     <nu-cell>grey</nu-cell>
     <nu-cell>auto</nu-cell>
     <nu-cell fill="#grey"></nu-cell>
