@@ -276,7 +276,7 @@
 {#if show('snippet')}
   <nu-heading level="2">Code</nu-heading>
 
-  <nu-card as="section">
+  <nu-card as="section" gap>
     <nu-code special padding="1x 2x" overflow="auto">
       <pre>
         <nu-input is-big placeholder="Input"></nu-input>
@@ -285,6 +285,8 @@
         #[[something]]#
       </pre>
     </nu-code>
+
+    <nu-code value={codeExample}></nu-code>
   </nu-card>
 {/if}
 
@@ -2074,5 +2076,7 @@ $: show = (name) => {
 }
 
 let sixValidator = v => v === 'six';
+
+const codeExample = `var a = '123';`;
 
 </script>
