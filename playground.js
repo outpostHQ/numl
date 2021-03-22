@@ -2,11 +2,11 @@ import Nude, { requestIdleCallback } from './src/index';
 import Playground from './components/playground.svelte';
 
 const playground = new Playground({
-  target: Nude.getElementById('content'),
+  target: Nude.getElementById('content') || document.getElementById('content'),
 });
 
-const schemeWidget = Nude.getElementById("prefers-color-scheme");
-const contrastWidget = Nude.getElementById("prefers-contrast");
+const schemeWidget = Nude.getElementById("prefers-color-scheme") || document.getElementById('prefers-color-scheme');
+const contrastWidget = Nude.getElementById("prefers-contrast") || document.getElementById('prefers-contrast');
 const svgImages = require('./images/*.svg');
 const pngImages = require('./images/*.png');
 

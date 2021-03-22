@@ -21,7 +21,7 @@ export default class NuProgressBar extends NuEl {
       transition: 'opacity',
       radius: '.5r',
       border: '',
-      fill: 'bg',
+      fill: '#bg',
       box: 'y',
       height: 'min .5em',
       overflow: 'no',

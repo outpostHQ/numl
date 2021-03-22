@@ -79,6 +79,8 @@ export default class MenuBehavior extends Behavior {
   }
 
   onKeyDown(event) {
+    if (this.disabled) return;
+
     const items = this.getItemsInOrder();
 
     const index = items.indexOf(this.currentItem);

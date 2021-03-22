@@ -19,8 +19,11 @@ function getConfigByEnv(env) {
     }],
     plugins: [
       replace({
-        'process.env.NODE_ENV': JSON.stringify(env),
-        'process.env.APP_VERSION': VERSION,
+        preventAssignment: true,
+        values: {
+          'process.env.NODE_ENV': JSON.stringify(env),
+          'process.env.APP_VERSION': VERSION,
+        },
       }),
       env === 'development' ? undefined : terser(),
       commonjs(),

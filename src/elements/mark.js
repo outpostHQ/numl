@@ -15,8 +15,8 @@ export default class NuMark extends NuEl {
       padding: '0 .25em',
       space: '0 .25em',
       radius: '1r',
-      color: 'text :special[special-text]',
-      fill: 'mark :special[special-bg] :themed[bg] :special:themed[special-bg]',
+      color: '#text :special[#special-text]',
+      fill: '#mark :special[#special-bg] :themed[#bg] :special:themed[#special-bg]',
     };
   }
 }

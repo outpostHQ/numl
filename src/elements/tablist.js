@@ -32,8 +32,8 @@ export default class NuTablist extends NuRadioGroup {
           '--local-tab-items': ITEMS_MAP[direction] || 'center',
           '--local-tab-padding-h': orientV ? convertUnit('2x') : '0',
           '--local-tab-padding-v': orientV ? '0' : convertUnit('1x'),
-          '--local-tab-expand-h': orientV ? '0' : '--local-h-gap',
-          '--local-tab-expand-v': orientV ? '--local-v-gap' : '0',
+          '--local-tab-expand-h': orientV ? '0' : '@local-h-gap',
+          '--local-tab-expand-v': orientV ? '@local-v-gap' : '0',
           '--local-tab-gap': orientV ? convertUnit('1x') : convertUnit('2x'),
         });
       },
@@ -43,7 +43,7 @@ export default class NuTablist extends NuRadioGroup {
   static get nuStyles() {
     return {
       direction: 'bottom',
-      gap: '--local-tab-gap',
+      gap: '@local-tab-gap',
       flow: null,
     };
   }

@@ -14,7 +14,7 @@ export default class NuBlockQuote extends NuEl {
       display: 'block',
       radius: 'right',
       border: '(1x / 2) left #special',
-      fill: 'diff',
+      fill: '#diff',
       text: 'i',
       padding: '2x',
       size: 'lg',
@@ -25,11 +25,11 @@ export default class NuBlockQuote extends NuEl {
     super.nuConnected();
 
     this.nuSetContext('attrs:code', {
-      fill: 'bg',
+      fill: '#bg',
     });
 
     this.nuSetContext('attrs:mark', {
-      fill: 'bg',
+      fill: '#bg',
     });
   }
 }

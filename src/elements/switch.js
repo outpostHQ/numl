@@ -16,11 +16,11 @@ export default class NuSwitch extends NuAction {
   static get nuTemplate() {
     return `
       <nu-circle
-        size="--circle-size"
+        size="@circle-size"
         interactive="n"
         transition="transform, fill"
-        move="--circle-offset"
-        fill="--circle-bg-color"
+        move="@circle-offset"
+        fill="@circle-bg-color"
         overflow="no"
         border="0"
         shadow="0 0 1ow #circle-shadow"></nu-circle>
@@ -36,19 +36,19 @@ export default class NuSwitch extends NuAction {
       outline: 'focus visible',
       inset: `0 :active[.5em #shadow.50] :pressed[0] :pressed:active[.5em #special-shadow.50]`,
       transition: 'shadow',
-      width: '(--size * 2)',
+      width: '(@size * 2)',
       fill: `bg :pressed[special-bg]`,
       text: 'middle',
       mark: ':focusable[hover]',
-      padding: '--circle-gap',
+      padding: '@circle-gap',
 
-      '--size': '1em + --circle-gap',
-      '--circle-gap': '1ow',
-      '--circle-size': '--size',
-      '--circle-offset': `0
-        :pressed[--size - 1bw]`,
-      '--circle-bg-color': `--special-bg-color :pressed[--special-text-color]`,
-      '--circle-shadow-color': '#shadow :pressed[#special-shadow.66]',
+      '@size': '1em + @circle-gap',
+      '@circle-gap': '1ow',
+      '@circle-size': '@size',
+      '@circle-offset': `0
+        :pressed[@size - 1bw]`,
+      '@circle-bg-color': `@special-bg-color :pressed[@special-text-color]`,
+      '@circle-shadow-color': '#shadow :pressed[#special-shadow.66]',
     };
   }
 }

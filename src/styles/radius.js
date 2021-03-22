@@ -46,8 +46,11 @@ export default function radiusAttr(val) {
     }
   }
 
-  return {
+  return [{
     '--local-radius': values.join(' '),
     'border-radius': 'var(--local-radius)',
-  };
+  }, {
+    $suffix: '>*',
+    '--context-radius': values.join(' '),
+  }];
 }

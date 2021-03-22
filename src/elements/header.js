@@ -11,7 +11,7 @@ export default class NuHeader extends NuRegion {
 
   static get nuStyles() {
     return {
-      fill: 'bg',
+      fill: '#bg',
       z: 'front',
       transition: 'all',
     };

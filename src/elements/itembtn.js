@@ -11,7 +11,7 @@ export default class NuItemBtn extends NuBtn {
       padding: '',
       radius: '0',
       border: '0',
-      fill: 'clear',
+      fill: '#clear',
     };
   }
 }

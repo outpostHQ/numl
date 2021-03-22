@@ -63,6 +63,19 @@ const PROPS_MAP = {};
 const ATTRS_MAP = {};
 const BEHAVIORS_MAP = {};
 const CONTEXT_MAP = {};
+const SETTER_PROPS = [
+  'value',
+  'pressed',
+  'checked',
+  'selected',
+  'disabled',
+  'hidden',
+  'special',
+  'warning',
+  'danger',
+  'success',
+  'assert',
+];
 
 export function getAllAttrs() {
   return Object.keys(GENERATORS_MAP).reduce((arr, tag) => {
@@ -526,7 +539,7 @@ export default class NuAbstract extends HTMLElement {
 
         let styles;
 
-        const isProp = name.startsWith('--');
+        const isProp = name.startsWith('@');
 
         styles = computeStyles(name, value, allAttrs, allStyles);
 
@@ -671,6 +684,17 @@ export default class NuAbstract extends HTMLElement {
    * @private
    */
   connectedCallback() {
+    // check properties with setters and getters
+    SETTER_PROPS.forEach(prop => {
+      if (prop in this) {
+        const value = this[prop];
+
+        delete this[prop]; // remove own property
+
+        this[prop] = value; // trigger Numl setter
+      }
+    });
+
     // the flag tells that it's a sync phase of element connection.
     // it's used to detect whether or not apply a transition to hiding effect.
     this.nuInitial = true;
