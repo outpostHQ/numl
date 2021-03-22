@@ -21,7 +21,7 @@
     "email-validator": "^2.0.4",
     "inline-assets": "^1.4.8",
     "json-form-data": "^1.7.2",
-    "parcel-bundler": "^1.12.4",
+    "parcel-bundler": "^1.12.5",
     "parcel-plugin-svelte": "^4.0.8",
     "remarkable": "^2.0.1",
     "remarkable-numl": "^0.1.7",
