@@ -3,8 +3,8 @@ import { deepQueryAll } from '../helpers';
 
 export default class MenuBehavior extends Behavior {
   init() {
-    this.setContext('menu', this, true);
     this._items = [];
+    this.setContext('menu', this, true);
 
     this.on('keydown', this.onKeyDown.bind(this));
   }
