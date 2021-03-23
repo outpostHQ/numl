@@ -1,5 +1,4 @@
 import Behavior from './behavior';
-import { enableFocus } from '../focus';
 import { generateId, query, queryById, removeInnerRef, setAriaRef, setInnerRef } from '../helpers';
 
 export default class LabelBehavior extends Behavior {
@@ -12,7 +11,6 @@ export default class LabelBehavior extends Behavior {
       if (element) {
         element.focus();
         element.click();
-        enableFocus();
       }
     });
   }

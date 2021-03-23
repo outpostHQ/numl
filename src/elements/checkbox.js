@@ -46,7 +46,7 @@ export default class NuCheckbox extends NuAction {
       expand: '.5em',
       inset: 'n',
       transition: 'all',
-      outline: 'focus visible',
+      outline: '#clear :focus-visible[y]',
     };
   }
 }

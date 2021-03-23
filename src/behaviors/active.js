@@ -13,11 +13,13 @@ export default class ActiveBehavior extends Behavior {
 
     const setActive = (bool) => {
       this.setMod('active', bool);
+    }
 
+    const setUserSelect = (bool) => {
       if ('webkitUserSelect' in root.style) {
-        root.style.webkitUserSelect = bool ? 'none' : '';
+        root.style.webkitUserSelect = bool ? '' : 'none';
       } else {
-        root.style.userSelect = bool ? 'none' : '';
+        root.style.userSelect = bool ? '' : 'none';
       }
     }
 
@@ -59,6 +61,16 @@ export default class ActiveBehavior extends Behavior {
         evt.stopPropagation();
 
         setActive(true);
+
+        if (evt.type === 'mousedown') {
+          setUserSelect(false);
+
+          window.addEventListener('mouseup', function handleUp() {
+            setUserSelect(true);
+
+            window.removeEventListener('mouseup', handleUp);
+          });
+        }
       }
     });
 

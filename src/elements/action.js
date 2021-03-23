@@ -18,12 +18,14 @@ export default class NuAction extends NuEl {
       radius: '0',
       text: 'nowrap',
       transition: 'theme, radius, filter',
-      outline: 'focus visible',
+      outline: '#clear :focus-visible[y]',
       mark: 'n :focusable[hover]',
       cursor: 'pointer :disabled[default]',
       selectable: 'y',
       box: 'y',
       filter: 'n :disabled[saturate(0.33) contrast(0.88) opacity(var(--disabled-opacity))]',
+      // for elements with transparent background
+      'backdrop-filter': 'n :disabled[contrast(0.88)]',
     };
   }
 

@@ -33,7 +33,6 @@ import svg from './svg';
 import icons from './icons';
 import routing from './routing';
 import themeAttr from './styles/theme';
-import { initFocus } from './focus';
 import props from './props';
 import generators from './generators';
 import { scheme, contrast, reduceMotion, preventInit, behaviorOption } from './settings';
@@ -41,6 +40,10 @@ import CONTEXT, { initContext } from './context';
 import { applyTheme, BASE_THEME, hue, generateTheme, themeToProps, THEME_MAP } from './themes';
 import { generateCSS, insertRuleSet, stylesString } from './css';
 import Behavior from './behaviors/behavior';
+
+import('./focus-visible.js').then(() => {
+  // do nothing
+});
 
 initSticky(); // enable sticky detection
 
@@ -72,8 +75,6 @@ const BODY = document.body;
 if (window.Nude) {
   throw error('Several instances of NUDE Framework is loaded. Initialization aborted');
 }
-
-initFocus();
 
 setTimeout(() => {
   applyTheme(BODY, BASE_THEME, 'main');
