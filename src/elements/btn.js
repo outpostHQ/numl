@@ -1,5 +1,7 @@
 import NuAction from './action';
 
+const BACKDROP_FILTER_SUPPORT = CSS.supports('backdrop-filter', 'none');
+
 export default class NuBtn extends NuAction {
   static get nuTag() {
     return 'nu-btn';
@@ -18,7 +20,7 @@ export default class NuBtn extends NuAction {
       mark: 'n :focusable[hover]',
       text: 'sb nowrap',
       inset: '#clear :active[#shadow.50] :active:special[#special-shadow.50] :pressed[y] :pressed:special[#special-shadow] :active:pressed[#shadow.50] :active:special[#special-shadow.50] :active:pressed:special[#special-shadow.50]',
-      fill: '#bg :disabled[#bg] :special.disabled[#special-bg] :clear[#clear] :clear:disabled[#local-bg]',
+      fill: `#bg :disabled[#bg] :special.disabled[#special-bg] :clear[#clear] :clear:disabled[${BACKDROP_FILTER_SUPPORT ? '#clear' : '#local-bg'}]`,
       color: '#text :clear[#special] :special[#special-text] :special:clear[#special-text]',
     };
   }
