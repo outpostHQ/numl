@@ -18,7 +18,7 @@ export default class NuAction extends NuEl {
       radius: '0',
       text: 'nowrap',
       transition: 'theme, radius, filter',
-      outline: 'focus visible',
+      outline: '#clear :focus-visible[y]',
       mark: 'n :focusable[hover]',
       cursor: 'pointer :disabled[default]',
       selectable: 'y',

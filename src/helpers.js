@@ -409,6 +409,9 @@ export const STATES_MAP = {
   checked: '[is-pressed]',
   selected: '[is-pressed]',
   multiple: '[multiple]',
+  // FOCUS_VISIBLE_SUPPORT ? ':focus-visible' : '[is-focus-visible]'
+  // Always use polyfill to avoid inconsistency in behavior
+  'focus-visible': '[is-focus-visible]',
 };
 export const ROOT_STATES_MAP = {
   dev: '[data-nu-dev]',
