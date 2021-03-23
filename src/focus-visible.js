@@ -33,20 +33,6 @@ export function applyFocusVisiblePolyfill(scope) {
   };
 
   /**
-   * Helper function for legacy browsers and iframes which sometimes focus
-   * elements like document, body, and non-interactive SVG.
-   * @param {Element} el
-   */
-  function isValidFocusTarget(el) {
-    return el &&
-      el !== document &&
-      el.nodeName !== 'HTML' &&
-      el.nodeName !== 'BODY' &&
-      'classList' in el &&
-      'contains' in el.classList;
-  }
-
-  /**
    * Computes whether the given element should automatically trigger the
    * `focus-visible` class being added, i.e. whether it should always match
    * `:focus-visible` when focused.
@@ -92,8 +78,6 @@ export function applyFocusVisiblePolyfill(scope) {
    * @param {Element} el
    */
   function removeFocusVisibleMod(el) {
-    ROOT.style.setProperty('--focus-enabler', '0');
-
     if (!el.hasAttribute('is-focus-visible')) {
       return;
     }
@@ -113,9 +97,7 @@ export function applyFocusVisiblePolyfill(scope) {
       return;
     }
 
-    if (isValidFocusTarget(scope.activeElement)) {
-      addFocusVisibleMod(scope.activeElement);
-    }
+    addFocusVisibleMod(scope.activeElement);
 
     hadKeyboardEvent = true;
   }
@@ -140,11 +122,6 @@ export function applyFocusVisiblePolyfill(scope) {
    * @param {Event} e
    */
   function onFocus(e) {
-    // Prevent IE from focusing the document or HTML element.
-    if (!isValidFocusTarget(e.target)) {
-      return;
-    }
-
     if (hadKeyboardEvent || focusTriggersKeyboardModality(e.target)) {
       addFocusVisibleMod(e.target);
     }
@@ -155,10 +132,6 @@ export function applyFocusVisiblePolyfill(scope) {
    * @param {Event} e
    */
   function onBlur(e) {
-    if (!isValidFocusTarget(e.target)) {
-      return;
-    }
-
     if (
       e.target.hasAttribute('is-focus-visible')
     ) {
@@ -239,12 +212,13 @@ export function applyFocusVisiblePolyfill(scope) {
 
     hadKeyboardEvent = false;
     removeInitialPointerMoveListeners();
+    ROOT.style.setProperty('--focus-enabler', '0');
   }
 
   // For some kinds of state, we are interested in changes at the global scope
   // only. For example, global pointer input, global key presses and global
   // visibility change should affect the state at every scope:
-  document.addEventListener('keydown', onKeyDown, true);
+  document.addEventListener('keydown', onKeyDown, { passive: true });
   document.addEventListener('mousedown', onPointerDown, true);
   document.addEventListener('pointerdown', onPointerDown, true);
   document.addEventListener('touchstart', onPointerDown, true);
