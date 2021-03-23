@@ -425,7 +425,7 @@ const globalRules = [`
 
   --system-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Avenir Next", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   --font: var(--system-font);
-  --base-monospace-font: monospace;
+  --base-monospace-font: Menlo, Monaco, Consolas, 'Courier New', monospace;
   --monospace-font: var(--base-monospace-font);
 
   --clear-color: transparent;
