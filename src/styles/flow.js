@@ -56,6 +56,7 @@ export default function flowAttr(val, defaults) {
   const isFlexValue = CSS.supports('flex-flow', val);
 
   const styles = [];
+  const hasGap = defaults.gap != null;
 
   if (isGridValue) {
     styles.push({
@@ -73,10 +74,10 @@ export default function flowAttr(val, defaults) {
 
     if (!mods.includes('wrap')) {
       styles.push({
-        $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:last-child)`,
+        $suffix: `${hasGap ? '' : '[gap]'}>:not(:last-child)`,
         [dirStyle]: dirProp,
       }, {
-        $suffix: `${defaults.gap ? '' : '[gap]'}>:not(:last-child)[nu-contents]>:first-child`,
+        $suffix: `${hasGap ? '' : '[gap]'}>:not(:last-child)[nu-contents]>:first-child`,
         [dirStyle]: dirProp,
       });
     } else if (!FLEX_GAP_SUPPORTED) {
@@ -92,11 +93,11 @@ export default function flowAttr(val, defaults) {
       });
 
       styles.push({
-        $suffix: `${defaults.gap ? '' : '[gap]'}>*`,
+        $suffix: `${hasGap ? '' : '[gap]'}>*`,
         [dirStyle]: dirProp,
         [dirSecondStyle]: invertProp,
       }, {
-        $suffix: `${defaults.gap ? '' : '[gap]'}>[nu-contents]>:first-child`,
+        $suffix: `${hasGap ? '' : '[gap]'}>[nu-contents]>:first-child`,
         [dirStyle]: dirProp,
         [dirSecondStyle]: invertProp,
       });
