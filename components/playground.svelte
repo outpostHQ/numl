@@ -1844,6 +1844,14 @@ var b = /wow?/;
 
 {#if show('slider')}
   <nu-card as="section">
+    <nu-card>
+      <nu-debug id="slider2d-debugger"></nu-debug>
+    </nu-card>
+
+    <nu-card>
+        <nu-slider2d use-debug="slider2d-debugger" min="0 0" max="1000 1000" step="1 1" height="10x" value="0 0"></nu-slider2d>
+    </nu-card>
+
     <nu-card padding="0" overflow="no" selectable="n">
       <nu-attrs for="$slider-cap" show="n"></nu-attrs>
       <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/after.jpg"></nu-img>

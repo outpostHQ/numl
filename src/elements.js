@@ -92,6 +92,7 @@ export { default as NuTooltip } from './elements/tooltip';
 export { default as NuMarkdown } from './elements/markdown';
 export { default as NuMd } from './elements/md';
 export { default as NuSlider } from './elements/slider';
+export { default as NuSlider2d } from './elements/slider2d';
 export { default as NuSwitch } from './elements/switch';
 export { default as NuCheckbox } from './elements/checkbox';
 export { default as NuRadio } from './elements/radio';
