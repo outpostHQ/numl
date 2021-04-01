@@ -111,9 +111,9 @@ Run `npm start` to view test page with few examples.
 
 ## Roadmap
 
-* Numll v2: [style2state syntax proposal](https://github.com/numldesign/numl/projects/2)
-* [Numl-React v1 UI Library 🤖](https://github.com/numldesign/numl-react)
-* [Theme-Generator 🌈](https://github.com/numldesign/theme-generator)
+* Numl v2: [style2state syntax proposal](https://github.com/numldesign/numl/projects/2)
+* [Numl-React v1](https://github.com/numldesign/numl-react): Modular & Accessible React UI Library 🚀
+* [Theme-Generator](https://github.com/numldesign/theme-generator) 🌈
 * More documentation, examples, and tests
 * TRL Support
 * Improved Behavior System
