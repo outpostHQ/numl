@@ -14,6 +14,32 @@ A UI Design Language, UI Library of Web Components, and Runtime CSS Framework fo
 
 ### [STORYBOOK](https://numl.design/storybook) | [HANDBOOK](https://numl.design/handbook) | [REFERENCE](https://numl.design/reference) | [REPL](https://numl.design/repl)
 
+## Quick Start
+
+Add the following code to your page.
+
+via [JsDelivr](http://www.jsdelivr.com/):
+
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.1/dist/index.js"></script>
+```
+
+via [Skypack](https://www.skypack.dev/):
+
+```html
+<script type="module" src="https://cdn.skypack.dev/numl@1.0.1"></script>
+```
+
+That's all! Now you can use all elements and features of Numl 🚀
+
+Try to add a simple element:
+
+```html
+<nu-btn>My button</nu-btn>
+```
+
+See our [Handbook](https://numl.design/handbook/getting-started) for more details and other ways to install Numl.
+
 ## Intro
 * Add a single JS-script to your page, and you are ready to create virtually any interface using only HTML syntax quickly. No bundler, no config, and no frustration.
 * Integrate Numl with popular JS-Frameworks. Use it with SSG if you like. 
@@ -38,26 +64,6 @@ A UI Design Language, UI Library of Web Components, and Runtime CSS Framework fo
 - **Universal** – Numl is built on top of Web Components, a modern web API to create reusable UI elements, and it's compatible with most modern JS-frameworks. You can use it as is or create lightweight wrappers for your favorite framework to improve DX, SSR and SEO.
 
 [Learn more at NUML.DESIGN](https://numl.design/)
-
-## Quick Start
-
-Add the following code to your page.
-
-via [JsDelivr](http://www.jsdelivr.com/):
-
-```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.0-beta.23/dist/index.js"></script>
-```
-
-via [Skypack](https://www.skypack.dev/):
-
-```html
-<script type="module" src="https://cdn.skypack.dev/numl@1.0.0-beta.23"></script>
-```
-
-That's it! Now you can use all Numl elements and features!
-
-See the [installation instructions](https://numl.design/handbook/getting-started) for more details and other ways to install Numl.
 
 ## Examples
 
