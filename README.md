@@ -82,12 +82,6 @@ See our [Handbook](https://numl.design/handbook/getting-started) for more detail
 * [Sellerscale](https://sellerscale.com) – [Project Screenshot Light](https://github.com/tenphi/nude/blob/master/images/example-app-light.png?raw=true) | [Project Screenshot Dark](https://github.com/tenphi/nude/blob/master/images/example-app-dark.png?raw=true) | [Project Screenshot Light Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-light-contrast.png?raw=true) | [Project Screenshot Dark Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-dark-contrast.png?raw=true)
 * [Web Standards Calendar](https://frontend-events-numl.now.sh/) by [@KatrinLuna](https://github.com/katrinLuna) ([Repo Link](https://github.com/katrinLuna/frontend-events-numl)).
 
-## Development status (v1)
-
-Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
-
-And here is our [Discord](https://discord.gg/sHnHPnAPZj). (Ask your questions here!)
-
 ### Browser Support
 
 Numl is tested in the latest two versions of the following browsers:
@@ -115,16 +109,15 @@ If you need to support IE11 or pre-Chromium Edge, this library isn't for you. Al
 
 Run `npm start` to view test page with few examples.
 
-## Roadmap v1
+## Roadmap
 
-* More documentation
-* More examples
-* More tests
+* Numll v2: [style2state syntax proposal](https://github.com/numldesign/numl/projects/2)
+* [Numl-React v1 UI Library 🤖](https://github.com/numldesign/numl-react)
+* [Theme-Generator 🌈](https://github.com/numldesign/theme-generator)
+* More documentation, examples, and tests
 * TRL Support
 * Improved Behavior System
 * Figma UI Kit 🌟 (Coming Soon) [![Figma](https://img.shields.io/badge/follow%20us-on%20Figma-blue)](https://www.figma.com/@numldesign)
-* Theme Builder 🌈 (Coming Soon)
-* [Numl-React UI Library 🤖](https://github.com/numldesign/numl-react)
 
 See our [Changlelog](https://numl.design/guide/changelog).
 
@@ -134,9 +127,11 @@ See our [Changlelog](https://numl.design/guide/changelog).
 
 **Numl** is a big and ambitious project with open source that it has a unique approach in UI development. 
 
-Join us, and we'll make the Web better for everyone!
+Join us for creating a better Web for everyone!
 
 If you want to join us or leave some feedback write to this email: [inbox@numl.design](mailto:inbox@numl.design?subject=Numl%20Project)
+
+And here is our [Discord](https://discord.gg/sHnHPnAPZj). (Ask your questions here!)
 
 ## Contributors ✨
 
