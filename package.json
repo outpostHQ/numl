@@ -3,6 +3,19 @@
   "version": "1.0.1",
   "module": "dist/index.js",
   "homepage": "https://numl.design",
+  "keywords": [
+    "css-framework",
+    "functional-css",
+    "design-system",
+    "web-components",
+    "responsive",
+    "markup-language",
+    "utility-classes",
+    "css-generator",
+    "ui-components",
+    "themes",
+    "numl"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/numldesign/numl.git"
