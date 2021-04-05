@@ -1,10 +1,13 @@
 {
   "name": "numl",
+  "description": "An open-source Library of Web Components and a Runtime CSS Framework for rapidly building UI that follows your Design System",
   "version": "1.0.1",
+  "description": "A utility-first CSS framework for rapidly building custom user interfaces.",
   "module": "dist/index.js",
   "homepage": "https://numl.design",
   "keywords": [
     "css-framework",
+    "runtime-css-framework",
     "functional-css",
     "design-system",
     "web-components",
@@ -13,6 +16,7 @@
     "utility-classes",
     "css-generator",
     "ui-components",
+    "ui-framework",
     "themes",
     "numl"
   ],
