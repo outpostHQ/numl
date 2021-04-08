@@ -1,5 +1,27 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('placeholder')}
+  <nu-heading level="2">Properties</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-card fill="#special-bg.04" clear>
+      <nu-grid columns="auto 1fr" gap="2x">
+        <nu-ph size="5x" is-circle></nu-ph>
+        <nu-flow gap="2x">
+          <nu-ph width="15x" opacity="1">
+            <nu-h3>Lorem ipsum</nu-h3>
+          </nu-ph>
+          <nu-ph size="12x">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </nu-ph>
+  <!--        <nu-ph></nu-ph>-->
+  <!--        <nu-ph></nu-ph>-->
+        </nu-flow>
+      </nu-grid>
+    </nu-card>
+  </nu-card>
+{/if}
+
 {#if show('validation')}
   <nu-heading level="2">Properties</nu-heading>
 
