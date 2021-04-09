@@ -103,6 +103,7 @@ export { default as NuPopup } from './elements/popup';
 export { default as NuDateInput } from './elements/dateinput';
 export { default as NuValue } from './elements/value';
 export { default as NuPh } from './elements/ph';
+export { default as NuSpin } from './elements/spin';
 
 /* Decorators */
 export { default as NuTheme } from './definitions/theme';

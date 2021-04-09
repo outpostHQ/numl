@@ -409,11 +409,12 @@ const globalRules = [`
   --skeleton-animation-time: 1.6s;
   --skeleton-animation-size: calc(((90rem * 2) + 100vw) / 3);
   --progressbar-animation-time: .8s;
+  --spin-animation-time: .8s;
   --inline-offset: -.15em;
   --transition-enabler: 1;
   --icon-size: 1.5em;
   --disabled-opacity: .5;
-  --skeleton-opacity: .3;
+  --skeleton-opacity: .15;
   --leaf-sharp-radius: 0;
 
   --font-size: 1rem;
@@ -522,6 +523,10 @@ const globalRules = [`
 `.ionicon-stroke-width {
   --local-stroke-width: var(--icon-stroke-width, 2px);
   stroke-width: calc(var(--local-stroke-width) * 16);
+}`,
+
+`.nu-spinning {
+
 }`,
 
 ...(SCROLLBAR ? generateCSS('body', scrollbarAttr('yes'), false) : [])];

@@ -1,19 +1,32 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('spin')}
+  <nu-heading level="2">Spin</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-btn>
+      <nu-spin></nu-spin>
+      Submit
+    </nu-btn>
+  </nu-card>
+{/if}
+
 {#if show('placeholder')}
-  <nu-heading level="2">Properties</nu-heading>
+  <nu-heading level="2">Placeholder</nu-heading>
 
   <nu-card gap="1x">
     <nu-card fill="#special-bg.04" clear>
       <nu-grid columns="auto 1fr" gap="2x">
         <nu-ph size="5x" is-circle></nu-ph>
-        <nu-flow gap="2x">
-          <nu-ph width="15x" opacity="1">
-            <nu-h3>Lorem ipsum</nu-h3>
-          </nu-ph>
-          <nu-ph size="12x">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </nu-ph>
+        <nu-flow gap="3x" padding="top 1.5x">
+          <nu-ph width="15x"></nu-ph>
+          <nu-flow gap="2x">
+            <nu-ph></nu-ph>
+            <nu-ph></nu-ph>
+            <nu-ph></nu-ph>
+            <nu-ph></nu-ph>
+          </nu-flow>
+
   <!--        <nu-ph></nu-ph>-->
   <!--        <nu-ph></nu-ph>-->
         </nu-flow>
