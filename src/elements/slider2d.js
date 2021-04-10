@@ -41,6 +41,7 @@ export default class NuSlider2d extends NuEl {
       expand: '.5em',
       outline: 'n',
       box: 'y',
+      height: '5em',
       filter: 'n :disabled[saturate(0.33) contrast(0.88) opacity(var(--disabled-opacity))]',
       '@local-rail-move-h': '.5em - 1bw',
       '@local-rail-move-v': '-.5em - 1bw',

@@ -1220,7 +1220,7 @@ export function getFloatFromAttr(value, defaultValue = 0) {
 }
 
 export function getTwoFloatsFromAttr(value, defaultValue = 0) {
-  if (!value) return [0, 0];
+  if (!value) return [defaultValue, defaultValue];
 
   value = value.trim().split(/\s+/);
 
