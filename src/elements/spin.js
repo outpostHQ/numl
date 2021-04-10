@@ -11,7 +11,7 @@ export default class NuSpin extends NuEl {
 
   static get nuStyles() {
     return {
-      display: 'flex',
+      display: 'inline-flex',
       overflow: 'no',
       items: 'center',
       color: '#text :special[#special]',
