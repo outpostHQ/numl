@@ -18,7 +18,7 @@ export default class NuSlider extends NuEl {
         size="1.25em"
         radius="round"
         fill="#special-text"
-        border="none"
+        border
         shadow="1ow #shadow"
         space=".375em + 1bw"
         text="v-middle"
