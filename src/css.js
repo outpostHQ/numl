@@ -529,10 +529,6 @@ const globalRules = [`
   stroke-width: calc(var(--local-stroke-width) * 16);
 }`,
 
-`.nu-spinning {
-
-}`,
-
 ...(SCROLLBAR ? generateCSS('body', scrollbarAttr('yes'), false) : [])];
 
 insertRuleSet('global', globalRules);
