@@ -512,6 +512,10 @@ const globalRules = [`
   outline: var(--border-width, 1px) solid var(--outline-color) !important;
 }`,
 
+`:root:not([data-nu-outline]) [nu], :root:not([data-nu-outline]) [nu-contents] > * {
+  outline: none !important;
+}`,
+
 `[nu-hidden] {
   display: none !important;
 }`,
