@@ -1895,7 +1895,7 @@ var b = /wow?/;
     </nu-card>
 
     <nu-card>
-        <nu-slider2d use-debug="slider2d-debugger" min="0 0" max="1000 1000" height="10x" value="0 0"></nu-slider2d>
+      <nu-slider2d use-debug="slider2d-debugger" min="0 0" max="1000 1000" height="10x" value="500 500"></nu-slider2d>
     </nu-card>
 
     <nu-card padding="0" overflow="no" selectable="n">

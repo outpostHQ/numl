@@ -23,14 +23,11 @@ function normalizeValue(value, min, max) {
 
 export default class Slider2dBehavior extends SliderBehavior {
   init() {
-    this.value = [0, 0];
-    this.min = [0, 0];
-    this.max = [100, 100];
-    this.step = [1, 1];
+    // this.value = [0, 0];
+    // this.min = [0, 0];
+    // this.max = [100, 100];
+    // this.step = [1, 1];
 
-    this.props.value = (val) => {
-      this.setValue(getTwoFloatsFromAttr(val, 0), true);
-    };
     this.props.min = (val) => {
       return getTwoFloatsFromAttr(val, 0);
     };
@@ -39,6 +36,11 @@ export default class Slider2dBehavior extends SliderBehavior {
     };
     this.props.step = (val) => {
       return getTwoFloatsFromAttr(val, 1);
+    };
+    this.props.value = (val) => {
+      if (val != null) {
+        this.setValue(getTwoFloatsFromAttr(val, 0), true);
+      }
     };
 
     WidgetBehavior.prototype.init.apply(this);
@@ -189,6 +191,10 @@ export default class Slider2dBehavior extends SliderBehavior {
 
   setValue(value, silent) {
     const { host } = this;
+
+    if (typeof value === 'string') {
+      value = getTwoFloatsFromAttr(value);
+    }
 
     if (!Array.isArray(value)) value = [this.min[0], this.min[1]];
 

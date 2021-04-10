@@ -32,7 +32,7 @@ export default class NuSlider2d extends NuEl {
     return {
       display: 'block',
       radius: '',
-      fill: '#special',
+      fill: '#special-bg',
       border: '1bw',
       text: 'v-middle',
       cursor: 'pointer :disabled[default]',
