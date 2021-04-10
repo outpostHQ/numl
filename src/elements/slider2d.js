@@ -17,8 +17,7 @@ export default class NuSlider2d extends NuEl {
         size="1.25em"
         radius="round"
         fill="#special-text"
-        border="none"
-        shadow="1ow #shadow"
+        border
         space=".375em + 1bw"
         text="v-middle"
         move="@local-rail-move-v @local-rail-move-h"
