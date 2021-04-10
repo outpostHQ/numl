@@ -406,15 +406,14 @@ const globalRules = [`
   --border-width: 1px;
   --outline-width: calc(1rem / 16 * 3);
   --transition: 0.08s;
-  --skeleton-animation-time: 1.4s;
-  --skeleton-animation-size: calc(((90rem * 2) + 100vw) / 3);
+  --ph-animation-time: 1.4s;
+  --ph-animation-size: calc(((90rem * 2) + 100vw) / 3);
   --progressbar-animation-time: .8s;
   --spin-animation-time: .8s;
   --inline-offset: -.15em;
   --transition-enabler: 1;
   --icon-size: 1.5em;
   --disabled-opacity: .5;
-  --skeleton-opacity: .18;
   --leaf-sharp-radius: 0;
 
   --font-size: 1rem;
