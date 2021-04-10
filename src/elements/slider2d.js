@@ -12,7 +12,7 @@ export default class NuSlider2d extends NuEl {
   static get nuTemplate() {
     return `
       <nu-circle
-        id="slider-cap"
+        id="slider-thumb"
         place="bottom left @local-rail-bottom @local-rail-left"
         size="1.25em"
         radius="round"

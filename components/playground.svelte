@@ -4,10 +4,21 @@
   <nu-heading level="2">Spin</nu-heading>
 
   <nu-card gap="1x">
-    <nu-btn>
-      <nu-spin></nu-spin>
-      Submit
-    </nu-btn>
+<!--    <nu-props hiding-time=".5s" transition=".5s"></nu-props>-->
+    <nu-pane>
+      <nu-btn control="#spin[!hidden] #btn[!disabled]" toggle>Toggle loading</nu-btn>
+      <nu-btn id="btn" special>
+        <nu-spin id="spin" hidden></nu-spin>
+        <nu-in>Submit</nu-in>
+      </nu-btn>
+    </nu-pane>
+
+    <nu-pane>
+      <nu-btn control="#btn[loading]" toggle>Toggle loading</nu-btn>
+      <nu-btn id="btn" special>
+        <nu-in>Submit</nu-in>
+      </nu-btn>
+    </nu-pane>
   </nu-card>
 {/if}
 

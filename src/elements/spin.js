@@ -11,14 +11,17 @@ export default class NuSpin extends NuEl {
 
   static get nuStyles() {
     return {
-      display: 'flex :disabled[contents]',
+      display: 'flex',
       overflow: 'no',
       items: 'center',
       color: '#text :special[#special]',
       border: null,
       fill: null,
       interactive: 'n',
-      transition: 'color',
+      opacity: '1 :hidden[0]',
+      width: '1em :hidden[0em]',
+      height: '1em',
+      transition: 'color, width, opacity',
     };
   }
 
@@ -28,6 +31,11 @@ export default class NuSpin extends NuEl {
 
       `${tag} {
         animation: nu-spin-animation calc(var(--spin-animation-time) * var(--transition-enabler)) linear infinite;
+      }`,
+
+      `${tag} > svg {
+        min-width: 1em;
+        min-height: 1em;
       }`,
 
       `@keyframes nu-spin-animation {
