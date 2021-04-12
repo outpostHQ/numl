@@ -51,7 +51,7 @@ export function hideEffect(host, bool, effectName) {
   host.nuEffected = true;
   host.style.display = '';
   host.style.transition = '';
-  host.offsetHeight;
+  host.offsetHeight; // trigger re-flow
 
   if (!('nuCollapseId' in host)) {
     host.nuCollapseId = 0;
@@ -124,7 +124,7 @@ export function hideEffect(host, bool, effectName) {
     host.nuSetMod('enter', true);
     host.nuSetMod('leave', false);
 
-    host.offsetHeight;
+    host.offsetHeight; // trigger re-flow
 
     setStyles(host, visibleStyles, transition);
 
@@ -145,7 +145,7 @@ export function hideEffect(host, bool, effectName) {
     host.nuSetMod('leave', true);
     host.nuSetMod('enter', false);
 
-    host.offsetHeight;
+    host.offsetHeight; // trigger re-flow
 
     host.nuSetMod('hidden', true);
 

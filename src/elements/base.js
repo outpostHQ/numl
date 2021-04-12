@@ -6,7 +6,8 @@ import {
   transferCSS,
   STYLE_MAP,
   insertRuleSet,
-  removeRuleSet, removeRulesById,
+  removeRuleSet,
+  removeRulesById,
 } from '../css';
 import {
   parseThemeAttr,
@@ -15,7 +16,9 @@ import {
   applyDefaultMods,
   BASE_THEME,
   ALL_THEME_MODS,
-  THEME_TYPE_MODS, THEME_ATTR, declareTheme
+  THEME_TYPE_MODS,
+  THEME_ATTR,
+  declareTheme
 } from '../themes';
 import { generateCSSByZones, RESPONSIVE_ATTR, RESPONSIVE_MOD } from '../responsive';
 import {
@@ -476,13 +479,17 @@ export default class NuAbstract extends HTMLElement {
     );
   }
 
-  static nuGenerateDefaultStyle(isHost = false, dontInject = false) {
+  static nuGenerateDefaultStyle(isHost = false, dontInject = false, force = false) {
     let tag = this.nuTag;
 
     const cssName = isHost ? `${tag}:host` : tag;
 
-    // already declared
-    if (STYLE_MAP[cssName] && !dontInject) return;
+    if (force) {
+      removeRuleSet(cssName);
+    } else {
+      // already declared
+      if (STYLE_MAP[cssName] && !dontInject) return;
+    }
 
     if (isHost) {
       tag = ':host';
@@ -574,7 +581,6 @@ export default class NuAbstract extends HTMLElement {
   }
 
   /**
-   * @private
    * @param {String} name
    * @param {*} oldValue
    * @param {*} value
@@ -1101,6 +1107,10 @@ export default class NuAbstract extends HTMLElement {
 
   nuSetName(name) {
     return this.setAttribute(`nu-${name}`, '');
+  }
+
+  nuRemoveName(name) {
+    return this.removeAttribute(`nu-${name}`);
   }
 
   nuHasName(name) {

@@ -17,9 +17,6 @@ export default class SliderBehavior extends WidgetBehavior {
   }
 
   init() {
-    this.props.value = (val) => {
-      this.setValue(getFloatFromAttr(val, 0), true);
-    };
     this.props.min = (val) => {
       return getFloatFromAttr(val, 0);
     };
@@ -28,6 +25,11 @@ export default class SliderBehavior extends WidgetBehavior {
     };
     this.props.step = (val) => {
       return getFloatFromAttr(val, 1);
+    };
+    this.props.value = (val) => {
+      if (val != null) {
+        this.setValue(getFloatFromAttr(val, 0), true);
+      }
     };
 
     super.init();

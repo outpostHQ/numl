@@ -1219,6 +1219,17 @@ export function getFloatFromAttr(value, defaultValue = 0) {
   return num;
 }
 
+export function getTwoFloatsFromAttr(value, defaultValue = 0) {
+  if (!value) return [defaultValue, defaultValue];
+
+  value = value.trim().split(/\s+/);
+
+  return [
+    getFloatFromAttr(value[0], defaultValue),
+    getFloatFromAttr(value[1] || value[0], defaultValue),
+  ];
+}
+
 export function setAttrs(el, attrs) {
   Object.entries(attrs).forEach(([name, value]) => {
     setAttr(el, name, value);

@@ -92,6 +92,7 @@ export { default as NuTooltip } from './elements/tooltip';
 export { default as NuMarkdown } from './elements/markdown';
 export { default as NuMd } from './elements/md';
 export { default as NuSlider } from './elements/slider';
+export { default as NuSlider2d } from './elements/slider2d';
 export { default as NuSwitch } from './elements/switch';
 export { default as NuCheckbox } from './elements/checkbox';
 export { default as NuRadio } from './elements/radio';
@@ -101,6 +102,8 @@ export { default as NuCheck } from './elements/check';
 export { default as NuPopup } from './elements/popup';
 export { default as NuDateInput } from './elements/dateinput';
 export { default as NuValue } from './elements/value';
+export { default as NuPh } from './elements/ph';
+export { default as NuSpin } from './elements/spin';
 
 /* Decorators */
 export { default as NuTheme } from './definitions/theme';

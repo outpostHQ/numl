@@ -23,6 +23,7 @@ const BEHAVIORS = {
   datetime: () => extract(import('./datetime.js')),
   number: () => extract(import('./number.js')),
   slider: () => extract(import('./slider.js')),
+  slider2d: () => extract(import('./slider2d.js')),
   numinput: () => extract(import('./numinput.js')),
   input: () => extract(import('./input.js')),
   textarea: () => extract(import('./textarea.js')),

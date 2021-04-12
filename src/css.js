@@ -406,6 +406,10 @@ const globalRules = [`
   --border-width: 1px;
   --outline-width: calc(1rem / 16 * 3);
   --transition: 0.08s;
+  --ph-animation-time: 1.4s;
+  --ph-animation-size: calc(((90rem * 2) + 100vw) / 3);
+  --progressbar-animation-time: .8s;
+  --spin-animation-time: .8s;
   --inline-offset: -.15em;
   --transition-enabler: 1;
   --icon-size: 1.5em;
@@ -505,6 +509,10 @@ const globalRules = [`
 
 `:root[data-nu-outline] [nu], :root[data-nu-outline] [nu-contents] > * {
   outline: var(--border-width, 1px) solid var(--outline-color) !important;
+}`,
+
+`:root:not([data-nu-outline]) [nu], :root:not([data-nu-outline]) [nu-contents] > * {
+  outline: none !important;
 }`,
 
 `[nu-hidden] {

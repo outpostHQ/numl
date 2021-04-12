@@ -1,4 +1,5 @@
 import NuAction from './action';
+import { h } from '../dom-helpers';
 
 const BACKDROP_FILTER_SUPPORT = CSS.supports('backdrop-filter', 'none');
 
@@ -42,5 +43,34 @@ export default class NuBtn extends NuAction {
         --mark-color: var(--special-mark-color);
       }`,
     ];
+  }
+
+  nuChanged(name, oldValue, value) {
+    super.nuChanged(name, oldValue, value);
+
+    if (name === 'loading') {
+      this.disabled = value;
+
+      let loadingEl = this.querySelector('nu-spin');
+
+      if (typeof value === 'string') {
+        if (loadingEl) {
+          loadingEl.hidden = false;
+        } else {
+          loadingEl = h('nu-spin');
+          loadingEl.hidden = true;
+
+          this.prepend(loadingEl);
+
+          loadingEl.offsetHeight; // trigger re-flow
+
+          loadingEl.hidden = false;
+        }
+      } else {
+        if (loadingEl) {
+          loadingEl.hidden = true;
+        }
+      }
+    }
   }
 }

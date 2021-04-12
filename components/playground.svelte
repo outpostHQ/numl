@@ -1,5 +1,51 @@
 <nu-heading>Playground</nu-heading>
 
+{#if show('spin')}
+  <nu-heading level="2">Spin</nu-heading>
+
+  <nu-card gap="1x">
+<!--    <nu-props hiding-time=".5s" transition=".5s"></nu-props>-->
+    <nu-pane>
+      <nu-btn control="#spin[!hidden] #btn[!disabled]" toggle>Toggle loading</nu-btn>
+      <nu-btn id="btn" special>
+        <nu-spin id="spin" hidden></nu-spin>
+        <nu-in>Submit</nu-in>
+      </nu-btn>
+    </nu-pane>
+
+    <nu-pane>
+      <nu-btn control="#btn[loading]" toggle>Toggle loading</nu-btn>
+      <nu-btn id="btn" special>
+        <nu-in>Submit</nu-in>
+      </nu-btn>
+    </nu-pane>
+  </nu-card>
+{/if}
+
+{#if show('placeholder')}
+  <nu-heading level="2">Placeholder</nu-heading>
+
+  <nu-card gap="1x">
+    <nu-card fill="#special-bg.04" clear>
+      <nu-grid columns="auto 1fr" gap="2x">
+        <nu-ph size="5x" is-circle></nu-ph>
+        <nu-flow gap="3x" padding="top 1.5x">
+          <nu-ph width="15x"></nu-ph>
+          <nu-flow gap="2x">
+            <nu-ph></nu-ph>
+            <nu-ph></nu-ph>
+            <nu-ph></nu-ph>
+            <nu-ph></nu-ph>
+          </nu-flow>
+
+  <!--        <nu-ph></nu-ph>-->
+  <!--        <nu-ph></nu-ph>-->
+        </nu-flow>
+      </nu-grid>
+    </nu-card>
+  </nu-card>
+{/if}
+
 {#if show('validation')}
   <nu-heading level="2">Properties</nu-heading>
 
@@ -1844,16 +1890,26 @@ var b = /wow?/;
 
 {#if show('slider')}
   <nu-card as="section">
+    <nu-card>
+      <nu-debug id="slider2d-debugger"></nu-debug>
+    </nu-card>
+
+    <nu-card>
+      <nu-slider2d use-debug="slider2d-debugger" min="0 0" max="1000 1000" height="10x" value="500 500"></nu-slider2d>
+    </nu-card>
+
     <nu-card padding="0" overflow="no" selectable="n">
-      <nu-attrs for="$slider-cap" show="n"></nu-attrs>
       <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/after.jpg"></nu-img>
       <nu-img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1457119/before.jpg"
               id="overlay" place="cover" height="100%" fit="cover left"
               border="2bw right color(special)"></nu-img>
-      <nu-slider control="overlay[width:%] cap[--percent:%]" value="50" place="cover" height="100%"
-                 fill="clear" border="0" mark="n"></nu-slider>
-      <nu-circle id="cap" fill="special-bg" color="special-text" size="2"
-                 place="left top 50% --percent" move="(-50% + 1bw) 0" interactive="no">
+      <nu-block
+        control="overlay[width:%] cap[--percent:%]" value="50" place="cover" height="100%"
+        fill="clear" border="0" mark="n" use-slider cursor="pointer"></nu-block>
+      <nu-circle
+        id="cap" fill="special-bg" color="special-text" size="2"
+        place="left top 50% --percent" move="(-50% + 1bw) 0" interactive="no"
+      >
         <nu-icon name="chevron-left" place="left" move="-.5x"></nu-icon>
         <nu-icon name="chevron-right" place="right" move=".5x"></nu-icon>
       </nu-circle>

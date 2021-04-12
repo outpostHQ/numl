@@ -29,7 +29,7 @@ export default class DebugBehavior extends Behavior {
 
     if (!debugEl) return;
 
-    debugEl.use('debugger').then(Debug => {
+    debugEl.nuUse('debugger').then(Debug => {
       Debug.componentPromise.then(() => {
         const { host } = this;
 
@@ -77,7 +77,7 @@ export default class DebugBehavior extends Behavior {
 
     const debugEl = query(host, `#${id.trim()}`);
 
-    if (debugEl && debugEl.nu) {
+    if (debugEl) {
       this.debugger = debugEl;
 
       return debugEl;
@@ -89,7 +89,7 @@ export default class DebugBehavior extends Behavior {
 
     if (!debugEl) return;
 
-    debugEl.use('debugger').then(Debug => {
+    debugEl.nuUse('debugger').then(Debug => {
       Debug.componentPromise.then(() => {
         Debug.component.log(event, detail);
       });

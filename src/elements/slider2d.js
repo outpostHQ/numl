@@ -1,9 +1,8 @@
 import NuEl from './el';
-import combinedAttr from '../styles/combined';
 
-export default class NuSlider extends NuEl {
+export default class NuSlider2d extends NuEl {
   static get nuTag() {
-    return 'nu-slider';
+    return 'nu-slider2d';
   }
 
   static get nuRole() {
@@ -14,12 +13,12 @@ export default class NuSlider extends NuEl {
     return `
       <nu-circle
         id="slider-thumb"
-        place="top left @local-rail-top @local-rail-left"
+        place="bottom left @local-rail-bottom @local-rail-left"
         size="1.25em"
         radius="round"
         fill="#special-text"
         border
-        shadow="1ow #shadow"
+        shadow="1ow #dark.50"
         space=".375em + 1bw"
         text="v-middle"
         move="@local-rail-move-v @local-rail-move-h"
@@ -29,47 +28,31 @@ export default class NuSlider extends NuEl {
     `;
   }
 
-  static get nuGenerators() {
-    return {
-      orient(val) {
-        const vertical = val === 'v';
-
-        return combinedAttr([{
-          width: vertical ? '.5em' : '100%',
-          height: vertical ? '10x' : '.5em',
-          '--local-rail-move-h': vertical ? '-.5em - 1bw' : '-.5em + 1bw',
-          '--local-rail-move-v': vertical ? '-.5em + 1bw' : '-.5em - 1bw',
-          '--local-rail-top': vertical ? '(100% - @local-offset)' : '0',
-          '--local-rail-left': vertical ? 'initial' : '@local-offset',
-          '--local-rail-bottom': vertical ? '@local-offset' : 'initial',
-          '--orient': vertical ? 'v' : 'h',
-        }], NuSlider);
-      },
-    };
-  }
-
   static get nuStyles() {
     return {
       display: 'block',
-      radius: 'round',
-      fill: '#special',
+      radius: '',
+      fill: '#special-bg',
       border: '1bw',
       text: 'v-middle',
       cursor: 'pointer :disabled[default]',
       mark: '.5em hover :disabled[n]',
       transition: 'shadow',
       expand: '.5em',
-      orient: 'h',
       outline: 'n',
       box: 'y',
+      height: '5em',
       filter: 'n :disabled[saturate(0.33) contrast(0.88) opacity(var(--disabled-opacity))]',
+      '@local-rail-move-h': '.5em - 1bw',
+      '@local-rail-move-v': '-.5em - 1bw',
+      '@local-rail-left': '@local-offset-x',
+      '@local-rail-bottom': '@local-offset-y',
     };
   }
 
   static get nuBehaviors() {
     return {
-      orient: 'dynamic',
-      slider: true,
+      slider2d: true,
     };
   }
 
