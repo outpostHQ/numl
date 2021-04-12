@@ -14,6 +14,32 @@ A UI Design Language, UI Library of Web Components, and Runtime CSS Framework fo
 
 ### [STORYBOOK](https://numl.design/storybook) | [HANDBOOK](https://numl.design/handbook) | [REFERENCE](https://numl.design/reference) | [REPL](https://numl.design/repl)
 
+## Quick Start
+
+Add the following code to your page.
+
+via [JsDelivr](http://www.jsdelivr.com/):
+
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.1/dist/index.js"></script>
+```
+
+via [Skypack](https://www.skypack.dev/):
+
+```html
+<script type="module" src="https://cdn.skypack.dev/numl@1.0.1"></script>
+```
+
+That's all! Now you can use all elements and features of Numl 🚀
+
+Try to add a simple element:
+
+```html
+<nu-btn>My button</nu-btn>
+```
+
+See our [Handbook](https://numl.design/handbook/getting-started) for more details and other ways to install Numl.
+
 ## Intro
 * Add a single JS-script to your page, and you are ready to create virtually any interface using only HTML syntax quickly. No bundler, no config, and no frustration.
 * Integrate Numl with popular JS-Frameworks. Use it with SSG if you like. 
@@ -39,26 +65,6 @@ A UI Design Language, UI Library of Web Components, and Runtime CSS Framework fo
 
 [Learn more at NUML.DESIGN](https://numl.design/)
 
-## Quick Start
-
-Add the following code to your page.
-
-via [JsDelivr](http://www.jsdelivr.com/):
-
-```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.0-beta.23/dist/index.js"></script>
-```
-
-via [Skypack](https://www.skypack.dev/):
-
-```html
-<script type="module" src="https://cdn.skypack.dev/numl@1.0.0-beta.23"></script>
-```
-
-That's it! Now you can use all Numl elements and features!
-
-See the [installation instructions](https://numl.design/handbook/getting-started) for more details and other ways to install Numl.
-
 ## Examples
 
 * [Flex playground](https://numl.design/storybook/layouts/flex-playground)
@@ -75,12 +81,6 @@ See the [installation instructions](https://numl.design/handbook/getting-started
 * Old Numl Storybook ([Repo Link](https://github.com/tenphi/numl-storybook)) built with **Vue.js** and **Webpack**.
 * [Sellerscale](https://sellerscale.com) – [Project Screenshot Light](https://github.com/tenphi/nude/blob/master/images/example-app-light.png?raw=true) | [Project Screenshot Dark](https://github.com/tenphi/nude/blob/master/images/example-app-dark.png?raw=true) | [Project Screenshot Light Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-light-contrast.png?raw=true) | [Project Screenshot Dark Contrast](https://github.com/tenphi/nude/blob/master/images/example-app-dark-contrast.png?raw=true)
 * [Web Standards Calendar](https://frontend-events-numl.now.sh/) by [@KatrinLuna](https://github.com/katrinLuna) ([Repo Link](https://github.com/katrinLuna/frontend-events-numl)).
-
-## Development status (v1)
-
-Current status of development is [HERE](https://github.com/tenphi/nude/projects/1).
-
-And here is our [Discord](https://discord.gg/sHnHPnAPZj). (Ask your questions here!)
 
 ### Browser Support
 
@@ -109,16 +109,15 @@ If you need to support IE11 or pre-Chromium Edge, this library isn't for you. Al
 
 Run `npm start` to view test page with few examples.
 
-## Roadmap v1
+## Roadmap
 
-* More documentation
-* More examples
-* More tests
+* Numl v2: [style2state syntax proposal](https://github.com/numldesign/numl/projects/2)
+* [Numl-React v1](https://github.com/numldesign/numl-react): Modular & Accessible React UI Library 🚀
+* [Theme-Generator](https://github.com/numldesign/theme-generator) 🌈
+* More documentation, examples, and tests
 * TRL Support
 * Improved Behavior System
 * Figma UI Kit 🌟 (Coming Soon) [![Figma](https://img.shields.io/badge/follow%20us-on%20Figma-blue)](https://www.figma.com/@numldesign)
-* Theme Builder 🌈 (Coming Soon)
-* [Numl-React UI Library 🤖](https://github.com/numldesign/numl-react)
 
 See our [Changlelog](https://numl.design/guide/changelog).
 
@@ -128,9 +127,11 @@ See our [Changlelog](https://numl.design/guide/changelog).
 
 **Numl** is a big and ambitious project with open source that it has a unique approach in UI development. 
 
-Join us, and we'll make the Web better for everyone!
+Join us for creating a better Web for everyone!
 
 If you want to join us or leave some feedback write to this email: [inbox@numl.design](mailto:inbox@numl.design?subject=Numl%20Project)
+
+And here is our [Discord](https://discord.gg/sHnHPnAPZj). (Ask your questions here!)
 
 ## Contributors ✨
 
