@@ -27,7 +27,7 @@ export default class NuPh extends NuEl {
     return [
       ...css,
 
-      `${tag}:not([static]) {
+      `${tag}:not([is-static]) {
         background-image: linear-gradient(135deg, rgba(var(--special-text-color-rgb), .5) 0%, rgba(var(--special-text-color-rgb), .5) 5%, rgba(var(--special-text-color-rgb), 0) 35%, var(--special-bg-color) 50%, rgba(var(--special-bg-color-rgb), 0) 65%, rgba(var(--special-text-color-rgb), .5) 95%, rgba(var(--special-text-color-rgb), .5) 100%);
         background-repeat: repeat;
         background-size: var(--ph-animation-size);
