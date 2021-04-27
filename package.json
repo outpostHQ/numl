@@ -32,7 +32,7 @@
     "@rollup/plugin-node-resolve": "^11.2.1",
     "@rollup/plugin-replace": "^2.4.2",
     "@size-limit/preset-big-lib": "^4.9.1",
-    "@web/test-runner": "^0.12.19",
+    "@web/test-runner": "^0.13.2",
     "date-fns": "^2.20.1",
     "email-validator": "^2.0.4",
     "inline-assets": "^1.4.8",
