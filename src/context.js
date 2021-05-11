@@ -37,13 +37,21 @@ const contrastMedia = matchMedia('(prefers-contrast: more)');
 let globalScheme = schemeMedia.matches ? DARK : LIGHT;
 let globalContrast = contrastMedia.matches ? MORE : NORMAL;
 
-schemeMedia.addListener((_media) => {
+function addMediaListener(media, listener) {
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', listener);
+  } else if (typeof media.addListener === 'function') {
+    media.addListener(listener);
+  }
+}
+
+addMediaListener(schemeMedia, (_media) => {
   globalScheme = _media.matches ? DARK : LIGHT;
 
   setScheme();
 });
 
-contrastMedia.addListener((_media) => {
+addMediaListener(contrastMedia, (_media) => {
   globalContrast = _media.matches ? MORE : NORMAL;
 
   setContrast();
