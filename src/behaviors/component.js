@@ -110,3 +110,5 @@ export default class ComponentBehavior extends WidgetBehavior {
     this.set({ value });
   }
 }
+
+// lgtm [js/mixed-static-instance-this-access]

@@ -654,3 +654,5 @@ export default class WidgetBehavior extends Behavior {
     this.emit('log', args);
   }
 }
+
+// lgtm [js/mixed-static-instance-this-access]
