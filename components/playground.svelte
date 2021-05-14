@@ -1180,7 +1180,7 @@
   <nu-card as="section">
     <nu-props icon-stroke-width=".5x / 3"></nu-props>
 
-    <nu-tablist value="one" border="bottom">
+    <nu-tablist value="one" border="bottom inside">
       <nu-tab control="one" value="one" trigger>
         One
       </nu-tab>

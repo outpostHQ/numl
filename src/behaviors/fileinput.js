@@ -1,6 +1,6 @@
 import WidgetBehavior from './widget';
 import { isEqual } from '../helpers';
-import { fixture, h } from '../dom-helpers';
+import { fixture } from '../dom-helpers';
 
 export default class FileInputBehavior extends WidgetBehavior {
   static get params() {
@@ -136,3 +136,5 @@ export default class FileInputBehavior extends WidgetBehavior {
     return value;
   }
 }
+
+// lgtm [js/mixed-static-instance-this-access]

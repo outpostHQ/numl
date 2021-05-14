@@ -24,9 +24,6 @@ export default class NuTablist extends NuRadioGroup {
         const orientV = ORIENT_V.includes(direction);
 
         return combinedAttr([{
-          $suffix: '>[role="tab"]',
-          border: `--local-line-width ${direction} inside #special`,
-        }, {
           flow: orientV ? 'column' : 'row',
         }], NuTablist).concat({
           '--local-tab-items': ITEMS_MAP[direction] || 'center',

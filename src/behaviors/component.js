@@ -1,5 +1,5 @@
 import { devMode, isEqual, log, toCamelCase } from '../helpers';
-import WidgetBehavior, { PROPS_LIST } from './widget';
+import WidgetBehavior from './widget';
 import Components from '../components/index';
 
 export default class ComponentBehavior extends WidgetBehavior {
@@ -110,3 +110,5 @@ export default class ComponentBehavior extends WidgetBehavior {
     this.set({ value });
   }
 }
+
+// lgtm [js/mixed-static-instance-this-access]

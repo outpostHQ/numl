@@ -1,4 +1,4 @@
-import { devMode, isNoValue, isYesValue, warn } from '../helpers';
+import { devMode, isNoValue, warn } from '../helpers';
 
 export const NUM_NOTATIONS = [
   'standard', 'scientific', 'engineering', 'compact',

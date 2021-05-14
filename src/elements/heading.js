@@ -70,8 +70,5 @@ export default class NuHeading extends NuEl {
     if (region && !region.nuHasAria('labelledby') && !region.hasAttribute('labelledby')) {
       region.nuSetAria('labelledby', this.nuUniqId);
     }
-
-    const previous = this.previousElementSibling;
-    const parent = this.parentNode;
   }
 }

@@ -130,3 +130,5 @@ export default class NuAttrs extends NuDefinition {
     parent.nuVerifyChildren({ attrs: selector, shadow });
   }
 }
+
+// lgtm [js/mixed-static-instance-this-access]

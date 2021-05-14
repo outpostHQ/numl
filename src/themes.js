@@ -120,7 +120,7 @@ const BG_OFFSET = {
  */
 function getBgLightness(type = 'normal', highContrast, darkScheme) {
   if (darkScheme) {
-    return (highContrast ? contrastMinLightness : normalMinLightness) + BG_OFFSET[type] - (darkScheme ? 2 : 0);
+    return (highContrast ? contrastMinLightness : normalMinLightness) + BG_OFFSET[type] - 2;
   } else {
     return 100 - BG_OFFSET[type];
   }

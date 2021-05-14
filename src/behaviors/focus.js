@@ -88,3 +88,5 @@ export default class FocusBehavior extends Behavior {
     this.host.nuSetMod('focusable', param || null);
   }
 }
+
+// lgtm [js/mixed-static-instance-this-access]

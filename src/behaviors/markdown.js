@@ -21,7 +21,7 @@ export default class MarkdownBehavior extends ConverterBehavior {
       if (val == null) val = '2x';
 
       if (this.container) {
-        this.container.setAttribute('gap', value);
+        this.container.setAttribute('gap', val);
       }
 
       if (this.observe) {

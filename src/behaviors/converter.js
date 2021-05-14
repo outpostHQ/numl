@@ -1,4 +1,4 @@
-import { error, isEqual } from '../helpers';
+import { isEqual } from '../helpers';
 import { h } from '../dom-helpers';
 import WidgetBehavior from './widget';
 

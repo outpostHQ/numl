@@ -79,3 +79,5 @@ export default class NuBase extends NuDefinition {
     log('set base:', { value: normalizedValue });
   }
 }
+
+// lgtm [js/mixed-static-instance-this-access]

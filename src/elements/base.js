@@ -1001,10 +1001,6 @@ export default class NuAbstract extends HTMLElement {
       value = this.nuGetDynamicAttr(attr, value).value;
     }
 
-    if (firstValueOnly && isResponsiveAttr(value)) {
-      return parseAttrStates(value)[0].states[''];
-    }
-
     return value;
   }
 
@@ -1487,7 +1483,7 @@ export default class NuAbstract extends HTMLElement {
 
           stls.forEach(rule => {
             if (rule) {
-              arr.push(`${point}{\n${rule || ''}\n}\n`);
+              arr.push(`${point}{\n${rule}\n}\n`);
             }
           });
 
@@ -1723,10 +1719,6 @@ export default class NuAbstract extends HTMLElement {
     if (isNoValue(attrValue)) return Promise.resolve();
 
     let options = `${allBehaviors[name] || ''} ${value || ''}`;
-
-    if (options === true) {
-      options = undefined;
-    }
 
     if (!this.nuBehaviors) {
       this.nuBehaviors = {};

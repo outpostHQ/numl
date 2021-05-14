@@ -241,16 +241,16 @@ export function fromRelative(l, exp = 4) {
   return value;
 }
 
-function calcError() {
-  const exp = 4;
-  let sum = 0;
-
-  for (let i = 0; i <= 100; i += 0.1) {
-    sum += Math.abs(i - fromRelative(toRelative(i, exp), exp)) || 0;
-  }
-
-  // console.log(sum);
-}
+// function calcError() {
+//   const exp = 4;
+//   let sum = 0;
+//
+//   for (let i = 0; i <= 100; i += 0.1) {
+//     sum += Math.abs(i - fromRelative(toRelative(i), exp)) || 0;
+//   }
+//
+//   // console.log(sum);
+// }
 
 /**
  * Get a new color with specified luminance.

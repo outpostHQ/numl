@@ -3,7 +3,7 @@ import {
   deepQueryAll,
   fixPosition, isFocusable,
   resetScroll,
-  scrollParentToChild, stackTrace,
+  scrollParentToChild,
 } from '../helpers';
 import WidgetBehavior from './widget';
 

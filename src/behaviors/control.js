@@ -1,4 +1,4 @@
-import { asyncDebounce, log, setAttr, stackTrace } from "../helpers";
+import { asyncDebounce, log, setAttr } from "../helpers";
 import { ROOT } from '../context';
 
 const CONTROL_REGEXP = /((|:)[a-z][a-z0-9-]+)([\s]|$|\[(!|)(\.|)([a-z0-9@-]+)(:([^)=\]]+)|)(=([^\]]+?)|)])/gi;
@@ -44,7 +44,7 @@ export default class ControlBehavior {
     const elements = [];
 
     while (token = CONTROL_REGEXP.exec(value)) {
-      let [s, id, special, s3, invert, dot, attr, s7, units, s9, val] = token;
+      let [s, id, special, s3, invert, dot, attr, s7, units, s9, val] = token; // lgtm [js/unused-local-variable]
       let element;
 
       invert = !!invert;
@@ -117,12 +117,12 @@ export default class ControlBehavior {
           if (firstValue == null) {
             setValue = null;
           } else if (units) {
-            setValue = `${secondValue}${units ? units : ''}`;
+            setValue = `${secondValue}${units}`;
           } else {
             setValue = secondValue;
           }
         } else if (units) {
-          setValue = `${firstValue}${units ? units : ''}`;
+          setValue = `${firstValue}${units}`;
         }
 
         if (dot) {

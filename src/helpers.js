@@ -495,8 +495,6 @@ export function splitStates(attrValue) {
   // create mutually exclusive selectors
   for (let i = 0; i < stateMaps.length; i++) {
     for (let j = i + 1; j < stateMaps.length; j++) {
-      if (i === j) continue;
-
       const map1 = stateMaps[i];
       const map2 = stateMaps[j];
 
@@ -643,13 +641,13 @@ export function computeStyles(name, value, attrs, defaults) {
  */
 export function convertCustomUnit(value, unit, multiplier) {
   return value.replace(
-    new RegExp(`[0-9\.]+${unit}(?![a-z])`, 'gi'),
+    new RegExp(`[0-9.]+${unit}(?![a-z])`, 'gi'),
     s => `calc(${multiplier} * ${s.slice(0, -unit.length)})`
   );
 }
 
 export function hasMod(str, mod) {
-  const regexp = new RegExp(`(^|[^a-z\-])${mod}([^a-z\-]|$)`);
+  const regexp = new RegExp(`(^|[^a-z-])${mod}([^a-z-]|$)`);
 
   return !!str.match(regexp, 'i');
 }
@@ -853,7 +851,7 @@ export function parseAttr(value, mode = 0) {
     value = value.replace(/@\(/g, 'var(--');
 
     while (token = ATTR_REGEXP.exec(value)) {
-      let [s, quoted, func, hashColor, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma] = token;
+      let [s, quoted, func, hashColor, prop, mod, unit, unitVal, unitMetric, operator, bracket, comma] = token; // lgtm [js/unused-local-variable]
 
       if (quoted) {
         currentValue += `${quoted} `;
@@ -1075,7 +1073,7 @@ export function parseAttrStates(val) {
   }
 
   while (token = STATE_REGEXP.exec(val)) {
-    let [s, delimiter, open, close, rawContext, context, hash, state, value] = token;
+    let [s, delimiter, open, close, rawContext, context, hash, state, value] = token; // lgtm [js/unused-local-variable]
 
     zone = requireZone(zones, zoneIndex);
     currentContext = zone.context;
@@ -1314,11 +1312,11 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
       } else if (opacity < 0) {
         opacity = 0;
       }
-    }
 
-    color = opacity !== 100
-      ? rgbColorProp(name, Math.round(opacity) / 100)
-      : colorProp(name, null, strToRgb(`#${name}`));
+      color = opacity !== 100
+        ? rgbColorProp(name, Math.round(opacity) / 100)
+        : colorProp(name, null, strToRgb(`#${name}`));
+    }
 
     return {
       color,
@@ -1706,9 +1704,10 @@ export function isFocusable(el) {
  * Set ARIA reference to other elements.
  * @param el
  * @param attr {String}
+ * @param [value] {String}
  */
-export function setAriaRef(el, attr) {
-  let value = el.getAttribute(attr) || '';
+export function setAriaRef(el, attr, value) {
+  value = value || el.getAttribute(attr) || '';
 
   const innerRef = getInnerRef(el, attr);
 
@@ -1799,7 +1798,7 @@ export function parseParams(value, params = {}) {
   let token;
 
   while (token = PARAMS_REGEXP.exec(value)) {
-    let [s, disable, param, s2, value] = token;
+    let [s, disable, param, s2, value] = token; // lgtm [js/unused-local-variable]
 
     if (param.startsWith('#')) {
       params.color = parseColor(param, false, true).color;
