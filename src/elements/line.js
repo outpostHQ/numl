@@ -22,8 +22,6 @@ export default class NuLine extends NuEl {
       orient(val) {
         const vertical = val === 'v';
 
-        val = vertical ? 'v' : 'h';
-
         return combinedAttr({
           width: vertical ? '1fs 1fs' : 'min 1em',
           height: vertical ? 'min 1em' : '1fs 1fs',

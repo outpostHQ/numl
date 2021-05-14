@@ -84,7 +84,7 @@ const themeStyles = themeAttr('main');
 
 insertRuleSet('theme:base', generateCSS('body', [...themeStyles, {
   '--diff-color': 'var(--bg-color)',
-}], false, true));
+}], false));
 
 const Nude = {
   initialized: false,

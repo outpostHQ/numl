@@ -3,7 +3,7 @@ import transitionAttr from '../styles/transition';
 
 export const HIDE_EFFECT_ATTR = 'effect';
 
-const TRANSITION = transitionAttr('opacity, height').transition;
+// const TRANSITION = transitionAttr('opacity, height').transition;
 const EFFECTS = {
   collapse: {
     visible(el) {

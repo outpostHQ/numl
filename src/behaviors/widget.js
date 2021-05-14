@@ -390,7 +390,7 @@ export default class WidgetBehavior extends Behavior {
           value = [new Date(value[0]), new Date(value[1])];
         }
 
-        break
+        break;
       case 'array':
         try {
           value = JSON.parse(value);
@@ -523,7 +523,7 @@ export default class WidgetBehavior extends Behavior {
   setLocale(val) {
     const context = this.context;
 
-    this.locale = val ? val : (context[LOCALE_VAR] && context[LOCALE_VAR] || 'en');
+    this.locale = val ? val : (context[LOCALE_VAR] || 'en');
   }
 
   setValidity(bool) {

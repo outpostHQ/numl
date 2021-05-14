@@ -2,7 +2,6 @@ import NuEl from './elements/el';
 import { log, warn } from './helpers';
 
 const OBJ_ASSIGN = ['attrs', 'styles', 'generators', 'behaviors', 'combinators'];
-const ARR_ASSIGN = ['css'];
 
 const staticBind = {
   id: 'nuId',

@@ -65,14 +65,12 @@ setRootContext('reduceMotion', scheme());
 setRootContext('allowShadow', USE_SHADOW);
 setRootContext('iconsProvider', ICONS_PROVIDER);
 
-if (requestIdleCallback) {
-  if (!reduceMotion()) {
-    reduceMotion(true);
+if (!reduceMotion()) {
+  reduceMotion(true);
 
-    requestIdleCallback(() => {
-      reduceMotion(false);
-    });
-  }
+  requestIdleCallback(() => {
+    reduceMotion(false);
+  });
 }
 
 if (devMode) {

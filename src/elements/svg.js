@@ -1,5 +1,4 @@
 import NuEl from './el';
-import { h } from '../helpers';
 import { requireChild } from '../dom-helpers';
 
 export default class NuSvg extends NuEl {

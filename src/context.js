@@ -71,12 +71,12 @@ function setContrast() {
     || globalContrast;
 }
 
-let outlineStyleTag;
+// let outlineStyleTag;
 
 function setOutline() {
-  if (outlineStyleTag && outlineStyleTag.parentNode) {
-    outlineStyleTag.parentNode.removeChild(outlineStyleTag);
-  }
+  // if (outlineStyleTag && outlineStyleTag.parentNode) {
+  //   outlineStyleTag.parentNode.removeChild(outlineStyleTag);
+  // }
 
   const showOutline = ROOT.dataset.nuOutline != null;
 
