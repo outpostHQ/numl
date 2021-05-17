@@ -1,4 +1,4 @@
-import { hasNegativeMod, hasPositiveMod, parseAttr } from '../helpers';
+import { hasNegativeMod, parseAttr } from '../helpers';
 
 const MAP = {
   row: ['* 0 0 *', '0 * * 0'],

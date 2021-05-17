@@ -250,7 +250,7 @@ export function query(element, selector) {
 
     prevElement = element;
 
-    element = element.parentNode || element.host
+    element = element.parentNode || element.host;
   } while (element);
 }
 
@@ -1377,7 +1377,7 @@ export function parseColor(val, ignoreError = false, shortSyntax = false) {
     return {
       name,
       color,
-    }
+    };
   }
 
   return {

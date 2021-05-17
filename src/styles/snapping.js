@@ -1,6 +1,5 @@
 import { hasNegativeMod, parseAttr } from '../helpers';
 import snapAttr from './snap';
-import filter from './filter';
 
 const OPTIONS = ['mandatory', 'proximity'];
 const DIRS = ['x', 'y'];

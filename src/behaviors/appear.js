@@ -68,5 +68,3 @@ function onPositionChange() {
 ['scroll', 'resize', 'wheel', 'touchmove', 'tap'].forEach(eventName => {
   window.addEventListener(eventName, onPositionChange, { passive: true });
 });
-
-// lgtm [js/mixed-static-instance-this-access]
