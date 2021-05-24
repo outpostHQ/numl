@@ -30,13 +30,17 @@ export default function groupRadiusAttr(val) {
   const endValue = MAP[flow][reverse ? 0 : 1].replace(/\*/g, value);
 
   return [{
-    $suffix: '>:first-child:not([radius])',
+    $suffix: '>:first-child:not(:last-child):not([radius])',
     'border-radius': startValue,
     '--local-radius': startValue,
   }, {
-    $suffix: '>:last-child:not([radius])',
+    $suffix: '>:last-child:not(:first-child):not([radius])',
     'border-radius': endValue,
     '--local-radius': endValue,
+  }, {
+    $suffix: '>:last-child:first-child:not([radius])',
+    'border-radius': value,
+    '--local-radius': value,
   }, {
     $suffix: '>:not(:last-child):not(:first-child):not([radius])',
     'border-radius': '0',
