@@ -333,6 +333,10 @@
     </nu-code>
 
     <nu-code value={codeExample}></nu-code>
+
+    <nu-block>
+      This is something <nu-cd><pre>var a = '123';</pre></nu-cd>. This is something <nu-cd><pre>var a = '123';</pre></nu-cd>. This is something <nu-cd><pre>var a = '123';</pre></nu-cd>. This is something <nu-cd><pre>var a = '123';</pre></nu-cd>.
+    </nu-block>
   </nu-card>
 {/if}
 
