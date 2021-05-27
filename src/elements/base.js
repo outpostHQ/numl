@@ -607,6 +607,8 @@ export default class NuAbstract extends HTMLElement {
     if (name.startsWith('use-')) {
       name = name.replace('use-', '');
 
+      if (name === 'behaviors') return;
+
       if (behaviors.has(name)) {
         this.nuUse(name, value);
       }
@@ -1715,8 +1717,9 @@ export default class NuAbstract extends HTMLElement {
     const allBehaviors = this.constructor.nuAllBehaviors;
 
     const attrValue = this.getAttribute(`use-${name}`);
+    const behavioursAttrValue = this.getAttribute('use-behaviors');
 
-    if (isNoValue(attrValue)) return Promise.resolve();
+    if (isNoValue(attrValue) || isNoValue(behavioursAttrValue)) return Promise.resolve();
 
     let options = `${allBehaviors[name] || ''} ${value || ''}`;
 
