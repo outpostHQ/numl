@@ -25,7 +25,7 @@ const SPECIAL_TEXT_VALUE = 'var(--special-text-color) !important';
 export default function fillAttr(val) {
   val = convertCustomFuncs(val);
 
-  let { color, name, opacity } = parseColor(val);
+  let { color, name } = parseColor(val);
 
   if (!val || name === 'local') {
     return [{

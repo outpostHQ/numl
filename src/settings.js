@@ -1,11 +1,11 @@
 import { ROOT, setRootContext } from './context';
-import { devMode, isNoValue, isYesValue, requestIdleCallback } from './helpers';
+import { devMode, isYesValue, requestIdleCallback } from './helpers';
 
 const DATASET = ROOT.dataset;
 const SCHEME_OPTIONS = ['auto', 'light', 'dark'];
 const CONTRAST_OPTIONS = ['auto', 'no-preference', 'more'];
 const ICONS_OPTIONS = ['feather', 'eva', 'ion', 'no'];
-const BEHAVIORS_OPTIONS = ['auto', 'no', 'manual']
+const BEHAVIORS_OPTIONS = ['auto', 'no', 'manual'];
 
 export const preventInit = DATASET.nuPrevent != null;
 export const behaviorOption = BEHAVIORS_OPTIONS.includes(DATASET.nuBehaviors)

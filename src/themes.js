@@ -274,7 +274,6 @@ export function generateTheme({ hue, saturation, pastel, type, contrast, lightne
   theme['special-mark'] = setOpacity([...theme['special-text']], highContrast ? 0.16 : .08);
 
   const shadowSaturation = saturation * (type === 'main' ? .66 : 1);
-  const specialShadowSaturation = 100;
   const shadowContrastRatio = 1.8 * (highContrast ? 1.5 : 1);
   const specialShadowContrastRatio = (type === 'special' || (!darkScheme && type === 'swap') ? 1.5 : 1) * shadowContrastRatio * (darkScheme ? 1.5 : 1);
   const shadowLightness = findContrastLightness(theme.bg[2], shadowContrastRatio, true);
@@ -744,7 +743,7 @@ export function parseHue(val) {
 
   if (!values[0]) {
     if (devMode) {
-      warn('hue(): 1 argument required.')
+      warn('hue(): 1 argument required.');
     }
 
     return;

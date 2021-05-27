@@ -161,5 +161,3 @@ export default class InputBehavior extends WidgetBehavior {
     }
   }
 }
-
-// lgtm [js/mixed-static-instance-this-access]

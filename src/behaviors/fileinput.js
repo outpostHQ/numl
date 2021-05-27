@@ -136,5 +136,3 @@ export default class FileInputBehavior extends WidgetBehavior {
     return value;
   }
 }
-
-// lgtm [js/mixed-static-instance-this-access]
