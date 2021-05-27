@@ -1,6 +1,6 @@
 {
   "name": "numl",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Atomic UI Framework based on Web Components and Runtime CSS Generation for rapidly building interfaces that follow your Design System",
   "module": "dist/index.js",
   "homepage": "https://numl.design",
