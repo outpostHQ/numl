@@ -2,8 +2,6 @@
 
 A UI Design Language, UI Library of Web Components, and Runtime CSS Framework for rapidly building interfaces that follow your Design System 🌈
 
-<img src="https://github.com/numldesign/numl/blob/master/images/logo.png?raw=true" alt="NUDE Elements" width="891">
-
 [![NPM Version](https://img.shields.io/npm/v/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
 ![npm](https://img.shields.io/npm/dm/numl)
 [![Discord](https://img.shields.io/discord/793832892781690891?color=7389D8&label=chat%20on%20Discord&logo=Discord&logoColor=ffffff)](https://discord.gg/sHnHPnAPZj)
@@ -22,13 +20,7 @@ Add the following code to your page.
 via [JsDelivr](http://www.jsdelivr.com/):
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.0.1/dist/index.js"></script>
-```
-
-via [Skypack](https://www.skypack.dev/):
-
-```html
-<script type="module" src="https://cdn.skypack.dev/numl@1.0.1"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/numl@1.1.2/dist/index.js"></script>
 ```
 
 That's all! Now you can use all elements and features of Numl 🚀
