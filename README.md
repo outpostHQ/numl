@@ -1,15 +1,17 @@
-## Numl.Design
-
-A UI Design Language, UI Library of Web Components, and Runtime CSS Framework for rapidly building interfaces that follow your Design System 🌈
+<p align="left">
+  <a href="https://numl.design" target="_blank" rel="noopener noreferrer">
+    <img width="311" src="/images/Numl.Design_Logo.svg" alt="Numl.Design logo">
+  </a>
+</p>
 
 [![NPM Version](https://img.shields.io/npm/v/numl.svg?style=flat)](https://www.npmjs.com/package/numl)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/numldesign/numl.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/numldesign/numl/context:javascript)
 ![npm](https://img.shields.io/npm/dm/numl)
 [![Discord](https://img.shields.io/discord/793832892781690891?color=7389D8&label=chat%20on%20Discord&logo=Discord&logoColor=ffffff)](https://discord.gg/sHnHPnAPZj)
 [![Rate on Openbase](https://badges.openbase.io/js/rating/numl.svg)](https://openbase.io/js/numl?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/numldesign/numl.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/numldesign/numl/context:javascript)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+
+Numl is a UI Design Language, UI Library of Web Components, and Runtime CSS Framework for rapidly building interfaces that follow your Design System 🌈
 
 ### [STORYBOOK](https://numl.design/storybook) | [HANDBOOK](https://numl.design/handbook) | [REFERENCE](https://numl.design/reference) | [REPL](https://numl.design/repl)
 
@@ -112,7 +114,6 @@ Run `npm start` to view test page with few examples.
 * Improved Behavior System
 * Figma UI Kit 🌟 (Coming Soon) [![Figma](https://img.shields.io/badge/follow%20us-on%20Figma-blue)](https://www.figma.com/@numldesign)
 
-See our [Changlelog](https://numl.design/guide/changelog).
 
 ## Contribution
 
