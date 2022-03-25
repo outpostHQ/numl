@@ -27,6 +27,14 @@ export default class InputBehavior extends WidgetBehavior {
     if (!this.ref) {
       const input = h(tag);
 
+      if (host.hasAttribute('autofocus')) {
+        input.setAttribute('autofocus', '');
+
+        setTimeout(() => {
+          input.focus();
+        }, 100);
+      }
+
       host.appendChild(input);
 
       this.ref = input;
