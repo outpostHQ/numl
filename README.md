@@ -1,3 +1,7 @@
+> [!WARNING]
+> **This project is deprecated and no longer maintained.**
+> Check out its successors: **[@tenphi/tasty](https://github.com/tenphi/tasty)** — a CSS-in-JS styling system and DSL for React, and **[@tenphi/glaze](https://github.com/tenphi/glaze)** — an OKHSL color theme generator with WCAG contrast solving.
+
 <p align="left">
   <a href="https://numl.design" target="_blank" rel="noopener noreferrer">
     <img width="311" src="/images/Numl.Design_Logo.svg" alt="Numl.Design logo">
